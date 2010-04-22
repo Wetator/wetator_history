@@ -121,6 +121,11 @@ public class WetContext {
     
     
     private void executeCommand(WetCommand aWetCommand) throws WetException {
+        if (aWetCommand.isComment()) {
+            LOG.debug("Comment: '" + aWetCommand.toPrintableString(this) + "'");
+            return;
+        }
+
         engine.informListenersContextExecuteCommandStart(this, aWetCommand);
         try {
             determineAndExecuteCommandImpl(aWetCommand);
@@ -137,10 +142,6 @@ public class WetContext {
     
     
     public void determineAndExecuteCommandImpl(WetCommand aWetCommand) throws WetException, AssertionFailedException {
-        if (aWetCommand.isComment()) {
-            LOG.debug("Comment: '" + aWetCommand.toPrintableString(this) + "'");
-            return;
-        }
         WetCommandImplementation tmpImpl = engine.getCommandImplementationFor(aWetCommand.getName());
         if (null == tmpImpl) {
             // TODO better error description
