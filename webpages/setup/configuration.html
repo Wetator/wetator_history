@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+  <title>Wetator / Configuration</title>
+  <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+  <link type="text/css" href="../wet.css" rel="stylesheet">
+</head>
+
+
+<body>
+
+  <div class="header">
+    <img src="../images/wetator.png" alt="Wetator">
+  </div>
+  
+  
+<!-- navigation -->
+<div class="navigation">
+  <!-- home -->
+  <p class="navi_header">
+    <a class="navi_header" href="../index.html">Home</a>
+  </p>
+
+  <!-- setup -->
+  <p class="navi_header">
+    Setup
+  </p>
+  <p class="navi_link">
+    <a class="navi_header" href="../setup/download.html">Download</a>
+  </p>
+  <p class="navi_link">
+    <a class="navi_header" href="../setup/installation.html">Installation</a>
+  </p>
+  <p class="navi_link_sel">
+    <a class="navi_header" href="../setup/configuration.html">Configuration</a>
+  </p>
+  <p class="navi_link">
+    <a class="navi_header" href="../setup/cmdline.html">Command-Line Options</a>
+  </p>
+  <p class="navi_link">
+    <a class="navi_header" href="../setup/anttask.html">Ant Task</a>
+  </p>
+
+  <!-- commands -->
+  <p class="navi_header">
+    <a class="navi_header" href="../commands/commands.html">Commands</a>
+  </p>
+
+  <!-- testcases -->
+  <p class="navi_header">
+    <a class="navi_header" href="../testcases/testcases.html">Test Pages</a>
+  </p>
+
+  <!-- imprint -->
+  <p class="navi_header">
+    <a class="navi_header" href="../imprint.html">License/Imprint</a>
+  </p>
+</div>
+
+
+
+
+<!-- content -->
+<h1 class="command">Configuration</h1>
+
+<div class="content">
+  <h1>wetator.config</h1>
+
+  <p>The file wetator.config contains the whole configuration for Wetator.
+  You can configure
+    <ul>
+	  <li>base url (the root for all relative urls)
+	  <li>the browser you like to emulate
+	  <li>the accept-language Wetator uses (control the language)
+	  <li>the directory for the report output
+	  <li>as many xml templates you like to generate all reports you (or your boss) needs
+	  <li>all the stuff you need to pass your proyx
+	  <li>variables, you can use in your tests
+	  <li>additional command sets (a way to add your own commands) together with there config
+    </ul>
+  </p>
+  <p>All this options are documented in detail in the configuration file itself. Please have 
+  a look at file 'templates\wetator.config'.
+  </p>
+
+  <h1>Overwrite properties</h1>
+  <p>It is possible to overwrite all properties. For more see
+    <a href="../setup/cmdline.html">Command-Line Options</a> or
+    <a href="../setup/anttask.html">Ant Task</a>
+  </p>
+
+</div>
+
+</body>
+</html>
+
