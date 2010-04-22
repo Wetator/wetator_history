@@ -1,4 +1,6 @@
 * text=auto !eol
+/.classpath -text
+/.project -text
 src/log4j.properties -text
 src/org/rbri/wet/Messages.properties -text
 src/org/rbri/wet/Version.java -text
@@ -134,3 +136,15 @@ webpages/testcases/testcases.html -text
 webpages/testcases/wait_for.html -text
 webpages/testcases/wait_for2.html -text
 webpages/wet.css -text
+xsl/ExceltestReport.xsl -text
+xsl/SimpleHtml.xsl -text
+xsl/images/collapseall.png -text
+xsl/images/expandall.png -text
+xsl/images/failed.png -text
+xsl/images/next.png -text
+xsl/images/none.png -text
+xsl/images/ok.png -text
+xsl/images/previous.png -text
+xsl/images/response.png -text
+xsl/images/top.png -text
+xsl/images/wetator.png -text
