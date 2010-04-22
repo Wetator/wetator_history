@@ -81,6 +81,9 @@ test/excel/flow_simple_search.xls -text
 test/excel/header.xls -text
 test/excel/js_error.xls -text
 test/excel/js_libs.xls -text
+test/excel/misc_files/test_file.txt -text
+test/excel/modules/module.xls -text
+test/excel/modules/module_with_parameters.xls -text
 test/excel/mouse_over.xls -text
 test/excel/mouse_over_after.xls -text
 test/excel/onfocus_onblur.xls -text
