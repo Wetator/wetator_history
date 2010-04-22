@@ -42,7 +42,6 @@ import org.rbri.wet.exception.AssertionFailedException;
 import org.rbri.wet.exception.WetException;
 import org.rbri.wet.util.Assert;
 import org.rbri.wet.util.SecretString;
-import org.rbri.wet.util.StringUtil;
 
 
 /**
@@ -75,9 +74,6 @@ public final class DefaultCommandSet extends AbstractCommandSet {
         registerCommand("Assert Deselected", new CommandAssertDeselected());
 
         registerCommand("Exec Java", new CommandExecJava());
-
-        // for backward compatibility
-        registerCommand("Comment", new CommandComment());
     }
 
 
@@ -218,14 +214,6 @@ public final class DefaultCommandSet extends AbstractCommandSet {
 
             Control tmpControl = getRequiredFirstHtmlElementFrom(aWetContext, tmpFoundElements, tmpSearchParam);
             tmpControl.mouseOver();
-        }
-    }
-
-
-    // only for backward compatibility
-    public final class CommandComment implements WetCommandImplementation {
-        public void execute(WetContext aWetContext, WetCommand aWetCommand) throws WetException, AssertionFailedException  {
-            // nothing to do
         }
     }
 
@@ -404,7 +392,8 @@ public final class DefaultCommandSet extends AbstractCommandSet {
 					}
 				}
 			} catch (ClassNotFoundException e) {
-	            Assert.fail("javaExecClassNotFound", new String[] {tmpClassName});
+                aWetContext.informListenersInfo("javaExecClasspath", new String[] {System.getProperty("java.class.path")});
+	            Assert.fail("javaExecClassNotFound", new String[] {tmpClassName, e.getMessage()});
 			} catch (IllegalArgumentException e) {
 	            Assert.fail("javaExecIllegalArgument", new String[] {tmpClassName, tmpMethodName, tmpMethodParameters.toString(), e.getMessage()});
 			} catch (IllegalAccessException e) {
