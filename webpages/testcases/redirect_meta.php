@@ -13,11 +13,11 @@ if (isset($_GET['target'])) {
 
     <body>
 
-	  <div class="header">
-	    <img src="../images/wetator.png" alt="Wetator">
-	  </div>
-	  
-	  <h1 class="command_test">Wetator / Redirect via meta tag</h1>
+      <div class="header">
+        <img src="../images/wetator.png" alt="Wetator">
+      </div>
+
+      <h1 class="command_test">Wetator / Redirect via meta tag</h1>
 
     </body>
 </html>
