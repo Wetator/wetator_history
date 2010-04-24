@@ -344,65 +344,65 @@ public final class DefaultCommandSet extends AbstractCommandSet {
             String tmpCallString = tmpCall.toString();
             int tmpLastDotPos = tmpCallString.lastIndexOf(".");
             if (tmpLastDotPos < 0) {
-            	Assert.fail("javaExecSyntax", new String[] {tmpCallString});
+                Assert.fail("javaExecSyntax", new String[] {tmpCallString});
             }
 
             String tmpClassName = tmpCallString.substring(0, tmpLastDotPos);
             if (StringUtils.isEmpty(tmpClassName)) {
-            	Assert.fail("javaExecSyntax", new String[] {tmpCallString});
+                Assert.fail("javaExecSyntax", new String[] {tmpCallString});
             }
 
             String tmpMethodName = tmpCallString.substring(tmpLastDotPos + 1);
             if (StringUtils.isEmpty(tmpMethodName)) {
-            	Assert.fail("javaExecSyntax", new String[] {tmpCallString});
+                Assert.fail("javaExecSyntax", new String[] {tmpCallString});
             }
 
-        	Object[] tmpParams = new String[tmpMethodParameters.size()];
-        	Class[] tmpParamTypes = new Class[tmpMethodParameters.size()];
+            Object[] tmpParams = new String[tmpMethodParameters.size()];
+            Class[] tmpParamTypes = new Class[tmpMethodParameters.size()];
             int i = 0;
             for (SecretString tmpSecret : tmpMethodParameters) {
-            	tmpParams[i] = tmpSecret.toString();
-            	tmpParamTypes[i] = String.class;
-            	i++;
-			}
+                tmpParams[i] = tmpSecret.toString();
+                tmpParamTypes[i] = String.class;
+                i++;
+            }
 
-			try {
-				Class tmpClass = ClassUtils.getClass(tmpClassName);
-				Method tmpMethod = MethodUtils.getMatchingAccessibleMethod(tmpClass, tmpMethodName, tmpParamTypes);
-				if (null == tmpMethod) {
-					tmpMethod = MethodUtils.getMatchingAccessibleMethod(tmpClass, tmpMethodName, new Class[] {String[].class});
-	            	tmpParams = new Object[] {tmpParams};
-				}
-				if (null == tmpMethod) {
-		            Assert.fail("javaExecMethodNotFound", new String[] {tmpClassName, tmpMethodName});
-				}
+            try {
+                Class tmpClass = ClassUtils.getClass(tmpClassName);
+                Method tmpMethod = MethodUtils.getMatchingAccessibleMethod(tmpClass, tmpMethodName, tmpParamTypes);
+                if (null == tmpMethod) {
+                    tmpMethod = MethodUtils.getMatchingAccessibleMethod(tmpClass, tmpMethodName, new Class[] {String[].class});
+                    tmpParams = new Object[] {tmpParams};
+                }
+                if (null == tmpMethod) {
+                    Assert.fail("javaExecMethodNotFound", new String[] {tmpClassName, tmpMethodName});
+                }
 
-				Object tmpReceiver = null;
-				if (!Modifier.isStatic(tmpMethod.getModifiers())) {
-					tmpReceiver = tmpClass.newInstance();
-				}
+                Object tmpReceiver = null;
+                if (!Modifier.isStatic(tmpMethod.getModifiers())) {
+                    tmpReceiver = tmpClass.newInstance();
+                }
 
-				// time to execute
-				Object tmpResult = tmpMethod.invoke(tmpReceiver, tmpParams);
-				if (Void.TYPE != tmpMethod.getReturnType()) {
-					if (null == tmpResult) {
-						aWetContext.informListenersInfo("javaExecResult", new String[] {"null"});
-					} else {
-						aWetContext.informListenersInfo("javaExecResult", new String[] {tmpResult.toString()});
-					}
-				}
-			} catch (ClassNotFoundException e) {
+                // time to execute
+                Object tmpResult = tmpMethod.invoke(tmpReceiver, tmpParams);
+                if (Void.TYPE != tmpMethod.getReturnType()) {
+                    if (null == tmpResult) {
+                        aWetContext.informListenersInfo("javaExecResult", new String[] {"null"});
+                    } else {
+                        aWetContext.informListenersInfo("javaExecResult", new String[] {tmpResult.toString()});
+                    }
+                }
+            } catch (ClassNotFoundException e) {
                 aWetContext.informListenersInfo("javaExecClasspath", new String[] {System.getProperty("java.class.path")});
-	            Assert.fail("javaExecClassNotFound", new String[] {tmpClassName, e.getMessage()});
-			} catch (IllegalArgumentException e) {
-	            Assert.fail("javaExecIllegalArgument", new String[] {tmpClassName, tmpMethodName, tmpMethodParameters.toString(), e.getMessage()});
-			} catch (IllegalAccessException e) {
-	            Assert.fail("javaExecIllegalAccess", new String[] {tmpClassName, tmpMethodName, tmpMethodParameters.toString(), e.getMessage()});
-			} catch (InvocationTargetException e) {
-	            Assert.fail("javaExecInvocationTarget", new String[] {tmpClassName, tmpMethodName, tmpMethodParameters.toString(), e.getMessage()});
-			} catch (InstantiationException e) {
-	            Assert.fail("javaExecInstantiation", new String[] {tmpClassName, tmpMethodName, tmpMethodParameters.toString(), e.getMessage()});
-			}
+                Assert.fail("javaExecClassNotFound", new String[] {tmpClassName, e.getMessage()});
+            } catch (IllegalArgumentException e) {
+                Assert.fail("javaExecIllegalArgument", new String[] {tmpClassName, tmpMethodName, tmpMethodParameters.toString(), e.getMessage()});
+            } catch (IllegalAccessException e) {
+                Assert.fail("javaExecIllegalAccess", new String[] {tmpClassName, tmpMethodName, tmpMethodParameters.toString(), e.getMessage()});
+            } catch (InvocationTargetException e) {
+                Assert.fail("javaExecInvocationTarget", new String[] {tmpClassName, tmpMethodName, tmpMethodParameters.toString(), e.getMessage()});
+            } catch (InstantiationException e) {
+                Assert.fail("javaExecInstantiation", new String[] {tmpClassName, tmpMethodName, tmpMethodParameters.toString(), e.getMessage()});
+            }
         }
     }
 

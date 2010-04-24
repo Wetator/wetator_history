@@ -111,17 +111,17 @@ public final class XHtmlOutputter {
         SINGLE_LINE_TAGS.add(HtmlHeading6.class.getName());
         SINGLE_LINE_TAGS.add(HtmlOption.class.getName());
     }
-    
-    
+
+
     public XHtmlOutputter(HtmlPage aHtmlPage, ResponseStore aResponseStore) {
         super();
         htmlPage = aHtmlPage;
         responseStore = aResponseStore;
     }
-    
-    
+
+
     public void writeTo(File aFile) throws IOException {
-    	FileWriterWithEncoding tmpFileWriter = new FileWriterWithEncoding(aFile, htmlPage.getPageEncoding());
+        FileWriterWithEncoding tmpFileWriter = new FileWriterWithEncoding(aFile, htmlPage.getPageEncoding());
         try {
             output = new Output(tmpFileWriter, "  ");
 
@@ -132,16 +132,16 @@ public final class XHtmlOutputter {
 
             output.flush();
         } finally {
-        	tmpFileWriter.close();
+            tmpFileWriter.close();
         }
     }
 
 
     protected void writeSubNodes(DomNode aDomNode) throws IOException {
         DomNode tmpChild;
-        
+
         tmpChild = aDomNode.getFirstChild();
-        
+
         while (null != tmpChild) {
             writeStartTag(tmpChild);
             output.indent();
@@ -205,7 +205,7 @@ public final class XHtmlOutputter {
             }
         } else if (aDomNode instanceof DomComment) {
             output.print("<!--");
-            // don't normalize the comment 
+            // don't normalize the comment
             output.print(((DomComment)aDomNode).getData());
         } else {
             LOG.warn("Unknown DomNode " + aDomNode);
@@ -240,7 +240,7 @@ public final class XHtmlOutputter {
 
         if (aDomNode instanceof HtmlElement) {
             HtmlElement tmpHtmlElement = (HtmlElement)aDomNode;
-            
+
             boolean tmpIsCssLink = false;
             if (tmpHtmlElement instanceof HtmlLink) {
                 HtmlLink tmpHtmlLink = (HtmlLink) tmpHtmlElement;
@@ -249,7 +249,7 @@ public final class XHtmlOutputter {
                     tmpIsCssLink = true;
                 }
             }
-            
+
             boolean tmpIsHtmlImage = tmpHtmlElement instanceof HtmlImage;
 
             Iterable<DomAttr> tmpAttributeEntries = tmpHtmlElement.getAttributesMap().values();
@@ -267,7 +267,7 @@ public final class XHtmlOutputter {
                         }
                     }
                 }
-                
+
                 if (tmpIsHtmlImage && ("src".equals(tmpAttributeName))) {
                     URL tmpImageUrl = htmlPage.getFullyQualifiedUrl(tmpAttributeValue);
                     String tmpHost = tmpImageUrl.getHost();
@@ -281,12 +281,12 @@ public final class XHtmlOutputter {
 
                 // special cases
                 if (("checked".equals(tmpAttributeName)) && StringUtils.isEmpty(tmpAttributeValue)) {
-                    tmpAttributeValue = "checked"; 
+                    tmpAttributeValue = "checked";
                 }
                 if (("multiple".equals(tmpAttributeName)) && StringUtils.isEmpty(tmpAttributeValue)) {
-                    tmpAttributeValue = "multiple"; 
+                    tmpAttributeValue = "multiple";
                 }
-                
+
                 output.print(' ');
                 output.print(tmpAttributeName);
                 output.print("=\"");
@@ -311,12 +311,12 @@ public final class XHtmlOutputter {
             }
             tmpNodeClass = tmpNodeClass.getSuperclass();
         }
-        
+
         if (null == tmpTag) {
             LOG.warn("Unsupported element " + aDomNode);
             return aDomNode.getClass().getName();
         }
-        
+
         return tmpTag;
     }
 }

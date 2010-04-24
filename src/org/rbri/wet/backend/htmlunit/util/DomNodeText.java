@@ -61,16 +61,16 @@ import com.gargoylesoftware.htmlunit.html.SubmittableElement;
  * The text representation of a page text.
  * Indexed by form controls to speed up
  * the calculation of text before and after.
- * 
+ *
  * @author rbri
  */
 public class DomNodeText {
-    
+
     private NormalizedContent text;
     private List<DomNode> nodes;
     private Map<DomNode, Integer> startPositions;
     private Map<DomNode, Integer> endPositions;
-    
+
     public DomNodeText(final DomNode aDomNode) {
         text = new NormalizedContent();
         nodes = new LinkedList<DomNode>();
@@ -84,7 +84,7 @@ public class DomNodeText {
     public String getText() {
         return text.toString().trim();
     }
-    
+
 
     public String getTextBefore(final DomNode aDomNode) {
         Integer tmpEndPos = startPositions.get(aDomNode);
@@ -93,7 +93,7 @@ public class DomNodeText {
         }
         return text.substring(0, tmpEndPos).trim();
     }
-    
+
 
     public String getLabelTextBefore(final HtmlElement aHtmlElement) {
         Integer tmpEndPos = startPositions.get(aHtmlElement);
@@ -106,7 +106,7 @@ public class DomNodeText {
         ListIterator<DomNode> tmpIter = nodes.listIterator(nodes.indexOf(aHtmlElement));
         while(tmpIter.hasPrevious()) {
             DomNode tmpNode = tmpIter.previous();
-            
+
             if (tmpNode instanceof HtmlBody) {
                 // don't use the end pos of the body
                 tmpStartPos = startPositions.get(tmpNode);
@@ -130,10 +130,10 @@ public class DomNodeText {
                 }
             }
         }
-        
+
         return text.substring(tmpStartPos, tmpEndPos).trim();
     }
-    
+
 
     public String getLabelTextAfter(final HtmlElement aHtmlElement) {
         Integer tmpStartPos = endPositions.get(aHtmlElement);
@@ -149,7 +149,7 @@ public class DomNodeText {
 
         while(tmpIter.hasNext()) {
             DomNode tmpNode = tmpIter.next();
-            
+
             // we have to stop if we found some other (visible) form control
             if ((tmpNode instanceof SubmittableElement)
                     && !(tmpNode instanceof HtmlHiddenInput)) {
@@ -167,26 +167,26 @@ public class DomNodeText {
                 }
             }
         }
-        
+
         return text.substring(tmpStartPos, tmpEndPos).trim();
     }
 
-    
+
     public String getAsText(final DomNode aDomNode) {
         Integer tmpStartPos = startPositions.get(aDomNode);
         if (null == tmpStartPos) {
             return null;
         }
         Integer tmpEndPos = endPositions.get(aDomNode);
-        
+
         return text.substring(tmpStartPos, tmpEndPos).trim();
     }
-    
+
     private void parseDomNode(final DomNode aDomNode) {
         nodes.add(aDomNode);
         // mark pos before
         startPositions.put(aDomNode, Integer.valueOf(text.length()));
-        
+
         if (aDomNode.isDisplayed()) {
             if (aDomNode instanceof HtmlHiddenInput
                     || aDomNode instanceof HtmlApplet
@@ -202,7 +202,7 @@ public class DomNodeText {
             } else if (aDomNode instanceof DomText) {
                 appendDomText((DomText) aDomNode);
             } else if (aDomNode instanceof HtmlBreak) {
-            	text.append(" ");
+                text.append(" ");
             } else if (aDomNode instanceof HtmlSelect) {
                 appendHtmlSelect((HtmlSelect) aDomNode);
             } else if (aDomNode instanceof HtmlOptionGroup) {
@@ -218,7 +218,7 @@ public class DomNodeText {
             } else if (aDomNode instanceof HtmlOrderedList) {
                 appendHtmlOrderedList((HtmlOrderedList) aDomNode);
             } else {
-                boolean tmpIsBlock = (aDomNode instanceof HtmlDivision) 
+                boolean tmpIsBlock = (aDomNode instanceof HtmlDivision)
                                     || (aDomNode instanceof HtmlParagraph)
                                     || (aDomNode instanceof HtmlTable)
                                     || (aDomNode instanceof HtmlTableRow)
@@ -228,11 +228,11 @@ public class DomNodeText {
                                     || (aDomNode instanceof HtmlUnorderedList)
                                     || (aDomNode instanceof HtmlListItem);
                 if (tmpIsBlock) {
-                	text.append(" ");
+                    text.append(" ");
                 }
                 parseChildren(aDomNode);
                 if (tmpIsBlock) {
-                	text.append(" ");
+                    text.append(" ");
                 }
             }
         }
@@ -249,18 +249,18 @@ public class DomNodeText {
     }
 
     private void appendDomText(final DomText aDomText) {
-    	text.append(aDomText.getData());
+        text.append(aDomText.getData());
     }
 
     private void appendHtmlInput(final HtmlInput aHtmlInput) {
-    	text.append(aHtmlInput.getValueAttribute());
+        text.append(aHtmlInput.getValueAttribute());
     }
-    
+
     private void appendHtmlLegend(final HtmlLegend aHtmlLegend) {
         parseChildren(aHtmlLegend);
         text.append(" ");
     }
-    
+
     private void appendHtmlOptionGroup(final HtmlOptionGroup aHtmlOptionGroup) {
         String tmpLabel = aHtmlOptionGroup.getLabelAttribute();
         text.append(tmpLabel);

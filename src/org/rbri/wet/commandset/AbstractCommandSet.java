@@ -36,21 +36,21 @@ import org.rbri.wet.util.SecretString;
 
 /**
  * A parent class for command sets.
- *  
+ *
  * @author rbri
  */
 public abstract class AbstractCommandSet implements WetCommandSet {
     private static final Log LOG = LogFactory.getLog(AbstractCommandSet.class);
-    
+
     private List<String> initializationMessages;
     public Map<String, WetCommandImplementation> commandImplementations;
     protected int noOfCommands;
-    
+
     protected AbstractCommandSet() {
         super();
         initializationMessages = new LinkedList<String>();
         noOfCommands = 0;
-        
+
         LOG.debug(ClassUtils.getShortClassName(this.getClass()) + " registration started");
         commandImplementations = new HashMap<String, WetCommandImplementation>();
 
@@ -59,23 +59,23 @@ public abstract class AbstractCommandSet implements WetCommandSet {
 
         LOG.debug(ClassUtils.getShortClassName(this.getClass()) + " registered; " + noOfCommands + " commands added");
     }
-    
+
 
     public final WetCommandImplementation getCommandImplementationFor(String aCommandName) {
         return commandImplementations.get(aCommandName);
     }
-    
+
 
     public List<String> getInitializationMessages() {
         return initializationMessages;
     }
 
-    
+
     public void addInitializationMessage(String aMessage) {
         initializationMessages.add(aMessage);
     }
 
-    
+
     /**
      * Implement this method to do the whole setup of your set.
      */
@@ -103,11 +103,11 @@ public abstract class AbstractCommandSet implements WetCommandSet {
         Control tmpControl = aWeightedControlList.getElementsSortedByWeight().get(0);
         if (aWeightedControlList.hasManyEntires()) {
             aWetContext.informListenersWarn("manyElementsFound", new String[] {SecretString.toString(aSearchParam), tmpControl.getDescribingText()});
-            
+
             List<Control> tmpControls = aWeightedControlList.getElementsSortedByWeight();
             for (Control tmpEachControl : tmpControls) {
                 aWetContext.informListenersInfo("elementFound", new String[] {tmpEachControl.getDescribingText()});
-			}
+            }
         }
         return tmpControl;
     }

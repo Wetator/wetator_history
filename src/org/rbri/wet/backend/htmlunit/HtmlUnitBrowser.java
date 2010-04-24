@@ -167,7 +167,7 @@ public final class HtmlUnitBrowser implements WetBackend {
         }
 
         if (tmpPage instanceof XmlPage) {
-        	XmlPage tmpXmlPage = (XmlPage) tmpPage;
+            XmlPage tmpXmlPage = (XmlPage) tmpPage;
             String tmpContentAsText = tmpXmlPage.getContent();
             return tmpContentAsText;
         }
