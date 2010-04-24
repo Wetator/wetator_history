@@ -249,7 +249,7 @@ public class WetResultWriter implements WetEngineProgressListener {
             Parameter tmpParameter = aWetCommand.getFirstParameter();
             printStartTag(TAG_FIRST_PARAM);
             if (null != tmpParameter) {
-            	output.print(XmlUtil.normalizeBodyValue(tmpParameter.getValue(aWetContext).toString()));
+                output.print(XmlUtil.normalizeBodyValue(tmpParameter.getValue(aWetContext).toString()));
             }
             printEndTag(TAG_FIRST_PARAM);
             output.println();
@@ -257,7 +257,7 @@ public class WetResultWriter implements WetEngineProgressListener {
             tmpParameter = aWetCommand.getSecondParameter();
             printStartTag(TAG_SECOND_PARAM);
             if (null != tmpParameter) {
-            	output.print(XmlUtil.normalizeBodyValue(tmpParameter.getValue(aWetContext).toString()));
+                output.print(XmlUtil.normalizeBodyValue(tmpParameter.getValue(aWetContext).toString()));
             }
             printEndTag(TAG_SECOND_PARAM);
             output.println();

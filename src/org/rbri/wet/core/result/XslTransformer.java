@@ -36,20 +36,20 @@ import org.apache.commons.logging.LogFactory;
 
 /**
  * This class transforms the output.
- * 
+ *
  * @author rbri
  */
 public final class XslTransformer {
     private static final Log LOG = LogFactory.getLog(XslTransformer.class);
-    
+
     private static final String IMAGES_DIRECTORY = "images";
     private File wetResultFile;
 
     public XslTransformer(File aWetResultFile) {
         wetResultFile = aWetResultFile;
     }
-    
-    
+
+
     /**
      * Transforms the Document to HTML. The stylesheet is
      * read from the configured location.
@@ -67,9 +67,9 @@ public final class XslTransformer {
             try {
                 StreamSource tmpXlsStreamSource = new StreamSource(tmpXslFile);
                 Transformer tmpTransformer = TransformerFactory.newInstance().newTransformer(tmpXlsStreamSource);
-                
+
                 StreamSource tmpXmlStreamSource = new StreamSource(wetResultFile);
-                
+
                 FileWriter tmpFileWriter = new FileWriter(tmpResultFile);
                 BufferedWriter tmpBufferedWriter = new BufferedWriter(tmpFileWriter);
                 StreamResult tmpStreamResult = new StreamResult(tmpBufferedWriter);
@@ -77,7 +77,7 @@ public final class XslTransformer {
                 tmpTransformer.transform(tmpXmlStreamSource, tmpStreamResult);
                 tmpBufferedWriter.close();
 
-                
+
                 copyImages(tmpXslFile.getParentFile(), anOutputDirectory);
 
                 LOG.info("Report written to " + tmpResultFile.getAbsolutePath());
@@ -138,31 +138,31 @@ public final class XslTransformer {
 
             String tmpSourceFileName = tmpSourceFile.getName();
             if (null != tmpSourceFileName && tmpSourceFileName.startsWith(".")) {
-            	// ignore files starting with '.'
+                // ignore files starting with '.'
             } else if (tmpSourceFile.isDirectory()) {
-            	File tmpTargetSubDir = new File(aTargetDir, tmpSourceFile.getName());
-            	copyFiles(tmpSourceFile, tmpTargetSubDir);            	
+                File tmpTargetSubDir = new File(aTargetDir, tmpSourceFile.getName());
+                copyFiles(tmpSourceFile, tmpTargetSubDir);
             } else {
                 File tmpTargetFile = new File(aTargetDir, tmpSourceFile.getName());
 
                 try {
-	                FileInputStream tmpIn = new FileInputStream(tmpSourceFile);
-	                try {
-	                    FileOutputStream tmpOut = new FileOutputStream(tmpTargetFile);
-	                    try {
-	                        byte[] tmpBuffer = new byte[1024];
-	                        int tmpBytes = 0;
-	                        while ((tmpBytes = tmpIn.read(tmpBuffer)) > -1) {
-	                            tmpOut.write(tmpBuffer, 0, tmpBytes);
-	                        }
-	                    } finally {
-	                        tmpOut.close();
-	                    }
-	                } finally {
-	                    tmpIn.close();
-	                }
+                    FileInputStream tmpIn = new FileInputStream(tmpSourceFile);
+                    try {
+                        FileOutputStream tmpOut = new FileOutputStream(tmpTargetFile);
+                        try {
+                            byte[] tmpBuffer = new byte[1024];
+                            int tmpBytes = 0;
+                            while ((tmpBytes = tmpIn.read(tmpBuffer)) > -1) {
+                                tmpOut.write(tmpBuffer, 0, tmpBytes);
+                            }
+                        } finally {
+                            tmpOut.close();
+                        }
+                    } finally {
+                        tmpIn.close();
+                    }
                 } catch (IOException e) {
-                	LOG.error("Can't copy '" + tmpSourceFile.getAbsolutePath() + "'. File ignored.", e);
+                    LOG.error("Can't copy '" + tmpSourceFile.getAbsolutePath() + "'. File ignored.", e);
                 }
             }
         }

@@ -19,28 +19,28 @@ package org.rbri.wet.util;
 /**
  * Stores Strings in a normalized way.
  * All whitespace is reduced to one; LineBreak is always \n
- * 
+ *
  * @author rbri
  */
 public final class NormalizedContent {
-	private static final String BLANK = " ";
-	
-	private StringBuilder content;
-	
-	public NormalizedContent() {
-		content = new StringBuilder();
-	}
+    private static final String BLANK = " ";
+
+    private StringBuilder content;
+
+    public NormalizedContent() {
+        content = new StringBuilder();
+    }
 
     public void append(final String aString) {
-    	if (null == aString) {
-    		return;
-    	}
+        if (null == aString) {
+            return;
+        }
         if (aString.length() < 1) {
             return;
         }
-        
+
         boolean tmpBlank = (content.length() == 0) || isWhitespace(content.charAt(content.length() -1));
-        
+
         for (int i = 0; i < aString.length(); i++) {
             char tmpChar = aString.charAt(i);
             if (isWhitespace(tmpChar))  {
@@ -56,21 +56,21 @@ public final class NormalizedContent {
             }
         }
     }
-    
+
     public String substring(int aStartPos, int anEndPos) {
-    	return content.substring(aStartPos, anEndPos);
+        return content.substring(aStartPos, anEndPos);
     }
-    
+
     public int length() {
-    	return content.length();
+        return content.length();
     }
-    
+
     public String toString() {
-    	return content.toString();
+        return content.toString();
     }
-    
+
     private boolean isWhitespace(char aChar) {
-	    // char 160 not detected as whitespace by java
-	    return (Character.isWhitespace(aChar) || (char) 160 == aChar);
+        // char 160 not detected as whitespace by java
+        return (Character.isWhitespace(aChar) || (char) 160 == aChar);
     }
 }

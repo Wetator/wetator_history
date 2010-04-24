@@ -74,12 +74,12 @@ public final class WetCommand {
 
 
     public Parameter getFirstParameter() {
-    	return firstParameter;
+        return firstParameter;
     }
 
 
     public Parameter getSecondParameter() {
-    	return secondParameter;
+        return secondParameter;
     }
 
 
@@ -101,14 +101,14 @@ public final class WetCommand {
         tmpResult.append(" firstParam:");
         tmpResult.append(" '");
         if (null != tmpParameter) {
-        	tmpResult.append(tmpParameter.getValue(aWetContext).toString());
+            tmpResult.append(tmpParameter.getValue(aWetContext).toString());
         }
         tmpResult.append("'");
 
         tmpParameter = getSecondParameter();
         tmpResult.append(" '");
         if (null != tmpParameter) {
-        	tmpResult.append(getSecondParameter().getValue(aWetContext).toString());
+            tmpResult.append(getSecondParameter().getValue(aWetContext).toString());
         }
         tmpResult.append("'");
 
@@ -241,9 +241,9 @@ public final class WetCommand {
 
 
     public void warnUnusedSecondParameter(WetContext aWetContext) throws AssertionFailedException, WetException {
-    	Parameter tmpParameter = getSecondParameter();
-    	if (null != tmpParameter) {
-    		aWetContext.informListenersWarn("unusedParameter", new String[] {getName(), tmpParameter.getValue(aWetContext).toString(), "2"});
-    	}
+        Parameter tmpParameter = getSecondParameter();
+        if (null != tmpParameter) {
+            aWetContext.informListenersWarn("unusedParameter", new String[] {getName(), tmpParameter.getValue(aWetContext).toString(), "2"});
+        }
     }
 }

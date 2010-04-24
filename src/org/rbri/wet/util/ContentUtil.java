@@ -35,18 +35,18 @@ import org.rbri.wet.exception.WetException;
 
 /**
  * ContentUtil contains some useful helpers for content conversion handling.
- * 
+ *
  * @author rbri
  */
 public class ContentUtil {
 
     /**
      * Converts a pdf document to string
-     * 
+     *
      * @param anInputStream the input
      * @return a String
      * @throws AssertionFailedException if conversion fails
-     * @throws IOException 
+     * @throws IOException
      */
     public static String getPdfContentAsString(InputStream anInputStream) throws IOException {
         PDDocument tmpDocument;
@@ -62,34 +62,34 @@ public class ContentUtil {
 
     /**
      * Converts a xls document to string
-     * 
+     *
      * @param anInputStream the input
      * @return a String
      * @throws AssertionFailedException if conversion fails
-     * @throws IOException 
+     * @throws IOException
      */
     public static String getXlsContentAsString(InputStream anInputStream) throws IOException {
-    	NormalizedContent tmpResult = new NormalizedContent();
-    	HSSFWorkbook tmpWorkbook = new HSSFWorkbook(anInputStream);
+        NormalizedContent tmpResult = new NormalizedContent();
+        HSSFWorkbook tmpWorkbook = new HSSFWorkbook(anInputStream);
 
         int tmpSheetNo = -1;
         for (int i = 0; i < tmpWorkbook.getNumberOfSheets(); i++) {
-        	HSSFSheet tmpSheet = tmpWorkbook.getSheetAt(i);
-        	tmpResult.append("[");
-        	tmpResult.append(tmpSheet.getSheetName());
-        	tmpResult.append("]");
-        	tmpResult.append("\r\n");
+            HSSFSheet tmpSheet = tmpWorkbook.getSheetAt(i);
+            tmpResult.append("[");
+            tmpResult.append(tmpSheet.getSheetName());
+            tmpResult.append("]");
+            tmpResult.append("\r\n");
 
             for (int tmpRowNum = 0; tmpRowNum < tmpSheet.getLastRowNum(); tmpRowNum++) {
-            	HSSFRow tmpRow = tmpSheet.getRow(tmpRowNum);
-            	if (null != tmpRow) {
-	                for (short tmpCellNum = 0; tmpCellNum < tmpRow.getLastCellNum(); tmpCellNum++) {
-	                	String tmpCellValue = readCellContentAsString(tmpRow, tmpCellNum);
-	                	if (null != tmpCellValue) {
-	                		tmpResult.append(tmpCellValue);
-	                	}
-	                }
-            	}
+                HSSFRow tmpRow = tmpSheet.getRow(tmpRowNum);
+                if (null != tmpRow) {
+                    for (short tmpCellNum = 0; tmpCellNum < tmpRow.getLastCellNum(); tmpCellNum++) {
+                        String tmpCellValue = readCellContentAsString(tmpRow, tmpCellNum);
+                        if (null != tmpCellValue) {
+                            tmpResult.append(tmpCellValue);
+                        }
+                    }
+                }
             }
         }
 

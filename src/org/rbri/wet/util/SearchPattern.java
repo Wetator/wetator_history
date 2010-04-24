@@ -40,9 +40,9 @@ public final class SearchPattern {
 
 
     @Override
-	public String toString() {
-		return "SearchPattern '" + originalString + "' [" + patternString + "]";
-	}
+    public String toString() {
+        return "SearchPattern '" + originalString + "' [" + patternString + "]";
+    }
 
 
     public static SearchPattern createFromList(List<SecretString> aSearch, int aNumberOfElements) {
@@ -87,7 +87,7 @@ public final class SearchPattern {
                 tmpPattern.append(".*");
                 continue;
             } else if ('?' == tmpChar) {
-            	isStarPattern = false;
+                isStarPattern = false;
                 if (tmpSlash) {
                     tmpPattern.append("\\?");
                     tmpSlash = false;
@@ -96,7 +96,7 @@ public final class SearchPattern {
                 tmpPattern.append(".");
                 continue;
             } else if (SPECIAL_CHARS.indexOf(tmpChar) > -1) {
-            	isStarPattern = false;
+                isStarPattern = false;
                 if (tmpSlash) {
                     tmpPattern.append("\\\\\\");
                     tmpPattern.append(tmpChar);
@@ -110,7 +110,7 @@ public final class SearchPattern {
                 tmpSlash = true;
                 continue;
             } else {
-            	isStarPattern = false;
+                isStarPattern = false;
                 if (tmpSlash) {
                     tmpPattern.append("\\\\");
                     tmpSlash = false;
@@ -124,7 +124,7 @@ public final class SearchPattern {
         }
 
         patternString = tmpPattern.toString();
-      	automaton = new RunAutomaton(new RegExp(patternString).toAutomaton());
+          automaton = new RunAutomaton(new RegExp(patternString).toAutomaton());
     }
 
 
@@ -134,7 +134,7 @@ public final class SearchPattern {
      * the given string.<br>
      * If this search pattern is left truncated (star at
      * start), then this returns zero.
-     * 
+     *
      * @param aString the string to search inside
      * @return the number of chars or -1 if the pattern is
      * not found
@@ -147,28 +147,28 @@ public final class SearchPattern {
         }
 
         if (isStarPattern) {
-        	return 0;
+            return 0;
         }
-        
+
         AutomatonShortMatcher tmpMatcher = new AutomatonShortMatcher(aString, automaton);
 
-		boolean tmpFound = tmpMatcher.find();
-		if (!tmpFound) {
-			return -1;
-		}
+        boolean tmpFound = tmpMatcher.find();
+        if (!tmpFound) {
+            return -1;
+        }
 
-		tmpResult = tmpMatcher.start();
-		return tmpResult;
+        tmpResult = tmpMatcher.start();
+        return tmpResult;
     }
-    
-    
+
+
     /**
      * Calculates the number of chars before the
      * last occurrence of this search pattern in
      * the given string.<br>
      * If this search pattern is left truncated (star at
      * start), then this returns zero.
-     * 
+     *
      * @param aString the string to search inside
      * @return the number of chars or -1 if the pattern is
      * not found
@@ -181,33 +181,33 @@ public final class SearchPattern {
         }
 
         if (isStarPattern) {
-        	return 0;
+            return 0;
         }
-        
+
         AutomatonShortMatcher tmpMatcher = new AutomatonShortMatcher(aString, automaton);
 
-		boolean tmpFound = tmpMatcher.find();
-		if (!tmpFound) {
-			return -1;
-		}
+        boolean tmpFound = tmpMatcher.find();
+        if (!tmpFound) {
+            return -1;
+        }
 
-		// we found something
-		while (tmpFound) {
-			tmpResult = tmpMatcher.start();
-			tmpFound = tmpMatcher.find();
-		}
+        // we found something
+        while (tmpFound) {
+            tmpResult = tmpMatcher.start();
+            tmpFound = tmpMatcher.find();
+        }
 
-		return tmpResult;
-    }    	
-    	
-    
+        return tmpResult;
+    }
+
+
     /**
      * Calculates the number of chars after the
      * last occurrence of this search pattern in
      * the given string.<br>
      * If this search pattern is right truncated (star at
      * end), then this returns zero.
-     * 
+     *
      * @param aString the string to search inside
      * @return the number of chars or -1 if the pattern is
      * not found
@@ -220,22 +220,22 @@ public final class SearchPattern {
         }
 
         if (isStarPattern) {
-        	return 0;
+            return 0;
         }
-        
+
         AutomatonShortFromEndMatcher tmpMatcher = new AutomatonShortFromEndMatcher(aString, automaton);
 
-		boolean tmpFound = tmpMatcher.find();
-		if (!tmpFound) {
-			return -1;
-		}
+        boolean tmpFound = tmpMatcher.find();
+        if (!tmpFound) {
+            return -1;
+        }
 
-		// we found something
-		tmpResult = aString.length() - tmpMatcher.end();
-		return tmpResult;
+        // we found something
+        tmpResult = aString.length() - tmpMatcher.end();
+        return tmpResult;
     }
-    
-    
+
+
     /**
      * Returns true if the patterns matches the whole string
      *
@@ -248,9 +248,9 @@ public final class SearchPattern {
         }
 
         if (isStarPattern) {
-        	return true;
+            return true;
         }
-        
+
         return automaton.run(aString);
 
     }
@@ -258,9 +258,9 @@ public final class SearchPattern {
 
     /**
      * Calculates the sum of the number of chars before
-     * and after the match of this search pattern 
+     * and after the match of this search pattern
      * in the given string.<br>
-     * 
+     *
      * @param aString the string to search inside
      * @return the number of chars or -1 if the pattern is
      * not found
@@ -271,17 +271,17 @@ public final class SearchPattern {
         }
 
         if (isStarPattern) {
-        	return 0;
+            return 0;
         }
-        
-    	AutomatonShortMatcher tmpMatcher = new AutomatonShortMatcher(aString, automaton);
 
-		boolean tmpFound = tmpMatcher.find();
-		if (!tmpFound) {
-			return -1;
-		}
+        AutomatonShortMatcher tmpMatcher = new AutomatonShortMatcher(aString, automaton);
 
-		// we found something
+        boolean tmpFound = tmpMatcher.find();
+        if (!tmpFound) {
+            return -1;
+        }
+
+        // we found something
         int tmpResult = Integer.MAX_VALUE;
         // we found something
         while (tmpFound) {
@@ -296,7 +296,7 @@ public final class SearchPattern {
     /**
      * Calculates the number of chars matching
      * the given string.<br>
-     * 
+     *
      * @param aString the string to search inside
      * @return the number of chars or -1 if the pattern is
      * not found
@@ -307,27 +307,27 @@ public final class SearchPattern {
         }
 
         if (isStarPattern) {
-        	return aString.length();
+            return aString.length();
         }
-        
+
         AutomatonShortMatcher tmpMatcher = new AutomatonShortMatcher(aString, automaton);
 
-		boolean tmpFound = tmpMatcher.find();
-		if (!tmpFound) {
-			return -1;
-		}
+        boolean tmpFound = tmpMatcher.find();
+        if (!tmpFound) {
+            return -1;
+        }
 
         int tmpResult = -1;
-		// we found something
+        // we found something
         while (tmpFound) {
             tmpResult = Math.max(tmpResult, tmpMatcher.group().length());
             tmpFound = tmpMatcher.find();
         }
 
-		return tmpResult;
+        return tmpResult;
     }
 
-    
+
     public boolean matchesAtEnd(String aString) {
         if (StringUtils.isEmpty(aString)) {
             return false;
@@ -348,7 +348,7 @@ public final class SearchPattern {
 
         int tmpResult = noOfCharsBeforeFirstOccurenceIn(aString.substring(aStartPos));
         if (tmpResult > -1) {
-        	return tmpResult + aStartPos;
+            return tmpResult + aStartPos;
         }
         return tmpResult;
     }
