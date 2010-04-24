@@ -38,8 +38,8 @@ public class WetResultWriterTest extends TestCase {
     }
 
     public void test() throws AssertionFailedException {
-    	StringWriter tmpStringWriter = new StringWriter();
+        StringWriter tmpStringWriter = new StringWriter();
 
-    	WetResultWriter tmpResultWriter;
+        WetResultWriter tmpResultWriter;
     }
 }

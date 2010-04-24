@@ -25,101 +25,101 @@ package org.rbri.wet.commandset;
 public final class ExecTester  {
 
     public static void staticVoidMethodWithoutParams() {
-    	// nothing to do
+        // nothing to do
     }
 
 
     public static void staticVoidMethodWithOneParam(String aParam1) {
-    	// nothing to do
+        // nothing to do
     }
 
 
     public static void staticVoidMethodWithTwoParams(String aParam1, String aParam2) {
-    	// nothing to do
+        // nothing to do
     }
 
 
     public static void staticVoidMethodWithStringArray(String[] aParam) {
-    	// nothing to do
+        // nothing to do
     }
 
 
     public static void staticVoidMethodWithVarargs(String... aParams) {
-    	// nothing to do
+        // nothing to do
     }
 
 
     public static String staticMethodWithoutParams() {
-    	return "staticMethodWithoutParams";
+        return "staticMethodWithoutParams";
     }
 
 
     public static String staticMethodWithOneParam(String aParam1) {
-    	return "staticMethodWithOneParam";
+        return "staticMethodWithOneParam";
     }
 
 
     public static String staticMethodWithTwoParams(String aParam1, String aParam2) {
-    	return "staticMethodWithTwoParams";
+        return "staticMethodWithTwoParams";
     }
 
 
     public static String staticMethodWithStringArray(String[] aParam) {
-    	return "staticMethodWithStringArray";
+        return "staticMethodWithStringArray";
     }
 
 
     public static String staticMethodWithVarargs(String... aParams) {
-    	return "staticMethodWithVarargs";
+        return "staticMethodWithVarargs";
     }
 
 
     public void voidMethodWithoutParams() {
-    	// nothing to do
+        // nothing to do
     }
 
 
     public void voidMethodWithOneParam(String aParam1) {
-    	// nothing to do
+        // nothing to do
     }
 
 
     public void voidMethodWithTwoParams(String aParam1, String aParam2) {
-    	// nothing to do
+        // nothing to do
     }
 
 
     public void voidMethodWithStringArray(String[] aParam) {
-    	// nothing to do
+        // nothing to do
     }
 
 
     public void voidMethodWithVarargs(String... aParams) {
-    	// nothing to do
+        // nothing to do
     }
 
 
     public String methodWithoutParams() {
-    	return "staticMethodWithoutParams";
+        return "staticMethodWithoutParams";
     }
 
 
     public String methodWithOneParam(String aParam1) {
-    	return "staticMethodWithOneParam";
+        return "staticMethodWithOneParam";
     }
 
 
     public String methodWithTwoParams(String aParam1, String aParam2) {
-    	return "staticMethodWithTwoParams";
+        return "staticMethodWithTwoParams";
     }
 
 
     public String methodWithStringArray(String[] aParam) {
-    	return "staticMethodWithStringArray";
+        return "staticMethodWithStringArray";
     }
 
 
     public String methodWithVarargs(String... aParams) {
-    	return "staticMethodWithVarargs";
+        return "staticMethodWithVarargs";
     }
 }

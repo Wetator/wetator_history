@@ -42,31 +42,31 @@ public class ContentUtilTest extends TestCase {
     }
 
     public void testGetPdfContentAsString() throws FileNotFoundException, IOException {
-    	StringBuilder tmpExpected = new StringBuilder();
-    	tmpExpected.append("This is the content of a simple PDF file.");
-    	tmpExpected.append("\r\n");
-    	tmpExpected.append("This file is used to test WeT.");
-    	tmpExpected.append("\r\n");
+        StringBuilder tmpExpected = new StringBuilder();
+        tmpExpected.append("This is the content of a simple PDF file.");
+        tmpExpected.append("\r\n");
+        tmpExpected.append("This file is used to test WeT.");
+        tmpExpected.append("\r\n");
 
-    	String tmpContent = ContentUtil.getPdfContentAsString(new FileInputStream("webpages/testcases/download/wet_test.pdf"));
+        String tmpContent = ContentUtil.getPdfContentAsString(new FileInputStream("webpages/testcases/download/wet_test.pdf"));
         assertEquals(tmpExpected.toString(), tmpContent);
     }
 
     public void testGetXlsContentAsString() throws FileNotFoundException, IOException {
-    	StringBuilder tmpExpected = new StringBuilder();
-    	tmpExpected.append("[Tab1]");
-    	tmpExpected.append("\n");
-    	tmpExpected.append("Wetator");
-    	tmpExpected.append("\n");
-    	tmpExpected.append("[Tab2]");
-    	tmpExpected.append("\n");
-    	tmpExpected.append("Wetator Test");
-    	tmpExpected.append("\n");
-    	tmpExpected.append("[Tab2]");
-    	tmpExpected.append("\n");
-    	tmpExpected.append("[Tab2]");
+        StringBuilder tmpExpected = new StringBuilder();
+        tmpExpected.append("[Tab1]");
+        tmpExpected.append("\n");
+        tmpExpected.append("Wetator");
+        tmpExpected.append("\n");
+        tmpExpected.append("[Tab2]");
+        tmpExpected.append("\n");
+        tmpExpected.append("Wetator Test");
+        tmpExpected.append("\n");
+        tmpExpected.append("[Tab2]");
+        tmpExpected.append("\n");
+        tmpExpected.append("[Tab2]");
 
-    	String tmpContent = ContentUtil.getXlsContentAsString(new FileInputStream("webpages/testcases/download/wet_test.xls"));
+        String tmpContent = ContentUtil.getXlsContentAsString(new FileInputStream("webpages/testcases/download/wet_test.xls"));
         assertEquals(tmpExpected.toString(), tmpContent);
     }
 

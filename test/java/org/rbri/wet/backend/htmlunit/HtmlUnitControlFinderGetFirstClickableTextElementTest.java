@@ -188,7 +188,7 @@ public class HtmlUnitControlFinderGetFirstClickableTextElementTest extends TestC
 
     public void testGetFirstClickableTextElement_TableCell() throws IOException {
         String tmpHtmlCode = "<html><body>"
-        	+ "<table>"
+            + "<table>"
             + "<tr>"
             + "<td>cell 1 1</td>"
             + "<td>cell 1 2</td>"
@@ -197,7 +197,7 @@ public class HtmlUnitControlFinderGetFirstClickableTextElementTest extends TestC
             + "<td>cell 2 1</td>"
             + "<td>cell 2 2</td>"
             + "</tr>"
-        	+ "</table>"
+            + "</table>"
             + "</body></html>";
         HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
 
@@ -214,7 +214,7 @@ public class HtmlUnitControlFinderGetFirstClickableTextElementTest extends TestC
 
     public void testGetFirstClickableTextElement_TableRow() throws IOException {
         String tmpHtmlCode = "<html><body>"
-        	+ "<table>"
+            + "<table>"
             + "<tr>"
             + "<td>cell 1 1</td>"
             + "<td>cell 1 2</td>"
@@ -223,7 +223,7 @@ public class HtmlUnitControlFinderGetFirstClickableTextElementTest extends TestC
             + "<td>cell 2 1</td>"
             + "<td>cell 2 2</td>"
             + "</tr>"
-        	+ "</table>"
+            + "</table>"
             + "</body></html>";
         HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
 
@@ -241,10 +241,10 @@ public class HtmlUnitControlFinderGetFirstClickableTextElementTest extends TestC
 
     public void testGetFirstClickableTextElement_Div() throws IOException {
         String tmpHtmlCode = "<html><body>"
-        	+ "<div>"
+            + "<div>"
             + "<h1>Headline</h1>"
             + "<p>some text</p>"
-        	+ "</div>"
+            + "</div>"
             + "</body></html>";
         HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
 
