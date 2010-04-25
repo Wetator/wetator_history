@@ -35,9 +35,9 @@ import org.rbri.wet.scripter.WetScripter;
 
 /**
  * The engine that makes the monster running
- * Everything that is in common use for the 
+ * Everything that is in common use for the
  * whole test process is stored there.
- *  
+ *
  * @author rbri
  */
 public final class WetEngine {
@@ -55,13 +55,14 @@ public final class WetEngine {
     private List<WetCommandSet> commandSets;
     private List<WetScripter> scripter;
     private List<WetEngineProgressListener> progressListener;
-    
-    
+    private ClassLoader classLoader;
+
+
     public WetBackend getWetBackend() {
         return backend;
     }
 
-    
+
     public void setWetBackend(WetBackend aWetBackend) {
         backend = aWetBackend;
     }
@@ -69,18 +70,18 @@ public final class WetEngine {
 
     public WetEngine() throws WetException {
         super();
-    
+
         files = new LinkedList<File>();
         progressListener = new LinkedList<WetEngineProgressListener>();
     }
 
-    
+
     public void init() throws WetException {
         readWetConfiguration();
-        
+
         // setup the scripter
         scripter = getWetConfiguration().getScripters();
-        
+
         // setup the command sets
         commandSets = getWetConfiguration().getCommandSets();
 
@@ -89,30 +90,30 @@ public final class WetEngine {
         setWetBackend(tmpBrowser);
     }
 
-    
+
     public void addTestFile(File aFile) throws WetException {
         if (!aFile.exists()) {
             throw new WetException("The test file '" + aFile.getAbsolutePath() + "' does not exist.");
         }
         files.add(aFile);
     }
-    
+
 
     public void executeTests() throws WetException {
         addProgressListener(new WetResultWriter());
 
         informListenersSetup();
         for (WetCommandSet tmpCommandSet : commandSets) {
-            informListenersCommandSetSetup(tmpCommandSet);        
+            informListenersCommandSetSetup(tmpCommandSet);
         }
-        
+
         try {
             informListenersTestStart();
             try {
                 for (File tmpFile : files) {
                     // TODO
                     LOG.info("Executing tests from file '" + tmpFile.getAbsolutePath() + "'");
-    
+
                     // setup the context
                     WetContext tmpWetContext = new WetContext(this, tmpFile);
                     tmpWetContext.execute();
@@ -125,30 +126,30 @@ public final class WetEngine {
         }
     }
 
-    
+
     protected List<WetCommand> readCommandsFromFile(File aFile) throws WetException {
         WetScripter tmpScripter;
         List<WetCommand> tmpResult;
 
         tmpScripter = createScripter(aFile);
         tmpResult = tmpScripter.getCommands();
-        
+
         return tmpResult;
     }
 
-    
+
 
     public WetConfiguration getWetConfiguration() {
         return configuration;
     }
 
-    
+
     private void readWetConfiguration() throws WetException {
         File tmpConfigFile = getConfigFile();
         configuration = new WetConfiguration(tmpConfigFile, getExternalProperties());
     }
-    
-    
+
+
     private WetScripter createScripter(File aFile) throws WetException {
         for (WetScripter tmpScripter : scripter) {
             if (tmpScripter.isSupported(aFile)) {
@@ -159,7 +160,7 @@ public final class WetEngine {
         throw new WetException("No scripter found for file '" + aFile.getAbsolutePath() + "'.");
     }
 
-    
+
     protected WetCommandImplementation getCommandImplementationFor(String aCommandName) throws WetException {
         for (WetCommandSet tmpCommandSet : commandSets) {
             WetCommandImplementation tmpCommandImplementation;
@@ -174,12 +175,12 @@ public final class WetEngine {
 
     public File getConfigFile() {
         String tmpConfigName = getConfigFileName();
-    
+
         // ok try harder
         if (null == tmpConfigName) {
             tmpConfigName = System.getProperty(PROPERTY_TEST_CONFIG, CONFIG_FILE_DEFAULT_NAME);
         }
-    
+
         File tmpConfigFile;
         tmpConfigFile = new File(tmpConfigName);
         return tmpConfigFile;
@@ -204,7 +205,17 @@ public final class WetEngine {
     public void setExternalProperties(Map<String, String> anExternalProperties) {
         externalProperties = anExternalProperties;
     }
-    
+
+
+    public ClassLoader getClassLoader() {
+        return classLoader;
+    }
+
+
+    public void setClassLoader(ClassLoader aClassLoader) {
+        classLoader = aClassLoader;
+    }
+
 
     public void addProgressListener(WetEngineProgressListener aProgressListener) {
         if (progressListener.contains(aProgressListener)) {
@@ -251,7 +262,7 @@ public final class WetEngine {
         }
     }
 
-    
+
     protected void informListenersContextTestEnd() {
         for (WetEngineProgressListener tmpListener : progressListener) {
             tmpListener.contextTestEnd();
@@ -265,21 +276,21 @@ public final class WetEngine {
         }
     }
 
-    
+
     protected void informListenersContextExecuteCommandEnd() {
         for (WetEngineProgressListener tmpListener : progressListener) {
             tmpListener.contextExecuteCommandEnd();
         }
     }
 
-    
+
     protected void informListenersContextExecuteCommandSuccess() {
         for (WetEngineProgressListener tmpListener : progressListener) {
             tmpListener.contextExecuteCommandSuccess();
         }
     }
 
-    
+
     protected void informListenersContextExecuteCommandFailure(AssertionFailedException anAssertionFailedException) {
         for (WetEngineProgressListener tmpListener : progressListener) {
             tmpListener.contextExecuteCommandFailure(anAssertionFailedException);

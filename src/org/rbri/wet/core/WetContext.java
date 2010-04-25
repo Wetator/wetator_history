@@ -85,6 +85,11 @@ public class WetContext {
     }
 
 
+    public ClassLoader getClassLoader() {
+        return engine.getClassLoader();
+    }
+
+
     public WetConfiguration getWetConfiguration() {
         return engine.getWetConfiguration();
     }

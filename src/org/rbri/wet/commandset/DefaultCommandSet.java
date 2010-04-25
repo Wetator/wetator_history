@@ -351,10 +351,16 @@ public final class DefaultCommandSet extends AbstractCommandSet {
             if (StringUtils.isEmpty(tmpClassName)) {
                 Assert.fail("javaExecSyntax", new String[] {tmpCallString});
             }
+            if (tmpClassName.endsWith("()")) {
+                tmpClassName = tmpClassName.substring(0, tmpClassName.length() - 2);
+            }
 
             String tmpMethodName = tmpCallString.substring(tmpLastDotPos + 1);
             if (StringUtils.isEmpty(tmpMethodName)) {
                 Assert.fail("javaExecSyntax", new String[] {tmpCallString});
+            }
+            if (tmpMethodName.endsWith("()")) {
+                tmpMethodName = tmpMethodName.substring(0, tmpMethodName.length() - 2);
             }
 
             Object[] tmpParams = new String[tmpMethodParameters.size()];
@@ -367,7 +373,13 @@ public final class DefaultCommandSet extends AbstractCommandSet {
             }
 
             try {
-                Class tmpClass = ClassUtils.getClass(tmpClassName);
+                ClassLoader tmpClassLoader = aWetContext.getClassLoader();
+                Class tmpClass;
+                if (null == tmpClassLoader) {
+                    tmpClass = ClassUtils.getClass(tmpClassName);
+                } else {
+                    tmpClass = ClassUtils.getClass(tmpClassLoader, tmpClassName);
+                }
                 Method tmpMethod = MethodUtils.getMatchingAccessibleMethod(tmpClass, tmpMethodName, tmpParamTypes);
                 if (null == tmpMethod) {
                     tmpMethod = MethodUtils.getMatchingAccessibleMethod(tmpClass, tmpMethodName, new Class[] {String[].class});

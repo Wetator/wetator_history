@@ -23,8 +23,11 @@ import java.util.Set;
 
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.DirectoryScanner;
+import org.apache.tools.ant.Project;
 import org.apache.tools.ant.Task;
 import org.apache.tools.ant.types.FileSet;
+import org.apache.tools.ant.types.Path;
+import org.apache.tools.ant.types.Reference;
 import org.rbri.wet.Version;
 import org.rbri.wet.core.WetConfiguration;
 import org.rbri.wet.core.WetEngine;
@@ -39,6 +42,7 @@ import org.rbri.wet.exception.WetException;
  */
 public class Wetator extends Task {
     private String config = null;
+    private Path classpath = null;
     private FileSet fileset = null;
 
     /**
@@ -66,9 +70,15 @@ public class Wetator extends Task {
             }
         }
 
-        WetEngine tmpWetEngine;
+        log("getClasspath " + classpath, Project.MSG_ERR);
+
         try {
-            tmpWetEngine = new WetEngine();
+            WetEngine tmpWetEngine = new WetEngine();
+            if (classpath != null) {
+                // AntClassLoader
+                ClassLoader tmpClassLoader = getProject().createClassLoader(getProject().getCoreLoader(), classpath);
+                tmpWetEngine.setClassLoader(tmpClassLoader);
+            }
             tmpWetEngine.setConfigFileName(getConfig());
             tmpWetEngine.setExternalProperties(tmpOurProperties);
             AntOutProgressListener tmpListener = new AntOutProgressListener(this);
@@ -90,8 +100,18 @@ public class Wetator extends Task {
     }
 
 
+    protected String getConfig() {
+        return config;
+    }
+
+
     public void setConfig(String aConfig) {
         config = aConfig;
+    }
+
+
+    protected FileSet getFileset() {
+        return fileset;
     }
 
 
@@ -101,12 +121,23 @@ public class Wetator extends Task {
     }
 
 
-    protected String getConfig() {
-        return config;
+//    public void setClasspath(Path aPath) {
+//        log("setClasspath", Project.MSG_ERR);
+//        createClasspath().append(aPath);
+//    }
+
+
+    public void setClasspathRef(Reference aReference) {
+        createClasspath().setRefid(aReference);
     }
 
 
-    protected FileSet getFileset() {
-        return fileset;
+    public Path createClasspath() {
+        log("createClasspath", Project.MSG_ERR);
+
+        if (null == classpath) {
+            classpath = new Path(getProject());
+        }
+        return classpath;
     }
 }
