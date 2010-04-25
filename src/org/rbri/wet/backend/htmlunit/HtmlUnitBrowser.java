@@ -32,8 +32,6 @@ import net.sourceforge.htmlunit.corejs.javascript.WrappedException;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.util.PDFTextStripper;
 import org.rbri.wet.backend.ControlFinder;
 import org.rbri.wet.backend.WetBackend;
 import org.rbri.wet.backend.htmlunit.util.ContentTypeUtil;
