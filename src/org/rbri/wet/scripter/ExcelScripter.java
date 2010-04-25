@@ -117,7 +117,7 @@ public final class ExcelScripter implements WetScripter {
 
             sheet = workbook.getSheetAt(tmpSheetNo);
 
-            for (int tmpLine = 0; tmpLine < sheet.getLastRowNum(); tmpLine++) {
+            for (int tmpLine = 0; tmpLine <= sheet.getLastRowNum(); tmpLine++) {
                 HSSFRow tmpRow;
                 String tmpCommentString;
                 boolean tmpCommentFlag;
@@ -131,10 +131,12 @@ public final class ExcelScripter implements WetScripter {
 
                 tmpCommandName = readCellContentAsString(tmpRow, COMMAND_NAME_COLUMN_NO);
 
-                if (!StringUtils.isEmpty(tmpCommandName)) {
-                    tmpCommentString = readCellContentAsString(tmpRow, COMMENT_COLUMN_NO);
-                    tmpCommentFlag = StringUtils.isNotEmpty(tmpCommentString);
+                // empty command means comment
+                if (tmpCommentFlag && StringUtils.isEmpty(tmpCommandName)) {
+                    tmpCommandName = "Comment";
+                }
 
+                if (!StringUtils.isEmpty(tmpCommandName)) {
                     WetCommand tmpCommand = new WetCommand(tmpCommandName, tmpCommentFlag);
 
                     tmpParameter = readCellContentAsParameter(tmpRow, FIRST_PARAM_COLUMN_NO);

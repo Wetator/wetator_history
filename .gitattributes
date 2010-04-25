@@ -127,6 +127,8 @@ test/java/org/rbri/wet/core/result/WetResultWriterTest.java -text
 test/java/org/rbri/wet/core/result/XslTransformerTest.java -text
 test/java/org/rbri/wet/i18n/AllTests.java -text
 test/java/org/rbri/wet/i18n/MessagesTest.java -text
+test/java/org/rbri/wet/scripter/AllTests.java -text
+test/java/org/rbri/wet/scripter/ExcelScripterTest.java -text
 test/java/org/rbri/wet/util/AllTests.java -text
 test/java/org/rbri/wet/util/AssertTest.java -text
 test/java/org/rbri/wet/util/ContentUtilTest.java -text
