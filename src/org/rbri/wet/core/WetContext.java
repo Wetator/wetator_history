@@ -36,7 +36,7 @@ import org.rbri.wet.util.VariableReplaceUtil;
  * The context that holds all information about
  * the current executed file and make
  * them available to the different commands.
- *  
+ *
  * @author rbri
  */
 public class WetContext {
@@ -51,7 +51,7 @@ public class WetContext {
 
     /**
      * Constructor for a root context
-     * 
+     *
      * @param aWetEngine the engine that processes this file
      * @param aFile the file this context is for
      */
@@ -64,7 +64,7 @@ public class WetContext {
 
     /**
      * Constructor for a subcontext
-     * 
+     *
      * @param aWetContext the parent context
      * @param aFile the file this context is for
      */
@@ -83,17 +83,17 @@ public class WetContext {
     public WetBackend getWetBackend() {
         return engine.getWetBackend();
     }
-    
+
 
     public WetConfiguration getWetConfiguration() {
         return engine.getWetConfiguration();
     }
-    
+
 
     public void addVariable(Variable aVariable) {
         variables.add(aVariable);
     }
-    
+
 
     public List<Variable> getVariables() {
         List<Variable> tmpResult = new LinkedList<Variable>();
@@ -110,7 +110,7 @@ public class WetContext {
 
         return tmpResult;
     }
-    
+
 
     public SecretString replaceVariables(String aStringWithPlaceholders) {
         String tmpResultValue = VariableReplaceUtil.replaceVariables(aStringWithPlaceholders, getVariables(), false);
@@ -118,17 +118,17 @@ public class WetContext {
 
         return new SecretString(tmpResultValue, tmpResultValueForPrint);
     }
-    
-    
+
+
     private void executeCommand(WetCommand aWetCommand) throws WetException {
-        if (aWetCommand.isComment()) {
-            LOG.debug("Comment: '" + aWetCommand.toPrintableString(this) + "'");
-            return;
-        }
 
         engine.informListenersContextExecuteCommandStart(this, aWetCommand);
         try {
-            determineAndExecuteCommandImpl(aWetCommand);
+            if (aWetCommand.isComment()) {
+                LOG.debug("Comment: '" + aWetCommand.toPrintableString(this) + "'");
+            } else {
+                determineAndExecuteCommandImpl(aWetCommand);
+            }
             engine.informListenersContextExecuteCommandSuccess();
         } catch (AssertionFailedException e) {
             engine.informListenersContextExecuteCommandFailure(e);
@@ -139,8 +139,8 @@ public class WetContext {
             engine.informListenersContextExecuteCommandEnd();
         }
     }
-    
-    
+
+
     public void determineAndExecuteCommandImpl(WetCommand aWetCommand) throws WetException, AssertionFailedException {
         WetCommandImplementation tmpImpl = engine.getCommandImplementationFor(aWetCommand.getName());
         if (null == tmpImpl) {
@@ -152,7 +152,7 @@ public class WetContext {
         tmpImpl.execute(this, aWetCommand);
     }
 
-    
+
     public void execute() throws WetException {
         File tmpFile = getFile();
 
