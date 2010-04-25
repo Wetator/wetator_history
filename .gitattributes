@@ -3,6 +3,9 @@
 /.project -text
 /build-properties.xml -text
 /build.xml -text
+samples/ant/build.xml -text
+samples/google_search/google.xls -text
+samples/google_search/wetator.config -text
 src/log4j.properties -text
 src/org/rbri/wet/Messages.properties -text
 src/org/rbri/wet/Version.java -text

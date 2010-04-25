@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!-- sample ant script for Wetator -->
+
+<project name="Wetator Ant Sample" basedir="." default="run_wetator">
+
+	<!-- adjust dir for your project -->
+	<path id="wetator-classpath">
+		<fileset dir="../../lib" includes="**/**.jar"/>
+	</path>
+
+	<!-- You have to declare the task first -->
+	<taskdef name="wetator" classname="org.rbri.wet.ant.Wetator" classpathref="wetator-classpath" />
+
+    <target name="run_wetator" description="Sample target that runs Wetator">
+    	<!-- Attributes:
+    	     -config: full name of your config-file (required)
+
+    	     the excel input files are defined as fileset
+    	     more about filesets under http://ant.apache.org/manual/CoreTypes/fileset.html
+    	-->
+    	<wetator config="sample.properties">
+			<fileset>
+				<include name="test/wetator/*.xls"/>
+			</fileset>
+
+    		<!-- You can use Ant properties to overwrite properties in your config-files like this: -->
+        	<property name="wet.baseUrl" value="http://wet.rbri.org"/>
+    	</wetator>
+
+    </target>
+
+</project>
