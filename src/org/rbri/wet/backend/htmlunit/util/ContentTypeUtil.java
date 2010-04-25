@@ -47,6 +47,10 @@ public class ContentTypeUtil {
         if ("application/pdf".equalsIgnoreCase(tmpContentType)) {
             return ContentType.PDF;
         }
+
+        if ("application/vnd.ms-excel".equalsIgnoreCase(tmpContentType)) {
+            return ContentType.XLS;
+        }
         return ContentType.OTHER;
     }
 

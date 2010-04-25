@@ -188,6 +188,16 @@ public final class HtmlUnitBrowser implements WetBackend {
             }
         }
 
+        if (ContentType.XLS == tmpContentType) {
+            try {
+                String tmpContentAsText = ContentUtil.getXlsContentAsString(tmpPage.getWebResponse().getContentAsStream());
+                return tmpContentAsText;
+            } catch (IOException e) {
+                Assert.fail("xlsConversionToTextFailed", new String[] {e.getMessage()});
+                return null;
+            }
+        }
+
         Assert.fail("unsupportedPageType", new String[] {tmpPage.getWebResponse().getContentType()});
         return null;
     }

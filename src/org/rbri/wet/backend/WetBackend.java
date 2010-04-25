@@ -27,12 +27,12 @@ import org.rbri.wet.exception.WetException;
  * This is more or less a tagging interface.
  * Every command has to check for the right
  * implementation.
- *  
+ *
  * @author rbri
  */
 public interface WetBackend {
 
-    public enum ContentType { HTML, TEXT, PDF, OTHER };
+    public enum ContentType { HTML, TEXT, PDF, XLS, OTHER };
 
     public enum Browser { FIREFOX_2, FIREFOX_3, INTERNET_EXPLORER_6, INTERNET_EXPLORER_7, INTERNET_EXPLORER_8 };
 
