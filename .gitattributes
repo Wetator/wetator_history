@@ -144,7 +144,6 @@ webpages/commands/assertset.html -text
 webpages/commands/asserttitle.html -text
 webpages/commands/clickon.html -text
 webpages/commands/commands.html -text
-webpages/commands/comment.html -text
 webpages/commands/execjava.html -text
 webpages/commands/mouseover.html -text
 webpages/commands/openurl.html -text
