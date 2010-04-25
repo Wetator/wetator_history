@@ -1,6 +1,8 @@
 * text=auto !eol
 /.classpath -text
 /.project -text
+/build-properties.xml -text
+/build.xml -text
 src/log4j.properties -text
 src/org/rbri/wet/Messages.properties -text
 src/org/rbri/wet/Version.java -text

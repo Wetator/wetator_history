@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<build-properties>
+
+  <application>
+    <name>Wetator</name>
+    <version>0_9_1</version>
+    <jar-basename>wetator</jar-basename>
+    <vendor>Ronald Brill</vendor>
+    <buildno>1</buildno>
+  </application>
+
+  <dir>
+    <src>src</src>
+    <test-src>test/src</test-src>
+    <test-wet-src>test/excel</test-wet-src>
+    <samples>samples</samples>
+    <lib>lib</lib>
+    <build>build</build>
+    <xsl>xsl</xsl>
+    <webpages>webpages</webpages>
+    <deploy>deploy</deploy>
+  </dir>
+
+  <javac>
+    <target>1.5</target>
+  </javac>
+
+</build-properties>
