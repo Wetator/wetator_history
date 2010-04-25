@@ -31,6 +31,7 @@ public class AllTests {
         TestSuite suite = new TestSuite("All Wetator util tests");
 
         suite.addTest(AssertTest.suite());
+        suite.addTest(ContentUtilTest.suite());
         suite.addTest(SearchPatternTest.suite());
         suite.addTest(StringUtilTest.suite());
         suite.addTest(VariableReplaceUtilUtilTest.suite());
