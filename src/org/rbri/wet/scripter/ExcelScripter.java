@@ -43,10 +43,10 @@ import org.rbri.wet.exception.WetException;
 public final class ExcelScripter implements WetScripter {
 
     private static final String EXCEL_FILE_EXTENSION = ".xls";
-    private static final short COMMENT_COLUMN_NO = 0;
-    private static final short COMMAND_NAME_COLUMN_NO = 1;
-    private static final short FIRST_PARAM_COLUMN_NO = 2;
-    private static final short SECOND_PARAM_COLUMN_NO = 3;
+    private static final int COMMENT_COLUMN_NO = 0;
+    private static final int COMMAND_NAME_COLUMN_NO = 1;
+    private static final int FIRST_PARAM_COLUMN_NO = 2;
+    private static final int SECOND_PARAM_COLUMN_NO = 3;
 
     private File file;
     private HSSFWorkbook workbook;
@@ -176,7 +176,7 @@ public final class ExcelScripter implements WetScripter {
     }
 
 
-    private String readCellContentAsString(HSSFRow aRow, short aColumnsNo) throws WetException {
+    private String readCellContentAsString(HSSFRow aRow, int aColumnsNo) throws WetException {
         String tmpResult = null;
         HSSFCell tmpCell;
         int tmpCellType;
@@ -198,6 +198,7 @@ public final class ExcelScripter implements WetScripter {
         // for convenience support numbers also
         case HSSFCell.CELL_TYPE_NUMERIC:
             tmpResult = "" + tmpCell.getNumericCellValue();
+            break;
 
         // deal with the other possible cases
         case HSSFCell.CELL_TYPE_BOOLEAN:
@@ -213,7 +214,7 @@ public final class ExcelScripter implements WetScripter {
     }
 
 
-    private Parameter readCellContentAsParameter(HSSFRow aRow, short aColumnsNo) throws WetException {
+    private Parameter readCellContentAsParameter(HSSFRow aRow, int aColumnsNo) throws WetException {
         String tmpContent;
 
         tmpContent = readCellContentAsString(aRow, aColumnsNo);
