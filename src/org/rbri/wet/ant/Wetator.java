@@ -27,7 +27,6 @@ import org.apache.tools.ant.Project;
 import org.apache.tools.ant.Task;
 import org.apache.tools.ant.types.FileSet;
 import org.apache.tools.ant.types.Path;
-import org.apache.tools.ant.types.Reference;
 import org.rbri.wet.Version;
 import org.rbri.wet.core.WetConfiguration;
 import org.rbri.wet.core.WetEngine;
@@ -61,7 +60,7 @@ public class Wetator extends Task {
         }
 
         // read the properties for us
-        Hashtable<String, String> tmpProperties = getProject().getProperties();
+        Hashtable<String, String> tmpProperties = (Hashtable<String, String>)getProject().getProperties();
         HashMap<String, String> tmpOurProperties = new HashMap<String, String>();
         Set<String> tmpKeys = tmpProperties.keySet();
         for (String tmpKey : tmpKeys) {
@@ -69,8 +68,6 @@ public class Wetator extends Task {
                 tmpOurProperties.put(tmpKey, tmpProperties.get(tmpKey));
             }
         }
-
-        log("getClasspath " + classpath, Project.MSG_ERR);
 
         try {
             WetEngine tmpWetEngine = new WetEngine();
@@ -118,17 +115,6 @@ public class Wetator extends Task {
     public FileSet createFileSet() {
         fileset = new FileSet();
         return fileset;
-    }
-
-
-//    public void setClasspath(Path aPath) {
-//        log("setClasspath", Project.MSG_ERR);
-//        createClasspath().append(aPath);
-//    }
-
-
-    public void setClasspathRef(Reference aReference) {
-        createClasspath().setRefid(aReference);
     }
 
 

@@ -10,7 +10,19 @@
         </classpath>
     </taskdef>
 
-    <target name="run_wetator">
+    <path id="wetator.classpath">
+        <fileset dir="." includes="test.jar"/>
+    </path>
+
+	<target name="run_wetator">
+        <wetator config="wet.config">
+            <fileset dir=".">
+                <include name="sample.xls"/>
+            </fileset>
+        </wetator>
+    </target>
+
+	<target name="run_wetator_with_classpath">
         <wetator config="wet.config">
             <fileset dir=".">
                 <include name="ant_task_test.xls"/>
@@ -20,7 +32,15 @@
                 <fileset dir="." includes="test.jar"/>
             </classpath>
         </wetator>
-
     </target>
 
+    <target name="run_wetator_with_classpath_ref">
+        <wetator config="wet.config">
+            <fileset dir=".">
+                <include name="ant_task_test.xls"/>
+            </fileset>
+
+            <classpath refid="wetator.classpath" />
+        </wetator>
+    </target>
 </project>
