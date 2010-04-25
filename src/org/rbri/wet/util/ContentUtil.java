@@ -16,22 +16,16 @@
 
 package org.rbri.wet.util;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.util.PDFTextStripper;
-import org.apache.poi.hssf.model.Workbook;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.rbri.wet.core.Parameter;
-import org.rbri.wet.core.WetCommand;
 import org.rbri.wet.exception.AssertionFailedException;
-import org.rbri.wet.exception.WetException;
 
 /**
  * ContentUtil contains some useful helpers for content conversion handling.
@@ -54,7 +48,9 @@ public class ContentUtil {
         try {
             PDFTextStripper tmpStripper = new PDFTextStripper();
             String tmpContentAsText = tmpStripper.getText(tmpDocument);
-            return tmpContentAsText;
+            NormalizedContent tmpResult = new NormalizedContent();
+            tmpResult.append(tmpContentAsText);
+            return tmpResult.toString().trim();
         } finally {
             tmpDocument.close();
         }
@@ -72,23 +68,23 @@ public class ContentUtil {
         NormalizedContent tmpResult = new NormalizedContent();
         HSSFWorkbook tmpWorkbook = new HSSFWorkbook(anInputStream);
 
-        int tmpSheetNo = -1;
         for (int i = 0; i < tmpWorkbook.getNumberOfSheets(); i++) {
             HSSFSheet tmpSheet = tmpWorkbook.getSheetAt(i);
             tmpResult.append("[");
             tmpResult.append(tmpSheet.getSheetName());
-            tmpResult.append("]");
-            tmpResult.append("\r\n");
+            tmpResult.append("] ");
 
-            for (int tmpRowNum = 0; tmpRowNum < tmpSheet.getLastRowNum(); tmpRowNum++) {
+            for (int tmpRowNum = 0; tmpRowNum <= tmpSheet.getLastRowNum(); tmpRowNum++) {
                 HSSFRow tmpRow = tmpSheet.getRow(tmpRowNum);
                 if (null != tmpRow) {
-                    for (short tmpCellNum = 0; tmpCellNum < tmpRow.getLastCellNum(); tmpCellNum++) {
+                    for (int tmpCellNum = 0; tmpCellNum <= tmpRow.getLastCellNum(); tmpCellNum++) {
                         String tmpCellValue = readCellContentAsString(tmpRow, tmpCellNum);
                         if (null != tmpCellValue) {
                             tmpResult.append(tmpCellValue);
+                            tmpResult.append(" ");
                         }
                     }
+                    tmpResult.append(" ");
                 }
             }
         }
@@ -96,7 +92,8 @@ public class ContentUtil {
         return tmpResult.toString().trim();
     }
 
-    public static String readCellContentAsString(HSSFRow aRow, short aColumnsNo) {
+
+    public static String readCellContentAsString(HSSFRow aRow, int aColumnsNo) {
         String tmpResult = null;
         HSSFCell tmpCell;
         int tmpCellType;
@@ -115,9 +112,9 @@ public class ContentUtil {
         case HSSFCell.CELL_TYPE_STRING:
             tmpResult = tmpCell.getRichStringCellValue().getString();
             break;
-        // for convenience support numbers also
         case HSSFCell.CELL_TYPE_NUMERIC:
             tmpResult = "" + tmpCell.getNumericCellValue();
+            break;
 
         // deal with the other possible cases
         case HSSFCell.CELL_TYPE_BOOLEAN:
