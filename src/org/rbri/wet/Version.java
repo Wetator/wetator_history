@@ -25,8 +25,8 @@ package org.rbri.wet;
 public class Version {
 
     public static final String PRODUCT_NAME = "Wetator";
-    public static final String VERSION = "0.9.0";
-    public static final String BUILD = "2010041803";
+    public static final String VERSION = "0.9.1";
+    public static final String BUILD = "2010042506";
 
     public static void main(String[] anArgsArray) {
         System.out.println(getFullProductName());
