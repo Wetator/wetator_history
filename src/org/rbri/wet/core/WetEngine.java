@@ -55,7 +55,6 @@ public final class WetEngine {
     private List<WetCommandSet> commandSets;
     private List<WetScripter> scripter;
     private List<WetEngineProgressListener> progressListener;
-    private ClassLoader classLoader;
 
 
     public WetBackend getWetBackend() {
@@ -204,16 +203,6 @@ public final class WetEngine {
 
     public void setExternalProperties(Map<String, String> anExternalProperties) {
         externalProperties = anExternalProperties;
-    }
-
-
-    public ClassLoader getClassLoader() {
-        return classLoader;
-    }
-
-
-    public void setClassLoader(ClassLoader aClassLoader) {
-        classLoader = aClassLoader;
     }
 
 

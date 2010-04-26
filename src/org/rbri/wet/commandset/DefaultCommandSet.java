@@ -373,13 +373,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
             }
 
             try {
-                ClassLoader tmpClassLoader = aWetContext.getClassLoader();
-                Class tmpClass;
-                if (null == tmpClassLoader) {
-                    tmpClass = ClassUtils.getClass(tmpClassName);
-                } else {
-                    tmpClass = ClassUtils.getClass(tmpClassLoader, tmpClassName);
-                }
+                Class tmpClass = ClassUtils.getClass(tmpClassName);
                 Method tmpMethod = MethodUtils.getMatchingAccessibleMethod(tmpClass, tmpMethodName, tmpParamTypes);
                 if (null == tmpMethod) {
                     tmpMethod = MethodUtils.getMatchingAccessibleMethod(tmpClass, tmpMethodName, new Class[] {String[].class});

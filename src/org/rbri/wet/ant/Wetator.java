@@ -21,6 +21,7 @@ import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Set;
 
+import org.apache.tools.ant.AntClassLoader;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.DirectoryScanner;
 import org.apache.tools.ant.Project;
@@ -73,8 +74,8 @@ public class Wetator extends Task {
             WetEngine tmpWetEngine = new WetEngine();
             if (classpath != null) {
                 // AntClassLoader
-                ClassLoader tmpClassLoader = getProject().createClassLoader(getProject().getCoreLoader(), classpath);
-                tmpWetEngine.setClassLoader(tmpClassLoader);
+                AntClassLoader tmpClassLoader = getProject().createClassLoader(getProject().getCoreLoader(), classpath);
+                tmpClassLoader.setThreadContextLoader();
             }
             tmpWetEngine.setConfigFileName(getConfig());
             tmpWetEngine.setExternalProperties(tmpOurProperties);
