@@ -41,4 +41,5 @@ public interface WetBackend {
     public void openUrl(URL aUrl) throws WetException, AssertionFailedException;
     public String getCurrentTitle() throws AssertionFailedException;
     public String getCurrentContentAsString() throws AssertionFailedException;
+    public void saveCurrentWindowToLog();
 }

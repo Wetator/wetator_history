@@ -135,7 +135,7 @@ public final class HtmlUnitBrowser implements WetBackend {
         // setup our own history management
         WebWindow tmpCurrentWindow = webClient.getCurrentWindow();
         webWindows = new Stack<WebWindow>();
-        webWindowHistory = new HashMap<WebWindow, List<Page>>();
+        // webWindowHistory = new HashMap<WebWindow, List<Page>>();
         webWindowOpened(tmpCurrentWindow);
 
         // setup our listener
@@ -244,7 +244,22 @@ public final class HtmlUnitBrowser implements WetBackend {
     }
 
 
-    public void saveResponseAsCurrent(WebWindow aWebWindow) {
+    public void saveCurrentWindowToLog() {
+        WebWindow tmpCurrentWindow = getCurrentWebWindow();
+
+        if (null != tmpCurrentWindow) {
+            try {
+                Page tmpPage = tmpCurrentWindow.getEnclosedPage();
+                String tmpPageFile = responseStore.storePage(tmpPage);
+                wetEngine.informListenersResponseStored(tmpPageFile);
+            } catch (WetException e) {
+                LOG.fatal("Problem with window handling. Saving page failed!", e);
+            }
+        }
+    }
+
+
+    public void savePageToHistory(WebWindow aWebWindow) {
         if (!webWindows.contains(aWebWindow)) {
             LOG.fatal("Problem with window handling. Saving page for unknown window!");
         }
@@ -255,15 +270,7 @@ public final class HtmlUnitBrowser implements WetBackend {
             // remove the oldest one
             tmpHistoryEntry.remove(0);
         }
-
         tmpHistoryEntry.add(aWebWindow.getEnclosedPage());
-        try {
-            Page tmpPage = aWebWindow.getEnclosedPage();
-            String tmpPageFile = responseStore.storePage(tmpPage);
-            wetEngine.informListenersResponseStored(tmpPageFile);
-        } catch (WetException e) {
-            LOG.fatal("Problem with window handling. Saving page failed!", e);
-        }
     }
 
 
@@ -334,9 +341,8 @@ public final class HtmlUnitBrowser implements WetBackend {
             }
 
             if (tmpIsNew) {
-                htmlUnitBrowser.saveResponseAsCurrent(tmpWebWindow);
+                htmlUnitBrowser.savePageToHistory(tmpWebWindow);
             }
-
         }
 
         public void webWindowOpened(WebWindowEvent anEvent) {

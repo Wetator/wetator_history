@@ -103,6 +103,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
             } catch (MalformedURLException e) {
                 Assert.fail("invalidUrl", new String[] {tmpUrlParam.toString(), e.getMessage()});
             }
+            aWetContext.getWetBackend().saveCurrentWindowToLog();
         }
     }
 
@@ -156,6 +157,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
                 aWetContext.informListenersWarn("firstElementUsed", new String[] {tmpControl.getDescribingText()});
             }
             tmpControl.setValue(tmpValueParam, aWetContext.getFile().getParentFile());
+            aWetContext.getWetBackend().saveCurrentWindowToLog();
         }
     }
 
@@ -177,8 +179,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
 
             Control tmpControl = getRequiredFirstHtmlElementFrom(aWetContext, tmpFoundElements, tmpSearchParam);
             tmpControl.click();
-
-
+            aWetContext.getWetBackend().saveCurrentWindowToLog();
         }
     }
 
@@ -197,6 +198,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
 
             Control tmpControl = getRequiredFirstHtmlElementFrom(aWetContext, tmpFoundElements, tmpSearchParam);
             tmpControl.select();
+            aWetContext.getWetBackend().saveCurrentWindowToLog();
         }
     }
 
@@ -214,6 +216,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
 
             Control tmpControl = getRequiredFirstHtmlElementFrom(aWetContext, tmpFoundElements, tmpSearchParam);
             tmpControl.mouseOver();
+            aWetContext.getWetBackend().saveCurrentWindowToLog();
         }
     }
 
