@@ -69,6 +69,9 @@ public class ContentTypeUtil {
         case PDF:
             tmpResult = "pdf";
             break;
+        case XLS:
+            tmpResult = "xls";
+            break;
         default:
             tmpResult = "bin";
             break;
