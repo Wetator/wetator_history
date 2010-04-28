@@ -367,7 +367,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
             }
 
             Object[] tmpParams = new String[tmpMethodParameters.size()];
-            Class[] tmpParamTypes = new Class[tmpMethodParameters.size()];
+            Class<String>[] tmpParamTypes = new Class[tmpMethodParameters.size()];
             int i = 0;
             for (SecretString tmpSecret : tmpMethodParameters) {
                 tmpParams[i] = tmpSecret.toString();
@@ -376,7 +376,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
             }
 
             try {
-                Class tmpClass = ClassUtils.getClass(tmpClassName);
+                Class<?> tmpClass = ClassUtils.getClass(tmpClassName);
                 Method tmpMethod = MethodUtils.getMatchingAccessibleMethod(tmpClass, tmpMethodName, tmpParamTypes);
                 if (null == tmpMethod) {
                     tmpMethod = MethodUtils.getMatchingAccessibleMethod(tmpClass, tmpMethodName, new Class[] {String[].class});
