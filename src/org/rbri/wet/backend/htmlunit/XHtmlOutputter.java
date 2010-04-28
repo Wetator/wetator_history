@@ -251,6 +251,7 @@ public final class XHtmlOutputter {
             }
 
             boolean tmpIsHtmlImage = tmpHtmlElement instanceof HtmlImage;
+            boolean tmpIsHtmlPasswordInput = tmpHtmlElement instanceof HtmlPasswordInput;
 
             Iterable<DomAttr> tmpAttributeEntries = tmpHtmlElement.getAttributesMap().values();
             for (DomAttr tmpAttribute : tmpAttributeEntries) {
@@ -276,6 +277,12 @@ public final class XHtmlOutputter {
                         if (null != tmpStoredFileName) {
                             tmpAttributeValue = tmpStoredFileName;
                         }
+                    }
+                }
+
+                if (tmpIsHtmlPasswordInput && ("value".equals(tmpAttributeName))) {
+                    if (!StringUtils.isEmpty(tmpAttributeValue)) {
+                        tmpAttributeValue = "*******";
                     }
                 }
 
