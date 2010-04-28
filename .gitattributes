@@ -91,6 +91,7 @@ test/excel/modules/module.xls -text
 test/excel/modules/module_with_parameters.xls -text
 test/excel/mouse_over.xls -text
 test/excel/mouse_over_after.xls -text
+test/excel/normalize_command.xls -text
 test/excel/onfocus_onblur.xls -text
 test/excel/onkey.xls -text
 test/excel/open_url.xls -text

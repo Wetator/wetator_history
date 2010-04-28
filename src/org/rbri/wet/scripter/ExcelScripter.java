@@ -33,6 +33,7 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.rbri.wet.core.Parameter;
 import org.rbri.wet.core.WetCommand;
 import org.rbri.wet.exception.WetException;
+import org.rbri.wet.util.NormalizedContent;
 
 
 /**
@@ -130,6 +131,7 @@ public final class ExcelScripter implements WetScripter {
                 tmpCommentFlag = StringUtils.isNotEmpty(tmpCommentString);
 
                 tmpCommandName = readCellContentAsString(tmpRow, COMMAND_NAME_COLUMN_NO);
+                tmpCommandName = new NormalizedContent(tmpCommandName).toString().trim();
 
                 // empty command means comment
                 if (tmpCommentFlag && StringUtils.isEmpty(tmpCommandName)) {

@@ -31,6 +31,11 @@ public final class NormalizedContent {
         content = new StringBuilder();
     }
 
+    public NormalizedContent(String aString) {
+        this();
+        append(aString);
+    }
+
     public void append(final String aString) {
         if (null == aString) {
             return;
