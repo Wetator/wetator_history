@@ -37,6 +37,8 @@ import com.gargoylesoftware.htmlunit.html.HtmlFileInput;
 import com.gargoylesoftware.htmlunit.html.HtmlForm;
 import com.gargoylesoftware.htmlunit.html.HtmlHead;
 import com.gargoylesoftware.htmlunit.html.HtmlHiddenInput;
+import com.gargoylesoftware.htmlunit.html.HtmlImage;
+import com.gargoylesoftware.htmlunit.html.HtmlImageInput;
 import com.gargoylesoftware.htmlunit.html.HtmlInput;
 import com.gargoylesoftware.htmlunit.html.HtmlLegend;
 import com.gargoylesoftware.htmlunit.html.HtmlListItem;
@@ -203,6 +205,8 @@ public class DomNodeText {
                 appendDomText((DomText) aDomNode);
             } else if (aDomNode instanceof HtmlBreak) {
                 text.append(" ");
+            } else if (aDomNode instanceof HtmlImage) {
+                appendHtmlImage((HtmlImage) aDomNode);
             } else if (aDomNode instanceof HtmlSelect) {
                 appendHtmlSelect((HtmlSelect) aDomNode);
             } else if (aDomNode instanceof HtmlOptionGroup) {
@@ -213,6 +217,8 @@ public class DomNodeText {
                 appendHtmlCheckBoxInput((HtmlCheckBoxInput) aDomNode);
             } else if (aDomNode instanceof HtmlRadioButtonInput) {
                 appendHtmlRadioButtonInput((HtmlRadioButtonInput) aDomNode);
+            } else if (aDomNode instanceof HtmlImageInput) {
+                appendHtmlImageInput((HtmlImageInput) aDomNode);
             } else if (aDomNode instanceof HtmlInput) {
                 appendHtmlInput((HtmlInput) aDomNode);
             } else if (aDomNode instanceof HtmlOrderedList) {
@@ -252,8 +258,16 @@ public class DomNodeText {
         text.append(aDomText.getData());
     }
 
+    private void appendHtmlImageInput(final HtmlImageInput aHtmlImageInput) {
+        text.append(aHtmlImageInput.getAltAttribute());
+    }
+
     private void appendHtmlInput(final HtmlInput aHtmlInput) {
         text.append(aHtmlInput.getValueAttribute());
+    }
+
+    private void appendHtmlImage(final HtmlImage aHtmlImage) {
+        text.append(aHtmlImage.getAltAttribute());
     }
 
     private void appendHtmlLegend(final HtmlLegend aHtmlLegend) {
