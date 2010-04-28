@@ -81,7 +81,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
         public void execute(WetContext aWetContext, WetCommand aWetCommand) throws WetException, AssertionFailedException  {
 
             SecretString tmpUrlParam = aWetCommand.getRequiredFirstParameterValue(aWetContext);
-            aWetCommand.warnUnusedSecondParameter(aWetContext);
+            aWetCommand.assertNoUnusedSecondParameter(aWetContext);
 
             try {
                 // create the complete URL
@@ -166,7 +166,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
         public void execute(WetContext aWetContext, WetCommand aWetCommand) throws WetException, AssertionFailedException {
 
             List<SecretString> tmpSearchParam = aWetCommand.getRequiredFirstParameterValues(aWetContext);
-            aWetCommand.warnUnusedSecondParameter(aWetContext);
+            aWetCommand.assertNoUnusedSecondParameter(aWetContext);
 
             WetBackend tmpBackend = getWetBackend(aWetContext);
             ControlFinder tmpControlFinder = tmpBackend.getControlFinder();
@@ -188,7 +188,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
         public void execute(WetContext aWetContext, WetCommand aWetCommand) throws WetException, AssertionFailedException {
 
             List<SecretString> tmpSearchParam = aWetCommand.getRequiredFirstParameterValues(aWetContext);
-            aWetCommand.warnUnusedSecondParameter(aWetContext);
+            aWetCommand.assertNoUnusedSecondParameter(aWetContext);
 
             WetBackend tmpBackend = getWetBackend(aWetContext);
             ControlFinder tmpControlFinder = tmpBackend.getControlFinder();
@@ -207,7 +207,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
         public void execute(WetContext aWetContext, WetCommand aWetCommand) throws WetException, AssertionFailedException {
 
             List<SecretString> tmpSearchParam = aWetCommand.getRequiredFirstParameterValues(aWetContext);
-            aWetCommand.warnUnusedSecondParameter(aWetContext);
+            aWetCommand.assertNoUnusedSecondParameter(aWetContext);
 
             WetBackend tmpBackend = getWetBackend(aWetContext);
             ControlFinder tmpControlFinder = tmpBackend.getControlFinder();
@@ -226,7 +226,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
         public void execute(WetContext aWetContext, WetCommand aWetCommand) throws WetException, AssertionFailedException {
 
             List<SecretString> tmpExpected = aWetCommand.getRequiredFirstParameterValues(aWetContext);
-            aWetCommand.warnUnusedSecondParameter(aWetContext);
+            aWetCommand.assertNoUnusedSecondParameter(aWetContext);
 
             WetBackend tmpBackend = getWetBackend(aWetContext);
             String tmpCurrentTitle = tmpBackend.getCurrentTitle();
@@ -240,7 +240,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
         public void execute(WetContext aWetContext, WetCommand aWetCommand) throws WetException, AssertionFailedException {
 
             List<SecretString> tmpExpected = aWetCommand.getRequiredFirstParameterValues(aWetContext);
-            aWetCommand.warnUnusedSecondParameter(aWetContext);
+            aWetCommand.assertNoUnusedSecondParameter(aWetContext);
 
             WetBackend tmpBackend = getWetBackend(aWetContext);
             String tmpCurrentContent = tmpBackend.getCurrentContentAsString();
@@ -254,7 +254,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
         public void execute(WetContext aWetContext, WetCommand aWetCommand) throws WetException, AssertionFailedException {
 
             List<SecretString> tmpSearchParam = aWetCommand.getRequiredFirstParameterValues(aWetContext);
-            aWetCommand.warnUnusedSecondParameter(aWetContext);
+            aWetCommand.assertNoUnusedSecondParameter(aWetContext);
 
             WetBackend tmpBackend = getWetBackend(aWetContext);
             ControlFinder tmpControlFinder = tmpBackend.getControlFinder();
@@ -304,7 +304,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
     public final class CommandAssertSelected implements WetCommandImplementation {
         public void execute(WetContext aWetContext, WetCommand aWetCommand) throws WetException, AssertionFailedException {
             List<SecretString> tmpSearchParam = aWetCommand.getRequiredFirstParameterValues(aWetContext);
-            aWetCommand.warnUnusedSecondParameter(aWetContext);
+            aWetCommand.assertNoUnusedSecondParameter(aWetContext);
 
             WetBackend tmpBackend = getWetBackend(aWetContext);
             ControlFinder tmpControlFinder = tmpBackend.getControlFinder();
@@ -323,7 +323,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
     public final class CommandAssertDeselected implements WetCommandImplementation {
         public void execute(WetContext aWetContext, WetCommand aWetCommand) throws WetException, AssertionFailedException {
             List<SecretString> tmpSearchParam = aWetCommand.getRequiredFirstParameterValues(aWetContext);
-            aWetCommand.warnUnusedSecondParameter(aWetContext);
+            aWetCommand.assertNoUnusedSecondParameter(aWetContext);
 
             WetBackend tmpBackend = getWetBackend(aWetContext);
             ControlFinder tmpControlFinder = tmpBackend.getControlFinder();

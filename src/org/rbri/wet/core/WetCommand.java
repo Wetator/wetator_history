@@ -240,10 +240,10 @@ public final class WetCommand {
     }
 
 
-    public void warnUnusedSecondParameter(WetContext aWetContext) throws AssertionFailedException, WetException {
+    public void assertNoUnusedSecondParameter(WetContext aWetContext) throws AssertionFailedException {
         Parameter tmpParameter = getSecondParameter();
         if (null != tmpParameter) {
-            aWetContext.informListenersWarn("unusedParameter", new String[] {getName(), tmpParameter.getValue(aWetContext).toString(), "2"});
+            Assert.fail("unusedParameter", new String[] {getName(), tmpParameter.getValue(aWetContext).toString(), "2"});
         }
     }
 }

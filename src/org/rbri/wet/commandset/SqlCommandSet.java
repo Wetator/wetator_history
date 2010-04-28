@@ -80,7 +80,7 @@ public final class SqlCommandSet extends AbstractCommandSet {
         public void execute(WetContext aWetContext, WetCommand aWetCommand) throws WetException, AssertionFailedException  {
 
             SecretString tmpSqlParam = aWetCommand.getRequiredFirstParameterValue(aWetContext);
-            aWetCommand.warnUnusedSecondParameter(aWetContext);
+            aWetCommand.assertNoUnusedSecondParameter(aWetContext);
 
             tmpSqlParam.trim();
 
@@ -157,7 +157,7 @@ public final class SqlCommandSet extends AbstractCommandSet {
         public void execute(WetContext aWetContext, WetCommand aWetCommand) throws WetException, AssertionFailedException {
 
             SecretString tmpSqlParam = aWetCommand.getRequiredFirstParameterValue(aWetContext);
-            aWetCommand.warnUnusedSecondParameter(aWetContext);
+            aWetCommand.assertNoUnusedSecondParameter(aWetContext);
 
             tmpSqlParam.trim();
 
