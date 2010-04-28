@@ -135,7 +135,7 @@ public final class HtmlUnitBrowser implements WetBackend {
         // setup our own history management
         WebWindow tmpCurrentWindow = webClient.getCurrentWindow();
         webWindows = new Stack<WebWindow>();
-        // webWindowHistory = new HashMap<WebWindow, List<Page>>();
+        webWindowHistory = new HashMap<WebWindow, List<Page>>();
         webWindowOpened(tmpCurrentWindow);
 
         // setup our listener
