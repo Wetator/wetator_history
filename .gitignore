@@ -1,0 +1,13 @@
+lib/ant
+lib/automaton
+lib/hsql
+lib/htmlunit
+lib/junit
+lib/log4j
+lib/pdfbox
+lib/poi
+lib_src/commons-lang-2.5-src.zip
+lib_src/htmlunit-2.7-src.zip
+lib_src/junit-4.8.2-src.jar
+lib_src/pdfbox-1.1.0-src.zip
+lib_src/poi-src-3.6-20091214.zip
