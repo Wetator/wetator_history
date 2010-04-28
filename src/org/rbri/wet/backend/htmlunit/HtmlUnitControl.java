@@ -193,41 +193,38 @@ public final class HtmlUnitControl implements Control {
             if (tmpHtmlElement instanceof HtmlFileInput) {
                 HtmlFileInput tmpHtmlFileInput = (HtmlFileInput) tmpHtmlElement;
 
-                String tmpValue = aValue.getValue(); 
+                String tmpValue = aValue.getValue();
                 if (tmpValue.length() == 0) {
                     tmpHtmlFileInput.setValueAttribute("");
                 } else {
                     // now we have to determine the correct absolute file path
                     File tmpFile = new File(tmpValue);
-    
+
                     if (!tmpFile.isAbsolute() && (null != aDirectory)) {
                         // relative paths are relative to the location of the calling file
                         tmpFile = new File(aDirectory, aValue.getValue());
                     }
-    
+
                     // validate file
                     if (!tmpFile.exists()) {
                         Assert.fail("fileNotFound", new String[] {tmpFile.getAbsolutePath()});
                     }
-    
+
                     tmpHtmlFileInput.setValueAttribute(tmpFile.getAbsolutePath());
                 }
             } else if (tmpHtmlElement instanceof HtmlInput) {
                 HtmlInput tmpHtmlInput = (HtmlInput) tmpHtmlElement;
-                String tmpValue = aValue.getValue(); 
-                if (tmpValue.length() == 0) {
-                    // no chance to press the entf key
-                    tmpHtmlInput.setValueAttribute("");
-                } else {
+                String tmpValue = aValue.getValue();
+
+                tmpHtmlInput.setValueAttribute("");
+                if (tmpValue.length() > 0) {
                     tmpHtmlInput.type(tmpValue);
                 }
             } else if (tmpHtmlElement instanceof HtmlTextArea) {
                 HtmlTextArea tmpHtmlTextArea = (HtmlTextArea) tmpHtmlElement;
-                String tmpValue = aValue.getValue(); 
-                if (tmpValue.length() == 0) {
-                    // no chance to press the entf key
-                    tmpHtmlTextArea.setText("");
-                } else {
+                String tmpValue = aValue.getValue();
+                tmpHtmlTextArea.setText("");
+                if (tmpValue.length() > 0) {
                     tmpHtmlTextArea.type(aValue.getValue());
                 }
             } else {
