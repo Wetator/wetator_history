@@ -84,6 +84,8 @@ test/excel/exec_java.xls -text
 test/excel/flow_simple_login.xls -text
 test/excel/flow_simple_search.xls -text
 test/excel/header.xls -text
+test/excel/jquery.xls -text
+test/excel/jquery/modal_confirmation.xls -text
 test/excel/js_error.xls -text
 test/excel/js_libs.xls -text
 test/excel/misc_files/test_file.txt -text
