@@ -127,14 +127,16 @@ public class WetContext {
             if (aWetCommand.isComment()) {
                 LOG.debug("Comment: '" + aWetCommand.toPrintableString(this) + "'");
             } else {
-                determineAndExecuteCommandImpl(aWetCommand);
+                try {
+                    determineAndExecuteCommandImpl(aWetCommand);
+                    engine.informListenersContextExecuteCommandSuccess();
+                } catch (AssertionFailedException e) {
+                    engine.informListenersContextExecuteCommandFailure(e);
+                } catch (WetException e) {
+                    engine.informListenersContextExecuteCommandError(e);
+                    throw e;
+                }
             }
-            engine.informListenersContextExecuteCommandSuccess();
-        } catch (AssertionFailedException e) {
-            engine.informListenersContextExecuteCommandFailure(e);
-        } catch (WetException e) {
-            engine.informListenersContextExecuteCommandError(e);
-            throw e;
         } finally {
             engine.informListenersContextExecuteCommandEnd();
         }
