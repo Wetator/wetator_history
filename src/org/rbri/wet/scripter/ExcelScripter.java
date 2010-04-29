@@ -48,6 +48,7 @@ public final class ExcelScripter implements WetScripter {
     private static final int COMMAND_NAME_COLUMN_NO = 1;
     private static final int FIRST_PARAM_COLUMN_NO = 2;
     private static final int SECOND_PARAM_COLUMN_NO = 3;
+    private static final int THIRD_PARAM_COLUMN_NO = 4;
 
     private File file;
     private HSSFWorkbook workbook;
@@ -149,6 +150,11 @@ public final class ExcelScripter implements WetScripter {
                     tmpParameter = readCellContentAsParameter(tmpRow, SECOND_PARAM_COLUMN_NO);
                     if (null != tmpParameter) {
                         tmpCommand.setSecondParameter(tmpParameter);
+                    }
+
+                    tmpParameter = readCellContentAsParameter(tmpRow, THIRD_PARAM_COLUMN_NO);
+                    if (null != tmpParameter) {
+                        tmpCommand.setThirdParameter(tmpParameter);
                     }
 
                     tmpCommand.setLineNo(tmpLine + 1);
