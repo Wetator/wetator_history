@@ -53,31 +53,30 @@ public final class ResponseStore {
     private File outputDir;
     private boolean overwrite;
     private WebClient webClient;
-    
+
     private File storeDir;
 
-    
+
     private long getUniqueId() {
         return ++COUNTER;
     }
-    
-    
+
+
     /**
      * Constructor
      */
-    public ResponseStore(File anOutputDir, boolean anOverwriteFlag, WebClient aWebClient) {
+    public ResponseStore(File anOutputDir, boolean anOverwriteFlag) {
         super();
         outputDir = anOutputDir;
         overwrite = anOverwriteFlag;
-        webClient = aWebClient;
-        
+
         initOutputDir();
     }
 
-    
+
     /**
      * This method has to be called before any page is logged, because it creates the logdir.
-     * 
+     *
      * @param aStarttime The starttime is used to name the directory for the responses.
      */
     public void initOutputDir() {
@@ -103,15 +102,17 @@ public final class ResponseStore {
 
     /**
      * This method writes the page to a file with a unique name.
-     * 
+     *
      * @param aPage the page to save
-     * @throws WetException 
+     * @throws WetException
      */
-    public String storePage(Page aPage) throws WetException {
-        try {
+    public String storePage(WebClient aWebClient, Page aPage) throws WetException {
+    	webClient = aWebClient;
+
+    	try {
             String tmpFileName = "response_" + getUniqueId();
             String tmpSuffix = ContentTypeUtil.getFileSuffix(aPage);
-            
+
             tmpFileName = tmpFileName + "." + tmpSuffix;
             File tmpFile = new File(storeDir, tmpFileName);
 

@@ -89,10 +89,28 @@ public final class HtmlUnitBrowser implements WetBackend {
         System.getProperties().put("apache.commons.httpclient.cookiespec", "COMPATIBILITY");
 
         wetEngine = aWetEngine;
+
+        // response store
+        WetConfiguration tmpConfiguration = wetEngine.getWetConfiguration();
+        responseStore = new ResponseStore(tmpConfiguration.getOutputDir(), true);
+    }
+
+
+    public void stop() {
+    }
+
+
+    public void startNewSession() {
         WetConfiguration tmpConfiguration = wetEngine.getWetConfiguration();
 
         WetBackend.Browser tmpWetBrowser = tmpConfiguration.getBrowser();
         BrowserVersion tmpBrowserVersion = determineBrowserVersionFor(tmpWetBrowser);
+
+        // TODO maybe we have to do more here
+        if (null != webClient) {
+        	webClient.closeAllWindows();
+        }
+
 
         if (StringUtils.isNotEmpty(tmpConfiguration.getProxyHost())) {
             String tmpHost = tmpConfiguration.getProxyHost();
@@ -129,9 +147,6 @@ public final class HtmlUnitBrowser implements WetBackend {
             webClient = new WebClient(tmpBrowserVersion);
         }
 
-        // response store
-        responseStore = new ResponseStore(tmpConfiguration.getOutputDir(), true, webClient);
-
         // setup our own history management
         WebWindow tmpCurrentWindow = webClient.getCurrentWindow();
         webWindows = new Stack<WebWindow>();
@@ -153,7 +168,6 @@ public final class HtmlUnitBrowser implements WetBackend {
             e.printStackTrace();
         }
     }
-
 
     public String getCurrentContentAsString() throws AssertionFailedException {
         Page tmpPage = getCurrentPage();
@@ -250,7 +264,7 @@ public final class HtmlUnitBrowser implements WetBackend {
         if (null != tmpCurrentWindow) {
             try {
                 Page tmpPage = tmpCurrentWindow.getEnclosedPage();
-                String tmpPageFile = responseStore.storePage(tmpPage);
+                String tmpPageFile = responseStore.storePage(webClient, tmpPage);
                 wetEngine.informListenersResponseStored(tmpPageFile);
             } catch (WetException e) {
                 LOG.fatal("Problem with window handling. Saving page failed!", e);
@@ -296,8 +310,13 @@ public final class HtmlUnitBrowser implements WetBackend {
         }
 
         public void webWindowClosed(WebWindowEvent anEvent) {
-            LOG.debug("webWindowClosed: (url '"
-                    + anEvent.getWebWindow().getEnclosedPage().getWebResponse().getRequestSettings().getUrl() + "')");
+        	Page tmpPage = anEvent.getWebWindow().getEnclosedPage();
+        	if (null == tmpPage) {
+                LOG.debug("webWindowClosed: (page null)");
+        	} else {
+	            LOG.debug("webWindowClosed: (url '"
+	                    + anEvent.getWebWindow().getEnclosedPage().getWebResponse().getRequestSettings().getUrl() + "')");
+        	}
             htmlUnitBrowser.webWindowClosed(anEvent.getWebWindow());
         }
 
