@@ -188,7 +188,7 @@ public class HtmlUnitControlFinderGetAllElementsForTextTest extends TestCase {
         WeightedControlList tmpFound = tmpFinder.getAllElementsForText(tmpSearch);
 
         assertEquals(1, tmpFound.getElementsSortedByWeight().size());
-        assertEquals("[HtmlAnchor 'MyText']", tmpFound.getElementsSortedByWeight().get(0).getDescribingText());
+        assertEquals("[HtmlAnchor 'MyText'] weight: 9999 distance: 100000", tmpFound.getElementsSortedByWeight().get(0).toString());
     }
 
 
@@ -205,7 +205,7 @@ public class HtmlUnitControlFinderGetAllElementsForTextTest extends TestCase {
         WeightedControlList tmpFound = tmpFinder.getAllElementsForText(tmpSearch);
 
         assertEquals(2, tmpFound.getElementsSortedByWeight().size());
-        assertEquals("[HtmlAnchor 'MyText']", tmpFound.getElementsSortedByWeight().get(0).getDescribingText());
+        assertEquals("[HtmlAnchor 'MyText'] weight: 9999 distance: 100000", tmpFound.getElementsSortedByWeight().get(0).toString());
     }
 
 
@@ -222,7 +222,7 @@ public class HtmlUnitControlFinderGetAllElementsForTextTest extends TestCase {
         WeightedControlList tmpFound = tmpFinder.getAllElementsForText(tmpSearch);
 
         assertEquals(1, tmpFound.getElementsSortedByWeight().size());
-        assertEquals("[HtmlAnchor 'MyText']", tmpFound.getElementsSortedByWeight().get(0).getDescribingText());
+        assertEquals("[HtmlAnchor 'MyText'] weight: 9999 distance: 100000", tmpFound.getElementsSortedByWeight().get(0).toString());
     }
 
 
@@ -242,7 +242,7 @@ public class HtmlUnitControlFinderGetAllElementsForTextTest extends TestCase {
         WeightedControlList tmpFound = tmpFinder.getAllElementsForText(tmpSearch);
 
         assertEquals(1, tmpFound.getElementsSortedByWeight().size());
-        assertEquals("[HtmlParagraph 'line3']", tmpFound.getElementsSortedByWeight().get(0).getDescribingText());
+        assertEquals("[HtmlParagraph 'line3'] weight: 9999 distance: 100000", tmpFound.getElementsSortedByWeight().get(0).toString());
     }
 
     public void testGetAllControlsForText_ManyParagraphs_MatchInside() throws IOException {
@@ -260,6 +260,6 @@ public class HtmlUnitControlFinderGetAllElementsForTextTest extends TestCase {
         WeightedControlList tmpFound = tmpFinder.getAllElementsForText(tmpSearch);
 
         assertEquals(1, tmpFound.getElementsSortedByWeight().size());
-        assertEquals("[HtmlParagraph 'line3']", tmpFound.getElementsSortedByWeight().get(0).getDescribingText());
+        assertEquals("[HtmlParagraph 'line3'] weight: 9999 distance: 100000", tmpFound.getElementsSortedByWeight().get(0).toString());
     }
 }

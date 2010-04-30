@@ -90,8 +90,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
 
         assertEquals(1, tmpFound.getElementsSortedByWeight().size());
 
-        assertEquals("[HtmlSubmitInput 'ClickMe' (id='myId')]", tmpFound.getElementsSortedByWeight().get(0).getDescribingText());
-        assertEquals(0, tmpFound.getDistanceFor(0));
+        assertEquals("[HtmlSubmitInput 'ClickMe' (id='myId')] weight: 400 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
     }
 
 
@@ -114,8 +113,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
 
         assertEquals(1, tmpFound.getElementsSortedByWeight().size());
 
-        assertEquals("[HtmlSubmitInput 'ClickMeAlso' (id='myId')]", tmpFound.getElementsSortedByWeight().get(0).getDescribingText());
-        assertEquals(0, tmpFound.getDistanceFor(0));
+        assertEquals("[HtmlSubmitInput 'ClickMeAlso' (id='myId')] weight: 400 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
     }
 
 
@@ -135,8 +133,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
 
         assertEquals(1, tmpFound.getElementsSortedByWeight().size());
 
-        assertEquals("[HtmlSubmitInput 'ClickMe' (id='myId')]", tmpFound.getElementsSortedByWeight().get(0).getDescribingText());
-        assertEquals(0, tmpFound.getDistanceFor(0));
+        assertEquals("[HtmlSubmitInput 'ClickMe' (id='myId')] weight: 3000 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
     }
 
 
@@ -158,8 +155,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
 
         assertEquals(1, tmpFound.getElementsSortedByWeight().size());
 
-        assertEquals("[HtmlSubmitInput 'ClickMe' (id='myId')]", tmpFound.getElementsSortedByWeight().get(0).getDescribingText());
-        assertEquals(0, tmpFound.getDistanceFor(0));
+        assertEquals("[HtmlSubmitInput 'ClickMe' (id='myId')] weight: 3000 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
     }
 
 
@@ -199,11 +195,10 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
 
         assertEquals(1, tmpFound.getElementsSortedByWeight().size());
 
-        assertEquals("[HtmlSubmitInput 'ClickMe' (id='myId')]", tmpFound.getElementsSortedByWeight().get(0).getDescribingText());
-        assertEquals(1, tmpFound.getDistanceFor(0));
+        assertEquals("[HtmlSubmitInput 'ClickMe' (id='myId')] weight: 3000 distance: 1", tmpFound.getElementsSortedByWeight().get(0).toString());
     }
 
-    
+
     public void testGetAllClickables_SubmitInputName() throws IOException {
         String tmpHtmlCode = "<html><body>"
             + "<form action='test'>"
@@ -220,8 +215,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
 
         assertEquals(1, tmpFound.getElementsSortedByWeight().size());
 
-        assertEquals("[HtmlSubmitInput 'ClickMe' (id='myId') (name='MyName')]", tmpFound.getElementsSortedByWeight().get(0).getDescribingText());
-        assertEquals(0, tmpFound.getDistanceFor(0));
+        assertEquals("[HtmlSubmitInput 'ClickMe' (id='myId') (name='MyName')] weight: 1000 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
     }
 
 
@@ -243,8 +237,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
 
         assertEquals(1, tmpFound.getElementsSortedByWeight().size());
 
-        assertEquals("[HtmlSubmitInput 'ClickMe' (id='myId') (name='MyName')]", tmpFound.getElementsSortedByWeight().get(0).getDescribingText());
-        assertEquals(0, tmpFound.getDistanceFor(0));
+        assertEquals("[HtmlSubmitInput 'ClickMe' (id='myId') (name='MyName')] weight: 1000 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
     }
 
 
@@ -302,8 +295,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
 
         assertEquals(1, tmpFound.getElementsSortedByWeight().size());
 
-        assertEquals("[HtmlResetInput 'ClickMe' (id='myId')]", tmpFound.getElementsSortedByWeight().get(0).getDescribingText());
-        assertEquals(0, tmpFound.getDistanceFor(0));
+        assertEquals("[HtmlResetInput 'ClickMe' (id='myId')] weight: 400 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
     }
 
 
@@ -326,11 +318,10 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
 
         assertEquals(1, tmpFound.getElementsSortedByWeight().size());
 
-        assertEquals("[HtmlResetInput 'ClickMeAlso' (id='myId')]", tmpFound.getElementsSortedByWeight().get(0).getDescribingText());
-        assertEquals(0, tmpFound.getDistanceFor(0));
+        assertEquals("[HtmlResetInput 'ClickMeAlso' (id='myId')] weight: 400 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
     }
 
-    
+
     public void testGetAllClickables_ResetInputLabel() throws IOException {
         String tmpHtmlCode = "<html><body>"
             + "<form action='test'>"
@@ -347,8 +338,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
 
         assertEquals(1, tmpFound.getElementsSortedByWeight().size());
 
-        assertEquals("[HtmlResetInput 'ClickMe' (id='myId')]", tmpFound.getElementsSortedByWeight().get(0).getDescribingText());
-        assertEquals(0, tmpFound.getDistanceFor(0));
+        assertEquals("[HtmlResetInput 'ClickMe' (id='myId')] weight: 3000 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
     }
 
 
@@ -370,8 +360,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
 
         assertEquals(1, tmpFound.getElementsSortedByWeight().size());
 
-        assertEquals("[HtmlResetInput 'ClickMe' (id='myId')]", tmpFound.getElementsSortedByWeight().get(0).getDescribingText());
-        assertEquals(0, tmpFound.getDistanceFor(0));
+        assertEquals("[HtmlResetInput 'ClickMe' (id='myId')] weight: 3000 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
     }
 
 
@@ -411,11 +400,10 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
 
         assertEquals(1, tmpFound.getElementsSortedByWeight().size());
 
-        assertEquals("[HtmlResetInput 'ClickMe' (id='myId')]", tmpFound.getElementsSortedByWeight().get(0).getDescribingText());
-        assertEquals(1, tmpFound.getDistanceFor(0));
+        assertEquals("[HtmlResetInput 'ClickMe' (id='myId')] weight: 3000 distance: 1", tmpFound.getElementsSortedByWeight().get(0).toString());
     }
 
-    
+
     public void testGetAllClickables_ResetInputName() throws IOException {
         String tmpHtmlCode = "<html><body>"
             + "<form action='test'>"
@@ -432,8 +420,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
 
         assertEquals(1, tmpFound.getElementsSortedByWeight().size());
 
-        assertEquals("[HtmlResetInput 'ClickMe' (id='myId') (name='MyName')]", tmpFound.getElementsSortedByWeight().get(0).getDescribingText());
-        assertEquals(0, tmpFound.getDistanceFor(0));
+        assertEquals("[HtmlResetInput 'ClickMe' (id='myId') (name='MyName')] weight: 1000 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
     }
 
 
@@ -455,8 +442,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
 
         assertEquals(1, tmpFound.getElementsSortedByWeight().size());
 
-        assertEquals("[HtmlResetInput 'ClickMe' (id='myId') (name='MyName')]", tmpFound.getElementsSortedByWeight().get(0).getDescribingText());
-        assertEquals(0, tmpFound.getDistanceFor(0));
+        assertEquals("[HtmlResetInput 'ClickMe' (id='myId') (name='MyName')] weight: 1000 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
     }
 
 
@@ -514,8 +500,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
 
         assertEquals(1, tmpFound.getElementsSortedByWeight().size());
 
-        assertEquals("[HtmlButtonInput 'ClickMe' (id='myId')]", tmpFound.getElementsSortedByWeight().get(0).getDescribingText());
-        assertEquals(0, tmpFound.getDistanceFor(0));
+        assertEquals("[HtmlButtonInput 'ClickMe' (id='myId')] weight: 400 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
     }
 
 
@@ -538,8 +523,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
 
         assertEquals(1, tmpFound.getElementsSortedByWeight().size());
 
-        assertEquals("[HtmlButtonInput 'ClickMeAlso' (id='myId')]", tmpFound.getElementsSortedByWeight().get(0).getDescribingText());
-        assertEquals(0, tmpFound.getDistanceFor(0));
+        assertEquals("[HtmlButtonInput 'ClickMeAlso' (id='myId')] weight: 400 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
     }
 
 
@@ -559,8 +543,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
 
         assertEquals(1, tmpFound.getElementsSortedByWeight().size());
 
-        assertEquals("[HtmlButtonInput 'ClickMe' (id='myId')]", tmpFound.getElementsSortedByWeight().get(0).getDescribingText());
-        assertEquals(0, tmpFound.getDistanceFor(0));
+        assertEquals("[HtmlButtonInput 'ClickMe' (id='myId')] weight: 3000 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
     }
 
 
@@ -582,8 +565,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
 
         assertEquals(1, tmpFound.getElementsSortedByWeight().size());
 
-        assertEquals("[HtmlButtonInput 'ClickMe' (id='myId')]", tmpFound.getElementsSortedByWeight().get(0).getDescribingText());
-        assertEquals(0, tmpFound.getDistanceFor(0));
+        assertEquals("[HtmlButtonInput 'ClickMe' (id='myId')] weight: 3000 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
     }
 
 
@@ -623,11 +605,10 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
 
         assertEquals(1, tmpFound.getElementsSortedByWeight().size());
 
-        assertEquals("[HtmlButtonInput 'ClickMe' (id='myId')]", tmpFound.getElementsSortedByWeight().get(0).getDescribingText());
-        assertEquals(1, tmpFound.getDistanceFor(0));
+        assertEquals("[HtmlButtonInput 'ClickMe' (id='myId')] weight: 3000 distance: 1", tmpFound.getElementsSortedByWeight().get(0).toString());
     }
 
-    
+
     public void testGetAllClickables_ButtonInputName() throws IOException {
         String tmpHtmlCode = "<html><body>"
             + "<form action='test'>"
@@ -644,8 +625,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
 
         assertEquals(1, tmpFound.getElementsSortedByWeight().size());
 
-        assertEquals("[HtmlButtonInput 'ClickMe' (id='myId') (name='MyName')]", tmpFound.getElementsSortedByWeight().get(0).getDescribingText());
-        assertEquals(0, tmpFound.getDistanceFor(0));
+        assertEquals("[HtmlButtonInput 'ClickMe' (id='myId') (name='MyName')] weight: 1000 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
     }
 
 
@@ -667,8 +647,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
 
         assertEquals(1, tmpFound.getElementsSortedByWeight().size());
 
-        assertEquals("[HtmlButtonInput 'ClickMe' (id='myId') (name='MyName')]", tmpFound.getElementsSortedByWeight().get(0).getDescribingText());
-        assertEquals(0, tmpFound.getDistanceFor(0));
+        assertEquals("[HtmlButtonInput 'ClickMe' (id='myId') (name='MyName')] weight: 1000 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
     }
 
 
@@ -726,11 +705,10 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
 
         assertEquals(1, tmpFound.getElementsSortedByWeight().size());
 
-        assertEquals("[HtmlImageInput '' (src='picture.png') (id='myId') (name='MyName')]", tmpFound.getElementsSortedByWeight().get(0).getDescribingText());
-        assertEquals(0, tmpFound.getDistanceFor(0));
+        assertEquals("[HtmlImageInput '' (src='picture.png') (id='myId') (name='MyName')] weight: 400 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
     }
 
-    
+
     public void testGetAllClickables_ImageName() throws IOException {
         String tmpHtmlCode = "<html><body>"
             + "<form action='test'>"
@@ -747,11 +725,10 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
 
         assertEquals(1, tmpFound.getElementsSortedByWeight().size());
 
-        assertEquals("[HtmlImageInput '' (src='picture.png') (id='myId') (name='MyName')]", tmpFound.getElementsSortedByWeight().get(0).getDescribingText());
-        assertEquals(0, tmpFound.getDistanceFor(0));
+        assertEquals("[HtmlImageInput '' (src='picture.png') (id='myId') (name='MyName')] weight: 1000 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
     }
 
-    
+
     public void testGetAllClickables_ImageName_TextBefore() throws IOException {
         String tmpHtmlCode = "<html><body>"
             + "<form action='test'>"
@@ -770,8 +747,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
 
         assertEquals(1, tmpFound.getElementsSortedByWeight().size());
 
-        assertEquals("[HtmlImageInput '' (src='picture.png') (id='myId') (name='MyName')]", tmpFound.getElementsSortedByWeight().get(0).getDescribingText());
-        assertEquals(0, tmpFound.getDistanceFor(0));
+        assertEquals("[HtmlImageInput '' (src='picture.png') (id='myId') (name='MyName')] weight: 1000 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
     }
 
 
@@ -791,11 +767,10 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
 
         assertEquals(1, tmpFound.getElementsSortedByWeight().size());
 
-        assertEquals("[HtmlImageInput '' (src='picture.png') (id='myId') (name='MyName')]", tmpFound.getElementsSortedByWeight().get(0).getDescribingText());
-        assertEquals(0, tmpFound.getDistanceFor(0));
+        assertEquals("[HtmlImageInput '' (src='picture.png') (id='myId') (name='MyName')] weight: 5000 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
     }
 
-    
+
     public void testGetAllClickables_ImageAlt_TextBefore() throws IOException {
         String tmpHtmlCode = "<html><body>"
             + "<form action='test'>"
@@ -814,8 +789,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
 
         assertEquals(1, tmpFound.getElementsSortedByWeight().size());
 
-        assertEquals("[HtmlImageInput '' (src='picture.png') (id='myId') (name='MyName')]", tmpFound.getElementsSortedByWeight().get(0).getDescribingText());
-        assertEquals(0, tmpFound.getDistanceFor(0));
+        assertEquals("[HtmlImageInput '' (src='picture.png') (id='myId') (name='MyName')] weight: 5000 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
     }
 
 
@@ -835,11 +809,10 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
 
         assertEquals(1, tmpFound.getElementsSortedByWeight().size());
 
-        assertEquals("[HtmlImageInput '' (src='picture.png') (id='myId') (name='MyName')]", tmpFound.getElementsSortedByWeight().get(0).getDescribingText());
-        assertEquals(0, tmpFound.getDistanceFor(0));
+        assertEquals("[HtmlImageInput '' (src='picture.png') (id='myId') (name='MyName')] weight: 5000 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
     }
 
-    
+
     public void testGetAllClickables_ImageTitle_TextBefore() throws IOException {
         String tmpHtmlCode = "<html><body>"
             + "<form action='test'>"
@@ -858,8 +831,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
 
         assertEquals(1, tmpFound.getElementsSortedByWeight().size());
 
-        assertEquals("[HtmlImageInput '' (src='picture.png') (id='myId') (name='MyName')]", tmpFound.getElementsSortedByWeight().get(0).getDescribingText());
-        assertEquals(0, tmpFound.getDistanceFor(0));
+        assertEquals("[HtmlImageInput '' (src='picture.png') (id='myId') (name='MyName')] weight: 5000 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
     }
 
 
@@ -879,11 +851,10 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
 
         assertEquals(1, tmpFound.getElementsSortedByWeight().size());
 
-        assertEquals("[HtmlImageInput '' (src='picture.png') (id='myId') (name='MyName')]", tmpFound.getElementsSortedByWeight().get(0).getDescribingText());
-        assertEquals(0, tmpFound.getDistanceFor(0));
+        assertEquals("[HtmlImageInput '' (src='picture.png') (id='myId') (name='MyName')] weight: 5000 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
     }
 
-    
+
     public void testGetAllClickables_ImageFileNameWithPath() throws IOException {
         String tmpHtmlCode = "<html><body>"
             + "<form action='test'>"
@@ -900,11 +871,10 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
 
         assertEquals(1, tmpFound.getElementsSortedByWeight().size());
 
-        assertEquals("[HtmlImageInput '' (src='web/picture.png') (id='myId') (name='MyName')]", tmpFound.getElementsSortedByWeight().get(0).getDescribingText());
-        assertEquals(0, tmpFound.getDistanceFor(0));
+        assertEquals("[HtmlImageInput '' (src='web/picture.png') (id='myId') (name='MyName')] weight: 5000 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
     }
 
-    
+
     public void testGetAllClickables_ImageFileName_TextBefore() throws IOException {
         String tmpHtmlCode = "<html><body>"
             + "<form action='test'>"
@@ -923,8 +893,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
 
         assertEquals(1, tmpFound.getElementsSortedByWeight().size());
 
-        assertEquals("[HtmlImageInput '' (src='picture.png') (id='myId') (name='MyName')]", tmpFound.getElementsSortedByWeight().get(0).getDescribingText());
-        assertEquals(0, tmpFound.getDistanceFor(0));
+        assertEquals("[HtmlImageInput '' (src='picture.png') (id='myId') (name='MyName')] weight: 5000 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
     }
 
 
@@ -946,11 +915,10 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
 
         assertEquals(1, tmpFound.getElementsSortedByWeight().size());
 
-        assertEquals("[HtmlButton 'ButtonWithText' (id='myId') (name='MyName')]", tmpFound.getElementsSortedByWeight().get(0).getDescribingText());
-        assertEquals(0, tmpFound.getDistanceFor(0));
+        assertEquals("[HtmlButton 'ButtonWithText' (id='myId') (name='MyName')] weight: 400 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
     }
 
-    
+
     public void testGetAllClickables_ButtonId_TextBefore() throws IOException {
         String tmpHtmlCode = "<html><body>"
             + "<form action='test'>"
@@ -974,11 +942,10 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
 
         assertEquals(1, tmpFound.getElementsSortedByWeight().size());
 
-        assertEquals("[HtmlButton 'ButtonWithAnotherText' (id='myId') (name='MyName')]", tmpFound.getElementsSortedByWeight().get(0).getDescribingText());
-        assertEquals(0, tmpFound.getDistanceFor(0));
+        assertEquals("[HtmlButton 'ButtonWithAnotherText' (id='myId') (name='MyName')] weight: 400 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
     }
 
-    
+
     public void testGetAllClickables_ButtonLabel() throws IOException {
         String tmpHtmlCode = "<html><body>"
             + "<form action='test'>"
@@ -997,11 +964,10 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
 
         assertEquals(1, tmpFound.getElementsSortedByWeight().size());
 
-        assertEquals("[HtmlButton 'ButtonWithText' (id='myId') (name='MyName')]", tmpFound.getElementsSortedByWeight().get(0).getDescribingText());
-        assertEquals(0, tmpFound.getDistanceFor(0));
+        assertEquals("[HtmlButton 'ButtonWithText' (id='myId') (name='MyName')] weight: 3000 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
     }
 
-    
+
     public void testGetAllClickables_ButtonLabel_TextBefore() throws IOException {
         String tmpHtmlCode = "<html><body>"
             + "<form action='test'>"
@@ -1022,11 +988,10 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
 
         assertEquals(1, tmpFound.getElementsSortedByWeight().size());
 
-        assertEquals("[HtmlButton 'ButtonWithText' (id='myId') (name='MyName')]", tmpFound.getElementsSortedByWeight().get(0).getDescribingText());
-        assertEquals(0, tmpFound.getDistanceFor(0));
+        assertEquals("[HtmlButton 'ButtonWithText' (id='myId') (name='MyName')] weight: 3000 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
     }
 
-    
+
     public void testGetAllClickables_ButtonName() throws IOException {
         String tmpHtmlCode = "<html><body>"
             + "<form action='test'>"
@@ -1045,11 +1010,10 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
 
         assertEquals(1, tmpFound.getElementsSortedByWeight().size());
 
-        assertEquals("[HtmlButton 'ButtonWithText' (id='myId') (name='MyName')]", tmpFound.getElementsSortedByWeight().get(0).getDescribingText());
-        assertEquals(0, tmpFound.getDistanceFor(0));
+        assertEquals("[HtmlButton 'ButtonWithText' (id='myId') (name='MyName')] weight: 1000 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
     }
 
-    
+
     public void testGetAllClickables_ButtonName_TextBefore() throws IOException {
         String tmpHtmlCode = "<html><body>"
             + "<form action='test'>"
@@ -1070,8 +1034,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
 
         assertEquals(1, tmpFound.getElementsSortedByWeight().size());
 
-        assertEquals("[HtmlButton 'ButtonWithText' (id='myId') (name='MyName')]", tmpFound.getElementsSortedByWeight().get(0).getDescribingText());
-        assertEquals(0, tmpFound.getDistanceFor(0));
+        assertEquals("[HtmlButton 'ButtonWithText' (id='myId') (name='MyName')] weight: 1000 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
     }
 
 
@@ -1116,11 +1079,10 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
 
         assertEquals(1, tmpFound.getElementsSortedByWeight().size());
 
-        assertEquals("[HtmlButton 'ButtonWithText' (id='myId') (name='MyName')]", tmpFound.getElementsSortedByWeight().get(0).getDescribingText());
-        assertEquals(3, tmpFound.getDistanceFor(0));
+        assertEquals("[HtmlButton 'ButtonWithText' (id='myId') (name='MyName')] weight: 3000 distance: 3", tmpFound.getElementsSortedByWeight().get(0).toString());
     }
 
-    
+
     public void testGetAllClickables_Button_ImageName() throws IOException {
         String tmpHtmlCode = "<html><body>"
             + "<form action='test'>"
@@ -1139,14 +1101,12 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
 
         assertEquals(2, tmpFound.getElementsSortedByWeight().size());
 
-        assertEquals("[HtmlButton 'image: picture.png' (id='myId') (name='MyName')]", tmpFound.getElementsSortedByWeight().get(0).getDescribingText());
-        assertEquals(0, tmpFound.getDistanceFor(0));
+        assertEquals("[HtmlButton 'image: picture.png' (id='myId') (name='MyName')] weight: 900 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
 
-        assertEquals("[HtmlButton 'image: picture.png' (id='myId') (name='MyName')]", tmpFound.getElementsSortedByWeight().get(0).getDescribingText());
-        assertEquals(0, tmpFound.getDistanceFor(1));
+        assertEquals("[HtmlButton 'image: picture.png' (id='myId') (name='MyName')] weight: 900 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
     }
 
-    
+
     public void testGetAllClickables_Button_ImageAlt() throws IOException {
         String tmpHtmlCode = "<html><body>"
             + "<form action='test'>"
@@ -1165,14 +1125,12 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
 
         assertEquals(2, tmpFound.getElementsSortedByWeight().size());
 
-        assertEquals("[HtmlButton 'image: picture.png' (id='myId') (name='MyName')]", tmpFound.getElementsSortedByWeight().get(0).getDescribingText());
-        assertEquals(0, tmpFound.getDistanceFor(0));
+        assertEquals("[HtmlButton 'image: picture.png' (id='myId') (name='MyName')] weight: 4000 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
 
-        assertEquals("[HtmlImage 'picture.png']", tmpFound.getElementsSortedByWeight().get(1).getDescribingText());
-        assertEquals(0, tmpFound.getDistanceFor(1));
+        assertEquals("[HtmlImage 'picture.png'] weight: 5000 distance: 0", tmpFound.getElementsSortedByWeight().get(1).toString());
     }
 
-    
+
     public void testGetAllClickables_Button_ImageTitle() throws IOException {
         String tmpHtmlCode = "<html><body>"
             + "<form action='test'>"
@@ -1191,14 +1149,12 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
 
         assertEquals(2, tmpFound.getElementsSortedByWeight().size());
 
-        assertEquals("[HtmlButton 'image: picture.png' (id='myId') (name='MyName')]", tmpFound.getElementsSortedByWeight().get(0).getDescribingText());
-        assertEquals(0, tmpFound.getDistanceFor(0));
+        assertEquals("[HtmlButton 'image: picture.png' (id='myId') (name='MyName')] weight: 4000 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
 
-        assertEquals("[HtmlImage 'picture.png']", tmpFound.getElementsSortedByWeight().get(1).getDescribingText());
-        assertEquals(0, tmpFound.getDistanceFor(1));
+        assertEquals("[HtmlImage 'picture.png'] weight: 5000 distance: 0", tmpFound.getElementsSortedByWeight().get(1).toString());
     }
 
-    
+
     public void testGetAllClickables_Button_ImageFileName() throws IOException {
         String tmpHtmlCode = "<html><body>"
             + "<form action='test'>"
@@ -1217,14 +1173,12 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
 
         assertEquals(2, tmpFound.getElementsSortedByWeight().size());
 
-        assertEquals("[HtmlButton 'image: picture.png' (id='myId') (name='MyName')]", tmpFound.getElementsSortedByWeight().get(0).getDescribingText());
-        assertEquals(0, tmpFound.getDistanceFor(0));
+        assertEquals("[HtmlButton 'image: picture.png' (id='myId') (name='MyName')] weight: 4000 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
 
-        assertEquals("[HtmlImage 'picture.png']", tmpFound.getElementsSortedByWeight().get(1).getDescribingText());
-        assertEquals(0, tmpFound.getDistanceFor(1));
+        assertEquals("[HtmlImage 'picture.png'] weight: 5000 distance: 0", tmpFound.getElementsSortedByWeight().get(1).toString());
     }
 
-    
+
     public void testGetAllClickables_Button_ImageFileNameWithPath() throws IOException {
         String tmpHtmlCode = "<html><body>"
             + "<form action='test'>"
@@ -1243,11 +1197,9 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
 
         assertEquals(2, tmpFound.getElementsSortedByWeight().size());
 
-        assertEquals("[HtmlButton 'image: web/picture.png' (id='myId') (name='MyName')]", tmpFound.getElementsSortedByWeight().get(0).getDescribingText());
-        assertEquals(0, tmpFound.getDistanceFor(0));
+        assertEquals("[HtmlButton 'image: web/picture.png' (id='myId') (name='MyName')] weight: 4000 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
 
-        assertEquals("[HtmlImage 'web/picture.png']", tmpFound.getElementsSortedByWeight().get(1).getDescribingText());
-        assertEquals(0, tmpFound.getDistanceFor(1));
+        assertEquals("[HtmlImage 'web/picture.png'] weight: 5000 distance: 0", tmpFound.getElementsSortedByWeight().get(1).toString());
     }
 
 
@@ -1267,11 +1219,10 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
 
         assertEquals(1, tmpFound.getElementsSortedByWeight().size());
 
-        assertEquals("[HtmlAnchor 'TestAnchor' (id='myId')]", tmpFound.getElementsSortedByWeight().get(0).getDescribingText());
-        assertEquals(0, tmpFound.getDistanceFor(0));
+        assertEquals("[HtmlAnchor 'TestAnchor' (id='myId')] weight: 400 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
     }
 
-    
+
     public void testGetAllClickables_AnchorText() throws IOException {
         String tmpHtmlCode = "<html><body>"
             + "<form action='test'>"
@@ -1288,11 +1239,10 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
 
         assertEquals(1, tmpFound.getElementsSortedByWeight().size());
 
-        assertEquals("[HtmlAnchor 'TestAnchor' (id='myId') (name='MyName')]", tmpFound.getElementsSortedByWeight().get(0).getDescribingText());
-        assertEquals(0, tmpFound.getDistanceFor(0));
+        assertEquals("[HtmlAnchor 'TestAnchor' (id='myId') (name='MyName')] weight: 3000 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
     }
 
-    
+
     public void testGetAllClickables_AnchorText_TextBefore() throws IOException {
         String tmpHtmlCode = "<html><body>"
             + "<form action='test'>"
@@ -1309,8 +1259,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
         HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
         WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
-        assertEquals("[HtmlAnchor 'TestAnchor' (id='myId') (name='MyName')]", tmpFound.getElementsSortedByWeight().get(0).getDescribingText());
-        assertEquals(0, tmpFound.getDistanceFor(0));
+        assertEquals("[HtmlAnchor 'TestAnchor' (id='myId') (name='MyName')] weight: 3000 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
     }
 
 
@@ -1330,11 +1279,10 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
 
         assertEquals(1, tmpFound.getElementsSortedByWeight().size());
 
-        assertEquals("[HtmlAnchor 'TestAnchor' (id='myId') (name='MyName')]", tmpFound.getElementsSortedByWeight().get(0).getDescribingText());
-        assertEquals(0, tmpFound.getDistanceFor(0));
+        assertEquals("[HtmlAnchor 'TestAnchor' (id='myId') (name='MyName')] weight: 1000 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
     }
 
-    
+
     public void testGetAllClickables_AnchorName_TextBefore() throws IOException {
         String tmpHtmlCode = "<html><body>"
             + "<form action='test'>"
@@ -1353,8 +1301,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
 
         assertEquals(1, tmpFound.getElementsSortedByWeight().size());
 
-        assertEquals("[HtmlAnchor 'TestAnchor' (id='myId') (name='MyName')]", tmpFound.getElementsSortedByWeight().get(0).getDescribingText());
-        assertEquals(0, tmpFound.getDistanceFor(0));
+        assertEquals("[HtmlAnchor 'TestAnchor' (id='myId') (name='MyName')] weight: 1000 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
     }
 
 
@@ -1376,14 +1323,12 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
 
         assertEquals(2, tmpFound.getElementsSortedByWeight().size());
 
-        assertEquals("[HtmlAnchor 'image: picture.png' (id='myId') (name='MyName')]", tmpFound.getElementsSortedByWeight().get(0).getDescribingText());
-        assertEquals(0, tmpFound.getDistanceFor(0));
+        assertEquals("[HtmlAnchor 'image: picture.png' (id='myId') (name='MyName')] weight: 3000 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
 
-        assertEquals("[HtmlImage 'picture.png' (name='MyImageName')]", tmpFound.getElementsSortedByWeight().get(1).getDescribingText());
-        assertEquals(0, tmpFound.getDistanceFor(1));
+        assertEquals("[HtmlImage 'picture.png' (name='MyImageName')] weight: 5000 distance: 0", tmpFound.getElementsSortedByWeight().get(1).toString());
     }
 
-    
+
     public void testGetAllClickables_AnchorAlt_TextBefore() throws IOException {
         String tmpHtmlCode = "<html><body>"
             + "<form action='test'>"
@@ -1404,11 +1349,9 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
 
         assertEquals(2, tmpFound.getElementsSortedByWeight().size());
 
-        assertEquals("[HtmlAnchor 'image: picture.png' (id='myId') (name='MyName')]", tmpFound.getElementsSortedByWeight().get(0).getDescribingText());
-        assertEquals(0, tmpFound.getDistanceFor(0));
+        assertEquals("[HtmlAnchor 'image: picture.png' (id='myId') (name='MyName')] weight: 3000 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
 
-        assertEquals("[HtmlImage 'picture.png' (name='MyImageName')]", tmpFound.getElementsSortedByWeight().get(1).getDescribingText());
-        assertEquals(0, tmpFound.getDistanceFor(1));
+        assertEquals("[HtmlImage 'picture.png' (name='MyImageName')] weight: 5000 distance: 0", tmpFound.getElementsSortedByWeight().get(1).toString());
     }
 
 
@@ -1430,14 +1373,12 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
 
         assertEquals(2, tmpFound.getElementsSortedByWeight().size());
 
-        assertEquals("[HtmlAnchor 'image: picture.png' (id='myId') (name='MyName')]", tmpFound.getElementsSortedByWeight().get(0).getDescribingText());
-        assertEquals(0, tmpFound.getDistanceFor(0));
+        assertEquals("[HtmlAnchor 'image: picture.png' (id='myId') (name='MyName')] weight: 4000 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
 
-        assertEquals("[HtmlImage 'picture.png' (name='MyImageName')]", tmpFound.getElementsSortedByWeight().get(1).getDescribingText());
-        assertEquals(0, tmpFound.getDistanceFor(1));
+        assertEquals("[HtmlImage 'picture.png' (name='MyImageName')] weight: 5000 distance: 0", tmpFound.getElementsSortedByWeight().get(1).toString());
     }
 
-    
+
     public void testGetAllClickables_Anchor_ImageTitle_TextBefore() throws IOException {
         String tmpHtmlCode = "<html><body>"
             + "<form action='test'>"
@@ -1458,11 +1399,9 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
 
         assertEquals(2, tmpFound.getElementsSortedByWeight().size());
 
-        assertEquals("[HtmlAnchor 'image: picture.png' (id='myId') (name='MyName')]", tmpFound.getElementsSortedByWeight().get(0).getDescribingText());
-        assertEquals(0, tmpFound.getDistanceFor(0));
+        assertEquals("[HtmlAnchor 'image: picture.png' (id='myId') (name='MyName')] weight: 4000 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
 
-        assertEquals("[HtmlImage 'picture.png' (name='MyImageName')]", tmpFound.getElementsSortedByWeight().get(1).getDescribingText());
-        assertEquals(0, tmpFound.getDistanceFor(1));
+        assertEquals("[HtmlImage 'picture.png' (name='MyImageName')] weight: 5000 distance: 0", tmpFound.getElementsSortedByWeight().get(1).toString());
     }
 
 
@@ -1484,14 +1423,12 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
 
         assertEquals(2, tmpFound.getElementsSortedByWeight().size());
 
-        assertEquals("[HtmlAnchor 'image: picture.png' (id='myId') (name='MyName')]", tmpFound.getElementsSortedByWeight().get(0).getDescribingText());
-        assertEquals(0, tmpFound.getDistanceFor(0));
+        assertEquals("[HtmlAnchor 'image: picture.png' (id='myId') (name='MyName')] weight: 4000 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
 
-        assertEquals("[HtmlImage 'picture.png' (name='MyImageName')]", tmpFound.getElementsSortedByWeight().get(1).getDescribingText());
-        assertEquals(0, tmpFound.getDistanceFor(1));
+        assertEquals("[HtmlImage 'picture.png' (name='MyImageName')] weight: 5000 distance: 0", tmpFound.getElementsSortedByWeight().get(1).toString());
     }
 
-    
+
     public void testGetAllClickables_Anchor_ImageFileNameWithPath() throws IOException {
         String tmpHtmlCode = "<html><body>"
             + "<form action='test'>"
@@ -1510,14 +1447,12 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
 
         assertEquals(2, tmpFound.getElementsSortedByWeight().size());
 
-        assertEquals("[HtmlAnchor 'image: web/picture.png' (id='myId') (name='MyName')]", tmpFound.getElementsSortedByWeight().get(0).getDescribingText());
-        assertEquals(0, tmpFound.getDistanceFor(0));
+        assertEquals("[HtmlAnchor 'image: web/picture.png' (id='myId') (name='MyName')] weight: 4000 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
 
-        assertEquals("[HtmlImage 'web/picture.png' (name='MyImageName')]", tmpFound.getElementsSortedByWeight().get(1).getDescribingText());
-        assertEquals(0, tmpFound.getDistanceFor(1));
+        assertEquals("[HtmlImage 'web/picture.png' (name='MyImageName')] weight: 5000 distance: 0", tmpFound.getElementsSortedByWeight().get(1).toString());
     }
 
-    
+
     public void testGetAllClickables_Anchor_ImageFileName_TextBefore() throws IOException {
         String tmpHtmlCode = "<html><body>"
             + "<form action='test'>"
@@ -1538,14 +1473,12 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
 
         assertEquals(2, tmpFound.getElementsSortedByWeight().size());
 
-        assertEquals("[HtmlAnchor 'image: picture.png' (id='myId') (name='MyName')]", tmpFound.getElementsSortedByWeight().get(0).getDescribingText());
-        assertEquals(0, tmpFound.getDistanceFor(0));
+        assertEquals("[HtmlAnchor 'image: picture.png' (id='myId') (name='MyName')] weight: 4000 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
 
-        assertEquals("[HtmlImage 'picture.png' (name='MyImageName')]", tmpFound.getElementsSortedByWeight().get(1).getDescribingText());
-        assertEquals(0, tmpFound.getDistanceFor(1));
+        assertEquals("[HtmlImage 'picture.png' (name='MyImageName')] weight: 5000 distance: 0", tmpFound.getElementsSortedByWeight().get(1).toString());
     }
 
-    
+
     public void testGetAllClickables_Anchor_ImageName() throws IOException {
         String tmpHtmlCode = "<html><body>"
             + "<form action='test'>"
@@ -1564,10 +1497,8 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
 
         assertEquals(2, tmpFound.getElementsSortedByWeight().size());
 
-        assertEquals("[HtmlAnchor 'image: picture.png' (id='myId') (name='MyName')]", tmpFound.getElementsSortedByWeight().get(0).getDescribingText());
-        assertEquals(0, tmpFound.getDistanceFor(0));
+        assertEquals("[HtmlAnchor 'image: picture.png' (id='myId') (name='MyName')] weight: 900 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
 
-        assertEquals("[HtmlImage 'picture.png' (name='MyImageName')]", tmpFound.getElementsSortedByWeight().get(1).getDescribingText());
-        assertEquals(0, tmpFound.getDistanceFor(1));
+        assertEquals("[HtmlImage 'picture.png' (name='MyImageName')] weight: 1000 distance: 0", tmpFound.getElementsSortedByWeight().get(1).toString());
     }
 }

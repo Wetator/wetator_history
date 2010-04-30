@@ -70,7 +70,7 @@ public class HtmlUnitControlFinderGetFirstClickableTextElementTest extends TestC
         WeightedControlList tmpFound = tmpFinder.getFirstClickableTextElement(tmpSearch);
 
         assertEquals(1, tmpFound.getElementsSortedByWeight().size());
-        assertEquals("[HtmlParagraph 'Second line' (id='MyId2')]", tmpFound.getElementsSortedByWeight().get(0).getDescribingText());
+        assertEquals("[HtmlParagraph 'Second line' (id='MyId2')] weight: 400 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
     }
 
 
@@ -107,7 +107,7 @@ public class HtmlUnitControlFinderGetFirstClickableTextElementTest extends TestC
         WeightedControlList tmpFound = tmpFinder.getFirstClickableTextElement(tmpSearch);
 
         assertEquals(1, tmpFound.getElementsSortedByWeight().size());
-        assertEquals("[HtmlParagraph 'First line']", tmpFound.getElementsSortedByWeight().get(0).getDescribingText());
+        assertEquals("[HtmlParagraph 'First line'] weight: 9999 distance: 100000", tmpFound.getElementsSortedByWeight().get(0).toString());
     }
 
 
@@ -125,7 +125,7 @@ public class HtmlUnitControlFinderGetFirstClickableTextElementTest extends TestC
         WeightedControlList tmpFound = tmpFinder.getFirstClickableTextElement(tmpSearch);
 
         assertEquals(1, tmpFound.getElementsSortedByWeight().size());
-        assertEquals("[HtmlParagraph 'First line']", tmpFound.getElementsSortedByWeight().get(0).getDescribingText());
+        assertEquals("[HtmlParagraph 'First line'] weight: 9999 distance: 100000", tmpFound.getElementsSortedByWeight().get(0).toString());
     }
 
 
@@ -146,7 +146,7 @@ public class HtmlUnitControlFinderGetFirstClickableTextElementTest extends TestC
         WeightedControlList tmpFound = tmpFinder.getFirstClickableTextElement(tmpSearch);
 
         assertEquals(1, tmpFound.getElementsSortedByWeight().size());
-        assertEquals("[HtmlParagraph 'Last line']", tmpFound.getElementsSortedByWeight().get(0).getDescribingText());
+        assertEquals("[HtmlParagraph 'Last line'] weight: 9999 distance: 100000", tmpFound.getElementsSortedByWeight().get(0).toString());
     }
 
 
@@ -164,7 +164,7 @@ public class HtmlUnitControlFinderGetFirstClickableTextElementTest extends TestC
         WeightedControlList tmpFound = tmpFinder.getFirstClickableTextElement(tmpSearch);
 
         assertEquals(1, tmpFound.getElementsSortedByWeight().size());
-        assertEquals("[HtmlParagraph 'This text is styled.']", tmpFound.getElementsSortedByWeight().get(0).getDescribingText());
+        assertEquals("[HtmlParagraph 'This text is styled.'] weight: 9999 distance: 100000", tmpFound.getElementsSortedByWeight().get(0).toString());
     }
 
 
@@ -182,7 +182,7 @@ public class HtmlUnitControlFinderGetFirstClickableTextElementTest extends TestC
         WeightedControlList tmpFound = tmpFinder.getFirstClickableTextElement(tmpSearch);
 
         assertEquals(1, tmpFound.getElementsSortedByWeight().size());
-        assertEquals("[HtmlParagraph 'First\r\nline']", tmpFound.getElementsSortedByWeight().get(0).getDescribingText());
+        assertEquals("[HtmlParagraph 'First\r\nline'] weight: 9999 distance: 100000", tmpFound.getElementsSortedByWeight().get(0).toString());
     }
 
 
@@ -209,7 +209,7 @@ public class HtmlUnitControlFinderGetFirstClickableTextElementTest extends TestC
 
         assertEquals(1, tmpFound.getElementsSortedByWeight().size());
         // TODO
-        assertEquals("[Unknown HtmlElement 'class com.gargoylesoftware.htmlunit.html.HtmlTableDataCell']", tmpFound.getElementsSortedByWeight().get(0).getDescribingText());
+        assertEquals("[Unknown HtmlElement 'class com.gargoylesoftware.htmlunit.html.HtmlTableDataCell'] weight: 9999 distance: 100000", tmpFound.getElementsSortedByWeight().get(0).toString());
     }
 
     public void testGetFirstClickableTextElement_TableRow() throws IOException {
@@ -235,7 +235,7 @@ public class HtmlUnitControlFinderGetFirstClickableTextElementTest extends TestC
 
         assertEquals(1, tmpFound.getElementsSortedByWeight().size());
         // TODO
-        assertEquals("[Unknown HtmlElement 'class com.gargoylesoftware.htmlunit.html.HtmlTableRow']", tmpFound.getElementsSortedByWeight().get(0).getDescribingText());
+        assertEquals("[Unknown HtmlElement 'class com.gargoylesoftware.htmlunit.html.HtmlTableRow'] weight: 9999 distance: 100000", tmpFound.getElementsSortedByWeight().get(0).toString());
     }
 
 
@@ -256,6 +256,6 @@ public class HtmlUnitControlFinderGetFirstClickableTextElementTest extends TestC
 
         assertEquals(1, tmpFound.getElementsSortedByWeight().size());
         // TODO
-        assertEquals("[Unknown HtmlElement 'class com.gargoylesoftware.htmlunit.html.HtmlDivision']", tmpFound.getElementsSortedByWeight().get(0).getDescribingText());
+        assertEquals("[Unknown HtmlElement 'class com.gargoylesoftware.htmlunit.html.HtmlDivision'] weight: 9999 distance: 100000", tmpFound.getElementsSortedByWeight().get(0).toString());
     }
 }

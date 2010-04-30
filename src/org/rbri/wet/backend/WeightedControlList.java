@@ -45,16 +45,29 @@ public final class WeightedControlList {
     private static final int WEIGHT_FOUND_BY_LABEL = 2000;
 
     private static final int WEIGHT_FOUND_BY_NAME = 1000;
-    
+
     private static final int WEIGHT_FOUND_BY_INNER_NAME = 900;
 
     private static final int WEIGHT_FOUND_BY_ID = 400;
 
 
-    protected static final class Entry {
+    public static final class Entry {
         protected Control control;
         protected int weigth;
         protected int distance;
+
+        public Control getControl() {
+        	return control;
+        }
+
+        @Override
+        public String toString() {
+        	StringBuilder tmpResult = new StringBuilder();
+        	tmpResult.append(control.getDescribingText());
+        	tmpResult.append(" weight: " + weigth);
+        	tmpResult.append(" distance: " + distance);
+        	return tmpResult.toString();
+        }
     }
 
     protected static final class EntryComperator implements Comparator<Entry> {
@@ -126,7 +139,7 @@ public final class WeightedControlList {
         add(aControl, WEIGHT_FOUND_BY_INNER_IMG_SRC_ATTRIBUTE, 0);
     }
 
-    
+
     public void addFoundByImgAltAttribute(Control aControl, int aDistance) {
         // LOG.debug(Messages.getMessage("log.imageMatchedByAlt", new String[] {aControl.getDescribingText(), aSearch.toString()}));
         add(aControl, WEIGHT_FOUND_BY_IMG_ALT_ATTRIBUTE, aDistance);
@@ -155,25 +168,20 @@ public final class WeightedControlList {
     }
 
 
-    /**
-     * Only for unit tests
-     */
-    public int getDistanceFor(int anIndex) {
+//    /**
+//     * Only for unit tests
+//     */
+//    public int getDistanceFor(int anIndex) {
+//        Collections.sort(entries, new EntryComperator());
+//
+//        Entry tmpEntry = entries.get(anIndex);
+//        return tmpEntry.distance;
+//    }
+//
+
+    public List<Entry> getElementsSortedByWeight() {
         Collections.sort(entries, new EntryComperator());
-
-        Entry tmpEntry = entries.get(anIndex);
-        return tmpEntry.distance;
-    }
-
-
-    public List<Control> getElementsSortedByWeight() {
-        Collections.sort(entries, new EntryComperator());
-        List<Control> tmpResult = new LinkedList<Control>();
-
-        for (Entry tmpEntry : entries) {
-            tmpResult.add(tmpEntry.control);
-        }
-        return Collections.unmodifiableList(tmpResult);
+        return Collections.unmodifiableList(entries);
     }
 
 
