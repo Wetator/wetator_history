@@ -83,6 +83,10 @@ public final class WetEngine {
 
         // setup the command sets
         commandSets = getWetConfiguration().getCommandSets();
+
+        // setup the browser
+        HtmlUnitBrowser tmpBrowser = new HtmlUnitBrowser(this);
+        setWetBackend(tmpBrowser);
     }
 
 
@@ -109,9 +113,8 @@ public final class WetEngine {
                     // TODO
                     LOG.info("Executing tests from file '" + tmpFile.getAbsolutePath() + "'");
 
-                    // new backend for every (root) file
-                    HtmlUnitBrowser tmpBrowser = new HtmlUnitBrowser(this);
-                    setWetBackend(tmpBrowser);
+                    // new session for every (root) file
+                    getWetBackend().startNewSession();
 
                     // setup the context
                     WetContext tmpWetContext = new WetContext(this, tmpFile);
