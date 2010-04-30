@@ -170,6 +170,7 @@ webpages/setup/configuration.html -text
 webpages/setup/download.html -text
 webpages/setup/installation.html -text
 webpages/support.html -text
+webpages/testcases/ajax/jquery/ajax_javascript_test.js -text
 webpages/testcases/ajax/jquery/ajax_options_birds.htms -text
 webpages/testcases/ajax/jquery/ajax_options_fish.htms -text
 webpages/testcases/ajax/jquery/ajax_options_mammals.htms -text

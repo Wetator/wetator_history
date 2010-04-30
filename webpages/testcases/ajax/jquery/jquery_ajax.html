@@ -6,10 +6,34 @@
   <link type="text/css" href="../../../wet.css" rel="stylesheet">
 
   <script type="text/javascript" src="../../js/jquery/jquery-1.2.1.js"></script>
+
+  <script type="text/javascript">
+	  function sethtml(div,content) {
+	      var search = content;
+	      var script;
+
+	      while( script = search.match(/(<script[^>]+javascript[^>]+>\s*(<!--)?)/i))
+	      {
+	        search = search.substr(search.indexOf(RegExp.$1) + RegExp.$1.length);
+
+	        if (!(endscript = search.match(/((-->)?\s*<\/script>)/))) break;
+
+	        block = search.substr(0, search.indexOf(RegExp.$1));
+	        search = search.substring(block.length + RegExp.$1.length);
+
+	        var oScript = document.createElement('script');
+	        oScript.text = block;
+	        document.getElementsByTagName("head").item(0).appendChild(oScript);
+	      }
+
+	      document.getElementById(div).innerHTML=content;
+	  }
+  </script>
+
   <script type="text/javascript">
     $(document).ready(
       function() {
-        $("a").click(
+        $("#startAjaxDemo").click(
           function() {
             $.get( "ajax_test.txt",
               function(text) {
@@ -22,6 +46,14 @@
                   });
               });
           });
+
+        $("#startAjaxJavascriptDemo").click(
+                function() {
+                  $.get( "ajax_javascript_test.js",
+                    function(myJavascript) {
+                      sethtml('jscript',myJavascript);
+                    });
+                });
 
         $("select#animals").change(
           function () {
@@ -45,16 +77,24 @@
   <div class="header">
     <img src="../../../images/wetator.png" alt="Wetator">
   </div>
-  
+
   <h1 class="command_test">Wetator / AJAX with jQuery</h1>
 
   <div style='margin-left:40px; margin-top: 30px;'>
     <h3>Animated text replacement</h3>
 
-    <p id='link'><a style='text-decoration: none;' href="#">Click to start AJAX demo...</a></p>
+    <p id='link'><a id="startAjaxDemo" style='text-decoration: none;' href="#">Click to start AJAX demo...</a></p>
     <p style='padding-top:10px;color: #006600;' id='text'></p>
   </div>
 
+  <div style='margin-left:40px; margin-top: 30px;'>
+    <h3>Load and Execute javascript</h3>
+
+    <p id='link'><a id="startAjaxJavascriptDemo" style='text-decoration: none;' href="#">Click to start AJAX Javascript demo...</a></p>
+    <p style='padding-top:10px;'></p>
+    <div id='jscript'></div>
+    <input type="text" id="result" value="">
+  </div>
 
   <div style='margin-left:40px; margin-top: 30px;'>
     <h3>Dependent select boxes</h3>
