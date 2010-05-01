@@ -95,9 +95,7 @@
                     </tr>
 
 					<tr>
-                        <td colspan="3" class="bold">
-                            Distribution Test Case Level (<xsl:value-of select="$testcase.total"/> test<xsl:if  test="$testcase.total != 1">s</xsl:if> run)
-                        </td>
+                        <td colspan="3" class="bold">Distribution Test Case Level (<xsl:value-of select="$testcase.total"/> test<xsl:if  test="$testcase.total != 1">s</xsl:if> run)</td>
                         <td>
                             <span style="color: #F14F12; font-weight: bold;">
                                 <xsl:value-of select="$testcase.failed"/>
