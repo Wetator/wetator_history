@@ -155,7 +155,7 @@ public final class HtmlUnitBrowser implements WetBackend {
 
         // setup our listener
         webClient.addWebWindowListener(new WebWindowListener(this));
-        webClient.setAlertHandler(new AlertHandler());
+        webClient.setAlertHandler(new AlertHandler(wetEngine));
 
         // set Accept-Language header
         webClient.addRequestHeader("Accept-Language", tmpConfiguration.getAcceptLanaguage());
@@ -241,9 +241,27 @@ public final class HtmlUnitBrowser implements WetBackend {
 
 
     public static final class AlertHandler implements com.gargoylesoftware.htmlunit.AlertHandler {
+        private WetEngine wetEngine;
+
+        public AlertHandler(WetEngine aWetEngine) {
+            wetEngine = aWetEngine;
+        }
+
         public void handleAlert(Page aPage, String aMessage) {
-            // TODO Auto-generated method stub
-            LOG.debug("handleAlert");
+            LOG.debug("handleAlert " + aMessage);
+
+            String tmpMessage = "";
+            if (StringUtils.isNotEmpty(aMessage)) {
+                tmpMessage = aMessage;
+            }
+            String tmpUrl = "";
+            try {
+                tmpUrl = aPage.getWebResponse().getRequestSettings().getUrl().toExternalForm();
+            } catch (NullPointerException e) {
+                // ignore
+            }
+
+            wetEngine.informListenersInfo("javascriptAlert", new String[] {tmpMessage, tmpUrl});
         }
     }
 

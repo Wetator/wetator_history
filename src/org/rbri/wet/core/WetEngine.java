@@ -303,7 +303,7 @@ public final class WetEngine {
     }
 
 
-    protected void informListenersInfo(String aMessageKey, String[] aParameterArray) {
+    public void informListenersInfo(String aMessageKey, String[] aParameterArray) {
         for (WetEngineProgressListener tmpListener : progressListener) {
             tmpListener.info(aMessageKey, aParameterArray);
         }
