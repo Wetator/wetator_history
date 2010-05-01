@@ -30,30 +30,45 @@ import java.util.List;
  */
 public final class WeightedControlList {
 
-    private static final int WEIGHT_FOUND_BY_TEXT = 9999;
+    public enum FoundType {
+        BY_TEXT(9999),
 
-    private static final int WEIGHT_FOUND_BY_IMG_SRC_ATTRIBUTE = 5000;
-    private static final int WEIGHT_FOUND_BY_IMG_ALT_ATTRIBUTE = 5000;
-    private static final int WEIGHT_FOUND_BY_IMG_TITLE_ATTRIBUTE = 5000;
+        BY_IMG_SRC_ATTRIBUTE(5000),
+        BY_IMG_ALT_ATTRIBUTE(5000),
+        BY_IMG_TITLE_ATTRIBUTE(5000),
 
-    private static final int WEIGHT_FOUND_BY_INNER_IMG_SRC_ATTRIBUTE = 4000;
-    private static final int WEIGHT_FOUND_BY_INNER_IMG_ALT_ATTRIBUTE = 4000;
-    private static final int WEIGHT_FOUND_BY_INNER_IMG_TITLE_ATTRIBUTE = 4000;
+        BY_INNER_IMG_SRC_ATTRIBUTE(4000),
+        BY_INNER_IMG_ALT_ATTRIBUTE(4000),
+        BY_INNER_IMG_TITLE_ATTRIBUTE(4000),
 
-    private static final int WEIGHT_FOUND_BY_LABEL_TEXT = 3000;
+        BY_LABEL_TEXT(3000),
 
-    private static final int WEIGHT_FOUND_BY_LABEL = 2000;
+        BY_LABEL(2000),
 
-    private static final int WEIGHT_FOUND_BY_NAME = 1000;
+        BY_NAME(1000),
+        BY_INNER_NAME(900),
 
-    private static final int WEIGHT_FOUND_BY_INNER_NAME = 900;
+        BY_ID(400);
 
-    private static final int WEIGHT_FOUND_BY_ID = 400;
+        private int value;
+
+        private FoundType(int aValue) {
+            value = aValue;
+        }
+
+        public int getValue() {
+            return value;
+        }
+
+        public String toString() {
+            return name();
+        }
+    }
 
 
     public static final class Entry {
         protected Control control;
-        protected int weigth;
+        protected FoundType foundType;
         protected int distance;
 
         public Control getControl() {
@@ -64,7 +79,7 @@ public final class WeightedControlList {
         public String toString() {
         	StringBuilder tmpResult = new StringBuilder();
         	tmpResult.append(control.getDescribingText());
-        	tmpResult.append(" weight: " + weigth);
+        	tmpResult.append(" found by: " + foundType.toString());
         	tmpResult.append(" distance: " + distance);
         	return tmpResult.toString();
         }
@@ -72,7 +87,7 @@ public final class WeightedControlList {
 
     protected static final class EntryComperator implements Comparator<Entry> {
         public int compare(final Entry anEntry1, final Entry anEntry2) {
-            int tmpWeightComp = anEntry1.weigth - anEntry2.weigth;
+            int tmpWeightComp = anEntry1.foundType.getValue() - anEntry2.foundType.getValue();
 
             if (0 == tmpWeightComp) {
                 return anEntry1.distance - anEntry2.distance;
@@ -89,95 +104,84 @@ public final class WeightedControlList {
     }
 
     public void addFoundByLabel(Control aControl, int aDistance) {
-        add(aControl, WEIGHT_FOUND_BY_LABEL, aDistance);
+        add(aControl, FoundType.BY_LABEL, aDistance);
     }
 
 
     public void addFoundByLabelText(Control aControl, int aDistance) {
-        add(aControl, WEIGHT_FOUND_BY_LABEL_TEXT, aDistance);
+        add(aControl, FoundType.BY_LABEL_TEXT, aDistance);
     }
 
 
     public void addFoundByName(Control aControl) {
         // LOG.debug(Messages.getMessage("log.imageMatchedByName", new String[] {aControl.getDescribingText(), aSearch.toString()}));
-        add(aControl, WEIGHT_FOUND_BY_NAME, 0);
+        add(aControl, FoundType.BY_NAME, 0);
     }
 
 
     public void addFoundByInnerName(Control aControl) {
         // LOG.debug(Messages.getMessage("log.imageMatchedByName", new String[] {aControl.getDescribingText(), aSearch.toString()}));
-        add(aControl, WEIGHT_FOUND_BY_INNER_NAME, 0);
+        add(aControl, FoundType.BY_INNER_NAME, 0);
     }
 
 
     public void addFoundById(Control aControl) {
         // LOG.debug(Messages.getMessage("log.imageMatchedById", new String[] {aControl.getDescribingText(), aSearch.toString()}));
-        add(aControl, WEIGHT_FOUND_BY_ID, 0);
+        add(aControl, FoundType.BY_ID, 0);
     }
 
 
     public void addFoundByText(Control aControl, int aDistance) {
         // LOG.debug(Messages.getMessage("log.imageMatchedBySrc", new String[] {aControl.getDescribingText(), aSearch.toString()}));
-        add(aControl, WEIGHT_FOUND_BY_TEXT, aDistance);
+        add(aControl, FoundType.BY_TEXT, aDistance);
     }
 
 
     public void addFoundByInnerImgAltAttribute(Control aControl, int aDistance) {
         // LOG.debug(Messages.getMessage("log.imageMatchedByAlt", new String[] {aControl.getDescribingText(), aSearch.toString()}));
-        add(aControl, WEIGHT_FOUND_BY_INNER_IMG_ALT_ATTRIBUTE, aDistance);
+        add(aControl, FoundType.BY_INNER_IMG_ALT_ATTRIBUTE, aDistance);
     }
 
 
     public void addFoundByInnerImgTitleAttribute(Control aControl, int aDistance) {
         // LOG.debug(Messages.getMessage("log.imageMatchedByTitle", new String[] {aControl.getDescribingText(), aSearch.toString()}));
-        add(aControl, WEIGHT_FOUND_BY_INNER_IMG_TITLE_ATTRIBUTE, aDistance);
+        add(aControl, FoundType.BY_INNER_IMG_TITLE_ATTRIBUTE, aDistance);
     }
 
 
     public void addFoundByInnerImgSrcAttribute(Control aControl) {
         // LOG.debug(Messages.getMessage("log.imageMatchedBySrc", new String[] {aControl.getDescribingText(), aSearch.toString()}));
-        add(aControl, WEIGHT_FOUND_BY_INNER_IMG_SRC_ATTRIBUTE, 0);
+        add(aControl, FoundType.BY_INNER_IMG_SRC_ATTRIBUTE, 0);
     }
 
 
     public void addFoundByImgAltAttribute(Control aControl, int aDistance) {
         // LOG.debug(Messages.getMessage("log.imageMatchedByAlt", new String[] {aControl.getDescribingText(), aSearch.toString()}));
-        add(aControl, WEIGHT_FOUND_BY_IMG_ALT_ATTRIBUTE, aDistance);
+        add(aControl, FoundType.BY_IMG_ALT_ATTRIBUTE, aDistance);
     }
 
 
     public void addFoundByImgTitleAttribute(Control aControl, int aDistance) {
         // LOG.debug(Messages.getMessage("log.imageMatchedByTitle", new String[] {aControl.getDescribingText(), aSearch.toString()}));
-        add(aControl, WEIGHT_FOUND_BY_IMG_TITLE_ATTRIBUTE, aDistance);
+        add(aControl, FoundType.BY_IMG_TITLE_ATTRIBUTE, aDistance);
     }
 
 
     public void addFoundByImgSrcAttribute(Control aControl) {
         // LOG.debug(Messages.getMessage("log.imageMatchedBySrc", new String[] {aControl.getDescribingText(), aSearch.toString()}));
-        add(aControl, WEIGHT_FOUND_BY_IMG_SRC_ATTRIBUTE, 0);
+        add(aControl, FoundType.BY_IMG_SRC_ATTRIBUTE, 0);
     }
 
 
-    private void add(Control aControl, int aWeight, int aDistance) {
+    private void add(Control aControl, FoundType aFoundType, int aDistance) {
         Entry tmpEntry = new Entry();
         tmpEntry.control = aControl;
-        tmpEntry.weigth = aWeight;
+        tmpEntry.foundType = aFoundType;
         tmpEntry.distance = aDistance;
 
         entries.add(tmpEntry);
     }
 
-
-//    /**
-//     * Only for unit tests
-//     */
-//    public int getDistanceFor(int anIndex) {
-//        Collections.sort(entries, new EntryComperator());
-//
-//        Entry tmpEntry = entries.get(anIndex);
-//        return tmpEntry.distance;
-//    }
-//
 
     public List<Entry> getElementsSortedByWeight() {
         Collections.sort(entries, new EntryComperator());

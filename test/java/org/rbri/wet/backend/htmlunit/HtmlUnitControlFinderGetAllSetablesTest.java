@@ -80,7 +80,7 @@ public class HtmlUnitControlFinderGetAllSetablesTest extends TestCase {
         WeightedControlList tmpFound = tmpFinder.getAllSetables(tmpSearch);
 
         assertEquals(1, tmpFound.getElementsSortedByWeight().size());
-        assertEquals("[HtmlTextInput (id='ti') (name='TextInput')] weight: 1000 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
+        assertEquals("[HtmlTextInput (id='ti') (name='TextInput')] found by: BY_NAME distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
     }
 
     public void testGetAllSetables_OneByNameWildcard() throws IOException {
@@ -99,7 +99,7 @@ public class HtmlUnitControlFinderGetAllSetablesTest extends TestCase {
         WeightedControlList tmpFound = tmpFinder.getAllSetables(tmpSearch);
 
         assertEquals(1, tmpFound.getElementsSortedByWeight().size());
-        assertEquals("[HtmlTextInput (id='ti') (name='TextInput')] weight: 1000 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
+        assertEquals("[HtmlTextInput (id='ti') (name='TextInput')] found by: BY_NAME distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
     }
 
     public void testGetAllSetables_OneByNameExact_AndPath() throws IOException {
@@ -122,7 +122,7 @@ public class HtmlUnitControlFinderGetAllSetablesTest extends TestCase {
         WeightedControlList tmpFound = tmpFinder.getAllSetables(tmpSearch);
 
         assertEquals(1, tmpFound.getElementsSortedByWeight().size());
-        assertEquals("[HtmlTextInput (id='id1') (name='TextInput1')] weight: 1000 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
+        assertEquals("[HtmlTextInput (id='id1') (name='TextInput1')] found by: BY_NAME distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
 
         // not found
         tmpSearch = new ArrayList<SecretString>();
@@ -150,7 +150,7 @@ public class HtmlUnitControlFinderGetAllSetablesTest extends TestCase {
         WeightedControlList tmpFound = tmpFinder.getAllSetables(tmpSearch);
 
         assertEquals(1, tmpFound.getElementsSortedByWeight().size());
-        assertEquals("[HtmlTextInput (id='ti') (name='TextInput')] weight: 400 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
+        assertEquals("[HtmlTextInput (id='ti') (name='TextInput')] found by: BY_ID distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
     }
 
     public void testGetAllSetables_OneByIdWildcard() throws IOException {
@@ -169,7 +169,7 @@ public class HtmlUnitControlFinderGetAllSetablesTest extends TestCase {
         WeightedControlList tmpFound = tmpFinder.getAllSetables(tmpSearch);
 
         assertEquals(1, tmpFound.getElementsSortedByWeight().size());
-        assertEquals("[HtmlTextInput (id='ti') (name='TextInput')] weight: 400 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
+        assertEquals("[HtmlTextInput (id='ti') (name='TextInput')] found by: BY_ID distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
     }
 
     public void testGetAllSetables_LabelWrongId() throws IOException {
@@ -208,9 +208,9 @@ public class HtmlUnitControlFinderGetAllSetablesTest extends TestCase {
 
         assertEquals(2, tmpFound.getElementsSortedByWeight().size());
 
-        assertEquals("[HtmlTextInput (id='inputId') (name='TextInput')] weight: 2000 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
+        assertEquals("[HtmlTextInput (id='inputId') (name='TextInput')] found by: BY_LABEL distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
 
-        assertEquals("[HtmlTextInput (id='inputId') (name='TextInput')] weight: 3000 distance: 0", tmpFound.getElementsSortedByWeight().get(1).toString());
+        assertEquals("[HtmlTextInput (id='inputId') (name='TextInput')] found by: BY_LABEL_TEXT distance: 0", tmpFound.getElementsSortedByWeight().get(1).toString());
     }
 
     public void testGetAllSetables_TextInputByLabelChild() throws IOException {
@@ -232,9 +232,9 @@ public class HtmlUnitControlFinderGetAllSetablesTest extends TestCase {
         WeightedControlList tmpFound = tmpFinder.getAllSetables(tmpSearch);
 
         assertEquals(3, tmpFound.getElementsSortedByWeight().size());
-        assertEquals("[HtmlTextInput (id='inputId') (name='TextInput')] weight: 2000 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
-        assertEquals("[HtmlTextInput (id='inputId') (name='TextInput')] weight: 3000 distance: 0", tmpFound.getElementsSortedByWeight().get(1).toString());
-        assertEquals("[HtmlTextInput (id='another') (name='AnotherTextInput')] weight: 9999 distance: 0", tmpFound.getElementsSortedByWeight().get(2).toString());
+        assertEquals("[HtmlTextInput (id='inputId') (name='TextInput')] found by: BY_LABEL distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
+        assertEquals("[HtmlTextInput (id='inputId') (name='TextInput')] found by: BY_LABEL_TEXT distance: 0", tmpFound.getElementsSortedByWeight().get(1).toString());
+        assertEquals("[HtmlTextInput (id='another') (name='AnotherTextInput')] found by: BY_TEXT distance: 0", tmpFound.getElementsSortedByWeight().get(2).toString());
     }
 
     public void testGetAllSetables_PasswordInputByLabel() throws IOException {
@@ -255,9 +255,9 @@ public class HtmlUnitControlFinderGetAllSetablesTest extends TestCase {
 
         assertEquals(2, tmpFound.getElementsSortedByWeight().size());
 
-        assertEquals("[HtmlPasswordInput (id='inputId') (name='PasswordInput')] weight: 2000 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
+        assertEquals("[HtmlPasswordInput (id='inputId') (name='PasswordInput')] found by: BY_LABEL distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
 
-        assertEquals("[HtmlPasswordInput (id='inputId') (name='PasswordInput')] weight: 3000 distance: 0", tmpFound.getElementsSortedByWeight().get(1).toString());
+        assertEquals("[HtmlPasswordInput (id='inputId') (name='PasswordInput')] found by: BY_LABEL_TEXT distance: 0", tmpFound.getElementsSortedByWeight().get(1).toString());
     }
 
     public void testGetAllSetables_PasswordInputByLabelChild() throws IOException {
@@ -279,9 +279,9 @@ public class HtmlUnitControlFinderGetAllSetablesTest extends TestCase {
 
         assertEquals(2, tmpFound.getElementsSortedByWeight().size());
 
-        assertEquals("[HtmlPasswordInput (id='inputId') (name='PasswordInput')] weight: 2000 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
+        assertEquals("[HtmlPasswordInput (id='inputId') (name='PasswordInput')] found by: BY_LABEL distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
 
-        assertEquals("[HtmlPasswordInput (id='inputId') (name='PasswordInput')] weight: 3000 distance: 0", tmpFound.getElementsSortedByWeight().get(1).toString());
+        assertEquals("[HtmlPasswordInput (id='inputId') (name='PasswordInput')] found by: BY_LABEL_TEXT distance: 0", tmpFound.getElementsSortedByWeight().get(1).toString());
     }
 
     public void testGetAllSetables_TextAreaByLabel() throws IOException {
@@ -302,9 +302,9 @@ public class HtmlUnitControlFinderGetAllSetablesTest extends TestCase {
 
         assertEquals(2, tmpFound.getElementsSortedByWeight().size());
 
-        assertEquals("[HtmlTextArea (id='inputId') (name='TextAreaName')] weight: 2000 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
+        assertEquals("[HtmlTextArea (id='inputId') (name='TextAreaName')] found by: BY_LABEL distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
 
-        assertEquals("[HtmlTextArea (id='inputId') (name='TextAreaName')] weight: 3000 distance: 0", tmpFound.getElementsSortedByWeight().get(1).toString());
+        assertEquals("[HtmlTextArea (id='inputId') (name='TextAreaName')] found by: BY_LABEL_TEXT distance: 0", tmpFound.getElementsSortedByWeight().get(1).toString());
     }
 
     public void testGetAllSetables_TextAreaByLabelChild() throws IOException {
@@ -326,9 +326,9 @@ public class HtmlUnitControlFinderGetAllSetablesTest extends TestCase {
 
         assertEquals(2, tmpFound.getElementsSortedByWeight().size());
 
-        assertEquals("[HtmlTextArea (id='inputId') (name='TextAreaName')] weight: 2000 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
+        assertEquals("[HtmlTextArea (id='inputId') (name='TextAreaName')] found by: BY_LABEL distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
 
-        assertEquals("[HtmlTextArea (id='inputId') (name='TextAreaName')] weight: 3000 distance: 0", tmpFound.getElementsSortedByWeight().get(1).toString());
+        assertEquals("[HtmlTextArea (id='inputId') (name='TextAreaName')] found by: BY_LABEL_TEXT distance: 0", tmpFound.getElementsSortedByWeight().get(1).toString());
     }
 
     public void testGetAllSetables_FileInputByLabel() throws IOException {
@@ -349,9 +349,9 @@ public class HtmlUnitControlFinderGetAllSetablesTest extends TestCase {
 
         assertEquals(2, tmpFound.getElementsSortedByWeight().size());
 
-        assertEquals("[HtmlFileInput (id='inputId') (name='FileInput')] weight: 2000 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
+        assertEquals("[HtmlFileInput (id='inputId') (name='FileInput')] found by: BY_LABEL distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
 
-        assertEquals("[HtmlFileInput (id='inputId') (name='FileInput')] weight: 3000 distance: 0", tmpFound.getElementsSortedByWeight().get(1).toString());
+        assertEquals("[HtmlFileInput (id='inputId') (name='FileInput')] found by: BY_LABEL_TEXT distance: 0", tmpFound.getElementsSortedByWeight().get(1).toString());
     }
 
     public void testGetAllSetables_FileInputByLabelChild() throws IOException {
@@ -373,9 +373,9 @@ public class HtmlUnitControlFinderGetAllSetablesTest extends TestCase {
 
         assertEquals(2, tmpFound.getElementsSortedByWeight().size());
 
-        assertEquals("[HtmlFileInput (id='inputId') (name='FileInput')] weight: 2000 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
+        assertEquals("[HtmlFileInput (id='inputId') (name='FileInput')] found by: BY_LABEL distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
 
-        assertEquals("[HtmlFileInput (id='inputId') (name='FileInput')] weight: 3000 distance: 0", tmpFound.getElementsSortedByWeight().get(1).toString());
+        assertEquals("[HtmlFileInput (id='inputId') (name='FileInput')] found by: BY_LABEL_TEXT distance: 0", tmpFound.getElementsSortedByWeight().get(1).toString());
     }
 
     public void testGetAllSetables_OneByLabelExact() throws IOException {
@@ -396,9 +396,9 @@ public class HtmlUnitControlFinderGetAllSetablesTest extends TestCase {
         WeightedControlList tmpFound = tmpFinder.getAllSetables(tmpSearch);
 
         assertEquals(3, tmpFound.getElementsSortedByWeight().size());
-        assertEquals("[HtmlTextInput (id='inputId') (name='TextInput')] weight: 2000 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
-        assertEquals("[HtmlTextInput (id='inputId') (name='TextInput')] weight: 3000 distance: 0", tmpFound.getElementsSortedByWeight().get(1).toString());
-        assertEquals("[HtmlTextInput (id='another') (name='AnotherTextInput')] weight: 9999 distance: 0", tmpFound.getElementsSortedByWeight().get(2).toString());
+        assertEquals("[HtmlTextInput (id='inputId') (name='TextInput')] found by: BY_LABEL distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
+        assertEquals("[HtmlTextInput (id='inputId') (name='TextInput')] found by: BY_LABEL_TEXT distance: 0", tmpFound.getElementsSortedByWeight().get(1).toString());
+        assertEquals("[HtmlTextInput (id='another') (name='AnotherTextInput')] found by: BY_TEXT distance: 0", tmpFound.getElementsSortedByWeight().get(2).toString());
     }
 
     public void testGetAllSetables_OneByLabelWildcard() throws IOException {
@@ -419,9 +419,9 @@ public class HtmlUnitControlFinderGetAllSetablesTest extends TestCase {
         WeightedControlList tmpFound = tmpFinder.getAllSetables(tmpSearch);
 
         assertEquals(3, tmpFound.getElementsSortedByWeight().size());
-        assertEquals("[HtmlTextInput (id='inputId') (name='TextInput')] weight: 2000 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
-        assertEquals("[HtmlTextInput (id='inputId') (name='TextInput')] weight: 3000 distance: 0", tmpFound.getElementsSortedByWeight().get(1).toString());
-        assertEquals("[HtmlTextInput (id='another') (name='AnotherTextInput')] weight: 9999 distance: 0", tmpFound.getElementsSortedByWeight().get(2).toString());
+        assertEquals("[HtmlTextInput (id='inputId') (name='TextInput')] found by: BY_LABEL distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
+        assertEquals("[HtmlTextInput (id='inputId') (name='TextInput')] found by: BY_LABEL_TEXT distance: 0", tmpFound.getElementsSortedByWeight().get(1).toString());
+        assertEquals("[HtmlTextInput (id='another') (name='AnotherTextInput')] found by: BY_TEXT distance: 0", tmpFound.getElementsSortedByWeight().get(2).toString());
     }
 
     public void testGetAllSetables_OneByLabelChildWildcard() throws IOException {
@@ -443,9 +443,9 @@ public class HtmlUnitControlFinderGetAllSetablesTest extends TestCase {
         WeightedControlList tmpFound = tmpFinder.getAllSetables(tmpSearch);
 
         assertEquals(3, tmpFound.getElementsSortedByWeight().size());
-        assertEquals("[HtmlTextInput (id='inputId') (name='TextInput')] weight: 2000 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
-        assertEquals("[HtmlTextInput (id='inputId') (name='TextInput')] weight: 3000 distance: 0", tmpFound.getElementsSortedByWeight().get(1).toString());
-        assertEquals("[HtmlTextInput (id='another') (name='AnotherTextInput')] weight: 9999 distance: 0", tmpFound.getElementsSortedByWeight().get(2).toString());
+        assertEquals("[HtmlTextInput (id='inputId') (name='TextInput')] found by: BY_LABEL distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
+        assertEquals("[HtmlTextInput (id='inputId') (name='TextInput')] found by: BY_LABEL_TEXT distance: 0", tmpFound.getElementsSortedByWeight().get(1).toString());
+        assertEquals("[HtmlTextInput (id='another') (name='AnotherTextInput')] found by: BY_TEXT distance: 0", tmpFound.getElementsSortedByWeight().get(2).toString());
     }
 
     public void testGetAllSetables_OneByLabelTextBeforeExact() throws IOException {
@@ -475,7 +475,7 @@ public class HtmlUnitControlFinderGetAllSetablesTest extends TestCase {
         WeightedControlList tmpFound = tmpFinder.getAllSetables(tmpSearch);
 
         assertEquals(1, tmpFound.getElementsSortedByWeight().size());
-        assertEquals("[HtmlPasswordInput (id='userForm:passwordTxt') (name='userForm:passwordTxt')] weight: 3000 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
+        assertEquals("[HtmlPasswordInput (id='userForm:passwordTxt') (name='userForm:passwordTxt')] found by: BY_LABEL_TEXT distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
     }
 
     public void testGetAllSetables_OneByLabelTextBeforeWildcard() throws IOException {
@@ -505,7 +505,7 @@ public class HtmlUnitControlFinderGetAllSetablesTest extends TestCase {
         WeightedControlList tmpFound = tmpFinder.getAllSetables(tmpSearch);
 
         assertEquals(1, tmpFound.getElementsSortedByWeight().size());
-        assertEquals("[HtmlPasswordInput (id='userForm:passwordTxt') (name='userForm:passwordTxt')] weight: 3000 distance: 4", tmpFound.getElementsSortedByWeight().get(0).toString());
+        assertEquals("[HtmlPasswordInput (id='userForm:passwordTxt') (name='userForm:passwordTxt')] found by: BY_LABEL_TEXT distance: 4", tmpFound.getElementsSortedByWeight().get(0).toString());
     }
 
     public void testGetAllSetables_OneByTextBeforeExact() throws IOException {
@@ -546,9 +546,9 @@ public class HtmlUnitControlFinderGetAllSetablesTest extends TestCase {
         WeightedControlList tmpFound = tmpFinder.getAllSetables(tmpSearch);
 
         assertEquals(3, tmpFound.getElementsSortedByWeight().size());
-        assertEquals("[HtmlTextInput (id='l1Txt2') (name='l1Txt2')] weight: 3000 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
-        assertEquals("[HtmlTextInput (id='l2Txt2') (name='l2Txt2')] weight: 3000 distance: 0", tmpFound.getElementsSortedByWeight().get(1).toString());
-        assertEquals("[HtmlTextInput (id='l2Txt1') (name='l2Txt1')] weight: 9999 distance: 18", tmpFound.getElementsSortedByWeight().get(2).toString());
+        assertEquals("[HtmlTextInput (id='l1Txt2') (name='l1Txt2')] found by: BY_LABEL_TEXT distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
+        assertEquals("[HtmlTextInput (id='l2Txt2') (name='l2Txt2')] found by: BY_LABEL_TEXT distance: 0", tmpFound.getElementsSortedByWeight().get(1).toString());
+        assertEquals("[HtmlTextInput (id='l2Txt1') (name='l2Txt1')] found by: BY_TEXT distance: 18", tmpFound.getElementsSortedByWeight().get(2).toString());
 
         // ----
         tmpSearch = new ArrayList<SecretString>();
@@ -559,8 +559,8 @@ public class HtmlUnitControlFinderGetAllSetablesTest extends TestCase {
         tmpFound = tmpFinder.getAllSetables(tmpSearch);
 
         assertEquals(2, tmpFound.getElementsSortedByWeight().size());
-        assertEquals("[HtmlTextInput (id='l2Txt1') (name='l2Txt1')] weight: 3000 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
-        assertEquals("[HtmlTextInput (id='l2Txt2') (name='l2Txt2')] weight: 9999 distance: 12", tmpFound.getElementsSortedByWeight().get(1).toString());
+        assertEquals("[HtmlTextInput (id='l2Txt1') (name='l2Txt1')] found by: BY_LABEL_TEXT distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
+        assertEquals("[HtmlTextInput (id='l2Txt2') (name='l2Txt2')] found by: BY_TEXT distance: 12", tmpFound.getElementsSortedByWeight().get(1).toString());
 
         // ----
         tmpSearch = new ArrayList<SecretString>();
@@ -571,7 +571,7 @@ public class HtmlUnitControlFinderGetAllSetablesTest extends TestCase {
         tmpFound = tmpFinder.getAllSetables(tmpSearch);
 
         assertEquals(1, tmpFound.getElementsSortedByWeight().size());
-        assertEquals("[HtmlTextInput (id='l2Txt2') (name='l2Txt2')] weight: 3000 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
+        assertEquals("[HtmlTextInput (id='l2Txt2') (name='l2Txt2')] found by: BY_LABEL_TEXT distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
     }
 
     public void testGetAllSetables_ManyByIdExact() throws IOException {
@@ -593,8 +593,8 @@ public class HtmlUnitControlFinderGetAllSetablesTest extends TestCase {
         WeightedControlList tmpFound = tmpFinder.getAllSetables(tmpSearch);
 
         assertEquals(2, tmpFound.getElementsSortedByWeight().size());
-        assertEquals("[HtmlTextInput (id='ti') (name='TextInput')] weight: 400 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
-        assertEquals("[HtmlTextInput (id='ti') (name='TextInput2')] weight: 400 distance: 0", tmpFound.getElementsSortedByWeight().get(1).toString());
+        assertEquals("[HtmlTextInput (id='ti') (name='TextInput')] found by: BY_ID distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
+        assertEquals("[HtmlTextInput (id='ti') (name='TextInput2')] found by: BY_ID distance: 0", tmpFound.getElementsSortedByWeight().get(1).toString());
     }
 
     public void testGetAllSetables_SameNameAndId() throws IOException {
@@ -613,7 +613,7 @@ public class HtmlUnitControlFinderGetAllSetablesTest extends TestCase {
         WeightedControlList tmpFound = tmpFinder.getAllSetables(tmpSearch);
 
         assertEquals(1, tmpFound.getElementsSortedByWeight().size());
-        assertEquals("[HtmlTextInput (id='TextInput') (name='TextInput')] weight: 1000 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
+        assertEquals("[HtmlTextInput (id='TextInput') (name='TextInput')] found by: BY_NAME distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
     }
 
     public void testGetAllSetables_SortByDistance() throws IOException {
@@ -643,7 +643,7 @@ public class HtmlUnitControlFinderGetAllSetablesTest extends TestCase {
         WeightedControlList tmpFound = tmpFinder.getAllSetables(tmpSearch);
 
         assertEquals(2, tmpFound.getElementsSortedByWeight().size());
-        assertEquals("[HtmlPasswordInput (id='userForm:passwordTxt') (name='userForm:passwordTxt')] weight: 3000 distance: 1", tmpFound.getElementsSortedByWeight().get(0).toString());
-        assertEquals("[HtmlTextInput (id='userForm:cwidTxt') (name='userForm:cwidTxt')] weight: 3000 distance: 6", tmpFound.getElementsSortedByWeight().get(1).toString());
+        assertEquals("[HtmlPasswordInput (id='userForm:passwordTxt') (name='userForm:passwordTxt')] found by: BY_LABEL_TEXT distance: 1", tmpFound.getElementsSortedByWeight().get(0).toString());
+        assertEquals("[HtmlTextInput (id='userForm:cwidTxt') (name='userForm:cwidTxt')] found by: BY_LABEL_TEXT distance: 6", tmpFound.getElementsSortedByWeight().get(1).toString());
     }
 }

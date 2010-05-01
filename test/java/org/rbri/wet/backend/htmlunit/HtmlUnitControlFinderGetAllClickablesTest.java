@@ -90,7 +90,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
 
         assertEquals(1, tmpFound.getElementsSortedByWeight().size());
 
-        assertEquals("[HtmlSubmitInput 'ClickMe' (id='myId')] weight: 400 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
+        assertEquals("[HtmlSubmitInput 'ClickMe' (id='myId')] found by: BY_ID distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
     }
 
 
@@ -113,7 +113,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
 
         assertEquals(1, tmpFound.getElementsSortedByWeight().size());
 
-        assertEquals("[HtmlSubmitInput 'ClickMeAlso' (id='myId')] weight: 400 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
+        assertEquals("[HtmlSubmitInput 'ClickMeAlso' (id='myId')] found by: BY_ID distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
     }
 
 
@@ -133,7 +133,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
 
         assertEquals(1, tmpFound.getElementsSortedByWeight().size());
 
-        assertEquals("[HtmlSubmitInput 'ClickMe' (id='myId')] weight: 3000 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
+        assertEquals("[HtmlSubmitInput 'ClickMe' (id='myId')] found by: BY_LABEL_TEXT distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
     }
 
 
@@ -155,7 +155,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
 
         assertEquals(1, tmpFound.getElementsSortedByWeight().size());
 
-        assertEquals("[HtmlSubmitInput 'ClickMe' (id='myId')] weight: 3000 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
+        assertEquals("[HtmlSubmitInput 'ClickMe' (id='myId')] found by: BY_LABEL_TEXT distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
     }
 
 
@@ -195,7 +195,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
 
         assertEquals(1, tmpFound.getElementsSortedByWeight().size());
 
-        assertEquals("[HtmlSubmitInput 'ClickMe' (id='myId')] weight: 3000 distance: 1", tmpFound.getElementsSortedByWeight().get(0).toString());
+        assertEquals("[HtmlSubmitInput 'ClickMe' (id='myId')] found by: BY_LABEL_TEXT distance: 1", tmpFound.getElementsSortedByWeight().get(0).toString());
     }
 
 
@@ -215,7 +215,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
 
         assertEquals(1, tmpFound.getElementsSortedByWeight().size());
 
-        assertEquals("[HtmlSubmitInput 'ClickMe' (id='myId') (name='MyName')] weight: 1000 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
+        assertEquals("[HtmlSubmitInput 'ClickMe' (id='myId') (name='MyName')] found by: BY_NAME distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
     }
 
 
@@ -237,7 +237,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
 
         assertEquals(1, tmpFound.getElementsSortedByWeight().size());
 
-        assertEquals("[HtmlSubmitInput 'ClickMe' (id='myId') (name='MyName')] weight: 1000 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
+        assertEquals("[HtmlSubmitInput 'ClickMe' (id='myId') (name='MyName')] found by: BY_NAME distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
     }
 
 
@@ -295,7 +295,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
 
         assertEquals(1, tmpFound.getElementsSortedByWeight().size());
 
-        assertEquals("[HtmlResetInput 'ClickMe' (id='myId')] weight: 400 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
+        assertEquals("[HtmlResetInput 'ClickMe' (id='myId')] found by: BY_ID distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
     }
 
 
@@ -318,7 +318,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
 
         assertEquals(1, tmpFound.getElementsSortedByWeight().size());
 
-        assertEquals("[HtmlResetInput 'ClickMeAlso' (id='myId')] weight: 400 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
+        assertEquals("[HtmlResetInput 'ClickMeAlso' (id='myId')] found by: BY_ID distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
     }
 
 
@@ -338,7 +338,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
 
         assertEquals(1, tmpFound.getElementsSortedByWeight().size());
 
-        assertEquals("[HtmlResetInput 'ClickMe' (id='myId')] weight: 3000 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
+        assertEquals("[HtmlResetInput 'ClickMe' (id='myId')] found by: BY_LABEL_TEXT distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
     }
 
 
@@ -360,7 +360,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
 
         assertEquals(1, tmpFound.getElementsSortedByWeight().size());
 
-        assertEquals("[HtmlResetInput 'ClickMe' (id='myId')] weight: 3000 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
+        assertEquals("[HtmlResetInput 'ClickMe' (id='myId')] found by: BY_LABEL_TEXT distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
     }
 
 
@@ -400,7 +400,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
 
         assertEquals(1, tmpFound.getElementsSortedByWeight().size());
 
-        assertEquals("[HtmlResetInput 'ClickMe' (id='myId')] weight: 3000 distance: 1", tmpFound.getElementsSortedByWeight().get(0).toString());
+        assertEquals("[HtmlResetInput 'ClickMe' (id='myId')] found by: BY_LABEL_TEXT distance: 1", tmpFound.getElementsSortedByWeight().get(0).toString());
     }
 
 
@@ -420,7 +420,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
 
         assertEquals(1, tmpFound.getElementsSortedByWeight().size());
 
-        assertEquals("[HtmlResetInput 'ClickMe' (id='myId') (name='MyName')] weight: 1000 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
+        assertEquals("[HtmlResetInput 'ClickMe' (id='myId') (name='MyName')] found by: BY_NAME distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
     }
 
 
@@ -442,7 +442,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
 
         assertEquals(1, tmpFound.getElementsSortedByWeight().size());
 
-        assertEquals("[HtmlResetInput 'ClickMe' (id='myId') (name='MyName')] weight: 1000 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
+        assertEquals("[HtmlResetInput 'ClickMe' (id='myId') (name='MyName')] found by: BY_NAME distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
     }
 
 
@@ -500,7 +500,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
 
         assertEquals(1, tmpFound.getElementsSortedByWeight().size());
 
-        assertEquals("[HtmlButtonInput 'ClickMe' (id='myId')] weight: 400 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
+        assertEquals("[HtmlButtonInput 'ClickMe' (id='myId')] found by: BY_ID distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
     }
 
 
@@ -523,7 +523,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
 
         assertEquals(1, tmpFound.getElementsSortedByWeight().size());
 
-        assertEquals("[HtmlButtonInput 'ClickMeAlso' (id='myId')] weight: 400 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
+        assertEquals("[HtmlButtonInput 'ClickMeAlso' (id='myId')] found by: BY_ID distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
     }
 
 
@@ -543,7 +543,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
 
         assertEquals(1, tmpFound.getElementsSortedByWeight().size());
 
-        assertEquals("[HtmlButtonInput 'ClickMe' (id='myId')] weight: 3000 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
+        assertEquals("[HtmlButtonInput 'ClickMe' (id='myId')] found by: BY_LABEL_TEXT distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
     }
 
 
@@ -565,7 +565,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
 
         assertEquals(1, tmpFound.getElementsSortedByWeight().size());
 
-        assertEquals("[HtmlButtonInput 'ClickMe' (id='myId')] weight: 3000 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
+        assertEquals("[HtmlButtonInput 'ClickMe' (id='myId')] found by: BY_LABEL_TEXT distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
     }
 
 
@@ -605,7 +605,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
 
         assertEquals(1, tmpFound.getElementsSortedByWeight().size());
 
-        assertEquals("[HtmlButtonInput 'ClickMe' (id='myId')] weight: 3000 distance: 1", tmpFound.getElementsSortedByWeight().get(0).toString());
+        assertEquals("[HtmlButtonInput 'ClickMe' (id='myId')] found by: BY_LABEL_TEXT distance: 1", tmpFound.getElementsSortedByWeight().get(0).toString());
     }
 
 
@@ -625,7 +625,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
 
         assertEquals(1, tmpFound.getElementsSortedByWeight().size());
 
-        assertEquals("[HtmlButtonInput 'ClickMe' (id='myId') (name='MyName')] weight: 1000 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
+        assertEquals("[HtmlButtonInput 'ClickMe' (id='myId') (name='MyName')] found by: BY_NAME distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
     }
 
 
@@ -647,7 +647,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
 
         assertEquals(1, tmpFound.getElementsSortedByWeight().size());
 
-        assertEquals("[HtmlButtonInput 'ClickMe' (id='myId') (name='MyName')] weight: 1000 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
+        assertEquals("[HtmlButtonInput 'ClickMe' (id='myId') (name='MyName')] found by: BY_NAME distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
     }
 
 
@@ -705,7 +705,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
 
         assertEquals(1, tmpFound.getElementsSortedByWeight().size());
 
-        assertEquals("[HtmlImageInput '' (src='picture.png') (id='myId') (name='MyName')] weight: 400 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
+        assertEquals("[HtmlImageInput '' (src='picture.png') (id='myId') (name='MyName')] found by: BY_ID distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
     }
 
 
@@ -725,7 +725,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
 
         assertEquals(1, tmpFound.getElementsSortedByWeight().size());
 
-        assertEquals("[HtmlImageInput '' (src='picture.png') (id='myId') (name='MyName')] weight: 1000 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
+        assertEquals("[HtmlImageInput '' (src='picture.png') (id='myId') (name='MyName')] found by: BY_NAME distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
     }
 
 
@@ -747,7 +747,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
 
         assertEquals(1, tmpFound.getElementsSortedByWeight().size());
 
-        assertEquals("[HtmlImageInput '' (src='picture.png') (id='myId') (name='MyName')] weight: 1000 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
+        assertEquals("[HtmlImageInput '' (src='picture.png') (id='myId') (name='MyName')] found by: BY_NAME distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
     }
 
 
@@ -767,7 +767,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
 
         assertEquals(1, tmpFound.getElementsSortedByWeight().size());
 
-        assertEquals("[HtmlImageInput '' (src='picture.png') (id='myId') (name='MyName')] weight: 5000 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
+        assertEquals("[HtmlImageInput '' (src='picture.png') (id='myId') (name='MyName')] found by: BY_IMG_ALT_ATTRIBUTE distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
     }
 
 
@@ -789,7 +789,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
 
         assertEquals(1, tmpFound.getElementsSortedByWeight().size());
 
-        assertEquals("[HtmlImageInput '' (src='picture.png') (id='myId') (name='MyName')] weight: 5000 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
+        assertEquals("[HtmlImageInput '' (src='picture.png') (id='myId') (name='MyName')] found by: BY_IMG_ALT_ATTRIBUTE distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
     }
 
 
@@ -809,7 +809,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
 
         assertEquals(1, tmpFound.getElementsSortedByWeight().size());
 
-        assertEquals("[HtmlImageInput '' (src='picture.png') (id='myId') (name='MyName')] weight: 5000 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
+        assertEquals("[HtmlImageInput '' (src='picture.png') (id='myId') (name='MyName')] found by: BY_IMG_TITLE_ATTRIBUTE distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
     }
 
 
@@ -831,7 +831,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
 
         assertEquals(1, tmpFound.getElementsSortedByWeight().size());
 
-        assertEquals("[HtmlImageInput '' (src='picture.png') (id='myId') (name='MyName')] weight: 5000 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
+        assertEquals("[HtmlImageInput '' (src='picture.png') (id='myId') (name='MyName')] found by: BY_IMG_TITLE_ATTRIBUTE distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
     }
 
 
@@ -851,7 +851,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
 
         assertEquals(1, tmpFound.getElementsSortedByWeight().size());
 
-        assertEquals("[HtmlImageInput '' (src='picture.png') (id='myId') (name='MyName')] weight: 5000 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
+        assertEquals("[HtmlImageInput '' (src='picture.png') (id='myId') (name='MyName')] found by: BY_IMG_SRC_ATTRIBUTE distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
     }
 
 
@@ -871,7 +871,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
 
         assertEquals(1, tmpFound.getElementsSortedByWeight().size());
 
-        assertEquals("[HtmlImageInput '' (src='web/picture.png') (id='myId') (name='MyName')] weight: 5000 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
+        assertEquals("[HtmlImageInput '' (src='web/picture.png') (id='myId') (name='MyName')] found by: BY_IMG_SRC_ATTRIBUTE distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
     }
 
 
@@ -893,7 +893,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
 
         assertEquals(1, tmpFound.getElementsSortedByWeight().size());
 
-        assertEquals("[HtmlImageInput '' (src='picture.png') (id='myId') (name='MyName')] weight: 5000 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
+        assertEquals("[HtmlImageInput '' (src='picture.png') (id='myId') (name='MyName')] found by: BY_IMG_SRC_ATTRIBUTE distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
     }
 
 
@@ -915,7 +915,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
 
         assertEquals(1, tmpFound.getElementsSortedByWeight().size());
 
-        assertEquals("[HtmlButton 'ButtonWithText' (id='myId') (name='MyName')] weight: 400 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
+        assertEquals("[HtmlButton 'ButtonWithText' (id='myId') (name='MyName')] found by: BY_ID distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
     }
 
 
@@ -942,7 +942,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
 
         assertEquals(1, tmpFound.getElementsSortedByWeight().size());
 
-        assertEquals("[HtmlButton 'ButtonWithAnotherText' (id='myId') (name='MyName')] weight: 400 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
+        assertEquals("[HtmlButton 'ButtonWithAnotherText' (id='myId') (name='MyName')] found by: BY_ID distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
     }
 
 
@@ -964,7 +964,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
 
         assertEquals(1, tmpFound.getElementsSortedByWeight().size());
 
-        assertEquals("[HtmlButton 'ButtonWithText' (id='myId') (name='MyName')] weight: 3000 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
+        assertEquals("[HtmlButton 'ButtonWithText' (id='myId') (name='MyName')] found by: BY_LABEL_TEXT distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
     }
 
 
@@ -988,7 +988,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
 
         assertEquals(1, tmpFound.getElementsSortedByWeight().size());
 
-        assertEquals("[HtmlButton 'ButtonWithText' (id='myId') (name='MyName')] weight: 3000 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
+        assertEquals("[HtmlButton 'ButtonWithText' (id='myId') (name='MyName')] found by: BY_LABEL_TEXT distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
     }
 
 
@@ -1010,7 +1010,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
 
         assertEquals(1, tmpFound.getElementsSortedByWeight().size());
 
-        assertEquals("[HtmlButton 'ButtonWithText' (id='myId') (name='MyName')] weight: 1000 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
+        assertEquals("[HtmlButton 'ButtonWithText' (id='myId') (name='MyName')] found by: BY_NAME distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
     }
 
 
@@ -1034,7 +1034,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
 
         assertEquals(1, tmpFound.getElementsSortedByWeight().size());
 
-        assertEquals("[HtmlButton 'ButtonWithText' (id='myId') (name='MyName')] weight: 1000 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
+        assertEquals("[HtmlButton 'ButtonWithText' (id='myId') (name='MyName')] found by: BY_NAME distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
     }
 
 
@@ -1079,7 +1079,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
 
         assertEquals(1, tmpFound.getElementsSortedByWeight().size());
 
-        assertEquals("[HtmlButton 'ButtonWithText' (id='myId') (name='MyName')] weight: 3000 distance: 3", tmpFound.getElementsSortedByWeight().get(0).toString());
+        assertEquals("[HtmlButton 'ButtonWithText' (id='myId') (name='MyName')] found by: BY_LABEL_TEXT distance: 3", tmpFound.getElementsSortedByWeight().get(0).toString());
     }
 
 
@@ -1101,9 +1101,9 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
 
         assertEquals(2, tmpFound.getElementsSortedByWeight().size());
 
-        assertEquals("[HtmlButton 'image: picture.png' (id='myId') (name='MyName')] weight: 900 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
+        assertEquals("[HtmlButton 'image: picture.png' (id='myId') (name='MyName')] found by: BY_INNER_NAME distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
 
-        assertEquals("[HtmlButton 'image: picture.png' (id='myId') (name='MyName')] weight: 900 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
+        assertEquals("[HtmlButton 'image: picture.png' (id='myId') (name='MyName')] found by: BY_INNER_NAME distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
     }
 
 
@@ -1125,9 +1125,9 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
 
         assertEquals(2, tmpFound.getElementsSortedByWeight().size());
 
-        assertEquals("[HtmlButton 'image: picture.png' (id='myId') (name='MyName')] weight: 4000 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
+        assertEquals("[HtmlButton 'image: picture.png' (id='myId') (name='MyName')] found by: BY_INNER_IMG_ALT_ATTRIBUTE distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
 
-        assertEquals("[HtmlImage 'picture.png'] weight: 5000 distance: 0", tmpFound.getElementsSortedByWeight().get(1).toString());
+        assertEquals("[HtmlImage 'picture.png'] found by: BY_IMG_ALT_ATTRIBUTE distance: 0", tmpFound.getElementsSortedByWeight().get(1).toString());
     }
 
 
@@ -1149,9 +1149,9 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
 
         assertEquals(2, tmpFound.getElementsSortedByWeight().size());
 
-        assertEquals("[HtmlButton 'image: picture.png' (id='myId') (name='MyName')] weight: 4000 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
+        assertEquals("[HtmlButton 'image: picture.png' (id='myId') (name='MyName')] found by: BY_INNER_IMG_TITLE_ATTRIBUTE distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
 
-        assertEquals("[HtmlImage 'picture.png'] weight: 5000 distance: 0", tmpFound.getElementsSortedByWeight().get(1).toString());
+        assertEquals("[HtmlImage 'picture.png'] found by: BY_IMG_TITLE_ATTRIBUTE distance: 0", tmpFound.getElementsSortedByWeight().get(1).toString());
     }
 
 
@@ -1173,9 +1173,9 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
 
         assertEquals(2, tmpFound.getElementsSortedByWeight().size());
 
-        assertEquals("[HtmlButton 'image: picture.png' (id='myId') (name='MyName')] weight: 4000 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
+        assertEquals("[HtmlButton 'image: picture.png' (id='myId') (name='MyName')] found by: BY_INNER_IMG_SRC_ATTRIBUTE distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
 
-        assertEquals("[HtmlImage 'picture.png'] weight: 5000 distance: 0", tmpFound.getElementsSortedByWeight().get(1).toString());
+        assertEquals("[HtmlImage 'picture.png'] found by: BY_IMG_SRC_ATTRIBUTE distance: 0", tmpFound.getElementsSortedByWeight().get(1).toString());
     }
 
 
@@ -1197,9 +1197,9 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
 
         assertEquals(2, tmpFound.getElementsSortedByWeight().size());
 
-        assertEquals("[HtmlButton 'image: web/picture.png' (id='myId') (name='MyName')] weight: 4000 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
+        assertEquals("[HtmlButton 'image: web/picture.png' (id='myId') (name='MyName')] found by: BY_INNER_IMG_SRC_ATTRIBUTE distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
 
-        assertEquals("[HtmlImage 'web/picture.png'] weight: 5000 distance: 0", tmpFound.getElementsSortedByWeight().get(1).toString());
+        assertEquals("[HtmlImage 'web/picture.png'] found by: BY_IMG_SRC_ATTRIBUTE distance: 0", tmpFound.getElementsSortedByWeight().get(1).toString());
     }
 
 
@@ -1219,7 +1219,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
 
         assertEquals(1, tmpFound.getElementsSortedByWeight().size());
 
-        assertEquals("[HtmlAnchor 'TestAnchor' (id='myId')] weight: 400 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
+        assertEquals("[HtmlAnchor 'TestAnchor' (id='myId')] found by: BY_ID distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
     }
 
 
@@ -1239,7 +1239,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
 
         assertEquals(1, tmpFound.getElementsSortedByWeight().size());
 
-        assertEquals("[HtmlAnchor 'TestAnchor' (id='myId') (name='MyName')] weight: 3000 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
+        assertEquals("[HtmlAnchor 'TestAnchor' (id='myId') (name='MyName')] found by: BY_LABEL_TEXT distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
     }
 
 
@@ -1259,7 +1259,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
         HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
         WeightedControlList tmpFound = tmpFinder.getAllClickables(tmpSearch);
 
-        assertEquals("[HtmlAnchor 'TestAnchor' (id='myId') (name='MyName')] weight: 3000 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
+        assertEquals("[HtmlAnchor 'TestAnchor' (id='myId') (name='MyName')] found by: BY_LABEL_TEXT distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
     }
 
 
@@ -1279,7 +1279,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
 
         assertEquals(1, tmpFound.getElementsSortedByWeight().size());
 
-        assertEquals("[HtmlAnchor 'TestAnchor' (id='myId') (name='MyName')] weight: 1000 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
+        assertEquals("[HtmlAnchor 'TestAnchor' (id='myId') (name='MyName')] found by: BY_NAME distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
     }
 
 
@@ -1301,7 +1301,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
 
         assertEquals(1, tmpFound.getElementsSortedByWeight().size());
 
-        assertEquals("[HtmlAnchor 'TestAnchor' (id='myId') (name='MyName')] weight: 1000 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
+        assertEquals("[HtmlAnchor 'TestAnchor' (id='myId') (name='MyName')] found by: BY_NAME distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
     }
 
 
@@ -1323,9 +1323,9 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
 
         assertEquals(2, tmpFound.getElementsSortedByWeight().size());
 
-        assertEquals("[HtmlAnchor 'image: picture.png' (id='myId') (name='MyName')] weight: 3000 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
+        assertEquals("[HtmlAnchor 'image: picture.png' (id='myId') (name='MyName')] found by: BY_LABEL_TEXT distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
 
-        assertEquals("[HtmlImage 'picture.png' (name='MyImageName')] weight: 5000 distance: 0", tmpFound.getElementsSortedByWeight().get(1).toString());
+        assertEquals("[HtmlImage 'picture.png' (name='MyImageName')] found by: BY_IMG_ALT_ATTRIBUTE distance: 0", tmpFound.getElementsSortedByWeight().get(1).toString());
     }
 
 
@@ -1349,9 +1349,9 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
 
         assertEquals(2, tmpFound.getElementsSortedByWeight().size());
 
-        assertEquals("[HtmlAnchor 'image: picture.png' (id='myId') (name='MyName')] weight: 3000 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
+        assertEquals("[HtmlAnchor 'image: picture.png' (id='myId') (name='MyName')] found by: BY_LABEL_TEXT distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
 
-        assertEquals("[HtmlImage 'picture.png' (name='MyImageName')] weight: 5000 distance: 0", tmpFound.getElementsSortedByWeight().get(1).toString());
+        assertEquals("[HtmlImage 'picture.png' (name='MyImageName')] found by: BY_IMG_ALT_ATTRIBUTE distance: 0", tmpFound.getElementsSortedByWeight().get(1).toString());
     }
 
 
@@ -1373,9 +1373,9 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
 
         assertEquals(2, tmpFound.getElementsSortedByWeight().size());
 
-        assertEquals("[HtmlAnchor 'image: picture.png' (id='myId') (name='MyName')] weight: 4000 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
+        assertEquals("[HtmlAnchor 'image: picture.png' (id='myId') (name='MyName')] found by: BY_INNER_IMG_TITLE_ATTRIBUTE distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
 
-        assertEquals("[HtmlImage 'picture.png' (name='MyImageName')] weight: 5000 distance: 0", tmpFound.getElementsSortedByWeight().get(1).toString());
+        assertEquals("[HtmlImage 'picture.png' (name='MyImageName')] found by: BY_IMG_TITLE_ATTRIBUTE distance: 0", tmpFound.getElementsSortedByWeight().get(1).toString());
     }
 
 
@@ -1399,9 +1399,9 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
 
         assertEquals(2, tmpFound.getElementsSortedByWeight().size());
 
-        assertEquals("[HtmlAnchor 'image: picture.png' (id='myId') (name='MyName')] weight: 4000 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
+        assertEquals("[HtmlAnchor 'image: picture.png' (id='myId') (name='MyName')] found by: BY_INNER_IMG_TITLE_ATTRIBUTE distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
 
-        assertEquals("[HtmlImage 'picture.png' (name='MyImageName')] weight: 5000 distance: 0", tmpFound.getElementsSortedByWeight().get(1).toString());
+        assertEquals("[HtmlImage 'picture.png' (name='MyImageName')] found by: BY_IMG_TITLE_ATTRIBUTE distance: 0", tmpFound.getElementsSortedByWeight().get(1).toString());
     }
 
 
@@ -1423,9 +1423,9 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
 
         assertEquals(2, tmpFound.getElementsSortedByWeight().size());
 
-        assertEquals("[HtmlAnchor 'image: picture.png' (id='myId') (name='MyName')] weight: 4000 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
+        assertEquals("[HtmlAnchor 'image: picture.png' (id='myId') (name='MyName')] found by: BY_INNER_IMG_SRC_ATTRIBUTE distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
 
-        assertEquals("[HtmlImage 'picture.png' (name='MyImageName')] weight: 5000 distance: 0", tmpFound.getElementsSortedByWeight().get(1).toString());
+        assertEquals("[HtmlImage 'picture.png' (name='MyImageName')] found by: BY_IMG_SRC_ATTRIBUTE distance: 0", tmpFound.getElementsSortedByWeight().get(1).toString());
     }
 
 
@@ -1447,9 +1447,9 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
 
         assertEquals(2, tmpFound.getElementsSortedByWeight().size());
 
-        assertEquals("[HtmlAnchor 'image: web/picture.png' (id='myId') (name='MyName')] weight: 4000 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
+        assertEquals("[HtmlAnchor 'image: web/picture.png' (id='myId') (name='MyName')] found by: BY_INNER_IMG_SRC_ATTRIBUTE distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
 
-        assertEquals("[HtmlImage 'web/picture.png' (name='MyImageName')] weight: 5000 distance: 0", tmpFound.getElementsSortedByWeight().get(1).toString());
+        assertEquals("[HtmlImage 'web/picture.png' (name='MyImageName')] found by: BY_IMG_SRC_ATTRIBUTE distance: 0", tmpFound.getElementsSortedByWeight().get(1).toString());
     }
 
 
@@ -1473,9 +1473,9 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
 
         assertEquals(2, tmpFound.getElementsSortedByWeight().size());
 
-        assertEquals("[HtmlAnchor 'image: picture.png' (id='myId') (name='MyName')] weight: 4000 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
+        assertEquals("[HtmlAnchor 'image: picture.png' (id='myId') (name='MyName')] found by: BY_INNER_IMG_SRC_ATTRIBUTE distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
 
-        assertEquals("[HtmlImage 'picture.png' (name='MyImageName')] weight: 5000 distance: 0", tmpFound.getElementsSortedByWeight().get(1).toString());
+        assertEquals("[HtmlImage 'picture.png' (name='MyImageName')] found by: BY_IMG_SRC_ATTRIBUTE distance: 0", tmpFound.getElementsSortedByWeight().get(1).toString());
     }
 
 
@@ -1497,8 +1497,8 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
 
         assertEquals(2, tmpFound.getElementsSortedByWeight().size());
 
-        assertEquals("[HtmlAnchor 'image: picture.png' (id='myId') (name='MyName')] weight: 900 distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
+        assertEquals("[HtmlAnchor 'image: picture.png' (id='myId') (name='MyName')] found by: BY_INNER_NAME distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
 
-        assertEquals("[HtmlImage 'picture.png' (name='MyImageName')] weight: 1000 distance: 0", tmpFound.getElementsSortedByWeight().get(1).toString());
+        assertEquals("[HtmlImage 'picture.png' (name='MyImageName')] found by: BY_NAME distance: 0", tmpFound.getElementsSortedByWeight().get(1).toString());
     }
 }
