@@ -68,11 +68,17 @@
                 <a name="overview"></a>
                 <h1>Overview</h1>
 
-                <xsl:variable name="testcase.total" select="count(/wet/testcase/command[not(@isComment)])"/>
-                <xsl:variable name="testcase.failed" select="count(wet/testcase/command[boolean(descendant-or-self::error)])"/>
+				<xsl:variable name="testcase.total" select="count(/wet/testcase)"/>
+				<xsl:variable name="testcase.failed" select="count(wet/testcase[boolean(descendant-or-self::error)])"/>
 
-                <xsl:variable name="testcase.failedPercent" select="ceiling($testcase.failed * 100 div $testcase.total)"/>
+				<xsl:variable name="testcase.failedPercent" select="ceiling($testcase.failed * 100 div $testcase.total)"/>
                 <xsl:variable name="testcase.okPercent" select="100 - $testcase.failedPercent"/>
+
+                <xsl:variable name="testcase.stepsTotal" select="count(/wet/testcase/command[not(@isComment)])"/>
+                <xsl:variable name="testcase.stepsFailed" select="count(wet/testcase/command[boolean(descendant-or-self::error)])"/>
+
+                <xsl:variable name="testcase.stepsFailedPercent" select="ceiling($testcase.stepsFailed * 100 div $testcase.stepsTotal)"/>
+                <xsl:variable name="testcase.stepsOkPercent" select="100 - $testcase.stepsFailedPercent"/>
 
                 <table cellpadding="4" cellspacing="0" class="smallBorder" border="0">
                     <tr>
@@ -88,8 +94,8 @@
                         </th>
                     </tr>
 
-                    <tr>
-                        <td colspan="3" class="bold">Distribution</td>
+					<tr>
+                        <td colspan="3" class="bold">Distribution Test Case Level (<xsl:value-of select="$testcase.total"/> tests run)</td>
 
                         <td>
                             <span style="color: #F14F12; font-weight: bold;">
@@ -116,7 +122,7 @@
                                             <xsl:value-of select="'#F14F12'"/>
                                         </xsl:attribute>
                                         <xsl:attribute name="title">
-                                            <xsl:value-of select="'Failed steps'"/>
+                                            <xsl:value-of select="'Failed test cases'"/>
                                         </xsl:attribute>
                                         <xsl:value-of select="$testcase.failedPercent"/>%
                                     </td>
@@ -130,9 +136,62 @@
                                             <xsl:value-of select="'lightgreen'"/>
                                         </xsl:attribute>
                                         <xsl:attribute name="title">
-                                            <xsl:value-of select="'Successful steps'"/>
+                                            <xsl:value-of select="'Successful test cases'"/>
                                         </xsl:attribute>
                                         <xsl:value-of select="$testcase.okPercent"/>%
+                                    </td>
+                                </xsl:if>
+                                <td></td>
+                            </tr>
+                            </table>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="3" class="bold">Distribution TestStep Level (<xsl:value-of select="$testcase.stepsTotal"/> steps in total)</td>
+
+                        <td>
+                            <span style="color: #F14F12; font-weight: bold;">
+                                <xsl:value-of select="$testcase.stepsFailed"/>
+                            </span>
+                        </td>
+                        <td>
+                            <span style="color: green; font-weight: bold;">
+                                <xsl:value-of select="$testcase.stepsTotal - $testcase.stepsFailed"/>
+                            </span>
+                        </td>
+                        <td>
+                        </td>
+
+                        <td>
+                            <table cellpadding="0" cellspacing="0" width="100%">
+                            <tr>
+                                <xsl:if test="$testcase.stepsFailedPercent > 0">
+                                    <td class="smallBorder"  style="text-align: center;">
+                                        <xsl:attribute name="width">
+                                            <xsl:value-of select="$testcase.stepsFailedPercent"/>%
+                                        </xsl:attribute>
+                                        <xsl:attribute name="bgcolor">
+                                            <xsl:value-of select="'#F14F12'"/>
+                                        </xsl:attribute>
+                                        <xsl:attribute name="title">
+                                            <xsl:value-of select="'Failed steps'"/>
+                                        </xsl:attribute>
+                                        <xsl:value-of select="$testcase.stepsFailedPercent"/>%
+                                    </td>
+                                </xsl:if>
+                                <xsl:if test="$testcase.stepsFailedPercent &lt; 100">
+                                    <td class="smallBorder" style="text-align: center;">
+                                        <xsl:attribute name="width">
+                                            <xsl:value-of select="$testcase.stepsOkPercent"/>%
+                                        </xsl:attribute>
+                                        <xsl:attribute name="bgcolor">
+                                            <xsl:value-of select="'lightgreen'"/>
+                                        </xsl:attribute>
+                                        <xsl:attribute name="title">
+                                            <xsl:value-of select="'Successful steps'"/>
+                                        </xsl:attribute>
+                                        <xsl:value-of select="$testcase.stepsOkPercent"/>%
                                     </td>
                                 </xsl:if>
                                 <td></td>
