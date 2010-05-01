@@ -95,8 +95,9 @@
                     </tr>
 
 					<tr>
-                        <td colspan="3" class="bold">Distribution Test Case Level (<xsl:value-of select="$testcase.total"/> tests run)</td>
-
+                        <td colspan="3" class="bold">
+                            Distribution Test Case Level (<xsl:value-of select="$testcase.total"/> test<xsl:if  test="$testcase.total != 1">s</xsl:if> run)
+                        </td>
                         <td>
                             <span style="color: #F14F12; font-weight: bold;">
                                 <xsl:value-of select="$testcase.failed"/>
@@ -148,7 +149,7 @@
                     </tr>
 
                     <tr>
-                        <td colspan="3" class="bold">Distribution TestStep Level (<xsl:value-of select="$testcase.stepsTotal"/> steps in total)</td>
+                        <td colspan="3" class="bold">Distribution TestStep Level (<xsl:value-of select="$testcase.stepsTotal"/> step<xsl:if  test="$testcase.stepsTotal != 1">s</xsl:if> in total)</td>
 
                         <td>
                             <span style="color: #F14F12; font-weight: bold;">
