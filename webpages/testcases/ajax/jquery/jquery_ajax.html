@@ -8,26 +8,32 @@
   <script type="text/javascript" src="../../js/jquery/jquery-1.2.1.js"></script>
 
   <script type="text/javascript">
-	  function sethtml(div,content) {
-	      var search = content;
-	      var script;
+      function sethtml(div,content) {
+          var search = content;
+          var script;
 
-	      while( script = search.match(/(<script[^>]+javascript[^>]+>\s*(<!--)?)/i))
-	      {
-	        search = search.substr(search.indexOf(RegExp.$1) + RegExp.$1.length);
+          while( script = search.match(/(<script[^>]+javascript[^>]+>\s*(<!--)?)/i))
+          {
+            search = search.substr(search.indexOf(RegExp.$1) + RegExp.$1.length);
 
-	        if (!(endscript = search.match(/((-->)?\s*<\/script>)/))) break;
+            if (!(endscript = search.match(/((-->)?\s*<\/script>)/))) break;
 
-	        block = search.substr(0, search.indexOf(RegExp.$1));
-	        search = search.substring(block.length + RegExp.$1.length);
+            block = search.substr(0, search.indexOf(RegExp.$1));
+            search = search.substring(block.length + RegExp.$1.length);
 
-	        var oScript = document.createElement('script');
-	        oScript.text = block;
-	        document.getElementsByTagName("head").item(0).appendChild(oScript);
-	      }
+            var oScript = document.createElement('script');
+            oScript.text = block;
+            document.getElementsByTagName("head").item(0).appendChild(oScript);
+          }
 
-	      document.getElementById(div).innerHTML=content;
-	  }
+          document.getElementById(div).innerHTML=content;
+      }
+
+      function setjs(div,content) {
+          var oScript = document.createElement('script');
+          oScript.text = content;
+          document.getElementsByTagName("head").item(0).appendChild(oScript);
+      }
   </script>
 
   <script type="text/javascript">
@@ -52,6 +58,14 @@
                   $.get( "ajax_javascript_test.js",
                     function(myJavascript) {
                       sethtml('jscript',myJavascript);
+                    });
+                });
+
+        $("#startAjaxPlainJavascriptDemo").click(
+                function() {
+                  $.get( "ajax_plain_javascript_test.js",
+                    function(myJavascript) {
+                      setjs('plainjscript',myJavascript);
                     });
                 });
 
@@ -88,15 +102,27 @@
   </div>
 
   <div style='margin-left:40px; margin-top: 30px;'>
+
     <h3>Load and Execute javascript</h3>
 
     <p id='link'><a id="startAjaxJavascriptDemo" style='text-decoration: none;' href="#">Click to start AJAX Javascript demo...</a></p>
     <p style='padding-top:10px;'></p>
     <div id='jscript'></div>
-    <input type="text" id="result" value="">
+    <input type="text" id="jsresult" value="">
   </div>
 
   <div style='margin-left:40px; margin-top: 30px;'>
+
+    <h3>Load and Execute javascript</h3>
+
+    <p id='link'><a id="startAjaxPlainJavascriptDemo" style='text-decoration: none;' href="#">Click to start AJAX Plain Javascript demo...</a></p>
+    <p style='padding-top:10px;'></p>
+    <div id='plainjscript'></div>
+    <input type="text" id="plainjsresult" value="">
+  </div>
+
+  <div style='margin-left:40px; margin-top: 30px;'>
+
     <h3>Dependent select boxes</h3>
 
     <table border='0'>

@@ -1,1 +1,1 @@
-<script type="text/javascript">document.getElementById('result').value='Javascript Executed'</script>
+<script type="text/javascript">document.getElementById('jsresult').value='Javascript Executed'</script>
