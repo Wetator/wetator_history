@@ -327,13 +327,7 @@ public class HtmlUnitControlFinder implements ControlFinder {
                     for (HtmlElement tmpChildElement : tmpAllchildElements) {
                         if (tmpChildElement instanceof HtmlImage) {
                             HtmlImage tmpImage = (HtmlImage) tmpChildElement;
-
-                            // does image alt-text match?
-                            tmpDistance = tmpSearchPattern.noOfSurroundingCharsIn(tmpImage.getAltAttribute());
-                            if ((tmpDistance > -1) && (tmpPathSearchPattern.noOfMatchingCharsIn(tmpTextBefore) > -1)) {
-                                tmpFoundElements.addFoundByInnerImgAltAttribute(new HtmlUnitControl(tmpAnchor), tmpDistance);
-                                break;
-                            }
+                            // check for the image alt tag is not neede, alt text is part of the anchor text
 
                             // does image title-text match?
                             tmpDistance = tmpSearchPattern.noOfSurroundingCharsIn(tmpImage.getAttribute("title"));
