@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:fn="http://www.w3.org/2005/xpath-functions" version="1.0">
     <xsl:output method="html" encoding="UTF-8" doctype-public="-//Wf3C//DTD HTML 4.01 Transitional//EN" omit-xml-declaration="yes"/>
 
     <xsl:variable name="noOfStepsInLine" select="150"/>
@@ -95,7 +95,7 @@
                     </tr>
 
 					<tr>
-                        <td colspan="3" class="bold">Distribution Test Case Level (<xsl:value-of select="$testcase.total"/> test<xsl:if  test="$testcase.total != 1">s</xsl:if> run)</td>
+                        <td colspan="3" class="bold">Distribution TestCase Level (<xsl:value-of select="$testcase.total"/> test<xsl:if  test="$testcase.total != 1">s</xsl:if> run)</td>
                         <td>
                             <span style="color: #F14F12; font-weight: bold;">
                                 <xsl:value-of select="$testcase.failed"/>
@@ -365,6 +365,18 @@
                                 <xsl:attribute name="width">
                                     <xsl:text>4px</xsl:text>
                                 </xsl:attribute>
+                                <xsl:choose>
+	                                <xsl:when test="error">
+                               			<xsl:attribute name="title">
+   	                                		<xsl:value-of select="./error/message"/>
+   	                                	</xsl:attribute>
+	                                </xsl:when>
+	                                <xsl:when test="$noOfErrors != 0">
+	                                	<xsl:attribute name="title">
+   	                                		<xsl:value-of select="normalize-space(./testcase/command/error)"/>
+   	                        	        </xsl:attribute>
+	                                </xsl:when>
+                                </xsl:choose>
 
                                 <xsl:element name="a">
                                     <xsl:attribute name="class">linkToCommand</xsl:attribute>
