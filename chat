@@ -1,0 +1,7 @@
+Hi. Der Testfall, der bei mir nicht läuft, ist HtmlUnitControlFinderGetFirstClickableTextElementTest.testGetFirstClickableTextElement_ByTextWithBreak().
+Ich muss das Assert auf assertEquals("[HtmlParagraph 'First\nline'] found by: BY_TEXT distance: 100000", tmpFound.getElementsSortedByWeight().get(0).toString());
+ändern, damit er durchläuft.
+
+Und die modal-confirmation.html ist bei mir leer. Deshalb läuft der jquery.xls Test bei mir nicht durch.
+
+Und dann noch js_error.xls - der Test hat Assert Content + JavaScript Probleme.

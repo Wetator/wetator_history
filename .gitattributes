@@ -3,6 +3,7 @@
 /.project -text
 /build-properties.xml -text
 /build.xml -text
+/chat -text
 samples/ant/build.xml -text
 samples/google_search/google.xls -text
 samples/google_search/wetator.config -text
