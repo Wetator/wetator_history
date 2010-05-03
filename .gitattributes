@@ -112,6 +112,7 @@ test/excel/wait.xls -text
 test/java/org/rbri/wet/AllTests.java -text
 test/java/org/rbri/wet/automatonTest.jpage -text
 test/java/org/rbri/wet/backend/AllTests.java -text
+test/java/org/rbri/wet/backend/WeightedControlListTest.java -text
 test/java/org/rbri/wet/backend/htmlunit/AllTests.java -text
 test/java/org/rbri/wet/backend/htmlunit/HtmlElementUtilTest.java -text
 test/java/org/rbri/wet/backend/htmlunit/HtmlUnitControlFinderGetAllClickablesTest.java -text

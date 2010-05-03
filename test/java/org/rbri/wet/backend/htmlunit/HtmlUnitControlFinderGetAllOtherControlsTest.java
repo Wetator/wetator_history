@@ -53,7 +53,7 @@ public class HtmlUnitControlFinderGetAllOtherControlsTest extends TestCase {
         HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
         WeightedControlList tmpFound = tmpFinder.getAllOtherControls(tmpSearch);
 
-        assertEquals(0, tmpFound.getElementsSortedByWeight().size());
+        assertEquals(0, tmpFound.getElementsSorted().size());
     }
 
 
@@ -76,8 +76,8 @@ public class HtmlUnitControlFinderGetAllOtherControlsTest extends TestCase {
         HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
         WeightedControlList tmpFound = tmpFinder.getAllOtherControls(tmpSearch);
 
-        assertEquals(1, tmpFound.getElementsSortedByWeight().size());
-        assertEquals("[HtmlSelect (id='MyId') (name='MySelectName')] found by: BY_ID distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
+        assertEquals(1, tmpFound.getElementsSorted().size());
+        assertEquals("[HtmlSelect (id='MyId') (name='MySelectName')] found by: BY_ID distance: 0", tmpFound.getElementsSorted().get(0).toString());
     }
 
     public void testGetAllOtherControls_Select_ByTextBefore() throws IOException {
@@ -106,8 +106,8 @@ public class HtmlUnitControlFinderGetAllOtherControlsTest extends TestCase {
         HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
         WeightedControlList tmpFound = tmpFinder.getAllOtherControls(tmpSearch);
 
-        assertEquals(1, tmpFound.getElementsSortedByWeight().size());
-        assertEquals("[HtmlSelect (name='MySecondSelectName')] found by: BY_LABEL distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
+        assertEquals(1, tmpFound.getElementsSorted().size());
+        assertEquals("[HtmlSelect (name='MySecondSelectName')] found by: BY_LABEL coverage: 0 distance: 0", tmpFound.getElementsSorted().get(0).toString());
     }
 
     public void testGetAllOtherControls_Select_ByTextBeforeWildcard() throws IOException {
@@ -131,13 +131,13 @@ public class HtmlUnitControlFinderGetAllOtherControlsTest extends TestCase {
         HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
 
         List<SecretString> tmpSearch = new ArrayList<SecretString>();
-        tmpSearch.add(new SecretString("Second*elText", false));
+        tmpSearch.add(new SecretString("cond*elText", false));
 
         HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
         WeightedControlList tmpFound = tmpFinder.getAllOtherControls(tmpSearch);
 
-        assertEquals(1, tmpFound.getElementsSortedByWeight().size());
-        assertEquals("[HtmlSelect (name='MySecondSelectName')] found by: BY_LABEL distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
+        assertEquals(1, tmpFound.getElementsSorted().size());
+        assertEquals("[HtmlSelect (name='MySecondSelectName')] found by: BY_LABEL coverage: 2 distance: 0", tmpFound.getElementsSorted().get(0).toString());
     }
 
     public void testGetAllOtherControls_Select_ByTextPathBefore() throws IOException {
@@ -167,9 +167,9 @@ public class HtmlUnitControlFinderGetAllOtherControlsTest extends TestCase {
         HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
         WeightedControlList tmpFound = tmpFinder.getAllOtherControls(tmpSearch);
 
-        assertEquals(2, tmpFound.getElementsSortedByWeight().size());
-        assertEquals("[HtmlSelect (name='MyFirstSelectName')] found by: BY_LABEL distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
-        assertEquals("[HtmlSelect (name='MySecondSelectName')] found by: BY_TEXT distance: 46", tmpFound.getElementsSortedByWeight().get(1).toString());
+        assertEquals(2, tmpFound.getElementsSorted().size());
+        assertEquals("[HtmlSelect (name='MyFirstSelectName')] found by: BY_LABEL distance: 0", tmpFound.getElementsSorted().get(0).toString());
+        assertEquals("[HtmlSelect (name='MySecondSelectName')] found by: BY_TEXT distance: 46", tmpFound.getElementsSorted().get(1).toString());
     }
 
     public void testGetAllOtherControls_Select_ByName() throws IOException {
@@ -198,8 +198,8 @@ public class HtmlUnitControlFinderGetAllOtherControlsTest extends TestCase {
         HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
         WeightedControlList tmpFound = tmpFinder.getAllOtherControls(tmpSearch);
 
-        assertEquals(1, tmpFound.getElementsSortedByWeight().size());
-        assertEquals("[HtmlSelect (name='MyFirstSelectName')] found by: BY_NAME distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
+        assertEquals(1, tmpFound.getElementsSorted().size());
+        assertEquals("[HtmlSelect (name='MyFirstSelectName')] found by: BY_NAME coverage: 0 distance: 0", tmpFound.getElementsSorted().get(0).toString());
     }
 
     public void testGetAllOtherControls_Select_ByLabelText() throws IOException {
@@ -228,9 +228,9 @@ public class HtmlUnitControlFinderGetAllOtherControlsTest extends TestCase {
         HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
         WeightedControlList tmpFound = tmpFinder.getAllOtherControls(tmpSearch);
 
-        assertEquals(2, tmpFound.getElementsSortedByWeight().size());
-        assertEquals("[HtmlSelect (id='MySecondSelectId')] found by: BY_LABEL distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
-        assertEquals("[HtmlSelect (id='MySecondSelectId')] found by: BY_LABEL distance: 0", tmpFound.getElementsSortedByWeight().get(1).toString());
+        assertEquals(2, tmpFound.getElementsSorted().size());
+        assertEquals("[HtmlSelect (id='MySecondSelectId')] found by: BY_LABEL coverage: 0 distance: 0", tmpFound.getElementsSorted().get(0).toString());
+        assertEquals("[HtmlSelect (id='MySecondSelectId')] found by: BY_LABEL coverage: 0 distance: 0", tmpFound.getElementsSorted().get(1).toString());
     }
 
 
@@ -262,9 +262,9 @@ public class HtmlUnitControlFinderGetAllOtherControlsTest extends TestCase {
         HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
         WeightedControlList tmpFound = tmpFinder.getAllOtherControls(tmpSearch);
 
-        assertEquals(2, tmpFound.getElementsSortedByWeight().size());
-        assertEquals("[HtmlSelect (id='MySecondSelectId')] found by: BY_LABEL distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
-        assertEquals("[HtmlSelect (id='MySecondSelectId')] found by: BY_LABEL distance: 0", tmpFound.getElementsSortedByWeight().get(1).toString());
+        assertEquals(2, tmpFound.getElementsSorted().size());
+        assertEquals("[HtmlSelect (id='MySecondSelectId')] found by: BY_LABEL coverage: 0 distance: 0", tmpFound.getElementsSorted().get(0).toString());
+        assertEquals("[HtmlSelect (id='MySecondSelectId')] found by: BY_LABEL coverage: 0 distance: 0", tmpFound.getElementsSorted().get(1).toString());
     }
 
 
@@ -288,8 +288,8 @@ public class HtmlUnitControlFinderGetAllOtherControlsTest extends TestCase {
         HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
         WeightedControlList tmpFound = tmpFinder.getAllOtherControls(tmpSearch);
 
-        assertEquals(1, tmpFound.getElementsSortedByWeight().size());
-        assertEquals("[HtmlOptionGroup 'colors' (id='optgroup_colors')] found by: BY_LABEL_TEXT distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
+        assertEquals(1, tmpFound.getElementsSorted().size());
+        assertEquals("[HtmlOptionGroup 'colors' (id='optgroup_colors')] found by: BY_LABEL_TEXT distance: 0", tmpFound.getElementsSorted().get(0).toString());
     }
 
 
@@ -313,7 +313,7 @@ public class HtmlUnitControlFinderGetAllOtherControlsTest extends TestCase {
         HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
         WeightedControlList tmpFound = tmpFinder.getAllOtherControls(tmpSearch);
 
-        assertEquals(1, tmpFound.getElementsSortedByWeight().size());
-        assertEquals("[HtmlOptionGroup 'colors' (id='optgroup_colors')] found by: BY_ID distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
+        assertEquals(1, tmpFound.getElementsSorted().size());
+        assertEquals("[HtmlOptionGroup 'colors' (id='optgroup_colors')] found by: BY_ID distance: 0", tmpFound.getElementsSorted().get(0).toString());
     }
 }

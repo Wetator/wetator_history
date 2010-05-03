@@ -53,7 +53,7 @@ public class HtmlUnitControlFinderGetFirstClickableTextElementTest extends TestC
         HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
         WeightedControlList tmpFound = tmpFinder.getFirstClickableTextElement(tmpSearch);
 
-        assertEquals(0, tmpFound.getElementsSortedByWeight().size());
+        assertEquals(0, tmpFound.getElementsSorted().size());
     }
 
     public void testGetFirstClickableTextElement_ById() throws IOException {
@@ -69,8 +69,8 @@ public class HtmlUnitControlFinderGetFirstClickableTextElementTest extends TestC
         HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
         WeightedControlList tmpFound = tmpFinder.getFirstClickableTextElement(tmpSearch);
 
-        assertEquals(1, tmpFound.getElementsSortedByWeight().size());
-        assertEquals("[HtmlParagraph 'Second line' (id='MyId2')] found by: BY_ID distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
+        assertEquals(1, tmpFound.getElementsSorted().size());
+        assertEquals("[HtmlParagraph 'Second line' (id='MyId2')] found by: BY_ID coverage: 0 distance: 10", tmpFound.getElementsSorted().get(0).toString());
     }
 
 
@@ -89,7 +89,7 @@ public class HtmlUnitControlFinderGetFirstClickableTextElementTest extends TestC
         HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
         WeightedControlList tmpFound = tmpFinder.getFirstClickableTextElement(tmpSearch);
 
-        assertEquals(0, tmpFound.getElementsSortedByWeight().size());
+        assertEquals(0, tmpFound.getElementsSorted().size());
     }
 
 
@@ -106,8 +106,8 @@ public class HtmlUnitControlFinderGetFirstClickableTextElementTest extends TestC
         HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
         WeightedControlList tmpFound = tmpFinder.getFirstClickableTextElement(tmpSearch);
 
-        assertEquals(1, tmpFound.getElementsSortedByWeight().size());
-        assertEquals("[HtmlParagraph 'First line'] found by: BY_TEXT distance: 100000", tmpFound.getElementsSortedByWeight().get(0).toString());
+        assertEquals(1, tmpFound.getElementsSorted().size());
+        assertEquals("[HtmlParagraph 'First line'] found by: BY_TEXT coverage: 0 distance: 0", tmpFound.getElementsSorted().get(0).toString());
     }
 
 
@@ -124,8 +124,8 @@ public class HtmlUnitControlFinderGetFirstClickableTextElementTest extends TestC
         HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
         WeightedControlList tmpFound = tmpFinder.getFirstClickableTextElement(tmpSearch);
 
-        assertEquals(1, tmpFound.getElementsSortedByWeight().size());
-        assertEquals("[HtmlParagraph 'First line'] found by: BY_TEXT distance: 100000", tmpFound.getElementsSortedByWeight().get(0).toString());
+        assertEquals(1, tmpFound.getElementsSorted().size());
+        assertEquals("[HtmlParagraph 'First line'] found by: BY_TEXT coverage: 0 distance: 0", tmpFound.getElementsSorted().get(0).toString());
     }
 
 
@@ -145,8 +145,8 @@ public class HtmlUnitControlFinderGetFirstClickableTextElementTest extends TestC
         HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
         WeightedControlList tmpFound = tmpFinder.getFirstClickableTextElement(tmpSearch);
 
-        assertEquals(1, tmpFound.getElementsSortedByWeight().size());
-        assertEquals("[HtmlParagraph 'Last line'] found by: BY_TEXT distance: 100000", tmpFound.getElementsSortedByWeight().get(0).toString());
+        assertEquals(1, tmpFound.getElementsSorted().size());
+        assertEquals("[HtmlParagraph 'Last line'] found by: BY_TEXT coverage: 0 distance: 0", tmpFound.getElementsSorted().get(0).toString());
     }
 
 
@@ -163,8 +163,8 @@ public class HtmlUnitControlFinderGetFirstClickableTextElementTest extends TestC
         HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
         WeightedControlList tmpFound = tmpFinder.getFirstClickableTextElement(tmpSearch);
 
-        assertEquals(1, tmpFound.getElementsSortedByWeight().size());
-        assertEquals("[HtmlParagraph 'This text is styled.'] found by: BY_TEXT distance: 100000", tmpFound.getElementsSortedByWeight().get(0).toString());
+        assertEquals(1, tmpFound.getElementsSorted().size());
+        assertEquals("[HtmlParagraph 'This text is styled.'] found by: BY_TEXT coverage: 0 distance: 0", tmpFound.getElementsSorted().get(0).toString());
     }
 
 
@@ -181,8 +181,8 @@ public class HtmlUnitControlFinderGetFirstClickableTextElementTest extends TestC
         HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
         WeightedControlList tmpFound = tmpFinder.getFirstClickableTextElement(tmpSearch);
 
-        assertEquals(1, tmpFound.getElementsSortedByWeight().size());
-        assertEquals("[HtmlParagraph 'First\r\nline'] found by: BY_TEXT distance: 100000", tmpFound.getElementsSortedByWeight().get(0).toString());
+        assertEquals(1, tmpFound.getElementsSorted().size());
+        assertEquals("[HtmlParagraph 'First\r\nline'] found by: BY_TEXT coverage: 0 distance: 0", tmpFound.getElementsSorted().get(0).toString());
     }
 
 
@@ -207,9 +207,9 @@ public class HtmlUnitControlFinderGetFirstClickableTextElementTest extends TestC
         HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
         WeightedControlList tmpFound = tmpFinder.getFirstClickableTextElement(tmpSearch);
 
-        assertEquals(1, tmpFound.getElementsSortedByWeight().size());
+        assertEquals(1, tmpFound.getElementsSorted().size());
         // TODO
-        assertEquals("[Unknown HtmlElement 'class com.gargoylesoftware.htmlunit.html.HtmlTableDataCell'] found by: BY_TEXT distance: 100000", tmpFound.getElementsSortedByWeight().get(0).toString());
+        assertEquals("[Unknown HtmlElement 'class com.gargoylesoftware.htmlunit.html.HtmlTableDataCell'] found by: BY_TEXT coverage: 0 distance: 0", tmpFound.getElementsSorted().get(0).toString());
     }
 
     public void testGetFirstClickableTextElement_TableRow() throws IOException {
@@ -233,9 +233,9 @@ public class HtmlUnitControlFinderGetFirstClickableTextElementTest extends TestC
         HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
         WeightedControlList tmpFound = tmpFinder.getFirstClickableTextElement(tmpSearch);
 
-        assertEquals(1, tmpFound.getElementsSortedByWeight().size());
+        assertEquals(1, tmpFound.getElementsSorted().size());
         // TODO
-        assertEquals("[Unknown HtmlElement 'class com.gargoylesoftware.htmlunit.html.HtmlTableRow'] found by: BY_TEXT distance: 100000", tmpFound.getElementsSortedByWeight().get(0).toString());
+        assertEquals("[Unknown HtmlElement 'class com.gargoylesoftware.htmlunit.html.HtmlTableRow'] found by: BY_TEXT coverage: 0 distance: 0", tmpFound.getElementsSorted().get(0).toString());
     }
 
 
@@ -254,8 +254,8 @@ public class HtmlUnitControlFinderGetFirstClickableTextElementTest extends TestC
         HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
         WeightedControlList tmpFound = tmpFinder.getFirstClickableTextElement(tmpSearch);
 
-        assertEquals(1, tmpFound.getElementsSortedByWeight().size());
+        assertEquals(1, tmpFound.getElementsSorted().size());
         // TODO
-        assertEquals("[Unknown HtmlElement 'class com.gargoylesoftware.htmlunit.html.HtmlDivision'] found by: BY_TEXT distance: 100000", tmpFound.getElementsSortedByWeight().get(0).toString());
+        assertEquals("[Unknown HtmlElement 'class com.gargoylesoftware.htmlunit.html.HtmlDivision'] found by: BY_TEXT coverage: 0 distance: 0", tmpFound.getElementsSorted().get(0).toString());
     }
 }

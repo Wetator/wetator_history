@@ -53,7 +53,7 @@ public class HtmlUnitControlFinderGetAllSelectablesTest extends TestCase {
         HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
         WeightedControlList tmpFound = tmpFinder.getAllSetables(tmpSearch);
 
-        assertEquals(0, tmpFound.getElementsSortedByWeight().size());
+        assertEquals(0, tmpFound.getElementsSorted().size());
     }
 
 
@@ -76,8 +76,8 @@ public class HtmlUnitControlFinderGetAllSelectablesTest extends TestCase {
         HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
         WeightedControlList tmpFound = tmpFinder.getAllSelectables(tmpSearch);
 
-        assertEquals(1, tmpFound.getElementsSortedByWeight().size());
-        assertEquals("[HtmlOption 'option1' (id='MyOptionId')] found by: BY_ID distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
+        assertEquals(1, tmpFound.getElementsSorted().size());
+        assertEquals("[HtmlOption 'option1' (id='MyOptionId')] found by: BY_ID coverage: 0 distance: 0", tmpFound.getElementsSorted().get(0).toString());
     }
 
     public void testGetAllSelectables_Option_OneByTextExact() throws IOException {
@@ -99,8 +99,8 @@ public class HtmlUnitControlFinderGetAllSelectablesTest extends TestCase {
         HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
         WeightedControlList tmpFound = tmpFinder.getAllSelectables(tmpSearch);
 
-        assertEquals(1, tmpFound.getElementsSortedByWeight().size());
-        assertEquals("[HtmlOption 'option1'] found by: BY_LABEL distance: 7", tmpFound.getElementsSortedByWeight().get(0).toString());
+        assertEquals(1, tmpFound.getElementsSorted().size());
+        assertEquals("[HtmlOption 'option1'] found by: BY_LABEL coverage: 0 distance: 0", tmpFound.getElementsSorted().get(0).toString());
     }
 
     public void testGetAllSelectables_Option_OneByTextWildcard() throws IOException {
@@ -117,13 +117,13 @@ public class HtmlUnitControlFinderGetAllSelectablesTest extends TestCase {
         HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
 
         List<SecretString> tmpSearch = new ArrayList<SecretString>();
-        tmpSearch.add(new SecretString("opt*n1", false));
+        tmpSearch.add(new SecretString("pt*n1", false));
 
         HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
         WeightedControlList tmpFound = tmpFinder.getAllSelectables(tmpSearch);
 
-        assertEquals(1, tmpFound.getElementsSortedByWeight().size());
-        assertEquals("[HtmlOption 'option1'] found by: BY_LABEL distance: 7", tmpFound.getElementsSortedByWeight().get(0).toString());
+        assertEquals(1, tmpFound.getElementsSorted().size());
+        assertEquals("[HtmlOption 'option1'] found by: BY_LABEL coverage: 1 distance: 0", tmpFound.getElementsSorted().get(0).toString());
     }
 
     public void testGetAllSelectables_Option_OneByLabelExact() throws IOException {
@@ -145,8 +145,8 @@ public class HtmlUnitControlFinderGetAllSelectablesTest extends TestCase {
         HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
         WeightedControlList tmpFound = tmpFinder.getAllSelectables(tmpSearch);
 
-        assertEquals(1, tmpFound.getElementsSortedByWeight().size());
-        assertEquals("[HtmlOption 'option1'] found by: BY_LABEL distance: 7", tmpFound.getElementsSortedByWeight().get(0).toString());
+        assertEquals(1, tmpFound.getElementsSorted().size());
+        assertEquals("[HtmlOption 'option1'] found by: BY_LABEL coverage: 0 distance: 0", tmpFound.getElementsSorted().get(0).toString());
     }
 
     public void testGetAllSelectables_Option_OneByLabelWildcard() throws IOException {
@@ -163,13 +163,13 @@ public class HtmlUnitControlFinderGetAllSelectablesTest extends TestCase {
         HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
 
         List<SecretString> tmpSearch = new ArrayList<SecretString>();
-        tmpSearch.add(new SecretString("My*el", false));
+        tmpSearch.add(new SecretString("y*el", false));
 
         HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
         WeightedControlList tmpFound = tmpFinder.getAllSelectables(tmpSearch);
 
-        assertEquals(1, tmpFound.getElementsSortedByWeight().size());
-        assertEquals("[HtmlOption 'option1'] found by: BY_LABEL distance: 7", tmpFound.getElementsSortedByWeight().get(0).toString());
+        assertEquals(1, tmpFound.getElementsSorted().size());
+        assertEquals("[HtmlOption 'option1'] found by: BY_LABEL coverage: 1 distance: 0", tmpFound.getElementsSorted().get(0).toString());
     }
 
     public void testGetAllSelectables_Option_OneByValueExact() throws IOException {
@@ -191,8 +191,8 @@ public class HtmlUnitControlFinderGetAllSelectablesTest extends TestCase {
         HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
         WeightedControlList tmpFound = tmpFinder.getAllSelectables(tmpSearch);
 
-        assertEquals(1, tmpFound.getElementsSortedByWeight().size());
-        assertEquals("[HtmlOption 'option1'] found by: BY_LABEL distance: 8", tmpFound.getElementsSortedByWeight().get(0).toString());
+        assertEquals(1, tmpFound.getElementsSorted().size());
+        assertEquals("[HtmlOption 'option1'] found by: BY_LABEL coverage: 0 distance: 0", tmpFound.getElementsSorted().get(0).toString());
     }
 
     public void testGetAllSelectables_Option_OneByValueWildcard() throws IOException {
@@ -209,13 +209,13 @@ public class HtmlUnitControlFinderGetAllSelectablesTest extends TestCase {
         HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
 
         List<SecretString> tmpSearch = new ArrayList<SecretString>();
-        tmpSearch.add(new SecretString("o_*e1", false));
+        tmpSearch.add(new SecretString("_*e1", false));
 
         HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
         WeightedControlList tmpFound = tmpFinder.getAllSelectables(tmpSearch);
 
-        assertEquals(1, tmpFound.getElementsSortedByWeight().size());
-        assertEquals("[HtmlOption 'option1'] found by: BY_LABEL distance: 8", tmpFound.getElementsSortedByWeight().get(0).toString());
+        assertEquals(1, tmpFound.getElementsSorted().size());
+        assertEquals("[HtmlOption 'option1'] found by: BY_LABEL coverage: 1 distance: 0", tmpFound.getElementsSorted().get(0).toString());
     }
 
     public void testGetAllSelectables_Select_ByTextBefore() throws IOException {
@@ -239,14 +239,14 @@ public class HtmlUnitControlFinderGetAllSelectablesTest extends TestCase {
         HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
 
         List<SecretString> tmpSearch = new ArrayList<SecretString>();
-        tmpSearch.add(new SecretString("SecondSelectLabelText", false));
+        tmpSearch.add(new SecretString("SecondSelectLabel", false));
         tmpSearch.add(new SecretString("option2", false));
 
         HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
         WeightedControlList tmpFound = tmpFinder.getAllSelectables(tmpSearch);
 
-        assertEquals(1, tmpFound.getElementsSortedByWeight().size());
-        assertEquals("[HtmlOption 'option2' (id='2_2')] found by: BY_LABEL distance: 7", tmpFound.getElementsSortedByWeight().get(0).toString());
+        assertEquals(1, tmpFound.getElementsSorted().size());
+        assertEquals("[HtmlOption 'option2' (id='2_2')] found by: BY_LABEL coverage: 0 distance: 4", tmpFound.getElementsSorted().get(0).toString());
     }
 
     public void testGetAllSelectables_Select_ByName() throws IOException {
@@ -271,13 +271,13 @@ public class HtmlUnitControlFinderGetAllSelectablesTest extends TestCase {
 
         List<SecretString> tmpSearch = new ArrayList<SecretString>();
         tmpSearch.add(new SecretString("MyFirstSelectName", false));
-        tmpSearch.add(new SecretString("option3", false));
+        tmpSearch.add(new SecretString("tion3", false));
 
         HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
         WeightedControlList tmpFound = tmpFinder.getAllSelectables(tmpSearch);
 
-        assertEquals(1, tmpFound.getElementsSortedByWeight().size());
-        assertEquals("[HtmlOption 'option3' (id='1_3')] found by: BY_LABEL distance: 7", tmpFound.getElementsSortedByWeight().get(0).toString());
+        assertEquals(1, tmpFound.getElementsSorted().size());
+        assertEquals("[HtmlOption 'option3' (id='1_3')] found by: BY_LABEL coverage: 2 distance: 0", tmpFound.getElementsSorted().get(0).toString());
     }
 
     public void testGetAllSelectables_Select_ById() throws IOException {
@@ -307,8 +307,8 @@ public class HtmlUnitControlFinderGetAllSelectablesTest extends TestCase {
         HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
         WeightedControlList tmpFound = tmpFinder.getAllSelectables(tmpSearch);
 
-        assertEquals(1, tmpFound.getElementsSortedByWeight().size());
-        assertEquals("[HtmlOption 'option3' (id='2_3')] found by: BY_LABEL distance: 8", tmpFound.getElementsSortedByWeight().get(0).toString());
+        assertEquals(1, tmpFound.getElementsSorted().size());
+        assertEquals("[HtmlOption 'option3' (id='2_3')] found by: BY_LABEL coverage: 0 distance: 0", tmpFound.getElementsSorted().get(0).toString());
     }
 
     public void testGetAllSelectables_Select_ByLabelText() throws IOException {
@@ -338,9 +338,9 @@ public class HtmlUnitControlFinderGetAllSelectablesTest extends TestCase {
         HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
         WeightedControlList tmpFound = tmpFinder.getAllSelectables(tmpSearch);
 
-        assertEquals(2, tmpFound.getElementsSortedByWeight().size());
-        assertEquals("[HtmlOption 'option1' (id='2_1')] found by: BY_LABEL distance: 8", tmpFound.getElementsSortedByWeight().get(0).toString());
-        assertEquals("[HtmlOption 'option1' (id='2_1')] found by: BY_LABEL distance: 8", tmpFound.getElementsSortedByWeight().get(1).toString());
+        assertEquals(2, tmpFound.getElementsSorted().size());
+        assertEquals("[HtmlOption 'option1' (id='2_1')] found by: BY_LABEL coverage: 0 distance: 0", tmpFound.getElementsSorted().get(0).toString());
+        assertEquals("[HtmlOption 'option1' (id='2_1')] found by: BY_LABEL coverage: 0 distance: 0", tmpFound.getElementsSorted().get(1).toString());
     }
 
 
@@ -373,9 +373,9 @@ public class HtmlUnitControlFinderGetAllSelectablesTest extends TestCase {
         HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
         WeightedControlList tmpFound = tmpFinder.getAllSelectables(tmpSearch);
 
-        assertEquals(2, tmpFound.getElementsSortedByWeight().size());
-        assertEquals("[HtmlOption 'option1' (id='2_1')] found by: BY_LABEL distance: 8", tmpFound.getElementsSortedByWeight().get(0).toString());
-        assertEquals("[HtmlOption 'option1' (id='2_1')] found by: BY_LABEL distance: 8", tmpFound.getElementsSortedByWeight().get(1).toString());
+        assertEquals(2, tmpFound.getElementsSorted().size());
+        assertEquals("[HtmlOption 'option1' (id='2_1')] found by: BY_LABEL coverage: 0 distance: 0", tmpFound.getElementsSorted().get(0).toString());
+        assertEquals("[HtmlOption 'option1' (id='2_1')] found by: BY_LABEL coverage: 0 distance: 0", tmpFound.getElementsSorted().get(1).toString());
     }
 
 
@@ -408,9 +408,9 @@ public class HtmlUnitControlFinderGetAllSelectablesTest extends TestCase {
         HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
         WeightedControlList tmpFound = tmpFinder.getAllSelectables(tmpSearch);
 
-        assertEquals(2, tmpFound.getElementsSortedByWeight().size());
-        assertEquals("[HtmlOption 'option2' (id='2_2')] found by: BY_LABEL distance: 7", tmpFound.getElementsSortedByWeight().get(0).toString());
-        assertEquals("[HtmlOption 'option2' (id='2_2')] found by: BY_LABEL distance: 7", tmpFound.getElementsSortedByWeight().get(1).toString());
+        assertEquals(2, tmpFound.getElementsSorted().size());
+        assertEquals("[HtmlOption 'option2' (id='2_2')] found by: BY_LABEL coverage: 0 distance: 0", tmpFound.getElementsSorted().get(0).toString());
+        assertEquals("[HtmlOption 'option2' (id='2_2')] found by: BY_LABEL coverage: 0 distance: 13", tmpFound.getElementsSorted().get(1).toString());
     }
 
 
@@ -429,8 +429,8 @@ public class HtmlUnitControlFinderGetAllSelectablesTest extends TestCase {
         HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
         WeightedControlList tmpFound = tmpFinder.getAllSelectables(tmpSearch);
 
-        assertEquals(1, tmpFound.getElementsSortedByWeight().size());
-        assertEquals("[HtmlCheckBoxInput (id='MyCheckboxId') (name='MyCheckboxName')] found by: BY_ID distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
+        assertEquals(1, tmpFound.getElementsSorted().size());
+        assertEquals("[HtmlCheckBoxInput (id='MyCheckboxId') (name='MyCheckboxName')] found by: BY_ID coverage: 0 distance: 0", tmpFound.getElementsSorted().get(0).toString());
     }
 
     public void testGetAllSelectables_Checkbox_OneByTextExact() throws IOException {
@@ -448,8 +448,8 @@ public class HtmlUnitControlFinderGetAllSelectablesTest extends TestCase {
         HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
         WeightedControlList tmpFound = tmpFinder.getAllSelectables(tmpSearch);
 
-        assertEquals(1, tmpFound.getElementsSortedByWeight().size());
-        assertEquals("[HtmlCheckBoxInput (id='MyCheckboxId') (name='MyCheckboxName')] found by: BY_LABEL_TEXT distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
+        assertEquals(1, tmpFound.getElementsSorted().size());
+        assertEquals("[HtmlCheckBoxInput (id='MyCheckboxId') (name='MyCheckboxName')] found by: BY_LABEL_TEXT coverage: 0 distance: 0", tmpFound.getElementsSorted().get(0).toString());
     }
 
     public void testGetAllSelectables_Checkbox_OneByTextWildcard() throws IOException {
@@ -462,13 +462,13 @@ public class HtmlUnitControlFinderGetAllSelectablesTest extends TestCase {
         HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
 
         List<SecretString> tmpSearch = new ArrayList<SecretString>();
-        tmpSearch.add(new SecretString("*Box", false));
+        tmpSearch.add(new SecretString("e*Box", false));
 
         HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
         WeightedControlList tmpFound = tmpFinder.getAllSelectables(tmpSearch);
 
-        assertEquals(1, tmpFound.getElementsSortedByWeight().size());
-        assertEquals("[HtmlCheckBoxInput (id='MyCheckboxId') (name='MyCheckboxName')] found by: BY_LABEL_TEXT distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
+        assertEquals(1, tmpFound.getElementsSorted().size());
+        assertEquals("[HtmlCheckBoxInput (id='MyCheckboxId') (name='MyCheckboxName')] found by: BY_LABEL_TEXT coverage: 2 distance: 0", tmpFound.getElementsSorted().get(0).toString());
     }
 
     public void testGetAllSelectables_Checkbox_OneByName() throws IOException {
@@ -486,8 +486,8 @@ public class HtmlUnitControlFinderGetAllSelectablesTest extends TestCase {
         HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
         WeightedControlList tmpFound = tmpFinder.getAllSelectables(tmpSearch);
 
-        assertEquals(1, tmpFound.getElementsSortedByWeight().size());
-        assertEquals("[HtmlCheckBoxInput (id='MyCheckboxId') (name='MyCheckboxName')] found by: BY_NAME distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
+        assertEquals(1, tmpFound.getElementsSorted().size());
+        assertEquals("[HtmlCheckBoxInput (id='MyCheckboxId') (name='MyCheckboxName')] found by: BY_NAME coverage: 0 distance: 0", tmpFound.getElementsSorted().get(0).toString());
     }
 
 
@@ -507,8 +507,8 @@ public class HtmlUnitControlFinderGetAllSelectablesTest extends TestCase {
         HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
         WeightedControlList tmpFound = tmpFinder.getAllSelectables(tmpSearch);
 
-        assertEquals(1, tmpFound.getElementsSortedByWeight().size());
-        assertEquals("[HtmlRadioButtonInput 'value2' (id='MyRadioButtonId2') (name='MyRadioButtonName')] found by: BY_ID distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
+        assertEquals(1, tmpFound.getElementsSorted().size());
+        assertEquals("[HtmlRadioButtonInput 'value2' (id='MyRadioButtonId2') (name='MyRadioButtonName')] found by: BY_ID coverage: 0 distance: 0", tmpFound.getElementsSorted().get(0).toString());
     }
 
     public void testGetAllSelectables_RadioButton_OneByTextExact() throws IOException {
@@ -527,8 +527,8 @@ public class HtmlUnitControlFinderGetAllSelectablesTest extends TestCase {
         HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
         WeightedControlList tmpFound = tmpFinder.getAllSelectables(tmpSearch);
 
-        assertEquals(1, tmpFound.getElementsSortedByWeight().size());
-        assertEquals("[HtmlRadioButtonInput 'value1' (id='MyRadioButtonId1') (name='MyRadioButtonName')] found by: BY_LABEL_TEXT distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
+        assertEquals(1, tmpFound.getElementsSorted().size());
+        assertEquals("[HtmlRadioButtonInput 'value1' (id='MyRadioButtonId1') (name='MyRadioButtonName')] found by: BY_LABEL_TEXT coverage: 0 distance: 0", tmpFound.getElementsSorted().get(0).toString());
     }
 
     public void testGetAllSelectables_RadioButton_OneByTextWildcard() throws IOException {
@@ -542,13 +542,13 @@ public class HtmlUnitControlFinderGetAllSelectablesTest extends TestCase {
         HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
 
         List<SecretString> tmpSearch = new ArrayList<SecretString>();
-        tmpSearch.add(new SecretString("*on1", false));
+        tmpSearch.add(new SecretString("u*on1", false));
 
         HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
         WeightedControlList tmpFound = tmpFinder.getAllSelectables(tmpSearch);
 
-        assertEquals(1, tmpFound.getElementsSortedByWeight().size());
-        assertEquals("[HtmlRadioButtonInput 'value1' (id='MyRadioButtonId1') (name='MyRadioButtonName')] found by: BY_LABEL_TEXT distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
+        assertEquals(1, tmpFound.getElementsSorted().size());
+        assertEquals("[HtmlRadioButtonInput 'value1' (id='MyRadioButtonId1') (name='MyRadioButtonName')] found by: BY_LABEL_TEXT coverage: 6 distance: 0", tmpFound.getElementsSorted().get(0).toString());
     }
 
 
@@ -570,9 +570,9 @@ public class HtmlUnitControlFinderGetAllSelectablesTest extends TestCase {
         HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
         WeightedControlList tmpFound = tmpFinder.getAllSelectables(tmpSearch);
 
-        assertEquals(2, tmpFound.getElementsSortedByWeight().size());
-        assertEquals("[HtmlRadioButtonInput 'value2' (id='MyRadioButtonId2') (name='MyRadioButtonName')] found by: BY_LABEL distance: 0", tmpFound.getElementsSortedByWeight().get(0).toString());
-        assertEquals("[HtmlRadioButtonInput 'value1' (id='MyRadioButtonId1') (name='MyRadioButtonName')] found by: BY_LABEL_TEXT distance: 12", tmpFound.getElementsSortedByWeight().get(1).toString());
+        assertEquals(2, tmpFound.getElementsSorted().size());
+        assertEquals("[HtmlRadioButtonInput 'value2' (id='MyRadioButtonId2') (name='MyRadioButtonName')] found by: BY_LABEL coverage: 0 distance: 0", tmpFound.getElementsSorted().get(0).toString());
+        assertEquals("[HtmlRadioButtonInput 'value1' (id='MyRadioButtonId1') (name='MyRadioButtonName')] found by: BY_LABEL_TEXT coverage: 12 distance: 0", tmpFound.getElementsSorted().get(1).toString());
     }
 
 
@@ -596,8 +596,8 @@ public class HtmlUnitControlFinderGetAllSelectablesTest extends TestCase {
         HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
         WeightedControlList tmpFound = tmpFinder.getAllSelectables(tmpSearch);
 
-        assertEquals(2, tmpFound.getElementsSortedByWeight().size());
-        assertEquals("[HtmlRadioButtonInput 'value2' (id='MyRadioButtonId2') (name='MyRadioButtonName')] found by: BY_LABEL distance: 18", tmpFound.getElementsSortedByWeight().get(0).toString());
-        assertEquals("[HtmlRadioButtonInput 'value1' (id='MyRadioButtonId1') (name='MyRadioButtonName')] found by: BY_LABEL_TEXT distance: 12", tmpFound.getElementsSortedByWeight().get(1).toString());
+        assertEquals(2, tmpFound.getElementsSorted().size());
+        assertEquals("[HtmlRadioButtonInput 'value2' (id='MyRadioButtonId2') (name='MyRadioButtonName')] found by: BY_LABEL coverage: 13 distance: 0", tmpFound.getElementsSorted().get(0).toString());
+        assertEquals("[HtmlRadioButtonInput 'value1' (id='MyRadioButtonId1') (name='MyRadioButtonName')] found by: BY_LABEL_TEXT coverage: 12 distance: 0", tmpFound.getElementsSorted().get(1).toString());
     }
 }

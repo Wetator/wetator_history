@@ -16,7 +16,8 @@
 
 package org.rbri.wet.backend;
 
-import junit.framework.*;
+import junit.framework.Test;
+import junit.framework.TestSuite;
 
 /**
  * @author rbri
@@ -32,6 +33,7 @@ public class AllTests {
 
         suite.addTest(org.rbri.wet.backend.htmlunit.AllTests.suite());
 
+        suite.addTest(WeightedControlListTest.suite());
         return suite;
     }
 }

@@ -411,6 +411,53 @@ public class DomNodeTextTest extends TestCase {
     }
 
 
+    public void testAsText_RadioButton() throws IOException {
+        String tmpHtmlCode = "<html><body>"
+                + "before "
+                + "<input id='MyRadioButtonId' name='MyRadioButtonName' value='value' type='radio'>RadioButton"
+                + " after"
+                + "</body></html>";
+        HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+
+        DomNodeText tmpResult = new DomNodeText(tmpHtmlPage);
+
+        String tmpExpected = "before RadioButton after";
+        assertEquals(tmpExpected, tmpResult.getText());
+    }
+
+
+    public void testAsText_RadioButtonSelected() throws IOException {
+        String tmpHtmlCode = "<html><body>"
+                + "before "
+                + "<input id='MyRadioButtonId' name='MyRadioButtonName' value='value' type='radio' checked>RadioButton"
+                + " after"
+                + "</body></html>";
+        HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+
+        DomNodeText tmpResult = new DomNodeText(tmpHtmlPage);
+
+        String tmpExpected = "before RadioButton after";
+        assertEquals(tmpExpected, tmpResult.getText());
+    }
+
+
+    public void testAsText_LabelWithEnclosedRadioButtonSelected() throws IOException {
+        String tmpHtmlCode = "<html><body>"
+                + "before "
+                + "<label>LabelText"
+                + "<input id='MyRadioButtonId' name='MyRadioButtonName' value='value' type='radio' selected>RadioButton"
+                + "</label>"
+                + " after"
+                + "</body></html>";
+        HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+
+        DomNodeText tmpResult = new DomNodeText(tmpHtmlPage);
+
+        String tmpExpected = "before LabelText RadioButton after";
+        assertEquals(tmpExpected, tmpResult.getText());
+    }
+
+
     public void testAsText_Javascript() throws IOException {
         String tmpHtmlCode = "<html><body>"
             + "<script language='JavaScript' type='text/javascript'>"

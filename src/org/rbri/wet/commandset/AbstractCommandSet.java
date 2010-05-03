@@ -100,11 +100,11 @@ public abstract class AbstractCommandSet implements WetCommandSet {
             Assert.fail("noHtmlElementFound", new String[] {SecretString.toString(aSearchParam)});
         }
 
-        WeightedControlList.Entry tmpEntry = aWeightedControlList.getElementsSortedByWeight().get(0);
+        WeightedControlList.Entry tmpEntry = aWeightedControlList.getElementsSorted().get(0);
         if (aWeightedControlList.hasManyEntires()) {
             aWetContext.informListenersWarn("manyElementsFound", new String[] {SecretString.toString(aSearchParam), tmpEntry.getControl().getDescribingText()});
 
-            List<WeightedControlList.Entry> tmpEntries = aWeightedControlList.getElementsSortedByWeight();
+            List<WeightedControlList.Entry> tmpEntries = aWeightedControlList.getElementsSorted();
             for (WeightedControlList.Entry tmpEachEntry : tmpEntries) {
                 aWetContext.informListenersInfo("elementFound", new String[] {tmpEachEntry.toString()});
             }

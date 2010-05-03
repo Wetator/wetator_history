@@ -69,6 +69,7 @@ public final class WeightedControlList {
     public static final class Entry {
         protected Control control;
         protected FoundType foundType;
+        protected int coverage;
         protected int distance;
 
         public Control getControl() {
@@ -80,6 +81,7 @@ public final class WeightedControlList {
         	StringBuilder tmpResult = new StringBuilder();
         	tmpResult.append(control.getDescribingText());
         	tmpResult.append(" found by: " + foundType.toString());
+            tmpResult.append(" coverage: " + coverage);
         	tmpResult.append(" distance: " + distance);
         	return tmpResult.toString();
         }
@@ -90,12 +92,18 @@ public final class WeightedControlList {
             int tmpWeightComp = anEntry1.foundType.getValue() - anEntry2.foundType.getValue();
 
             if (0 == tmpWeightComp) {
-                return anEntry1.distance - anEntry2.distance;
+                int tmpCoverageComp = anEntry1.coverage - anEntry2.coverage;
+
+                if (0 == tmpCoverageComp) {
+                    return anEntry1.distance - anEntry2.distance;
+                }
+                return tmpCoverageComp;
             }
 
             return tmpWeightComp;
         }
     }
+
 
     private final List<Entry> entries;
 
@@ -103,87 +111,87 @@ public final class WeightedControlList {
         entries = new LinkedList<Entry>();
     }
 
-    public void addFoundByLabel(Control aControl, int aDistance) {
-        add(aControl, FoundType.BY_LABEL, aDistance);
-    }
+//    public void addFoundByLabel(Control aControl, int aDistance) {
+//        add(aControl, FoundType.BY_LABEL, aDistance);
+//    }
+//
+//
+//    public void addFoundByLabelText(Control aControl, int aDistance) {
+//        add(aControl, FoundType.BY_LABEL_TEXT, aDistance);
+//    }
+//
+//
+//    public void addFoundByName(Control aControl) {
+//        // LOG.debug(Messages.getMessage("log.imageMatchedByName", new String[] {aControl.getDescribingText(), aSearch.toString()}));
+//        add(aControl, FoundType.BY_NAME, 0);
+//    }
+//
+//
+//    public void addFoundByInnerName(Control aControl) {
+//        // LOG.debug(Messages.getMessage("log.imageMatchedByName", new String[] {aControl.getDescribingText(), aSearch.toString()}));
+//        add(aControl, FoundType.BY_INNER_NAME, 0);
+//    }
+//
+//
+//    public void addFoundById(Control aControl) {
+//        // LOG.debug(Messages.getMessage("log.imageMatchedById", new String[] {aControl.getDescribingText(), aSearch.toString()}));
+//        add(aControl, FoundType.BY_ID, 0);
+//    }
+//
+//
+//    public void addFoundByText(Control aControl, int aDistance) {
+//        // LOG.debug(Messages.getMessage("log.imageMatchedBySrc", new String[] {aControl.getDescribingText(), aSearch.toString()}));
+//        add(aControl, FoundType.BY_TEXT, aDistance);
+//    }
+//
+//
+//    public void addFoundByInnerImgAltAttribute(Control aControl, int aDistance) {
+//        // LOG.debug(Messages.getMessage("log.imageMatchedByAlt", new String[] {aControl.getDescribingText(), aSearch.toString()}));
+//        add(aControl, FoundType.BY_INNER_IMG_ALT_ATTRIBUTE, aDistance);
+//    }
+//
+//
+//    public void addFoundByInnerImgTitleAttribute(Control aControl, int aDistance) {
+//        // LOG.debug(Messages.getMessage("log.imageMatchedByTitle", new String[] {aControl.getDescribingText(), aSearch.toString()}));
+//        add(aControl, FoundType.BY_INNER_IMG_TITLE_ATTRIBUTE, aDistance);
+//    }
+//
+//
+//    public void addFoundByInnerImgSrcAttribute(Control aControl) {
+//        // LOG.debug(Messages.getMessage("log.imageMatchedBySrc", new String[] {aControl.getDescribingText(), aSearch.toString()}));
+//        add(aControl, FoundType.BY_INNER_IMG_SRC_ATTRIBUTE, 0);
+//    }
+//
+//
+//    public void addFoundByImgAltAttribute(Control aControl, int aDistance) {
+//        // LOG.debug(Messages.getMessage("log.imageMatchedByAlt", new String[] {aControl.getDescribingText(), aSearch.toString()}));
+//        add(aControl, FoundType.BY_IMG_ALT_ATTRIBUTE, aDistance);
+//    }
+//
+//
+//    public void addFoundByImgTitleAttribute(Control aControl, int aDistance) {
+//        // LOG.debug(Messages.getMessage("log.imageMatchedByTitle", new String[] {aControl.getDescribingText(), aSearch.toString()}));
+//        add(aControl, FoundType.BY_IMG_TITLE_ATTRIBUTE, aDistance);
+//    }
+//
+//
+//    public void addFoundByImgSrcAttribute(Control aControl) {
+//        // LOG.debug(Messages.getMessage("log.imageMatchedBySrc", new String[] {aControl.getDescribingText(), aSearch.toString()}));
+//        add(aControl, FoundType.BY_IMG_SRC_ATTRIBUTE, 0);
+//    }
 
-
-    public void addFoundByLabelText(Control aControl, int aDistance) {
-        add(aControl, FoundType.BY_LABEL_TEXT, aDistance);
-    }
-
-
-    public void addFoundByName(Control aControl) {
-        // LOG.debug(Messages.getMessage("log.imageMatchedByName", new String[] {aControl.getDescribingText(), aSearch.toString()}));
-        add(aControl, FoundType.BY_NAME, 0);
-    }
-
-
-    public void addFoundByInnerName(Control aControl) {
-        // LOG.debug(Messages.getMessage("log.imageMatchedByName", new String[] {aControl.getDescribingText(), aSearch.toString()}));
-        add(aControl, FoundType.BY_INNER_NAME, 0);
-    }
-
-
-    public void addFoundById(Control aControl) {
-        // LOG.debug(Messages.getMessage("log.imageMatchedById", new String[] {aControl.getDescribingText(), aSearch.toString()}));
-        add(aControl, FoundType.BY_ID, 0);
-    }
-
-
-    public void addFoundByText(Control aControl, int aDistance) {
-        // LOG.debug(Messages.getMessage("log.imageMatchedBySrc", new String[] {aControl.getDescribingText(), aSearch.toString()}));
-        add(aControl, FoundType.BY_TEXT, aDistance);
-    }
-
-
-    public void addFoundByInnerImgAltAttribute(Control aControl, int aDistance) {
-        // LOG.debug(Messages.getMessage("log.imageMatchedByAlt", new String[] {aControl.getDescribingText(), aSearch.toString()}));
-        add(aControl, FoundType.BY_INNER_IMG_ALT_ATTRIBUTE, aDistance);
-    }
-
-
-    public void addFoundByInnerImgTitleAttribute(Control aControl, int aDistance) {
-        // LOG.debug(Messages.getMessage("log.imageMatchedByTitle", new String[] {aControl.getDescribingText(), aSearch.toString()}));
-        add(aControl, FoundType.BY_INNER_IMG_TITLE_ATTRIBUTE, aDistance);
-    }
-
-
-    public void addFoundByInnerImgSrcAttribute(Control aControl) {
-        // LOG.debug(Messages.getMessage("log.imageMatchedBySrc", new String[] {aControl.getDescribingText(), aSearch.toString()}));
-        add(aControl, FoundType.BY_INNER_IMG_SRC_ATTRIBUTE, 0);
-    }
-
-
-    public void addFoundByImgAltAttribute(Control aControl, int aDistance) {
-        // LOG.debug(Messages.getMessage("log.imageMatchedByAlt", new String[] {aControl.getDescribingText(), aSearch.toString()}));
-        add(aControl, FoundType.BY_IMG_ALT_ATTRIBUTE, aDistance);
-    }
-
-
-    public void addFoundByImgTitleAttribute(Control aControl, int aDistance) {
-        // LOG.debug(Messages.getMessage("log.imageMatchedByTitle", new String[] {aControl.getDescribingText(), aSearch.toString()}));
-        add(aControl, FoundType.BY_IMG_TITLE_ATTRIBUTE, aDistance);
-    }
-
-
-    public void addFoundByImgSrcAttribute(Control aControl) {
-        // LOG.debug(Messages.getMessage("log.imageMatchedBySrc", new String[] {aControl.getDescribingText(), aSearch.toString()}));
-        add(aControl, FoundType.BY_IMG_SRC_ATTRIBUTE, 0);
-    }
-
-
-    private void add(Control aControl, FoundType aFoundType, int aDistance) {
+    public void add(Control aControl, FoundType aFoundType, int aCoverage, int aDistance) {
         Entry tmpEntry = new Entry();
         tmpEntry.control = aControl;
         tmpEntry.foundType = aFoundType;
+        tmpEntry.coverage = aCoverage;
         tmpEntry.distance = aDistance;
 
         entries.add(tmpEntry);
     }
 
 
-    public List<Entry> getElementsSortedByWeight() {
+    public List<Entry> getElementsSorted() {
         Collections.sort(entries, new EntryComperator());
         return Collections.unmodifiableList(entries);
     }

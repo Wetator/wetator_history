@@ -215,12 +215,12 @@ public final class SearchPattern {
     public int noOfCharsAfterLastOccurenceIn(String aString) {
         int tmpResult = -1;
 
-        if (StringUtils.isEmpty(aString)) {
-            return tmpResult;
-        }
-
         if (isStarPattern) {
             return 0;
+        }
+
+        if (StringUtils.isEmpty(aString)) {
+            return tmpResult;
         }
 
         AutomatonShortFromEndMatcher tmpMatcher = new AutomatonShortFromEndMatcher(aString, automaton);
@@ -243,12 +243,12 @@ public final class SearchPattern {
      * @return true or false
      */
     public boolean matches(String aString) {
-        if (null == aString) {
-            return false;
-        }
-
         if (isStarPattern) {
             return true;
+        }
+
+        if (null == aString) {
+            return false;
         }
 
         return automaton.run(aString);
@@ -266,12 +266,12 @@ public final class SearchPattern {
      * not found
      */
     public int noOfSurroundingCharsIn(String aString) {
-        if (null == aString) {
-            return -1;
-        }
-
         if (isStarPattern) {
             return 0;
+        }
+
+        if (null == aString) {
+            return -1;
         }
 
         AutomatonShortMatcher tmpMatcher = new AutomatonShortMatcher(aString, automaton);
@@ -302,12 +302,12 @@ public final class SearchPattern {
      * not found
      */
     public int noOfMatchingCharsIn(String aString) {
-        if (null == aString) {
-            return -1;
-        }
-
         if (isStarPattern) {
             return aString.length();
+        }
+
+        if (null == aString) {
+            return -1;
         }
 
         AutomatonShortMatcher tmpMatcher = new AutomatonShortMatcher(aString, automaton);
@@ -336,6 +336,7 @@ public final class SearchPattern {
         int tmpCharsAfter = noOfCharsAfterLastOccurenceIn(aString);
         return tmpCharsAfter == 0;
     }
+
 
     public int noOfCharsBeforeFirstOccurenceInAfter(String aString, int aStartPos) {
         if (null == aString) {

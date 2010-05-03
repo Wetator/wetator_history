@@ -94,7 +94,11 @@ public class HtmlUnitControlFinder implements ControlFinder {
                             || (tmpElement instanceof HtmlTextArea)
                             || (tmpElement instanceof HtmlFileInput)
                     ) {
-                        tmpFoundElements.addFoundById(new HtmlUnitControl(tmpElement));
+                        tmpFoundElements.add(
+                                new HtmlUnitControl(tmpElement),
+                                WeightedControlList.FoundType.BY_ID,
+                                0, // no coverage
+                                domNodeText.getTextBefore(tmpElement).length()); // distance from page start
                         return tmpFoundElements;
                     }
                 }
@@ -114,11 +118,12 @@ public class HtmlUnitControlFinder implements ControlFinder {
                     HtmlLabel tmpLabel = (HtmlLabel) tmpElement;
 
                     // found a label with this text
-                    String tmpText = tmpLabel.asText();
+                    String tmpText = domNodeText.getAsText(tmpLabel);
                     String tmpTextBefore = domNodeText.getTextBefore(tmpLabel);
 
-                    int tmpDistance = tmpSearchPattern.noOfCharsAfterLastOccurenceIn(tmpText);
-                    if ((tmpDistance > -1) && (tmpPathSearchPattern.noOfMatchingCharsIn(tmpTextBefore) > -1)) {
+                    int tmpCoverage = tmpSearchPattern.noOfCharsAfterLastOccurenceIn(tmpText);
+                    int tmpDistance = tmpPathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
+                    if ((tmpCoverage > -1) && (tmpDistance > -1)) {
                         String tmpForAttribute = tmpLabel.getForAttribute();
                         // label contains a for-attribute => find corresponding element
                         if (StringUtils.isNotEmpty(tmpForAttribute)) {
@@ -129,8 +134,11 @@ public class HtmlUnitControlFinder implements ControlFinder {
                                         || (tmpElementForLabel instanceof HtmlTextArea)
                                         || (tmpElementForLabel instanceof HtmlFileInput)
                                     ) {
-
-                                    tmpFoundElements.addFoundByLabel(new HtmlUnitControl(tmpElementForLabel), tmpDistance);
+                                    tmpFoundElements.add(
+                                            new HtmlUnitControl(tmpElementForLabel),
+                                            WeightedControlList.FoundType.BY_LABEL,
+                                            tmpCoverage,
+                                            tmpDistance);
                                     continue;
                                 }
                             } catch (ElementNotFoundException e) {
@@ -146,7 +154,11 @@ public class HtmlUnitControlFinder implements ControlFinder {
                                     || (tmpChildElement instanceof HtmlTextArea)
                                     || (tmpChildElement instanceof HtmlFileInput)
                             ) {
-                                tmpFoundElements.addFoundByLabel(new HtmlUnitControl(tmpChildElement), tmpDistance);
+                                tmpFoundElements.add(
+                                        new HtmlUnitControl(tmpChildElement),
+                                        WeightedControlList.FoundType.BY_LABEL,
+                                        tmpCoverage,
+                                        tmpDistance);
                                 continue;
                             }
                         }
@@ -163,29 +175,54 @@ public class HtmlUnitControlFinder implements ControlFinder {
                     // label text before
                     // and rest of the path before the label
                     String tmpLabelTextBefore = domNodeText.getLabelTextBefore(tmpElement);
-                    int tmpDistance = tmpSearchPattern.noOfCharsAfterLastOccurenceIn(tmpLabelTextBefore);
-                    if ((tmpDistance > -1) && (tmpWholePathSearchPattern.noOfMatchingCharsIn(tmpTextBefore) > -1)) {
-                        tmpFoundElements.addFoundByLabelText(new HtmlUnitControl(tmpElement), tmpDistance);
+                    int tmpCoverage = tmpSearchPattern.noOfCharsAfterLastOccurenceIn(tmpLabelTextBefore);
+                    int tmpDistance = tmpPathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
+                    if ((tmpCoverage > -1) && (tmpDistance > -1)) {
+                        tmpFoundElements.add(
+                                new HtmlUnitControl(tmpElement),
+                                WeightedControlList.FoundType.BY_LABEL_TEXT,
+                                tmpCoverage,
+                                tmpDistance);
                         continue;
                     }
 
                     // whole text before
-                    tmpDistance = tmpWholePathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
-                    if (tmpDistance > -1) {
-                        tmpFoundElements.addFoundByText(new HtmlUnitControl(tmpElement), tmpDistance);
+                    tmpCoverage = tmpWholePathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
+                    if (tmpCoverage > -1) {
+                        tmpFoundElements.add(
+                                new HtmlUnitControl(tmpElement),
+                                WeightedControlList.FoundType.BY_TEXT,
+                                tmpCoverage,
+                                tmpDistance);
                         continue;
                     }
 
                     // name
-                    if (tmpSearchPattern.matches(tmpElement.getAttribute("name")) && (tmpPathSearchPattern.noOfMatchingCharsIn(tmpTextBefore) > -1)) {
-                        tmpFoundElements.addFoundByName(new HtmlUnitControl(tmpElement));
-                        continue;
+                    String tmpName = tmpElement.getAttribute("name");
+                    if (StringUtils.isNotEmpty(tmpName) && tmpSearchPattern.matches(tmpName)) {
+                        tmpCoverage = tmpSearchPattern.noOfSurroundingCharsIn(tmpName);
+                        if ((tmpCoverage > -1) && (tmpDistance > -1)) {
+                            tmpFoundElements.add(
+                                    new HtmlUnitControl(tmpElement),
+                                    WeightedControlList.FoundType.BY_NAME,
+                                    tmpCoverage,
+                                    tmpDistance);
+                            continue;
+                        }
                     }
 
                     // id
-                    if (tmpSearchPattern.matches(tmpElement.getId()) && (tmpPathSearchPattern.noOfMatchingCharsIn(tmpTextBefore) > -1)) {
-                        tmpFoundElements.addFoundById(new HtmlUnitControl(tmpElement));
-                        continue;
+                    String tmpId = tmpElement.getId();
+                    if (StringUtils.isNotEmpty(tmpId) && tmpSearchPattern.matches(tmpId)) {
+                        tmpCoverage = tmpSearchPattern.noOfSurroundingCharsIn(tmpId);
+                        if ((tmpCoverage > -1) && (tmpDistance > -1)) {
+                            tmpFoundElements.add(
+                                    new HtmlUnitControl(tmpElement),
+                                    WeightedControlList.FoundType.BY_ID,
+                                    tmpCoverage,
+                                    tmpDistance);
+                            continue;
+                        }
                     }
                 }
             }
@@ -221,61 +258,110 @@ public class HtmlUnitControlFinder implements ControlFinder {
                     String tmpLabel = tmpElement.getAttribute("value");
                     String tmpTextBefore = domNodeText.getTextBefore(tmpElement);
 
-                    int tmpDistance = tmpSearchPattern.noOfCharsAfterLastOccurenceIn(tmpLabel);
-                    if ((tmpDistance > -1) && (tmpPathSearchPattern.noOfMatchingCharsIn(tmpTextBefore) > -1)) {
-                        tmpFoundElements.addFoundByLabelText(new HtmlUnitControl(tmpElement), tmpDistance);
+                    int tmpDistance = tmpPathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
+
+                    int tmpCoverage = tmpSearchPattern.noOfCharsAfterLastOccurenceIn(tmpLabel);
+                    if ((tmpDistance > -1) && (tmpCoverage > -1)) {
+                        tmpFoundElements.add(
+                                new HtmlUnitControl(tmpElement),
+                                WeightedControlList.FoundType.BY_LABEL_TEXT,
+                                tmpCoverage,
+                                tmpDistance);
                         continue;
                     }
 
                     String tmpName = tmpElement.getAttribute("name");
-                    if (tmpSearchPattern.matches(tmpName) && (tmpPathSearchPattern.noOfMatchingCharsIn(tmpTextBefore) > - 1)) {
-                        tmpFoundElements.addFoundByName(new HtmlUnitControl(tmpElement));
-                        continue;
+                    if (StringUtils.isNotEmpty(tmpName) && tmpSearchPattern.matches(tmpName)) {
+                        tmpCoverage = tmpSearchPattern.noOfSurroundingCharsIn(tmpName);
+                        if ((tmpCoverage > -1) && (tmpDistance > -1)) {
+                            tmpFoundElements.add(
+                                    new HtmlUnitControl(tmpElement),
+                                    WeightedControlList.FoundType.BY_NAME,
+                                    tmpCoverage,
+                                    tmpDistance);
+                            continue;
+                        }
                     }
                 } else if (tmpElement instanceof HtmlImageInput) {
                     HtmlImageInput tmpImage = (HtmlImageInput) tmpElement;
                     String tmpTextBefore = domNodeText.getTextBefore(tmpElement);
 
+                    int tmpDistance = tmpPathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
+
                     // does image alt-text match?
-                    int tmpDistance = tmpSearchPattern.noOfSurroundingCharsIn(tmpImage.getAltAttribute());
-                    if ((tmpDistance > -1) && (tmpPathSearchPattern.noOfMatchingCharsIn(tmpTextBefore) > -1)) {
-                        tmpFoundElements.addFoundByImgAltAttribute(new HtmlUnitControl(tmpElement), tmpDistance);
+                    int tmpCoverage = tmpSearchPattern.noOfSurroundingCharsIn(tmpImage.getAltAttribute());
+                    if ((tmpDistance > -1) && (tmpCoverage > -1)) {
+                        tmpFoundElements.add(
+                                new HtmlUnitControl(tmpElement),
+                                WeightedControlList.FoundType.BY_IMG_ALT_ATTRIBUTE,
+                                tmpCoverage,
+                                tmpDistance);
                         continue;
                     }
 
                     // does image title-text match?
-                    tmpDistance = tmpSearchPattern.noOfSurroundingCharsIn(tmpImage.getAttribute("title"));
-                    if ((tmpDistance > -1) && (tmpPathSearchPattern.noOfMatchingCharsIn(tmpTextBefore) > -1)) {
-                        tmpFoundElements.addFoundByImgTitleAttribute(new HtmlUnitControl(tmpElement), tmpDistance);
+                    tmpCoverage = tmpSearchPattern.noOfSurroundingCharsIn(tmpImage.getAttribute("title"));
+                    if ((tmpDistance > -1) && (tmpCoverage > -1)) {
+                        tmpFoundElements.add(
+                                new HtmlUnitControl(tmpElement),
+                                WeightedControlList.FoundType.BY_IMG_TITLE_ATTRIBUTE,
+                                tmpCoverage,
+                                tmpDistance);
                         continue;
                     }
 
                     // does image filename match?
                     String tmpSrc = tmpImage.getSrcAttribute();
-                    if ((tmpSearchPattern.matchesAtEnd(tmpSrc)) && (tmpPathSearchPattern.noOfMatchingCharsIn(tmpTextBefore) > -1)) {
-                        tmpFoundElements.addFoundByImgSrcAttribute(new HtmlUnitControl(tmpElement));
+                    if ((tmpSearchPattern.matchesAtEnd(tmpSrc)) && (tmpDistance > -1)) {
+                        tmpCoverage = tmpSearchPattern.noOfCharsBeforeLastOccurenceIn(tmpSrc);
+                        tmpFoundElements.add(
+                                new HtmlUnitControl(tmpElement),
+                                WeightedControlList.FoundType.BY_IMG_SRC_ATTRIBUTE,
+                                tmpCoverage,
+                                tmpDistance);
                         continue;
                     }
 
-                    if (tmpSearchPattern.matches(tmpElement.getAttribute("name")) && (tmpPathSearchPattern.noOfMatchingCharsIn(tmpTextBefore) > -1)) {
-                        tmpFoundElements.addFoundByName(new HtmlUnitControl(tmpElement));
-                        continue;
+                    String tmpName = tmpElement.getAttribute("name");
+                    if (StringUtils.isNotEmpty(tmpName) && tmpSearchPattern.matches(tmpName)) {
+                        tmpCoverage = tmpSearchPattern.noOfSurroundingCharsIn(tmpName);
+                        if ((tmpCoverage > -1) && (tmpDistance > -1)) {
+                            tmpFoundElements.add(
+                                    new HtmlUnitControl(tmpElement),
+                                    WeightedControlList.FoundType.BY_NAME,
+                                    tmpCoverage,
+                                    tmpDistance);
+                            continue;
+                        }
                     }
                 } else if (tmpElement instanceof HtmlButton) {
-                    String tmpLabel = tmpElement.asText();
+                    String tmpLabel = domNodeText.getAsText(tmpElement);
                     String tmpTextBefore = domNodeText.getTextBefore(tmpElement);
 
-                    int tmpDistance = tmpSearchPattern.noOfCharsAfterLastOccurenceIn(tmpLabel);
-                    if ((tmpDistance > -1) && (tmpPathSearchPattern.noOfMatchingCharsIn(tmpTextBefore) > -1)) {
-                        tmpFoundElements.addFoundByLabelText(new HtmlUnitControl(tmpElement), tmpDistance);
+                    int tmpDistance = tmpPathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
+
+                    int tmpCoverage = tmpSearchPattern.noOfCharsAfterLastOccurenceIn(tmpLabel);
+                    if ((tmpDistance > -1) && (tmpCoverage > -1)) {
+                        tmpFoundElements.add(
+                                new HtmlUnitControl(tmpElement),
+                                WeightedControlList.FoundType.BY_LABEL_TEXT,
+                                tmpCoverage,
+                                tmpDistance);
                         continue;
                     }
 
-                    if (tmpSearchPattern.matches(tmpElement.getAttribute("name")) && (tmpPathSearchPattern.noOfMatchingCharsIn(tmpTextBefore) > -1)) {
-                        tmpFoundElements.addFoundByName(new HtmlUnitControl(tmpElement));
-                        continue;
+                    String tmpName = tmpElement.getAttribute("name");
+                    if (StringUtils.isNotEmpty(tmpName) && tmpSearchPattern.matches(tmpName)) {
+                        tmpCoverage = tmpSearchPattern.noOfSurroundingCharsIn(tmpName);
+                        if ((tmpCoverage > -1) && (tmpDistance > -1)) {
+                            tmpFoundElements.add(
+                                    new HtmlUnitControl(tmpElement),
+                                    WeightedControlList.FoundType.BY_NAME,
+                                    tmpCoverage,
+                                    tmpDistance);
+                            continue;
+                        }
                     }
-
 
                     // now check for the including image
                     Iterable<HtmlElement> tmpAllChilds = tmpElement.getHtmlElementDescendants();
@@ -284,29 +370,50 @@ public class HtmlUnitControlFinder implements ControlFinder {
                             HtmlImage tmpImage = (HtmlImage) tmpInnerElement;
 
                             // does image alt-text match?
-                            tmpDistance = tmpSearchPattern.noOfSurroundingCharsIn(tmpImage.getAltAttribute());
-                            if ((tmpDistance > -1) && (tmpPathSearchPattern.noOfMatchingCharsIn(tmpTextBefore) > -1)) {
-                                tmpFoundElements.addFoundByInnerImgAltAttribute(new HtmlUnitControl(tmpElement), tmpDistance);
+                            tmpCoverage = tmpSearchPattern.noOfSurroundingCharsIn(tmpImage.getAltAttribute());
+                            if ((tmpDistance > -1) && (tmpCoverage > -1)) {
+                                tmpFoundElements.add(
+                                        new HtmlUnitControl(tmpElement),
+                                        WeightedControlList.FoundType.BY_INNER_IMG_ALT_ATTRIBUTE,
+                                        tmpCoverage,
+                                        tmpDistance);
                                 continue;
                             }
 
                             // does image title-text match?
-                            tmpDistance = tmpSearchPattern.noOfSurroundingCharsIn(tmpImage.getAttribute("title"));
-                            if ((tmpDistance > -1) && (tmpPathSearchPattern.noOfMatchingCharsIn(tmpTextBefore) > -1)) {
-                                tmpFoundElements.addFoundByInnerImgTitleAttribute(new HtmlUnitControl(tmpElement), tmpDistance);
+                            tmpCoverage = tmpSearchPattern.noOfSurroundingCharsIn(tmpImage.getAttribute("title"));
+                            if ((tmpDistance > -1) && (tmpCoverage > -1)) {
+                                tmpFoundElements.add(
+                                        new HtmlUnitControl(tmpElement),
+                                        WeightedControlList.FoundType.BY_INNER_IMG_TITLE_ATTRIBUTE,
+                                        tmpCoverage,
+                                        tmpDistance);
                                 continue;
                             }
 
                             // does image filename match?
                             String tmpSrc = tmpImage.getSrcAttribute();
-                            if ((tmpSearchPattern.matchesAtEnd(tmpSrc)) && (tmpPathSearchPattern.noOfMatchingCharsIn(tmpTextBefore) > -1)) {
-                                tmpFoundElements.addFoundByInnerImgSrcAttribute(new HtmlUnitControl(tmpElement));
+                            if ((tmpSearchPattern.matchesAtEnd(tmpSrc)) && (tmpDistance > -1)) {
+                                tmpCoverage = tmpSearchPattern.noOfCharsBeforeLastOccurenceIn(tmpSrc);
+                                tmpFoundElements.add(
+                                        new HtmlUnitControl(tmpElement),
+                                        WeightedControlList.FoundType.BY_INNER_IMG_SRC_ATTRIBUTE,
+                                        tmpCoverage,
+                                        tmpDistance);
                                 continue;
                             }
 
-                            if (tmpSearchPattern.matches(tmpImage.getAttribute("name")) && (tmpPathSearchPattern.noOfMatchingCharsIn(tmpTextBefore) > -1)) {
-                                tmpFoundElements.addFoundByInnerName(new HtmlUnitControl(tmpElement));
-                                continue;
+                            tmpName = tmpImage.getAttribute("name");
+                            if (StringUtils.isNotEmpty(tmpName) && tmpSearchPattern.matches(tmpName)) {
+                                tmpCoverage = tmpSearchPattern.noOfSurroundingCharsIn(tmpName);
+                                if ((tmpCoverage > -1) && (tmpDistance > -1)) {
+                                    tmpFoundElements.add(
+                                            new HtmlUnitControl(tmpElement),
+                                            WeightedControlList.FoundType.BY_INNER_NAME,
+                                            tmpCoverage,
+                                            tmpDistance);
+                                    continue;
+                                }
                             }
                         }
                     }
@@ -314,11 +421,17 @@ public class HtmlUnitControlFinder implements ControlFinder {
                     HtmlAnchor tmpAnchor = (HtmlAnchor) tmpElement;
                     String tmpTextBefore = domNodeText.getTextBefore(tmpElement);
 
+                    int tmpDistance = tmpPathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
+
                     // text match?
                     String tmpText = domNodeText.getAsText(tmpAnchor);
-                    int tmpDistance = tmpSearchPattern.noOfSurroundingCharsIn(tmpText);
-                    if ((tmpDistance > -1) && (tmpPathSearchPattern.noOfMatchingCharsIn(tmpTextBefore) > -1)) {
-                        tmpFoundElements.addFoundByLabelText(new HtmlUnitControl(tmpAnchor), tmpDistance);
+                    int tmpCoverage = tmpSearchPattern.noOfSurroundingCharsIn(tmpText);
+                    if ((tmpDistance > -1) && (tmpCoverage > -1)) {
+                        tmpFoundElements.add(
+                                new HtmlUnitControl(tmpAnchor),
+                                WeightedControlList.FoundType.BY_LABEL_TEXT,
+                                tmpCoverage,
+                                tmpDistance);
                         continue;
                     }
 
@@ -330,60 +443,107 @@ public class HtmlUnitControlFinder implements ControlFinder {
                             // check for the image alt tag is not neede, alt text is part of the anchor text
 
                             // does image title-text match?
-                            tmpDistance = tmpSearchPattern.noOfSurroundingCharsIn(tmpImage.getAttribute("title"));
-                            if ((tmpDistance > -1) && (tmpPathSearchPattern.noOfMatchingCharsIn(tmpTextBefore) > -1)) {
-                                tmpFoundElements.addFoundByInnerImgTitleAttribute(new HtmlUnitControl(tmpAnchor), tmpDistance);
-                                break;
+                            tmpCoverage = tmpSearchPattern.noOfSurroundingCharsIn(tmpImage.getAttribute("title"));
+                            if ((tmpDistance > -1) && (tmpCoverage > -1)) {
+                                tmpFoundElements.add(
+                                        new HtmlUnitControl(tmpAnchor),
+                                        WeightedControlList.FoundType.BY_INNER_IMG_TITLE_ATTRIBUTE,
+                                        tmpCoverage,
+                                        tmpDistance);
+                                continue;
                             }
 
                             // does image filename match?
                             String tmpSrc = tmpImage.getSrcAttribute();
-                            if ((tmpSearchPattern.matchesAtEnd(tmpSrc)) && (tmpPathSearchPattern.noOfMatchingCharsIn(tmpTextBefore) > -1)) {
-                                tmpFoundElements.addFoundByInnerImgSrcAttribute(new HtmlUnitControl(tmpAnchor));
-                                break;
+                            if ((tmpSearchPattern.matchesAtEnd(tmpSrc)) && (tmpDistance > -1)) {
+                                tmpCoverage = tmpSearchPattern.noOfCharsBeforeLastOccurenceIn(tmpSrc);
+                                tmpFoundElements.add(
+                                        new HtmlUnitControl(tmpAnchor),
+                                        WeightedControlList.FoundType.BY_INNER_IMG_SRC_ATTRIBUTE,
+                                        tmpCoverage,
+                                        tmpDistance);
+                                continue;
                             }
 
-                            if (tmpSearchPattern.matches(tmpImage.getAttribute("name")) && (tmpPathSearchPattern.noOfMatchingCharsIn(tmpTextBefore) > -1)) {
-                                tmpFoundElements.addFoundByInnerName(new HtmlUnitControl(tmpAnchor));
-                                continue;
+                            String tmpName = tmpImage.getAttribute("name");
+                            if (StringUtils.isNotEmpty(tmpName) && tmpSearchPattern.matches(tmpName)) {
+                                tmpCoverage = tmpSearchPattern.noOfSurroundingCharsIn(tmpName);
+                                if ((tmpCoverage > -1) && (tmpDistance > -1)) {
+                                    tmpFoundElements.add(
+                                            new HtmlUnitControl(tmpAnchor),
+                                            WeightedControlList.FoundType.BY_INNER_NAME,
+                                            tmpCoverage,
+                                            tmpDistance);
+                                    continue;
+                                }
                             }
                         }
                     }
 
                     // name match?
-                    if (tmpSearchPattern.matches(tmpAnchor.getNameAttribute()) && (tmpPathSearchPattern.noOfMatchingCharsIn(tmpTextBefore) > -1)) {
-                        tmpFoundElements.addFoundByName(new HtmlUnitControl(tmpAnchor));
-                        continue;
+                    String tmpName = tmpElement.getAttribute("name");
+                    if (StringUtils.isNotEmpty(tmpName) && tmpSearchPattern.matches(tmpName)) {
+                        tmpCoverage = tmpSearchPattern.noOfSurroundingCharsIn(tmpName);
+                        if ((tmpCoverage > -1) && (tmpDistance > -1)) {
+                            tmpFoundElements.add(
+                                    new HtmlUnitControl(tmpAnchor),
+                                    WeightedControlList.FoundType.BY_NAME,
+                                    tmpCoverage,
+                                    tmpDistance);
+                            continue;
+                        }
                     }
                 } else if (tmpElement instanceof HtmlImage) {
                     HtmlImage tmpImage = (HtmlImage) tmpElement;
                     String tmpTextBefore = domNodeText.getTextBefore(tmpElement);
 
+                    int tmpDistance = tmpPathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
+
                     // does image alt-text match?
-                    int tmpDistance = tmpSearchPattern.noOfSurroundingCharsIn(tmpImage.getAltAttribute());
-                    if (tmpDistance > -1 && (tmpPathSearchPattern.noOfMatchingCharsIn(tmpTextBefore) > -1)) {
-                        tmpFoundElements.addFoundByImgAltAttribute(new HtmlUnitControl(tmpElement), tmpDistance);
+                    int tmpCoverage = tmpSearchPattern.noOfSurroundingCharsIn(tmpImage.getAltAttribute());
+                    if ((tmpDistance > -1) && (tmpCoverage > -1)) {
+                        tmpFoundElements.add(
+                                new HtmlUnitControl(tmpImage),
+                                WeightedControlList.FoundType.BY_IMG_ALT_ATTRIBUTE,
+                                tmpCoverage,
+                                tmpDistance);
                         continue;
                     }
 
                     // does image title-text match?
-                    tmpDistance = tmpSearchPattern.noOfSurroundingCharsIn(tmpImage.getAttribute("title"));
-                    if (tmpDistance > -1 && (tmpPathSearchPattern.noOfMatchingCharsIn(tmpTextBefore) > -1)) {
-                        tmpFoundElements.addFoundByImgTitleAttribute(new HtmlUnitControl(tmpElement), tmpDistance);
+                    tmpCoverage = tmpSearchPattern.noOfSurroundingCharsIn(tmpImage.getAttribute("title"));
+                    if ((tmpDistance > -1) && (tmpCoverage > -1)) {
+                        tmpFoundElements.add(
+                                new HtmlUnitControl(tmpImage),
+                                WeightedControlList.FoundType.BY_IMG_TITLE_ATTRIBUTE,
+                                tmpCoverage,
+                                tmpDistance);
                         continue;
                     }
 
                     // does image filename match?
                     String tmpSrc = tmpImage.getSrcAttribute();
-                    if (tmpSearchPattern.matchesAtEnd(tmpSrc) && (tmpPathSearchPattern.noOfMatchingCharsIn(tmpTextBefore) > -1)) {
-                        tmpFoundElements.addFoundByImgSrcAttribute(new HtmlUnitControl(tmpElement));
+                    if ((tmpSearchPattern.matchesAtEnd(tmpSrc)) && (tmpDistance > -1)) {
+                        tmpCoverage = tmpSearchPattern.noOfCharsBeforeLastOccurenceIn(tmpSrc);
+                        tmpFoundElements.add(
+                                new HtmlUnitControl(tmpImage),
+                                WeightedControlList.FoundType.BY_IMG_SRC_ATTRIBUTE,
+                                tmpCoverage,
+                                tmpDistance);
                         continue;
                     }
 
-                    // name match?
-                    if (tmpSearchPattern.matches(tmpImage.getNameAttribute()) && (tmpPathSearchPattern.noOfMatchingCharsIn(tmpTextBefore) > -1)) {
-                        tmpFoundElements.addFoundByName(new HtmlUnitControl(tmpElement));
-                        continue;
+                    String tmpName = tmpImage.getAttribute("name");
+                    if (StringUtils.isNotEmpty(tmpName) && tmpSearchPattern.matches(tmpName)) {
+                        tmpCoverage = tmpSearchPattern.noOfSurroundingCharsIn(tmpName);
+                        if ((tmpCoverage > -1) && (tmpDistance > -1)) {
+                            tmpFoundElements.add(
+                                    new HtmlUnitControl(tmpImage),
+                                    WeightedControlList.FoundType.BY_NAME,
+                                    tmpCoverage,
+                                    tmpDistance);
+                            continue;
+                        }
                     }
                 }
 
@@ -398,9 +558,19 @@ public class HtmlUnitControlFinder implements ControlFinder {
                 ) {
                     String tmpTextBefore = domNodeText.getTextBefore(tmpElement);
 
-                    if (tmpSearchPattern.matches(tmpElement.getId()) && (tmpPathSearchPattern.noOfMatchingCharsIn(tmpTextBefore) > -1)) {
-                        tmpFoundElements.addFoundById(new HtmlUnitControl(tmpElement));
-                        continue;
+                    int tmpDistance = tmpPathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
+
+                    String tmpId = tmpElement.getId();
+                    if (StringUtils.isNotEmpty(tmpId) && tmpSearchPattern.matches(tmpId)) {
+                        int tmpCoverage = tmpSearchPattern.noOfSurroundingCharsIn(tmpId);
+                        if ((tmpCoverage > -1) && (tmpDistance > -1)) {
+                            tmpFoundElements.add(
+                                    new HtmlUnitControl(tmpElement),
+                                    WeightedControlList.FoundType.BY_ID,
+                                    tmpCoverage,
+                                    tmpDistance);
+                            continue;
+                        }
                     }
                 }
             }
@@ -430,12 +600,14 @@ public class HtmlUnitControlFinder implements ControlFinder {
                     HtmlLabel tmpLabel = (HtmlLabel) tmpElement;
 
                     // found a label with this text
-                    String tmpText = tmpLabel.asText();
+                    String tmpText = domNodeText.getAsText(tmpLabel);
                     String tmpTextBefore = domNodeText.getTextBefore(tmpLabel);
 
+                    int tmpDistance = tmpPathSearchPatternSelect.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
+
                     // label for select
-                    int tmpDistance = tmpSearchPatternSelect.noOfCharsAfterLastOccurenceIn(tmpText);
-                    if ((tmpDistance > -1) && (tmpPathSearchPatternSelect.noOfMatchingCharsIn(tmpTextBefore) > -1)) {
+                    int tmpCoverage = tmpSearchPatternSelect.noOfCharsAfterLastOccurenceIn(tmpText);
+                    if ((tmpDistance > -1) && (tmpCoverage > -1)) {
                         String tmpForAttribute = tmpLabel.getForAttribute();
                         // label contains a for-attribute => find corresponding element
                         if (StringUtils.isNotEmpty(tmpForAttribute)) {
@@ -444,7 +616,7 @@ public class HtmlUnitControlFinder implements ControlFinder {
 
                                 if (tmpElementForLabel instanceof HtmlSelect) {
                                     HtmlSelect tmpHtmlSelect = (HtmlSelect)tmpElementForLabel;
-                                    boolean tmpFound = getOption(tmpHtmlSelect, tmpSearchPattern, tmpFoundElements);
+                                    boolean tmpFound = getOption(tmpHtmlSelect, tmpSearchPattern, tmpDistance, tmpFoundElements);
                                     if (tmpFound) {
                                         continue;
                                     }
@@ -459,7 +631,7 @@ public class HtmlUnitControlFinder implements ControlFinder {
                         for (HtmlElement tmpChildElement : tmpChilds) {
                             if (tmpChildElement instanceof HtmlSelect) {
                                 HtmlSelect tmpHtmlSelect = (HtmlSelect)tmpChildElement;
-                                boolean tmpFound = getOption(tmpHtmlSelect, tmpSearchPattern, tmpFoundElements);
+                                boolean tmpFound = getOption(tmpHtmlSelect, tmpSearchPattern, tmpDistance, tmpFoundElements);
                                 if (tmpFound) {
                                     continue;
                                 }
@@ -468,8 +640,9 @@ public class HtmlUnitControlFinder implements ControlFinder {
                     }
 
                     // label for Checkbox/RadioButton
-                    tmpDistance = tmpSearchPattern.noOfCharsAfterLastOccurenceIn(tmpText);
-                    if ((tmpDistance > -1) && (tmpPathSearchPattern.noOfMatchingCharsIn(tmpTextBefore) > -1)) {
+                    tmpDistance = tmpPathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
+                    tmpCoverage = tmpSearchPattern.noOfSurroundingCharsIn(tmpText);
+                    if ((tmpDistance > -1) && (tmpCoverage > -1)) {
                         String tmpForAttribute = tmpLabel.getForAttribute();
                         // label contains a for-attribute => find corresponding element
                         if (StringUtils.isNotEmpty(tmpForAttribute)) {
@@ -478,7 +651,11 @@ public class HtmlUnitControlFinder implements ControlFinder {
 
                                 if (    (tmpElementForLabel instanceof HtmlCheckBoxInput)
                                         || (tmpElementForLabel instanceof HtmlRadioButtonInput) ) {
-                                    tmpFoundElements.addFoundByLabel(new HtmlUnitControl(tmpElementForLabel), tmpDistance);
+                                    tmpFoundElements.add(
+                                            new HtmlUnitControl(tmpElementForLabel),
+                                            WeightedControlList.FoundType.BY_LABEL,
+                                            tmpCoverage,
+                                            tmpDistance);
                                     continue;
                                 }
                             } catch (ElementNotFoundException e) {
@@ -491,7 +668,11 @@ public class HtmlUnitControlFinder implements ControlFinder {
                         for (HtmlElement tmpChildElement : tmpChilds) {
                             if (    (tmpChildElement instanceof HtmlCheckBoxInput)
                                     || (tmpChildElement instanceof HtmlRadioButtonInput) ) {
-                                tmpFoundElements.addFoundByLabel(new HtmlUnitControl(tmpChildElement), tmpDistance);
+                                tmpFoundElements.add(
+                                        new HtmlUnitControl(tmpChildElement),
+                                        WeightedControlList.FoundType.BY_LABEL,
+                                        tmpCoverage,
+                                        tmpDistance);
                                 continue;
                             }
                         }
@@ -504,70 +685,134 @@ public class HtmlUnitControlFinder implements ControlFinder {
                     // if the select follows text directly and text matches => choose it
                     String tmpLabelTextBefore = domNodeText.getLabelTextBefore(tmpElement);
 
-                    int tmpDistance = tmpSearchPatternSelect.noOfCharsAfterLastOccurenceIn(tmpLabelTextBefore);
-                    if ((tmpDistance > -1) && (tmpPathSearchPatternSelect.noOfMatchingCharsIn(tmpTextBefore) > -1)) {
-                        boolean tmpFound = getOption(tmpHtmlSelect, tmpSearchPattern, tmpFoundElements);
+                    int tmpDistance = tmpPathSearchPatternSelect.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
+                    int tmpLabelDistance = tmpSearchPatternSelect.noOfSurroundingCharsIn(tmpLabelTextBefore);
+                    if ((tmpDistance > -1) && (tmpLabelDistance > -1)) {
+                        boolean tmpFound = getOption(tmpHtmlSelect, tmpSearchPattern, tmpLabelDistance, tmpFoundElements);
                         if (tmpFound) {
                             continue;
                         }
                     }
 
                     // name
-                    if (tmpSearchPatternSelect.matches(tmpElement.getAttribute("name")) && (tmpPathSearchPatternSelect.noOfMatchingCharsIn(tmpTextBefore) > -1)) {
-                        boolean tmpFound = getOption(tmpHtmlSelect, tmpSearchPattern, tmpFoundElements);
-                        if (tmpFound) {
-                            continue;
+                    String tmpName = tmpElement.getAttribute("name");
+                    if (StringUtils.isNotEmpty(tmpName) && tmpSearchPatternSelect.matches(tmpName)) {
+                        int tmpCoverage = tmpSearchPatternSelect.noOfSurroundingCharsIn(tmpName);
+                        if ((tmpCoverage > -1) && (tmpDistance > -1)) {
+                            boolean tmpFound = getOption(tmpHtmlSelect, tmpSearchPattern, tmpDistance, tmpFoundElements);
+                            if (tmpFound) {
+                                continue;
+                            }
                         }
                     }
 
                     // id
-                    if (tmpSearchPatternSelect.matches(tmpElement.getId()) && (tmpPathSearchPatternSelect.noOfMatchingCharsIn(tmpTextBefore) > -1)) {
-                        boolean tmpFound = getOption(tmpHtmlSelect, tmpSearchPattern, tmpFoundElements);
-                        if (tmpFound) {
-                            continue;
+                    String tmpId = tmpElement.getId();
+                    if (StringUtils.isNotEmpty(tmpId) && tmpSearchPatternSelect.matches(tmpId)) {
+                        int tmpCoverage = tmpSearchPatternSelect.noOfSurroundingCharsIn(tmpId);
+                        if ((tmpCoverage > -1) && (tmpDistance > -1)) {
+                            boolean tmpFound = getOption(tmpHtmlSelect, tmpSearchPattern, tmpDistance, tmpFoundElements);
+                            if (tmpFound) {
+                                continue;
+                            }
                         }
                     }
-
                 } else if (tmpElement instanceof HtmlCheckBoxInput) {
                     HtmlCheckBoxInput tmpCheckBox = (HtmlCheckBoxInput) tmpElement;
                     String tmpTextBefore = domNodeText.getTextBefore(tmpElement);
 
                     // if the select follows text directly and text matches => choose it
                     String tmpLabelTextAfter = domNodeText.getLabelTextAfter(tmpElement);
-                    int tmpDistance = tmpSearchPattern.noOfCharsBeforeFirstOccurenceIn(tmpLabelTextAfter);
-                    if ((tmpDistance > -1) && (tmpPathSearchPattern.noOfMatchingCharsIn(tmpTextBefore) > -1)) {
-                        tmpFoundElements.addFoundByLabelText(new HtmlUnitControl(tmpCheckBox), tmpDistance);
+
+                    int tmpDistance = tmpPathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
+                    int tmpCoverage = tmpSearchPattern.noOfSurroundingCharsIn(tmpLabelTextAfter);
+                    if ((tmpDistance > -1) && (tmpCoverage > -1)) {
+                        tmpFoundElements.add(
+                                new HtmlUnitControl(tmpCheckBox),
+                                WeightedControlList.FoundType.BY_LABEL_TEXT,
+                                tmpCoverage,
+                                tmpDistance);
                         continue;
                     }
 
                     // by name
-                    if (tmpSearchPattern.matches(tmpCheckBox.getNameAttribute()) && (tmpPathSearchPattern.noOfMatchingCharsIn(tmpTextBefore) > -1)) {
-                        tmpFoundElements.addFoundByName(new HtmlUnitControl(tmpCheckBox));
-                        continue;
+                    String tmpName = tmpCheckBox.getAttribute("name");
+                    if (StringUtils.isNotEmpty(tmpName) && tmpSearchPattern.matches(tmpName)) {
+                        tmpCoverage = tmpSearchPattern.noOfSurroundingCharsIn(tmpName);
+                        if ((tmpCoverage > -1) && (tmpDistance > -1)) {
+                            tmpFoundElements.add(
+                                    new HtmlUnitControl(tmpCheckBox),
+                                    WeightedControlList.FoundType.BY_NAME,
+                                    tmpCoverage,
+                                    tmpDistance);
+                            continue;
+                        }
                     }
 
+                    // id
+                    String tmpId = tmpCheckBox.getId();
+                    if (StringUtils.isNotEmpty(tmpId) && tmpSearchPattern.matches(tmpId)) {
+                        tmpCoverage = tmpSearchPattern.noOfSurroundingCharsIn(tmpId);
+                        if ((tmpCoverage > -1) && (tmpDistance > -1)) {
+                            tmpFoundElements.add(
+                                    new HtmlUnitControl(tmpCheckBox),
+                                    WeightedControlList.FoundType.BY_ID,
+                                    tmpCoverage,
+                                    tmpDistance);
+                            continue;
+                        }
+                    }
                 } else if (tmpElement instanceof HtmlRadioButtonInput) {
                     String tmpTextBefore = domNodeText.getTextBefore(tmpElement);
 
                     // if the select follows text directly and text matches => choose it
                     String tmpLabelTextAfter = domNodeText.getLabelTextAfter(tmpElement);
-                    int tmpDistance = tmpSearchPattern.noOfCharsBeforeFirstOccurenceIn(tmpLabelTextAfter);
-                    if ((tmpDistance > -1) && (tmpPathSearchPattern.noOfMatchingCharsIn(tmpTextBefore) > -1)) {
-                        tmpFoundElements.addFoundByLabelText(new HtmlUnitControl(tmpElement), tmpDistance);
+
+                    int tmpDistance = tmpPathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
+                    int tmpCoverage = tmpSearchPattern.noOfSurroundingCharsIn(tmpLabelTextAfter);
+                    if ((tmpDistance > -1) && (tmpCoverage > -1)) {
+                        tmpFoundElements.add(
+                                new HtmlUnitControl(tmpElement),
+                                WeightedControlList.FoundType.BY_LABEL_TEXT,
+                                tmpCoverage,
+                                tmpDistance);
                         continue;
                     }
 
                     // no search by name
+
+                    // id
+                    String tmpId = tmpElement.getId();
+                    if (StringUtils.isNotEmpty(tmpId) && tmpSearchPattern.matches(tmpId)) {
+                        tmpCoverage = tmpSearchPattern.noOfSurroundingCharsIn(tmpId);
+                        if ((tmpCoverage > -1) && (tmpDistance > -1)) {
+                            tmpFoundElements.add(
+                                    new HtmlUnitControl(tmpElement),
+                                    WeightedControlList.FoundType.BY_ID,
+                                    tmpCoverage,
+                                    tmpDistance);
+                            continue;
+                        }
+                    }
                 }
 
                 // by id
-                if ((tmpElement instanceof HtmlOption)
-                        || (tmpElement instanceof HtmlCheckBoxInput)
-                        || (tmpElement instanceof HtmlRadioButtonInput)
-                ) {
-                    if (tmpSearchPattern.matches(tmpElement.getId())) {
-                        tmpFoundElements.addFoundById(new HtmlUnitControl(tmpElement));
-                        continue;
+                if (tmpElement instanceof HtmlOption) {
+                    String tmpTextBefore = domNodeText.getTextBefore(tmpElement);
+
+                    int tmpDistance = tmpPathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
+
+                    String tmpId = tmpElement.getId();
+                    if (StringUtils.isNotEmpty(tmpId) && tmpSearchPattern.matches(tmpId)) {
+                        int tmpCoverage = tmpSearchPattern.noOfSurroundingCharsIn(tmpId);
+                        if ((tmpCoverage > -1) && (tmpDistance > -1)) {
+                            tmpFoundElements.add(
+                                    new HtmlUnitControl(tmpElement),
+                                    WeightedControlList.FoundType.BY_ID,
+                                    tmpCoverage,
+                                    tmpDistance);
+                            continue;
+                        }
                     }
                 }
             }
@@ -579,7 +824,6 @@ public class HtmlUnitControlFinder implements ControlFinder {
 
 
     public WeightedControlList getAllOtherControls(final List<SecretString> aSearch) {
-        List<HtmlElement> tmpProcessedElements = new LinkedList<HtmlElement>();
         WeightedControlList tmpFoundElements = new WeightedControlList();
 
         SearchPattern tmpLabelSearchPattern = aSearch.get(aSearch.size() - 1).getSearchPattern();
@@ -594,19 +838,24 @@ public class HtmlUnitControlFinder implements ControlFinder {
                     HtmlLabel tmpLabel = (HtmlLabel) tmpElement;
 
                     // found a label with this text
-                    String tmpText = tmpLabel.asText();
+                    String tmpText = domNodeText.getAsText(tmpLabel);
                     String tmpTextBefore = domNodeText.getTextBefore(tmpLabel);
 
-                    int tmpDistance = tmpLabelSearchPattern.noOfCharsAfterLastOccurenceIn(tmpText);
-                    if ((tmpDistance > -1) && (tmpPathSearchPattern.noOfMatchingCharsIn(tmpTextBefore) > -1)) {
+                    int tmpDistance = tmpPathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
+
+                    int tmpCoverage = tmpLabelSearchPattern.noOfSurroundingCharsIn(tmpText);
+                    if ((tmpDistance > -1) && (tmpCoverage > -1)) {
                         String tmpForAttribute = tmpLabel.getForAttribute();
                         // label contains a for-attribute => find corresponding element
                         if (StringUtils.isNotEmpty(tmpForAttribute)) {
                             try {
                                 HtmlElement tmpElementForLabel = htmlPage.getHtmlElementById(tmpForAttribute);
                                 if (tmpElementForLabel instanceof HtmlSelect) {
-                                    tmpFoundElements.addFoundByLabel(new HtmlUnitControl(tmpElementForLabel), tmpDistance);
-                                    tmpProcessedElements.add(tmpElementForLabel);
+                                    tmpFoundElements.add(
+                                            new HtmlUnitControl(tmpElementForLabel),
+                                            WeightedControlList.FoundType.BY_LABEL,
+                                            tmpCoverage,
+                                            tmpDistance);
                                     continue;
                                 }
                             } catch (ElementNotFoundException e) {
@@ -618,8 +867,11 @@ public class HtmlUnitControlFinder implements ControlFinder {
                         Iterable<HtmlElement> tmpChilds = tmpLabel.getHtmlElementDescendants();
                         for (HtmlElement tmpChildElement : tmpChilds) {
                             if (tmpChildElement instanceof HtmlSelect) {
-                                tmpFoundElements.addFoundByLabel(new HtmlUnitControl(tmpChildElement), tmpDistance);
-                                tmpProcessedElements.add(tmpChildElement);
+                                tmpFoundElements.add(
+                                        new HtmlUnitControl(tmpChildElement),
+                                        WeightedControlList.FoundType.BY_LABEL,
+                                        tmpCoverage,
+                                        tmpDistance);
                                 continue;
                             }
                         }
@@ -632,51 +884,85 @@ public class HtmlUnitControlFinder implements ControlFinder {
                     // if the select follows text directly and text matches => choose it
                     String tmpLabelTextBefore = domNodeText.getLabelTextBefore(tmpElement);
 
+                    int tmpCoverage = tmpPathSearchPattern.noOfSurroundingCharsIn(tmpTextBefore);
                     int tmpDistance = tmpLabelSearchPattern.noOfCharsAfterLastOccurenceIn(tmpLabelTextBefore);
-                    if ((tmpDistance > -1) && (tmpPathSearchPattern.noOfMatchingCharsIn(tmpTextBefore) > -1)) {
-                        tmpFoundElements.addFoundByLabel(new HtmlUnitControl(tmpElement), tmpDistance);
-                        tmpProcessedElements.add(tmpElement);
-                        continue;
-                    }
 
-                    // whole text before
-                    tmpDistance = tmpWholePathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
-                    if (tmpDistance > -1) {
-                        tmpFoundElements.addFoundByText(new HtmlUnitControl(tmpElement), tmpDistance);
-                        tmpProcessedElements.add(tmpElement);
+                    if ((tmpDistance > -1) && (tmpCoverage > -1)) {
+                        tmpFoundElements.add(
+                                new HtmlUnitControl(tmpElement),
+                                WeightedControlList.FoundType.BY_LABEL,
+                                tmpCoverage,
+                                tmpDistance);
                         continue;
                     }
 
                     // name
-                    if (tmpLabelSearchPattern.matches(tmpElement.getAttribute("name")) && (tmpPathSearchPattern.noOfMatchingCharsIn(tmpTextBefore) > -1)) {
-                        tmpFoundElements.addFoundByName(new HtmlUnitControl(tmpElement));
-                        tmpProcessedElements.add(tmpElement);
-                        continue;
+                    String tmpName = tmpElement.getAttribute("name");
+                    if (StringUtils.isNotEmpty(tmpName) && tmpLabelSearchPattern.matches(tmpName)) {
+                        tmpCoverage = tmpLabelSearchPattern.noOfSurroundingCharsIn(tmpName);
+                        if ((tmpCoverage > -1) && (tmpDistance > -1)) {
+                            tmpFoundElements.add(
+                                    new HtmlUnitControl(tmpElement),
+                                    WeightedControlList.FoundType.BY_NAME,
+                                    tmpCoverage,
+                                    tmpDistance);
+                            continue;
+                        }
                     }
 
                     // id
-                    if (tmpLabelSearchPattern.matches(tmpElement.getId()) && (tmpPathSearchPattern.noOfMatchingCharsIn(tmpTextBefore) > -1)) {
-                        tmpFoundElements.addFoundById(new HtmlUnitControl(tmpElement));
-                        tmpProcessedElements.add(tmpElement);
+                    String tmpId = tmpElement.getId();
+                    if (StringUtils.isNotEmpty(tmpId) && tmpLabelSearchPattern.matches(tmpId)) {
+                        tmpCoverage = tmpLabelSearchPattern.noOfSurroundingCharsIn(tmpId);
+                        if ((tmpCoverage > -1) && (tmpDistance > -1)) {
+                            tmpFoundElements.add(
+                                    new HtmlUnitControl(tmpElement),
+                                    WeightedControlList.FoundType.BY_ID,
+                                    tmpCoverage,
+                                    tmpDistance);
+                            continue;
+                        }
+                    }
+
+                    // whole text before
+                    tmpCoverage = tmpWholePathSearchPattern.noOfSurroundingCharsIn(tmpTextBefore);
+                    tmpDistance = tmpWholePathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
+                    if (tmpDistance > -1) {
+                        tmpFoundElements.add(
+                                new HtmlUnitControl(tmpElement),
+                                WeightedControlList.FoundType.BY_TEXT,
+                                tmpCoverage,
+                                tmpDistance);
                         continue;
                     }
                 }
                 if (tmpElement instanceof HtmlOptionGroup) {
                     String tmpTextBefore = domNodeText.getTextBefore(tmpElement);
+                    int tmpDistance = tmpLabelSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
 
                     // label
-                    int tmpDistance = tmpLabelSearchPattern.noOfCharsAfterLastOccurenceIn(tmpElement.getAttribute("label"));
-                    if ((tmpDistance > -1) && (tmpPathSearchPattern.noOfMatchingCharsIn(tmpTextBefore) > -1)) {
-                        tmpFoundElements.addFoundByLabelText(new HtmlUnitControl(tmpElement), tmpDistance);
-                        tmpProcessedElements.add(tmpElement);
+                    int tmpCoverage = tmpLabelSearchPattern.noOfSurroundingCharsIn(tmpElement.getAttribute("label"));
+                    if ((tmpDistance > -1) && (tmpCoverage > -1)) {
+                        tmpFoundElements.add(
+                                new HtmlUnitControl(tmpElement),
+                                WeightedControlList.FoundType.BY_LABEL_TEXT,
+                                tmpCoverage,
+                                tmpDistance);
                         continue;
                     }
 
                     // id
-                    if (tmpLabelSearchPattern.matches(tmpElement.getId()) && (tmpPathSearchPattern.noOfMatchingCharsIn(tmpTextBefore) > -1)) {
-                        tmpFoundElements.addFoundById(new HtmlUnitControl(tmpElement));
-                        tmpProcessedElements.add(tmpElement);
-                        continue;
+                    String tmpId = tmpElement.getId();
+                    if (StringUtils.isNotEmpty(tmpId) && tmpLabelSearchPattern.matches(tmpId)) {
+                        tmpCoverage = tmpLabelSearchPattern.noOfSurroundingCharsIn(tmpId);
+                        if ((tmpCoverage > -1) && (tmpDistance > -1)) {
+                            tmpFoundElements.add(
+                                    new HtmlUnitControl(tmpElement),
+                                    WeightedControlList.FoundType.BY_ID,
+                                    tmpCoverage,
+                                    tmpDistance);
+                            continue;
+                        }
                     }
                 }
             }
@@ -693,19 +979,20 @@ public class HtmlUnitControlFinder implements ControlFinder {
      * @return the list of matching elements
      */
     public WeightedControlList getAllElementsForText(List<SecretString> aSearch) {
-        WeightedControlList tmpFound = new WeightedControlList();
+        WeightedControlList tmpFoundElements = new WeightedControlList();
 
         SearchPattern tmpLabelSearchPattern = aSearch.get(aSearch.size() - 1).getSearchPattern();
         SearchPattern tmpPathSearchPattern = SearchPattern.createFromList(aSearch, aSearch.size() - 1);
 
         DomNode tmpBodyNode = getBody(htmlPage);
         if (null == tmpBodyNode) {
-            return tmpFound;
+            return tmpFoundElements;
         }
 
         String tmpText = domNodeText.getAsText(tmpBodyNode);
-        if (!(tmpLabelSearchPattern.noOfMatchingCharsIn(tmpText) > -1)) {
-            return tmpFound;
+        int tmpCoverage = tmpLabelSearchPattern.noOfSurroundingCharsIn(tmpText);
+        if (!(tmpCoverage > -1)) {
+            return tmpFoundElements;
         }
 
 
@@ -722,7 +1009,6 @@ public class HtmlUnitControlFinder implements ControlFinder {
                 // check the child's of the current node
                 List<HtmlElement> tmpChildElementsFound = new LinkedList<HtmlElement>();
                 for (HtmlElement tmpChildElement : tmpHtmlElement.getChildElements()) {
-                    // String tmpChildElementText = tmpChildElement.asText();
                     String tmpChildElementText = domNodeText.getAsText(tmpChildElement);
                     if (tmpLabelSearchPattern.noOfMatchingCharsIn(tmpChildElementText) > 0) {
                         tmpChildElementsFound.add(tmpChildElement);
@@ -740,13 +1026,16 @@ public class HtmlUnitControlFinder implements ControlFinder {
                         tmpTextBefore = tmpTextBefore + " " + tmpElementText.substring(0, tmpPos);
                     }
 
-                    if (tmpPathSearchPattern.noOfMatchingCharsIn(tmpTextBefore) > -1) {
-                        HtmlUnitControl tmpControl = new HtmlUnitControl(tmpHtmlElement);
-                        // TODO
-                        tmpFound.addFoundByText(tmpControl, 100000);
+                    int tmpDistance = tmpPathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
+                    if (tmpDistance > -1) {
+                        tmpFoundElements.add(
+                                new HtmlUnitControl(tmpHtmlElement),
+                                WeightedControlList.FoundType.BY_TEXT,
+                                tmpCoverage,
+                                tmpDistance);
                     }
                 } else {
-                    // we have to check the childs
+                    // we have to check the child's
                     // in the next round
                     tmpNextElementsToTest.addAll(tmpChildElementsFound);
                 }
@@ -759,7 +1048,7 @@ public class HtmlUnitControlFinder implements ControlFinder {
 
         } while (true);
 
-        return tmpFound;
+        return tmpFoundElements;
     }
 
     /**
@@ -778,9 +1067,20 @@ public class HtmlUnitControlFinder implements ControlFinder {
         Iterable<HtmlElement> tmpElements = htmlPage.getHtmlElementDescendants();
         for (HtmlElement tmpElement : tmpElements) {
             String tmpTextBefore = domNodeText.getTextBefore(tmpElement);
-            if (tmpSearchPattern.matches(tmpElement.getId()) && (tmpPathSearchPattern.noOfMatchingCharsIn(tmpTextBefore) > -1)) {
-                tmpFoundElements.addFoundById(new HtmlUnitControl(tmpElement));
-                return tmpFoundElements;
+
+            int tmpDistance = tmpPathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
+
+            String tmpId = tmpElement.getId();
+            if (StringUtils.isNotEmpty(tmpId) && tmpSearchPattern.matches(tmpId)) {
+                int tmpCoverage = tmpSearchPattern.noOfSurroundingCharsIn(tmpId);
+                if ((tmpCoverage > -1) && (tmpDistance > -1)) {
+                    tmpFoundElements.add(
+                            new HtmlUnitControl(tmpElement),
+                            WeightedControlList.FoundType.BY_ID,
+                            tmpCoverage,
+                            tmpDistance);
+                    continue;
+                }
             }
         }
 
@@ -804,15 +1104,21 @@ public class HtmlUnitControlFinder implements ControlFinder {
         for (HtmlElement tmpHtmlElement : tmpBodyNode.getChildElements()) {
             HtmlElement tmpResult = getFirstClickableTextElement(tmpHtmlElement, tmpSearchPattern, tmpPathSearchPattern);
             if (null != tmpResult) {
-                HtmlUnitControl tmpControl = new HtmlUnitControl(tmpResult);
                 // TODO
-                tmpFoundElements.addFoundByText(tmpControl, 100000);
+                tmpFoundElements.add(
+                        new HtmlUnitControl(tmpResult),
+                        WeightedControlList.FoundType.BY_TEXT,
+                        0,
+                        0);
                 return tmpFoundElements;
             }
         }
-        HtmlUnitControl tmpControl = new HtmlUnitControl(tmpBodyNode);
         // TODO
-        tmpFoundElements.addFoundByText(tmpControl, 100000);
+        tmpFoundElements.add(
+                new HtmlUnitControl(tmpBodyNode),
+                WeightedControlList.FoundType.BY_TEXT,
+                0,
+                0);
         return tmpFoundElements;
     }
 
@@ -851,29 +1157,41 @@ public class HtmlUnitControlFinder implements ControlFinder {
      * @param aName value or label of option
      * @return found
      */
-    protected boolean getOption(HtmlSelect aSelect, SearchPattern aSearchPattern, WeightedControlList aWeightedControlList) {
+    protected boolean getOption(HtmlSelect aSelect, SearchPattern aSearchPattern, int aDistance, WeightedControlList aWeightedControlList) {
         boolean tmpFound = false;
         Iterable<HtmlOption> tmpOptions = aSelect.getOptions();
         for (HtmlOption tmpOption : tmpOptions) {
             if (!tmpOption.isDisabled()) {
-                String tmpText = tmpOption.asText();
-                int tmpDistance = aSearchPattern.noOfMatchingCharsIn(tmpText);
-                if (tmpDistance > -1) {
-                    aWeightedControlList.addFoundByLabel(new HtmlUnitControl(tmpOption), tmpDistance);
+                String tmpText = domNodeText.getAsText(tmpOption);
+                int tmpCoverage = aSearchPattern.noOfSurroundingCharsIn(tmpText);
+                if (tmpCoverage > -1) {
+                    aWeightedControlList.add(
+                            new HtmlUnitControl(tmpOption),
+                            WeightedControlList.FoundType.BY_LABEL,
+                            tmpCoverage,
+                            aDistance);
                     tmpFound = true;
                 }
 
                 tmpText = tmpOption.getLabelAttribute();
-                tmpDistance = aSearchPattern.noOfMatchingCharsIn(tmpText);
-                if (tmpDistance > -1) {
-                    aWeightedControlList.addFoundByLabel(new HtmlUnitControl(tmpOption), tmpDistance);
+                tmpCoverage = aSearchPattern.noOfSurroundingCharsIn(tmpText);
+                if (tmpCoverage > -1) {
+                    aWeightedControlList.add(
+                            new HtmlUnitControl(tmpOption),
+                            WeightedControlList.FoundType.BY_LABEL,
+                            tmpCoverage,
+                            aDistance);
                     tmpFound = true;
                 }
 
                 tmpText = tmpOption.getValueAttribute();
-                tmpDistance = aSearchPattern.noOfMatchingCharsIn(tmpText);
-                if (tmpDistance > -1) {
-                    aWeightedControlList.addFoundByLabel(new HtmlUnitControl(tmpOption), tmpDistance);
+                tmpCoverage = aSearchPattern.noOfSurroundingCharsIn(tmpText);
+                if (tmpCoverage > -1) {
+                    aWeightedControlList.add(
+                            new HtmlUnitControl(tmpOption),
+                            WeightedControlList.FoundType.BY_LABEL,
+                            tmpCoverage,
+                            aDistance);
                     tmpFound = true;
                 }
             }
