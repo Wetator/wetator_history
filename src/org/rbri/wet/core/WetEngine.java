@@ -171,7 +171,7 @@ public final class WetEngine {
                 return tmpCommandImplementation;
             }
         }
-        throw new WetException("Unsupported command '" + aCommandName + "'.");
+        return null;
     }
 
 
