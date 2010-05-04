@@ -180,6 +180,9 @@ webpages/testcases/ajax/jquery/ajax_options_mammals.htms -text
 webpages/testcases/ajax/jquery/ajax_plain_javascript_test.js -text
 webpages/testcases/ajax/jquery/ajax_test.txt -text
 webpages/testcases/ajax/jquery/jquery_ajax.html -text
+webpages/testcases/ajax/prototype/ajax_javascript_test.js -text
+webpages/testcases/ajax/prototype/ajax_test.txt -text
+webpages/testcases/ajax/prototype/prototype_ajax.html -text
 webpages/testcases/assert_content.html -text
 webpages/testcases/assert_disabled.html -text
 webpages/testcases/assert_selected.html -text
