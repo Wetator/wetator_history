@@ -351,7 +351,7 @@ public final class SearchPattern {
         if (!tmpFound) {
             return false;
         }
-        return true;
+        return aString.length() == tmpMatcher.end();
     }
 
 
