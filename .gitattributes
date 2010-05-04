@@ -551,6 +551,7 @@ webpages/testcases/js/jquery/ui/minified/jquery.ui.slider.min.js -text
 webpages/testcases/js/jquery/ui/minified/jquery.ui.sortable.min.js -text
 webpages/testcases/js/jquery/ui/minified/jquery.ui.tabs.min.js -text
 webpages/testcases/js/jquery/ui/minified/jquery.ui.widget.min.js -text
+webpages/testcases/js/prototype/prototype.js -text
 webpages/testcases/mouse_over.html -text
 webpages/testcases/mouse_over_after.html -text
 webpages/testcases/onfocus_onblur.html -text
