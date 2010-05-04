@@ -378,7 +378,7 @@ webpages/testcases/js/jquery/external/qunit.css -text
 webpages/testcases/js/jquery/external/qunit.js -text
 webpages/testcases/js/jquery/jquery-1.2.1.js -text
 webpages/testcases/js/jquery/jquery-1.4.2.js -text
-webpages/testcases/js/jquery/modal-confirmation.html -text
+webpages/testcases/js/jquery/modal-confirmation.html -text svneol=unset#application/octet-stream
 webpages/testcases/js/jquery/themes/base/images/ui-anim_basic_16x16.gif -text
 webpages/testcases/js/jquery/themes/base/images/ui-bg_flat_0_aaaaaa_40x100.png -text
 webpages/testcases/js/jquery/themes/base/images/ui-bg_flat_75_ffffff_40x100.png -text
