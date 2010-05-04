@@ -113,10 +113,10 @@ public class WeightedControlListTest extends TestCase {
 
         List<Entry> tmpSorted = tmpWeightedControlList.getElementsSorted();
 
-        assertEquals("[HtmlAnchor 'AnchorText'] found by: BY_ID coverage: 10 distance: 12", tmpSorted.get(0).toString());
-        assertEquals("[HtmlAnchor 'AnchorText'] found by: BY_ID coverage: 9 distance: 11", tmpSorted.get(1).toString());
-        assertEquals("[HtmlAnchor 'AnchorText'] found by: BY_ID coverage: 4 distance: 10", tmpSorted.get(2).toString());
-        assertEquals("[HtmlAnchor 'AnchorText'] found by: BY_ID coverage: 4 distance: 11", tmpSorted.get(3).toString());
+        assertEquals("[HtmlAnchor 'AnchorText'] found by: BY_ID coverage: 4 distance: 10", tmpSorted.get(0).toString());
+        assertEquals("[HtmlAnchor 'AnchorText'] found by: BY_ID coverage: 4 distance: 11", tmpSorted.get(1).toString());
+        assertEquals("[HtmlAnchor 'AnchorText'] found by: BY_ID coverage: 9 distance: 11", tmpSorted.get(2).toString());
+        assertEquals("[HtmlAnchor 'AnchorText'] found by: BY_ID coverage: 10 distance: 12", tmpSorted.get(3).toString());
     }
 
     public void testGetElementsSorted_FoundType() throws IOException {
@@ -130,9 +130,9 @@ public class WeightedControlListTest extends TestCase {
 
         List<Entry> tmpSorted = tmpWeightedControlList.getElementsSorted();
 
-        assertEquals("[HtmlAnchor 'AnchorText'] found by: BY_ID coverage: 9 distance: 11", tmpSorted.get(0).toString());
-        assertEquals("[HtmlAnchor 'AnchorText'] found by: BY_ID coverage: 4 distance: 10", tmpSorted.get(1).toString());
-        assertEquals("[HtmlAnchor 'AnchorText'] found by: BY_ID coverage: 4 distance: 11", tmpSorted.get(2).toString());
+        assertEquals("[HtmlAnchor 'AnchorText'] found by: BY_ID coverage: 4 distance: 10", tmpSorted.get(0).toString());
+        assertEquals("[HtmlAnchor 'AnchorText'] found by: BY_ID coverage: 4 distance: 11", tmpSorted.get(1).toString());
+        assertEquals("[HtmlAnchor 'AnchorText'] found by: BY_ID coverage: 9 distance: 11", tmpSorted.get(2).toString());
         assertEquals("[HtmlAnchor 'AnchorText'] found by: BY_LABEL coverage: 10 distance: 12", tmpSorted.get(3).toString());
     }
 

@@ -54,6 +54,7 @@ src/org/rbri/wet/ide/swing/util/TopLeftRaisedBorder.java -text
 src/org/rbri/wet/scripter/ExcelScripter.java -text
 src/org/rbri/wet/scripter/WetScripter.java -text
 src/org/rbri/wet/util/Assert.java -text
+src/org/rbri/wet/util/AutomatonFromEndMatcher.java -text svneol=unset#text/plain
 src/org/rbri/wet/util/AutomatonShortFromEndMatcher.java -text
 src/org/rbri/wet/util/AutomatonShortMatcher.java -text
 src/org/rbri/wet/util/ContentUtil.java -text

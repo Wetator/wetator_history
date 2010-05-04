@@ -1079,7 +1079,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
 
         assertEquals(1, tmpFound.getElementsSorted().size());
 
-        assertEquals("[HtmlButton 'ButtonWithText' (id='myId') (name='MyName')] found by: BY_LABEL_TEXT coverage: 3 distance: 0", tmpFound.getElementsSorted().get(0).toString());
+        assertEquals("[HtmlButton 'ButtonWithText' (id='myId') (name='MyName')] found by: BY_LABEL_TEXT coverage: 6 distance: 14", tmpFound.getElementsSorted().get(0).toString());
     }
 
 
@@ -1124,7 +1124,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
 
         assertEquals(2, tmpFound.getElementsSorted().size());
 
-        assertEquals("[HtmlButton 'image: picture.png' (id='myId') (name='MyName')] found by: BY_INNER_IMG_ALT_ATTRIBUTE coverage: 0 distance: 0", tmpFound.getElementsSorted().get(0).toString());
+        assertEquals("[HtmlButton 'image: picture.png' (id='myId') (name='MyName')] found by: BY_LABEL_TEXT coverage: 0 distance: 0", tmpFound.getElementsSorted().get(0).toString());
         assertEquals("[HtmlImage 'picture.png'] found by: BY_IMG_ALT_ATTRIBUTE coverage: 0 distance: 0", tmpFound.getElementsSorted().get(1).toString());
     }
 

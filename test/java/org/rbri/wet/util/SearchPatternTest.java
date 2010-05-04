@@ -33,497 +33,299 @@ public class SearchPatternTest extends TestCase {
         return new TestSuite(SearchPatternTest.class);
     }
 
-//    public void test_Null() {
-//        SearchPattern tmpPattern;
-//
-//        tmpPattern = new SearchPattern(null);
-//
-//        assertEquals(true, tmpPattern.matches(""));
-//        assertEquals(true, tmpPattern.matches("test"));
-//    }
-//
-//    public void test_Empty() {
-//        SearchPattern tmpPattern;
-//
-//        tmpPattern = new SearchPattern("");
-//
-//        assertEquals(true, tmpPattern.matches(""));
-//        assertEquals(true, tmpPattern.matches("test"));
-//    }
-//
-//    public void test_StarAtEnd() {
-//        SearchPattern tmpPattern;
-//
-//        tmpPattern = new SearchPattern("Test*");
-//
-//        assertEquals(true, tmpPattern.matches("Test"));
-//        assertEquals(true, tmpPattern.matches("Tester"));
-//        assertEquals(false, tmpPattern.matches("tester"));
-//    }
-//
-//    public void test_Star() {
-//      SearchPattern tmpPattern;
-//
-//      tmpPattern = new SearchPattern("Te*st");
-//
-//      assertEquals(true, tmpPattern.matches("Test"));
-//      assertEquals(true, tmpPattern.matches("Teeest"));
-//      assertEquals(false, tmpPattern.matches("tester"));
-//    }
-//
-//    public void test_StarMany() {
-//      SearchPattern tmpPattern;
-//
-//      tmpPattern = new SearchPattern("T*e*s*t");
-//
-//      assertEquals(true, tmpPattern.matches("Test"));
-//      assertEquals(true, tmpPattern.matches("Teeest"));
-//      assertEquals(false, tmpPattern.matches("tester"));
-//    }
-//
-//    public void test_StarDouble() {
-//      SearchPattern tmpPattern;
-//
-//      tmpPattern = new SearchPattern("Te****st");
-//
-//      assertEquals(true, tmpPattern.matches("Test"));
-//      assertEquals(true, tmpPattern.matches("Teeest"));
-//      assertEquals(false, tmpPattern.matches("tester"));
-//    }
-//
-//    public void test_StarAtStart() {
-//        SearchPattern tmpPattern;
-//
-//        tmpPattern = new SearchPattern("*rest");
-//
-//        assertEquals(true, tmpPattern.matches("ein rest"));
-//        assertEquals(false, tmpPattern.matches("ein rester"));
-//        assertEquals(false, tmpPattern.matches("ein tester"));
-//    }
-//
-//    public void test_StarEscaped() {
-//        SearchPattern tmpPattern;
-//
-//        tmpPattern = new SearchPattern("re\\*st");
-//
-//        assertEquals(true, tmpPattern.matches("re*st"));
-//        assertEquals(false, tmpPattern.matches("rest"));
-//    }
-//
-//    public void test_QuestionMarkAtEnd() {
-//        SearchPattern tmpPattern;
-//
-//        tmpPattern = new SearchPattern("Test?");
-//
-//        assertEquals(false, tmpPattern.matches("Test"));
-//        assertEquals(true, tmpPattern.matches("Teste"));
-//        assertEquals(false, tmpPattern.matches("teste"));
-//    }
-//
-//    public void test_QuestionMark() {
-//      SearchPattern tmpPattern;
-//
-//      tmpPattern = new SearchPattern("Te?st");
-//
-//      assertEquals(false, tmpPattern.matches("Test"));
-//      assertEquals(true, tmpPattern.matches("Teest"));
-//      assertEquals(false, tmpPattern.matches("Teeest"));
-//      assertEquals(false, tmpPattern.matches("teest"));
-//    }
-//
-//    public void test_QuestionMarkMany() {
-//      SearchPattern tmpPattern;
-//
-//      tmpPattern = new SearchPattern("T?e?s?t");
-//
-//      assertEquals(false, tmpPattern.matches("Test"));
-//      assertEquals(true, tmpPattern.matches("TTeesxt"));
-//      assertEquals(false, tmpPattern.matches("Teeest"));
-//      assertEquals(false, tmpPattern.matches("tTeesxt"));
-//    }
-//
-//    public void test_QuestionMarkDouble() {
-//      SearchPattern tmpPattern;
-//
-//      tmpPattern = new SearchPattern("Te??st");
-//
-//      assertEquals(false, tmpPattern.matches("Test"));
-//      assertEquals(true, tmpPattern.matches("Teeest"));
-//      assertEquals(false, tmpPattern.matches("TeeesT"));
-//    }
-//
-//    public void test_QuestionMarkAtStart() {
-//        SearchPattern tmpPattern;
-//
-//        tmpPattern = new SearchPattern("?est");
-//
-//        assertEquals(true, tmpPattern.matches("Test"));
-//        assertEquals(false, tmpPattern.matches("Tester"));
-//        assertEquals(false, tmpPattern.matches("ein tester"));
-//    }
-//
-//    public void test_QuestionMarkEscaped() {
-//        SearchPattern tmpPattern;
-//
-//        tmpPattern = new SearchPattern("te\\?st");
-//
-//        assertEquals(true, tmpPattern.matches("te?st"));
-//        assertEquals(false, tmpPattern.matches("teest"));
-//    }
-//
-//    public void test_Slash() {
-//        SearchPattern tmpPattern;
-//
-//        tmpPattern = new SearchPattern("ab\\cd");
-//
-//        assertEquals(true, tmpPattern.matches("ab\\cd"));
-//    }
-//
-//    public void test_SlashAtStart() {
-//        SearchPattern tmpPattern;
-//
-//        tmpPattern = new SearchPattern("\\ab");
-//
-//        assertEquals(true, tmpPattern.matches("\\ab"));
-//    }
-//
-//    public void test_SlashAtEnd() {
-//        SearchPattern tmpPattern;
-//
-//        tmpPattern = new SearchPattern("ab\\");
-//
-//        assertEquals(true, tmpPattern.matches("ab\\"));
-//    }
-//
-//    public void test_SpecialCharactersBrackets() {
-//        SearchPattern tmpPattern;
-//
-//        tmpPattern = new SearchPattern("t[e](s)t");
-//
-//        assertEquals(true, tmpPattern.matches("t[e](s)t"));
-//    }
-//
-//    public void test_SpecialCharactersRepetition() {
-//        SearchPattern tmpPattern;
-//
-//        tmpPattern = new SearchPattern("tes+t");
-//        assertEquals(true, tmpPattern.matches("tes+t"));
-//        assertEquals(false, tmpPattern.matches("test"));
-//
-//        tmpPattern = new SearchPattern("tes{1}t");
-//        assertEquals(true, tmpPattern.matches("tes{1}t"));
-//        assertEquals(false, tmpPattern.matches("test"));
-//
-//        tmpPattern = new SearchPattern("tes{0,4}t");
-//        assertEquals(true, tmpPattern.matches("tes{0,4}t"));
-//        assertEquals(false, tmpPattern.matches("test"));
-//    }
-//
-//    public void test_SpecialCharactersAnchors() {
-//        SearchPattern tmpPattern;
-//
-//        tmpPattern = new SearchPattern("^test");
-//        assertEquals(true, tmpPattern.matches("^test"));
-//        assertEquals(false, tmpPattern.matches("test"));
-//
-//        tmpPattern = new SearchPattern("test$");
-//        assertEquals(true, tmpPattern.matches("test$"));
-//        assertEquals(false, tmpPattern.matches("test"));
-//
-//        tmpPattern = new SearchPattern("te$t");
-//        assertEquals(true, tmpPattern.matches("te$t"));
-//        assertEquals(false, tmpPattern.matches("te\nt"));
-//    }
-//
-//    public void test_Tab() {
-//        SearchPattern tmpPattern;
-//
-//        tmpPattern = new SearchPattern("ab\tc");
-//        assertEquals(true, tmpPattern.matches("ab\tc"));
-//    }
-//
-//    public void test_firstOccurenceInAfter_null() {
-//        SearchPattern tmpPattern;
-//
-//        tmpPattern = new SearchPattern("abc");
-//        assertEquals(-1, tmpPattern.firstOccurenceInAfter(null, -1));
-//    }
-//
-//    public void test_firstOccurenceInAfter_nullOutside() {
-//        SearchPattern tmpPattern;
-//
-//        tmpPattern = new SearchPattern("abc");
-//        assertEquals(-1, tmpPattern.firstOccurenceInAfter(null, 10));
-//    }
-//
-//    public void test_firstOccurenceInAfter_fromStart() {
-//        SearchPattern tmpPattern;
-//
-//        tmpPattern = new SearchPattern("abc");
-//        assertEquals(3, tmpPattern.firstOccurenceInAfter("abcd", 0));
-//    }
-//
-//    public void test_firstOccurenceInAfter_fromInBetween() {
-//        SearchPattern tmpPattern;
-//
-//        tmpPattern = new SearchPattern("abc");
-//        assertEquals(5, tmpPattern.firstOccurenceInAfter("xxabcd", 0));
-//    }
-//
-//    public void test_firstOccurenceInAfter_fromAtEnd() {
-//        SearchPattern tmpPattern;
-//
-//        tmpPattern = new SearchPattern("abc");
-//        assertEquals(5, tmpPattern.firstOccurenceInAfter("xxabc", 0));
-//    }
-//
-//    public void test_firstOccurenceInAfter_fromStart_rightTruncated() {
-//        SearchPattern tmpPattern;
-//
-//        tmpPattern = new SearchPattern("abc*");
-//        assertEquals(3, tmpPattern.firstOccurenceInAfter("abcd", 0));
-//    }
-//
-//    public void test_firstOccurenceInAfter_fromInBetween_rightTruncated() {
-//        SearchPattern tmpPattern;
-//
-//        tmpPattern = new SearchPattern("abc*");
-//        assertEquals(5, tmpPattern.firstOccurenceInAfter("xxabcd", 0));
-//    }
-//
-//    public void test_firstOccurenceInAfter_fromAtEnd_rightTruncated() {
-//        SearchPattern tmpPattern;
-//
-//        tmpPattern = new SearchPattern("abc*");
-//        assertEquals(5, tmpPattern.firstOccurenceInAfter("xxabc", 0));
-//    }
-//
-//    public void test_firstOccurenceInAfter_startPosToLarge() {
-//        SearchPattern tmpPattern;
-//
-//        tmpPattern = new SearchPattern("abc*");
-//        assertEquals(-1, tmpPattern.firstOccurenceInAfter("xxabcd", 3));
-//    }
-//
-//    public void test_isContainedIn_null() {
-//        SearchPattern tmpPattern;
-//
-//        tmpPattern = new SearchPattern("abc");
-//        assertEquals(-1, tmpPattern.isContainedIn(null));
-//    }
-//
-//    public void test_isContainedIn_empty() {
-//        SearchPattern tmpPattern;
-//
-//        tmpPattern = new SearchPattern("abc");
-//        assertEquals(-1, tmpPattern.isContainedIn(""));
-//    }
-//
-//    public void test_isContainedIn_same() {
-//        SearchPattern tmpPattern;
-//
-//        tmpPattern = new SearchPattern("abc");
-//        assertEquals(3, tmpPattern.isContainedIn("abc"));
-//    }
-//
-//    public void test_isContainedIn_atStart() {
-//        SearchPattern tmpPattern;
-//
-//        tmpPattern = new SearchPattern("abc");
-//        assertEquals(3, tmpPattern.isContainedIn("abcdef"));
-//    }
-//
-//    public void test_isContainedIn_inTheMiddle() {
-//        SearchPattern tmpPattern;
-//
-//        tmpPattern = new SearchPattern("abc");
-//        assertEquals(3, tmpPattern.isContainedIn("xyzabcdef"));
-//    }
-//
-//    public void test_isContainedIn_atEnd() {
-//        SearchPattern tmpPattern;
-//
-//        tmpPattern = new SearchPattern("abc");
-//        assertEquals(3, tmpPattern.isContainedIn("12abc"));
-//    }
-//
-//    public void test_isContainedIn_StarAtStart() {
-//        SearchPattern tmpPattern;
-//
-//        tmpPattern = new SearchPattern("*abc");
-//        assertEquals(5, tmpPattern.isContainedIn("xyabccd"));
-//    }
-//
-//    public void test_isContainedIn_Star() {
-//        SearchPattern tmpPattern;
-//
-//        tmpPattern = new SearchPattern("ab*c");
-//        assertEquals(6, tmpPattern.isContainedIn("xyab___cd"));
-//    }
-//
-//    public void test_isContainedIn_StarAtEnd() {
-//        SearchPattern tmpPattern;
-//
-//        tmpPattern = new SearchPattern("abc*");
-//        assertEquals(5, tmpPattern.isContainedIn("xyabccd"));
-//    }
-//
-//    public void test_isContainedIn_QuestionMarkAtStart() {
-//        SearchPattern tmpPattern;
-//    
-//        tmpPattern = new SearchPattern("?abc");
-//        assertEquals(4, tmpPattern.isContainedIn("yabccd"));
-//        assertEquals(-1, tmpPattern.isContainedIn("abccd"));
-//    }
-//
-//    public void test_isContainedIn_QuestionMark() {
-//        SearchPattern tmpPattern;
-//    
-//        tmpPattern = new SearchPattern("ab?c");
-//        assertEquals(4, tmpPattern.isContainedIn("xyab_cd"));
-//        assertEquals(-1, tmpPattern.isContainedIn("xyabcd"));
-//    }
-//
-//    public void test_isContainedIn_QuestionMarkAtEnd() {
-//        SearchPattern tmpPattern;
-//
-//        tmpPattern = new SearchPattern("abc?");
-//        assertEquals(4, tmpPattern.isContainedIn("xyabcd"));
-//        assertEquals(-1, tmpPattern.isContainedIn("xyabc"));
-//    }
-//
-//    public void test_matchesAtEnd_null() {
-//        SearchPattern tmpPattern;
-//
-//        tmpPattern = new SearchPattern("abc");
-//        assertFalse(tmpPattern.matchesAtEnd(null));
-//    }
-//
-//    public void test_matchesAtEnd_empty() {
-//        SearchPattern tmpPattern;
-//
-//        tmpPattern = new SearchPattern("abc");
-//        assertFalse(tmpPattern.matchesAtEnd(""));
-//    }
-//
-//    public void test_matchesAtEnd_same() {
-//        SearchPattern tmpPattern;
-//
-//        tmpPattern = new SearchPattern("abc");
-//        assertTrue(tmpPattern.matchesAtEnd("abc"));
-//    }
-//
-//    public void test_matchesAtEnd_atStart() {
-//        SearchPattern tmpPattern;
-//
-//        tmpPattern = new SearchPattern("abc");
-//        assertFalse(tmpPattern.matchesAtEnd("abcdef"));
-//    }
-//
-//    public void test_matchesAtEnd_inTheMiddle() {
-//        SearchPattern tmpPattern;
-//
-//        tmpPattern = new SearchPattern("abc");
-//        assertFalse(tmpPattern.matchesAtEnd("xyzabcdef"));
-//    }
-//
-//    public void test_matchesAtEnd_atEnd() {
-//        SearchPattern tmpPattern;
-//
-//        tmpPattern = new SearchPattern("abc");
-//        assertTrue(tmpPattern.matchesAtEnd("12abc"));
-//    }
-//
-//    public void test_matchesAtEnd_StartAtStart() {
-//        SearchPattern tmpPattern;
-//
-//        tmpPattern = new SearchPattern("*abc");
-//        assertTrue(tmpPattern.matchesAtEnd("xyabc"));
-//    }
-//
-//    public void test_matchesAtEnd_Star() {
-//        SearchPattern tmpPattern;
-//
-//        tmpPattern = new SearchPattern("a*bc");
-//        assertTrue(tmpPattern.matchesAtEnd("xya__bc"));
-//  }
-//
-//    public void test_matchesAtEnd_StartAtEnd() {
-//        SearchPattern tmpPattern;
-//
-//        tmpPattern = new SearchPattern("abc*");
-//        assertTrue(tmpPattern.matchesAtEnd("xyabccd"));
-//    }
-//
-//    public void test_matchesAtEnd_QuestionMarkAtStart() {
-//        SearchPattern tmpPattern;
-//
-//        tmpPattern = new SearchPattern("?abc");
-//        assertTrue(tmpPattern.matchesAtEnd("xyabc"));
-//    }
-//
-//    public void test_matchesAtEnd_QuestionMark() {
-//        SearchPattern tmpPattern;
-//
-//        tmpPattern = new SearchPattern("a?bc");
-//        assertTrue(tmpPattern.matchesAtEnd("xya_bc"));
-//    }
-//
-//    public void test_matchesAtEnd_QuestionMarkAtEnd() {
-//        SearchPattern tmpPattern;
-//
-//        tmpPattern = new SearchPattern("abc*");
-//        assertTrue(tmpPattern.matchesAtEnd("xyabcd"));
-//    }
+    public void test_Null() {
+        SearchPattern tmpPattern;
 
-//    public void test_firstOccurenceAfter_null() {
-//        SearchPattern tmpPattern;
-//
-//        tmpPattern = new SearchPattern("abc");
-//        assertEquals(-1, tmpPattern.firstOccurenceInAfter(null, 0));
-//    }
-//
-//    public void test_firstOccurenceAfter_empty() {
-//        SearchPattern tmpPattern;
-//
-//        tmpPattern = new SearchPattern("abc");
-//        assertEquals(-1, tmpPattern.firstOccurenceInAfter("", 0));
-//    }
-//
-//    public void test_firstOccurenceAfter_same() {
-//        SearchPattern tmpPattern;
-//
-//        tmpPattern = new SearchPattern("abc");
-//        assertEquals(3, tmpPattern.firstOccurenceInAfter("abc", 0));
-//    }
-//
-//    public void test_firstOccurenceAfter_atStart() {
-//        SearchPattern tmpPattern;
-//
-//        tmpPattern = new SearchPattern("abc");
-//        assertEquals(3, tmpPattern.firstOccurenceInAfter("abcdef", 0));
-//    }
-//
-//    public void test_firstOccurenceAfter_atStartAfter() {
-//        SearchPattern tmpPattern;
-//
-//        tmpPattern = new SearchPattern("abc");
-//        assertEquals(-1, tmpPattern.firstOccurenceInAfter("abcdef", 1));
-//    }
-//
-//    public void test_firstOccurenceAfter_atEnd() {
-//        SearchPattern tmpPattern;
-//
-//        tmpPattern = new SearchPattern("f");
-//        assertEquals(6, tmpPattern.firstOccurenceInAfter("abcdef", 5));
-//    }
-//
-//    public void test_firstOccurenceAfter_rightTruncated() {
-//        SearchPattern tmpPattern;
-//
-//        tmpPattern = new SearchPattern("f*");
-//        assertEquals(6, tmpPattern.firstOccurenceInAfter("abcdefgh", 5));
-//    }
+        tmpPattern = new SearchPattern(null);
+
+        assertEquals(true, tmpPattern.matches(""));
+        assertEquals(true, tmpPattern.matches("test"));
+    }
+
+    public void test_Empty() {
+        SearchPattern tmpPattern;
+
+        tmpPattern = new SearchPattern("");
+
+        assertEquals(true, tmpPattern.matches(""));
+        assertEquals(true, tmpPattern.matches("test"));
+    }
+
+    public void test_StarAtEnd() {
+        SearchPattern tmpPattern;
+
+        tmpPattern = new SearchPattern("Test*");
+
+        assertEquals(true, tmpPattern.matches("Test"));
+        assertEquals(true, tmpPattern.matches("Tester"));
+        assertEquals(false, tmpPattern.matches("tester"));
+    }
+
+    public void test_Star() {
+      SearchPattern tmpPattern;
+
+      tmpPattern = new SearchPattern("Te*st");
+
+      assertEquals(true, tmpPattern.matches("Test"));
+      assertEquals(true, tmpPattern.matches("Teeest"));
+      assertEquals(false, tmpPattern.matches("tester"));
+    }
+
+    public void test_StarMany() {
+      SearchPattern tmpPattern;
+
+      tmpPattern = new SearchPattern("T*e*s*t");
+
+      assertEquals(true, tmpPattern.matches("Test"));
+      assertEquals(true, tmpPattern.matches("Teeest"));
+      assertEquals(false, tmpPattern.matches("tester"));
+    }
+
+    public void test_StarDouble() {
+      SearchPattern tmpPattern;
+
+      tmpPattern = new SearchPattern("Te****st");
+
+      assertEquals(true, tmpPattern.matches("Test"));
+      assertEquals(true, tmpPattern.matches("Teeest"));
+      assertEquals(false, tmpPattern.matches("tester"));
+    }
+
+    public void test_StarAtStart() {
+        SearchPattern tmpPattern;
+
+        tmpPattern = new SearchPattern("*rest");
+
+        assertEquals(true, tmpPattern.matches("ein rest"));
+        assertEquals(false, tmpPattern.matches("ein rester"));
+        assertEquals(false, tmpPattern.matches("ein tester"));
+    }
+
+    public void test_StarEscaped() {
+        SearchPattern tmpPattern;
+
+        tmpPattern = new SearchPattern("re\\*st");
+
+        assertEquals(true, tmpPattern.matches("re*st"));
+        assertEquals(false, tmpPattern.matches("rest"));
+    }
+
+    public void test_QuestionMarkAtEnd() {
+        SearchPattern tmpPattern;
+
+        tmpPattern = new SearchPattern("Test?");
+
+        assertEquals(false, tmpPattern.matches("Test"));
+        assertEquals(true, tmpPattern.matches("Teste"));
+        assertEquals(false, tmpPattern.matches("teste"));
+    }
+
+    public void test_QuestionMark() {
+      SearchPattern tmpPattern;
+
+      tmpPattern = new SearchPattern("Te?st");
+
+      assertEquals(false, tmpPattern.matches("Test"));
+      assertEquals(true, tmpPattern.matches("Teest"));
+      assertEquals(false, tmpPattern.matches("Teeest"));
+      assertEquals(false, tmpPattern.matches("teest"));
+    }
+
+    public void test_QuestionMarkMany() {
+      SearchPattern tmpPattern;
+
+      tmpPattern = new SearchPattern("T?e?s?t");
+
+      assertEquals(false, tmpPattern.matches("Test"));
+      assertEquals(true, tmpPattern.matches("TTeesxt"));
+      assertEquals(false, tmpPattern.matches("Teeest"));
+      assertEquals(false, tmpPattern.matches("tTeesxt"));
+    }
+
+    public void test_QuestionMarkDouble() {
+      SearchPattern tmpPattern;
+
+      tmpPattern = new SearchPattern("Te??st");
+
+      assertEquals(false, tmpPattern.matches("Test"));
+      assertEquals(true, tmpPattern.matches("Teeest"));
+      assertEquals(false, tmpPattern.matches("TeeesT"));
+    }
+
+    public void test_QuestionMarkAtStart() {
+        SearchPattern tmpPattern;
+
+        tmpPattern = new SearchPattern("?est");
+
+        assertEquals(true, tmpPattern.matches("Test"));
+        assertEquals(false, tmpPattern.matches("Tester"));
+        assertEquals(false, tmpPattern.matches("ein tester"));
+    }
+
+    public void test_QuestionMarkEscaped() {
+        SearchPattern tmpPattern;
+
+        tmpPattern = new SearchPattern("te\\?st");
+
+        assertEquals(true, tmpPattern.matches("te?st"));
+        assertEquals(false, tmpPattern.matches("teest"));
+    }
+
+    public void test_Slash() {
+        SearchPattern tmpPattern;
+
+        tmpPattern = new SearchPattern("ab\\cd");
+
+        assertEquals(true, tmpPattern.matches("ab\\cd"));
+    }
+
+    public void test_SlashAtStart() {
+        SearchPattern tmpPattern;
+
+        tmpPattern = new SearchPattern("\\ab");
+
+        assertEquals(true, tmpPattern.matches("\\ab"));
+    }
+
+    public void test_SlashAtEnd() {
+        SearchPattern tmpPattern;
+
+        tmpPattern = new SearchPattern("ab\\");
+
+        assertEquals(true, tmpPattern.matches("ab\\"));
+    }
+
+    public void test_SpecialCharactersBrackets() {
+        SearchPattern tmpPattern;
+
+        tmpPattern = new SearchPattern("t[e](s)t");
+
+        assertEquals(true, tmpPattern.matches("t[e](s)t"));
+    }
+
+    public void test_SpecialCharactersRepetition() {
+        SearchPattern tmpPattern;
+
+        tmpPattern = new SearchPattern("tes+t");
+        assertEquals(true, tmpPattern.matches("tes+t"));
+        assertEquals(false, tmpPattern.matches("test"));
+
+        tmpPattern = new SearchPattern("tes{1}t");
+        assertEquals(true, tmpPattern.matches("tes{1}t"));
+        assertEquals(false, tmpPattern.matches("test"));
+
+        tmpPattern = new SearchPattern("tes{0,4}t");
+        assertEquals(true, tmpPattern.matches("tes{0,4}t"));
+        assertEquals(false, tmpPattern.matches("test"));
+    }
+
+    public void test_SpecialCharactersAnchors() {
+        SearchPattern tmpPattern;
+
+        tmpPattern = new SearchPattern("^test");
+        assertEquals(true, tmpPattern.matches("^test"));
+        assertEquals(false, tmpPattern.matches("test"));
+
+        tmpPattern = new SearchPattern("test$");
+        assertEquals(true, tmpPattern.matches("test$"));
+        assertEquals(false, tmpPattern.matches("test"));
+
+        tmpPattern = new SearchPattern("te$t");
+        assertEquals(true, tmpPattern.matches("te$t"));
+        assertEquals(false, tmpPattern.matches("te\nt"));
+    }
+
+    public void test_Tab() {
+        SearchPattern tmpPattern;
+
+        tmpPattern = new SearchPattern("ab\tc");
+        assertEquals(true, tmpPattern.matches("ab\tc"));
+    }
+
+
+    public void test_matchesAtEnd_null() {
+        SearchPattern tmpPattern;
+
+        tmpPattern = new SearchPattern("abc");
+        assertFalse(tmpPattern.matchesAtEnd(null));
+    }
+
+    public void test_matchesAtEnd_empty() {
+        SearchPattern tmpPattern;
+
+        tmpPattern = new SearchPattern("abc");
+        assertFalse(tmpPattern.matchesAtEnd(""));
+    }
+
+    public void test_matchesAtEnd_same() {
+        SearchPattern tmpPattern;
+
+        tmpPattern = new SearchPattern("abc");
+        assertTrue(tmpPattern.matchesAtEnd("abc"));
+    }
+
+    public void test_matchesAtEnd_atStart() {
+        SearchPattern tmpPattern;
+
+        tmpPattern = new SearchPattern("abc");
+        assertFalse(tmpPattern.matchesAtEnd("abcdef"));
+    }
+
+    public void test_matchesAtEnd_inTheMiddle() {
+        SearchPattern tmpPattern;
+
+        tmpPattern = new SearchPattern("abc");
+        assertFalse(tmpPattern.matchesAtEnd("xyzabcdef"));
+    }
+
+    public void test_matchesAtEnd_atEnd() {
+        SearchPattern tmpPattern;
+
+        tmpPattern = new SearchPattern("abc");
+        assertTrue(tmpPattern.matchesAtEnd("12abc"));
+    }
+
+    public void test_matchesAtEnd_StartAtStart() {
+        SearchPattern tmpPattern;
+
+        tmpPattern = new SearchPattern("*abc");
+        assertTrue(tmpPattern.matchesAtEnd("xyabc"));
+    }
+
+    public void test_matchesAtEnd_Star() {
+        SearchPattern tmpPattern;
+
+        tmpPattern = new SearchPattern("a*bc");
+        assertTrue(tmpPattern.matchesAtEnd("xya__bc"));
+  }
+
+    public void test_matchesAtEnd_StartAtEnd() {
+        SearchPattern tmpPattern;
+
+        tmpPattern = new SearchPattern("abc*");
+        assertTrue(tmpPattern.matchesAtEnd("xyabccd"));
+    }
+
+    public void test_matchesAtEnd_QuestionMarkAtStart() {
+        SearchPattern tmpPattern;
+
+        tmpPattern = new SearchPattern("?abc");
+        assertTrue(tmpPattern.matchesAtEnd("xyabc"));
+    }
+
+    public void test_matchesAtEnd_QuestionMark() {
+        SearchPattern tmpPattern;
+
+        tmpPattern = new SearchPattern("a?bc");
+        assertTrue(tmpPattern.matchesAtEnd("xya_bc"));
+    }
+
+    public void test_matchesAtEnd_QuestionMarkAtEnd() {
+        SearchPattern tmpPattern;
+
+        tmpPattern = new SearchPattern("abc?");
+        assertTrue(tmpPattern.matchesAtEnd("xyabcd"));
+    }
 
     public void test_noOfCharsBeforeFirstOccurenceIn_Null() {
         SearchPattern tmpPattern;
@@ -776,7 +578,7 @@ public class SearchPatternTest extends TestCase {
         tmpPattern = new SearchPattern("*");
         int tmpResult = tmpPattern.noOfCharsAfterLastOccurenceIn("abcfgh");
 
-        assertEquals(0, tmpResult);
+        assertEquals(6, tmpResult);
     }
 
     public void test_noOfCharsAfterLastOccurenceIn_QuestionMarkAtEndRightTruncated() {
@@ -1147,7 +949,7 @@ public class SearchPatternTest extends TestCase {
         assertEquals(8, tmpResult);
     }
 
-    
+
     public void test_noOfSurroundingCharsIn_Null() {
         SearchPattern tmpPattern;
 
@@ -1302,7 +1104,7 @@ public class SearchPatternTest extends TestCase {
         assertEquals(7, tmpResult);
     }
 
-    
+
     public void test_Equals() {
         SearchPattern tmpPattern;
 

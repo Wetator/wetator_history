@@ -175,7 +175,9 @@ public class HtmlUnitControlFinder implements ControlFinder {
                     // label text before
                     // and rest of the path before the label
                     String tmpLabelTextBefore = domNodeText.getLabelTextBefore(tmpElement);
-                    int tmpCoverage = tmpSearchPattern.noOfCharsAfterLastOccurenceIn(tmpLabelTextBefore);
+                    // TODO the text before contains the label text
+
+                    int tmpCoverage = tmpSearchPattern.noOfSurroundingCharsIn(tmpLabelTextBefore);
                     int tmpDistance = tmpPathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
                     if ((tmpCoverage > -1) && (tmpDistance > -1)) {
                         tmpFoundElements.add(
@@ -340,7 +342,7 @@ public class HtmlUnitControlFinder implements ControlFinder {
 
                     int tmpDistance = tmpPathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
 
-                    int tmpCoverage = tmpSearchPattern.noOfCharsAfterLastOccurenceIn(tmpLabel);
+                    int tmpCoverage = tmpSearchPattern.noOfSurroundingCharsIn(tmpLabel);
                     if ((tmpDistance > -1) && (tmpCoverage > -1)) {
                         tmpFoundElements.add(
                                 new HtmlUnitControl(tmpElement),
@@ -368,17 +370,7 @@ public class HtmlUnitControlFinder implements ControlFinder {
                     for (HtmlElement tmpInnerElement : tmpAllChilds) {
                         if (tmpInnerElement instanceof HtmlImage) {
                             HtmlImage tmpImage = (HtmlImage) tmpInnerElement;
-
-                            // does image alt-text match?
-                            tmpCoverage = tmpSearchPattern.noOfSurroundingCharsIn(tmpImage.getAltAttribute());
-                            if ((tmpDistance > -1) && (tmpCoverage > -1)) {
-                                tmpFoundElements.add(
-                                        new HtmlUnitControl(tmpElement),
-                                        WeightedControlList.FoundType.BY_INNER_IMG_ALT_ATTRIBUTE,
-                                        tmpCoverage,
-                                        tmpDistance);
-                                continue;
-                            }
+                            // check for the image alt tag is not needed, alt text is part of the button text text
 
                             // does image title-text match?
                             tmpCoverage = tmpSearchPattern.noOfSurroundingCharsIn(tmpImage.getAttribute("title"));
@@ -440,7 +432,7 @@ public class HtmlUnitControlFinder implements ControlFinder {
                     for (HtmlElement tmpChildElement : tmpAllchildElements) {
                         if (tmpChildElement instanceof HtmlImage) {
                             HtmlImage tmpImage = (HtmlImage) tmpChildElement;
-                            // check for the image alt tag is not neede, alt text is part of the anchor text
+                            // check for the image alt tag is not needed, alt text is part of the anchor text
 
                             // does image title-text match?
                             tmpCoverage = tmpSearchPattern.noOfSurroundingCharsIn(tmpImage.getAttribute("title"));
@@ -884,8 +876,8 @@ public class HtmlUnitControlFinder implements ControlFinder {
                     // if the select follows text directly and text matches => choose it
                     String tmpLabelTextBefore = domNodeText.getLabelTextBefore(tmpElement);
 
-                    int tmpCoverage = tmpPathSearchPattern.noOfSurroundingCharsIn(tmpTextBefore);
-                    int tmpDistance = tmpLabelSearchPattern.noOfCharsAfterLastOccurenceIn(tmpLabelTextBefore);
+                    int tmpCoverage = tmpLabelSearchPattern.noOfSurroundingCharsIn(tmpLabelTextBefore);
+                    int tmpDistance = tmpPathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
 
                     if ((tmpDistance > -1) && (tmpCoverage > -1)) {
                         tmpFoundElements.add(
@@ -938,7 +930,7 @@ public class HtmlUnitControlFinder implements ControlFinder {
                 }
                 if (tmpElement instanceof HtmlOptionGroup) {
                     String tmpTextBefore = domNodeText.getTextBefore(tmpElement);
-                    int tmpDistance = tmpLabelSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
+                    int tmpDistance = tmpPathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
 
                     // label
                     int tmpCoverage = tmpLabelSearchPattern.noOfSurroundingCharsIn(tmpElement.getAttribute("label"));
@@ -1015,7 +1007,7 @@ public class HtmlUnitControlFinder implements ControlFinder {
                     }
                 }
                 if (tmpChildElementsFound.isEmpty()) {
-                    // if we found something
+                    // if we found nothing
                     // then the current node is part of the results
                     String tmpTextBefore = domNodeText.getTextBefore(tmpHtmlElement);
 
@@ -1027,6 +1019,7 @@ public class HtmlUnitControlFinder implements ControlFinder {
                     }
 
                     int tmpDistance = tmpPathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
+                    tmpCoverage = tmpLabelSearchPattern.noOfSurroundingCharsIn(tmpElementText);
                     if (tmpDistance > -1) {
                         tmpFoundElements.add(
                                 new HtmlUnitControl(tmpHtmlElement),

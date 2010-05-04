@@ -69,14 +69,19 @@ public final class SearchPattern {
     public SearchPattern(String aDosStyleWildcardString) {
         super();
 
-        originalString = aDosStyleWildcardString;
+    	String tmpDosStyleWildcardString = "";
+        if (null != aDosStyleWildcardString) {
+        	tmpDosStyleWildcardString = aDosStyleWildcardString;
+        }
+
+        originalString = tmpDosStyleWildcardString;
 
         StringBuilder tmpPattern = new StringBuilder();
 
         boolean tmpSlash = false;
         isStarPattern = true;
-        for (int i = 0; i < aDosStyleWildcardString.length(); i++) {
-            char tmpChar = aDosStyleWildcardString.charAt(i);
+        for (int i = 0; i < tmpDosStyleWildcardString.length(); i++) {
+            char tmpChar = tmpDosStyleWildcardString.charAt(i);
 
             if ('*' == tmpChar) {
                 if (tmpSlash) {
@@ -216,7 +221,10 @@ public final class SearchPattern {
         int tmpResult = -1;
 
         if (isStarPattern) {
-            return 0;
+            if (StringUtils.isEmpty(aString)) {
+            	return 0;
+            }
+            return aString.length();
         }
 
         if (StringUtils.isEmpty(aString)) {
@@ -333,8 +341,17 @@ public final class SearchPattern {
             return false;
         }
 
-        int tmpCharsAfter = noOfCharsAfterLastOccurenceIn(aString);
-        return tmpCharsAfter == 0;
+        if (isStarPattern) {
+            return false;
+        }
+
+        AutomatonFromEndMatcher tmpMatcher = new AutomatonFromEndMatcher(aString, automaton);
+
+        boolean tmpFound = tmpMatcher.find();
+        if (!tmpFound) {
+            return false;
+        }
+        return true;
     }
 
 

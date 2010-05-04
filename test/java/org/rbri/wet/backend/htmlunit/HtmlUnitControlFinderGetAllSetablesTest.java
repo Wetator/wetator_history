@@ -209,7 +209,7 @@ public class HtmlUnitControlFinderGetAllSetablesTest extends TestCase {
         assertEquals(2, tmpFound.getElementsSorted().size());
 
         assertEquals("[HtmlTextInput (id='inputId') (name='TextInput')] found by: BY_LABEL coverage: 0 distance: 0", tmpFound.getElementsSorted().get(0).toString());
-        assertEquals("[HtmlTextInput (id='inputId') (name='TextInput')] found by: BY_LABEL_TEXT coverage: 0 distance: 0", tmpFound.getElementsSorted().get(1).toString());
+        assertEquals("[HtmlTextInput (id='inputId') (name='TextInput')] found by: BY_LABEL_TEXT coverage: 0 distance: 5", tmpFound.getElementsSorted().get(1).toString());
     }
 
     public void testGetAllSetables_TextInputByLabelChild() throws IOException {
@@ -232,8 +232,8 @@ public class HtmlUnitControlFinderGetAllSetablesTest extends TestCase {
 
         assertEquals(3, tmpFound.getElementsSorted().size());
         assertEquals("[HtmlTextInput (id='inputId') (name='TextInput')] found by: BY_LABEL coverage: 0 distance: 0", tmpFound.getElementsSorted().get(0).toString());
-        assertEquals("[HtmlTextInput (id='inputId') (name='TextInput')] found by: BY_LABEL_TEXT coverage: 0 distance: 0", tmpFound.getElementsSorted().get(1).toString());
-        assertEquals("[HtmlTextInput (id='another') (name='AnotherTextInput')] found by: BY_TEXT coverage: 0 distance: 0", tmpFound.getElementsSorted().get(2).toString());
+        assertEquals("[HtmlTextInput (id='inputId') (name='TextInput')] found by: BY_LABEL_TEXT coverage: 0 distance: 5", tmpFound.getElementsSorted().get(1).toString());
+        assertEquals("[HtmlTextInput (id='another') (name='AnotherTextInput')] found by: BY_TEXT coverage: 0 distance: 5", tmpFound.getElementsSorted().get(2).toString());
     }
 
     public void testGetAllSetables_PasswordInputByLabel() throws IOException {
@@ -255,7 +255,7 @@ public class HtmlUnitControlFinderGetAllSetablesTest extends TestCase {
         assertEquals(2, tmpFound.getElementsSorted().size());
 
         assertEquals("[HtmlPasswordInput (id='inputId') (name='PasswordInput')] found by: BY_LABEL coverage: 0 distance: 0", tmpFound.getElementsSorted().get(0).toString());
-        assertEquals("[HtmlPasswordInput (id='inputId') (name='PasswordInput')] found by: BY_LABEL_TEXT coverage: 0 distance: 0", tmpFound.getElementsSorted().get(1).toString());
+        assertEquals("[HtmlPasswordInput (id='inputId') (name='PasswordInput')] found by: BY_LABEL_TEXT coverage: 0 distance: 5", tmpFound.getElementsSorted().get(1).toString());
     }
 
     public void testGetAllSetables_PasswordInputByLabelChild() throws IOException {
@@ -278,7 +278,7 @@ public class HtmlUnitControlFinderGetAllSetablesTest extends TestCase {
         assertEquals(2, tmpFound.getElementsSorted().size());
 
         assertEquals("[HtmlPasswordInput (id='inputId') (name='PasswordInput')] found by: BY_LABEL coverage: 0 distance: 0", tmpFound.getElementsSorted().get(0).toString());
-        assertEquals("[HtmlPasswordInput (id='inputId') (name='PasswordInput')] found by: BY_LABEL_TEXT coverage: 0 distance: 0", tmpFound.getElementsSorted().get(1).toString());
+        assertEquals("[HtmlPasswordInput (id='inputId') (name='PasswordInput')] found by: BY_LABEL_TEXT coverage: 0 distance: 5", tmpFound.getElementsSorted().get(1).toString());
     }
 
     public void testGetAllSetables_TextAreaByLabel() throws IOException {
@@ -300,7 +300,7 @@ public class HtmlUnitControlFinderGetAllSetablesTest extends TestCase {
         assertEquals(2, tmpFound.getElementsSorted().size());
 
         assertEquals("[HtmlTextArea (id='inputId') (name='TextAreaName')] found by: BY_LABEL coverage: 0 distance: 0", tmpFound.getElementsSorted().get(0).toString());
-        assertEquals("[HtmlTextArea (id='inputId') (name='TextAreaName')] found by: BY_LABEL_TEXT coverage: 0 distance: 0", tmpFound.getElementsSorted().get(1).toString());
+        assertEquals("[HtmlTextArea (id='inputId') (name='TextAreaName')] found by: BY_LABEL_TEXT coverage: 0 distance: 5", tmpFound.getElementsSorted().get(1).toString());
     }
 
     public void testGetAllSetables_TextAreaByLabelChild() throws IOException {
@@ -323,7 +323,7 @@ public class HtmlUnitControlFinderGetAllSetablesTest extends TestCase {
         assertEquals(2, tmpFound.getElementsSorted().size());
 
         assertEquals("[HtmlTextArea (id='inputId') (name='TextAreaName')] found by: BY_LABEL coverage: 0 distance: 0", tmpFound.getElementsSorted().get(0).toString());
-        assertEquals("[HtmlTextArea (id='inputId') (name='TextAreaName')] found by: BY_LABEL_TEXT coverage: 0 distance: 0", tmpFound.getElementsSorted().get(1).toString());
+        assertEquals("[HtmlTextArea (id='inputId') (name='TextAreaName')] found by: BY_LABEL_TEXT coverage: 0 distance: 5", tmpFound.getElementsSorted().get(1).toString());
     }
 
     public void testGetAllSetables_FileInputByLabel() throws IOException {
@@ -345,7 +345,7 @@ public class HtmlUnitControlFinderGetAllSetablesTest extends TestCase {
         assertEquals(2, tmpFound.getElementsSorted().size());
 
         assertEquals("[HtmlFileInput (id='inputId') (name='FileInput')] found by: BY_LABEL coverage: 0 distance: 0", tmpFound.getElementsSorted().get(0).toString());
-        assertEquals("[HtmlFileInput (id='inputId') (name='FileInput')] found by: BY_LABEL_TEXT coverage: 0 distance: 0", tmpFound.getElementsSorted().get(1).toString());
+        assertEquals("[HtmlFileInput (id='inputId') (name='FileInput')] found by: BY_LABEL_TEXT coverage: 0 distance: 5", tmpFound.getElementsSorted().get(1).toString());
     }
 
     public void testGetAllSetables_FileInputByLabelChild() throws IOException {
@@ -368,7 +368,7 @@ public class HtmlUnitControlFinderGetAllSetablesTest extends TestCase {
         assertEquals(2, tmpFound.getElementsSorted().size());
 
         assertEquals("[HtmlFileInput (id='inputId') (name='FileInput')] found by: BY_LABEL coverage: 0 distance: 0", tmpFound.getElementsSorted().get(0).toString());
-        assertEquals("[HtmlFileInput (id='inputId') (name='FileInput')] found by: BY_LABEL_TEXT coverage: 0 distance: 0", tmpFound.getElementsSorted().get(1).toString());
+        assertEquals("[HtmlFileInput (id='inputId') (name='FileInput')] found by: BY_LABEL_TEXT coverage: 0 distance: 5", tmpFound.getElementsSorted().get(1).toString());
     }
 
     public void testGetAllSetables_OneByLabelExact() throws IOException {
@@ -390,8 +390,8 @@ public class HtmlUnitControlFinderGetAllSetablesTest extends TestCase {
 
         assertEquals(3, tmpFound.getElementsSorted().size());
         assertEquals("[HtmlTextInput (id='inputId') (name='TextInput')] found by: BY_LABEL coverage: 0 distance: 0", tmpFound.getElementsSorted().get(0).toString());
-        assertEquals("[HtmlTextInput (id='inputId') (name='TextInput')] found by: BY_LABEL_TEXT coverage: 0 distance: 0", tmpFound.getElementsSorted().get(1).toString());
-        assertEquals("[HtmlTextInput (id='another') (name='AnotherTextInput')] found by: BY_TEXT coverage: 0 distance: 0", tmpFound.getElementsSorted().get(2).toString());
+        assertEquals("[HtmlTextInput (id='inputId') (name='TextInput')] found by: BY_LABEL_TEXT coverage: 0 distance: 5", tmpFound.getElementsSorted().get(1).toString());
+        assertEquals("[HtmlTextInput (id='another') (name='AnotherTextInput')] found by: BY_TEXT coverage: 0 distance: 5", tmpFound.getElementsSorted().get(2).toString());
     }
 
     public void testGetAllSetables_OneByLabelWildcard() throws IOException {
@@ -413,8 +413,8 @@ public class HtmlUnitControlFinderGetAllSetablesTest extends TestCase {
 
         assertEquals(3, tmpFound.getElementsSorted().size());
         assertEquals("[HtmlTextInput (id='inputId') (name='TextInput')] found by: BY_LABEL coverage: 0 distance: 0", tmpFound.getElementsSorted().get(0).toString());
-        assertEquals("[HtmlTextInput (id='inputId') (name='TextInput')] found by: BY_LABEL_TEXT coverage: 0 distance: 0", tmpFound.getElementsSorted().get(1).toString());
-        assertEquals("[HtmlTextInput (id='another') (name='AnotherTextInput')] found by: BY_TEXT coverage: 0 distance: 0", tmpFound.getElementsSorted().get(2).toString());
+        assertEquals("[HtmlTextInput (id='inputId') (name='TextInput')] found by: BY_LABEL_TEXT coverage: 0 distance: 5", tmpFound.getElementsSorted().get(1).toString());
+        assertEquals("[HtmlTextInput (id='another') (name='AnotherTextInput')] found by: BY_TEXT coverage: 0 distance: 5", tmpFound.getElementsSorted().get(2).toString());
     }
 
     public void testGetAllSetables_OneByLabelChildWildcard() throws IOException {
@@ -437,8 +437,8 @@ public class HtmlUnitControlFinderGetAllSetablesTest extends TestCase {
 
         assertEquals(3, tmpFound.getElementsSorted().size());
         assertEquals("[HtmlTextInput (id='inputId') (name='TextInput')] found by: BY_LABEL coverage: 0 distance: 0", tmpFound.getElementsSorted().get(0).toString());
-        assertEquals("[HtmlTextInput (id='inputId') (name='TextInput')] found by: BY_LABEL_TEXT coverage: 0 distance: 0", tmpFound.getElementsSorted().get(1).toString());
-        assertEquals("[HtmlTextInput (id='another') (name='AnotherTextInput')] found by: BY_TEXT coverage: 0 distance: 0", tmpFound.getElementsSorted().get(2).toString());
+        assertEquals("[HtmlTextInput (id='inputId') (name='TextInput')] found by: BY_LABEL_TEXT coverage: 0 distance: 5", tmpFound.getElementsSorted().get(1).toString());
+        assertEquals("[HtmlTextInput (id='another') (name='AnotherTextInput')] found by: BY_TEXT coverage: 0 distance: 5", tmpFound.getElementsSorted().get(2).toString());
     }
 
     public void testGetAllSetables_OneByLabelTextBeforeExact() throws IOException {
@@ -468,7 +468,7 @@ public class HtmlUnitControlFinderGetAllSetablesTest extends TestCase {
         WeightedControlList tmpFound = tmpFinder.getAllSetables(tmpSearch);
 
         assertEquals(1, tmpFound.getElementsSorted().size());
-        assertEquals("[HtmlPasswordInput (id='userForm:passwordTxt') (name='userForm:passwordTxt')] found by: BY_LABEL_TEXT coverage: 0 distance: 0", tmpFound.getElementsSorted().get(0).toString());
+        assertEquals("[HtmlPasswordInput (id='userForm:passwordTxt') (name='userForm:passwordTxt')] found by: BY_LABEL_TEXT coverage: 0 distance: 13", tmpFound.getElementsSorted().get(0).toString());
     }
 
     public void testGetAllSetables_OneByLabelTextBeforeWildcard() throws IOException {
@@ -498,7 +498,7 @@ public class HtmlUnitControlFinderGetAllSetablesTest extends TestCase {
         WeightedControlList tmpFound = tmpFinder.getAllSetables(tmpSearch);
 
         assertEquals(1, tmpFound.getElementsSorted().size());
-        assertEquals("[HtmlPasswordInput (id='userForm:passwordTxt') (name='userForm:passwordTxt')] found by: BY_LABEL_TEXT coverage: 4 distance: 0", tmpFound.getElementsSorted().get(0).toString());
+        assertEquals("[HtmlPasswordInput (id='userForm:passwordTxt') (name='userForm:passwordTxt')] found by: BY_LABEL_TEXT coverage: 4 distance: 13", tmpFound.getElementsSorted().get(0).toString());
     }
 
     public void testGetAllSetables_OneByTextBeforeExact() throws IOException {
@@ -552,7 +552,7 @@ public class HtmlUnitControlFinderGetAllSetablesTest extends TestCase {
         tmpFound = tmpFinder.getAllSetables(tmpSearch);
 
         assertEquals(2, tmpFound.getElementsSorted().size());
-        assertEquals("[HtmlTextInput (id='l2Txt1') (name='l2Txt1')] found by: BY_LABEL_TEXT coverage: 0 distance: 7", tmpFound.getElementsSorted().get(0).toString());
+        assertEquals("[HtmlTextInput (id='l2Txt1') (name='l2Txt1')] found by: BY_LABEL_TEXT coverage: 6 distance: 7", tmpFound.getElementsSorted().get(0).toString());
         assertEquals("[HtmlTextInput (id='l2Txt2') (name='l2Txt2')] found by: BY_TEXT coverage: 12 distance: 19", tmpFound.getElementsSorted().get(1).toString());
 
         // ----
@@ -636,7 +636,7 @@ public class HtmlUnitControlFinderGetAllSetablesTest extends TestCase {
         WeightedControlList tmpFound = tmpFinder.getAllSetables(tmpSearch);
 
         assertEquals(2, tmpFound.getElementsSorted().size());
-        assertEquals("[HtmlPasswordInput (id='userForm:passwordTxt') (name='userForm:passwordTxt')] found by: BY_LABEL_TEXT coverage: 1 distance: 0", tmpFound.getElementsSorted().get(0).toString());
-        assertEquals("[HtmlTextInput (id='userForm:cwidTxt') (name='userForm:cwidTxt')] found by: BY_LABEL_TEXT coverage: 6 distance: 0", tmpFound.getElementsSorted().get(1).toString());
+        assertEquals("[HtmlPasswordInput (id='userForm:passwordTxt') (name='userForm:passwordTxt')] found by: BY_LABEL_TEXT coverage: 1 distance: 22", tmpFound.getElementsSorted().get(0).toString());
+        assertEquals("[HtmlTextInput (id='userForm:cwidTxt') (name='userForm:cwidTxt')] found by: BY_LABEL_TEXT coverage: 6 distance: 13", tmpFound.getElementsSorted().get(1).toString());
     }
 }

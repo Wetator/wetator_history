@@ -206,6 +206,7 @@ public class HtmlUnitControlFinderGetAllElementsForTextTest extends TestCase {
 
         assertEquals(2, tmpFound.getElementsSorted().size());
         assertEquals("[HtmlAnchor 'MyText'] found by: BY_TEXT coverage: 0 distance: 0", tmpFound.getElementsSorted().get(0).toString());
+        assertEquals("[HtmlParagraph 'MyText'] found by: BY_TEXT coverage: 0 distance: 6", tmpFound.getElementsSorted().get(1).toString());
     }
 
 
@@ -222,7 +223,7 @@ public class HtmlUnitControlFinderGetAllElementsForTextTest extends TestCase {
         WeightedControlList tmpFound = tmpFinder.getAllElementsForText(tmpSearch);
 
         assertEquals(1, tmpFound.getElementsSorted().size());
-        assertEquals("[HtmlAnchor 'MyText'] found by: BY_TEXT distance: coverage: 0 distance: 0", tmpFound.getElementsSorted().get(0).toString());
+        assertEquals("[HtmlAnchor 'MyText'] found by: BY_TEXT coverage: 0 distance: 0", tmpFound.getElementsSorted().get(0).toString());
     }
 
 
@@ -242,7 +243,7 @@ public class HtmlUnitControlFinderGetAllElementsForTextTest extends TestCase {
         WeightedControlList tmpFound = tmpFinder.getAllElementsForText(tmpSearch);
 
         assertEquals(1, tmpFound.getElementsSorted().size());
-        assertEquals("[HtmlParagraph 'line3'] found by: BY_TEXT distance: 100000", tmpFound.getElementsSorted().get(0).toString());
+        assertEquals("[HtmlParagraph 'line3'] found by: BY_TEXT coverage: 1 distance: 8", tmpFound.getElementsSorted().get(0).toString());
     }
 
     public void testGetAllControlsForText_ManyParagraphs_MatchInside() throws IOException {
@@ -260,6 +261,6 @@ public class HtmlUnitControlFinderGetAllElementsForTextTest extends TestCase {
         WeightedControlList tmpFound = tmpFinder.getAllElementsForText(tmpSearch);
 
         assertEquals(1, tmpFound.getElementsSorted().size());
-        assertEquals("[HtmlParagraph 'line3'] found by: BY_TEXT distance: 100000", tmpFound.getElementsSorted().get(0).toString());
+        assertEquals("[HtmlParagraph 'line3'] found by: BY_TEXT coverage: 2 distance: 0", tmpFound.getElementsSorted().get(0).toString());
     }
 }
