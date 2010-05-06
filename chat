@@ -3,8 +3,11 @@ Ich muss das Assert auf assertEquals("[HtmlParagraph 'First\nline'] found by: BY
 Šndern, damit er durchlŠuft.
 Die Eingabe in die Textarea erzeugt folgende URL http://wetator.rbri.org/testcases/snoopy.php?textArea_Name=something%0D%0Aanother+something&TextAreaNameTest=OK.
 Also %0D%0A als Umbruch.
+-> OK werde ich mir mal anschauen
 
 
 Und die modal-confirmation.html ist bei mir leer. Deshalb lŠuft der jquery.xls Test bei mir nicht durch.
+-> gefixt
 
 Und dann noch js_error.xls - der Test hat Assert Content + JavaScript Probleme.
+-> einige Probleme sind gefixt
