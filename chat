@@ -1,6 +1,9 @@
-Hi. Der Testfall, der bei mir nicht läuft, ist HtmlUnitControlFinderGetFirstClickableTextElementTest.testGetFirstClickableTextElement_ByTextWithBreak().
+Der Testfall, der bei mir nicht läuft, ist HtmlUnitControlFinderGetFirstClickableTextElementTest.testGetFirstClickableTextElement_ByTextWithBreak().
 Ich muss das Assert auf assertEquals("[HtmlParagraph 'First\nline'] found by: BY_TEXT distance: 100000", tmpFound.getElementsSortedByWeight().get(0).toString());
 ändern, damit er durchläuft.
+Die Eingabe in die Textarea erzeugt folgende URL http://wetator.rbri.org/testcases/snoopy.php?textArea_Name=something%0D%0Aanother+something&TextAreaNameTest=OK.
+Also %0D%0A als Umbruch.
+
 
 Und die modal-confirmation.html ist bei mir leer. Deshalb läuft der jquery.xls Test bei mir nicht durch.
 
