@@ -137,7 +137,7 @@
                                             <xsl:value-of select="$testcase.okPercent"/>%
                                         </xsl:attribute>
                                         <xsl:attribute name="bgcolor">
-                                            <xsl:value-of select="'lightgreen'"/>
+                                            <xsl:value-of select="'#339F00'"/>
                                         </xsl:attribute>
                                         <xsl:attribute name="title">
                                             <xsl:value-of select="'Successful test cases'"/>
