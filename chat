@@ -6,8 +6,8 @@ Also %0D%0A als Umbruch.
 -> OK werde ich mir mal anschauen
 
 
-Und die modal-confirmation.html ist bei mir leer. Deshalb lŠuft der jquery.xls Test bei mir nicht durch.
--> gefixt
-
 Und dann noch js_error.xls - der Test hat Assert Content + JavaScript Probleme.
 -> einige Probleme sind gefixt
+Aber noch nicht alle :)
+
+Jetzt hat ajax_jquery.xls auch einen fehlerhaften Step. Liegt vmtl. an der falschen Erwartung?
