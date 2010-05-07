@@ -14,3 +14,4 @@ Und dann noch js_error.xls - der Test hat Assert Content + JavaScript Probleme.
 Aber noch nicht alle :)
 
 Jetzt hat ajax_jquery.xls auch einen fehlerhaften Step. Liegt vmtl. an der falschen Erwartung?
+-> ist gefixt, ein test ist auskommentiert, wegen Fehler in HtmlUnit
