@@ -31,6 +31,7 @@
                 A:active {COLOR: #768bc2; TEXT-DECORATION: none;}
                 A:hover {TEXT-DECORATION: none;}
                 A.linkToCommand {font-size: smaller; display: block;}
+                .step A:hover{width:13px;border:1px;}
                 img {border: 0;}
                 DIV.header { color: #768bc2; margin-left: 10px; }
                 DIV.header IMG { margin-left: -10px; border:0; }
@@ -392,7 +393,7 @@
                                 <xsl:text disable-output-escaping="yes">&lt;/tr&gt;&lt;tr&gt;</xsl:text>
                             </xsl:if>
 
-                            <td class="step" width="4px" onmouseover="this.width='13px'" onmouseout="this.width='4px'">
+                            <td class="step" width="4px">
                                 <xsl:attribute name="bgcolor">
                                     <xsl:choose>
                                         <xsl:when test="$noOfErrors = 0">
@@ -408,7 +409,7 @@
                                         <xsl:otherwise>
                                             <xsl:choose>
                                                 <xsl:when test="$vacant">
-                                                    <xsl:text>#FFEBEB</xsl:text>
+                                                    <xsl:text>#FDCCDB</xsl:text>
                                                 </xsl:when>
                                                 <xsl:otherwise>
 		                                            <xsl:text>#F14F12</xsl:text>
@@ -417,6 +418,7 @@
                                         </xsl:otherwise>
                                     </xsl:choose>
                                 </xsl:attribute>
+                                
                                 <xsl:choose>
 	                                <xsl:when test="error">
                                			<xsl:attribute name="title">
@@ -430,7 +432,7 @@
 	                                </xsl:when>
                                 </xsl:choose>
 
-                                <xsl:element name="a">
+                                <xsl:element name="a" width="4px">
                                     <xsl:attribute name="class">linkToCommand</xsl:attribute>
                                     <xsl:attribute name="href">
                                         <xsl:text>#</xsl:text>
