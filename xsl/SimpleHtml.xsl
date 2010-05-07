@@ -69,22 +69,20 @@
                 <a name="overview"></a>
                 <h1>Overview</h1>
 
-				<xsl:variable name="testcase.total" select="count(/wet/testcase)"/>
-				<xsl:variable name="testcase.failed" select="count(wet/testcase[boolean(descendant-or-self::error)])"/>
+                <xsl:variable name="testcase.total" select="count(/wet/testcase)"/>
+                <xsl:variable name="testcase.failed" select="count(wet/testcase[boolean(descendant-or-self::error)])"/>
 
                 <xsl:variable name="testcase.stepsTotal" select="count(/wet/testcase/command[not(@isComment)])"/>
                 <xsl:variable name="testcase.stepsOk" select="count(/wet/testcase/command[not(@isComment) and not(error) and not(preceding-sibling::*/error)])"/>
                 <xsl:variable name="testcase.stepsGreen" select="count(/wet/testcase/command[not(@isComment) and not(error)])"/>
 
-				<xsl:variable name="testcase.failedPercent" select="ceiling($testcase.failed * 100 div $testcase.total)"/>
+                <xsl:variable name="testcase.failedPercent" select="ceiling($testcase.failed * 100 div $testcase.total)"/>
                 <xsl:variable name="testcase.okPercent" select="100 - $testcase.failedPercent"/>
 
                 <xsl:variable name="testcase.stepsOkPercent" select="format-number($testcase.stepsOk * 100 div $testcase.stepsTotal, '#')"/>
                 <xsl:variable name="testcase.stepsFailedPercent" select="format-number($testcase.failed * 100 div $testcase.stepsTotal, '#')"/>
-				<xsl:variable name="testcase.stepsVacantOkPercent" select="format-number(($testcase.stepsGreen - $testcase.stepsOk) * 100 div $testcase.stepsTotal, '#')"/>
-				<xsl:variable name="testcase.stepsVacantFailedPercent" select="format-number(100 - $testcase.stepsFailedPercent - $testcase.stepsOkPercent - $testcase.stepsVacantOkPercent, '#')"/>
-
-				<xsl:value-of select="$testcase.stepsVacantFailedPercent"/>
+		        <xsl:variable name="testcase.stepsVacantOkPercent" select="format-number(($testcase.stepsGreen - $testcase.stepsOk) * 100 div $testcase.stepsTotal, '#')"/>
+		        <xsl:variable name="testcase.stepsVacantFailedPercent" select="format-number(100 - $testcase.stepsFailedPercent - $testcase.stepsOkPercent - $testcase.stepsVacantOkPercent, '#')"/>
 
                 <table cellpadding="4" cellspacing="0" class="smallBorder" border="0" width="100%">
                     <tr>
@@ -103,7 +101,7 @@
                         </th>
                     </tr>
 
-					<tr>
+                    <tr>
                         <td class="bold">Distribution TestCase Level (<xsl:value-of select="$testcase.total"/> test<xsl:if  test="$testcase.total != 1">s</xsl:if> run)</td>
                         <td style="text-align: center;">
                             <span style="color: #F14F12; font-weight: bold;">
@@ -237,9 +235,9 @@
                             </table>
                         </td>
                     </tr>
-				</table>
+		        </table>
 
-				<table cellpadding="4" cellspacing="0" class="smallBorder" border="0">
+		        <table cellpadding="4" cellspacing="0" class="smallBorder" border="0">
                     <tr>
                         <th>No</th>
                         <th><xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text></th>
@@ -297,61 +295,60 @@
         </html>
     </xsl:template>
 
-
     <xsl:template name="configuration">
         <table cellpadding="4" cellspacing="0" border="0" style="margin-top: 10px">
-        <tr>
-            <td>
-                <span class="bold">Configuration</span>
-                <xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text>
-                <img src="images/expandall.png" onclick="showOrHide(this, 'configuration')" alt="show/hide Configuration"/>
-            </td>
-            <td width="50px"></td>
-            <td>
-                <span class="bold">Variables</span>
-                <xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text>
-                <img src="images/expandall.png" onclick="showOrHide(this, 'variables')" alt="show/hide Variables"/>
-            </td>
-        </tr>
+	        <tr>
+	            <td>
+	                <span class="bold">Configuration</span>
+	                <xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text>
+	                <img src="images/expandall.png" onclick="showOrHide(this, 'configuration')" alt="show/hide Configuration"/>
+	            </td>
+	            <td width="50px"></td>
+	            <td>
+	                <span class="bold">Variables</span>
+	                <xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text>
+	                <img src="images/expandall.png" onclick="showOrHide(this, 'variables')" alt="show/hide Variables"/>
+	            </td>
+	        </tr>
 
-        <tr>
-            <td valign="top">
-                <table id="configuration" cellpadding="2" cellspacing="0" class="smallBorder" style="display: none; margin-left: 20px; margin-bottom: 20px">
-                    <tr>
-                        <th>Key</th>
-                        <th></th>
-                        <th>Value</th>
-                    </tr>
+	        <tr>
+	            <td valign="top">
+	                <table id="configuration" cellpadding="2" cellspacing="0" class="smallBorder" style="display: none; margin-left: 20px; margin-bottom: 20px">
+	                    <tr>
+	                        <th>Key</th>
+	                        <th></th>
+	                        <th>Value</th>
+	                    </tr>
 
-                    <xsl:for-each select="/wet/configuration/property">
-                        <tr>
-                            <td><xsl:value-of select="@key"/></td>
-                            <td><xsl:text disable-output-escaping="yes">&amp;nbsp;&amp;nbsp;</xsl:text></td>
-                            <td><xsl:value-of select="@value"/></td>
-                        </tr>
-                    </xsl:for-each>
-                </table>
-            </td>
-            <td></td>
-            <td valign="top">
-                <table id="variables" cellpadding="2" cellspacing="0" class="smallBorder" style="display: none; margin-left: 20px">
-                    <tr>
-                        <th>Name</th>
-                        <th></th>
-                        <th>Value</th>
-                    </tr>
+	                    <xsl:for-each select="/wet/configuration/property">
+	                        <tr>
+	                            <td><xsl:value-of select="@key"/></td>
+	                            <td><xsl:text disable-output-escaping="yes">&amp;nbsp;&amp;nbsp;</xsl:text></td>
+	                            <td><xsl:value-of select="@value"/></td>
+	                        </tr>
+	                    </xsl:for-each>
+	                </table>
+	            </td>
+	            <td></td>
+	            <td valign="top">
+	                <table id="variables" cellpadding="2" cellspacing="0" class="smallBorder" style="display: none; margin-left: 20px">
+	                    <tr>
+	                        <th>Name</th>
+	                        <th></th>
+	                        <th>Value</th>
+	                    </tr>
 
-                    <xsl:for-each select="/wet/configuration/variables/variable">
-                        <xsl:sort select="@name"/>
-                        <tr>
-                            <td><xsl:value-of select="@name"/></td>
-                            <td><xsl:text disable-output-escaping="yes">&amp;nbsp;&amp;nbsp;</xsl:text></td>
-                            <td><xsl:value-of select="@value"/></td>
-                        </tr>
-                    </xsl:for-each>
-                </table>
-            </td>
-        </tr>
+	                    <xsl:for-each select="/wet/configuration/variables/variable">
+	                        <xsl:sort select="@name"/>
+	                        <tr>
+	                            <td><xsl:value-of select="@name"/></td>
+	                            <td><xsl:text disable-output-escaping="yes">&amp;nbsp;&amp;nbsp;</xsl:text></td>
+	                            <td><xsl:value-of select="@value"/></td>
+	                        </tr>
+	                    </xsl:for-each>
+	                </table>
+	            </td>
+	        </tr>
         </table>
     </xsl:template>
 
@@ -412,28 +409,28 @@
                                                     <xsl:text>#FDCCDB</xsl:text>
                                                 </xsl:when>
                                                 <xsl:otherwise>
-		                                            <xsl:text>#F14F12</xsl:text>
+                                                <xsl:text>#F14F12</xsl:text>
                                                 </xsl:otherwise>
                                             </xsl:choose>
                                         </xsl:otherwise>
                                     </xsl:choose>
                                 </xsl:attribute>
-                                
+
                                 <xsl:choose>
-	                                <xsl:when test="error">
-                               			<xsl:attribute name="title">
-   	                                		<xsl:value-of select="./error/message"/>
-   	                                	</xsl:attribute>
-	                                </xsl:when>
-	                                <xsl:when test="$noOfErrors != 0">
-	                                	<xsl:attribute name="title">
-   	                                		<xsl:value-of select="normalize-space(./testcase/command/error)"/>
-   	                        	        </xsl:attribute>
-	                                </xsl:when>
+                                  <xsl:when test="error">
+                                     <xsl:attribute name="title">
+                                         <xsl:value-of select="./error/message"/>
+                                       </xsl:attribute>
+                                  </xsl:when>
+                                  <xsl:when test="$noOfErrors != 0">
+                                    <xsl:attribute name="title">
+                                         <xsl:value-of select="normalize-space(./testcase/command/error)"/>
+                                       </xsl:attribute>
+                                  </xsl:when>
                                 </xsl:choose>
 
                                 <xsl:element name="a">
-                                	<xsl:attribute name="width">4px</xsl:attribute> 
+                                  <xsl:attribute name="width">4px</xsl:attribute>
                                     <xsl:attribute name="class">linkToCommand</xsl:attribute>
                                     <xsl:attribute name="href">
                                         <xsl:text>#</xsl:text>
@@ -464,7 +461,6 @@
             </td>
         </tr>
     </xsl:template>
-
 
     <xsl:template name="testresult">
         <h2>
@@ -739,8 +735,8 @@
                    </td>
               </tr>
           </xsl:if>
-
     </xsl:template>
+
 
     <!-- subroutines -->
     <xsl:template name="successIndicator">
@@ -753,7 +749,6 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
-
 
     <xsl:template name="colorBar">
         <xsl:param name="percentage"/>
