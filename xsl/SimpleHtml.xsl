@@ -432,7 +432,8 @@
 	                                </xsl:when>
                                 </xsl:choose>
 
-                                <xsl:element name="a" width="4px">
+                                <xsl:element name="a">
+                                	<xsl:attribute name="width">4px</xsl:attribute> 
                                     <xsl:attribute name="class">linkToCommand</xsl:attribute>
                                     <xsl:attribute name="href">
                                         <xsl:text>#</xsl:text>
