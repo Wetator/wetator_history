@@ -86,6 +86,7 @@ test/excel/click_on.xls -text
 test/excel/exec_java.xls -text
 test/excel/flow_simple_login.xls -text
 test/excel/flow_simple_search.xls -text
+test/excel/go_back.xls -text
 test/excel/header.xls -text
 test/excel/jquery.xls -text
 test/excel/jquery/modal_confirmation.xls -text
@@ -134,6 +135,7 @@ test/java/org/rbri/wet/commandset/DefaultCommandSetTest.java -text
 test/java/org/rbri/wet/commandset/ExecTester.java -text
 test/java/org/rbri/wet/commandset/TestCommandSet.java -text
 test/java/org/rbri/wet/core/AllTests.java -text
+test/java/org/rbri/wet/core/WetCommandTest.java -text
 test/java/org/rbri/wet/core/result/AllTests.java -text
 test/java/org/rbri/wet/core/result/WetResultWriterTest.java -text
 test/java/org/rbri/wet/core/result/XslTransformerTest.java -text

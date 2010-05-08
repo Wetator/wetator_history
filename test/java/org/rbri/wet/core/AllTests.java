@@ -16,7 +16,8 @@
 
 package org.rbri.wet.core;
 
-import junit.framework.*;
+import junit.framework.Test;
+import junit.framework.TestSuite;
 
 /**
  * @author rbri
@@ -31,6 +32,8 @@ public class AllTests {
         TestSuite suite = new TestSuite("All Wetator core tests");
 
         suite.addTest(org.rbri.wet.core.result.AllTests.suite());
+
+        suite.addTest(WetCommandTest.suite());
 
         return suite;
     }

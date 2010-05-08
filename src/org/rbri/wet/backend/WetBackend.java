@@ -42,5 +42,6 @@ public interface WetBackend {
     public String getCurrentTitle() throws AssertionFailedException;
     public String getCurrentContentAsString() throws AssertionFailedException;
     public void saveCurrentWindowToLog();
+    public void goBackInCurrentWindow(int aSteps) throws AssertionFailedException;
     public void startNewSession();
 }

@@ -65,6 +65,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
         registerCommand("Set", new CommandSet());
         registerCommand("Select", new CommandSelect());
         registerCommand("Mouse Over", new CommandMouseOver());
+        registerCommand("Go Back", new CommandGoBack());
 
         registerCommand("Assert Title", new CommandAssertTitle());
         registerCommand("Assert Content", new CommandAssertContent());
@@ -216,6 +217,27 @@ public final class DefaultCommandSet extends AbstractCommandSet {
 
             Control tmpControl = getRequiredFirstHtmlElementFrom(aWetContext, tmpFoundElements, tmpSearchParam);
             tmpControl.mouseOver();
+            aWetContext.getWetBackend().saveCurrentWindowToLog();
+        }
+    }
+
+
+    public final class CommandGoBack implements WetCommandImplementation {
+        public void execute(WetContext aWetContext, WetCommand aWetCommand) throws WetException, AssertionFailedException {
+
+            SecretString tmpStepsParam = aWetCommand.getFirstParameterValue(aWetContext);
+            aWetCommand.assertNoUnusedSecondParameter(aWetContext);
+
+            int tmpSteps = 1;
+            if (null != tmpStepsParam) {
+                try {
+                    tmpSteps = Integer.parseInt(tmpStepsParam.getValue());
+                } catch (Exception e) {
+                    aWetContext.informListenersWarn("stepsNotANumber", new String[] {tmpStepsParam.toString(), "" + tmpSteps});
+                }
+            }
+
+            aWetContext.getWetBackend().goBackInCurrentWindow(tmpSteps);
             aWetContext.getWetBackend().saveCurrentWindowToLog();
         }
     }

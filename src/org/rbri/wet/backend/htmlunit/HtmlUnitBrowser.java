@@ -48,6 +48,7 @@ import org.rbri.wet.util.ContentUtil;
 import com.gargoylesoftware.htmlunit.BrowserVersion;
 import com.gargoylesoftware.htmlunit.DefaultCredentialsProvider;
 import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;
+import com.gargoylesoftware.htmlunit.History;
 import com.gargoylesoftware.htmlunit.Page;
 import com.gargoylesoftware.htmlunit.ScriptException;
 import com.gargoylesoftware.htmlunit.SgmlPage;
@@ -218,7 +219,7 @@ public final class HtmlUnitBrowser implements WetBackend {
 
 
 
-    public void openUrl(URL aUrl) throws WetException, AssertionFailedException {
+    public void openUrl(URL aUrl) throws AssertionFailedException {
         try {
             Page tmpPage = webClient.getPage(aUrl);
 
@@ -273,6 +274,28 @@ public final class HtmlUnitBrowser implements WetBackend {
 
         WebWindow tmpResult = webWindows.lastElement();
         return tmpResult;
+    }
+
+
+    public void goBackInCurrentWindow(int aSteps) throws AssertionFailedException {
+        WebWindow tmpCurrentWindow = getCurrentWebWindow();
+
+        if (null == tmpCurrentWindow) {
+            Assert.fail("noWebWindow", null);
+        }
+
+        History tmpHistory = tmpCurrentWindow.getHistory();
+
+        final int tmpIndexPos = tmpHistory.getIndex() - aSteps;
+        if (tmpIndexPos >= tmpHistory.getLength() || tmpIndexPos < 0) {
+            Assert.fail("outsideHistory", new String[] {"" + aSteps, "" + tmpIndexPos, "" + tmpHistory.getLength()});
+        }
+
+        try {
+            tmpHistory.go(-1 * aSteps);
+        } catch (IOException e) {
+            Assert.fail("historyFailed", new String[] {e.getMessage()});
+        }
     }
 
 

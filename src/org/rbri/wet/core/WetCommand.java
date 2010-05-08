@@ -150,6 +150,19 @@ public final class WetCommand {
         return tmpResult;
     }
 
+
+    public SecretString getFirstParameterValue(WetContext aWetContext) throws AssertionFailedException, WetException {
+        Parameter tmpFirstParameter = getFirstParameter();
+
+        if (null == tmpFirstParameter) {
+            return null;
+        }
+
+        SecretString tmpFirstValue = tmpFirstParameter.getValue(aWetContext);
+        return tmpFirstValue;
+    }
+
+
     public List<SecretString> getRequiredFirstParameterValues(WetContext aWetContext) throws AssertionFailedException, WetException {
         Parameter tmpFirstParameter = getFirstParameter();
 
