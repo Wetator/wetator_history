@@ -79,6 +79,7 @@ public final class XHtmlOutputter {
     private HtmlPage htmlPage;
     private ResponseStore responseStore;
     private Output output;
+    private XmlUtil xmlUtil;
 
     static {
         EMPTY_TAGS = new HashSet<String>();
@@ -123,6 +124,7 @@ public final class XHtmlOutputter {
     public void writeTo(File aFile) throws IOException {
         FileWriterWithEncoding tmpFileWriter = new FileWriterWithEncoding(aFile, htmlPage.getPageEncoding());
         try {
+            xmlUtil = new XmlUtil(htmlPage.getPageEncoding());
             output = new Output(tmpFileWriter, "  ");
 
             output.println("<?xml version=\"1.0\" encoding=\"" + htmlPage.getPageEncoding() + "\"?>");
@@ -198,9 +200,9 @@ public final class XHtmlOutputter {
                     output.unindent();
                     output.println("]]>");
                 } else if (SINGLE_LINE_TAGS.contains(aDomNode.getParentNode().getClass().getName())) {
-                    output.print(XmlUtil.normalizeBodyValue(tmpText));
+                    output.print(xmlUtil.normalizeBodyValue(tmpText));
                 } else {
-                    output.println(XmlUtil.normalizeBodyValue(tmpText));
+                    output.println(xmlUtil.normalizeBodyValue(tmpText));
                 }
             }
         } else if (aDomNode instanceof DomComment) {
@@ -297,7 +299,7 @@ public final class XHtmlOutputter {
                 output.print(' ');
                 output.print(tmpAttributeName);
                 output.print("=\"");
-                output.print(XmlUtil.normalizeAttributeValue(tmpAttributeValue));
+                output.print(xmlUtil.normalizeAttributeValue(tmpAttributeValue));
                 output.print('"');
             }
         }

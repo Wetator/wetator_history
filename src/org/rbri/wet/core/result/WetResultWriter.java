@@ -74,6 +74,7 @@ public class WetResultWriter implements WetEngineProgressListener {
 
     protected Writer writer;
     protected Output output;
+    protected XmlUtil xmlUtil;
     protected File resultFile;
     protected File outputDir;
     protected List<String> xslTemplates;
@@ -98,6 +99,7 @@ public class WetResultWriter implements WetEngineProgressListener {
 
             writer = new FileWriterWithEncoding(resultFile, "UTF-8");
             output = new Output(writer, "  ");
+            xmlUtil = new XmlUtil("UTF-8");
 
 
             // start writing
@@ -135,9 +137,9 @@ public class WetResultWriter implements WetEngineProgressListener {
             for (Variable tmpVariable : tmpVariables) {
                 printStartTagOpener(TAG_VARIABLE);
                 output.print("name=\"");
-                output.print(XmlUtil.normalizeAttributeValue(tmpVariable.getName()));
+                output.print(xmlUtil.normalizeAttributeValue(tmpVariable.getName()));
                 output.print("\" value=\"");
-                output.print(XmlUtil.normalizeAttributeValue(tmpVariable.getValue().toString()));
+                output.print(xmlUtil.normalizeAttributeValue(tmpVariable.getValue().toString()));
                 output.println("\" />");
             }
 
@@ -154,7 +156,7 @@ public class WetResultWriter implements WetEngineProgressListener {
         try {
             printStartTagOpener(TAG_COMMAND_SET_INIT);
             output.print("name=\"");
-            output.print(XmlUtil.normalizeAttributeValue(aWetCommandSet.getClass().getSimpleName()));
+            output.print(xmlUtil.normalizeAttributeValue(aWetCommandSet.getClass().getSimpleName()));
             output.println("\" >");
             output.indent();
 
@@ -216,7 +218,7 @@ public class WetResultWriter implements WetEngineProgressListener {
         try {
             printStartTagOpener(TAG_TESTCASE);
             output.print("name=\"");
-            output.print(XmlUtil.normalizeAttributeValue(aFileName));
+            output.print(xmlUtil.normalizeAttributeValue(aFileName));
             output.println("\" >");
             output.indent();
         } catch (IOException e) {
@@ -238,7 +240,7 @@ public class WetResultWriter implements WetEngineProgressListener {
         try {
             printStartTagOpener(TAG_COMMAND);
             output.print("name=\"");
-            output.print(XmlUtil.normalizeAttributeValue(aWetCommand.getName()));
+            output.print(xmlUtil.normalizeAttributeValue(aWetCommand.getName()));
             output.print("\" line=\"" + aWetCommand.getLineNo());
             if (aWetCommand.isComment()) {
                 output.print("\" isComment=\"true");
@@ -249,7 +251,7 @@ public class WetResultWriter implements WetEngineProgressListener {
             Parameter tmpParameter = aWetCommand.getFirstParameter();
             printStartTag(TAG_FIRST_PARAM);
             if (null != tmpParameter) {
-                output.print(XmlUtil.normalizeBodyValue(tmpParameter.getValue(aWetContext).toString()));
+                output.print(xmlUtil.normalizeBodyValue(tmpParameter.getValue(aWetContext).toString()));
             }
             printEndTag(TAG_FIRST_PARAM);
             output.println();
@@ -257,7 +259,7 @@ public class WetResultWriter implements WetEngineProgressListener {
             tmpParameter = aWetCommand.getSecondParameter();
             printStartTag(TAG_SECOND_PARAM);
             if (null != tmpParameter) {
-                output.print(XmlUtil.normalizeBodyValue(tmpParameter.getValue(aWetContext).toString()));
+                output.print(xmlUtil.normalizeBodyValue(tmpParameter.getValue(aWetContext).toString()));
             }
             printEndTag(TAG_SECOND_PARAM);
             output.println();
@@ -363,10 +365,10 @@ public class WetResultWriter implements WetEngineProgressListener {
     private void printConfigurationProperty(String aKey, String aValue) throws IOException {
         printStartTagOpener(TAG_PROPERTY);
         output.print("key=\"");
-        output.print(XmlUtil.normalizeAttributeValue(aKey));
+        output.print(xmlUtil.normalizeAttributeValue(aKey));
         if (null != aValue) {
             output.print("\" value=\"");
-            output.print(XmlUtil.normalizeAttributeValue(aValue));
+            output.print(xmlUtil.normalizeAttributeValue(aValue));
         }
         output.println("\" />");
     }
@@ -375,10 +377,10 @@ public class WetResultWriter implements WetEngineProgressListener {
     private void printConfigurationProperty(String aKey, SecretString aValue) throws IOException {
         printStartTagOpener(TAG_PROPERTY);
         output.print("key=\"");
-        output.print(XmlUtil.normalizeAttributeValue(aKey));
+        output.print(xmlUtil.normalizeAttributeValue(aKey));
         if (null != aValue) {
             output.print("\" value=\"");
-            output.print(XmlUtil.normalizeAttributeValue(aValue.toString()));
+            output.print(xmlUtil.normalizeAttributeValue(aValue.toString()));
         }
         output.println("\" />");
     }
@@ -386,7 +388,7 @@ public class WetResultWriter implements WetEngineProgressListener {
 
     private void printlnNode(String aNodeName, String aNodeValue) throws IOException {
         printStartTag(aNodeName);
-        output.print(XmlUtil.normalizeBodyValue(aNodeValue));
+        output.print(xmlUtil.normalizeBodyValue(aNodeValue));
         printEndTag(aNodeName);
         output.println();
     }

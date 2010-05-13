@@ -16,22 +16,31 @@
 
 package org.rbri.wet.util;
 
+import java.nio.charset.Charset;
+import java.nio.charset.CharsetEncoder;
+
 /**
  * XmlUtil contains some useful helpers for XML-File handling.
- * 
+ *
  * @author rbri
  */
 public class XmlUtil {
+
+    private CharsetEncoder charsetEncoder;
+
+    public XmlUtil(String anEncoding) {
+        charsetEncoder = Charset.forName(anEncoding).newEncoder();
+    }
 
     /**
      * Escape the the given string. For use as body text.<br>
      * Sample: <code>normalizeBodyValue("&lt;\\abc&gt;")</code> returns
      * <code>"&amp;lt;\abc&amp;gt;"</code>
-     * 
+     *
      * @param aString the String to be normalized or null
      * @return a new String
      */
-    public static String normalizeBodyValue(String aString) {
+    public String normalizeBodyValue(String aString) {
         StringBuffer tmpResult = null;
         int tmpLength;
         char tmpChar;
@@ -69,6 +78,12 @@ public class XmlUtil {
                 tmpResult.append("&amp;");
                 i++;
                 break;
+            } else if (!charsetEncoder.canEncode(tmpChar)) {
+                tmpResult = new StringBuffer(aString.substring(0, i));
+                tmpResult.append("&#" + (int)tmpChar);
+                tmpResult.append(";");
+                i++;
+                break;
             }
             i++;
         }
@@ -93,7 +108,12 @@ public class XmlUtil {
                 }
 
                 default: {
-                    tmpResult.append(tmpChar);
+                    if (charsetEncoder.canEncode(tmpChar)) {
+                        tmpResult.append(tmpChar);
+                    } else {
+                        tmpResult.append("&#" + (int)tmpChar);
+                        tmpResult.append(";");
+                    }
                 }
                 }
             }
@@ -111,13 +131,13 @@ public class XmlUtil {
      * attribute value.<br>
      * Sample: <code>normalizeBodyValue("&lt;\\abc&gt;")</code> returns
      * <code>&amp;lt;&amp;apos;abc&amp;gt;</code>
-     * 
+     *
      * @param aString
      *            the String to be normalized or null
-     * 
+     *
      * @return a new String
      */
-    public static String normalizeAttributeValue(String aString) {
+    public String normalizeAttributeValue(String aString) {
         StringBuffer tmpResult = null;
         int tmpLength;
         char tmpChar;

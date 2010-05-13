@@ -38,82 +38,93 @@ public class XmlUtilTest extends TestCase {
     }
 
     public void testNormalizeBodyValue_NormalChars() {
-        assertEquals("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ", XmlUtil.normalizeBodyValue("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"));
+        XmlUtil tmpXmlUtil = new XmlUtil("UTF-8");
+        assertEquals("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ", tmpXmlUtil.normalizeBodyValue("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"));
     }
 
     public void testNormalizeBodyValue_SpecialChars() {
-        assertEquals("&lt;&gt;&amp;", XmlUtil.normalizeBodyValue("<>&"));
+        XmlUtil tmpXmlUtil = new XmlUtil("UTF-8");
+        assertEquals("&lt;&gt;&amp;", tmpXmlUtil.normalizeBodyValue("<>&"));
     }
 
     public void testNormalizeBodyValue_ForbiddenChars() {
+        XmlUtil tmpXmlUtil = new XmlUtil("UTF-8");
         String tmpInput = "\u0000\u0001\u0002\u0003\u0004\u0005\u0006\u0007\u0008\u0009\r\u000B\u000C\n\u000E\u000F"
                 + "\u0010\u0011\u0012\u0013\u0014\u0015\u0016\u0017\u0018\u0019\u001A\u001B\u001C\u001D\u001E\u001F" + "\u0020\u0010";
 
-        assertEquals("\t\r\n ", XmlUtil.normalizeBodyValue(tmpInput));
+        assertEquals("\t\r\n ", tmpXmlUtil.normalizeBodyValue(tmpInput));
     }
 
     public void testNormalizeBodyValue_Empty() {
-        assertEquals("", XmlUtil.normalizeBodyValue(null));
+        XmlUtil tmpXmlUtil = new XmlUtil("UTF-8");
+        assertEquals("", tmpXmlUtil.normalizeBodyValue(null));
     }
 
     public void testNormalizeBody_EscapeMany() {
-        assertEquals("ab&lt;de&lt;", XmlUtil.normalizeBodyValue("ab<de<"));
+        XmlUtil tmpXmlUtil = new XmlUtil("UTF-8");
+        assertEquals("ab&lt;de&lt;", tmpXmlUtil.normalizeBodyValue("ab<de<"));
     }
 
     public void testNormalizeBody_EscapeOne() {
-        assertEquals("ab&gt;de", XmlUtil.normalizeBodyValue("ab>de"));
+        XmlUtil tmpXmlUtil = new XmlUtil("UTF-8");
+        assertEquals("ab&gt;de", tmpXmlUtil.normalizeBodyValue("ab>de"));
     }
 
     public void testNormalizeBody_EscapeAmpersand() {
-        assertEquals("ab&amp;de", XmlUtil.normalizeBodyValue("ab&de"));
+        XmlUtil tmpXmlUtil = new XmlUtil("UTF-8");
+        assertEquals("ab&amp;de", tmpXmlUtil.normalizeBodyValue("ab&de"));
+    }
+
+    public void testNormalizeBody_EscapeEuro() {
+        XmlUtil tmpXmlUtil = new XmlUtil("iso-8859-1");
+        assertEquals("11 &#8364;", tmpXmlUtil.normalizeBodyValue("11 €"));
     }
 
     public void testNormalizeBodyValueChar_Empty() {
-        assertEquals("", XmlUtil.normalizeBodyValue(null));
+        XmlUtil tmpXmlUtil = new XmlUtil("UTF-8");
+        assertEquals("", tmpXmlUtil.normalizeBodyValue(null));
     }
 
     public void testNormalizeAttributeValue_NormalChars() {
-        assertEquals("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ", XmlUtil.normalizeAttributeValue("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"));
+        XmlUtil tmpXmlUtil = new XmlUtil("UTF-8");
+        assertEquals("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ", tmpXmlUtil.normalizeAttributeValue("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"));
     }
 
     public void testNormalizeAttributeValue_SpecialChars() {
-        assertEquals("&lt;&gt;&amp;&quot;&apos;", XmlUtil.normalizeAttributeValue("<>&\"'"));
+        XmlUtil tmpXmlUtil = new XmlUtil("UTF-8");
+        assertEquals("&lt;&gt;&amp;&quot;&apos;", tmpXmlUtil.normalizeAttributeValue("<>&\"'"));
     }
 
     public void testNormalizeAttributeValue_ForbiddenChars() {
+        XmlUtil tmpXmlUtil = new XmlUtil("UTF-8");
         String tmpInput = "\u0000\u0001\u0002\u0003\u0004\u0005\u0006\u0007\u0008\u0009\r\u000B\u000C\n\u000E\u000F"
                 + "\u0010\u0011\u0012\u0013\u0014\u0015\u0016\u0017\u0018\u0019\u001A\u001B\u001C\u001D\u001E\u001F" + "\u0020\u0010";
 
-        assertEquals("\t\r\n ", XmlUtil.normalizeAttributeValue(tmpInput));
+        assertEquals("\t\r\n ", tmpXmlUtil.normalizeAttributeValue(tmpInput));
     }
 
     public void testNormalizeAttributeValue_EscapeMany() {
-        assertEquals("ab&gt;de&lt;", XmlUtil.normalizeAttributeValue("ab>de<"));
+        XmlUtil tmpXmlUtil = new XmlUtil("UTF-8");
+        assertEquals("ab&gt;de&lt;", tmpXmlUtil.normalizeAttributeValue("ab>de<"));
     }
 
     public void testNormalizeAttributeValue_EscapeOne() {
-        assertEquals("ab&amp;de", XmlUtil.normalizeAttributeValue("ab&de"));
+        XmlUtil tmpXmlUtil = new XmlUtil("UTF-8");
+        assertEquals("ab&amp;de", tmpXmlUtil.normalizeAttributeValue("ab&de"));
     }
 
     public void testNormalizeAttributeValue_EscapeQuote() {
-        assertEquals("ab&quot;de", XmlUtil.normalizeAttributeValue("ab\"de"));
+        XmlUtil tmpXmlUtil = new XmlUtil("UTF-8");
+        assertEquals("ab&quot;de", tmpXmlUtil.normalizeAttributeValue("ab\"de"));
     }
 
     public void testNormalizeAttributeValue_EscapeApostroph() {
-        assertEquals("ab&apos;de", XmlUtil.normalizeAttributeValue("ab'de"));
+        XmlUtil tmpXmlUtil = new XmlUtil("UTF-8");
+        assertEquals("ab&apos;de", tmpXmlUtil.normalizeAttributeValue("ab'de"));
     }
 
     public void testNormalizeAttributeValue_Null() {
-        assertEquals("", XmlUtil.normalizeAttributeValue(null));
-    }
-
-    public void testForEmma() {
-        new XmlUtilEmma();
-    }
-
-    static class XmlUtilEmma extends XmlUtil {
-        protected XmlUtilEmma() {
-            super();
-        }
+        XmlUtil tmpXmlUtil = new XmlUtil("UTF-8");
+        assertEquals("", tmpXmlUtil.normalizeAttributeValue(null));
     }
 }
