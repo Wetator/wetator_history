@@ -29,36 +29,33 @@ import org.rbri.wet.exception.AssertionFailedException;
 
 /**
  * Simple progress listener that writes to stdout.
- *  
+ *
  * @author rbri
  */
-public final class StdOutProgressListener implements WetEngineProgressListener {
-    
+public class StdOutProgressListener implements WetEngineProgressListener {
+
     private static final int dotsPerLine = 100;
 
     private long stepsCount;
     private long errorCount;
     private long failureCount;
     private int dotCount;
-    
+    private int contextDeep;
+
 
     public void engineSetup(WetEngine aWetEngine) {
         println(Version.getProductName() + " " + Version.getVersion());
         println("  using " + com.gargoylesoftware.htmlunit.Version.getProductName() + " version " + com.gargoylesoftware.htmlunit.Version.getProductVersion());
-        
+
         stepsCount = 0;
         errorCount = 0;
         failureCount = 0;
+        contextDeep = 0;
 
         File tmpConfigFile = aWetEngine.getConfigFile();
         if (null != tmpConfigFile) {
             println("  Config: '" + tmpConfigFile.getAbsolutePath() + "'");
         }
-    }
-
-
-    public void contextTestEnd() {
-        println("");
     }
 
 
@@ -70,10 +67,10 @@ public final class StdOutProgressListener implements WetEngineProgressListener {
     public void contextExecuteCommandEnd() {
     }
 
-    
+
     public void contextExecuteCommandError(Throwable aThrowable) {
         errorCount++;
-        
+
         if (dotCount == dotsPerLine) {
             println("E");
             dotCount = 1;
@@ -86,7 +83,7 @@ public final class StdOutProgressListener implements WetEngineProgressListener {
 
     public void contextExecuteCommandFailure(AssertionFailedException anAssertionFailedException) {
         failureCount++;
-        
+
         if (dotCount == dotsPerLine) {
             println("F");
             dotCount = 1;
@@ -108,9 +105,26 @@ public final class StdOutProgressListener implements WetEngineProgressListener {
     }
 
 
+    public void contextTestEnd() {
+        contextDeep--;
+        if (contextDeep > 0) {
+            // subcontext
+            print(">");
+        } else {
+            println("");
+        }
+    }
+
+
     public void contextTestStart(String aFileName) {
-        println("Test: " + aFileName);
-        dotCount = 1;
+        if (contextDeep > 0) {
+            // subcontext
+            print("<");
+        } else {
+            println("Test: " + aFileName);
+            dotCount = 1;
+        }
+        contextDeep++;
     }
 
 
@@ -120,8 +134,8 @@ public final class StdOutProgressListener implements WetEngineProgressListener {
 
     public void engineResponseStored(String aResponseFileName) {
     }
-    
-    
+
+
     public void engineTestEnd() {
     }
 
@@ -139,7 +153,7 @@ public final class StdOutProgressListener implements WetEngineProgressListener {
     public void warn(String aMessageKey, String[] aParameterArray) {
     }
 
-    
+
     public void info(String aMessageKey, String[] aParameterArray) {
     }
 

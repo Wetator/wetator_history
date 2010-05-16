@@ -16,16 +16,8 @@
 
 package org.rbri.wet.ant;
 
-import java.io.File;
-
 import org.apache.tools.ant.Project;
-import org.rbri.wet.Version;
-import org.rbri.wet.commandset.WetCommandSet;
-import org.rbri.wet.core.WetCommand;
-import org.rbri.wet.core.WetContext;
-import org.rbri.wet.core.WetEngine;
-import org.rbri.wet.core.WetEngineProgressListener;
-import org.rbri.wet.exception.AssertionFailedException;
+import org.rbri.wet.util.StdOutProgressListener;
 
 
 /**
@@ -33,92 +25,12 @@ import org.rbri.wet.exception.AssertionFailedException;
  *
  * @author rbri
  */
-public final class AntOutProgressListener implements WetEngineProgressListener {
+public final class AntOutProgressListener extends StdOutProgressListener {
     private Wetator antTask;
-    private long stepsCount;
-    private long errorCount;
-    private long failureCount;
 
     public AntOutProgressListener(Wetator aWetator) {
         antTask = aWetator;
     }
-
-    public void engineSetup(WetEngine aWetEngine) {
-        println(Version.getProductName() + " " + Version.getVersion() + " ant task");
-        println("  using " + com.gargoylesoftware.htmlunit.Version.getProductName() + " version " + com.gargoylesoftware.htmlunit.Version.getProductVersion());
-        File tmpConfigFile = aWetEngine.getConfigFile();
-        if (null != tmpConfigFile) {
-            println("  Config: '" + tmpConfigFile.getAbsolutePath() + "'");
-        }
-        println(" ");
-    }
-
-
-    public void contextTestEnd() {
-        // print summary
-        println("   Steps: " + stepsCount + ",  Failures: " + failureCount + ",  Errors: " + errorCount);
-        println(" ");
-    }
-
-
-    public void contextExecuteCommandStart(WetContext aWetContext, WetCommand aWommand) {
-        stepsCount++;
-    }
-
-
-    public void contextExecuteCommandEnd() {
-    }
-
-
-    public void contextExecuteCommandError(Throwable aThrowable) {
-        errorCount++;
-    }
-
-
-    public void contextExecuteCommandFailure(AssertionFailedException anAssertionFailedException) {
-        failureCount++;
-    }
-
-
-    public void contextExecuteCommandSuccess() {
-    }
-
-
-    public void contextTestStart(String aFileName) {
-        println("Test: " + aFileName);
-        stepsCount = 0;
-        errorCount = 0;
-        failureCount = 0;
-    }
-
-
-    public void engineTestStart() {
-    }
-
-
-    public void engineResponseStored(String aResponseFileName) {
-    }
-
-
-    public void engineTestEnd() {
-    }
-
-
-    public void engineFinish() {
-    }
-
-
-    public void commandSetSetup(WetCommandSet wetCommandSet) {
-    }
-
-
-    public void warn(String aMessageKey, String[] aParameterArray) {
-    }
-
-
-    public void info(String aMessageKey, String[] aParameterArray) {
-    }
-
 
     protected void println(String aString) {
          antTask.log(aString, Project.MSG_INFO);
