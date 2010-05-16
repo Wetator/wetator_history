@@ -11,8 +11,9 @@
 
   <dir>
     <src>src</src>
-    <test-src>test/src</test-src>
-    <test-wet-src>test/excel</test-wet-src>
+    <test>test</test>
+    <test-src>${dir.test}/src</test-src>
+    <test-wet-src>${dir.test}/excel</test-wet-src>
     <samples>samples</samples>
     <lib>lib</lib>
     <build>build</build>
