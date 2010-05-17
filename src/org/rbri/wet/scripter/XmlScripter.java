@@ -43,7 +43,6 @@ public final class XmlScripter implements WetScripter {
 	private static final String XML_FILE_EXTENSION = ".xml";
 
 	private static final String E_STEP = "step";
-	private static final String E_PARAMETER = "parameter";
 	private static final String E_OPTIONAL_PARAMETER = "optionalParameter";
 	private static final String A_COMMAND = "command";
 	private static final String A_COMMENT = "comment";
@@ -114,7 +113,6 @@ public final class XmlScripter implements WetScripter {
 					case XMLStreamConstants.START_ELEMENT: {
 						if (E_STEP.equals(reader.getLocalName())) {
 							String tmpCommandName = reader.getAttributeValue(null, A_COMMAND).replace('_', ' ');
-							System.out.println(tmpCommandName);
 
 							// comment handling
 							boolean tmpIsComment = A_COMMENT.equals(tmpCommandName.toLowerCase());
@@ -128,8 +126,9 @@ public final class XmlScripter implements WetScripter {
 							// build WetCommand
 							tmpWetCommand = new WetCommand(tmpCommandName, tmpIsComment);
 							tmpWetCommand.setLineNo(tmpResult.size() + 1);
-						} else if (E_PARAMETER.equals(reader.getLocalName())) {
-							String tmpParameters = reader.getElementText();
+
+							while (reader.next() != XMLStreamConstants.CHARACTERS);
+							String tmpParameters = reader.getText();
 							tmpWetCommand.setFirstParameter(new Parameter(tmpParameters));
 						} else if (E_OPTIONAL_PARAMETER.equals(reader.getLocalName())) {
 							String tmpOptionalParameters = reader.getElementText();
@@ -147,7 +146,7 @@ public final class XmlScripter implements WetScripter {
 
 			return tmpResult;
 		} catch (XMLStreamException e) {
-			throw new WetException("Error parsing file '" + getFile().getAbsolutePath() + "'.", e);
+			throw new WetException("Error parsing file '" + getFile().getAbsolutePath() + "' (" + e.getMessage() + ").", e);
 		} finally {
 			try {
 				reader.close();

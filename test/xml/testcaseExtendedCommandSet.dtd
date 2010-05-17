@@ -1,6 +1,5 @@
 <!ELEMENT testcase (step+)>
-<!ELEMENT step (parameter, optionalParameter?)>
-<!ELEMENT parameter (#PCDATA)>
+<!ELEMENT step (#PCDATA | optionalParameter)*>
 <!ELEMENT optionalParameter (#PCDATA)>
 
 <!ATTLIST step
