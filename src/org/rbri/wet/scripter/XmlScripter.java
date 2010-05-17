@@ -127,7 +127,7 @@ public final class XmlScripter implements WetScripter {
 							tmpWetCommand = new WetCommand(tmpCommandName, tmpIsComment);
 							tmpWetCommand.setLineNo(tmpResult.size() + 1);
 
-							while (reader.next() != XMLStreamConstants.CHARACTERS);
+							reader.next(); //go to CHARACTER event (parameter)
 							String tmpParameters = reader.getText();
 							tmpWetCommand.setFirstParameter(new Parameter(tmpParameters));
 						} else if (E_OPTIONAL_PARAMETER.equals(reader.getLocalName())) {
