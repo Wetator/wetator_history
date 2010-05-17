@@ -20,10 +20,11 @@ import junit.framework.Test;
 import junit.framework.TestSuite;
 
 /**
- * @author rbri
+ * @author rbri, tobwoerk
  */
 public class AllTests {
-    public static void main(String[] args) {
+
+	public static void main(String[] args) {
         junit.textui.TestRunner.run(suite());
     }
 
@@ -32,6 +33,7 @@ public class AllTests {
         TestSuite suite = new TestSuite("All Wetator scripter result tests");
 
         suite.addTest(ExcelScripterTest.suite());
+        suite.addTest(XmlScripterTest.suite());
 
         return suite;
     }
