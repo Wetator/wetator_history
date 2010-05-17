@@ -18,7 +18,6 @@ package org.rbri.wet.scripter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.LinkedList;
 import java.util.List;
@@ -51,6 +50,7 @@ public final class XmlScripter implements WetScripter {
 
 	private File file;
 	private InputStream inputStream;
+	private XMLStreamReader reader;
 
 	private List<WetCommand> commands;
 
@@ -96,67 +96,64 @@ public final class XmlScripter implements WetScripter {
 		LinkedList<WetCommand> tmpResult = new LinkedList<WetCommand>();
 
 		try {
-			inputStream = new FileInputStream(getFile().getAbsoluteFile());
+			inputStream = new FileInputStream(file);
 		} catch (FileNotFoundException e) {
 			throw new WetException("File '" + getFile().getAbsolutePath() + "' not available.", e);
 		}
+		XMLInputFactory tmpFactory = XMLInputFactory.newInstance();
 		try {
-			InputStream tmpIn = new FileInputStream(file);
-			XMLInputFactory tmpFactory = XMLInputFactory.newInstance();
-			XMLStreamReader tmpReader = tmpFactory.createXMLStreamReader(tmpIn);
+			reader = tmpFactory.createXMLStreamReader(inputStream);
+		} catch (XMLStreamException e) {
+			throw new WetException("Error creating reader for file '" + getFile().getAbsolutePath() + "'.", e);
+		}
 
+		try {
 			WetCommand tmpWetCommand = null;
-			while (tmpReader.hasNext()) {
-				switch (tmpReader.next()) {
-				case XMLStreamConstants.END_DOCUMENT: {
-					tmpReader.close();
-					break;
-				}
-				case XMLStreamConstants.START_ELEMENT: {
-					if (E_STEP.equals(tmpReader.getLocalName())) {
-						String tmpCommandName = tmpReader.getAttributeValue(null, A_COMMAND).replace('_', ' ');
-						System.out.println(tmpCommandName);
+			while (reader.hasNext()) {
+				switch (reader.next()) {
+					case XMLStreamConstants.START_ELEMENT: {
+						if (E_STEP.equals(reader.getLocalName())) {
+							String tmpCommandName = reader.getAttributeValue(null, A_COMMAND).replace('_', ' ');
+							System.out.println(tmpCommandName);
 
-						// comment handling
-						boolean tmpIsComment = A_COMMENT.equals(tmpCommandName.toLowerCase());
-						if (!tmpIsComment) {
-							String tmpIsCommentAsString = tmpReader.getAttributeValue(null, A_COMMENT);
-							if (StringUtils.isNotEmpty(tmpIsCommentAsString)) {
-								tmpIsComment = Boolean.valueOf(tmpIsCommentAsString).booleanValue();
+							// comment handling
+							boolean tmpIsComment = A_COMMENT.equals(tmpCommandName.toLowerCase());
+							if (!tmpIsComment) {
+								String tmpIsCommentAsString = reader.getAttributeValue(null, A_COMMENT);
+								if (StringUtils.isNotEmpty(tmpIsCommentAsString)) {
+									tmpIsComment = Boolean.valueOf(tmpIsCommentAsString).booleanValue();
+								}
 							}
+
+							// build WetCommand
+							tmpWetCommand = new WetCommand(tmpCommandName, tmpIsComment);
+							tmpWetCommand.setLineNo(tmpResult.size() + 1);
+						} else if (E_PARAMETER.equals(reader.getLocalName())) {
+							String tmpParameters = reader.getElementText();
+							tmpWetCommand.setFirstParameter(new Parameter(tmpParameters));
+						} else if (E_OPTIONAL_PARAMETER.equals(reader.getLocalName())) {
+							String tmpOptionalParameters = reader.getElementText();
+							tmpWetCommand.setSecondParameter(new Parameter(tmpOptionalParameters));
 						}
-
-						// build WetCommand
-						tmpWetCommand = new WetCommand(tmpCommandName, tmpIsComment);
-						tmpWetCommand.setLineNo(tmpResult.size() + 1);
-
-					} else if (E_PARAMETER.equals(tmpReader.getLocalName())) {
-						String tmpParameters = tmpReader.getElementText();
-						tmpWetCommand.setFirstParameter(new Parameter(tmpParameters));
-					} else if (E_OPTIONAL_PARAMETER.equals(tmpReader.getLocalName())) {
-						String tmpOptionalParameters = tmpReader.getElementText();
-						tmpWetCommand.setSecondParameter(new Parameter(tmpOptionalParameters));
+						break;
 					}
-					break;
-				}
-				case XMLStreamConstants.END_ELEMENT: {
-					if (E_STEP.equals(tmpReader.getLocalName())) {
-						tmpResult.add(tmpWetCommand);
+					case XMLStreamConstants.END_ELEMENT: {
+						if (E_STEP.equals(reader.getLocalName())) {
+							tmpResult.add(tmpWetCommand);
+						}
 					}
-				}
 				}
 			}
 
 			return tmpResult;
-		} catch (IOException e) {
-			throw new WetException("IO problem reading file '" + getFile().getAbsolutePath() + "'.", e);
 		} catch (XMLStreamException e) {
-			throw new WetException("Streaming problem on file '" + getFile().getAbsolutePath() + "'.", e);
+			throw new WetException("Error parsing file '" + getFile().getAbsolutePath() + "'.", e);
 		} finally {
 			try {
+				reader.close();
 				inputStream.close();
-			} catch (IOException e) {
-				throw new WetException("IO problem closing file '" + getFile().getAbsolutePath() + "'.", e);
+			} catch (Exception e) {
+				throw new WetException("Problem closing resources for file '" + getFile().getAbsolutePath() + "'.", e);
 			}
 		}
 	}
