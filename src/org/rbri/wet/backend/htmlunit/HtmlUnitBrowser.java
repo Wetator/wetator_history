@@ -20,10 +20,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.net.UnknownHostException;
 import java.security.GeneralSecurityException;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
 
@@ -47,18 +43,16 @@ import org.rbri.wet.util.ContentUtil;
 
 import com.gargoylesoftware.htmlunit.BrowserVersion;
 import com.gargoylesoftware.htmlunit.DefaultCredentialsProvider;
+import com.gargoylesoftware.htmlunit.ElementNotFoundException;
 import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;
 import com.gargoylesoftware.htmlunit.History;
 import com.gargoylesoftware.htmlunit.Page;
 import com.gargoylesoftware.htmlunit.ScriptException;
 import com.gargoylesoftware.htmlunit.SgmlPage;
 import com.gargoylesoftware.htmlunit.TextPage;
-import com.gargoylesoftware.htmlunit.TopLevelWindow;
 import com.gargoylesoftware.htmlunit.WebClient;
-import com.gargoylesoftware.htmlunit.WebResponse;
 import com.gargoylesoftware.htmlunit.WebWindow;
 import com.gargoylesoftware.htmlunit.WebWindowEvent;
-import com.gargoylesoftware.htmlunit.html.FrameWindow;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.xml.XmlPage;
 
@@ -76,8 +70,31 @@ public final class HtmlUnitBrowser implements WetBackend {
     protected WebClient webClient;
     protected ResponseStore responseStore;
     protected Stack<WebWindow> webWindows;
-    protected Map<WebWindow, List<Page>> webWindowHistory;
     protected WetEngine wetEngine;
+
+
+    public static void checkAnchor(String aRef, Page aPage) throws AssertionFailedException {
+        if (null == aPage) {
+            return;
+        }
+
+        if (    (aPage instanceof HtmlPage)
+                && StringUtils.isNotEmpty(aRef) ) {
+            HtmlPage tmpHtmlPage = (HtmlPage)aPage;
+            try {
+                // check first with id
+                tmpHtmlPage.getHtmlElementById(aRef);
+            } catch (ElementNotFoundException e) {
+                // maybe there is an anchor with this name
+                // the browser jumps to the first one
+                try {
+                    tmpHtmlPage.getAnchorByName(aRef);
+                } catch (ElementNotFoundException eNF) {
+                    Assert.fail("noAnchor", new String[] {aRef});
+                }
+            }
+        }
+    }
 
 
     // TODO implement close
@@ -148,10 +165,9 @@ public final class HtmlUnitBrowser implements WetBackend {
             webClient = new WebClient(tmpBrowserVersion);
         }
 
-        // setup our own history management
+        // setup our own window management
         WebWindow tmpCurrentWindow = webClient.getCurrentWindow();
         webWindows = new Stack<WebWindow>();
-        webWindowHistory = new HashMap<WebWindow, List<Page>>();
         webWindowOpened(tmpCurrentWindow);
 
         // setup our listener
@@ -220,8 +236,9 @@ public final class HtmlUnitBrowser implements WetBackend {
 
 
     public void openUrl(URL aUrl) throws AssertionFailedException {
+        Page tmpPage = null;
         try {
-            Page tmpPage = webClient.getPage(aUrl);
+            tmpPage = webClient.getPage(aUrl);
 
             if (tmpPage instanceof SgmlPage) {
                 PageUtil.waitForThreads((SgmlPage)tmpPage);
@@ -237,6 +254,11 @@ public final class HtmlUnitBrowser implements WetBackend {
         } catch (Throwable e) {
             LOG.fatal("OpenUrl '" + aUrl.toExternalForm() + "'fails", e);
             Assert.fail("serverError", new String[] {aUrl.toString(), e.getMessage()});
+        }
+
+        String aRef = aUrl.getRef();
+        if (StringUtils.isNotEmpty(aRef)) {
+            checkAnchor(aRef);
         }
     }
 
@@ -314,31 +336,20 @@ public final class HtmlUnitBrowser implements WetBackend {
     }
 
 
-    public void savePageToHistory(WebWindow aWebWindow) {
-        if (!webWindows.contains(aWebWindow)) {
-            LOG.fatal("Problem with window handling. Saving page for unknown window!");
-        }
-
-        List<Page> tmpHistoryEntry = webWindowHistory.get(aWebWindow);
-
-        if (tmpHistoryEntry.size() > MAX_HISTORY_SIZE) {
-            // remove the oldest one
-            tmpHistoryEntry.remove(0);
-        }
-        tmpHistoryEntry.add(aWebWindow.getEnclosedPage());
+    public void webWindowOpened(WebWindow aWebWindow) {
+        webWindows.push(aWebWindow);
     }
 
 
-    public void webWindowOpened(WebWindow aWebWindow) {
-        webWindows.push(aWebWindow);
-        webWindowHistory = new HashMap<WebWindow, List<Page>>();
-        webWindowHistory.put(aWebWindow, new LinkedList<Page>());
+    protected void checkAnchor(String aRef) throws AssertionFailedException {
+        // check the anchor part of the url
+        final Page tmpPage = getCurrentPage();
+        checkAnchor(aRef, tmpPage);
     }
 
 
     public void webWindowClosed(WebWindow aWebWindow) {
         webWindows.remove(aWebWindow);
-        webWindowHistory.remove(aWebWindow);
     }
 
 
@@ -349,6 +360,12 @@ public final class HtmlUnitBrowser implements WetBackend {
             super();
             htmlUnitBrowser = aHtmlUnitBrowser;
         }
+
+        public void webWindowOpened(WebWindowEvent anEvent) {
+            LOG.debug("webWindowOpened");
+            htmlUnitBrowser.webWindowOpened(anEvent.getWebWindow());
+        }
+
 
         public void webWindowClosed(WebWindowEvent anEvent) {
         	Page tmpPage = anEvent.getWebWindow().getEnclosedPage();
@@ -361,54 +378,11 @@ public final class HtmlUnitBrowser implements WetBackend {
             htmlUnitBrowser.webWindowClosed(anEvent.getWebWindow());
         }
 
+
         public void webWindowContentChanged(WebWindowEvent anEvent) {
             LOG.debug("webWindowContentChanged");
-
-            final WebWindow tmpWebWindow = anEvent.getWebWindow();
-            final WebResponse tmpWebResponse = anEvent.getNewPage().getWebResponse();
-            LOG.debug("Content of window changed to "
-                    + tmpWebResponse.getRequestSettings().getUrl() + " ("
-                    + tmpWebResponse.getContentType() + ")");
-
-            final boolean tmpIsNew;
-            final WebWindow tmpCurrentWindow = htmlUnitBrowser
-                    .getCurrentWebWindow();
-
-            if (tmpWebWindow instanceof TopLevelWindow
-                    && anEvent.getOldPage() == null) {
-                LOG.debug("Content loaded in newly opened window, its content will become current response");
-                tmpIsNew = true;
-            } else if (tmpCurrentWindow == tmpWebWindow) {
-                LOG.debug("Content of current window changed, it will become current response");
-                tmpIsNew = true;
-            }
-
-            // content loaded in an other window as the "current" one via javascript
-            // becomes "current" only if new top window is opened
-            else if (htmlUnitBrowser.webClient.getJavaScriptEngine() == null || !htmlUnitBrowser.webClient.getJavaScriptEngine().isScriptRunning()) {
-                if (tmpWebWindow instanceof FrameWindow && !HtmlPage.READY_STATE_COMPLETE.equals(((FrameWindow) tmpWebWindow).getEnclosingPage().getDocumentElement().getReadyState())) {
-                    LOG.debug("Content of frame window has changed without javascript while enclosing page is loading, it will NOT become current response");
-                    LOG.debug("Enclosing page's state: " + ((FrameWindow) tmpWebWindow).getEnclosingPage().getDocumentElement().getReadyState());
-                    LOG.debug("Enclosing page's url: " + ((FrameWindow) tmpWebWindow).getEnclosingPage().getWebResponse().getRequestSettings().getUrl());
-                    tmpIsNew = false;
-                } else {
-                    LOG.debug("Content of window changed without javascript, it will become current response");
-                    tmpIsNew = true;
-                }
-            } else {
-                LOG.debug("Content of window changed with javascript, it will NOT become current response");
-                tmpIsNew = false;
-            }
-
-            if (tmpIsNew) {
-                htmlUnitBrowser.savePageToHistory(tmpWebWindow);
-            }
         }
 
-        public void webWindowOpened(WebWindowEvent anEvent) {
-            LOG.debug("webWindowOpened");
-            htmlUnitBrowser.webWindowOpened(anEvent.getWebWindow());
-        }
     }
 
 

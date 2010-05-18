@@ -21,6 +21,7 @@ import java.io.IOException;
 
 import net.sourceforge.htmlunit.corejs.javascript.WrappedException;
 
+import org.apache.commons.lang.StringUtils;
 import org.rbri.wet.backend.Control;
 import org.rbri.wet.backend.htmlunit.util.ExceptionUtil;
 import org.rbri.wet.backend.htmlunit.util.HtmlElementUtil;
@@ -90,6 +91,15 @@ public final class HtmlUnitControl implements Control {
             Page tmpResult = tmpHtmlElement.click();
             if (tmpResult instanceof SgmlPage) {
                 PageUtil.waitForThreads((SgmlPage)tmpResult);
+            }
+
+            if (tmpHtmlElement instanceof HtmlAnchor) {
+                HtmlAnchor tmpHtmlAnchor = (HtmlAnchor) tmpHtmlElement;
+                String tmpHref = tmpHtmlAnchor.getHrefAttribute();
+                if (StringUtils.isNotBlank(tmpHref) && tmpHref.startsWith("#")) {
+                    tmpHref = tmpHref.substring(1);
+                    HtmlUnitBrowser.checkAnchor(tmpHref, tmpHtmlAnchor.getPage());
+                }
             }
         } catch (ScriptException e) {
             Assert.fail("javascriptError", new String[] {e.getMessage()});

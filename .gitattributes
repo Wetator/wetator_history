@@ -74,6 +74,7 @@ test/ant/sample.xls -text
 test/ant/wet.config -text
 test/excel/ajax_jquery.xls -text
 test/excel/ajax_prototype.xls -text
+test/excel/anchor_inside_page.xls -text
 test/excel/assert_content.xls -text
 test/excel/assert_disabled.xls -text
 test/excel/assert_selected_checkbox.xls -text
