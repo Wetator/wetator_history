@@ -20,6 +20,7 @@ import java.net.URL;
 
 import org.rbri.wet.exception.AssertionFailedException;
 import org.rbri.wet.exception.WetException;
+import org.rbri.wet.util.SecretString;
 
 
 /**
@@ -43,5 +44,8 @@ public interface WetBackend {
     public String getCurrentContentAsString() throws AssertionFailedException;
     public void saveCurrentWindowToLog();
     public void goBackInCurrentWindow(int aSteps) throws AssertionFailedException;
+    public void closeWindow(SecretString aWindowName) throws AssertionFailedException;
     public void startNewSession();
+    public void checkFailure() throws AssertionFailedException;
+
 }

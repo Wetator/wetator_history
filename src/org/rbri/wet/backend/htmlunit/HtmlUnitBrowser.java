@@ -20,8 +20,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.net.UnknownHostException;
 import java.security.GeneralSecurityException;
+import java.util.ListIterator;
 import java.util.Set;
-import java.util.Stack;
 
 import net.sourceforge.htmlunit.corejs.javascript.WrappedException;
 
@@ -40,9 +40,12 @@ import org.rbri.wet.exception.AssertionFailedException;
 import org.rbri.wet.exception.WetException;
 import org.rbri.wet.util.Assert;
 import org.rbri.wet.util.ContentUtil;
+import org.rbri.wet.util.SearchPattern;
+import org.rbri.wet.util.SecretString;
 
 import com.gargoylesoftware.htmlunit.BrowserVersion;
 import com.gargoylesoftware.htmlunit.DefaultCredentialsProvider;
+import com.gargoylesoftware.htmlunit.DialogWindow;
 import com.gargoylesoftware.htmlunit.ElementNotFoundException;
 import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;
 import com.gargoylesoftware.htmlunit.History;
@@ -50,6 +53,7 @@ import com.gargoylesoftware.htmlunit.Page;
 import com.gargoylesoftware.htmlunit.ScriptException;
 import com.gargoylesoftware.htmlunit.SgmlPage;
 import com.gargoylesoftware.htmlunit.TextPage;
+import com.gargoylesoftware.htmlunit.TopLevelWindow;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.WebWindow;
 import com.gargoylesoftware.htmlunit.WebWindowEvent;
@@ -69,8 +73,8 @@ public final class HtmlUnitBrowser implements WetBackend {
 
     protected WebClient webClient;
     protected ResponseStore responseStore;
-    protected Stack<WebWindow> webWindows;
     protected WetEngine wetEngine;
+    protected AssertionFailedException failure;
 
 
     public static void checkAnchor(String aRef, Page aPage) throws AssertionFailedException {
@@ -164,11 +168,6 @@ public final class HtmlUnitBrowser implements WetBackend {
         } else {
             webClient = new WebClient(tmpBrowserVersion);
         }
-
-        // setup our own window management
-        WebWindow tmpCurrentWindow = webClient.getCurrentWindow();
-        webWindows = new Stack<WebWindow>();
-        webWindowOpened(tmpCurrentWindow);
 
         // setup our listener
         webClient.addWebWindowListener(new WebWindowListener(this));
@@ -289,18 +288,54 @@ public final class HtmlUnitBrowser implements WetBackend {
     }
 
 
-    private WebWindow getCurrentWebWindow() {
-        if (webWindows.empty()) {
-            return null;
+    public void closeWindow(SecretString aWindowName) throws AssertionFailedException {
+        ListIterator<WebWindow> tmpWebWindows = webClient.getWebWindows().listIterator();
+        while (tmpWebWindows.hasNext()) {
+            tmpWebWindows.next();
         }
 
-        WebWindow tmpResult = webWindows.lastElement();
-        return tmpResult;
+        if (null == aWindowName || StringUtils.isEmpty(aWindowName.getValue())) {
+            while (tmpWebWindows.hasPrevious()) {
+                WebWindow tmpWebWindow = tmpWebWindows.previous();
+
+                if (tmpWebWindow instanceof TopLevelWindow) {
+                    wetEngine.informListenersInfo("closeWindow", new String[] {tmpWebWindow.getName()});
+                    ((TopLevelWindow)tmpWebWindow).close();
+                    return;
+                }
+                if (tmpWebWindow instanceof DialogWindow) {
+                    wetEngine.informListenersInfo("closeDialogWindow", new String[] {tmpWebWindow.getName()});
+                    ((DialogWindow)tmpWebWindow).close();
+                    return;
+                }
+            }
+            Assert.fail("noWindowToClose", null);
+        }
+
+        SearchPattern tmpWindowNamePattern = aWindowName.getSearchPattern();
+        while (tmpWebWindows.hasPrevious()) {
+            WebWindow tmpWebWindow = tmpWebWindows.previous();
+
+            String tmpWindowName = tmpWebWindow.getName();
+            if (tmpWindowNamePattern.matches(tmpWindowName)) {
+                if (tmpWebWindow instanceof TopLevelWindow) {
+                    wetEngine.informListenersInfo("closeWindow", new String[] {tmpWebWindow.getName()});
+                    ((TopLevelWindow)tmpWebWindow).close();
+                    return;
+                }
+                if (tmpWebWindow instanceof DialogWindow) {
+                    wetEngine.informListenersInfo("closeDialogWindow", new String[] {tmpWebWindow.getName()});
+                    ((DialogWindow)tmpWebWindow).close();
+                    return;
+                }
+            }
+        }
+        Assert.fail("noWindowByNameToClose", new String[] {aWindowName.toString()});
     }
 
 
     public void goBackInCurrentWindow(int aSteps) throws AssertionFailedException {
-        WebWindow tmpCurrentWindow = getCurrentWebWindow();
+        WebWindow tmpCurrentWindow = webClient.getCurrentWindow();
 
         if (null == tmpCurrentWindow) {
             Assert.fail("noWebWindow", null);
@@ -322,7 +357,7 @@ public final class HtmlUnitBrowser implements WetBackend {
 
 
     public void saveCurrentWindowToLog() {
-        WebWindow tmpCurrentWindow = getCurrentWebWindow();
+        WebWindow tmpCurrentWindow = webClient.getCurrentWindow();
 
         if (null != tmpCurrentWindow) {
             try {
@@ -336,20 +371,10 @@ public final class HtmlUnitBrowser implements WetBackend {
     }
 
 
-    public void webWindowOpened(WebWindow aWebWindow) {
-        webWindows.push(aWebWindow);
-    }
-
-
     protected void checkAnchor(String aRef) throws AssertionFailedException {
         // check the anchor part of the url
         final Page tmpPage = getCurrentPage();
         checkAnchor(aRef, tmpPage);
-    }
-
-
-    public void webWindowClosed(WebWindow aWebWindow) {
-        webWindows.remove(aWebWindow);
     }
 
 
@@ -363,7 +388,6 @@ public final class HtmlUnitBrowser implements WetBackend {
 
         public void webWindowOpened(WebWindowEvent anEvent) {
             LOG.debug("webWindowOpened");
-            htmlUnitBrowser.webWindowOpened(anEvent.getWebWindow());
         }
 
 
@@ -375,12 +399,24 @@ public final class HtmlUnitBrowser implements WetBackend {
 	            LOG.debug("webWindowClosed: (url '"
 	                    + anEvent.getWebWindow().getEnclosedPage().getWebResponse().getRequestSettings().getUrl() + "')");
         	}
-            htmlUnitBrowser.webWindowClosed(anEvent.getWebWindow());
         }
 
 
         public void webWindowContentChanged(WebWindowEvent anEvent) {
             LOG.debug("webWindowContentChanged");
+            Page tmpNewPage = anEvent.getNewPage();
+            // first load into a new window
+            if (null != tmpNewPage && null == anEvent.getOldPage()) {
+                URL tmpUrl = tmpNewPage.getWebResponse().getRequestUrl();
+                String aRef = tmpUrl.getRef();
+                if (StringUtils.isNotEmpty(aRef)) {
+                    try {
+                        checkAnchor(aRef, tmpNewPage);
+                    } catch (AssertionFailedException e) {
+                        htmlUnitBrowser.failure = e;
+                    }
+                }
+            }
         }
 
     }
@@ -438,5 +474,14 @@ public final class HtmlUnitBrowser implements WetBackend {
     public String getCurrentTitle() throws AssertionFailedException {
         HtmlPage tmpHtmlPage = getCurrentHtmlPage();
         return tmpHtmlPage.getTitleText();
+    }
+
+    public void checkFailure() throws AssertionFailedException {
+        if (null == failure) {
+            return;
+        }
+        AssertionFailedException tmpFailure = failure;
+        failure = null;
+        throw tmpFailure;
     }
 }
