@@ -29,7 +29,7 @@ import org.rbri.wet.util.StdOutProgressListener;
 
 
 /**
- * The command line interface for WeT.
+ * The command line interface for the Wetator.
  *
  * @author rbri
  */
