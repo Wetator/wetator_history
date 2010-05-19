@@ -42,10 +42,22 @@ public final class XmlScripter implements WetScripter {
 
 	private static final String XML_FILE_EXTENSION = ".xml";
 
-	private static final String E_STEP = "step";
-	private static final String E_OPTIONAL_PARAMETER = "optionalParameter";
-	private static final String A_COMMAND = "command";
-	private static final String A_COMMENT = "comment";
+	/**
+	 * The element name for test step
+	 */
+	public static final String E_STEP = "step";
+	/**
+	 * The element name for optional parameter
+	 */
+	public static final String E_OPTIONAL_PARAMETER = "optionalParameter";
+	/**
+	 * The attribute name for command
+	 */
+	public static final String A_COMMAND = "command";
+	/**
+	 * The attribute name for comment
+	 */
+	public static final String A_COMMENT = "comment";
 
 	private File file;
 	private InputStream inputStream;
@@ -127,14 +139,15 @@ public final class XmlScripter implements WetScripter {
 							tmpWetCommand = new WetCommand(tmpCommandName, tmpIsComment);
 							tmpWetCommand.setLineNo(tmpResult.size() + 1);
 
-							reader.next(); //go to CHARACTER event (parameter)
-							String tmpParameters = reader.getText();
-							tmpWetCommand.setFirstParameter(new Parameter(tmpParameters));
+							// go to CHARACTER event (parameter) if there
+							if (reader.next() == XMLStreamConstants.CHARACTERS) {
+								String tmpParameters = reader.getText();
+								tmpWetCommand.setFirstParameter(new Parameter(tmpParameters));
+							}
 						} else if (E_OPTIONAL_PARAMETER.equals(reader.getLocalName())) {
 							String tmpOptionalParameters = reader.getElementText();
 							tmpWetCommand.setSecondParameter(new Parameter(tmpOptionalParameters));
 						}
-						break;
 					}
 					case XMLStreamConstants.END_ELEMENT: {
 						if (E_STEP.equals(reader.getLocalName())) {

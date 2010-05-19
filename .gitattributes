@@ -11,6 +11,7 @@ src/log4j.properties -text
 src/org/rbri/wet/Messages.properties -text
 src/org/rbri/wet/Version.java -text
 src/org/rbri/wet/Wetator.java -text
+src/org/rbri/wet/WetatorScriptConverter.java -text svneol=unset#text/plain
 src/org/rbri/wet/ant/AntOutProgressListener.java -text
 src/org/rbri/wet/ant/Wetator.java -text
 src/org/rbri/wet/backend/Control.java -text
@@ -51,7 +52,12 @@ src/org/rbri/wet/ide/swing/util/GradientPanel.java -text
 src/org/rbri/wet/ide/swing/util/LookAndFeelUtil.java -text
 src/org/rbri/wet/ide/swing/util/PanelWithTitle.java -text
 src/org/rbri/wet/ide/swing/util/TopLeftRaisedBorder.java -text
+src/org/rbri/wet/scriptconverter/WetScriptConverter.java -text svneol=unset#text/plain
+src/org/rbri/wet/scriptcreator/ScriptCreator.java -text svneol=unset#text/plain
+src/org/rbri/wet/scriptcreator/WetScriptCreator.java -text svneol=unset#text/plain
+src/org/rbri/wet/scriptcreator/XmlScriptCreator.java -text svneol=unset#text/plain
 src/org/rbri/wet/scripter/ExcelScripter.java -text
+src/org/rbri/wet/scripter/Scripter.java -text svneol=unset#text/plain
 src/org/rbri/wet/scripter/WetScripter.java -text
 src/org/rbri/wet/scripter/XmlScripter.java -text svneol=unset#text/plain
 src/org/rbri/wet/util/Assert.java -text

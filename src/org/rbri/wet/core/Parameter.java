@@ -27,13 +27,13 @@ import org.rbri.wet.util.StringUtil;
 
 /**
  * An object that stores a list of parameters.
- *  
+ *
  * @author rbri
  */
 public final class Parameter {
     public static final String PARAMETER_DELIMITER = ",";
     public static final char PARAMETER_ESCAPE_CHAR = '\\';
-    
+
     /**
      * An object that stores a flat string parameter.
      */
@@ -76,25 +76,25 @@ public final class Parameter {
     public SecretString getValue(WetContext aWetContext) {
         return aWetContext.replaceVariables(value);
     }
-    
+
 
     public Part getFirstPart() {
         parseIfNeeded();
         return parameters.get(0);
     }
 
-    
+
     public int getNumberOfParts() {
         parseIfNeeded();
         return parameters.size();
     }
 
-    
+
     public List<Part> getParts() {
         parseIfNeeded();
         return Collections.unmodifiableList(parameters);
     }
-    
+
 
     private void parseIfNeeded() {
         if (null != parameters) {
@@ -111,5 +111,10 @@ public final class Parameter {
             Part tmpPart = new Part(tmpString.trim());
             parameters.add(tmpPart);
         }
+    }
+
+    // TODO security
+    public String getValue(){
+    	return value;
     }
 }
