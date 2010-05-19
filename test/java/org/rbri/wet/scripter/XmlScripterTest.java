@@ -53,7 +53,7 @@ public class XmlScripterTest extends TestCase {
         tmpXmlScripter.setFile(new File("test/xml/junit.xml"));
 
         List<WetCommand> tmpCommands = tmpXmlScripter.getCommands();
-        assertEquals(7, tmpCommands.size());
+        assertEquals(9, tmpCommands.size());
 
         WetCommand tmpCommand = tmpCommands.get(0);
         assertTrue(tmpCommand.isComment());
@@ -83,5 +83,13 @@ public class XmlScripterTest extends TestCase {
         tmpCommand = tmpCommands.get(6);
         assertFalse(tmpCommand.isComment());
         assertEquals("Assert Content", tmpCommand.getName());
+
+        tmpCommand = tmpCommands.get(7);
+        assertTrue(tmpCommand.isComment());
+        assertEquals("Comment", tmpCommand.getName());
+
+        tmpCommand = tmpCommands.get(8);
+        assertTrue(tmpCommand.isComment());
+        assertEquals("Comment", tmpCommand.getName());
     }
 }
