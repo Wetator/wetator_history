@@ -159,9 +159,47 @@ test/java/org/rbri/wet/util/SearchPatternTest.java -text
 test/java/org/rbri/wet/util/StringUtilTest.java -text
 test/java/org/rbri/wet/util/VariableReplaceUtilUtilTest.java -text
 test/java/org/rbri/wet/util/XmlUtilTest.java -text
+test/xml/ajax_jquery.xml -text svneol=unset#text/plain
+test/xml/ajax_prototype.xml -text svneol=unset#text/plain
+test/xml/anchor_inside_page.xml -text svneol=unset#text/plain
+test/xml/assert_content.xml -text svneol=unset#text/plain
+test/xml/assert_disabled.xml -text svneol=unset#text/plain
+test/xml/assert_selected_checkbox.xml -text svneol=unset#text/plain
+test/xml/assert_selected_multipleSelect.xml -text svneol=unset#text/plain
+test/xml/assert_selected_radio.xml -text svneol=unset#text/plain
+test/xml/assert_selected_singleSelect.xml -text svneol=unset#text/plain
+test/xml/assert_set.xml -text svneol=unset#text/plain
+test/xml/assert_title.xml -text svneol=unset#text/plain
+test/xml/click_after_text.xml -text svneol=unset#text/plain
+test/xml/click_on.xml -text svneol=unset#text/plain
+test/xml/exec_java.xml -text svneol=unset#text/plain
+test/xml/flow_simple_login.xml -text svneol=unset#text/plain
+test/xml/flow_simple_search.xml -text svneol=unset#text/plain
+test/xml/go_back.xml -text svneol=unset#text/plain
+test/xml/header.xml -text svneol=unset#text/plain
+test/xml/jquery.xml -text svneol=unset#text/plain
+test/xml/js_error.xml -text svneol=unset#text/plain
+test/xml/js_libs.xml -text svneol=unset#text/plain
 test/xml/junit.xml -text svneol=unset#text/plain
+test/xml/mouse_over.xml -text svneol=unset#text/plain
+test/xml/mouse_over_after.xml -text svneol=unset#text/plain
+test/xml/normalize_command.xml -text svneol=unset#text/plain
+test/xml/onfocus_onblur.xml -text svneol=unset#text/plain
+test/xml/onkey.xml -text svneol=unset#text/plain
+test/xml/open_url.xml -text svneol=unset#text/plain
+test/xml/redirect.xml -text svneol=unset#text/plain
+test/xml/select_checkbox.xml -text svneol=unset#text/plain
+test/xml/select_checkbox_after.xml -text svneol=unset#text/plain
+test/xml/select_multipleSelect.xml -text svneol=unset#text/plain
+test/xml/select_radio.xml -text svneol=unset#text/plain
+test/xml/select_singleSelect.xml -text svneol=unset#text/plain
+test/xml/set.xml -text svneol=unset#text/plain
+test/xml/set_upload.xml -text svneol=unset#text/plain
+test/xml/sql.xml -text svneol=unset#text/plain
 test/xml/testcase.dtd -text svneol=unset#text/plain
 test/xml/testcaseExtendedCommandSet.dtd -text svneol=unset#text/plain
+test/xml/use_module.xml -text svneol=unset#text/plain
+test/xml/wait.xml -text svneol=unset#text/plain
 webpages/commands/assertcontent.html -text
 webpages/commands/assertdeselected.html -text
 webpages/commands/assertdisabled.html -text
