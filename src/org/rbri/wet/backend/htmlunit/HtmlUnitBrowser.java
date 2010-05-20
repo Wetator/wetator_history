@@ -20,7 +20,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.net.UnknownHostException;
 import java.security.GeneralSecurityException;
-import java.util.ListIterator;
+import java.util.List;
 import java.util.Set;
 
 import net.sourceforge.htmlunit.corejs.javascript.WrappedException;
@@ -289,14 +289,14 @@ public final class HtmlUnitBrowser implements WetBackend {
 
 
     public void closeWindow(SecretString aWindowName) throws AssertionFailedException {
-        ListIterator<WebWindow> tmpWebWindows = webClient.getWebWindows().listIterator();
-        while (tmpWebWindows.hasNext()) {
-            tmpWebWindows.next();
+        List<WebWindow> tmpWebWindows = webClient.getWebWindows();
+        if (tmpWebWindows.isEmpty()) {
+            Assert.fail("noWindowToClose", null);
         }
 
         if (null == aWindowName || StringUtils.isEmpty(aWindowName.getValue())) {
-            while (tmpWebWindows.hasPrevious()) {
-                WebWindow tmpWebWindow = tmpWebWindows.previous();
+            for (int i = tmpWebWindows.size() - 1; i > 0 ; i--) {
+                WebWindow tmpWebWindow = tmpWebWindows.get(i);
 
                 if (tmpWebWindow instanceof TopLevelWindow) {
                     wetEngine.informListenersInfo("closeWindow", new String[] {tmpWebWindow.getName()});
@@ -309,12 +309,11 @@ public final class HtmlUnitBrowser implements WetBackend {
                     return;
                 }
             }
-            Assert.fail("noWindowToClose", null);
         }
 
         SearchPattern tmpWindowNamePattern = aWindowName.getSearchPattern();
-        while (tmpWebWindows.hasPrevious()) {
-            WebWindow tmpWebWindow = tmpWebWindows.previous();
+        for (int i = tmpWebWindows.size() - 1; i > 0 ; i--) {
+            WebWindow tmpWebWindow = tmpWebWindows.get(i);
 
             String tmpWindowName = tmpWebWindow.getName();
             if (tmpWindowNamePattern.matches(tmpWindowName)) {
