@@ -4,6 +4,8 @@
 /build-properties.xml -text
 /build.xml -text
 /chat -text
+/ivy.xml -text svneol=unset#text/plain
+/ivysettings.xml -text svneol=unset#text/plain
 samples/ant/build.xml -text
 samples/google_search/google.xls -text
 samples/google_search/wetator.config -text

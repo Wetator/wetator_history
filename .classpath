@@ -3,28 +3,28 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="test/java"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="lib/ant/ant.jar"/>
-	<classpathentry kind="lib" path="lib/automaton/automaton.jar" sourcepath="lib_src/automaton-1.11"/>
-	<classpathentry kind="lib" path="lib/hsql/hsqldb.jar"/>
-	<classpathentry kind="lib" path="lib/htmlunit/commons-codec-1.4.jar"/>
-	<classpathentry kind="lib" path="lib/htmlunit/commons-collections-3.2.1.jar"/>
-	<classpathentry kind="lib" path="lib/htmlunit/commons-httpclient-3.1.jar"/>
-	<classpathentry kind="lib" path="lib/htmlunit/commons-io-1.4.jar"/>
-	<classpathentry kind="lib" path="lib/htmlunit/commons-lang-2.5.jar" sourcepath="lib_src/commons-lang-2.5-src.zip"/>
-	<classpathentry kind="lib" path="lib/htmlunit/commons-logging-1.1.1.jar"/>
-	<classpathentry kind="lib" path="lib/htmlunit/cssparser-0.9.5.jar"/>
-	<classpathentry kind="lib" path="lib/htmlunit/htmlunit-2.7.jar" sourcepath="lib_src/htmlunit-2.7-src.zip"/>
-	<classpathentry kind="lib" path="lib/htmlunit/htmlunit-core-js-2.7.jar"/>
-	<classpathentry kind="lib" path="lib/htmlunit/nekohtml-1.9.14.jar"/>
-	<classpathentry kind="lib" path="lib/htmlunit/sac-1.3.jar"/>
-	<classpathentry kind="lib" path="lib/htmlunit/serializer-2.7.1.jar"/>
-	<classpathentry kind="lib" path="lib/htmlunit/xalan-2.7.1.jar"/>
-	<classpathentry kind="lib" path="lib/htmlunit/xercesImpl-2.9.1.jar"/>
-	<classpathentry kind="lib" path="lib/htmlunit/xml-apis-1.3.04.jar"/>
-	<classpathentry kind="lib" path="lib/junit/junit-4.8.2.jar" sourcepath="lib_src/junit-4.8.2-src.jar"/>
-	<classpathentry kind="lib" path="lib/log4j/log4j-1.2.16.jar"/>
-	<classpathentry kind="lib" path="lib/pdfbox/fontbox-1.1.0.jar"/>
-	<classpathentry kind="lib" path="lib/pdfbox/pdfbox-1.1.0.jar" sourcepath="lib_src/pdfbox-1.1.0-src.zip"/>
-	<classpathentry kind="lib" path="lib/poi/poi-3.6-20091214.jar" sourcepath="lib_src/poi-src-3.6-20091214.zip"/>
+	<classpathentry kind="lib" path="lib/ant-1.8.1.jar"/>
+	<classpathentry kind="lib" path="lib/automaton-1.11.2.jar"/>
+	<classpathentry kind="lib" path="lib/hsqldb-1.8.0.10.jar"/>
+	<classpathentry kind="lib" path="lib/commons-codec-1.4.jar"/>
+	<classpathentry kind="lib" path="lib/commons-collections-3.2.1.jar"/>
+	<classpathentry kind="lib" path="lib/commons-httpclient-3.1.jar"/>
+	<classpathentry kind="lib" path="lib/commons-io-1.4.jar"/>
+	<classpathentry kind="lib" path="lib/commons-lang-2.5.jar" sourcepath="lib_src/commons-lang-2.5-sources.jar"/>
+	<classpathentry kind="lib" path="lib/commons-logging-1.1.1.jar"/>
+	<classpathentry kind="lib" path="lib/cssparser-0.9.5.jar"/>
+	<classpathentry kind="lib" path="lib/htmlunit-2.7.jar" sourcepath="lib_src/htmlunit-2.7-sources.jar"/>
+	<classpathentry kind="lib" path="lib/htmlunit-core-js-2.7.jar"/>
+	<classpathentry kind="lib" path="lib/nekohtml-1.9.14.jar"/>
+	<classpathentry kind="lib" path="lib/sac-1.3.jar"/>
+	<classpathentry kind="lib" path="lib/serializer-2.7.1.jar"/>
+	<classpathentry kind="lib" path="lib/xalan-2.7.1.jar"/>
+	<classpathentry kind="lib" path="lib/xercesImpl-2.9.1.jar"/>
+	<classpathentry kind="lib" path="lib/xml-apis-1.3.04.jar"/>
+	<classpathentry kind="lib" path="lib/junit-4.8.1.jar" sourcepath="lib_src/junit-4.8.1-sources.jar"/>
+	<classpathentry kind="lib" path="lib/log4j-1.2.16.jar" sourcepath="lib_src/log4j-1.2.16-sources.jar"/>
+	<classpathentry kind="lib" path="lib/fontbox-1.1.0.jar" sourcepath="lib_src/fontbox-1.1.0-sources.jar"/>
+	<classpathentry kind="lib" path="lib/pdfbox-1.1.0.jar" sourcepath="lib_src/pdfbox-1.1.0-sources.jar"/>
+	<classpathentry kind="lib" path="lib/poi-3.6.jar" sourcepath="lib/poi-3.6-sources.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

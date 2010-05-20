@@ -1,19 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="Wetator build" basedir=".">
-
-	<property name="one-jar.dist.dir" value="./dist"/>
-	<property name="one-jar.version" value="0.96"/>
-	<taskdef name="one-jar" classname="com.simontuffs.onejar.ant.OneJarTask" onerror="report">
-		<classpath id="one-jar-classpath">
-			<fileset dir="./lib/ant" includes="**/one-jar-ant-task*.jar"/>
-		</classpath>
-	</taskdef>
-
-	<taskdef name="buildupdate" classname="com.ryangrier.ant.BuildUpdate">
-		<classpath id="buildupdate-classpath">
-			<fileset dir="./lib/ant" includes="**/version_tool.jar"/>
-		</classpath>
-	</taskdef>
+<project name="Wetator build" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant">
 
 	<!-- make  environment variables of operation system available -->
 	<property environment="env" />
@@ -24,6 +10,46 @@
 	<!-- application specific properties -->
 	<xmlproperty file="./build-properties.xml" keepRoot="false" semanticAttributes="true" />
 
+
+    <!-- ******************************************* -->
+    <!-- target init-onejar                          -->
+    <!-- ******************************************* -->
+    <target name="load-onejar">
+        <property name="one-jar.dist.dir" value="./dist"/>
+        <property name="one-jar.version" value="0.96"/>
+        <taskdef name="one-jar" classname="com.simontuffs.onejar.ant.OneJarTask" onerror="report">
+            <classpath id="one-jar-classpath">
+                <fileset dir="./ant_lib" includes="**/one-jar-ant-task*.jar"/>
+            </classpath>
+        </taskdef>
+    </target>
+
+    <!-- ******************************************* -->
+    <!-- target init-buildupdate                     -->
+    <!-- ******************************************* -->
+    <target name="load-buildupdate">
+        <taskdef name="buildupdate" classname="com.ryangrier.ant.BuildUpdate">
+            <classpath id="buildupdate-classpath">
+                <fileset dir="./ant_lib" includes="**/version_tool.jar"/>
+            </classpath>
+        </taskdef>
+    </target>
+
+
+    <!-- =================================
+          target: load-ivy
+         ================================= -->
+    <target name="load-ivy">
+        <!-- try to load ivy here from home ivy dir, in case the user has not already dropped
+              it into ant's lib dir (note that the latter copy will always take precedence).
+              We will not fail as long as ivy home lib dir exists (it may be empty) and
+              ivy is in at least one of ant's lib dir or the ivy home lib dir. -->
+        <path id="ivy.lib.path">
+            <fileset dir="./ant_lib" includes="ivy*.jar"/>
+        </path>
+        <taskdef resource="org/apache/ivy/ant/antlib.xml"
+                  uri="antlib:org.apache.ivy.ant" classpathref="ivy.lib.path"/>
+    </target>
 
 	<!-- ******************************************* -->
 	<!-- target info                                 -->
@@ -40,7 +66,8 @@
 	<!-- ******************************************* -->
 	<!-- target clean-compile                        -->
 	<!-- ******************************************* -->
-	<target name="clean-compile" description="recompiles all">
+	<target name="clean-compile" description="recompiles all"
+		depends="clean, resolve">
 
 		<!-- clean build -->
 		<delete dir="${dir.build}" includeEmptyDirs="true"/>
@@ -102,7 +129,8 @@
 	<!-- ******************************************* -->
 	<!-- target build-release                        -->
 	<!-- ******************************************* -->
-	<target name="build-release" description="build all Wetator release artefacts" depends="clean-compile">
+	<target name="build-release" description="build all Wetator release artifacts"
+		depends="clean-compile,load-onejar,load-buildupdate">
 		<tstamp>
 			<format property="timestamp" pattern="yyyy-MM-dd HH-mm-ss" />
 		</tstamp>
@@ -153,11 +181,12 @@
 			</main>
 			<lib>
 				<fileset dir="${dir.lib}">
-					<include name="automaton/*.jar" />
+					<include name="*.jar" />
+<!--					<include name="automaton/*.jar" />
 					<include name="htmlunit/*.jar" />
 					<include name="log4j/*.jar" />
 					<include name="pdfbox/*.jar" />
-					<include name="poi/*.jar" />
+					<include name="poi/*.jar" />-->
 				</fileset>
 			</lib>
 		</one-jar>
@@ -224,7 +253,10 @@ echo location of the Java Virtual Machine you want to use.
 				<include name="${application.jar-basename}.jar" />
 			</zipfileset>
 
-			<zipfileset dir="${dir.lib}/automaton" prefix="lib">
+	        <zipfileset dir="${dir.lib}" prefix="lib">
+                <include name="*.jar" />
+            </zipfileset>
+<!--			<zipfileset dir="${dir.lib}/automaton" prefix="lib">
 				<include name="*.jar" />
 			</zipfileset>
 			<zipfileset dir="${dir.lib}/htmlunit" prefix="lib">
@@ -238,7 +270,7 @@ echo location of the Java Virtual Machine you want to use.
 			</zipfileset>
 			<zipfileset dir="${dir.lib}/poi" prefix="lib">
 				<include name="*.jar" />
-			</zipfileset>
+			</zipfileset>-->
 
 			<zipfileset dir="${dir.samples}/ant" prefix="templates">
 				<include name="build.xml" />
@@ -288,5 +320,44 @@ echo location of the Java Virtual Machine you want to use.
 		</zip>
 
 	</target>
+
+    <!-- =================================
+          target: resolve
+         ================================= -->
+    <target name="resolve" depends="clean-lib, load-ivy" description="--> resolve and retrieve dependencies with ivy">
+    	<ivy:configure />
+        <ivy:resolve />
+        <ivy:retrieve sync="true" type="jar,bundle" />
+    	<ivy:retrieve pattern="${dir.lib}_src/[artifact]-[revision](-[classifier]).[ext]" sync="true" type="source" />
+    </target>
+
+    <!-- =================================
+          target: report
+         ================================= -->
+    <target name="report" depends="resolve" description="--> generates a report of dependencies">
+        <ivy:report todir="${dir.build}/ivy-report"/>
+    </target>
+
+    <!-- =================================
+          target: clean-lib
+         ================================= -->
+    <target name="clean-lib" description="--> clean the project libraries directory (dependencies)">
+        <delete includeemptydirs="true">
+        	<fileset dir="${dir.lib}" includes="**/*"/>
+        	<fileset dir="${dir.lib}_src" includes="**/*"/>
+    	</delete>
+    </target>
+
+    <!-- =================================
+          target: clean-build
+         ================================= -->
+    <target name="clean-build" description="--> clean the project built files">
+        <delete includeemptydirs="true" dir="${dir.build}"/>
+    </target>
+
+    <!-- =================================
+          target: clean
+         ================================= -->
+    <target name="clean" depends="clean-build, clean-lib" description="--> clean the project" />
 
 </project>
