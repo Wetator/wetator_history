@@ -46,7 +46,7 @@ import org.rbri.wet.util.StringUtil;
 
 
 /**
- * The configuration file for WeT.
+ * The configuration file for Wetator.
  *
  * TODO we have to split this
  * into one common part and one
