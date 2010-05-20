@@ -184,7 +184,6 @@ test/xml/jquery.xml -text svneol=unset#text/plain
 test/xml/jquery/modal_confirmation.xml -text svneol=unset#text/plain
 test/xml/js_error.xml -text svneol=unset#text/plain
 test/xml/js_libs.xml -text svneol=unset#text/plain
-test/xml/junit.xml -text svneol=unset#text/plain
 test/xml/misc_files/test_file.txt -text svneol=unset#text/plain
 test/xml/modules/module.xml -text svneol=unset#text/plain
 test/xml/modules/module_with_parameters.xml -text svneol=unset#text/plain
