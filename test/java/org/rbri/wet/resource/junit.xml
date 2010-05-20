@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!DOCTYPE testcase SYSTEM "testcase.dtd">
+<!DOCTYPE testcase SYSTEM "../../../../../xml/dtd/testcase.dtd">
 <testcase>
     <step command="Comment">Just a comment</step>
     <step command="Open_Url">set.html</step>

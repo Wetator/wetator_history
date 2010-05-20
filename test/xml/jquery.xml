@@ -1,1 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE testcase SYSTEM "testcase.dtd"><testcase><step command="Aktion" comment="true"><![CDATA[Parameter]]><optionalParameter><![CDATA[opt. Parameter]]></optionalParameter></step><step command="Use_Module"><![CDATA[jquery/modal_confirmation.xml]]></step></testcase>
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE testcase SYSTEM "dtd/testcase.dtd">
+<testcase>
+	<step command="Use_Module"><![CDATA[jquery/modal_confirmation.xml]]></step>
+</testcase>

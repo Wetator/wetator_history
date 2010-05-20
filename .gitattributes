@@ -150,8 +150,6 @@ test/java/org/rbri/wet/core/result/XslTransformerTest.java -text
 test/java/org/rbri/wet/i18n/AllTests.java -text
 test/java/org/rbri/wet/i18n/MessagesTest.java -text
 test/java/org/rbri/wet/resource/junit.xml -text svneol=unset#text/plain
-test/java/org/rbri/wet/resource/testcase.dtd -text svneol=unset#text/plain
-test/java/org/rbri/wet/resource/testcaseExtendedCommandSet.dtd -text svneol=unset#text/plain
 test/java/org/rbri/wet/scripter/AllTests.java -text
 test/java/org/rbri/wet/scripter/ExcelScripterTest.java -text
 test/java/org/rbri/wet/scripter/XmlScripterTest.java -text svneol=unset#text/plain
@@ -175,6 +173,8 @@ test/xml/assert_set.xml -text svneol=unset#text/plain
 test/xml/assert_title.xml -text svneol=unset#text/plain
 test/xml/click_after_text.xml -text svneol=unset#text/plain
 test/xml/click_on.xml -text svneol=unset#text/plain
+test/xml/dtd/testcase.dtd -text svneol=unset#text/plain
+test/xml/dtd/testcaseExtendedCommandSet.dtd -text svneol=unset#text/plain
 test/xml/exec_java.xml -text svneol=unset#text/plain
 test/xml/flow_simple_login.xml -text svneol=unset#text/plain
 test/xml/flow_simple_search.xml -text svneol=unset#text/plain
@@ -202,8 +202,6 @@ test/xml/select_singleSelect.xml -text svneol=unset#text/plain
 test/xml/set.xml -text svneol=unset#text/plain
 test/xml/set_upload.xml -text svneol=unset#text/plain
 test/xml/sql.xml -text svneol=unset#text/plain
-test/xml/testcase.dtd -text svneol=unset#text/plain
-test/xml/testcaseExtendedCommandSet.dtd -text svneol=unset#text/plain
 test/xml/use_module.xml -text svneol=unset#text/plain
 test/xml/wait.xml -text svneol=unset#text/plain
 webpages/commands/assertcontent.html -text
