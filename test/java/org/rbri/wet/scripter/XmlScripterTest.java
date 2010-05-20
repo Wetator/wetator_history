@@ -42,7 +42,7 @@ public class XmlScripterTest extends TestCase {
      * @return the suite
      */
     public static Test suite() {
-        return new TestSuite(ExcelScripterTest.class);
+        return new TestSuite(XmlScripterTest.class);
     }
 
     /**
