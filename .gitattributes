@@ -149,6 +149,9 @@ test/java/org/rbri/wet/core/result/WetResultWriterTest.java -text
 test/java/org/rbri/wet/core/result/XslTransformerTest.java -text
 test/java/org/rbri/wet/i18n/AllTests.java -text
 test/java/org/rbri/wet/i18n/MessagesTest.java -text
+test/java/org/rbri/wet/resource/junit.xml -text svneol=unset#text/plain
+test/java/org/rbri/wet/resource/testcase.dtd -text svneol=unset#text/plain
+test/java/org/rbri/wet/resource/testcaseExtendedCommandSet.dtd -text svneol=unset#text/plain
 test/java/org/rbri/wet/scripter/AllTests.java -text
 test/java/org/rbri/wet/scripter/ExcelScripterTest.java -text
 test/java/org/rbri/wet/scripter/XmlScripterTest.java -text svneol=unset#text/plain

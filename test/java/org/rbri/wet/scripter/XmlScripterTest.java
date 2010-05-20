@@ -50,7 +50,7 @@ public class XmlScripterTest extends TestCase {
      */
     public void test() throws WetException {
         XmlScripter tmpXmlScripter = new XmlScripter();
-        tmpXmlScripter.setFile(new File("test/xml/junit.xml"));
+        tmpXmlScripter.setFile(new File("test/java/org/rbri/wet/resource/junit.xml"));
 
         List<WetCommand> tmpCommands = tmpXmlScripter.getCommands();
         assertEquals(9, tmpCommands.size());
@@ -70,7 +70,7 @@ public class XmlScripterTest extends TestCase {
         tmpCommand = tmpCommands.get(3);
         assertFalse(tmpCommand.isComment());
         assertEquals("Set", tmpCommand.getName());
-        assertNotNull(tmpCommand.getSecondParameter());
+        assertEquals("testValue", tmpCommand.getSecondParameter().getValue());
 
         tmpCommand = tmpCommands.get(4);
         assertFalse(tmpCommand.isComment());
