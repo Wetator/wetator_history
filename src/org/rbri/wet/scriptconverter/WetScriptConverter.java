@@ -25,8 +25,10 @@ import org.rbri.wet.scriptcreator.WetScriptCreator;
 import org.rbri.wet.scripter.WetScripter;
 
 /**
- * @author tobwoerk
+ * The converter for wetator test scripts. To use it set a scripter and a creator first.<br/>
+ * Then - with addTestFile() - add the test files to convert and call convert() afterwards.
  *
+ * @author tobwoerk
  */
 public class WetScriptConverter {
 

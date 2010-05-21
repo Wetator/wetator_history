@@ -27,8 +27,10 @@ import org.rbri.wet.exception.WetException;
 import org.rbri.wet.scripter.XmlScripter;
 
 /**
- * @author tobwoerk
+ * Creates a Wetator test script in XML format from the given commands<br/>
+ * with the given file name and DTD in the given output directory.
  *
+ * @author tobwoerk
  */
 public class XmlScriptCreator implements WetScriptCreator {
 
