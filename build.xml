@@ -327,8 +327,8 @@ echo location of the Java Virtual Machine you want to use.
     <target name="resolve" depends="clean-lib, load-ivy" description="--> resolve and retrieve dependencies with ivy">
     	<ivy:configure />
         <ivy:resolve />
-        <ivy:retrieve sync="true" type="jar,bundle" />
-    	<ivy:retrieve pattern="${dir.lib}_src/[artifact]-[revision](-[classifier]).[ext]" sync="true" type="source" />
+        <ivy:retrieve pattern="${dir.lib}${ivy.retrieve.pattern}" sync="true" type="jar,bundle" />
+    	<ivy:retrieve pattern="${dir.lib}_src${ivy.retrieve.pattern}" sync="true" type="source" />
     </target>
 
     <!-- =================================

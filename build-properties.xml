@@ -22,6 +22,12 @@
     <deploy>deploy</deploy>
   </dir>
 
+  <ivy>
+    <retrieve>
+        <pattern>/[organisation]/[artifact]-[revision](-[classifier]).[ext]</pattern>
+    </retrieve>
+  </ivy>
+
   <javac>
     <target>1.5</target>
   </javac>
