@@ -20,20 +20,17 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
 
+import junit.framework.Test;
+import junit.framework.TestCase;
+import junit.framework.TestSuite;
+
 import org.rbri.wet.backend.WeightedControlList.Entry;
 import org.rbri.wet.backend.htmlunit.HtmlUnitControl;
-import org.rbri.wet.backend.htmlunit.util.HtmlElementUtil;
 import org.rbri.wet.backend.htmlunit.util.PageUtil;
 
 import com.gargoylesoftware.htmlunit.html.HtmlAnchor;
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import com.gargoylesoftware.htmlunit.html.HtmlSpan;
-import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
-
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
 
 /**
  * @author rbri
@@ -87,11 +84,15 @@ public class WeightedControlListTest extends TestCase {
 
 
     public void testGetElementsSorted_Distance() throws IOException {
-        HtmlUnitControl tmpControl = new HtmlUnitControl(constructHtmlAnchor());
         WeightedControlList tmpWeightedControlList = new WeightedControlList();
 
+        HtmlUnitControl tmpControl = new HtmlUnitControl(constructHtmlAnchor());
         tmpWeightedControlList.add(tmpControl, WeightedControlList.FoundType.BY_ID, 100, 11);
+
+        tmpControl = new HtmlUnitControl(constructHtmlAnchor());
         tmpWeightedControlList.add(tmpControl, WeightedControlList.FoundType.BY_ID, 100, 12);
+
+        tmpControl = new HtmlUnitControl(constructHtmlAnchor());
         tmpWeightedControlList.add(tmpControl, WeightedControlList.FoundType.BY_ID, 100, 10);
 
         List<Entry> tmpSorted = tmpWeightedControlList.getElementsSorted();
@@ -103,12 +104,18 @@ public class WeightedControlListTest extends TestCase {
 
 
     public void testGetElementsSorted_Coverage() throws IOException {
-        HtmlUnitControl tmpControl = new HtmlUnitControl(constructHtmlAnchor());
         WeightedControlList tmpWeightedControlList = new WeightedControlList();
 
+        HtmlUnitControl tmpControl = new HtmlUnitControl(constructHtmlAnchor());
         tmpWeightedControlList.add(tmpControl, WeightedControlList.FoundType.BY_ID, 9, 11);
+
+        tmpControl = new HtmlUnitControl(constructHtmlAnchor());
         tmpWeightedControlList.add(tmpControl, WeightedControlList.FoundType.BY_ID, 10, 12);
+
+        tmpControl = new HtmlUnitControl(constructHtmlAnchor());
         tmpWeightedControlList.add(tmpControl, WeightedControlList.FoundType.BY_ID, 4, 10);
+
+        tmpControl = new HtmlUnitControl(constructHtmlAnchor());
         tmpWeightedControlList.add(tmpControl, WeightedControlList.FoundType.BY_ID, 4, 11);
 
         List<Entry> tmpSorted = tmpWeightedControlList.getElementsSorted();
@@ -120,12 +127,18 @@ public class WeightedControlListTest extends TestCase {
     }
 
     public void testGetElementsSorted_FoundType() throws IOException {
-        HtmlUnitControl tmpControl = new HtmlUnitControl(constructHtmlAnchor());
         WeightedControlList tmpWeightedControlList = new WeightedControlList();
 
+        HtmlUnitControl tmpControl = new HtmlUnitControl(constructHtmlAnchor());
         tmpWeightedControlList.add(tmpControl, WeightedControlList.FoundType.BY_ID, 9, 11);
+
+        tmpControl = new HtmlUnitControl(constructHtmlAnchor());
         tmpWeightedControlList.add(tmpControl, WeightedControlList.FoundType.BY_LABEL, 10, 12);
+
+        tmpControl = new HtmlUnitControl(constructHtmlAnchor());
         tmpWeightedControlList.add(tmpControl, WeightedControlList.FoundType.BY_ID, 4, 10);
+
+        tmpControl = new HtmlUnitControl(constructHtmlAnchor());
         tmpWeightedControlList.add(tmpControl, WeightedControlList.FoundType.BY_ID, 4, 11);
 
         List<Entry> tmpSorted = tmpWeightedControlList.getElementsSorted();
@@ -134,6 +147,24 @@ public class WeightedControlListTest extends TestCase {
         assertEquals("[HtmlAnchor 'AnchorText'] found by: BY_ID coverage: 4 distance: 11", tmpSorted.get(1).toString());
         assertEquals("[HtmlAnchor 'AnchorText'] found by: BY_ID coverage: 9 distance: 11", tmpSorted.get(2).toString());
         assertEquals("[HtmlAnchor 'AnchorText'] found by: BY_LABEL coverage: 10 distance: 12", tmpSorted.get(3).toString());
+    }
+
+
+    public void testGetElementsSorted_SameControl() throws IOException {
+        WeightedControlList tmpWeightedControlList = new WeightedControlList();
+
+        HtmlUnitControl tmpControl = new HtmlUnitControl(constructHtmlAnchor());
+        tmpWeightedControlList.add(tmpControl, WeightedControlList.FoundType.BY_ID, 9, 11);
+        tmpWeightedControlList.add(tmpControl, WeightedControlList.FoundType.BY_LABEL, 10, 12);
+        tmpWeightedControlList.add(tmpControl, WeightedControlList.FoundType.BY_ID, 4, 10);
+
+        tmpControl = new HtmlUnitControl(constructHtmlAnchor());
+        tmpWeightedControlList.add(tmpControl, WeightedControlList.FoundType.BY_ID, 4, 11);
+
+        List<Entry> tmpSorted = tmpWeightedControlList.getElementsSorted();
+
+        assertEquals("[HtmlAnchor 'AnchorText'] found by: BY_ID coverage: 4 distance: 10", tmpSorted.get(0).toString());
+        assertEquals("[HtmlAnchor 'AnchorText'] found by: BY_ID coverage: 4 distance: 11", tmpSorted.get(1).toString());
     }
 
 
