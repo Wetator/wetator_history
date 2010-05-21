@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE testcase SYSTEM "testcaseExtendedCommandSet.dtd">
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE testcase SYSTEM "dtd/testcaseExtendedCommandSet.dtd">
 <testcase>
 	<step command="Comment"><![CDATA[default connection]]></step>
 	<step command="Execute_SQL"><![CDATA[CREATE TABLE test_tbl (col1 CHAR(20), col2 NUMERIC)]]></step>
