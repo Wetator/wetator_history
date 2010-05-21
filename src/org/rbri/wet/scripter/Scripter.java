@@ -15,7 +15,6 @@
 
 package org.rbri.wet.scripter;
 
-import org.rbri.wet.exception.WetException;
 
 
 /**
@@ -28,53 +27,20 @@ public enum Scripter
     /**
      * XML
      */
-    XML ("xml"),
+    XML (new XmlScripter()),
     /**
      * Excel
      */
-    XSL ("xsl");
+    XSL (new ExcelScripter());
 
-    private Scripter(String aName)
-    {
-        name = aName;
+    private WetScripter wetScripter;
+
+    private Scripter(WetScripter aWetScripter) {
+    	wetScripter = aWetScripter;
     }
 
-    private String name;
+	public WetScripter getWetScripter() {
+		return wetScripter;
+	}
 
-    /**
-     * @see java.lang.Enum#toString()
-     */
-    @Override
-	public String toString()
-    {
-        return name;
-    }
-
-    /**
-     * @return the according script creator
-     */
-    public WetScripter get()
-    {
-        switch(this)
-        {
-            case XML: return new XmlScripter();
-            case XSL: return new ExcelScripter();
-            default: return null;
-        }
-    }
-
-    /**
-     * @param aName the file extension to get a scripter for
-     * @return an according scripter
-     * @throws WetException if no scripter found for aName
-     */
-    public static WetScripter get(String aName) throws WetException {
-    	if (XML.name.equals(aName)) {
-    		return XML.get();
-    	}
-    	if (XSL.name.equals(aName)) {
-    		return XSL.get();
-    	}
-    	throw new WetException("No scripter found for file extension ." + aName + ".");
-    }
 }

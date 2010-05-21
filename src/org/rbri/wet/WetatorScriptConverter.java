@@ -60,15 +60,17 @@ public final class WetatorScriptConverter {
 
 		WetScriptConverter tmpConverter = new WetScriptConverter();
 		try {
-			WetScripter tmpScripter = Scripter.get(tmpScripterType);
-			WetScriptCreator tmpCreator = ScriptCreator.get(tmpScriptCreatorType);
+			Scripter tmpScripter = Scripter.valueOf(tmpScripterType.toUpperCase());
+			WetScripter tmpWetScripter = tmpScripter.getWetScripter();
+			ScriptCreator tmpScriptCreator = ScriptCreator.valueOf(tmpScriptCreatorType.toUpperCase());
+			WetScriptCreator tmpCreator = tmpScriptCreator.getWetScriptCreator();
 			tmpCreator.setOutputDir(tmpOutputDir);
 			if (tmpCreator instanceof XmlScriptCreator && anArgsArray.length == 5) {
 				String tmpDtd = anArgsArray[3] + " \"" + anArgsArray[4] + "\"";
 				System.out.println("Using DTD '" + tmpDtd + "'.");
 				((XmlScriptCreator) tmpCreator).setDtd(tmpDtd);
 			}
-			tmpConverter.setScripter(tmpScripter);
+			tmpConverter.setScripter(tmpWetScripter);
 			tmpConverter.setCreator(tmpCreator);
 			File[] tmpFiles = DialogUtil.chooseFiles();
 			if (null == tmpFiles || (tmpFiles.length < 1)) {

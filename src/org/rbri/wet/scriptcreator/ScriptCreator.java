@@ -15,7 +15,6 @@
 
 package org.rbri.wet.scriptcreator;
 
-import org.rbri.wet.exception.WetException;
 
 
 /**
@@ -28,45 +27,15 @@ public enum ScriptCreator
     /**
      * XML
      */
-    XML ("xml");
+    XML (new XmlScriptCreator());
 
-    private ScriptCreator(String aName)
-    {
-        name = aName;
+    private WetScriptCreator wetScriptCreator;
+
+    private ScriptCreator(WetScriptCreator aWetScriptCreator) {
+    	wetScriptCreator = aWetScriptCreator;
     }
 
-    /**
-     * @see java.lang.Enum#toString()
-     */
-    @Override
-	public String toString()
-    {
-        return name;
-    }
-
-    private String name;
-
-    /**
-     * @return the according script creator
-     */
-    public WetScriptCreator get()
-    {
-        switch(this)
-        {
-            case XML: return new XmlScriptCreator();
-            default: return null;
-        }
-    }
-
-    /**
-     * @param aName the file extension to get a script creator for
-     * @return an according script creator
-     * @throws WetException if no script creator found for aName
-     */
-    public static WetScriptCreator get(String aName) throws WetException {
-    	if (XML.name.equals(aName)) {
-    		return XML.get();
-    	}
-    	throw new WetException("No script creator found for file extension ." + aName + ".");
-    }
+	public WetScriptCreator getWetScriptCreator() {
+		return wetScriptCreator;
+	}
 }
