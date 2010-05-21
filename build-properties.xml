@@ -24,7 +24,7 @@
 
   <ivy>
     <retrieve>
-        <pattern>/[organisation]/[artifact]-[revision](-[classifier]).[ext]</pattern>
+        <pattern>/[artifact]-[revision](-[classifier]).[ext]</pattern>
     </retrieve>
   </ivy>
 
