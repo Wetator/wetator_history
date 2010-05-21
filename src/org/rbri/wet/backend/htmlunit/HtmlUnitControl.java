@@ -70,6 +70,17 @@ public final class HtmlUnitControl implements Control {
         htmlElement = aHtmlElement;
     }
 
+    public boolean hasSameBackendControl(Control aControl) {
+    	if (aControl instanceof HtmlUnitControl) {
+    		HtmlUnitControl tmpHtmlUnitControl = (HtmlUnitControl) aControl;
+
+    		return getHtmlElement() == tmpHtmlUnitControl.getHtmlElement();
+    	}
+    	return false;
+    }
+
+
+
     private HtmlElement getHtmlElement() {
         return htmlElement;
     }

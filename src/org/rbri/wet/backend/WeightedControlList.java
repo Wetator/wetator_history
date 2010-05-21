@@ -125,7 +125,25 @@ public final class WeightedControlList {
 
     public List<Entry> getElementsSorted() {
         Collections.sort(entries, new EntryComperator());
-        return Collections.unmodifiableList(entries);
+
+        List<Entry> tmpResult = new LinkedList<Entry>();
+        for (Entry tmpEntry : entries) {
+    		Control tmpControl = tmpEntry.getControl();
+
+    		boolean tmpNotPresent = true;
+        	for (Entry tmpResultEntry : tmpResult) {
+        		Control tmpResultControl = tmpResultEntry.getControl();
+				if (tmpResultControl.hasSameBackendControl(tmpControl)) {
+					tmpNotPresent = false;
+					break;
+				}
+			}
+			if (tmpNotPresent) {
+				tmpResult.add(tmpEntry);
+			}
+		}
+
+        return tmpResult;
     }
 
 

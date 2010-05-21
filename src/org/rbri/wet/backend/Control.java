@@ -38,11 +38,13 @@ public interface Control {
 
     public boolean isSelected() throws WetException, AssertionFailedException;
     public boolean isDisabled() throws WetException, AssertionFailedException;
-    
+
     public String getValue() throws WetException, AssertionFailedException;
-    
+
     public void select() throws WetException, AssertionFailedException;
     public void setValue(SecretString aValue, File aDirectory) throws WetException, AssertionFailedException;
     public void click() throws WetException, AssertionFailedException;
     public void mouseOver() throws WetException, AssertionFailedException;
+
+    public boolean hasSameBackendControl(Control aControl);
 }
