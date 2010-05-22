@@ -15,9 +15,9 @@
 	<step command="Open_Url"><![CDATA[/./assert_title.html]]></step>
 	<step command="Assert_Title"><![CDATA[Wetator / Assert Title]]></step>
 	<step command="Comment"><![CDATA[failure test]]></step>
-	<step command="Assert_Fail"><![CDATA[Open Url, Opening url 'http://wetator.rbri.org/testcases/http_header.php?code=400' fails with server error '400 Bad Request for http://wetator.rbri.org/testcases/http_header.php?code=400'.]]><optionalParameter><![CDATA[http_header.php?code=400]]></optionalParameter></step>
-	<step command="Assert_Fail"><![CDATA[Open Url, Opening url 'http://wetator.rbri.org/testcases/http_header.php?code=404' fails with server error '404 Not Found for http://wetator.rbri.org/testcases/http_header.php?code=404'.]]><optionalParameter><![CDATA[http_header.php?code=404]]></optionalParameter></step>
-	<step command="Assert_Fail"><![CDATA[Open Url, Opening url 'http://wetator.rbri.org/testcases/http_header.php?code=500' fails with server error '500 Server Error for http://wetator.rbri.org/testcases/http_header.php?code=500'.]]><optionalParameter><![CDATA[http_header.php?code=500]]></optionalParameter></step>
+	<step command="Assert_Fail"><![CDATA[Open Url, Opening url 'http://www.wetator.org/testcases/http_header.php?code=400' fails with server error '400 Bad Request for http://www.wetator.org/testcases/http_header.php?code=400'.]]><optionalParameter><![CDATA[http_header.php?code=400]]></optionalParameter></step>
+	<step command="Assert_Fail"><![CDATA[Open Url, Opening url 'http://www.wetator.org/testcases/http_header.php?code=404' fails with server error '404 Not Found for http://www.wetator.org/testcases/http_header.php?code=404'.]]><optionalParameter><![CDATA[http_header.php?code=404]]></optionalParameter></step>
+	<step command="Assert_Fail"><![CDATA[Open Url, Opening url 'http://www.wetator.org/testcases/http_header.php?code=500' fails with server error '500 Server Error for http://www.wetator.org/testcases/http_header.php?code=500'.]]><optionalParameter><![CDATA[http_header.php?code=500]]></optionalParameter></step>
 	<step command="Comment"><![CDATA[final test]]></step>
 	<step command="Open_Url"><![CDATA[assert_title.html]]></step>
 	<step command="Assert_Title"><![CDATA[Wetator / Assert Title]]></step>
