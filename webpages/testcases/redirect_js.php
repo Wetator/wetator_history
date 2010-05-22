@@ -12,7 +12,7 @@ echo "  function redirect(){\n";
 if (isset($_GET['target'])) {
   echo "    window.location = '".$_GET['target']."'\n";
 } else {
-  echo "    window.location = 'http://wetator.rbri.org'\n";
+  echo "    window.location = 'http://www.wetator.org'\n";
 }
 
 echo "  }\n";
@@ -34,7 +34,7 @@ echo "  }\n";
   <div class="header">
     <img src="../images/wetator.png" alt="Wetator">
   </div>
-  
+
   <h1 class="command_test">Wetator / Redirect via JavaScript</h1>
 
 </body>

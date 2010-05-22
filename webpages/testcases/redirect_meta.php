@@ -6,7 +6,7 @@
 if (isset($_GET['target'])) {
   echo "        <meta http-equiv='refresh' content='4; URL=".$_GET['target']."'/>\n";
 } else {
-  echo "        <meta http-equiv='refresh' content='4; URL=http://wetator.rbri.org'/>\n";
+  echo "        <meta http-equiv='refresh' content='4; URL=http://www.wetator.org'/>\n";
 }
 ?>
     </head>
