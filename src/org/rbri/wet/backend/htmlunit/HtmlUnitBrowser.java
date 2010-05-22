@@ -309,6 +309,7 @@ public final class HtmlUnitBrowser implements WetBackend {
                     return;
                 }
             }
+            Assert.fail("noWindowToClose", null);
         }
 
         SearchPattern tmpWindowNamePattern = aWindowName.getSearchPattern();
