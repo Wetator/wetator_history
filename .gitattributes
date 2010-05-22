@@ -256,6 +256,7 @@ webpages/testcases/download/unknown_content_type.bin -text
 webpages/testcases/download/wet_test.pdf -text
 webpages/testcases/download/wet_test.xls -text
 webpages/testcases/favicon.ico -text
+webpages/testcases/htmlunit_javascript.html -text
 webpages/testcases/http_header.php -text
 webpages/testcases/javascript_error.html -text
 webpages/testcases/javascript_jquery.html -text
