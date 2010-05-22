@@ -228,9 +228,8 @@ public class HtmlUnitControlFinderGetAllOtherControlsTest extends TestCase {
         HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
         WeightedControlList tmpFound = tmpFinder.getAllOtherControls(tmpSearch);
 
-        assertEquals(2, tmpFound.getElementsSorted().size());
+        assertEquals(1, tmpFound.getElementsSorted().size());
         assertEquals("[HtmlSelect (id='MySecondSelectId')] found by: BY_LABEL coverage: 0 distance: 44", tmpFound.getElementsSorted().get(0).toString());
-        assertEquals("[HtmlSelect (id='MySecondSelectId')] found by: BY_LABEL coverage: 0 distance: 66", tmpFound.getElementsSorted().get(1).toString());
     }
 
 
@@ -262,9 +261,8 @@ public class HtmlUnitControlFinderGetAllOtherControlsTest extends TestCase {
         HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
         WeightedControlList tmpFound = tmpFinder.getAllOtherControls(tmpSearch);
 
-        assertEquals(2, tmpFound.getElementsSorted().size());
+        assertEquals(1, tmpFound.getElementsSorted().size());
         assertEquals("[HtmlSelect (id='MySecondSelectId')] found by: BY_LABEL coverage: 0 distance: 66", tmpFound.getElementsSorted().get(0).toString());
-        assertEquals("[HtmlSelect (id='MySecondSelectId')] found by: BY_LABEL coverage: 24 distance: 44", tmpFound.getElementsSorted().get(1).toString());
     }
 
 

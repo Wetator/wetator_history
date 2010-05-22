@@ -338,9 +338,8 @@ public class HtmlUnitControlFinderGetAllSelectablesTest extends TestCase {
         HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
         WeightedControlList tmpFound = tmpFinder.getAllSelectables(tmpSearch);
 
-        assertEquals(2, tmpFound.getElementsSorted().size());
+        assertEquals(1, tmpFound.getElementsSorted().size());
         assertEquals("[HtmlOption 'option1' (id='2_1')] found by: BY_LABEL coverage: 0 distance: 0", tmpFound.getElementsSorted().get(0).toString());
-        assertEquals("[HtmlOption 'option1' (id='2_1')] found by: BY_LABEL coverage: 0 distance: 44", tmpFound.getElementsSorted().get(1).toString());
     }
 
 
@@ -373,9 +372,8 @@ public class HtmlUnitControlFinderGetAllSelectablesTest extends TestCase {
         HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
         WeightedControlList tmpFound = tmpFinder.getAllSelectables(tmpSearch);
 
-        assertEquals(2, tmpFound.getElementsSorted().size());
+        assertEquals(1, tmpFound.getElementsSorted().size());
         assertEquals("[HtmlOption 'option1' (id='2_1')] found by: BY_LABEL coverage: 0 distance: 0", tmpFound.getElementsSorted().get(0).toString());
-        assertEquals("[HtmlOption 'option1' (id='2_1')] found by: BY_LABEL coverage: 0 distance: 44", tmpFound.getElementsSorted().get(1).toString());
     }
 
 
@@ -408,9 +406,8 @@ public class HtmlUnitControlFinderGetAllSelectablesTest extends TestCase {
         HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
         WeightedControlList tmpFound = tmpFinder.getAllSelectables(tmpSearch);
 
-        assertEquals(2, tmpFound.getElementsSorted().size());
+        assertEquals(1, tmpFound.getElementsSorted().size());
         assertEquals("[HtmlOption 'option2' (id='2_2')] found by: BY_LABEL coverage: 0 distance: 0", tmpFound.getElementsSorted().get(0).toString());
-        assertEquals("[HtmlOption 'option2' (id='2_2')] found by: BY_LABEL coverage: 0 distance: 13", tmpFound.getElementsSorted().get(1).toString());
     }
 
 
