@@ -19,6 +19,7 @@ package org.rbri.wet.util;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
+import org.rbri.wet.backend.htmlunit.util.FindSpot;
 
 import dk.brics.automaton.RegExp;
 import dk.brics.automaton.RunAutomaton;
@@ -30,6 +31,34 @@ import dk.brics.automaton.RunAutomaton;
  * @author rbri
  */
 public final class SearchPattern {
+    private static long constructor = 0;
+    private static long noOfCharsBeforeFirstOccurenceIn = 0;
+    private static long noOfCharsBeforeLastOccurenceIn = 0;
+    private static long noOfCharsAfterLastOccurenceIn = 0;
+    private static long matches = 0;
+    private static long noOfSurroundingCharsIn = 0;
+    private static long noOfMatchingCharsIn = 0;
+    private static long matchesAtEnd = 0;
+    private static long noOfCharsBeforeFirstOccurenceInAfter = 0;
+
+    private static long firstOccurenceIn = 0;
+    private static long lastOccurenceIn = 0;
+
+    public static void dumpStatistics() {
+        System.out.println("constructor: " + constructor);
+        System.out.println("noOfCharsBeforeFirstOccurenceIn: " + noOfCharsBeforeFirstOccurenceIn);
+        System.out.println("noOfCharsBeforeLastOccurenceIn: " + noOfCharsBeforeLastOccurenceIn);
+        System.out.println("noOfCharsAfterLastOccurenceIn: " + noOfCharsAfterLastOccurenceIn);
+        System.out.println("matches: " + matches);
+        System.out.println("noOfSurroundingCharsIn: " + noOfSurroundingCharsIn);
+        System.out.println("noOfMatchingCharsIn: " + noOfMatchingCharsIn);
+        System.out.println("matchesAtEnd: " + matchesAtEnd);
+        System.out.println("noOfCharsBeforeFirstOccurenceInAfter: " + noOfCharsBeforeFirstOccurenceInAfter);
+        System.out.println();
+        System.out.println("firstOccurenceIn: " + firstOccurenceIn);
+        System.out.println("lastOccurenceIn: " + lastOccurenceIn);
+    }
+
 
     private static final String SPECIAL_CHARS = "(){}[]|&~+^-.#@\"<>";
 
@@ -68,6 +97,7 @@ public final class SearchPattern {
 
     public SearchPattern(String aDosStyleWildcardString) {
         super();
+        constructor++;
 
     	String tmpDosStyleWildcardString = "";
         if (null != aDosStyleWildcardString) {
@@ -133,6 +163,57 @@ public final class SearchPattern {
     }
 
 
+    public FindSpot firstOccurenceIn(String aString) {
+        firstOccurenceIn++;
+        FindSpot tmpResult = new FindSpot();
+
+        if (StringUtils.isEmpty(aString)) {
+            return tmpResult;
+        }
+
+        if (isStarPattern) {
+            return tmpResult;
+        }
+
+        AutomatonShortMatcher tmpMatcher = new AutomatonShortMatcher(aString, automaton);
+
+        boolean tmpFound = tmpMatcher.find();
+        if (!tmpFound) {
+            return null;
+        }
+
+        tmpResult.startPos = tmpMatcher.start();
+        tmpResult.endPos = tmpMatcher.end();
+
+        return tmpResult;
+    }
+
+    public FindSpot lastOccurenceIn(String aString) {
+        lastOccurenceIn++;
+        FindSpot tmpResult = new FindSpot();
+
+        if (StringUtils.isEmpty(aString)) {
+            return tmpResult;
+        }
+
+        if (isStarPattern) {
+            return tmpResult;
+        }
+
+        AutomatonShortFromEndMatcher tmpMatcher = new AutomatonShortFromEndMatcher(aString, automaton);
+
+        boolean tmpFound = tmpMatcher.find();
+        if (!tmpFound) {
+            return null;
+        }
+
+        tmpResult.startPos = tmpMatcher.start();
+        tmpResult.endPos = tmpMatcher.end();
+
+        return tmpResult;
+    }
+
+
     /**
      * Calculates the number of chars before the
      * first occurrence of this search pattern in
@@ -145,6 +226,7 @@ public final class SearchPattern {
      * not found
      */
     public int noOfCharsBeforeFirstOccurenceIn(String aString) {
+        noOfCharsBeforeFirstOccurenceIn++;
         int tmpResult = -1;
 
         if (StringUtils.isEmpty(aString)) {
@@ -179,6 +261,7 @@ public final class SearchPattern {
      * not found
      */
     public int noOfCharsBeforeLastOccurenceIn(String aString) {
+        noOfCharsBeforeLastOccurenceIn++;
         int tmpResult = -1;
 
         if (StringUtils.isEmpty(aString)) {
@@ -218,6 +301,7 @@ public final class SearchPattern {
      * not found
      */
     public int noOfCharsAfterLastOccurenceIn(String aString) {
+        noOfCharsAfterLastOccurenceIn++;
         int tmpResult = -1;
 
         if (isStarPattern) {
@@ -251,6 +335,7 @@ public final class SearchPattern {
      * @return true or false
      */
     public boolean matches(String aString) {
+        matches++;
         if (isStarPattern) {
             return true;
         }
@@ -274,6 +359,7 @@ public final class SearchPattern {
      * not found
      */
     public int noOfSurroundingCharsIn(String aString) {
+        noOfSurroundingCharsIn++;
         if (isStarPattern) {
             return 0;
         }
@@ -310,6 +396,7 @@ public final class SearchPattern {
      * not found
      */
     public int noOfMatchingCharsIn(String aString) {
+        noOfMatchingCharsIn++;
         if (isStarPattern) {
             return aString.length();
         }
@@ -337,6 +424,7 @@ public final class SearchPattern {
 
 
     public boolean matchesAtEnd(String aString) {
+        matchesAtEnd++;
         if (StringUtils.isEmpty(aString)) {
             return false;
         }
@@ -356,6 +444,7 @@ public final class SearchPattern {
 
 
     public int noOfCharsBeforeFirstOccurenceInAfter(String aString, int aStartPos) {
+        noOfCharsBeforeFirstOccurenceInAfter++;
         if (null == aString) {
             return -1;
         }
