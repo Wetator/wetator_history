@@ -95,6 +95,50 @@
   a look at file 'templates\wetator.config'.
   </p>
 
+  <h1>Variables</h1>
+  <p>Variables are defined as part of the configuration.<br>
+    The definition starts always with a '$' sign.<br>
+    You can refer to this variable from all command parameters with the expression
+    ${var-name}
+  </p>
+  <h2>Example</h2>
+  <pre>
+    $title=My Title
+    $app_user=dobby
+  </pre>
+  <table class="exampletable">
+    <tr>
+      <td class="col_comment, comment">#</td>
+      <td class="col_commmand, comment">Command</td>
+      <td class="col_param1, comment">First Param</td>
+      <td class="col_param2, comment">Second Param</td>
+    </tr>
+    <tr>
+      <td class="col_comment"></td>
+      <td class="col_commmand">Assert Title</td>
+      <td class="col_param1"><b>${title}</b></td>
+      <td class="col_param2"></td>
+    </tr>
+    <tr>
+      <td class="col_comment"></td>
+      <td class="col_commmand">Assert Content</td>
+      <td class="col_param1">Hello <b>${app_user}</b>.</td>
+      <td class="col_param2"></td>
+    </tr>
+  </table>
+
+  <p>&nbsp;</p>
+  <p>Sometimes you don't want to have the value of a variable visible in
+  the reports or log files (e.g. passwords). This is possible if you prefix
+  the variable name with '$$'. Then Wetator marks the variable as secrets
+  and outputs '****' instead of the value.
+  </p>
+  <h2>Example</h2>
+  <pre>
+    $app_user=dobby
+    $$password=secret
+  </pre>
+
   <h1>Overwrite properties</h1>
   <p>It is possible to overwrite all properties. For more see
     <a href="../setup/cmdline.html">Command-Line Options</a> or
