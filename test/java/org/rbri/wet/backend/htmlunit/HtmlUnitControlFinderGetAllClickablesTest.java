@@ -195,7 +195,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
 
         assertEquals(1, tmpFound.getElementsSorted().size());
 
-        assertEquals("[HtmlSubmitInput 'ClickMe' (id='myId')] found by: BY_LABEL_TEXT coverage: 1 distance: 0", tmpFound.getElementsSorted().get(0).toString());
+        assertEquals("[HtmlSubmitInput 'ClickMe' (id='myId')] found by: BY_LABEL_TEXT coverage: 2 distance: 0", tmpFound.getElementsSorted().get(0).toString());
     }
 
 
@@ -400,7 +400,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
 
         assertEquals(1, tmpFound.getElementsSorted().size());
 
-        assertEquals("[HtmlResetInput 'ClickMe' (id='myId')] found by: BY_LABEL_TEXT coverage: 1 distance: 0", tmpFound.getElementsSorted().get(0).toString());
+        assertEquals("[HtmlResetInput 'ClickMe' (id='myId')] found by: BY_LABEL_TEXT coverage: 2 distance: 0", tmpFound.getElementsSorted().get(0).toString());
     }
 
 
@@ -605,7 +605,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
 
         assertEquals(1, tmpFound.getElementsSorted().size());
 
-        assertEquals("[HtmlButtonInput 'ClickMe' (id='myId')] found by: BY_LABEL_TEXT coverage: 1 distance: 0", tmpFound.getElementsSorted().get(0).toString());
+        assertEquals("[HtmlButtonInput 'ClickMe' (id='myId')] found by: BY_LABEL_TEXT coverage: 2 distance: 0", tmpFound.getElementsSorted().get(0).toString());
     }
 
 
