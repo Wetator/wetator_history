@@ -70,14 +70,14 @@ public class DomNodeText {
 
     private NormalizedContent text;
     private List<DomNode> nodes;
-    private Map<DomNode, Integer> startPositions;
-    private Map<DomNode, Integer> endPositions;
+    private List<HtmlElement> visibleHtmlElements;
+    private Map<DomNode, FindSpot> positions;
 
     public DomNodeText(final DomNode aDomNode) {
         text = new NormalizedContent();
         nodes = new LinkedList<DomNode>();
-        startPositions = new HashMap<DomNode, Integer>();
-        endPositions = new HashMap<DomNode, Integer>();
+        visibleHtmlElements = new LinkedList<HtmlElement>();
+        positions = new HashMap<DomNode, FindSpot>();
 
         parseDomNode(aDomNode);
     }
@@ -88,18 +88,35 @@ public class DomNodeText {
     }
 
 
+    public List<HtmlElement> getAllVisibleHtmlElements() {
+        return visibleHtmlElements;
+    }
+
+    public FindSpot getPosition(HtmlElement aHtmlElement) {
+        return positions.get(aHtmlElement);
+    }
+
+    public FindSpot firstOccurence(SearchPattern aSearchPattern) {
+        return aSearchPattern.firstOccurenceIn(text.toString());
+    }
+
+    public FindSpot lastOccurence(SearchPattern aSearchPattern) {
+        return aSearchPattern.lastOccurenceIn(text.toString());
+    }
+
+
     public String getTextBefore(final DomNode aDomNode) {
-        Integer tmpEndPos = startPositions.get(aDomNode);
-        if (null == tmpEndPos) {
+        FindSpot tmpFindSpot = positions.get(aDomNode);
+        if (null == tmpFindSpot) {
             return null;
         }
-        return text.substring(0, tmpEndPos).trim();
+        return text.substring(0, tmpFindSpot.startPos).trim();
     }
 
 
     public String getLabelTextBefore(final HtmlElement aHtmlElement) {
-        Integer tmpEndPos = startPositions.get(aHtmlElement);
-        if (null == tmpEndPos) {
+        FindSpot tmpFindSpot = positions.get(aHtmlElement);
+        if (null == tmpFindSpot) {
             return null;
         }
 
@@ -111,14 +128,14 @@ public class DomNodeText {
 
             if (tmpNode instanceof HtmlBody) {
                 // don't use the end pos of the body
-                tmpStartPos = startPositions.get(tmpNode);
+                tmpStartPos = positions.get(tmpNode).startPos;
                 break;
             }
 
             // we have to stop if we found some other (visible) form control
             if ((tmpNode instanceof SubmittableElement)
                     && !(tmpNode instanceof HtmlHiddenInput)) {
-                tmpStartPos = endPositions.get(tmpNode);
+                tmpStartPos = positions.get(tmpNode).endPos;
                 break;
             }
 
@@ -127,19 +144,19 @@ public class DomNodeText {
                 HtmlForm tmpForm = ((HtmlElement)tmpNode).getEnclosingForm();
                 // we are reaching another form
                 if ((null != tmpForm) && (tmpForm != tmpCurrentForm)) {
-                    tmpStartPos = endPositions.get(tmpNode);
+                    tmpStartPos = positions.get(tmpNode).endPos;
                     break;
                 }
             }
         }
 
-        return text.substring(tmpStartPos, tmpEndPos).trim();
+        return text.substring(tmpStartPos, tmpFindSpot.startPos).trim();
     }
 
 
     public String getLabelTextAfter(final HtmlElement aHtmlElement) {
-        Integer tmpStartPos = endPositions.get(aHtmlElement);
-        if (null == tmpStartPos) {
+        FindSpot tmpFindSpot = positions.get(aHtmlElement);
+        if (null == tmpFindSpot) {
             return null;
         }
 
@@ -155,7 +172,7 @@ public class DomNodeText {
             // we have to stop if we found some other (visible) form control
             if ((tmpNode instanceof SubmittableElement)
                     && !(tmpNode instanceof HtmlHiddenInput)) {
-                tmpEndPos = startPositions.get(tmpNode);
+                tmpEndPos = positions.get(tmpNode).startPos;
                 break;
             }
 
@@ -164,32 +181,36 @@ public class DomNodeText {
                 HtmlForm tmpForm = ((HtmlElement)tmpNode).getEnclosingForm();
                 // we are reaching another form
                 if ((null != tmpCurrentForm) && (tmpForm != tmpCurrentForm)) {
-                    tmpEndPos = startPositions.get(tmpNode);
+                    tmpEndPos = positions.get(tmpNode).startPos;
                     break;
                 }
             }
         }
 
-        return text.substring(tmpStartPos, tmpEndPos).trim();
+        return text.substring(tmpFindSpot.endPos, tmpEndPos).trim();
     }
 
 
     public String getAsText(final DomNode aDomNode) {
-        Integer tmpStartPos = startPositions.get(aDomNode);
-        if (null == tmpStartPos) {
+        FindSpot tmpFindSpot = positions.get(aDomNode);
+        if (null == tmpFindSpot) {
             return null;
         }
-        Integer tmpEndPos = endPositions.get(aDomNode);
-
-        return text.substring(tmpStartPos, tmpEndPos).trim();
+        return text.substring(tmpFindSpot.startPos, tmpFindSpot.endPos).trim();
     }
 
     private void parseDomNode(final DomNode aDomNode) {
         nodes.add(aDomNode);
+
         // mark pos before
-        startPositions.put(aDomNode, Integer.valueOf(text.length()));
+        FindSpot tmpFindSpot = new FindSpot();
+        tmpFindSpot.startPos = text.length();
+        positions.put(aDomNode, tmpFindSpot);
 
         if (aDomNode.isDisplayed()) {
+            if (aDomNode instanceof HtmlElement) {
+                visibleHtmlElements.add((HtmlElement)aDomNode);
+            }
             if (aDomNode instanceof HtmlHiddenInput
                     || aDomNode instanceof HtmlApplet
                     || aDomNode instanceof HtmlScript
@@ -244,7 +265,8 @@ public class DomNodeText {
         }
 
         // mark pos after
-        endPositions.put(aDomNode, Integer.valueOf(text.length()));
+        tmpFindSpot = positions.get(aDomNode);
+        tmpFindSpot.endPos = text.length();
     }
 
 
@@ -310,11 +332,12 @@ public class DomNodeText {
         for (final DomNode tmpItem : htmlOrderedList.getChildren()) {
             if (tmpItem instanceof HtmlListItem) {
                 // hack for fixing the start pos
-                int tmpSartPos = text.length();
+                int tmpStartPos = text.length();
                 text.append(String.valueOf(i++));
                 text.append(". ");
                 parseDomNode(tmpItem);
-                startPositions.put(tmpItem, Integer.valueOf(tmpSartPos));
+                FindSpot tmpFindSpot = positions.get(tmpItem);
+                tmpFindSpot.startPos = tmpStartPos;
             } else {
                 parseDomNode(tmpItem);
             }

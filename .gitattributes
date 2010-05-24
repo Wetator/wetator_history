@@ -29,6 +29,7 @@ src/org/rbri/wet/backend/htmlunit/XHtmlOutputter.java -text
 src/org/rbri/wet/backend/htmlunit/util/ContentTypeUtil.java -text
 src/org/rbri/wet/backend/htmlunit/util/DomNodeText.java -text
 src/org/rbri/wet/backend/htmlunit/util/ExceptionUtil.java -text
+src/org/rbri/wet/backend/htmlunit/util/FindSpot.java -text
 src/org/rbri/wet/backend/htmlunit/util/HtmlElementUtil.java -text
 src/org/rbri/wet/backend/htmlunit/util/PageUtil.java -text
 src/org/rbri/wet/commandset/AbstractCommandSet.java -text
