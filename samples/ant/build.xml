@@ -4,6 +4,14 @@
 
 <project name="Wetator Ant Sample" basedir="." default="run_wetator">
 
+    <!--
+       You can use Ant project properties to overwrite properties defined in the config-file.
+       The name of the property has to start with 'wetator.'.
+       If you define the same property as inner element of the wetator task,
+       then this one will be overwritten.
+     -->
+    <property name="wetator.baseUrl" value="http://www.wetator.org"/>
+
 	<!-- adjust dir for your project -->
 	<path id="wetator-classpath">
 		<fileset dir="../../lib" includes="**/**.jar"/>
@@ -16,7 +24,7 @@
     	<!-- Attributes:
     	     -config: full name of your config-file (required)
 
-    	     the excel input files are defined as fileset
+    	     the input files are defined as fileset
     	     more about filesets under http://ant.apache.org/manual/CoreTypes/fileset.html
     	-->
     	<wetator config="sample.properties">
@@ -24,8 +32,12 @@
 				<include name="test/wetator/*.xls"/>
 			</fileset>
 
-    		<!-- You can use Ant properties to overwrite properties in your config-files like this: -->
-        	<property name="wet.baseUrl" value="http://wet.rbri.org"/>
+    	    <!--
+    	       You can use properties to overwrite properties defined in the config-file.
+    	       The name of the property has to start with 'wetator.'.
+    	       This overwrites properties defined for the project.
+    	     -->
+        	<property name="wetator.baseUrl" value="http://www.wetator.org"/>
     	</wetator>
 
     </target>

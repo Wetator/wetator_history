@@ -17,14 +17,18 @@
 package org.rbri.wet.ant;
 
 import java.io.File;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Set;
+import java.util.Vector;
 
 import org.apache.tools.ant.AntClassLoader;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.DirectoryScanner;
+import org.apache.tools.ant.Project;
 import org.apache.tools.ant.Task;
+import org.apache.tools.ant.taskdefs.Property;
 import org.apache.tools.ant.types.FileSet;
 import org.apache.tools.ant.types.Path;
 import org.rbri.wet.Version;
@@ -43,6 +47,8 @@ public class Wetator extends Task {
     private String config = null;
     private Path classpath = null;
     private FileSet fileset = null;
+    private Vector<Property> properties = new Vector<Property>();
+
 
     /**
      * The main method called by Ant.
@@ -59,15 +65,31 @@ public class Wetator extends Task {
             throw new BuildException(Version.getProductName() + " Ant: Fileset is required (define a fileset for all your test files).");
         }
 
-        // read the properties for us
-        Hashtable<String, String> tmpProperties = (Hashtable<String, String>)getProject().getProperties();
+        // read the properties from project
+        Hashtable<String, String> tmpProjectProperties = (Hashtable<String, String>)getProject().getProperties();
         HashMap<String, String> tmpOurProperties = new HashMap<String, String>();
-        Set<String> tmpKeys = tmpProperties.keySet();
+        Set<String> tmpKeys = tmpProjectProperties.keySet();
         for (String tmpKey : tmpKeys) {
             if (tmpKey.startsWith(WetConfiguration.PROPERTY_PREFIX)) {
-                tmpOurProperties.put(tmpKey, tmpProperties.get(tmpKey));
+                tmpOurProperties.put(tmpKey, tmpProjectProperties.get(tmpKey));
+                log("set property '" + tmpKey + "' to '" + tmpProjectProperties.get(tmpKey) + "' (from project)", Project.MSG_INFO);
             }
         }
+
+
+        // read the properties from property sets
+        Enumeration<Property> tmpProperties = properties.elements();
+        while (tmpProperties.hasMoreElements()) {
+            Property tmpProperty = tmpProperties.nextElement();
+
+            String tmpName = tmpProperty.getName();
+            if (tmpName.startsWith(WetConfiguration.PROPERTY_PREFIX)) {
+                log("set property '" + tmpName + "' to '" + tmpProperty.getValue() + "'", Project.MSG_INFO);
+                tmpOurProperties.put(tmpName, tmpProperty.getValue());
+            }
+        }
+
+
 
         try {
             WetEngine tmpWetEngine = new WetEngine();
@@ -123,5 +145,10 @@ public class Wetator extends Task {
             classpath = new Path(getProject());
         }
         return classpath;
+    }
+
+
+    public void addProperty(Property aProperty) {
+        properties.addElement(aProperty);
     }
 }
