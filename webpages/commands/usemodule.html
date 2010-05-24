@@ -102,38 +102,53 @@
 <div class="content">
   <h1>Description</h1>
 
-  <p>Todo
+  <p>Calls another test and executes all commands as part of this test.
   </p>
 </div>
 
-<!--
 <div class="content">
   <h1>First Parameter</h1>
-  <p>Required<br>The url to open.
+  <p>Required<br>the path and file name of the test definition to call
   </p>
-  <p>Use a relative url here to be independent of the server the application is deployed on.
-  <br>
-     The server url is defined in the configuration.
+  <p>The path is relative to the current file.
   </p>
 
-  <h1>Second Parameter (not used)</h1>
-  <p>-</p>
+  <h1>Second Parameter (optional)</h1>
+  <p>
+    The second parameter holds the list of parameters forwarded to the called
+    test script. The parameters are available from the caller through the 'automatic'
+    variables $1, $2 and so on. Wetator will create a variable for every parameter part.
+  </p>
 </div>
--->
+
 
 <div class="content">
   <h1>Examples</h1>
-<!--
-  <p>Config</p>
-  <p class="config">
-    ...
-    <br>
-    web.baseUrl=http://wet.rbri.org
-    <br>
-    ...
-  </p>
 
-  <p>Open url 'http://wet.rbri.org/commands/openurl.html'</p>
+  <p>The caller; call a module that performs the login.<br>
+  The first login is done with user/secret, the second login with admin,master.</p>
+  <table class="exampletable">
+    <tr>
+      <td class="col_comment, comment">#</td>
+      <td class="col_commmand, comment">Command</td>
+      <td class="col_param1, comment">First Param</td>
+      <td class="col_param2, comment">Second Param</td>
+    </tr>
+    <tr>
+      <td class="col_comment"></td>
+      <td class="col_commmand">Use Module</td>
+      <td class="col_param1">modules/login.xls</td>
+      <td class="col_param2">user, secret</td>
+    </tr>
+    <tr>
+      <td class="col_comment"></td>
+      <td class="col_commmand">Use Module</td>
+      <td class="col_param1">modules/login.xls</td>
+      <td class="col_param2">admin, master</td>
+    </tr>
+  </table>
+
+  <p>The called module. The userid and the password are provided by the caller.</p>
   <table class="exampletable">
     <tr>
       <td class="col_comment, comment">#</td>
@@ -144,11 +159,29 @@
     <tr>
       <td class="col_comment"></td>
       <td class="col_commmand">Open Url</td>
-      <td class="col_param1">commands/openurl.html</td>
+      <td class="col_param1">myapp.html</td>
+      <td class="col_param2"></td>
+    </tr>
+    <tr>
+      <td class="col_comment"></td>
+      <td class="col_commmand">Set</td>
+      <td class="col_param1">Userid</td>
+      <td class="col_param2">${1}</td>
+    </tr>
+    <tr>
+      <td class="col_comment"></td>
+      <td class="col_commmand">Set</td>
+      <td class="col_param1">Password</td>
+      <td class="col_param2">${2}</td>
+    </tr>
+    <tr>
+      <td class="col_comment"></td>
+      <td class="col_commmand">Click On</td>
+      <td class="col_param1">Login</td>
       <td class="col_param2"></td>
     </tr>
   </table>
--->
+
   <p class="sample">Complete 'Use Module' tests.
   <br><a href="../exceltests/use_module.xls"><img src="../images/xls_file.jpg" alt="Download file"></a>
   </p>
