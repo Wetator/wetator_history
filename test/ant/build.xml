@@ -50,6 +50,9 @@
             </fileset>
 
             <property name="wetator.baseUrl" value="http://www.wetator.org"/>
+            <property name="$user" value="dobby"/>
+        	<!-- to define a secret property you need $$$ -->
+            <property name="$$$password" value="secret"/>
         </wetator>
     </target>
 </project>

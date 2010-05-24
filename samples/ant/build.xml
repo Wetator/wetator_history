@@ -38,6 +38,13 @@
     	       This overwrites properties defined for the project.
     	     -->
         	<property name="wetator.baseUrl" value="http://www.wetator.org"/>
+
+    		<!--
+    		  set variables
+    		  to define a secret property you need $$$
+    		-->
+    		<property name="$user" value="dobby"/>
+            <property name="$$$password" value="secret"/>
     	</wetator>
 
     </target>

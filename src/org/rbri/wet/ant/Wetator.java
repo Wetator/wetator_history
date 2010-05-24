@@ -70,7 +70,10 @@ public class Wetator extends Task {
         HashMap<String, String> tmpOurProperties = new HashMap<String, String>();
         Set<String> tmpKeys = tmpProjectProperties.keySet();
         for (String tmpKey : tmpKeys) {
-            if (tmpKey.startsWith(WetConfiguration.PROPERTY_PREFIX)) {
+            if (tmpKey.startsWith(WetConfiguration.VARIABLE_PREFIX + WetConfiguration.SECRET_PREFIX)) {
+                tmpOurProperties.put(tmpKey, tmpProjectProperties.get(tmpKey));
+                log("set property '" + tmpKey + "' to '****' (from project)", Project.MSG_INFO);
+            } else if (tmpKey.startsWith(WetConfiguration.PROPERTY_PREFIX) || tmpKey.startsWith(WetConfiguration.VARIABLE_PREFIX)) {
                 tmpOurProperties.put(tmpKey, tmpProjectProperties.get(tmpKey));
                 log("set property '" + tmpKey + "' to '" + tmpProjectProperties.get(tmpKey) + "' (from project)", Project.MSG_INFO);
             }
@@ -83,7 +86,10 @@ public class Wetator extends Task {
             Property tmpProperty = tmpProperties.nextElement();
 
             String tmpName = tmpProperty.getName();
-            if (tmpName.startsWith(WetConfiguration.PROPERTY_PREFIX)) {
+            if (tmpName.startsWith(WetConfiguration.VARIABLE_PREFIX + WetConfiguration.SECRET_PREFIX)) {
+                log("set property '" + tmpName + "' to '****'", Project.MSG_INFO);
+                tmpOurProperties.put(tmpName, tmpProperty.getValue());
+            } else if (tmpName.startsWith(WetConfiguration.PROPERTY_PREFIX) || tmpName.startsWith(WetConfiguration.VARIABLE_PREFIX)) {
                 log("set property '" + tmpName + "' to '" + tmpProperty.getValue() + "'", Project.MSG_INFO);
                 tmpOurProperties.put(tmpName, tmpProperty.getValue());
             }
