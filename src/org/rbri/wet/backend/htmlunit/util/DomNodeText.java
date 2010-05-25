@@ -71,12 +71,14 @@ public class DomNodeText {
 
     private NormalizedContent text;
     private List<DomNode> nodes;
+    private List<DomNode> nodesBottomUp;
     private List<HtmlElement> visibleHtmlElements;
     private Map<DomNode, FindSpot> positions;
 
     public DomNodeText(final DomNode aDomNode) {
         text = new NormalizedContent();
         nodes = new LinkedList<DomNode>();
+        nodesBottomUp = new LinkedList<DomNode>();
         visibleHtmlElements = new LinkedList<HtmlElement>();
         positions = new HashMap<DomNode, FindSpot>();
 
@@ -91,6 +93,10 @@ public class DomNodeText {
 
     public List<HtmlElement> getAllVisibleHtmlElements() {
         return visibleHtmlElements;
+    }
+
+    public List<DomNode> getAllDomNodesBottomUp() {
+        return nodesBottomUp;
     }
 
     public FindSpot getPosition(HtmlElement aHtmlElement) {
@@ -264,10 +270,11 @@ public class DomNodeText {
                 }
             }
         }
-
         // mark pos after
         tmpFindSpot = positions.get(aDomNode);
         tmpFindSpot.endPos = text.length();
+
+        nodesBottomUp.add(aDomNode);
     }
 
 
