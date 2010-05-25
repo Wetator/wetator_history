@@ -1,6 +1,7 @@
 * text=auto !eol
 /.classpath -text
 /.project -text
+/LICENSE.txt -text
 /build-properties.xml -text
 /build.xml -text
 /chat -text
