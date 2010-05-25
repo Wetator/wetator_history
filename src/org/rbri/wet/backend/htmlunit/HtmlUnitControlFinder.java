@@ -1075,12 +1075,10 @@ public class HtmlUnitControlFinder implements ControlFinder {
         String tmpText = domNodeText.getAsText(tmpBodyNode);
         int tmpLengthBefore = tmpSearchPattern.noOfCharsBeforeLastOccurenceIn(tmpText);
         if (tmpLengthBefore < 0) {
-            // LOG.debug(Messages.getMessage("log.patternNotFound", new String[] {tmpSearchSecret.toString()}));
             return tmpFoundElements;
         }
 
         if (tmpPathSearchPattern.noOfMatchingCharsIn(tmpText.substring(0, tmpLengthBefore)) < 0) {
-            // LOG.debug(Messages.getMessage("log.patternNotFound", new String[] {tmpSearchSecret.toString()}));
             return tmpFoundElements;
         }
 
