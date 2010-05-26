@@ -10,36 +10,35 @@
                 <META http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
                 <META http-equiv="content-style-type" content="text/css"/>
                 <title>Wetator - Test Result</title>
-                <style type="text/css"><![CDATA[
-                BODY {BACKGROUND-COLOR: #f8f8f8; FONT-SIZE: 10pt; FONT-FAMILY: Arial, Helvetica, sans-serif; margin: 4px;}
-                TABLE {font-size: 10pt; empty-cells: show; border-collapse: collapse; }
-                TH {FONT-WEIGHT: bold; BACKGROUND-COLOR: #ccddff; text-align: center;}
-                TD.step {border:1px solid #999; color: #000000; text-align: center;}
-                TD.light {BACKGROUND-COLOR: #f8f8f8;}
-                TD.topBorder {border-top: 1px solid #999;}
-                TD.message {BACKGROUND-COLOR: #fff8dc; COLOR: #666666; FONT-SIZE: 10pt;}
-                TD.properties {BACKGROUND-COLOR: #f8f8f8; FONT-SIZE: 10pt;}
-                TD.error {BACKGROUND-COLOR: #F14F12;}
-                TD.comment {BACKGROUND-COLOR: #eeeeee;}
-                h1 {FONT-SIZE: 12pt; COLOR: #000000; margin-top:20px;}
-                h2 {FONT-SIZE: 10pt; COLOR: #4682b4; margin-top:16px;}
-                p.blue {COLOR: #768bc2;}
-                PRE.text {FONT-FAMILY: Courier new, monospace, sans-serif;FONT-WEIGHT: bold;WHITE-SPACE: pre;}
-                A {COLOR: #768bc2; TEXT-DECORATION: none;}
-                A:link {COLOR: #768bc2; TEXT-DECORATION: none;}
-                A:visited {COLOR: #768bc2; TEXT-DECORATION: none;}
-                A:active {COLOR: #768bc2; TEXT-DECORATION: none;}
-                A:hover {TEXT-DECORATION: none;}
-                A.linkToCommand {font-size: smaller; display: block;}
-                .step A:hover{width:13px;border:1px;}
-                img {border: 0;}
-                DIV.header { color: #768bc2; margin-left: 10px; }
-                DIV.header IMG { margin-left: -10px; border:0; }
-                DIV.colorBar { height: 1em; border: 0; margin-left: 2px; margin-right: 1px; }
-
-                .smallBorder {border: 1px solid #999;}
-                .bold {font-weight: bold };
-                ]]></style>
+                <style type="text/css">
+                    BODY {BACKGROUND-COLOR: #f8f8f8; FONT-SIZE: 10pt; FONT-FAMILY: Arial, Helvetica, sans-serif; margin: 4px;}
+                    TABLE {font-size: 10pt; empty-cells: show; border-collapse: collapse; }
+                    TH {FONT-WEIGHT: bold; BACKGROUND-COLOR: #ccddff; text-align: center;}
+                    TD.step {border:1px solid #999; color: #000000; text-align: center;}
+                    TD.light {BACKGROUND-COLOR: #f8f8f8;}
+                    TD.topBorder {border-top: 1px solid #999;}
+                    TD.message {BACKGROUND-COLOR: #fff8dc; COLOR: #666666; FONT-SIZE: 10pt;}
+                    TD.properties {BACKGROUND-COLOR: #f8f8f8; FONT-SIZE: 10pt;}
+                    TD.error {BACKGROUND-COLOR: #F14F12;}
+                    TD.comment {BACKGROUND-COLOR: #eeeeee;}
+                    H1 {FONT-SIZE: 12pt; COLOR: #000000; margin-top:20px;}
+                    H2 {FONT-SIZE: 10pt; COLOR: #4682b4; margin-top:16px;}
+                    P.blue {COLOR: #768bc2;}
+                    PRE.text {FONT-FAMILY: Courier new, monospace, sans-serif;FONT-WEIGHT: bold;WHITE-SPACE: pre;}
+                    A {COLOR: #768bc2; TEXT-DECORATION: none;}
+                    A:link {COLOR: #768bc2; TEXT-DECORATION: none;}
+                    A:visited {COLOR: #768bc2; TEXT-DECORATION: none;}
+                    A:active {COLOR: #768bc2; TEXT-DECORATION: none;}
+                    A:hover {TEXT-DECORATION: none;}
+                    .step A:hover{width:13px;border:1px;}
+                    A.linkToCommand {font-size: smaller; display: block;}
+                    img {border: 0;}
+                    DIV.header { color: #768bc2; margin-left: 10px; }
+                    DIV.header IMG { margin-left: -10px; border:0; }
+                    DIV.colorBar { height: 1em; border: 0; margin-left: 2px; margin-right: 1px; }
+                    .smallBorder {border: 1px solid #999;}
+                    .bold {font-weight: bold; }
+                </style>
 
                 <script type="text/javascript" language="JavaScript"><![CDATA[
                 function showOrHide(image, id) {
