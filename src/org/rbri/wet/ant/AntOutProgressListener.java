@@ -32,6 +32,10 @@ public final class AntOutProgressListener extends StdOutProgressListener {
         antTask = aWetator;
     }
 
+    protected void print(String aString) {
+        // print nothing
+    }
+
     protected void println(String aString) {
          antTask.log(aString, Project.MSG_INFO);
     }
