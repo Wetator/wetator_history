@@ -642,8 +642,12 @@ webpages/testcases/wait_for2.html -text
 webpages/wet.css -text
 xsl/SimpleHtml.xsl -text
 xsl/images/collapseall.png -text
+xsl/images/collapselog.png -text
 xsl/images/expandall.png -text
+xsl/images/expandlog.png -text
 xsl/images/failed.png -text
+xsl/images/log_info.png -text
+xsl/images/log_warn.png -text
 xsl/images/next.png -text
 xsl/images/none.png -text
 xsl/images/ok.png -text

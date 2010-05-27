@@ -50,6 +50,14 @@
                         var tmpElement=document.getElementById(id);
                         tmpElement.style.display = "";
                         image.src = image.src.substr(0, image.src.lastIndexOf("/")+1)+"collapseall.png";
+                    } else if (image.src.indexOf("collapselog.png") != -1) {
+                        var tmpElement=document.getElementById(id);
+                        tmpElement.style.display = "none";
+                        image.src = image.src.substr(0, image.src.lastIndexOf("/")+1)+"expandlog.png";
+                    } else if (image.src.indexOf("expandlog.png") != -1) {
+                        var tmpElement=document.getElementById(id);
+                        tmpElement.style.display = "";
+                        image.src = image.src.substr(0, image.src.lastIndexOf("/")+1)+"collapselog.png";
                     }
                 }
                 function makeVisible(id) {
@@ -556,6 +564,7 @@
                     <th><xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text></th>
                     <th><xsl:text disable-output-escaping="yes">Parameter&amp;nbsp;1</xsl:text></th>
                     <th><xsl:text disable-output-escaping="yes">Parameter&amp;nbsp;2</xsl:text></th>
+                    <th><xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text></th>
                     <th>Duration</th>
                 </tr>
                 <xsl:for-each select="./command">
@@ -614,37 +623,31 @@
 
             <xsl:text disable-output-escaping="yes">&lt;td class="</xsl:text>
             <xsl:value-of select="$lineStyle" />
-             <xsl:text disable-output-escaping="yes">" align="center"&gt;</xsl:text>
-                <xsl:choose>
-                    <xsl:when test="(count(./testcase)) &gt; 0">
-                        <img src="images/expandall.png" alt="Show/Hide sub testcase">
-                            <xsl:attribute name="id">
-                                <xsl:text>showHide_testcase_</xsl:text>
-                                <xsl:value-of select="testcase/@id" />
+            <xsl:text disable-output-escaping="yes">" align="center"&gt;</xsl:text>
+                <xsl:if test="count(./testcase) &gt; 0">
+                    <img src="images/expandall.png" alt="Show/Hide sub testcase">
+                        <xsl:attribute name="id">
+                            <xsl:text>showHide_testcase_</xsl:text>
+                            <xsl:value-of select="testcase/@id" />
+                        </xsl:attribute>
+                        <xsl:attribute name="onclick">
+	                        <xsl:text>showOrHide(this, 'testcase_</xsl:text>
+	                        <xsl:value-of select="testcase/@id" />
+	                        <xsl:text>');</xsl:text>
+                        </xsl:attribute>
+                    </img>
+                </xsl:if>
+                <xsl:if test="count(./response) &gt; 0">
+                    <xsl:for-each select="./response">
+                        <a target="_blank">
+                            <xsl:attribute name="href">
+                                <xsl:value-of select="."/>
                             </xsl:attribute>
-                              <xsl:attribute name="onclick">
-                                   <xsl:text>showOrHide(this, 'testcase_</xsl:text>
-                                <xsl:value-of select="testcase/@id" />
-                                   <xsl:text>');</xsl:text>
-                              </xsl:attribute>
-                        </img>
-                      </xsl:when>
-                     <xsl:when test="(count(./response)) &gt; 0">
-                         <xsl:for-each select="./response">
-                            <a target="_blank">
-                                <xsl:attribute name="href">
-                                    <xsl:value-of select="."/>
-                                </xsl:attribute>
-                                <img src="images/response.png" alt="view response"/>
-                            </a>
-                        </xsl:for-each>
-                    </xsl:when>
-
-                      <xsl:otherwise>
-                          <xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text>
-                      </xsl:otherwise>
-                 </xsl:choose>
-             <xsl:text disable-output-escaping="yes">&lt;/td&gt;</xsl:text>
+                            <img src="images/response.png" alt="view response"/>
+                        </a>
+                    </xsl:for-each>
+                </xsl:if>
+            <xsl:text disable-output-escaping="yes">&lt;/td&gt;</xsl:text>
 
             <xsl:text disable-output-escaping="yes">&lt;td class="</xsl:text>
             <xsl:value-of select="$lineStyle" />
@@ -674,6 +677,24 @@
 
             <xsl:text disable-output-escaping="yes">&lt;td class="</xsl:text>
             <xsl:value-of select="$lineStyle" />
+            <xsl:text disable-output-escaping="yes">" &gt;</xsl:text>
+                <xsl:if test="count(./log) &gt; 0">
+                    <img src="images/expandlog.png" alt="Show/Hide log entries">
+                        <xsl:attribute name="id">
+                            <xsl:text>showHide_log_</xsl:text>
+                            <xsl:value-of select="@id" />
+                        </xsl:attribute>
+                        <xsl:attribute name="onclick">
+                            <xsl:text>showOrHide(this, 'log_</xsl:text>
+                            <xsl:value-of select="@id" />
+                            <xsl:text>');</xsl:text>
+                        </xsl:attribute>
+                    </img>
+                </xsl:if>
+            <xsl:text disable-output-escaping="yes">&lt;/td&gt;</xsl:text>
+
+            <xsl:text disable-output-escaping="yes">&lt;td class="</xsl:text>
+            <xsl:value-of select="$lineStyle" />
             <xsl:text disable-output-escaping="yes">" align="right"&gt;</xsl:text>
                 &#32;
                 <xsl:call-template name="time">
@@ -681,6 +702,7 @@
                 </xsl:call-template>
             <xsl:text disable-output-escaping="yes">&lt;/td&gt;</xsl:text>
         </tr>
+
         <xsl:if test="count(descendant-or-self::error) &gt; 0">
             <tr>
                 <td class="light"/>
@@ -763,23 +785,49 @@
                     </xsl:choose>
                 </td>
                 <td class="light"/>
-                <td class="error" colspan="3">
+                <td class="error" colspan="4">
                     <xsl:value-of select="error/message"/>
                 </td>
             </tr>
         </xsl:if>
 
-        <xsl:for-each select="log">
-            <tr>
-                <td class="light"/>
-                <td class="light"/>
-                <td class="light"/>
-                <td class="light"/>
-                <td class="message" colspan="3">
-                    <xsl:value-of select="./message"/>
-                </td>
-            </tr>
-        </xsl:for-each>
+        <xsl:if test="count(./log) &gt; 0">
+	        <tr style="display: none;">
+                <xsl:attribute name="id">
+                    <xsl:text>log_</xsl:text>
+                    <xsl:value-of select="@id" />
+                </xsl:attribute>
+
+	            <td class="light"/>
+	            <td class="light"/>
+	            <td class="light"/>
+	            <td class="light"/>
+	            <td class="message" colspan="4">
+		            <table cellpadding="1" cellspacing="0" width="100%">
+		                <xsl:for-each select="./log">
+                            <tr>
+	                            <td>
+							        <xsl:choose>
+							            <xsl:when test="./level[text() = 'INFO']">
+							                <img src="./images/log_info.png" width="11" height="11" alt="failed"/>
+							            </xsl:when>
+	                                    <xsl:when test="./level[text() = 'WARN']">
+	                                        <img src="./images/log_warn.png" width="11" height="11" alt="failed"/>
+	                                    </xsl:when>
+							            <xsl:otherwise>
+							                <xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text>
+							            </xsl:otherwise>
+							        </xsl:choose>
+	                            </td>
+		                        <td>
+		                            <xsl:value-of select="./message"/>
+		                        </td>
+	                        </tr>
+		                </xsl:for-each>
+		            </table>
+	            </td>
+	        </tr>
+        </xsl:if>
 
         <xsl:if test="(count(./testcase)) &gt; 0">
               <tr style="display: none">
@@ -791,7 +839,7 @@
                    <td class="light"/>
                    <td class="light"/>
                    <td class="light"/>
-                   <td class="light">
+                   <td class="light" colspan="4">
                        <xsl:for-each select="testcase">
                             <xsl:call-template name="testcaseTable"/>
                        </xsl:for-each>
