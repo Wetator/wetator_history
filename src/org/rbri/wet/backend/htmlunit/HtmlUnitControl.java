@@ -115,12 +115,12 @@ public final class HtmlUnitControl implements Control {
         } catch (WrappedException e) {
             Assert.fail("javascriptError", new String[] {ExceptionUtil.getMessageFromScriptExceptionCauseIfPossible(e)});
         } catch (Throwable e) {
-            Assert.fail("serverError", new String[] {e.getMessage()});
+            Assert.fail("serverError", new String[] {e.getMessage(), getDescribingText()});
         }
 
         // only a problem with the javascript triggered by the focus call
         if (null != tmpScriptErrorMessage) {
-            Assert.fail("javascriptError", new String[] {tmpScriptErrorMessage, getDescribingText()});
+            Assert.fail("javascriptError", new String[] {tmpScriptErrorMessage});
         }
     }
 
