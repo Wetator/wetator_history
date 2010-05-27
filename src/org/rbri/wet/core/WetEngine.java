@@ -110,15 +110,20 @@ public final class WetEngine {
             informListenersTestStart();
             try {
                 for (File tmpFile : files) {
-                    // TODO
-                    LOG.info("Executing tests from file '" + tmpFile.getAbsolutePath() + "'");
+                	try {
+	                    // TODO
+	                    LOG.info("Executing tests from file '" + tmpFile.getAbsolutePath() + "'");
 
-                    // new session for every (root) file
-                    getWetBackend().startNewSession();
+	                    // new session for every (root) file
+	                    getWetBackend().startNewSession();
 
-                    // setup the context
-                    WetContext tmpWetContext = new WetContext(this, tmpFile);
-                    tmpWetContext.execute();
+	                    // setup the context
+	                    WetContext tmpWetContext = new WetContext(this, tmpFile);
+	                    tmpWetContext.execute();
+                	} catch (Throwable e) {
+                		// informListenersWarn("testCaseError", new String[] {e.getMessage()});
+                		e.printStackTrace();
+                	}
                 }
             } finally {
                 informListenersTestEnd();

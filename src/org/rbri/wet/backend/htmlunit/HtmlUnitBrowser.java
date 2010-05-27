@@ -130,7 +130,12 @@ public final class HtmlUnitBrowser implements WetBackend {
 
         // TODO maybe we have to do more here
         if (null != webClient) {
-        	webClient.closeAllWindows();
+        	try {
+        		webClient.closeAllWindows();
+        	} catch (ScriptException e) {
+				// TODO: handle exception
+                e.printStackTrace();
+			}
         }
 
 
@@ -247,12 +252,12 @@ public final class HtmlUnitBrowser implements WetBackend {
         } catch (WrappedException e) {
             Assert.fail("javascriptError", new String[] {ExceptionUtil.getMessageFromScriptExceptionCauseIfPossible(e)});
         } catch (FailingHttpStatusCodeException e) {
-            Assert.fail("serverError", new String[] {aUrl.toString(), e.getMessage()});
+            Assert.fail("openServerError", new String[] {aUrl.toString(), e.getMessage()});
         } catch (UnknownHostException e) {
             Assert.fail("unknownHostError", new String[] {aUrl.toString(), e.getMessage()});
         } catch (Throwable e) {
             LOG.fatal("OpenUrl '" + aUrl.toExternalForm() + "'fails", e);
-            Assert.fail("serverError", new String[] {aUrl.toString(), e.getMessage()});
+            Assert.fail("openServerError", new String[] {aUrl.toString(), e.getMessage()});
         }
 
         String aRef = aUrl.getRef();

@@ -17,7 +17,6 @@
 package org.rbri.wet.backend.htmlunit;
 
 import java.io.File;
-import java.io.IOException;
 
 import net.sourceforge.htmlunit.corejs.javascript.WrappedException;
 
@@ -27,7 +26,6 @@ import org.rbri.wet.backend.htmlunit.util.ExceptionUtil;
 import org.rbri.wet.backend.htmlunit.util.HtmlElementUtil;
 import org.rbri.wet.backend.htmlunit.util.PageUtil;
 import org.rbri.wet.exception.AssertionFailedException;
-import org.rbri.wet.exception.WetException;
 import org.rbri.wet.util.Assert;
 import org.rbri.wet.util.SecretString;
 
@@ -86,7 +84,7 @@ public final class HtmlUnitControl implements Control {
     }
 
 
-    public void click() throws WetException, AssertionFailedException {
+    public void click() throws AssertionFailedException {
         HtmlElement tmpHtmlElement = getHtmlElement();
         String tmpScriptErrorMessage = null;
 
@@ -116,18 +114,18 @@ public final class HtmlUnitControl implements Control {
             Assert.fail("javascriptError", new String[] {e.getMessage()});
         } catch (WrappedException e) {
             Assert.fail("javascriptError", new String[] {ExceptionUtil.getMessageFromScriptExceptionCauseIfPossible(e)});
-        } catch (IOException e) {
-            throw new WetException("Error clicking element [" + getDescribingText() + "].", e);
+        } catch (Throwable e) {
+            Assert.fail("serverError", new String[] {e.getMessage()});
         }
 
         // only a problem with the javascript triggered by the focus call
         if (null != tmpScriptErrorMessage) {
-            Assert.fail("javascriptError", new String[] {tmpScriptErrorMessage});
+            Assert.fail("javascriptError", new String[] {tmpScriptErrorMessage, getDescribingText()});
         }
     }
 
 
-    public void mouseOver() throws WetException, AssertionFailedException {
+    public void mouseOver() throws AssertionFailedException {
         HtmlElement tmpHtmlElement = getHtmlElement();
         String tmpScriptErrorMessage = null;
 
@@ -148,6 +146,8 @@ public final class HtmlUnitControl implements Control {
             Assert.fail("javascriptError", new String[] {e.getMessage()});
         } catch (WrappedException e) {
             Assert.fail("javascriptError", new String[] {ExceptionUtil.getMessageFromScriptExceptionCauseIfPossible(e)});
+        } catch (Throwable e) {
+            Assert.fail("serverError", new String[] {e.getMessage(), getDescribingText()});
         }
 
         // only a problem with the javascript triggered by the focus call
@@ -157,7 +157,7 @@ public final class HtmlUnitControl implements Control {
     }
 
 
-    public void select() throws WetException, AssertionFailedException {
+    public void select() throws AssertionFailedException {
         HtmlElement tmpHtmlElement = getHtmlElement();
         String tmpScriptErrorMessage = null;
 
@@ -189,6 +189,8 @@ public final class HtmlUnitControl implements Control {
             Assert.fail("javascriptError", new String[] {e.getMessage()});
         } catch (WrappedException e) {
             Assert.fail("javascriptError", new String[] {ExceptionUtil.getMessageFromScriptExceptionCauseIfPossible(e)});
+        } catch (Throwable e) {
+            Assert.fail("serverError", new String[] {e.getMessage(), getDescribingText()});
         }
 
         // only a problem with the javascript triggered by the focus call
@@ -198,7 +200,7 @@ public final class HtmlUnitControl implements Control {
     }
 
 
-    public void setValue(final SecretString aValue, final File aDirectory) throws WetException, AssertionFailedException {
+    public void setValue(final SecretString aValue, final File aDirectory) throws AssertionFailedException {
         HtmlElement tmpHtmlElement = getHtmlElement();
         String tmpScriptErrorMessage = null;
 
@@ -258,8 +260,8 @@ public final class HtmlUnitControl implements Control {
             Assert.fail("javascriptError", new String[] {e.getMessage()});
         } catch (WrappedException e) {
             Assert.fail("javascriptError", new String[] {ExceptionUtil.getMessageFromScriptExceptionCauseIfPossible(e)});
-        } catch (IOException e) {
-            throw new WetException("Error typing text into element [" + getDescribingText() + "].", e);
+        } catch (Throwable e) {
+            Assert.fail("serverError", new String[] {e.getMessage(), getDescribingText()});
         }
 
         // only a problem with the javascript triggered by the focus call
@@ -268,7 +270,7 @@ public final class HtmlUnitControl implements Control {
         }
     }
 
-    public boolean isDisabled() throws WetException, AssertionFailedException {
+    public boolean isDisabled() throws AssertionFailedException {
         HtmlElement tmpHtmlElement = getHtmlElement();
 
         if (tmpHtmlElement instanceof DisabledElement) {
@@ -283,7 +285,7 @@ public final class HtmlUnitControl implements Control {
     }
 
 
-    public boolean isSelected() throws WetException, AssertionFailedException {
+    public boolean isSelected() throws AssertionFailedException {
         HtmlElement tmpHtmlElement = getHtmlElement();
 
         if (tmpHtmlElement instanceof HtmlCheckBoxInput) {
@@ -306,7 +308,7 @@ public final class HtmlUnitControl implements Control {
     }
 
 
-    public String getValue() throws WetException, AssertionFailedException {
+    public String getValue() throws AssertionFailedException {
         HtmlElement tmpHtmlElement = getHtmlElement();
 
         if (tmpHtmlElement instanceof HtmlInput) {
