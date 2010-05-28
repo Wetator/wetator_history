@@ -79,7 +79,7 @@
 		<echo>Compiling with Java target ${javac.target}</echo>
 
 		<javac srcdir="${dir.src}" encoding="iso-8859-1" debug="on" debuglevel="lines,vars,source"
-      target="${javac.target}" destdir="${dir.build}/classes">
+			  target="${javac.target}" destdir="${dir.build}/classes">
 			<classpath>
 				<fileset dir="${dir.lib}">
 					<include name="**/*.jar"/>
@@ -182,11 +182,10 @@
 			<lib>
 				<fileset dir="${dir.lib}">
 					<include name="*.jar" />
-<!--					<include name="automaton/*.jar" />
-					<include name="htmlunit/*.jar" />
-					<include name="log4j/*.jar" />
-					<include name="pdfbox/*.jar" />
-					<include name="poi/*.jar" />-->
+
+					<exclude name="ant-*.jar" />
+                    <exclude name="hsqldb-*.jar" />
+                    <exclude name="junit-*.jar" />
 				</fileset>
 			</lib>
 		</one-jar>
@@ -255,22 +254,11 @@ echo location of the Java Virtual Machine you want to use.
 
 	        <zipfileset dir="${dir.lib}" prefix="lib">
                 <include name="*.jar" />
+
+	        	<exclude name="ant-*.jar" />
+                <exclude name="hsqldb-*.jar" />
+                <exclude name="junit-*.jar" />
             </zipfileset>
-<!--			<zipfileset dir="${dir.lib}/automaton" prefix="lib">
-				<include name="*.jar" />
-			</zipfileset>
-			<zipfileset dir="${dir.lib}/htmlunit" prefix="lib">
-				<include name="*.jar" />
-			</zipfileset>
-			<zipfileset dir="${dir.lib}/log4j" prefix="lib">
-				<include name="*.jar" />
-			</zipfileset>
-			<zipfileset dir="${dir.lib}/pdfbox" prefix="lib">
-				<include name="*.jar" />
-			</zipfileset>
-			<zipfileset dir="${dir.lib}/poi" prefix="lib">
-				<include name="*.jar" />
-			</zipfileset>-->
 
 			<zipfileset dir="${dir.samples}/ant" prefix="templates">
 				<include name="build.xml" />
@@ -279,32 +267,39 @@ echo location of the Java Virtual Machine you want to use.
 
 		<!-- generate src zip -->
 		<zip destfile="${dir.deploy}/${application.jar-basename}_src_${application.version}.zip">
-            <zipfileset dir="." >
+            <fileset dir="." >
                 <include name=".classpath" />
                 <include name=".project" />
+                <include name="build.xml" />
                 <include name="build-properties.xml" />
+                <include name="ivy.xml" />
+                <include name="ivysettings.xml" />
+                <include name="LICENSE.txt" />
+                <include name="readme.txt" />
+            </fileset>
+
+            <zipfileset dir="${dir.lib}" prefix="{dir.lib}">
+                <exclude name="**/**" />
             </zipfileset>
 
-            <fileset dir="${dir.lib}" >
+            <zipfileset dir="${dir.samples}" prefix="${dir.samples}">
                 <exclude name="**/**" />
-            </fileset>
+            </zipfileset>
 
-            <fileset dir="${dir.samples}" >
-                <exclude name="**/**" />
-            </fileset>
+            <zipfileset dir="${dir.src}" prefix="${dir.src}">
+                <exclude name="**/jdoc/**" />
+                <exclude name="**/*.jpage*" />
+            </zipfileset>
 
-			<fileset dir="${dir.src}" >
-				<exclude name="**/jdoc/**" />
-				<exclude name="**/*.jpage*" />
-			</fileset>
+            <zipfileset dir="${dir.test}" prefix="${dir.test}">
+                <exclude name="**/jdoc/**" />
+                <exclude name="**/*.jpage*" />
+            </zipfileset>
 
-            <fileset dir="${dir.test}" >
-                <exclude name="**/**" />
-            </fileset>
-
-            <fileset dir="${dir.xsl}" >
-                <exclude name="**/**" />
-            </fileset>
+            <zipfileset dir="${dir.xsl}" prefix="${dir.xsl}">
+                <include name="**/**.png" />
+                <include name="**/**.xsl" />
+            </zipfileset>
 		</zip>
 
 		<!-- generate web zip -->

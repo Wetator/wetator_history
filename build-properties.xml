@@ -29,7 +29,7 @@
   </ivy>
 
   <javac>
-    <target>1.5</target>
+    <target>1.6</target>
   </javac>
 
 </build-properties>
