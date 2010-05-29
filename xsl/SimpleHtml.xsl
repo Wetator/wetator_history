@@ -368,19 +368,13 @@
               <td>
                   <span class="bold">Configuration</span>
                   <xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text>
-                  <a>
-            <xsl:attribute name="href">#</xsl:attribute>
-                        <img src="images/expandall.png" onclick="showOrHide(this, 'configuration')" alt="show/hide Configuration"/>
-                  </a>
+                  <img src="images/expandall.png" onclick="showOrHide(this, 'configuration')" alt="show/hide Configuration" style="cursor: pointer;"/>
               </td>
               <td width="50px"></td>
               <td>
                   <span class="bold">Variables</span>
                   <xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text>
-                  <a>
-                        <xsl:attribute name="href">#</xsl:attribute>
-                        <img src="images/expandall.png" onclick="showOrHide(this, 'variables')" alt="show/hide Variables"/>
-                    </a>
+                  <img src="images/expandall.png" onclick="showOrHide(this, 'variables')" alt="show/hide Variables" style="cursor: pointer;"/>
               </td>
           </tr>
 
@@ -634,20 +628,17 @@
             <xsl:value-of select="$lineStyle" />
             <xsl:text disable-output-escaping="yes">" align="center"&gt;</xsl:text>
                 <xsl:if test="count(./testcase) &gt; 0">
-                    <a>
-                        <xsl:attribute name="href">#</xsl:attribute>
-                      <img src="images/expandall.png" alt="Show/Hide sub testcase">
-                          <xsl:attribute name="id">
-                              <xsl:text>showHide_testcase_</xsl:text>
-                              <xsl:value-of select="testcase/@id" />
-                          </xsl:attribute>
-                          <xsl:attribute name="onclick">
-                            <xsl:text>showOrHide(this, 'testcase_</xsl:text>
+                    <img src="images/expandall.png" alt="Show/Hide sub testcase" style="cursor: pointer;">
+                        <xsl:attribute name="id">
+                            <xsl:text>showHide_testcase_</xsl:text>
                             <xsl:value-of select="testcase/@id" />
-                            <xsl:text>');</xsl:text>
-                          </xsl:attribute>
-                      </img>
-                    </a>
+                        </xsl:attribute>
+                        <xsl:attribute name="onclick">
+                          <xsl:text>showOrHide(this, 'testcase_</xsl:text>
+                          <xsl:value-of select="testcase/@id" />
+                          <xsl:text>');</xsl:text>
+                        </xsl:attribute>
+                    </img>
                 </xsl:if>
                 <xsl:if test="count(./response) &gt; 0">
                     <xsl:for-each select="./response">
@@ -691,20 +682,17 @@
             <xsl:value-of select="$lineStyle" />
             <xsl:text disable-output-escaping="yes">" &gt;</xsl:text>
                 <xsl:if test="count(./log) &gt; 0">
-                    <a>
-                        <xsl:attribute name="href">#</xsl:attribute>
-                      <img src="images/expandlog.png" alt="Show/Hide log entries">
-                          <xsl:attribute name="id">
-                              <xsl:text>showHide_log_</xsl:text>
-                              <xsl:value-of select="@id" />
-                          </xsl:attribute>
-                          <xsl:attribute name="onclick">
-                              <xsl:text>showOrHide(this, 'log_</xsl:text>
-                              <xsl:value-of select="@id" />
-                              <xsl:text>');</xsl:text>
-                          </xsl:attribute>
-                      </img>
-                    </a>
+                    <img src="images/expandlog.png" alt="Show/Hide log entries" style="cursor: pointer;">
+                        <xsl:attribute name="id">
+                            <xsl:text>showHide_log_</xsl:text>
+                            <xsl:value-of select="@id" />
+                        </xsl:attribute>
+                        <xsl:attribute name="onclick">
+                            <xsl:text>showOrHide(this, 'log_</xsl:text>
+                            <xsl:value-of select="@id" />
+                            <xsl:text>');</xsl:text>
+                        </xsl:attribute>
+                    </img>
                 </xsl:if>
             <xsl:text disable-output-escaping="yes">&lt;/td&gt;</xsl:text>
 
