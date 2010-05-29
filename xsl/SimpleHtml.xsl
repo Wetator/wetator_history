@@ -73,7 +73,7 @@
                 <center><p><img src="images/wetator.png" alt="Wetator"/></p></center>
 
                 <!-- Overview -->
-                <a name="overview"></a>
+                <a name="overview"/>
                 <h1>Overview</h1>
 
 	            <xsl:variable name="overview.okColor">#339F00</xsl:variable>
@@ -345,7 +345,7 @@
                 <xsl:call-template name="configuration"/>
 
                 <!-- All individual test results -->
-                <a name="details"><br/></a>
+                <a name="details"/>
                 <h1>Result Details</h1>
                 <xsl:for-each select="wet/testcase">
                     <xsl:call-template name="testresult" />
@@ -368,13 +368,19 @@
 	            <td>
 	                <span class="bold">Configuration</span>
 	                <xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text>
-	                <img src="images/expandall.png" onclick="showOrHide(this, 'configuration')" alt="show/hide Configuration"/>
+	                <a>
+						<xsl:attribute name="href">#</xsl:attribute>
+                        <img src="images/expandall.png" onclick="showOrHide(this, 'configuration')" alt="show/hide Configuration"/>
+	                </a>
 	            </td>
 	            <td width="50px"></td>
 	            <td>
 	                <span class="bold">Variables</span>
 	                <xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text>
-	                <img src="images/expandall.png" onclick="showOrHide(this, 'variables')" alt="show/hide Variables"/>
+	                <a>
+                        <xsl:attribute name="href">#</xsl:attribute>
+                        <img src="images/expandall.png" onclick="showOrHide(this, 'variables')" alt="show/hide Variables"/>
+                    </a>
 	            </td>
 	        </tr>
 
@@ -551,8 +557,9 @@
 
         <p>
             <a href="#overview">
-            <img src="images/top.png" width="11" height="10" alt="top"/>
-            Back to Test Report Overview</a>
+                <img src="images/top.png" width="11" height="10" alt="top"/>
+                Back to Test Report Overview
+            </a>
         </p>
     </xsl:template>
 
@@ -627,17 +634,20 @@
             <xsl:value-of select="$lineStyle" />
             <xsl:text disable-output-escaping="yes">" align="center"&gt;</xsl:text>
                 <xsl:if test="count(./testcase) &gt; 0">
-                    <img src="images/expandall.png" alt="Show/Hide sub testcase">
-                        <xsl:attribute name="id">
-                            <xsl:text>showHide_testcase_</xsl:text>
-                            <xsl:value-of select="testcase/@id" />
-                        </xsl:attribute>
-                        <xsl:attribute name="onclick">
-	                        <xsl:text>showOrHide(this, 'testcase_</xsl:text>
-	                        <xsl:value-of select="testcase/@id" />
-	                        <xsl:text>');</xsl:text>
-                        </xsl:attribute>
-                    </img>
+                    <a>
+                        <xsl:attribute name="href">#</xsl:attribute>
+	                    <img src="images/expandall.png" alt="Show/Hide sub testcase">
+	                        <xsl:attribute name="id">
+	                            <xsl:text>showHide_testcase_</xsl:text>
+	                            <xsl:value-of select="testcase/@id" />
+	                        </xsl:attribute>
+	                        <xsl:attribute name="onclick">
+		                        <xsl:text>showOrHide(this, 'testcase_</xsl:text>
+		                        <xsl:value-of select="testcase/@id" />
+		                        <xsl:text>');</xsl:text>
+	                        </xsl:attribute>
+	                    </img>
+                    </a>
                 </xsl:if>
                 <xsl:if test="count(./response) &gt; 0">
                     <xsl:for-each select="./response">
@@ -681,17 +691,20 @@
             <xsl:value-of select="$lineStyle" />
             <xsl:text disable-output-escaping="yes">" &gt;</xsl:text>
                 <xsl:if test="count(./log) &gt; 0">
-                    <img src="images/expandlog.png" alt="Show/Hide log entries">
-                        <xsl:attribute name="id">
-                            <xsl:text>showHide_log_</xsl:text>
-                            <xsl:value-of select="@id" />
-                        </xsl:attribute>
-                        <xsl:attribute name="onclick">
-                            <xsl:text>showOrHide(this, 'log_</xsl:text>
-                            <xsl:value-of select="@id" />
-                            <xsl:text>');</xsl:text>
-                        </xsl:attribute>
-                    </img>
+                    <a>
+                        <xsl:attribute name="href">#</xsl:attribute>
+	                    <img src="images/expandlog.png" alt="Show/Hide log entries">
+	                        <xsl:attribute name="id">
+	                            <xsl:text>showHide_log_</xsl:text>
+	                            <xsl:value-of select="@id" />
+	                        </xsl:attribute>
+	                        <xsl:attribute name="onclick">
+	                            <xsl:text>showOrHide(this, 'log_</xsl:text>
+	                            <xsl:value-of select="@id" />
+	                            <xsl:text>');</xsl:text>
+	                        </xsl:attribute>
+	                    </img>
+                    </a>
                 </xsl:if>
             <xsl:text disable-output-escaping="yes">&lt;/td&gt;</xsl:text>
 
@@ -719,11 +732,11 @@
                                         <xsl:text>#</xsl:text>
                                         <xsl:value-of select="@id"/>
                                     </xsl:attribute>
-                                       <xsl:attribute name="onclick">
-                                            <xsl:text>makeVisible('testcase_</xsl:text>
-                                         <xsl:value-of select="parent::testcase/@id" />
-                                            <xsl:text>');</xsl:text>
-                                       </xsl:attribute>
+                                    <xsl:attribute name="onclick">
+                                         <xsl:text>makeVisible('testcase_</xsl:text>
+                                      <xsl:value-of select="parent::testcase/@id" />
+                                         <xsl:text>');</xsl:text>
+                                    </xsl:attribute>
 
                                     <img src="images/previous.png" width="11" height="10" alt="previous error"/>
                                 </a>
@@ -736,11 +749,11 @@
                                         <xsl:text>#</xsl:text>
                                         <xsl:value-of select="@id"/>
                                     </xsl:attribute>
-                                       <xsl:attribute name="onclick">
-                                            <xsl:text>makeVisible('testcase_</xsl:text>
-                                         <xsl:value-of select="parent::testcase/@id" />
-                                            <xsl:text>');</xsl:text>
-                                       </xsl:attribute>
+                                    <xsl:attribute name="onclick">
+                                         <xsl:text>makeVisible('testcase_</xsl:text>
+                                      <xsl:value-of select="parent::testcase/@id" />
+                                         <xsl:text>');</xsl:text>
+                                    </xsl:attribute>
 
                                     <img src="images/previous.png" width="11" height="10" alt="previous error"/>
                                 </a>
@@ -757,11 +770,11 @@
                                         <xsl:text>#</xsl:text>
                                         <xsl:value-of select="@id"/>
                                     </xsl:attribute>
-                                       <xsl:attribute name="onclick">
-                                            <xsl:text>makeVisible('testcase_</xsl:text>
-                                         <xsl:value-of select="parent::testcase/@id" />
-                                            <xsl:text>');</xsl:text>
-                                       </xsl:attribute>
+                                    <xsl:attribute name="onclick">
+                                         <xsl:text>makeVisible('testcase_</xsl:text>
+                                      <xsl:value-of select="parent::testcase/@id" />
+                                         <xsl:text>');</xsl:text>
+                                    </xsl:attribute>
 
                                     <img src="images/next.png" width="11" height="10" alt="next error"/>
                                 </a>
@@ -774,11 +787,11 @@
                                         <xsl:text>#</xsl:text>
                                         <xsl:value-of select="@id"/>
                                     </xsl:attribute>
-                                       <xsl:attribute name="onclick">
-                                            <xsl:text>makeVisible('testcase_</xsl:text>
-                                         <xsl:value-of select="parent::testcase/@id" />
-                                            <xsl:text>');</xsl:text>
-                                       </xsl:attribute>
+                                    <xsl:attribute name="onclick">
+                                         <xsl:text>makeVisible('testcase_</xsl:text>
+                                      <xsl:value-of select="parent::testcase/@id" />
+                                         <xsl:text>');</xsl:text>
+                                    </xsl:attribute>
 
                                     <img src="images/next.png" width="11" height="10" alt="next error"/>
                                 </a>
