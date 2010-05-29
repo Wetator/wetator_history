@@ -40,7 +40,7 @@ public class WetScriptConverter {
   WetScripter scripter;
   WetScriptCreator creator;
 
-  private LinkedList<File> inputFiles;
+  private List<File> inputFiles;
 
   /**
    * Constructor

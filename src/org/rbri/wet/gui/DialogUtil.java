@@ -27,7 +27,7 @@ import org.rbri.wet.i18n.Messages;
 /**
  * @author rbri
  */
-public class DialogUtil {
+public final class DialogUtil {
 
   private static final String LAST_DIR = "lastDir";
 
@@ -90,17 +90,23 @@ public class DialogUtil {
           }
 
           return tmpSelectedFiles;
-        } else {
-          File tmpSelectedFile = tmpFileChooser.getSelectedFile();
-          if (null == tmpSelectedFile) {
-            return null;
-          }
-          return new File[] { tmpSelectedFile };
         }
+        File tmpSelectedFile = tmpFileChooser.getSelectedFile();
+        if (null == tmpSelectedFile) {
+          return null;
+        }
+        return new File[] { tmpSelectedFile };
       case JFileChooser.CANCEL_OPTION:
         return null;
       default:
         return null;
     }
+  }
+
+  /**
+   * This class should not be instantiated.
+   */
+  private DialogUtil() {
+    // nothing
   }
 }

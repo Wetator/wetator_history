@@ -30,6 +30,7 @@ import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
 import org.rbri.wet.core.Parameter;
 import org.rbri.wet.core.WetCommand;
 import org.rbri.wet.exception.WetException;
@@ -87,7 +88,7 @@ public final class ExcelScripter implements WetScripter {
   }
 
   private List<WetCommand> readCommands() throws WetException {
-    LinkedList<WetCommand> tmpResult = new LinkedList<WetCommand>();
+    List<WetCommand> tmpResult = new LinkedList<WetCommand>();
 
     try {
       inputStream = new FileInputStream(getFile().getAbsoluteFile());
@@ -191,25 +192,25 @@ public final class ExcelScripter implements WetScripter {
     tmpCellType = tmpCell.getCellType();
 
     switch (tmpCellType) {
-      case HSSFCell.CELL_TYPE_BLANK:
+      case Cell.CELL_TYPE_BLANK:
         tmpResult = "";
         break;
-      case HSSFCell.CELL_TYPE_STRING:
+      case Cell.CELL_TYPE_STRING:
         tmpResult = tmpCell.getRichStringCellValue().getString();
         break;
       // for convenience support numbers also
-      case HSSFCell.CELL_TYPE_NUMERIC:
+      case Cell.CELL_TYPE_NUMERIC:
         tmpResult = "" + tmpCell.getNumericCellValue();
         break;
 
       // deal with the other possible cases
-      case HSSFCell.CELL_TYPE_BOOLEAN:
+      case Cell.CELL_TYPE_BOOLEAN:
         throw new WetException("Unsupported cell type 'boolean' row: " + aRow.getRowNum() + " column: " + aColumnsNo
             + " (file: '" + getFile().getAbsolutePath() + "').");
-      case HSSFCell.CELL_TYPE_ERROR:
+      case Cell.CELL_TYPE_ERROR:
         throw new WetException("Unsupported cell type 'error' row: " + aRow.getRowNum() + " column: " + aColumnsNo
             + " (file: '" + getFile().getAbsolutePath() + "').");
-      case HSSFCell.CELL_TYPE_FORMULA:
+      case Cell.CELL_TYPE_FORMULA:
         throw new WetException("Unsupported cell type 'formula' row: " + aRow.getRowNum() + " column: " + aColumnsNo
             + " (file: '" + getFile().getAbsolutePath() + "').");
       default:

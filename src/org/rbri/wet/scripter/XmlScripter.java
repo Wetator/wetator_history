@@ -105,7 +105,7 @@ public final class XmlScripter implements WetScripter {
   }
 
   private List<WetCommand> readCommands() throws WetException {
-    LinkedList<WetCommand> tmpResult = new LinkedList<WetCommand>();
+    List<WetCommand> tmpResult = new LinkedList<WetCommand>();
 
     try {
       inputStream = new FileInputStream(file);

@@ -50,4 +50,11 @@ public final class Messages {
 
     return tmpResult;
   }
+
+  /**
+   * This class should not be instantiated.
+   */
+  private Messages() {
+    // nothing
+  }
 }
