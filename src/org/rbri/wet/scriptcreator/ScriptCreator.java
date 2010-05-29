@@ -35,6 +35,9 @@ public enum ScriptCreator
     	wetScriptCreator = aWetScriptCreator;
     }
 
+	/**
+	 * @return the wetScriptCreator
+	 */
 	public WetScriptCreator getWetScriptCreator() {
 		return wetScriptCreator;
 	}

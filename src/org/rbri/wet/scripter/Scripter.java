@@ -39,6 +39,9 @@ public enum Scripter
     	wetScripter = aWetScripter;
     }
 
+	/**
+	 * @return the wetScripter
+	 */
 	public WetScripter getWetScripter() {
 		return wetScripter;
 	}
