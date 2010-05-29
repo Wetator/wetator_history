@@ -24,17 +24,17 @@ import junit.framework.TestSuite;
  */
 public class AllTests {
 
-	public static void main(String[] args) {
-        junit.textui.TestRunner.run(suite());
-    }
+  public static void main(String[] args) {
+    junit.textui.TestRunner.run(suite());
+  }
 
-    public static Test suite() {
+  public static Test suite() {
 
-        TestSuite suite = new TestSuite("All Wetator scripter result tests");
+    TestSuite suite = new TestSuite("All Wetator scripter result tests");
 
-        suite.addTest(ExcelScripterTest.suite());
-        suite.addTest(XmlScripterTest.suite());
+    suite.addTest(ExcelScripterTest.suite());
+    suite.addTest(XmlScripterTest.suite());
 
-        return suite;
-    }
+    return suite;
+  }
 }

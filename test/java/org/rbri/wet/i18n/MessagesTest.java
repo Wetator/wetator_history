@@ -25,17 +25,17 @@ import junit.framework.TestSuite;
  */
 public class MessagesTest extends TestCase {
 
-    public static void main(String[] args) {
-        junit.textui.TestRunner.run(suite());
-    }
+  public static void main(String[] args) {
+    junit.textui.TestRunner.run(suite());
+  }
 
-    public static Test suite() {
-        return new TestSuite(MessagesTest.class);
-    }
+  public static Test suite() {
+    return new TestSuite(MessagesTest.class);
+  }
 
-    public void testGetMessage() {
-        String tmpMessage = Messages.getMessage("emptyFirstParameter", new String[] {"param1"});
-        
-        assertEquals("The command 'param1' requires a first parameter.", tmpMessage);
-    }
+  public void testGetMessage() {
+    String tmpMessage = Messages.getMessage("emptyFirstParameter", new String[] { "param1" });
+
+    assertEquals("The command 'param1' requires a first parameter.", tmpMessage);
+  }
 }

@@ -16,110 +16,90 @@
 
 package org.rbri.wet.commandset;
 
-
 /**
  * Small class that offers some methods to be executed via 'Exec Java' command
- *
+ * 
  * @author rbri
  */
-public final class ExecTester  {
+public final class ExecTester {
 
-    public static void staticVoidMethodWithoutParams() {
-        // nothing to do
-    }
+  public static void staticVoidMethodWithoutParams() {
+    // nothing to do
+  }
 
+  public static void staticVoidMethodWithOneParam(String aParam1) {
+    // nothing to do
+  }
 
-    public static void staticVoidMethodWithOneParam(String aParam1) {
-        // nothing to do
-    }
+  public static void staticVoidMethodWithTwoParams(String aParam1, String aParam2) {
+    // nothing to do
+  }
 
+  public static void staticVoidMethodWithStringArray(String[] aParam) {
+    // nothing to do
+  }
 
-    public static void staticVoidMethodWithTwoParams(String aParam1, String aParam2) {
-        // nothing to do
-    }
+  public static void staticVoidMethodWithVarargs(String... aParams) {
+    // nothing to do
+  }
 
+  public static String staticMethodWithoutParams() {
+    return "staticMethodWithoutParams";
+  }
 
-    public static void staticVoidMethodWithStringArray(String[] aParam) {
-        // nothing to do
-    }
+  public static String staticMethodWithOneParam(String aParam1) {
+    return "staticMethodWithOneParam";
+  }
 
+  public static String staticMethodWithTwoParams(String aParam1, String aParam2) {
+    return "staticMethodWithTwoParams";
+  }
 
-    public static void staticVoidMethodWithVarargs(String... aParams) {
-        // nothing to do
-    }
+  public static String staticMethodWithStringArray(String[] aParam) {
+    return "staticMethodWithStringArray";
+  }
 
+  public static String staticMethodWithVarargs(String... aParams) {
+    return "staticMethodWithVarargs";
+  }
 
-    public static String staticMethodWithoutParams() {
-        return "staticMethodWithoutParams";
-    }
+  public void voidMethodWithoutParams() {
+    // nothing to do
+  }
 
+  public void voidMethodWithOneParam(String aParam1) {
+    // nothing to do
+  }
 
-    public static String staticMethodWithOneParam(String aParam1) {
-        return "staticMethodWithOneParam";
-    }
+  public void voidMethodWithTwoParams(String aParam1, String aParam2) {
+    // nothing to do
+  }
 
+  public void voidMethodWithStringArray(String[] aParam) {
+    // nothing to do
+  }
 
-    public static String staticMethodWithTwoParams(String aParam1, String aParam2) {
-        return "staticMethodWithTwoParams";
-    }
+  public void voidMethodWithVarargs(String... aParams) {
+    // nothing to do
+  }
 
+  public String methodWithoutParams() {
+    return "staticMethodWithoutParams";
+  }
 
-    public static String staticMethodWithStringArray(String[] aParam) {
-        return "staticMethodWithStringArray";
-    }
+  public String methodWithOneParam(String aParam1) {
+    return "staticMethodWithOneParam";
+  }
 
+  public String methodWithTwoParams(String aParam1, String aParam2) {
+    return "staticMethodWithTwoParams";
+  }
 
-    public static String staticMethodWithVarargs(String... aParams) {
-        return "staticMethodWithVarargs";
-    }
+  public String methodWithStringArray(String[] aParam) {
+    return "staticMethodWithStringArray";
+  }
 
-
-    public void voidMethodWithoutParams() {
-        // nothing to do
-    }
-
-
-    public void voidMethodWithOneParam(String aParam1) {
-        // nothing to do
-    }
-
-
-    public void voidMethodWithTwoParams(String aParam1, String aParam2) {
-        // nothing to do
-    }
-
-
-    public void voidMethodWithStringArray(String[] aParam) {
-        // nothing to do
-    }
-
-
-    public void voidMethodWithVarargs(String... aParams) {
-        // nothing to do
-    }
-
-
-    public String methodWithoutParams() {
-        return "staticMethodWithoutParams";
-    }
-
-
-    public String methodWithOneParam(String aParam1) {
-        return "staticMethodWithOneParam";
-    }
-
-
-    public String methodWithTwoParams(String aParam1, String aParam2) {
-        return "staticMethodWithTwoParams";
-    }
-
-
-    public String methodWithStringArray(String[] aParam) {
-        return "staticMethodWithStringArray";
-    }
-
-
-    public String methodWithVarargs(String... aParams) {
-        return "staticMethodWithVarargs";
-    }
+  public String methodWithVarargs(String... aParams) {
+    return "staticMethodWithVarargs";
+  }
 }

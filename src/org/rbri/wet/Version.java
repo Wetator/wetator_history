@@ -16,35 +16,34 @@
 
 package org.rbri.wet;
 
-
 /**
  * A small class to maintain the version information.
- *
+ * 
  * @author rbri
  */
 public class Version {
 
-    public static final String PRODUCT_NAME = "Wetator";
-    public static final String VERSION = "0.9.1";
-    public static final String BUILD = "2010052801";
+  public static final String PRODUCT_NAME = "Wetator";
+  public static final String VERSION = "0.9.1";
+  public static final String BUILD = "2010052801";
 
-    public static void main(String[] anArgsArray) {
-        System.out.println(getFullProductName());
-    }
+  public static void main(String[] anArgsArray) {
+    System.out.println(getFullProductName());
+  }
 
-    public static String getFullProductName() {
-        return getProductName() + " Version " + getVersion() + " Build " + getBuild();
-    }
+  public static String getFullProductName() {
+    return getProductName() + " Version " + getVersion() + " Build " + getBuild();
+  }
 
-    public static String getProductName() {
-        return PRODUCT_NAME;
-    }
+  public static String getProductName() {
+    return PRODUCT_NAME;
+  }
 
-    public static String getVersion() {
-        return VERSION;
-    }
+  public static String getVersion() {
+    return VERSION;
+  }
 
-    public static String getBuild() {
-        return BUILD;
-    }
+  public static String getBuild() {
+    return BUILD;
+  }
 }

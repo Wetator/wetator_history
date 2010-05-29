@@ -31,31 +31,31 @@ import org.rbri.wet.exception.WetException;
  */
 public class ExcelScripterTest extends TestCase {
 
-    public static void main(String[] args) {
-        junit.textui.TestRunner.run(suite());
-    }
+  public static void main(String[] args) {
+    junit.textui.TestRunner.run(suite());
+  }
 
-    public static Test suite() {
-        return new TestSuite(ExcelScripterTest.class);
-    }
+  public static Test suite() {
+    return new TestSuite(ExcelScripterTest.class);
+  }
 
-    public void test() throws WetException {
-        ExcelScripter tmpExcelScripter = new ExcelScripter();
-        tmpExcelScripter.setFile(new File("test/excel/assert_content.xls"));
+  public void test() throws WetException {
+    ExcelScripter tmpExcelScripter = new ExcelScripter();
+    tmpExcelScripter.setFile(new File("test/excel/assert_content.xls"));
 
-        List<WetCommand> tmpCommands = tmpExcelScripter.getCommands();
-        assertEquals(55, tmpCommands.size());
+    List<WetCommand> tmpCommands = tmpExcelScripter.getCommands();
+    assertEquals(55, tmpCommands.size());
 
-        WetCommand tmpCommand = tmpCommands.get(0);
-        assertTrue(tmpCommand.isComment());
-        assertEquals("Aktion", tmpCommand.getName());
+    WetCommand tmpCommand = tmpCommands.get(0);
+    assertTrue(tmpCommand.isComment());
+    assertEquals("Aktion", tmpCommand.getName());
 
-        tmpCommand = tmpCommands.get(10);
-        assertTrue(tmpCommand.isComment());
-        assertEquals("Comment", tmpCommand.getName());
+    tmpCommand = tmpCommands.get(10);
+    assertTrue(tmpCommand.isComment());
+    assertEquals("Comment", tmpCommand.getName());
 
-        tmpCommand = tmpCommands.get(54);
-        assertFalse(tmpCommand.isComment());
-        assertEquals("Assert Fail", tmpCommand.getName());
-    }
+    tmpCommand = tmpCommands.get(54);
+    assertFalse(tmpCommand.isComment());
+    assertEquals("Assert Fail", tmpCommand.getName());
+  }
 }

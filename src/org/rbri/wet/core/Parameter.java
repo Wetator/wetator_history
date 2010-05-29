@@ -24,97 +24,88 @@ import org.apache.commons.lang.StringUtils;
 import org.rbri.wet.util.SecretString;
 import org.rbri.wet.util.StringUtil;
 
-
 /**
  * An object that stores a list of parameters.
- *
+ * 
  * @author rbri
  */
 public final class Parameter {
-    public static final String PARAMETER_DELIMITER = ",";
-    public static final char PARAMETER_ESCAPE_CHAR = '\\';
+  public static final String PARAMETER_DELIMITER = ",";
+  public static final char PARAMETER_ESCAPE_CHAR = '\\';
 
-    /**
-     * An object that stores a flat string parameter.
-     */
-    public static final class Part {
-
-        private String value;
-
-        /**
-         * Constructor.
-         */
-        public Part(String aValue) {
-            super();
-            // TODO null check
-            value = aValue;
-        }
-
-
-        public SecretString getValue(WetContext aWetContext) {
-            // double dispatch to resolve the variables
-            SecretString tmpResult = aWetContext.replaceVariables(value);
-            return tmpResult;
-        }
-    }
-
+  /**
+   * An object that stores a flat string parameter.
+   */
+  public static final class Part {
 
     private String value;
-    private List<Part> parameters;
-
 
     /**
      * Constructor.
      */
-    public Parameter(String aValue) {
-        super();
-
-        value = aValue;
+    public Part(String aValue) {
+      super();
+      // TODO null check
+      value = aValue;
     }
-
 
     public SecretString getValue(WetContext aWetContext) {
-        return aWetContext.replaceVariables(value);
+      // double dispatch to resolve the variables
+      SecretString tmpResult = aWetContext.replaceVariables(value);
+      return tmpResult;
+    }
+  }
+
+  private String value;
+  private List<Part> parameters;
+
+  /**
+   * Constructor.
+   */
+  public Parameter(String aValue) {
+    super();
+
+    value = aValue;
+  }
+
+  public SecretString getValue(WetContext aWetContext) {
+    return aWetContext.replaceVariables(value);
+  }
+
+  public Part getFirstPart() {
+    parseIfNeeded();
+    return parameters.get(0);
+  }
+
+  public int getNumberOfParts() {
+    parseIfNeeded();
+    return parameters.size();
+  }
+
+  public List<Part> getParts() {
+    parseIfNeeded();
+    return Collections.unmodifiableList(parameters);
+  }
+
+  private void parseIfNeeded() {
+    if (null != parameters) {
+      return;
     }
 
-
-    public Part getFirstPart() {
-        parseIfNeeded();
-        return parameters.get(0);
+    parameters = new LinkedList<Part>();
+    if (StringUtils.isEmpty(value)) {
+      return;
     }
 
-
-    public int getNumberOfParts() {
-        parseIfNeeded();
-        return parameters.size();
+    List<String> tmpParts = StringUtil.extractStrings(value, PARAMETER_DELIMITER, PARAMETER_ESCAPE_CHAR);
+    for (String tmpString : tmpParts) {
+      Part tmpPart = new Part(tmpString.trim());
+      parameters.add(tmpPart);
     }
+  }
 
-
-    public List<Part> getParts() {
-        parseIfNeeded();
-        return Collections.unmodifiableList(parameters);
-    }
-
-
-    private void parseIfNeeded() {
-        if (null != parameters) {
-            return;
-        }
-
-        parameters = new LinkedList<Part>();
-        if (StringUtils.isEmpty(value)) {
-            return;
-        }
-
-        List<String> tmpParts = StringUtil.extractStrings(value, PARAMETER_DELIMITER, PARAMETER_ESCAPE_CHAR);
-        for (String tmpString : tmpParts) {
-            Part tmpPart = new Part(tmpString.trim());
-            parameters.add(tmpPart);
-        }
-    }
-
-    // TODO security
-    public String getValue(){
-    	return value;
-    }
+  // TODO security
+  public String getValue() {
+    return value;
+  }
 }

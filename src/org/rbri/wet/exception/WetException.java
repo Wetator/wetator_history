@@ -16,7 +16,6 @@
 
 package org.rbri.wet.exception;
 
-
 /**
  * Signals a technical problem.
  * 
@@ -24,13 +23,13 @@ package org.rbri.wet.exception;
  */
 public class WetException extends Exception {
 
-    private static final long serialVersionUID = 3757691195403775693L;
-    
-    public WetException(String aMessage) {
-        super(aMessage);
-    }
-    
-    public WetException(String aMessage, Throwable aThrowable) {
-        super(aMessage, aThrowable);
-    }
+  private static final long serialVersionUID = 3757691195403775693L;
+
+  public WetException(String aMessage) {
+    super(aMessage);
+  }
+
+  public WetException(String aMessage, Throwable aThrowable) {
+    super(aMessage, aThrowable);
+  }
 }

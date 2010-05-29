@@ -19,63 +19,63 @@ package org.rbri.wet.util;
 /**
  * Stores Strings in a normalized way.
  * All whitespace is reduced to one; LineBreak is always \n
- *
+ * 
  * @author rbri
  */
 public final class NormalizedContent {
-    private static final String BLANK = " ";
+  private static final String BLANK = " ";
 
-    private StringBuilder content;
+  private StringBuilder content;
 
-    public NormalizedContent() {
-        content = new StringBuilder();
+  public NormalizedContent() {
+    content = new StringBuilder();
+  }
+
+  public NormalizedContent(String aString) {
+    this();
+    append(aString);
+  }
+
+  public void append(final String aString) {
+    if (null == aString) {
+      return;
+    }
+    if (aString.length() < 1) {
+      return;
     }
 
-    public NormalizedContent(String aString) {
-        this();
-        append(aString);
-    }
+    boolean tmpBlank = (content.length() == 0) || isWhitespace(content.charAt(content.length() - 1));
 
-    public void append(final String aString) {
-        if (null == aString) {
-            return;
+    for (int i = 0; i < aString.length(); i++) {
+      char tmpChar = aString.charAt(i);
+      if (isWhitespace(tmpChar)) {
+        if (!tmpBlank) {
+          tmpBlank = true;
+          // don't use tmpChar here,
+          // we replace all whitespace with a blank
+          content.append(BLANK);
         }
-        if (aString.length() < 1) {
-            return;
-        }
-
-        boolean tmpBlank = (content.length() == 0) || isWhitespace(content.charAt(content.length() -1));
-
-        for (int i = 0; i < aString.length(); i++) {
-            char tmpChar = aString.charAt(i);
-            if (isWhitespace(tmpChar))  {
-                if (!tmpBlank) {
-                    tmpBlank = true;
-                    // don't use tmpChar here,
-                    // we replace all whitespace with a blank
-                    content.append(BLANK);
-                }
-            } else {
-                tmpBlank = false;
-                content.append(tmpChar);
-            }
-        }
+      } else {
+        tmpBlank = false;
+        content.append(tmpChar);
+      }
     }
+  }
 
-    public String substring(int aStartPos, int anEndPos) {
-        return content.substring(aStartPos, anEndPos);
-    }
+  public String substring(int aStartPos, int anEndPos) {
+    return content.substring(aStartPos, anEndPos);
+  }
 
-    public int length() {
-        return content.length();
-    }
+  public int length() {
+    return content.length();
+  }
 
-    public String toString() {
-        return content.toString();
-    }
+  public String toString() {
+    return content.toString();
+  }
 
-    private boolean isWhitespace(char aChar) {
-        // char 160 not detected as whitespace by java
-        return (Character.isWhitespace(aChar) || (char) 160 == aChar);
-    }
+  private boolean isWhitespace(char aChar) {
+    // char 160 not detected as whitespace by java
+    return (Character.isWhitespace(aChar) || (char) 160 == aChar);
+  }
 }

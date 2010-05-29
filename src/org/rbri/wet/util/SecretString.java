@@ -19,103 +19,89 @@ package org.rbri.wet.util;
 import java.util.List;
 import java.util.Locale;
 
-
-
 /**
  * An object that stores a variable.
- *  
+ * 
  * @author rbri
  */
 public final class SecretString {
-    private static final String SECRET_PRINT = "****";
+  private static final String SECRET_PRINT = "****";
 
-    private String value;
-    private String valueForPrint;
-    
-    
-    public static String toString(List<SecretString> aSecretStringList) {
-        StringBuilder tmpResult = new StringBuilder();
+  private String value;
+  private String valueForPrint;
 
-        boolean tmpIsNotFirst = false;
-        for (SecretString tmpSecretString : aSecretStringList) {
-            if (tmpIsNotFirst) {
-                tmpResult.append(", ");
-            } else {
-                tmpIsNotFirst = true;
-            }
-            tmpResult.append(tmpSecretString.toString());
-        }
+  public static String toString(List<SecretString> aSecretStringList) {
+    StringBuilder tmpResult = new StringBuilder();
 
-        return tmpResult.toString();
-    }
-    
-    
-    /**
-     * Constructor.
-     */
-    public SecretString(String aValue, boolean aSecretFlag) {
-        this(aValue, SECRET_PRINT);
-
-        if (!aSecretFlag) {
-            valueForPrint = aValue;
-        }
+    boolean tmpIsNotFirst = false;
+    for (SecretString tmpSecretString : aSecretStringList) {
+      if (tmpIsNotFirst) {
+        tmpResult.append(", ");
+      } else {
+        tmpIsNotFirst = true;
+      }
+      tmpResult.append(tmpSecretString.toString());
     }
 
+    return tmpResult.toString();
+  }
 
-    public SecretString(String aValue, String aValueForPrint) {
-        super();
+  /**
+   * Constructor.
+   */
+  public SecretString(String aValue, boolean aSecretFlag) {
+    this(aValue, SECRET_PRINT);
 
-        value = aValue;
-        valueForPrint = aValueForPrint;
+    if (!aSecretFlag) {
+      valueForPrint = aValue;
     }
+  }
 
+  public SecretString(String aValue, String aValueForPrint) {
+    super();
 
-    public String getValue() {
-        return value;
-    }
-    
-    
-    public void prefixWith(String aValuePrefix) {
-        prefixWith(aValuePrefix, aValuePrefix);
-    }
-    
-    
-    public void prefixWith(String aValuePrefix, String aValueForPrintPrefix) {
-        value = aValuePrefix + value;
-        valueForPrint = aValueForPrintPrefix + valueForPrint;
-    }
-    
-    
-    @Override
-    public String toString() {
-        return valueForPrint;
-    }
-    
+    value = aValue;
+    valueForPrint = aValueForPrint;
+  }
 
-    public SearchPattern getSearchPattern() {
-        return new SearchPattern(getValue());
-    }
-    
+  public String getValue() {
+    return value;
+  }
 
-    public boolean startsWith(String aPrefix) {
-        return value.startsWith(aPrefix);
-    }
+  public void prefixWith(String aValuePrefix) {
+    prefixWith(aValuePrefix, aValuePrefix);
+  }
 
+  public void prefixWith(String aValuePrefix, String aValueForPrintPrefix) {
+    value = aValuePrefix + value;
+    valueForPrint = aValueForPrintPrefix + valueForPrint;
+  }
 
-    public boolean startsWith(String aPrefix, int anOffset) {
-        return value.startsWith(aPrefix, anOffset);
-    }
-    
+  @Override
+  public String toString() {
+    return valueForPrint;
+  }
 
-    public String toLowerCase(Locale aLocale) {
-        return value.toLowerCase(aLocale);
-    }
-    
+  public SearchPattern getSearchPattern() {
+    return new SearchPattern(getValue());
+  }
 
-    public SecretString trim() {
-        value = value.trim();
-        valueForPrint = valueForPrint.trim();
+  public boolean startsWith(String aPrefix) {
+    return value.startsWith(aPrefix);
+  }
 
-        return this;
-    }
+  public boolean startsWith(String aPrefix, int anOffset) {
+    return value.startsWith(aPrefix, anOffset);
+  }
+
+  public String toLowerCase(Locale aLocale) {
+    return value.toLowerCase(aLocale);
+  }
+
+  public SecretString trim() {
+    value = value.trim();
+    valueForPrint = valueForPrint.trim();
+
+    return this;
+  }
 }

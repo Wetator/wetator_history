@@ -29,35 +29,37 @@ import junit.framework.TestSuite;
  */
 public class ContentUtilTest extends TestCase {
 
-    public ContentUtilTest(String name) {
-        super(name);
-    }
+  public ContentUtilTest(String name) {
+    super(name);
+  }
 
-    public static void main(String[] args) {
-        junit.textui.TestRunner.run(suite());
-    }
+  public static void main(String[] args) {
+    junit.textui.TestRunner.run(suite());
+  }
 
-    public static Test suite() {
-        return new TestSuite(ContentUtilTest.class);
-    }
+  public static Test suite() {
+    return new TestSuite(ContentUtilTest.class);
+  }
 
-    public void testGetPdfContentAsString() throws FileNotFoundException, IOException {
-        StringBuilder tmpExpected = new StringBuilder();
-        tmpExpected.append("This is the content of a simple PDF file.");
-        tmpExpected.append(" ");
-        tmpExpected.append("This file is used to test WeT.");
+  public void testGetPdfContentAsString() throws FileNotFoundException, IOException {
+    StringBuilder tmpExpected = new StringBuilder();
+    tmpExpected.append("This is the content of a simple PDF file.");
+    tmpExpected.append(" ");
+    tmpExpected.append("This file is used to test WeT.");
 
-        String tmpContent = ContentUtil.getPdfContentAsString(new FileInputStream("webpages/testcases/download/wet_test.pdf"));
-        assertEquals(tmpExpected.toString(), tmpContent);
-    }
+    String tmpContent = ContentUtil.getPdfContentAsString(new FileInputStream(
+        "webpages/testcases/download/wet_test.pdf"));
+    assertEquals(tmpExpected.toString(), tmpContent);
+  }
 
-    public void testGetXlsContentAsString() throws FileNotFoundException, IOException {
-        StringBuilder tmpExpected = new StringBuilder();
-        tmpExpected.append("[Tab1] Wetator Page 1");
-        tmpExpected.append(" ");
-        tmpExpected.append("[Tab2] Wetator Test Page2 Web application testing is fun");
+  public void testGetXlsContentAsString() throws FileNotFoundException, IOException {
+    StringBuilder tmpExpected = new StringBuilder();
+    tmpExpected.append("[Tab1] Wetator Page 1");
+    tmpExpected.append(" ");
+    tmpExpected.append("[Tab2] Wetator Test Page2 Web application testing is fun");
 
-        String tmpContent = ContentUtil.getXlsContentAsString(new FileInputStream("webpages/testcases/download/wet_test.xls"));
-        assertEquals(tmpExpected.toString(), tmpContent);
-    }
+    String tmpContent = ContentUtil.getXlsContentAsString(new FileInputStream(
+        "webpages/testcases/download/wet_test.xls"));
+    assertEquals(tmpExpected.toString(), tmpContent);
+  }
 }

@@ -22,13 +22,13 @@ import junit.framework.TestSuite;
 
 public final class DefaultCommandSetTest extends TestCase {
 
-    public static void main(String[] args) {
-        junit.textui.TestRunner.run(suite());
-    }
+  public static void main(String[] args) {
+    junit.textui.TestRunner.run(suite());
+  }
 
-    public static Test suite() {
-        return new TestSuite(DefaultCommandSetTest.class);
-    }
+  public static Test suite() {
+    return new TestSuite(DefaultCommandSetTest.class);
+  }
 
-    // is it possible to test commands?
+  // is it possible to test commands?
 }

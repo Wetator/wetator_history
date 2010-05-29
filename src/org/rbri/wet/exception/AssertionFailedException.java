@@ -18,14 +18,14 @@ package org.rbri.wet.exception;
 
 /**
  * Special error in case some assertion fails
- *
+ * 
  * @author rbri
  */
 public class AssertionFailedException extends Exception {
 
-    private static final long serialVersionUID = -1587032805061848761L;
+  private static final long serialVersionUID = -1587032805061848761L;
 
-    public AssertionFailedException(String aMessage) {
-        super(aMessage);
-    }
+  public AssertionFailedException(String aMessage) {
+    super(aMessage);
+  }
 }

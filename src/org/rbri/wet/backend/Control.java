@@ -22,29 +22,29 @@ import org.rbri.wet.exception.AssertionFailedException;
 import org.rbri.wet.exception.WetException;
 import org.rbri.wet.util.SecretString;
 
-
-
-
-
 /**
  * The common interface for the
  * backend.
- *
+ * 
  * @author rbri
  */
 public interface Control {
 
-    public String getDescribingText();
+  public String getDescribingText();
 
-    public boolean isSelected() throws WetException, AssertionFailedException;
-    public boolean isDisabled() throws WetException, AssertionFailedException;
+  public boolean isSelected() throws WetException, AssertionFailedException;
 
-    public String getValue() throws WetException, AssertionFailedException;
+  public boolean isDisabled() throws WetException, AssertionFailedException;
 
-    public void select() throws WetException, AssertionFailedException;
-    public void setValue(SecretString aValue, File aDirectory) throws WetException, AssertionFailedException;
-    public void click() throws WetException, AssertionFailedException;
-    public void mouseOver() throws WetException, AssertionFailedException;
+  public String getValue() throws WetException, AssertionFailedException;
 
-    public boolean hasSameBackendControl(Control aControl);
+  public void select() throws WetException, AssertionFailedException;
+
+  public void setValue(SecretString aValue, File aDirectory) throws WetException, AssertionFailedException;
+
+  public void click() throws WetException, AssertionFailedException;
+
+  public void mouseOver() throws WetException, AssertionFailedException;
+
+  public boolean hasSameBackendControl(Control aControl);
 }

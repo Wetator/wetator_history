@@ -27,78 +27,77 @@ import org.rbri.wet.exception.WetException;
 import org.rbri.wet.gui.DialogUtil;
 import org.rbri.wet.util.StdOutProgressListener;
 
-
 /**
  * The command line interface for the Wetator.
- *
+ * 
  * @author rbri
  */
 public final class Wetator {
 
-    private static final Log LOG = LogFactory.getLog(Wetator.class);
+  private static final Log LOG = LogFactory.getLog(Wetator.class);
 
+  /**
+   * The start point for the command line call
+   * 
+   * @param anArgsArray the command line arguments
+   */
+  public static void main(String[] anArgsArray) {
+    LOG.info(Version.getFullProductName());
+    LOG.info("    " + com.gargoylesoftware.htmlunit.Version.getProductName() + " "
+        + com.gargoylesoftware.htmlunit.Version.getProductVersion());
 
-    /**
-     * The start point for the command line call
-     *
-     * @param anArgsArray the command line arguments
-     */
-    public static void main(String[] anArgsArray) {
-        LOG.info(Version.getFullProductName());
-        LOG.info("    " + com.gargoylesoftware.htmlunit.Version.getProductName() + " " + com.gargoylesoftware.htmlunit.Version.getProductVersion());
+    WetEngineProgressListener tmpProgressListener = new StdOutProgressListener();
 
-        WetEngineProgressListener tmpProgressListener = new StdOutProgressListener();
-
-        String tmpConfigFileName = null;
-        LinkedList<String> tmpFileNames = new LinkedList<String>();
-        // parse the command line
-        for (int i = 0; i < anArgsArray.length; i++) {
-            String tmpArg = anArgsArray[i].trim();
-            if ("-p".equals(tmpArg) && i < (anArgsArray.length - 1)) {
-                tmpConfigFileName = anArgsArray[i + 1];
-                i++;
-            } else {
-                tmpFileNames.add(tmpArg);
-            }
-        }
-
-        WetEngine tmpWetEngine;
-        try {
-            tmpWetEngine = new WetEngine();
-            tmpWetEngine.addProgressListener(tmpProgressListener);
-
-            if (null != tmpConfigFileName) {
-                tmpWetEngine.setConfigFileName(tmpConfigFileName);
-            }
-            tmpWetEngine.init();
-
-            if (tmpFileNames.isEmpty()) {
-                File[] tmpFiles = DialogUtil.chooseFiles();
-                if (null == tmpFiles || (tmpFiles.length < 1)) {
-                    return;
-                }
-
-                for (int i = 0; i < tmpFiles.length; i++) {
-                    tmpWetEngine.addTestFile(tmpFiles[i]);
-                }
-            } else {
-                for (String tmpFileName : tmpFileNames) {
-                    tmpWetEngine.addTestFile(new File(tmpFileName));
-                }
-            }
-
-            tmpWetEngine.executeTests();
-        } catch (WetException e) {
-            System.out.println("Wetator execution failed: " + e.getMessage());
-            LOG.warn("Wetator execution failed:", e);
-            // System.exit is needed because we have started swing
-            System.exit(1);
-        } catch (Throwable e) {
-            System.out.println("Wetator execution failed: " + e.getMessage());
-            LOG.fatal("Wetator execution failed:", e);
-            // System.exit is needed because we have started swing
-            System.exit(1);
-        }
-        System.exit(0);
+    String tmpConfigFileName = null;
+    LinkedList<String> tmpFileNames = new LinkedList<String>();
+    // parse the command line
+    for (int i = 0; i < anArgsArray.length; i++) {
+      String tmpArg = anArgsArray[i].trim();
+      if ("-p".equals(tmpArg) && i < (anArgsArray.length - 1)) {
+        tmpConfigFileName = anArgsArray[i + 1];
+        i++;
+      } else {
+        tmpFileNames.add(tmpArg);
+      }
     }
+
+    WetEngine tmpWetEngine;
+    try {
+      tmpWetEngine = new WetEngine();
+      tmpWetEngine.addProgressListener(tmpProgressListener);
+
+      if (null != tmpConfigFileName) {
+        tmpWetEngine.setConfigFileName(tmpConfigFileName);
+      }
+      tmpWetEngine.init();
+
+      if (tmpFileNames.isEmpty()) {
+        File[] tmpFiles = DialogUtil.chooseFiles();
+        if (null == tmpFiles || (tmpFiles.length < 1)) {
+          return;
+        }
+
+        for (int i = 0; i < tmpFiles.length; i++) {
+          tmpWetEngine.addTestFile(tmpFiles[i]);
+        }
+      } else {
+        for (String tmpFileName : tmpFileNames) {
+          tmpWetEngine.addTestFile(new File(tmpFileName));
+        }
+      }
+
+      tmpWetEngine.executeTests();
+    } catch (WetException e) {
+      System.out.println("Wetator execution failed: " + e.getMessage());
+      LOG.warn("Wetator execution failed:", e);
+      // System.exit is needed because we have started swing
+      System.exit(1);
+    } catch (Throwable e) {
+      System.out.println("Wetator execution failed: " + e.getMessage());
+      LOG.fatal("Wetator execution failed:", e);
+      // System.exit is needed because we have started swing
+      System.exit(1);
+    }
+    System.exit(0);
+  }
 }

@@ -20,29 +20,25 @@ import net.sourceforge.htmlunit.corejs.javascript.WrappedException;
 
 import com.gargoylesoftware.htmlunit.ScriptException;
 
-
-
-
-
 /**
  * Util class for exception handling.
- *
+ * 
  * @author rbri
  */
 public final class ExceptionUtil {
 
-    // private static final Log LOG = WetLogger.getWetLogger();
+  // private static final Log LOG = WetLogger.getWetLogger();
 
-    public static String getMessageFromScriptExceptionCauseIfPossible(WrappedException aWrappedException) {
-        Throwable tmpThrowable = aWrappedException.getCause();
+  public static String getMessageFromScriptExceptionCauseIfPossible(WrappedException aWrappedException) {
+    Throwable tmpThrowable = aWrappedException.getCause();
 
-        while (null != tmpThrowable) {
-            if (tmpThrowable instanceof ScriptException) {
-                return tmpThrowable.getMessage();
-            }
-            tmpThrowable = tmpThrowable.getCause();
-        }
-        return aWrappedException.getMessage();
+    while (null != tmpThrowable) {
+      if (tmpThrowable instanceof ScriptException) {
+        return tmpThrowable.getMessage();
+      }
+      tmpThrowable = tmpThrowable.getCause();
     }
+    return aWrappedException.getMessage();
+  }
 
 }

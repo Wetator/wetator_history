@@ -31,55 +31,55 @@ import org.rbri.wet.util.SecretString;
 
 /**
  * Commands to make it possible to test other commands (e.g. error situations).
- *
+ * 
  * @author rbri
  */
 public final class TestCommandSet extends AbstractCommandSet {
 
-    public TestCommandSet() {
-        super();
+  public TestCommandSet() {
+    super();
+  }
+
+  protected void registerCommands() {
+    registerCommand("Assert Fail", new CommandAssertFail());
+  }
+
+  public final class CommandAssertFail implements WetCommandImplementation {
+    public void execute(WetContext aWetContext, WetCommand aWetCommand) throws WetException, AssertionFailedException {
+
+      List<Parameter.Part> tmpFirstParameters = aWetCommand.getFirstParameter().getParts();
+      SecretString tmpExpected = tmpFirstParameters.get(1).getValue(aWetContext);
+
+      SecretString tmpCommandParam = tmpFirstParameters.get(0).getValue(aWetContext);
+      WetCommand tmpCommand = new WetCommand(tmpCommandParam.getValue(), false);
+      tmpCommand.setLineNo(aWetCommand.getLineNo());
+
+      tmpCommand.setFirstParameter(aWetCommand.getSecondParameter());
+      if (null != aWetCommand.getThirdParameter()) {
+        tmpCommand.setSecondParameter(aWetCommand.getThirdParameter());
+      }
+
+      try {
+        aWetContext.determineAndExecuteCommandImpl(tmpCommand);
+      } catch (AssertionFailedException e) {
+        String tmpResult = e.getMessage();
+        Assert.assertEquals(tmpExpected.toString(), tmpResult, "wrongErrorMessage", null);
+        return;
+      }
+
+      Assert.fail("expectedErrorNotThrown", null);
     }
+  }
 
-    protected void registerCommands() {
-        registerCommand("Assert Fail", new CommandAssertFail());
-    }
+  public void initialize(Properties aConfiguration) {
+    // nothing to do at the moment
+  }
 
-    public final class CommandAssertFail implements WetCommandImplementation {
-        public void execute(WetContext aWetContext, WetCommand aWetCommand) throws WetException, AssertionFailedException {
+  public void cleanup() {
+    // nothing to do at the moment
+  }
 
-            List<Parameter.Part> tmpFirstParameters = aWetCommand.getFirstParameter().getParts();
-            SecretString tmpExpected = tmpFirstParameters.get(1).getValue(aWetContext);
-
-            SecretString tmpCommandParam = tmpFirstParameters.get(0).getValue(aWetContext);
-            WetCommand tmpCommand = new WetCommand(tmpCommandParam.getValue(), false);
-            tmpCommand.setLineNo(aWetCommand.getLineNo());
-
-            tmpCommand.setFirstParameter(aWetCommand.getSecondParameter());
-            if (null != aWetCommand.getThirdParameter()) {
-                tmpCommand.setSecondParameter(aWetCommand.getThirdParameter());
-            }
-
-            try {
-                aWetContext.determineAndExecuteCommandImpl(tmpCommand);
-            } catch (AssertionFailedException e) {
-                String tmpResult = e.getMessage();
-                Assert.assertEquals(tmpExpected.toString(), tmpResult, "wrongErrorMessage", null);
-                return;
-            }
-
-            Assert.fail("expectedErrorNotThrown", null);
-        }
-    }
-
-    public void initialize(Properties aConfiguration) {
-        // nothing to do at the moment
-    }
-
-    public void cleanup() {
-        // nothing to do at the moment
-    }
-
-    public void printConfiguration(WetResultWriter wetResultWriter) throws IOException {
-        // nothing to do at the moment
-    }
+  public void printConfiguration(WetResultWriter wetResultWriter) throws IOException {
+    // nothing to do at the moment
+  }
 }

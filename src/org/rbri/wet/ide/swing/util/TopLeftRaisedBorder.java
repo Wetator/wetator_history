@@ -23,30 +23,29 @@ import java.awt.Insets;
 import javax.swing.border.AbstractBorder;
 
 /**
- * 
  * @author rbri
  */
 public class TopLeftRaisedBorder extends AbstractBorder {
 
-    private static final long serialVersionUID = -2603817619868418848L;
+  private static final long serialVersionUID = -2603817619868418848L;
 
-    private static final Insets INSETS = new Insets(1, 1, 1, 0);
+  private static final Insets INSETS = new Insets(1, 1, 1, 0);
 
-    public Insets getBorderInsets(Component aComponent) {
-        return INSETS;
-    }
+  public Insets getBorderInsets(Component aComponent) {
+    return INSETS;
+  }
 
-    public void paintBorder(Component aComponent, Graphics aGraphics, int x, int y, int aWidth, int aHeight) {
-        aGraphics.translate(x, y);
+  public void paintBorder(Component aComponent, Graphics aGraphics, int x, int y, int aWidth, int aHeight) {
+    aGraphics.translate(x, y);
 
-        aGraphics.setColor(LookAndFeelUtil.getControlLtHighlightColor());
-        aGraphics.fillRect(0, 0, aWidth, 1);
-        aGraphics.fillRect(0, 1, 1, aHeight - 1);
+    aGraphics.setColor(LookAndFeelUtil.getControlLtHighlightColor());
+    aGraphics.fillRect(0, 0, aWidth, 1);
+    aGraphics.fillRect(0, 1, 1, aHeight - 1);
 
-        aGraphics.setColor(LookAndFeelUtil.getControlShadowColor());
-        aGraphics.fillRect(0, aHeight - 1, aWidth, 1);
+    aGraphics.setColor(LookAndFeelUtil.getControlShadowColor());
+    aGraphics.fillRect(0, aHeight - 1, aWidth, 1);
 
-        aGraphics.translate(-x, -y);
-    }
+    aGraphics.translate(-x, -y);
+  }
 
 }

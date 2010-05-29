@@ -21,142 +21,135 @@ import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
-
 /**
  * List to store HtmlElements together with some 'weight' information.
  * Then it is possible to sort the list by this criterions.
- *
+ * 
  * @author rbri
  */
 public final class WeightedControlList {
 
-    public enum FoundType {
-        BY_TEXT(9999),
+  public enum FoundType {
+    BY_TEXT(9999),
 
-        BY_IMG_SRC_ATTRIBUTE(5000),
-        BY_IMG_ALT_ATTRIBUTE(5000),
-        BY_IMG_TITLE_ATTRIBUTE(5000),
+    BY_IMG_SRC_ATTRIBUTE(5000),
+    BY_IMG_ALT_ATTRIBUTE(5000),
+    BY_IMG_TITLE_ATTRIBUTE(5000),
 
-        BY_INNER_IMG_SRC_ATTRIBUTE(4000),
-        BY_INNER_IMG_ALT_ATTRIBUTE(4000),
-        BY_INNER_IMG_TITLE_ATTRIBUTE(4000),
+    BY_INNER_IMG_SRC_ATTRIBUTE(4000),
+    BY_INNER_IMG_ALT_ATTRIBUTE(4000),
+    BY_INNER_IMG_TITLE_ATTRIBUTE(4000),
 
-        BY_LABEL_TEXT(3000),
+    BY_LABEL_TEXT(3000),
 
-        BY_LABEL(2000),
+    BY_LABEL(2000),
 
-        BY_NAME(1000),
-        BY_INNER_NAME(900),
+    BY_NAME(1000),
+    BY_INNER_NAME(900),
 
-        BY_ID(400);
+    BY_ID(400);
 
-        private int value;
+    private int value;
 
-        private FoundType(int aValue) {
-            value = aValue;
+    private FoundType(int aValue) {
+      value = aValue;
+    }
+
+    public int getValue() {
+      return value;
+    }
+
+    public String toString() {
+      return name();
+    }
+  }
+
+  public static final class Entry {
+    protected Control control;
+    protected FoundType foundType;
+    protected int coverage;
+    protected int distance;
+
+    public Control getControl() {
+      return control;
+    }
+
+    @Override
+    public String toString() {
+      StringBuilder tmpResult = new StringBuilder();
+      tmpResult.append(control.getDescribingText());
+      tmpResult.append(" found by: " + foundType.toString());
+      tmpResult.append(" coverage: " + coverage);
+      tmpResult.append(" distance: " + distance);
+      return tmpResult.toString();
+    }
+  }
+
+  protected static final class EntryComperator implements Comparator<Entry> {
+    public int compare(final Entry anEntry1, final Entry anEntry2) {
+      int tmpWeightComp = anEntry1.foundType.getValue() - anEntry2.foundType.getValue();
+
+      if (0 == tmpWeightComp) {
+        int tmpCoverageComp = anEntry1.coverage - anEntry2.coverage;
+
+        if (0 == tmpCoverageComp) {
+          return anEntry1.distance - anEntry2.distance;
         }
+        return tmpCoverageComp;
+      }
 
-        public int getValue() {
-            return value;
+      return tmpWeightComp;
+    }
+  }
+
+  private final List<Entry> entries;
+
+  public WeightedControlList() {
+    entries = new LinkedList<Entry>();
+  }
+
+  public void add(Control aControl, FoundType aFoundType, int aCoverage, int aDistance) {
+    Entry tmpEntry = new Entry();
+    tmpEntry.control = aControl;
+    tmpEntry.foundType = aFoundType;
+    tmpEntry.coverage = aCoverage;
+    tmpEntry.distance = aDistance;
+
+    entries.add(tmpEntry);
+  }
+
+  public List<Entry> getElementsSorted() {
+    Collections.sort(entries, new EntryComperator());
+
+    List<Entry> tmpResult = new LinkedList<Entry>();
+    for (Entry tmpEntry : entries) {
+      Control tmpControl = tmpEntry.getControl();
+
+      boolean tmpNotPresent = true;
+      for (Entry tmpResultEntry : tmpResult) {
+        Control tmpResultControl = tmpResultEntry.getControl();
+        if (tmpResultControl.hasSameBackendControl(tmpControl)) {
+          tmpNotPresent = false;
+          break;
         }
-
-        public String toString() {
-            return name();
-        }
+      }
+      if (tmpNotPresent) {
+        tmpResult.add(tmpEntry);
+      }
     }
 
+    return tmpResult;
+  }
 
-    public static final class Entry {
-        protected Control control;
-        protected FoundType foundType;
-        protected int coverage;
-        protected int distance;
+  public void addAll(WeightedControlList anOtherWeightedControlList) {
+    entries.addAll(anOtherWeightedControlList.entries);
+  }
 
-        public Control getControl() {
-        	return control;
-        }
+  public boolean isEmpty() {
+    return entries.isEmpty();
+  }
 
-        @Override
-        public String toString() {
-        	StringBuilder tmpResult = new StringBuilder();
-        	tmpResult.append(control.getDescribingText());
-        	tmpResult.append(" found by: " + foundType.toString());
-            tmpResult.append(" coverage: " + coverage);
-        	tmpResult.append(" distance: " + distance);
-        	return tmpResult.toString();
-        }
-    }
-
-    protected static final class EntryComperator implements Comparator<Entry> {
-        public int compare(final Entry anEntry1, final Entry anEntry2) {
-            int tmpWeightComp = anEntry1.foundType.getValue() - anEntry2.foundType.getValue();
-
-            if (0 == tmpWeightComp) {
-                int tmpCoverageComp = anEntry1.coverage - anEntry2.coverage;
-
-                if (0 == tmpCoverageComp) {
-                    return anEntry1.distance - anEntry2.distance;
-                }
-                return tmpCoverageComp;
-            }
-
-            return tmpWeightComp;
-        }
-    }
-
-
-    private final List<Entry> entries;
-
-    public WeightedControlList() {
-        entries = new LinkedList<Entry>();
-    }
-
-
-    public void add(Control aControl, FoundType aFoundType, int aCoverage, int aDistance) {
-        Entry tmpEntry = new Entry();
-        tmpEntry.control = aControl;
-        tmpEntry.foundType = aFoundType;
-        tmpEntry.coverage = aCoverage;
-        tmpEntry.distance = aDistance;
-
-        entries.add(tmpEntry);
-    }
-
-
-    public List<Entry> getElementsSorted() {
-        Collections.sort(entries, new EntryComperator());
-
-        List<Entry> tmpResult = new LinkedList<Entry>();
-        for (Entry tmpEntry : entries) {
-    		Control tmpControl = tmpEntry.getControl();
-
-    		boolean tmpNotPresent = true;
-        	for (Entry tmpResultEntry : tmpResult) {
-        		Control tmpResultControl = tmpResultEntry.getControl();
-				if (tmpResultControl.hasSameBackendControl(tmpControl)) {
-					tmpNotPresent = false;
-					break;
-				}
-			}
-			if (tmpNotPresent) {
-				tmpResult.add(tmpEntry);
-			}
-		}
-
-        return tmpResult;
-    }
-
-
-    public void addAll(WeightedControlList anOtherWeightedControlList) {
-        entries.addAll(anOtherWeightedControlList.entries);
-    }
-
-    public boolean isEmpty() {
-        return entries.isEmpty();
-    }
-
-
-    public boolean hasManyEntires() {
-        return entries.size() > 1;
-    }
+  public boolean hasManyEntires() {
+    return entries.size() > 1;
+  }
 }

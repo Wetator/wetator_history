@@ -23,60 +23,57 @@ import com.gargoylesoftware.htmlunit.TextPage;
 import com.gargoylesoftware.htmlunit.WebResponse;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
-
-
 /**
  * Utils for content type handling
- *
+ * 
  * @author rbri
  */
 
 public class ContentTypeUtil {
 
-    public static ContentType getContentType(Page aPage) {
-        if (aPage instanceof HtmlPage) {
-            return ContentType.HTML;
-        }
-        if (aPage instanceof TextPage) {
-            return ContentType.TEXT;
-        }
-
-        WebResponse tmpWebResponse = aPage.getWebResponse();
-        String tmpContentType = tmpWebResponse.getContentType();
-
-        if ("application/pdf".equalsIgnoreCase(tmpContentType)) {
-            return ContentType.PDF;
-        }
-
-        if ("application/vnd.ms-excel".equalsIgnoreCase(tmpContentType)) {
-            return ContentType.XLS;
-        }
-        return ContentType.OTHER;
+  public static ContentType getContentType(Page aPage) {
+    if (aPage instanceof HtmlPage) {
+      return ContentType.HTML;
+    }
+    if (aPage instanceof TextPage) {
+      return ContentType.TEXT;
     }
 
+    WebResponse tmpWebResponse = aPage.getWebResponse();
+    String tmpContentType = tmpWebResponse.getContentType();
 
-    public static String getFileSuffix(Page aPage) {
-        ContentType tmpContentType = getContentType(aPage);
-        String tmpResult;
-
-        switch (tmpContentType) {
-        case HTML:
-            tmpResult = "html";
-            break;
-        case TEXT:
-            tmpResult = "txt";
-            break;
-        case PDF:
-            tmpResult = "pdf";
-            break;
-        case XLS:
-            tmpResult = "xls";
-            break;
-        default:
-            tmpResult = "bin";
-            break;
-        }
-        return tmpResult;
+    if ("application/pdf".equalsIgnoreCase(tmpContentType)) {
+      return ContentType.PDF;
     }
+
+    if ("application/vnd.ms-excel".equalsIgnoreCase(tmpContentType)) {
+      return ContentType.XLS;
+    }
+    return ContentType.OTHER;
+  }
+
+  public static String getFileSuffix(Page aPage) {
+    ContentType tmpContentType = getContentType(aPage);
+    String tmpResult;
+
+    switch (tmpContentType) {
+      case HTML:
+        tmpResult = "html";
+        break;
+      case TEXT:
+        tmpResult = "txt";
+        break;
+      case PDF:
+        tmpResult = "pdf";
+        break;
+      case XLS:
+        tmpResult = "xls";
+        break;
+      default:
+        tmpResult = "bin";
+        break;
+    }
+    return tmpResult;
+  }
 
 }

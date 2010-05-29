@@ -42,148 +42,143 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 /**
  * Simple store that manages the storage
  * of the different responses.
- *
+ * 
  * @author rbri
  */
 public final class ResponseStore {
-    private static final Log LOG = LogFactory.getLog(ResponseStore.class);;
+  private static final Log LOG = LogFactory.getLog(ResponseStore.class);;
 
-    private static long COUNTER = 9999;
+  private static long COUNTER = 9999;
 
-    private File outputDir;
-    private boolean overwrite;
-    private WebClient webClient;
+  private File outputDir;
+  private boolean overwrite;
+  private WebClient webClient;
 
-    private File storeDir;
+  private File storeDir;
 
+  private long getUniqueId() {
+    return ++COUNTER;
+  }
 
-    private long getUniqueId() {
-        return ++COUNTER;
+  /**
+   * Constructor
+   */
+  public ResponseStore(File anOutputDir, boolean anOverwriteFlag) {
+    super();
+    outputDir = anOutputDir;
+    overwrite = anOverwriteFlag;
+
+    initOutputDir();
+  }
+
+  /**
+   * This method has to be called before any page is logged, because it creates the logdir.
+   * 
+   * @param aStarttime The starttime is used to name the directory for the responses.
+   */
+  public void initOutputDir() {
+    String tmpDirectoryName;
+    if (overwrite) {
+      tmpDirectoryName = "current";
+    } else {
+      SimpleDateFormat tmpFormater = new SimpleDateFormat("yyyy.MM.dd_HH.mm.ss");
+      tmpDirectoryName = tmpFormater.format(new Date());
     }
 
+    tmpDirectoryName = "responses_" + tmpDirectoryName;
+    storeDir = new File(outputDir, tmpDirectoryName);
 
-    /**
-     * Constructor
-     */
-    public ResponseStore(File anOutputDir, boolean anOverwriteFlag) {
-        super();
-        outputDir = anOutputDir;
-        overwrite = anOverwriteFlag;
-
-        initOutputDir();
+    try {
+      FileUtils.forceMkdir(storeDir);
+      FileUtils.cleanDirectory(storeDir);
+    } catch (IOException e) {
+      LOG.error("IO exception for dir: " + storeDir.getAbsolutePath(), e);
     }
+  }
 
+  /**
+   * This method writes the page to a file with a unique name.
+   * 
+   * @param aPage the page to save
+   * @throws WetException
+   */
+  public String storePage(WebClient aWebClient, Page aPage) throws WetException {
+    webClient = aWebClient;
 
-    /**
-     * This method has to be called before any page is logged, because it creates the logdir.
-     *
-     * @param aStarttime The starttime is used to name the directory for the responses.
-     */
-    public void initOutputDir() {
-        String tmpDirectoryName;
-        if (overwrite) {
-            tmpDirectoryName = "current";
-        } else {
-            SimpleDateFormat tmpFormater = new SimpleDateFormat("yyyy.MM.dd_HH.mm.ss");
-            tmpDirectoryName = tmpFormater.format(new Date());
+    try {
+      String tmpFileName = "response_" + getUniqueId();
+      String tmpSuffix = ContentTypeUtil.getFileSuffix(aPage);
+
+      tmpFileName = tmpFileName + "." + tmpSuffix;
+      File tmpFile = new File(storeDir, tmpFileName);
+
+      if (aPage instanceof HtmlPage) {
+        XHtmlOutputter tmpHtmlOutputter = new XHtmlOutputter((HtmlPage) aPage, this);
+        tmpHtmlOutputter.writeTo(tmpFile);
+      } else {
+        WebResponse tmpWebResponse = aPage.getWebResponse();
+        InputStream tmpIn = tmpWebResponse.getContentAsStream();
+        OutputStream tmpOutputStream = new FileOutputStream(tmpFile);
+
+        byte[] tmpBuffer = new byte[1024];
+        int tmpBytes;
+        while ((tmpBytes = tmpIn.read(tmpBuffer)) > 0) {
+          tmpOutputStream.write(tmpBuffer, 0, tmpBytes);
         }
+        tmpOutputStream.close();
+      }
 
-        tmpDirectoryName = "responses_" + tmpDirectoryName;
-        storeDir = new File(outputDir, tmpDirectoryName);
+      // to be sure to have the right slashes in the output
+      String tmpLogDir = storeDir.getName();
+      tmpLogDir = tmpLogDir.replaceAll("\\\\", "/");
 
+      return tmpLogDir + "/" + tmpFileName;
+    } catch (IOException e) {
+      // TODO
+      throw new WetException("xxx");
+    }
+  }
+
+  public String storeContentFromUrl(URL aUrl) {
+    try {
+      WebResponse tmpWebResponse = webClient.loadWebResponse(new WebRequestSettings(aUrl));
+      String tmpFileName = aUrl.getPath();
+      String tmpQuery = aUrl.getQuery();
+      if (null != tmpQuery) {
+        tmpQuery = URLDecoder.decode(tmpQuery, "UTF-8");
+        tmpFileName = tmpFileName + "?" + tmpQuery;
+      }
+
+      // fix special characters
+      tmpFileName = tmpFileName.replaceAll(">", "__");
+      tmpFileName = tmpFileName.replaceAll("<", "__");
+      tmpFileName = tmpFileName.replaceAll(":", "__");
+      tmpFileName = tmpFileName.replaceAll("\"", "__");
+      tmpFileName = tmpFileName.replaceAll("\\|", "__");
+      tmpFileName = tmpFileName.replaceAll("\\?", "__");
+      tmpFileName = tmpFileName.replaceAll("\\*", "__");
+
+      File tmpCssFile = new File(storeDir, tmpFileName);
+      if (!tmpCssFile.exists()) {
+        InputStream tmpInStream = tmpWebResponse.getContentAsStream();
+        FileUtils.forceMkdir(tmpCssFile.getParentFile());
+        FileOutputStream tmpOutStream = new FileOutputStream(tmpCssFile);
         try {
-            FileUtils.forceMkdir(storeDir);
-            FileUtils.cleanDirectory(storeDir);
-        } catch (IOException e) {
-            LOG.error("IO exception for dir: " + storeDir.getAbsolutePath(), e);
+          IOUtils.copy(tmpInStream, tmpOutStream);
+        } finally {
+          tmpOutStream.close();
         }
+      }
+      // write our path
+      String tmpResult;
+      if (!tmpFileName.startsWith("/")) {
+        tmpResult = "/" + tmpFileName;
+      }
+      tmpResult = "." + tmpFileName;
+      return tmpResult;
+    } catch (IOException e) {
+      LOG.error(e.getMessage(), e);
     }
-
-
-    /**
-     * This method writes the page to a file with a unique name.
-     *
-     * @param aPage the page to save
-     * @throws WetException
-     */
-    public String storePage(WebClient aWebClient, Page aPage) throws WetException {
-    	webClient = aWebClient;
-
-    	try {
-            String tmpFileName = "response_" + getUniqueId();
-            String tmpSuffix = ContentTypeUtil.getFileSuffix(aPage);
-
-            tmpFileName = tmpFileName + "." + tmpSuffix;
-            File tmpFile = new File(storeDir, tmpFileName);
-
-            if (aPage instanceof HtmlPage) {
-                XHtmlOutputter tmpHtmlOutputter = new XHtmlOutputter((HtmlPage) aPage, this);
-                tmpHtmlOutputter.writeTo(tmpFile);
-            } else {
-                WebResponse tmpWebResponse = aPage.getWebResponse();
-                InputStream tmpIn = tmpWebResponse.getContentAsStream();
-                OutputStream tmpOutputStream = new FileOutputStream(tmpFile);
-
-                byte[] tmpBuffer = new byte[1024];
-                int tmpBytes;
-                while ((tmpBytes = tmpIn.read(tmpBuffer)) > 0) {
-                    tmpOutputStream.write(tmpBuffer, 0, tmpBytes);
-                }
-                tmpOutputStream.close();
-            }
-
-            // to be sure to have the right slashes in the output
-            String tmpLogDir = storeDir.getName();
-            tmpLogDir = tmpLogDir.replaceAll("\\\\", "/");
-
-            return tmpLogDir + "/" + tmpFileName;
-        } catch (IOException e) {
-            // TODO
-            throw new WetException("xxx");
-        }
-    }
-
-
-    public String storeContentFromUrl(URL aUrl) {
-        try {
-            WebResponse tmpWebResponse = webClient.loadWebResponse(new WebRequestSettings(aUrl));
-            String tmpFileName = aUrl.getPath();
-            String tmpQuery = aUrl.getQuery();
-            if (null != tmpQuery) {
-                tmpQuery = URLDecoder.decode(tmpQuery, "UTF-8");
-                tmpFileName = tmpFileName + "?" + tmpQuery;
-            }
-
-            // fix special characters
-            tmpFileName = tmpFileName.replaceAll(">", "__");
-            tmpFileName = tmpFileName.replaceAll("<", "__");
-            tmpFileName = tmpFileName.replaceAll(":", "__");
-            tmpFileName = tmpFileName.replaceAll("\"", "__");
-            tmpFileName = tmpFileName.replaceAll("\\|", "__");
-            tmpFileName = tmpFileName.replaceAll("\\?", "__");
-            tmpFileName = tmpFileName.replaceAll("\\*", "__");
-
-            File tmpCssFile = new File(storeDir, tmpFileName);
-            if (!tmpCssFile.exists()) {
-                InputStream tmpInStream = tmpWebResponse.getContentAsStream();
-                FileUtils.forceMkdir(tmpCssFile.getParentFile());
-                FileOutputStream tmpOutStream = new FileOutputStream(tmpCssFile);
-                try {
-                    IOUtils.copy(tmpInStream, tmpOutStream);
-                } finally {
-                    tmpOutStream.close();
-                }
-            }
-            // write our path
-            String tmpResult;
-            if (!tmpFileName.startsWith("/")) {
-                tmpResult = "/" + tmpFileName;
-            }
-            tmpResult = "." + tmpFileName;
-            return tmpResult;
-        } catch (IOException e) {
-            LOG.error(e.getMessage(), e);
-        }
-        return null;
-    }
+    return null;
+  }
 }

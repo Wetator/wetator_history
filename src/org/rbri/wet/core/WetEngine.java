@@ -32,292 +32,263 @@ import org.rbri.wet.exception.AssertionFailedException;
 import org.rbri.wet.exception.WetException;
 import org.rbri.wet.scripter.WetScripter;
 
-
 /**
  * The engine that makes the monster running
  * Everything that is in common use for the
  * whole test process is stored there.
- *
+ * 
  * @author rbri
  */
 public final class WetEngine {
-    private static final Log LOG = LogFactory.getLog(WetEngine.class);
+  private static final Log LOG = LogFactory.getLog(WetEngine.class);
 
-    private static final String PROPERTY_TEST_CONFIG = "wetator.config";
-    private static final String CONFIG_FILE_DEFAULT_NAME = "wetator.config";
+  private static final String PROPERTY_TEST_CONFIG = "wetator.config";
+  private static final String CONFIG_FILE_DEFAULT_NAME = "wetator.config";
 
-    private String configFileName;
-    private Map<String, String> externalProperties;
-    private LinkedList<File> files;
+  private String configFileName;
+  private Map<String, String> externalProperties;
+  private LinkedList<File> files;
 
-    private WetConfiguration configuration;
-    private WetBackend backend;
-    private List<WetCommandSet> commandSets;
-    private List<WetScripter> scripter;
-    private List<WetEngineProgressListener> progressListener;
+  private WetConfiguration configuration;
+  private WetBackend backend;
+  private List<WetCommandSet> commandSets;
+  private List<WetScripter> scripter;
+  private List<WetEngineProgressListener> progressListener;
 
+  public WetBackend getWetBackend() {
+    return backend;
+  }
 
-    public WetBackend getWetBackend() {
-        return backend;
+  public void setWetBackend(WetBackend aWetBackend) {
+    backend = aWetBackend;
+  }
+
+  public WetEngine() throws WetException {
+    super();
+
+    files = new LinkedList<File>();
+    progressListener = new LinkedList<WetEngineProgressListener>();
+  }
+
+  public void init() throws WetException {
+    readWetConfiguration();
+
+    // setup the scripter
+    scripter = getWetConfiguration().getScripters();
+
+    // setup the command sets
+    commandSets = getWetConfiguration().getCommandSets();
+
+    // setup the browser
+    HtmlUnitBrowser tmpBrowser = new HtmlUnitBrowser(this);
+    setWetBackend(tmpBrowser);
+  }
+
+  public void addTestFile(File aFile) throws WetException {
+    if (!aFile.exists()) {
+      throw new WetException("The test file '" + aFile.getAbsolutePath() + "' does not exist.");
+    }
+    files.add(aFile);
+  }
+
+  public void executeTests() throws WetException {
+    addProgressListener(new WetResultWriter());
+
+    informListenersSetup();
+    for (WetCommandSet tmpCommandSet : commandSets) {
+      informListenersCommandSetSetup(tmpCommandSet);
     }
 
+    try {
+      informListenersTestStart();
+      try {
+        for (File tmpFile : files) {
+          try {
+            // TODO
+            LOG.info("Executing tests from file '" + tmpFile.getAbsolutePath() + "'");
 
-    public void setWetBackend(WetBackend aWetBackend) {
-        backend = aWetBackend;
-    }
+            // new session for every (root) file
+            getWetBackend().startNewSession();
 
-
-    public WetEngine() throws WetException {
-        super();
-
-        files = new LinkedList<File>();
-        progressListener = new LinkedList<WetEngineProgressListener>();
-    }
-
-
-    public void init() throws WetException {
-        readWetConfiguration();
-
-        // setup the scripter
-        scripter = getWetConfiguration().getScripters();
-
-        // setup the command sets
-        commandSets = getWetConfiguration().getCommandSets();
-
-        // setup the browser
-        HtmlUnitBrowser tmpBrowser = new HtmlUnitBrowser(this);
-        setWetBackend(tmpBrowser);
-    }
-
-
-    public void addTestFile(File aFile) throws WetException {
-        if (!aFile.exists()) {
-            throw new WetException("The test file '" + aFile.getAbsolutePath() + "' does not exist.");
+            // setup the context
+            WetContext tmpWetContext = new WetContext(this, tmpFile);
+            tmpWetContext.execute();
+          } catch (Throwable e) {
+            // informListenersWarn("testCaseError", new String[] {e.getMessage()});
+            e.printStackTrace();
+          }
         }
-        files.add(aFile);
+      } finally {
+        informListenersTestEnd();
+      }
+    } finally {
+      informListenersFinish();
+    }
+  }
+
+  protected List<WetCommand> readCommandsFromFile(File aFile) throws WetException {
+    WetScripter tmpScripter;
+    List<WetCommand> tmpResult;
+
+    tmpScripter = createScripter(aFile);
+    tmpResult = tmpScripter.getCommands();
+
+    return tmpResult;
+  }
+
+  public WetConfiguration getWetConfiguration() {
+    return configuration;
+  }
+
+  private void readWetConfiguration() throws WetException {
+    File tmpConfigFile = getConfigFile();
+    configuration = new WetConfiguration(tmpConfigFile, getExternalProperties());
+  }
+
+  private WetScripter createScripter(File aFile) throws WetException {
+    for (WetScripter tmpScripter : scripter) {
+      if (tmpScripter.isSupported(aFile)) {
+        tmpScripter.setFile(aFile);
+        return tmpScripter;
+      }
+    }
+    throw new WetException("No scripter found for file '" + aFile.getAbsolutePath() + "'.");
+  }
+
+  protected WetCommandImplementation getCommandImplementationFor(String aCommandName) throws WetException {
+    for (WetCommandSet tmpCommandSet : commandSets) {
+      WetCommandImplementation tmpCommandImplementation;
+      tmpCommandImplementation = tmpCommandSet.getCommandImplementationFor(aCommandName);
+      if (null != tmpCommandImplementation) {
+        return tmpCommandImplementation;
+      }
+    }
+    return null;
+  }
+
+  public File getConfigFile() {
+    String tmpConfigName = getConfigFileName();
+
+    // ok try harder
+    if (null == tmpConfigName) {
+      tmpConfigName = System.getProperty(PROPERTY_TEST_CONFIG, CONFIG_FILE_DEFAULT_NAME);
     }
 
+    File tmpConfigFile;
+    tmpConfigFile = new File(tmpConfigName);
+    return tmpConfigFile;
+  }
 
-    public void executeTests() throws WetException {
-        addProgressListener(new WetResultWriter());
+  public String getConfigFileName() {
+    return configFileName;
+  }
 
-        informListenersSetup();
-        for (WetCommandSet tmpCommandSet : commandSets) {
-            informListenersCommandSetSetup(tmpCommandSet);
-        }
+  public void setConfigFileName(String aConfigFileName) {
+    configFileName = aConfigFileName;
+  }
 
-        try {
-            informListenersTestStart();
-            try {
-                for (File tmpFile : files) {
-                	try {
-	                    // TODO
-	                    LOG.info("Executing tests from file '" + tmpFile.getAbsolutePath() + "'");
+  protected Map<String, String> getExternalProperties() {
+    return externalProperties;
+  }
 
-	                    // new session for every (root) file
-	                    getWetBackend().startNewSession();
+  public void setExternalProperties(Map<String, String> anExternalProperties) {
+    externalProperties = anExternalProperties;
+  }
 
-	                    // setup the context
-	                    WetContext tmpWetContext = new WetContext(this, tmpFile);
-	                    tmpWetContext.execute();
-                	} catch (Throwable e) {
-                		// informListenersWarn("testCaseError", new String[] {e.getMessage()});
-                		e.printStackTrace();
-                	}
-                }
-            } finally {
-                informListenersTestEnd();
-            }
-        } finally {
-            informListenersFinish();
-        }
+  public void addProgressListener(WetEngineProgressListener aProgressListener) {
+    if (progressListener.contains(aProgressListener)) {
+      return;
     }
+    progressListener.add(aProgressListener);
+  }
 
-
-    protected List<WetCommand> readCommandsFromFile(File aFile) throws WetException {
-        WetScripter tmpScripter;
-        List<WetCommand> tmpResult;
-
-        tmpScripter = createScripter(aFile);
-        tmpResult = tmpScripter.getCommands();
-
-        return tmpResult;
+  protected void informListenersSetup() throws WetException {
+    for (WetEngineProgressListener tmpListener : progressListener) {
+      tmpListener.engineSetup(this);
     }
+  }
 
-
-
-    public WetConfiguration getWetConfiguration() {
-        return configuration;
+  protected void informListenersCommandSetSetup(WetCommandSet aWetCommandSet) throws WetException {
+    for (WetEngineProgressListener tmpListener : progressListener) {
+      tmpListener.commandSetSetup(aWetCommandSet);
     }
+  }
 
-
-    private void readWetConfiguration() throws WetException {
-        File tmpConfigFile = getConfigFile();
-        configuration = new WetConfiguration(tmpConfigFile, getExternalProperties());
+  protected void informListenersTestStart() throws WetException {
+    for (WetEngineProgressListener tmpListener : progressListener) {
+      tmpListener.engineTestStart();
     }
+  }
 
-
-    private WetScripter createScripter(File aFile) throws WetException {
-        for (WetScripter tmpScripter : scripter) {
-            if (tmpScripter.isSupported(aFile)) {
-                tmpScripter.setFile(aFile);
-                return tmpScripter;
-            }
-        }
-        throw new WetException("No scripter found for file '" + aFile.getAbsolutePath() + "'.");
+  protected void informListenersTestEnd() {
+    for (WetEngineProgressListener tmpListener : progressListener) {
+      tmpListener.engineTestEnd();
     }
+  }
 
-
-    protected WetCommandImplementation getCommandImplementationFor(String aCommandName) throws WetException {
-        for (WetCommandSet tmpCommandSet : commandSets) {
-            WetCommandImplementation tmpCommandImplementation;
-            tmpCommandImplementation = tmpCommandSet.getCommandImplementationFor(aCommandName);
-            if (null != tmpCommandImplementation) {
-                return tmpCommandImplementation;
-            }
-        }
-        return null;
+  protected void informListenersFinish() {
+    for (WetEngineProgressListener tmpListener : progressListener) {
+      tmpListener.engineFinish();
     }
+  }
 
-
-    public File getConfigFile() {
-        String tmpConfigName = getConfigFileName();
-
-        // ok try harder
-        if (null == tmpConfigName) {
-            tmpConfigName = System.getProperty(PROPERTY_TEST_CONFIG, CONFIG_FILE_DEFAULT_NAME);
-        }
-
-        File tmpConfigFile;
-        tmpConfigFile = new File(tmpConfigName);
-        return tmpConfigFile;
+  protected void informListenersContextTestStart(String aFileName) {
+    for (WetEngineProgressListener tmpListener : progressListener) {
+      tmpListener.contextTestStart(aFileName);
     }
+  }
 
-
-    public String getConfigFileName() {
-        return configFileName;
+  protected void informListenersContextTestEnd() {
+    for (WetEngineProgressListener tmpListener : progressListener) {
+      tmpListener.contextTestEnd();
     }
+  }
 
-
-    public void setConfigFileName(String aConfigFileName) {
-        configFileName = aConfigFileName;
+  protected void informListenersContextExecuteCommandStart(WetContext aWetContext, WetCommand aCommand) {
+    for (WetEngineProgressListener tmpListener : progressListener) {
+      tmpListener.contextExecuteCommandStart(aWetContext, aCommand);
     }
+  }
 
-
-    protected Map<String, String> getExternalProperties() {
-        return externalProperties;
+  protected void informListenersContextExecuteCommandEnd() {
+    for (WetEngineProgressListener tmpListener : progressListener) {
+      tmpListener.contextExecuteCommandEnd();
     }
+  }
 
-
-    public void setExternalProperties(Map<String, String> anExternalProperties) {
-        externalProperties = anExternalProperties;
+  protected void informListenersContextExecuteCommandSuccess() {
+    for (WetEngineProgressListener tmpListener : progressListener) {
+      tmpListener.contextExecuteCommandSuccess();
     }
+  }
 
-
-    public void addProgressListener(WetEngineProgressListener aProgressListener) {
-        if (progressListener.contains(aProgressListener)) {
-            return;
-        }
-        progressListener.add(aProgressListener);
+  protected void informListenersContextExecuteCommandFailure(AssertionFailedException anAssertionFailedException) {
+    for (WetEngineProgressListener tmpListener : progressListener) {
+      tmpListener.contextExecuteCommandFailure(anAssertionFailedException);
     }
+  }
 
-
-    protected void informListenersSetup() throws WetException {
-        for (WetEngineProgressListener tmpListener : progressListener) {
-            tmpListener.engineSetup(this);
-        }
+  protected void informListenersContextExecuteCommandError(Throwable aThrowable) {
+    for (WetEngineProgressListener tmpListener : progressListener) {
+      tmpListener.contextExecuteCommandError(aThrowable);
     }
+  }
 
-    protected void informListenersCommandSetSetup(WetCommandSet aWetCommandSet) throws WetException {
-        for (WetEngineProgressListener tmpListener : progressListener) {
-            tmpListener.commandSetSetup(aWetCommandSet);
-        }
+  protected void informListenersWarn(String aMessageKey, String[] aParameterArray) {
+    for (WetEngineProgressListener tmpListener : progressListener) {
+      tmpListener.warn(aMessageKey, aParameterArray);
     }
+  }
 
-    protected void informListenersTestStart() throws WetException {
-        for (WetEngineProgressListener tmpListener : progressListener) {
-            tmpListener.engineTestStart();
-        }
+  public void informListenersInfo(String aMessageKey, String[] aParameterArray) {
+    for (WetEngineProgressListener tmpListener : progressListener) {
+      tmpListener.info(aMessageKey, aParameterArray);
     }
+  }
 
-    protected void informListenersTestEnd() {
-        for (WetEngineProgressListener tmpListener : progressListener) {
-            tmpListener.engineTestEnd();
-        }
+  public void informListenersResponseStored(String aResponseFileName) {
+    for (WetEngineProgressListener tmpListener : progressListener) {
+      tmpListener.engineResponseStored(aResponseFileName);
     }
-
-    protected void informListenersFinish() {
-        for (WetEngineProgressListener tmpListener : progressListener) {
-            tmpListener.engineFinish();
-        }
-    }
-
-
-    protected void informListenersContextTestStart(String aFileName) {
-        for (WetEngineProgressListener tmpListener : progressListener) {
-            tmpListener.contextTestStart(aFileName);
-        }
-    }
-
-
-    protected void informListenersContextTestEnd() {
-        for (WetEngineProgressListener tmpListener : progressListener) {
-            tmpListener.contextTestEnd();
-        }
-    }
-
-
-    protected void informListenersContextExecuteCommandStart(WetContext aWetContext, WetCommand aCommand) {
-        for (WetEngineProgressListener tmpListener : progressListener) {
-            tmpListener.contextExecuteCommandStart(aWetContext, aCommand);
-        }
-    }
-
-
-    protected void informListenersContextExecuteCommandEnd() {
-        for (WetEngineProgressListener tmpListener : progressListener) {
-            tmpListener.contextExecuteCommandEnd();
-        }
-    }
-
-
-    protected void informListenersContextExecuteCommandSuccess() {
-        for (WetEngineProgressListener tmpListener : progressListener) {
-            tmpListener.contextExecuteCommandSuccess();
-        }
-    }
-
-
-    protected void informListenersContextExecuteCommandFailure(AssertionFailedException anAssertionFailedException) {
-        for (WetEngineProgressListener tmpListener : progressListener) {
-            tmpListener.contextExecuteCommandFailure(anAssertionFailedException);
-        }
-    }
-
-
-    protected void informListenersContextExecuteCommandError(Throwable aThrowable) {
-        for (WetEngineProgressListener tmpListener : progressListener) {
-            tmpListener.contextExecuteCommandError(aThrowable);
-        }
-    }
-
-    protected void informListenersWarn(String aMessageKey, String[] aParameterArray) {
-        for (WetEngineProgressListener tmpListener : progressListener) {
-            tmpListener.warn(aMessageKey, aParameterArray);
-        }
-    }
-
-
-    public void informListenersInfo(String aMessageKey, String[] aParameterArray) {
-        for (WetEngineProgressListener tmpListener : progressListener) {
-            tmpListener.info(aMessageKey, aParameterArray);
-        }
-    }
-
-
-    public void informListenersResponseStored(String aResponseFileName) {
-        for (WetEngineProgressListener tmpListener : progressListener) {
-            tmpListener.engineResponseStored(aResponseFileName);
-        }
-    }
+  }
 }

@@ -26,143 +26,128 @@ import org.rbri.wet.core.WetEngine;
 import org.rbri.wet.core.WetEngineProgressListener;
 import org.rbri.wet.exception.AssertionFailedException;
 
-
 /**
  * Simple progress listener that writes to stdout.
- *
+ * 
  * @author rbri
  */
 public class StdOutProgressListener implements WetEngineProgressListener {
 
-    private static final int dotsPerLine = 100;
+  private static final int dotsPerLine = 100;
 
-    private long stepsCount;
-    private long errorCount;
-    private long failureCount;
-    private int dotCount;
-    private int contextDeep;
+  private long stepsCount;
+  private long errorCount;
+  private long failureCount;
+  private int dotCount;
+  private int contextDeep;
 
+  public void engineSetup(WetEngine aWetEngine) {
+    println(Version.getProductName() + " " + Version.getVersion());
+    println("  using " + com.gargoylesoftware.htmlunit.Version.getProductName() + " version "
+        + com.gargoylesoftware.htmlunit.Version.getProductVersion());
 
-    public void engineSetup(WetEngine aWetEngine) {
-        println(Version.getProductName() + " " + Version.getVersion());
-        println("  using " + com.gargoylesoftware.htmlunit.Version.getProductName() + " version " + com.gargoylesoftware.htmlunit.Version.getProductVersion());
+    stepsCount = 0;
+    errorCount = 0;
+    failureCount = 0;
+    contextDeep = 0;
 
-        stepsCount = 0;
-        errorCount = 0;
-        failureCount = 0;
-        contextDeep = 0;
-
-        File tmpConfigFile = aWetEngine.getConfigFile();
-        if (null != tmpConfigFile) {
-            println("  Config: '" + tmpConfigFile.getAbsolutePath() + "'");
-        }
+    File tmpConfigFile = aWetEngine.getConfigFile();
+    if (null != tmpConfigFile) {
+      println("  Config: '" + tmpConfigFile.getAbsolutePath() + "'");
     }
+  }
 
+  public void contextExecuteCommandStart(WetContext aWetContext, WetCommand aWommand) {
+    stepsCount++;
+  }
 
-    public void contextExecuteCommandStart(WetContext aWetContext, WetCommand aWommand) {
-        stepsCount++;
+  public void contextExecuteCommandEnd() {
+  }
+
+  public void contextExecuteCommandError(Throwable aThrowable) {
+    errorCount++;
+
+    if (dotCount == dotsPerLine) {
+      println("E");
+      dotCount = 1;
+      return;
     }
+    print("E");
+    dotCount++;
+  }
 
+  public void contextExecuteCommandFailure(AssertionFailedException anAssertionFailedException) {
+    failureCount++;
 
-    public void contextExecuteCommandEnd() {
+    if (dotCount == dotsPerLine) {
+      println("F");
+      dotCount = 1;
+      return;
     }
+    print("F");
+    dotCount++;
+  }
 
-
-    public void contextExecuteCommandError(Throwable aThrowable) {
-        errorCount++;
-
-        if (dotCount == dotsPerLine) {
-            println("E");
-            dotCount = 1;
-            return;
-        }
-        print("E");
-        dotCount++;
+  public void contextExecuteCommandSuccess() {
+    if (dotCount == dotsPerLine) {
+      println(".");
+      dotCount = 1;
+      return;
     }
+    print(".");
+    dotCount++;
+  }
 
-
-    public void contextExecuteCommandFailure(AssertionFailedException anAssertionFailedException) {
-        failureCount++;
-
-        if (dotCount == dotsPerLine) {
-            println("F");
-            dotCount = 1;
-            return;
-        }
-        print("F");
-        dotCount++;
+  public void contextTestEnd() {
+    contextDeep--;
+    if (contextDeep > 0) {
+      // subcontext
+      print(">");
+    } else {
+      println("");
     }
+  }
 
-
-    public void contextExecuteCommandSuccess() {
-        if (dotCount == dotsPerLine) {
-            println(".");
-            dotCount = 1;
-            return;
-        }
-        print(".");
-        dotCount++;
+  public void contextTestStart(String aFileName) {
+    if (contextDeep > 0) {
+      // subcontext
+      print("<");
+    } else {
+      println("Test: " + aFileName);
+      dotCount = 1;
     }
+    contextDeep++;
+  }
 
+  public void engineTestStart() {
+  }
 
-    public void contextTestEnd() {
-        contextDeep--;
-        if (contextDeep > 0) {
-            // subcontext
-            print(">");
-        } else {
-            println("");
-        }
-    }
+  public void engineResponseStored(String aResponseFileName) {
+  }
 
+  public void engineTestEnd() {
+  }
 
-    public void contextTestStart(String aFileName) {
-        if (contextDeep > 0) {
-            // subcontext
-            print("<");
-        } else {
-            println("Test: " + aFileName);
-            dotCount = 1;
-        }
-        contextDeep++;
-    }
+  public void engineFinish() {
+    // print summary
+    println("");
+    println("Steps: " + stepsCount + ",  Failures: " + failureCount + ",  Errors: " + errorCount);
+  }
 
+  public void commandSetSetup(WetCommandSet wetCommandSet) {
+  }
 
-    public void engineTestStart() {
-    }
+  public void warn(String aMessageKey, String[] aParameterArray) {
+  }
 
+  public void info(String aMessageKey, String[] aParameterArray) {
+  }
 
-    public void engineResponseStored(String aResponseFileName) {
-    }
+  protected void println(String aString) {
+    System.out.println(aString);
+  }
 
-
-    public void engineTestEnd() {
-    }
-
-
-    public void engineFinish() {
-        // print summary
-        println("");
-        println("Steps: " + stepsCount + ",  Failures: " + failureCount + ",  Errors: " + errorCount);
-    }
-
-
-    public void commandSetSetup(WetCommandSet wetCommandSet) {
-    }
-
-    public void warn(String aMessageKey, String[] aParameterArray) {
-    }
-
-
-    public void info(String aMessageKey, String[] aParameterArray) {
-    }
-
-
-    protected void println(String aString) {
-        System.out.println(aString);
-    }
-
-    protected void print(String aString) {
-        System.out.print(aString);
-    }
+  protected void print(String aString) {
+    System.out.print(aString);
+  }
 }

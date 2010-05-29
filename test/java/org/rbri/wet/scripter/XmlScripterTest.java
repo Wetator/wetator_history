@@ -31,65 +31,65 @@ import org.rbri.wet.exception.WetException;
  */
 public class XmlScripterTest extends TestCase {
 
-    /**
-     * @param args the args-array
-     */
-    public static void main(String[] args) {
-        junit.textui.TestRunner.run(suite());
-    }
+  /**
+   * @param args the args-array
+   */
+  public static void main(String[] args) {
+    junit.textui.TestRunner.run(suite());
+  }
 
-    /**
-     * @return the suite
-     */
-    public static Test suite() {
-        return new TestSuite(XmlScripterTest.class);
-    }
+  /**
+   * @return the suite
+   */
+  public static Test suite() {
+    return new TestSuite(XmlScripterTest.class);
+  }
 
-    /**
-     * @throws WetException if something goes wrong
-     */
-    public void test() throws WetException {
-        XmlScripter tmpXmlScripter = new XmlScripter();
-        tmpXmlScripter.setFile(new File("test/java/org/rbri/wet/resource/junit.xml"));
+  /**
+   * @throws WetException if something goes wrong
+   */
+  public void test() throws WetException {
+    XmlScripter tmpXmlScripter = new XmlScripter();
+    tmpXmlScripter.setFile(new File("test/java/org/rbri/wet/resource/junit.xml"));
 
-        List<WetCommand> tmpCommands = tmpXmlScripter.getCommands();
-        assertEquals(9, tmpCommands.size());
+    List<WetCommand> tmpCommands = tmpXmlScripter.getCommands();
+    assertEquals(9, tmpCommands.size());
 
-        WetCommand tmpCommand = tmpCommands.get(0);
-        assertTrue(tmpCommand.isComment());
-        assertEquals("Comment", tmpCommand.getName());
+    WetCommand tmpCommand = tmpCommands.get(0);
+    assertTrue(tmpCommand.isComment());
+    assertEquals("Comment", tmpCommand.getName());
 
-        tmpCommand = tmpCommands.get(1);
-        assertFalse(tmpCommand.isComment());
-        assertEquals("Open Url", tmpCommand.getName());
+    tmpCommand = tmpCommands.get(1);
+    assertFalse(tmpCommand.isComment());
+    assertEquals("Open Url", tmpCommand.getName());
 
-        tmpCommand = tmpCommands.get(2);
-        assertFalse(tmpCommand.isComment());
-        assertEquals("Assert Title", tmpCommand.getName());
+    tmpCommand = tmpCommands.get(2);
+    assertFalse(tmpCommand.isComment());
+    assertEquals("Assert Title", tmpCommand.getName());
 
-        tmpCommand = tmpCommands.get(3);
-        assertFalse(tmpCommand.isComment());
-        assertEquals("Set", tmpCommand.getName());
-        assertEquals("testValue", tmpCommand.getSecondParameter().getValue());
+    tmpCommand = tmpCommands.get(3);
+    assertFalse(tmpCommand.isComment());
+    assertEquals("Set", tmpCommand.getName());
+    assertEquals("testValue", tmpCommand.getSecondParameter().getValue());
 
-        tmpCommand = tmpCommands.get(4);
-        assertFalse(tmpCommand.isComment());
-        assertEquals("Click On", tmpCommand.getName());
+    tmpCommand = tmpCommands.get(4);
+    assertFalse(tmpCommand.isComment());
+    assertEquals("Click On", tmpCommand.getName());
 
-        tmpCommand = tmpCommands.get(5);
-        assertTrue(tmpCommand.isComment());
-        assertEquals("Click On", tmpCommand.getName());
+    tmpCommand = tmpCommands.get(5);
+    assertTrue(tmpCommand.isComment());
+    assertEquals("Click On", tmpCommand.getName());
 
-        tmpCommand = tmpCommands.get(6);
-        assertFalse(tmpCommand.isComment());
-        assertEquals("Assert Content", tmpCommand.getName());
+    tmpCommand = tmpCommands.get(6);
+    assertFalse(tmpCommand.isComment());
+    assertEquals("Assert Content", tmpCommand.getName());
 
-        tmpCommand = tmpCommands.get(7);
-        assertTrue(tmpCommand.isComment());
-        assertEquals("Comment", tmpCommand.getName());
+    tmpCommand = tmpCommands.get(7);
+    assertTrue(tmpCommand.isComment());
+    assertEquals("Comment", tmpCommand.getName());
 
-        tmpCommand = tmpCommands.get(8);
-        assertTrue(tmpCommand.isComment());
-        assertEquals("Comment", tmpCommand.getName());
-    }
+    tmpCommand = tmpCommands.get(8);
+    assertTrue(tmpCommand.isComment());
+    assertEquals("Comment", tmpCommand.getName());
+  }
 }

@@ -24,31 +24,29 @@ import junit.framework.TestSuite;
 
 public final class WetCommandTest extends TestCase {
 
-    public static void main(String[] args) {
-        junit.textui.TestRunner.run(suite());
-    }
+  public static void main(String[] args) {
+    junit.textui.TestRunner.run(suite());
+  }
 
-    public static Test suite() {
-        return new TestSuite(WetCommandTest.class);
-    }
+  public static Test suite() {
+    return new TestSuite(WetCommandTest.class);
+  }
 
+  public void testConstructor() throws IOException {
+    WetCommand tmpCommand = new WetCommand("TestCommand", false);
 
-    public void testConstructor() throws IOException {
-        WetCommand tmpCommand = new WetCommand("TestCommand", false);
+    assertEquals("TestCommand", tmpCommand.getName());
+    assertFalse(tmpCommand.isComment());
+    assertEquals(-1, tmpCommand.getLineNo());
+    // TODO assertEquals("", tmpCommand.toPrintableString(aWetContext));
+  }
 
-        assertEquals("TestCommand", tmpCommand.getName());
-        assertFalse(tmpCommand.isComment());
-        assertEquals(-1, tmpCommand.getLineNo());
-        // TODO assertEquals("", tmpCommand.toPrintableString(aWetContext));
-    }
+  public void testConstructor_comment() throws IOException {
+    WetCommand tmpCommand = new WetCommand("TestCommand", true);
 
-
-    public void testConstructor_comment() throws IOException {
-        WetCommand tmpCommand = new WetCommand("TestCommand", true);
-
-        assertEquals("TestCommand", tmpCommand.getName());
-        assertTrue(tmpCommand.isComment());
-        assertEquals(-1, tmpCommand.getLineNo());
-        // TODO assertEquals("", tmpCommand.toPrintableString(aWetContext));
-    }
+    assertEquals("TestCommand", tmpCommand.getName());
+    assertTrue(tmpCommand.isComment());
+    assertEquals(-1, tmpCommand.getLineNo());
+    // TODO assertEquals("", tmpCommand.toPrintableString(aWetContext));
+  }
 }

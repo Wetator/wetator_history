@@ -22,30 +22,48 @@ import org.rbri.wet.exception.AssertionFailedException;
 import org.rbri.wet.exception.WetException;
 import org.rbri.wet.util.SecretString;
 
-
 /**
  * The interface for all browsers.
  * This is more or less a tagging interface.
  * Every command has to check for the right
  * implementation.
- *
+ * 
  * @author rbri
  */
 public interface WetBackend {
 
-    public enum ContentType { HTML, TEXT, PDF, XLS, OTHER };
+  public enum ContentType {
+    HTML,
+    TEXT,
+    PDF,
+    XLS,
+    OTHER
+  };
 
-    public enum Browser { FIREFOX_2, FIREFOX_3, INTERNET_EXPLORER_6, INTERNET_EXPLORER_7, INTERNET_EXPLORER_8 };
+  public enum Browser {
+    FIREFOX_2,
+    FIREFOX_3,
+    INTERNET_EXPLORER_6,
+    INTERNET_EXPLORER_7,
+    INTERNET_EXPLORER_8
+  };
 
-    public ControlFinder getControlFinder() throws AssertionFailedException;
+  public ControlFinder getControlFinder() throws AssertionFailedException;
 
-    public void openUrl(URL aUrl) throws WetException, AssertionFailedException;
-    public String getCurrentTitle() throws AssertionFailedException;
-    public String getCurrentContentAsString() throws AssertionFailedException;
-    public void saveCurrentWindowToLog();
-    public void goBackInCurrentWindow(int aSteps) throws AssertionFailedException;
-    public void closeWindow(SecretString aWindowName) throws AssertionFailedException;
-    public void startNewSession();
-    public void checkFailure() throws AssertionFailedException;
+  public void openUrl(URL aUrl) throws WetException, AssertionFailedException;
+
+  public String getCurrentTitle() throws AssertionFailedException;
+
+  public String getCurrentContentAsString() throws AssertionFailedException;
+
+  public void saveCurrentWindowToLog();
+
+  public void goBackInCurrentWindow(int aSteps) throws AssertionFailedException;
+
+  public void closeWindow(SecretString aWindowName) throws AssertionFailedException;
+
+  public void startNewSession();
+
+  public void checkFailure() throws AssertionFailedException;
 
 }

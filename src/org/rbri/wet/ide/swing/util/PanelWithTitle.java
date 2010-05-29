@@ -25,38 +25,37 @@ import javax.swing.JPanel;
 import javax.swing.JToolBar;
 
 /**
- * 
  * @author rbri
  */
 public class PanelWithTitle extends JPanel {
 
-    private static final long serialVersionUID = 5340038095512843981L;
+  private static final long serialVersionUID = 5340038095512843981L;
 
-    private JLabel titleLabel;
-    private GradientPanel titleGradientPanel;
-    private JPanel headerPanel;
+  private JLabel titleLabel;
+  private GradientPanel titleGradientPanel;
+  private JPanel headerPanel;
 
-    public PanelWithTitle(String aTitle, JToolBar aToolBar) {
-        super(new BorderLayout());
+  public PanelWithTitle(String aTitle, JToolBar aToolBar) {
+    super(new BorderLayout());
 
-        titleLabel = new JLabel(aTitle, JLabel.LEADING);
-        titleLabel.setBackground(LookAndFeelUtil.getActiveTitleBackgroundColor());
-        titleLabel.setForeground(LookAndFeelUtil.getActiveTitleForegroundColor());
-        titleLabel.setOpaque(false);
+    titleLabel = new JLabel(aTitle, JLabel.LEADING);
+    titleLabel.setBackground(LookAndFeelUtil.getActiveTitleBackgroundColor());
+    titleLabel.setForeground(LookAndFeelUtil.getActiveTitleForegroundColor());
+    titleLabel.setOpaque(false);
 
-        titleGradientPanel = new GradientPanel();
-        titleGradientPanel.setLayout(new BorderLayout());
-        titleGradientPanel.setBackground(new Color(44, 73, 135));
-        titleGradientPanel.add(titleLabel, BorderLayout.WEST);
-        titleGradientPanel.setBorder(BorderFactory.createEmptyBorder(3, 4, 3, 1));
+    titleGradientPanel = new GradientPanel();
+    titleGradientPanel.setLayout(new BorderLayout());
+    titleGradientPanel.setBackground(new Color(44, 73, 135));
+    titleGradientPanel.add(titleLabel, BorderLayout.WEST);
+    titleGradientPanel.setBorder(BorderFactory.createEmptyBorder(3, 4, 3, 1));
 
-        headerPanel = new JPanel(new BorderLayout());
-        headerPanel.add(titleGradientPanel, BorderLayout.CENTER);
-        // setToolBar(aToolBar);
-        headerPanel.setBorder(new TopLeftRaisedBorder());
-        headerPanel.setOpaque(false);
+    headerPanel = new JPanel(new BorderLayout());
+    headerPanel.add(titleGradientPanel, BorderLayout.CENTER);
+    // setToolBar(aToolBar);
+    headerPanel.setBorder(new TopLeftRaisedBorder());
+    headerPanel.setOpaque(false);
 
-        add(headerPanel, BorderLayout.NORTH);
-        setBorder(new BottomRightShadowBorder());
-    }
+    add(headerPanel, BorderLayout.NORTH);
+    setBorder(new BottomRightShadowBorder());
+  }
 }

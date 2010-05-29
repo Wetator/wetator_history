@@ -16,21 +16,18 @@
 
 package org.rbri.wet.backend.htmlunit.util;
 
-
-
-
 /**
  * An object that stores the start and end position of a match.
  * It's more a struct than an object.
- *
+ * 
  * @author rbri
  */
 public final class FindSpot {
-    public int startPos;
-    public int endPos;
+  public int startPos;
+  public int endPos;
 
-    public FindSpot() {
-        startPos = -1;
-        endPos = -1;
-    }
+  public FindSpot() {
+    startPos = -1;
+    endPos = -1;
+  }
 }

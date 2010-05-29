@@ -19,31 +19,40 @@ package org.rbri.wet.core;
 import org.rbri.wet.commandset.WetCommandSet;
 import org.rbri.wet.exception.AssertionFailedException;
 
-
-
 /**
  * The interface for listeners of the engine
  * progress. Register a listener to be informed.
- *  
+ * 
  * @author rbri
  */
 public interface WetEngineProgressListener {
-    public void engineSetup(WetEngine aWetEngine);
-    public void engineTestStart();
-    public void engineResponseStored(String aResponseFileName);
-    public void engineTestEnd();
-    public void engineFinish();
+  public void engineSetup(WetEngine aWetEngine);
 
-    public void commandSetSetup(WetCommandSet aWetCommandSet);
+  public void engineTestStart();
 
-    public void contextTestStart(String aFileName);
-    public void contextExecuteCommandStart(WetContext aWetContext, WetCommand aCommand);
-    public void contextExecuteCommandSuccess();
-    public void contextExecuteCommandFailure(AssertionFailedException anAssertionFailedException);
-    public void contextExecuteCommandError(Throwable aThrowable);
-    public void contextExecuteCommandEnd();
-    public void contextTestEnd();
+  public void engineResponseStored(String aResponseFileName);
 
-    public void warn(String aMessageKey, String[] aParameterArray);
-    public void info(String aMessageKey, String[] aParameterArray);
+  public void engineTestEnd();
+
+  public void engineFinish();
+
+  public void commandSetSetup(WetCommandSet aWetCommandSet);
+
+  public void contextTestStart(String aFileName);
+
+  public void contextExecuteCommandStart(WetContext aWetContext, WetCommand aCommand);
+
+  public void contextExecuteCommandSuccess();
+
+  public void contextExecuteCommandFailure(AssertionFailedException anAssertionFailedException);
+
+  public void contextExecuteCommandError(Throwable aThrowable);
+
+  public void contextExecuteCommandEnd();
+
+  public void contextTestEnd();
+
+  public void warn(String aMessageKey, String[] aParameterArray);
+
+  public void info(String aMessageKey, String[] aParameterArray);
 }

@@ -27,20 +27,20 @@ import junit.framework.TestSuite;
  */
 public class HtmlUnitControlFinderTest extends TestCase {
 
-    public static void main(String[] args) {
-        junit.textui.TestRunner.run(suite());
-    }
+  public static void main(String[] args) {
+    junit.textui.TestRunner.run(suite());
+  }
 
-    public static Test suite() {
-        return new TestSuite(HtmlUnitControlFinderTest.class);
-    }
+  public static Test suite() {
+    return new TestSuite(HtmlUnitControlFinderTest.class);
+  }
 
-    public void testConstructorNullPage() throws IOException {
-        try {
-            new HtmlUnitControlFinder(null);
-            fail("NullPointerException expected.");
-        } catch (NullPointerException e) {
-            assertEquals("HtmlPage can't be null", e.getMessage());
-        }
+  public void testConstructorNullPage() throws IOException {
+    try {
+      new HtmlUnitControlFinder(null);
+      fail("NullPointerException expected.");
+    } catch (NullPointerException e) {
+      assertEquals("HtmlPage can't be null", e.getMessage());
     }
+  }
 }

@@ -23,17 +23,17 @@ import junit.framework.TestSuite;
  * @author rbri
  */
 public class AllTests {
-    public static void main(String[] args) {
-        junit.textui.TestRunner.run(suite());
-    }
+  public static void main(String[] args) {
+    junit.textui.TestRunner.run(suite());
+  }
 
-    public static Test suite() {
+  public static Test suite() {
 
-        TestSuite suite = new TestSuite("All Wetator backend tests");
+    TestSuite suite = new TestSuite("All Wetator backend tests");
 
-        suite.addTest(org.rbri.wet.backend.htmlunit.AllTests.suite());
+    suite.addTest(org.rbri.wet.backend.htmlunit.AllTests.suite());
 
-        suite.addTest(WeightedControlListTest.suite());
-        return suite;
-    }
+    suite.addTest(WeightedControlListTest.suite());
+    return suite;
+  }
 }

@@ -23,28 +23,28 @@ import junit.framework.TestSuite;
  * @author rbri
  */
 public class AllTests {
-    public static void main(String[] args) {
-        junit.textui.TestRunner.run(suite());
-    }
+  public static void main(String[] args) {
+    junit.textui.TestRunner.run(suite());
+  }
 
-    public static Test suite() {
+  public static Test suite() {
 
-        TestSuite suite = new TestSuite("All Wetator backend htmlunit tests");
+    TestSuite suite = new TestSuite("All Wetator backend htmlunit tests");
 
-        suite.addTest(org.rbri.wet.backend.htmlunit.util.AllTests.suite());
+    suite.addTest(org.rbri.wet.backend.htmlunit.util.AllTests.suite());
 
-        suite.addTest(HtmlElementUtilTest.suite());
-//        suite.addTest(HtmlUnitControlFinderAllBodyControlsForTextTest.suite());
+    suite.addTest(HtmlElementUtilTest.suite());
+    // suite.addTest(HtmlUnitControlFinderAllBodyControlsForTextTest.suite());
 
-        suite.addTest(HtmlUnitControlFinderTest.suite());
-        suite.addTest(HtmlUnitControlFinderGetAllClickablesTest.suite());
-        suite.addTest(HtmlUnitControlFinderGetAllElementsForTextTest.suite());
-        suite.addTest(HtmlUnitControlFinderGetAllOtherControlsTest.suite());
-        suite.addTest(HtmlUnitControlFinderGetAllSetablesTest.suite());
-        suite.addTest(HtmlUnitControlFinderGetAllSelectablesTest.suite());
-        suite.addTest(HtmlUnitControlFinderGetFirstClickableTextElementTest.suite());
-        suite.addTest(HtmlUnitControlTest.suite());
+    suite.addTest(HtmlUnitControlFinderTest.suite());
+    suite.addTest(HtmlUnitControlFinderGetAllClickablesTest.suite());
+    suite.addTest(HtmlUnitControlFinderGetAllElementsForTextTest.suite());
+    suite.addTest(HtmlUnitControlFinderGetAllOtherControlsTest.suite());
+    suite.addTest(HtmlUnitControlFinderGetAllSetablesTest.suite());
+    suite.addTest(HtmlUnitControlFinderGetAllSelectablesTest.suite());
+    suite.addTest(HtmlUnitControlFinderGetFirstClickableTextElementTest.suite());
+    suite.addTest(HtmlUnitControlTest.suite());
 
-        return suite;
-    }
+    return suite;
+  }
 }

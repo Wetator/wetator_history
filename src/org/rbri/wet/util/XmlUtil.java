@@ -21,207 +21,204 @@ import java.nio.charset.CharsetEncoder;
 
 /**
  * XmlUtil contains some useful helpers for XML-File handling.
- *
+ * 
  * @author rbri
  */
 public class XmlUtil {
 
-    private CharsetEncoder charsetEncoder;
+  private CharsetEncoder charsetEncoder;
 
-    public XmlUtil(String anEncoding) {
-        charsetEncoder = Charset.forName(anEncoding).newEncoder();
+  public XmlUtil(String anEncoding) {
+    charsetEncoder = Charset.forName(anEncoding).newEncoder();
+  }
+
+  /**
+   * Escape the the given string. For use as body text.<br>
+   * Sample: <code>normalizeBodyValue("&lt;\\abc&gt;")</code> returns <code>"&amp;lt;\abc&amp;gt;"</code>
+   * 
+   * @param aString the String to be normalized or null
+   * @return a new String
+   */
+  public String normalizeBodyValue(String aString) {
+    StringBuffer tmpResult = null;
+    int tmpLength;
+    char tmpChar;
+
+    if (aString == null) {
+      return "";
     }
 
-    /**
-     * Escape the the given string. For use as body text.<br>
-     * Sample: <code>normalizeBodyValue("&lt;\\abc&gt;")</code> returns
-     * <code>"&amp;lt;\abc&amp;gt;"</code>
-     *
-     * @param aString the String to be normalized or null
-     * @return a new String
-     */
-    public String normalizeBodyValue(String aString) {
-        StringBuffer tmpResult = null;
-        int tmpLength;
-        char tmpChar;
+    tmpLength = aString.length();
 
-        if (aString == null) {
-            return "";
-        }
+    // we have some kind of optimization here
+    // if there is no special character inside, then we
+    // are returning the original one
+    int i = 0;
+    while (i < tmpLength) {
+      tmpChar = aString.charAt(i);
 
-        tmpLength = aString.length();
-
-        // we have some kind of optimization here
-        // if there is no special character inside, then we
-        // are returning the original one
-        int i = 0;
-        while (i < tmpLength) {
-            tmpChar = aString.charAt(i);
-
-            if ((int)tmpChar < 32 && (int)tmpChar != 9 && (int)tmpChar != 10 && (int)tmpChar != 13) {
-                // ignore
-                tmpResult = new StringBuffer(aString.substring(0, i));
-                i++;
-                break;
-            } else if (tmpChar == '<') {
-                tmpResult = new StringBuffer(aString.substring(0, i));
-                tmpResult.append("&lt;");
-                i++;
-                break;
-            } else if (tmpChar == '>') {
-                tmpResult = new StringBuffer(aString.substring(0, i));
-                tmpResult.append("&gt;");
-                i++;
-                break;
-            } else if (tmpChar == '&') {
-                tmpResult = new StringBuffer(aString.substring(0, i));
-                tmpResult.append("&amp;");
-                i++;
-                break;
-            } else if (!charsetEncoder.canEncode(tmpChar)) {
-                tmpResult = new StringBuffer(aString.substring(0, i));
-                tmpResult.append("&#" + (int)tmpChar);
-                tmpResult.append(";");
-                i++;
-                break;
-            }
-            i++;
-        }
-
-        while (i < tmpLength) {
-            tmpChar = aString.charAt(i);
-
-            if ((int)tmpChar > 31 || (int)tmpChar == 9 || (int)tmpChar == 10 || (int)tmpChar == 13) {
-
-                switch (tmpChar) {
-                case '<': {
-                    tmpResult.append("&lt;");
-                    break;
-                }
-                case '>': {
-                    tmpResult.append("&gt;");
-                    break;
-                }
-                case '&': {
-                    tmpResult.append("&amp;");
-                    break;
-                }
-
-                default: {
-                    if (charsetEncoder.canEncode(tmpChar)) {
-                        tmpResult.append(tmpChar);
-                    } else {
-                        tmpResult.append("&#" + (int)tmpChar);
-                        tmpResult.append(";");
-                    }
-                }
-                }
-            }
-            i++;
-        }
-
-        if (null == tmpResult) {
-            return aString;
-        }
-        return tmpResult.toString();
+      if (tmpChar < 32 && tmpChar != 9 && tmpChar != 10 && tmpChar != 13) {
+        // ignore
+        tmpResult = new StringBuffer(aString.substring(0, i));
+        i++;
+        break;
+      } else if (tmpChar == '<') {
+        tmpResult = new StringBuffer(aString.substring(0, i));
+        tmpResult.append("&lt;");
+        i++;
+        break;
+      } else if (tmpChar == '>') {
+        tmpResult = new StringBuffer(aString.substring(0, i));
+        tmpResult.append("&gt;");
+        i++;
+        break;
+      } else if (tmpChar == '&') {
+        tmpResult = new StringBuffer(aString.substring(0, i));
+        tmpResult.append("&amp;");
+        i++;
+        break;
+      } else if (!charsetEncoder.canEncode(tmpChar)) {
+        tmpResult = new StringBuffer(aString.substring(0, i));
+        tmpResult.append("&#" + (int) tmpChar);
+        tmpResult.append(";");
+        i++;
+        break;
+      }
+      i++;
     }
 
-    /**
-     * Escape the <code>toString</code> of the given String. For use in an
-     * attribute value.<br>
-     * Sample: <code>normalizeBodyValue("&lt;\\abc&gt;")</code> returns
-     * <code>&amp;lt;&amp;apos;abc&amp;gt;</code>
-     *
-     * @param aString
-     *            the String to be normalized or null
-     *
-     * @return a new String
-     */
-    public String normalizeAttributeValue(String aString) {
-        StringBuffer tmpResult = null;
-        int tmpLength;
-        char tmpChar;
+    while (i < tmpLength) {
+      tmpChar = aString.charAt(i);
 
-        if (aString == null) {
-            return "";
-        }
+      if (tmpChar > 31 || tmpChar == 9 || tmpChar == 10 || tmpChar == 13) {
 
-        tmpLength = aString.length();
+        switch (tmpChar) {
+          case '<': {
+            tmpResult.append("&lt;");
+            break;
+          }
+          case '>': {
+            tmpResult.append("&gt;");
+            break;
+          }
+          case '&': {
+            tmpResult.append("&amp;");
+            break;
+          }
 
-        int i = 0;
-        for (; i < tmpLength; i++) {
-            tmpChar = aString.charAt(i);
-
-            if ((int) tmpChar < 32 && (int) tmpChar != 9 && (int) tmpChar != 10 && (int) tmpChar != 13) {
-                // ignore
-                tmpResult = new StringBuffer(aString.substring(0, i));
-                i++;
-                break;
-            } else if (tmpChar == '<') {
-                tmpResult = new StringBuffer(aString.substring(0, i));
-                tmpResult.append("&lt;");
-                i++;
-                break;
-            } else if (tmpChar == '>') {
-                tmpResult = new StringBuffer(aString.substring(0, i));
-                tmpResult.append("&gt;");
-                i++;
-                break;
-            } else if (tmpChar == '&') {
-                tmpResult = new StringBuffer(aString.substring(0, i));
-                tmpResult.append("&amp;");
-                i++;
-                break;
-            } else if (tmpChar == '\'') {
-                tmpResult = new StringBuffer(aString.substring(0, i));
-                tmpResult.append("&apos;");
-                i++;
-                break;
-            } else if (tmpChar == '"') {
-                tmpResult = new StringBuffer(aString.substring(0, i));
-                tmpResult.append("&quot;");
-                i++;
-                break;
+          default: {
+            if (charsetEncoder.canEncode(tmpChar)) {
+              tmpResult.append(tmpChar);
+            } else {
+              tmpResult.append("&#" + (int) tmpChar);
+              tmpResult.append(";");
             }
+          }
         }
-
-        for (; i < tmpLength; i++) {
-            tmpChar = aString.charAt(i);
-
-            if ((int) tmpChar > 31 || (int) tmpChar == 9 || (int) tmpChar == 10 || (int) tmpChar == 13) {
-
-                switch (tmpChar) {
-                case '<': {
-                    tmpResult.append("&lt;");
-                    break;
-                }
-                case '>': {
-                    tmpResult.append("&gt;");
-                    break;
-                }
-                case '&': {
-                    tmpResult.append("&amp;");
-                    break;
-                }
-                case '\'': {
-                    tmpResult.append("&apos;");
-                    break;
-                }
-                case '"': {
-                    tmpResult.append("&quot;");
-                    break;
-                }
-
-                default: {
-                    tmpResult.append(tmpChar);
-                }
-                }
-            }
-        }
-
-        if (null == tmpResult) {
-            return aString;
-        }
-        return tmpResult.toString();
+      }
+      i++;
     }
+
+    if (null == tmpResult) {
+      return aString;
+    }
+    return tmpResult.toString();
+  }
+
+  /**
+   * Escape the <code>toString</code> of the given String. For use in an
+   * attribute value.<br>
+   * Sample: <code>normalizeBodyValue("&lt;\\abc&gt;")</code> returns <code>&amp;lt;&amp;apos;abc&amp;gt;</code>
+   * 
+   * @param aString
+   *        the String to be normalized or null
+   * @return a new String
+   */
+  public String normalizeAttributeValue(String aString) {
+    StringBuffer tmpResult = null;
+    int tmpLength;
+    char tmpChar;
+
+    if (aString == null) {
+      return "";
+    }
+
+    tmpLength = aString.length();
+
+    int i = 0;
+    for (; i < tmpLength; i++) {
+      tmpChar = aString.charAt(i);
+
+      if (tmpChar < 32 && tmpChar != 9 && tmpChar != 10 && tmpChar != 13) {
+        // ignore
+        tmpResult = new StringBuffer(aString.substring(0, i));
+        i++;
+        break;
+      } else if (tmpChar == '<') {
+        tmpResult = new StringBuffer(aString.substring(0, i));
+        tmpResult.append("&lt;");
+        i++;
+        break;
+      } else if (tmpChar == '>') {
+        tmpResult = new StringBuffer(aString.substring(0, i));
+        tmpResult.append("&gt;");
+        i++;
+        break;
+      } else if (tmpChar == '&') {
+        tmpResult = new StringBuffer(aString.substring(0, i));
+        tmpResult.append("&amp;");
+        i++;
+        break;
+      } else if (tmpChar == '\'') {
+        tmpResult = new StringBuffer(aString.substring(0, i));
+        tmpResult.append("&apos;");
+        i++;
+        break;
+      } else if (tmpChar == '"') {
+        tmpResult = new StringBuffer(aString.substring(0, i));
+        tmpResult.append("&quot;");
+        i++;
+        break;
+      }
+    }
+
+    for (; i < tmpLength; i++) {
+      tmpChar = aString.charAt(i);
+
+      if (tmpChar > 31 || tmpChar == 9 || tmpChar == 10 || tmpChar == 13) {
+
+        switch (tmpChar) {
+          case '<': {
+            tmpResult.append("&lt;");
+            break;
+          }
+          case '>': {
+            tmpResult.append("&gt;");
+            break;
+          }
+          case '&': {
+            tmpResult.append("&amp;");
+            break;
+          }
+          case '\'': {
+            tmpResult.append("&apos;");
+            break;
+          }
+          case '"': {
+            tmpResult.append("&quot;");
+            break;
+          }
+
+          default: {
+            tmpResult.append(tmpChar);
+          }
+        }
+      }
+    }
+
+    if (null == tmpResult) {
+      return aString;
+    }
+    return tmpResult.toString();
+  }
 }

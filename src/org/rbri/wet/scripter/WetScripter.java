@@ -23,42 +23,39 @@ import java.util.Properties;
 import org.rbri.wet.core.WetCommand;
 import org.rbri.wet.exception.WetException;
 
-
 /**
  * The interface for all backends.
  * This interface contains the functions used
- * by the core CommandSet.   
- *  
+ * by the core CommandSet.
+ * 
  * @author rbri
  */
 public interface WetScripter {
-    
-    /**
-     * Sets the file this scripter works on.
-     * Also this method must read the whole list of commands.
-     * 
-     * @param aFile the file
-     * @throws WetException in case of error
-     */
-    public void setFile(File aFile) throws WetException;
 
-    
-    /**
-     * Returns true, if this scripter is able to handle this
-     * file.
-     * @param aFile the file to check
-     * 
-     * @return true or false
-     */
-    public boolean isSupported(File aFile);
+  /**
+   * Sets the file this scripter works on.
+   * Also this method must read the whole list of commands.
+   * 
+   * @param aFile the file
+   * @throws WetException in case of error
+   */
+  public void setFile(File aFile) throws WetException;
 
+  /**
+   * Returns true, if this scripter is able to handle this
+   * file.
+   * 
+   * @param aFile the file to check
+   * @return true or false
+   */
+  public boolean isSupported(File aFile);
 
-    /**
-     * Returns the complete list of commands.
-     * 
-     * @return the complete list of commands.
-     */
-    public List<WetCommand> getCommands();
+  /**
+   * Returns the complete list of commands.
+   * 
+   * @return the complete list of commands.
+   */
+  public List<WetCommand> getCommands();
 
-    public void initialize(Properties aConfiguration);
+  public void initialize(Properties aConfiguration);
 }

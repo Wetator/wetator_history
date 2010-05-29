@@ -33,42 +33,33 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
  */
 public class HtmlUnitControlTest extends TestCase {
 
-    public static void main(String[] args) {
-        junit.textui.TestRunner.run(suite());
-    }
+  public static void main(String[] args) {
+    junit.textui.TestRunner.run(suite());
+  }
 
-    public static Test suite() {
-        return new TestSuite(HtmlUnitControlTest.class);
-    }
+  public static Test suite() {
+    return new TestSuite(HtmlUnitControlTest.class);
+  }
 
-    public void testIsDisabled() throws IOException, WetException, AssertionFailedException {
-        String tmpHtmlCode = "<html><body>"
-            + "<form action='test'>"
-            + "<button disabled='disabled' id='myId' type='button' name='MyName'>"
-            + "<p>ButtonWithText</p>"
-            + "</button>"
-            + "</form>"
-            + "</body></html>";
-        HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+  public void testIsDisabled() throws IOException, WetException, AssertionFailedException {
+    String tmpHtmlCode = "<html><body>" + "<form action='test'>"
+        + "<button disabled='disabled' id='myId' type='button' name='MyName'>" + "<p>ButtonWithText</p>" + "</button>"
+        + "</form>" + "</body></html>";
+    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
 
-        HtmlUnitControl tmpControl = new HtmlUnitControl(tmpHtmlPage.getElementById("myId"));
+    HtmlUnitControl tmpControl = new HtmlUnitControl(tmpHtmlPage.getElementById("myId"));
 
-        assertTrue(tmpControl.isDisabled());
-    }
+    assertTrue(tmpControl.isDisabled());
+  }
 
-    
-    public void testIsDisabled_Not() throws IOException, WetException, AssertionFailedException {
-        String tmpHtmlCode = "<html><body>"
-            + "<form action='test'>"
-            + "<button style='visible: none' id='myId' type='button' name='MyName'>"
-            + "<p>ButtonWithText</p>"
-            + "</button>"
-            + "</form>"
-            + "</body></html>";
-        HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+  public void testIsDisabled_Not() throws IOException, WetException, AssertionFailedException {
+    String tmpHtmlCode = "<html><body>" + "<form action='test'>"
+        + "<button style='visible: none' id='myId' type='button' name='MyName'>" + "<p>ButtonWithText</p>"
+        + "</button>" + "</form>" + "</body></html>";
+    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
 
-        HtmlUnitControl tmpControl = new HtmlUnitControl(tmpHtmlPage.getElementById("myId"));
+    HtmlUnitControl tmpControl = new HtmlUnitControl(tmpHtmlPage.getElementById("myId"));
 
-        assertFalse(tmpControl.isDisabled());
-    }
+    assertFalse(tmpControl.isDisabled());
+  }
 }

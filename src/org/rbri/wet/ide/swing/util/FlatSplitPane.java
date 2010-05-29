@@ -22,23 +22,22 @@ import javax.swing.plaf.SplitPaneUI;
 import javax.swing.plaf.basic.BasicSplitPaneUI;
 
 /**
- * 
  * @author rbri
  */
 public class FlatSplitPane extends JSplitPane {
 
-    private static final long serialVersionUID = 5819956633477127079L;
+  private static final long serialVersionUID = 5819956633477127079L;
 
-    public FlatSplitPane(int anOrientation, boolean aContinuousLayoutFlag) {
-        super(anOrientation, aContinuousLayoutFlag);
+  public FlatSplitPane(int anOrientation, boolean aContinuousLayoutFlag) {
+    super(anOrientation, aContinuousLayoutFlag);
 
-        this.setBorder(BorderFactory.createEmptyBorder());
+    this.setBorder(BorderFactory.createEmptyBorder());
 
-        SplitPaneUI tmpSplitPaneUI = this.getUI();
-        if (tmpSplitPaneUI instanceof BasicSplitPaneUI) {
-            BasicSplitPaneUI basicUI = (BasicSplitPaneUI) tmpSplitPaneUI;
-            basicUI.getDivider().setBorder(BorderFactory.createEmptyBorder());
-        }
+    SplitPaneUI tmpSplitPaneUI = this.getUI();
+    if (tmpSplitPaneUI instanceof BasicSplitPaneUI) {
+      BasicSplitPaneUI basicUI = (BasicSplitPaneUI) tmpSplitPaneUI;
+      basicUI.getDivider().setBorder(BorderFactory.createEmptyBorder());
     }
+  }
 
 }

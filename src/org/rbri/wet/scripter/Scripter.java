@@ -13,37 +13,35 @@
  * limitations under the License.
  */
 
+
 package org.rbri.wet.scripter;
-
-
 
 /**
  * Scripter enum.
- *
+ * 
  * @author tobwoerk
  */
-public enum Scripter
-{
-    /**
-     * XML
-     */
-    XML (new XmlScripter()),
-    /**
-     * Excel
-     */
-    XSL (new ExcelScripter());
+public enum Scripter {
+  /**
+   * XML
+   */
+  XML(new XmlScripter()),
+  /**
+   * Excel
+   */
+  XSL(new ExcelScripter());
 
-    private WetScripter wetScripter;
+  private WetScripter wetScripter;
 
-    private Scripter(WetScripter aWetScripter) {
-    	wetScripter = aWetScripter;
-    }
+  private Scripter(WetScripter aWetScripter) {
+    wetScripter = aWetScripter;
+  }
 
-	/**
-	 * @return the wetScripter
-	 */
-	public WetScripter getWetScripter() {
-		return wetScripter;
-	}
+  /**
+   * @return the wetScripter
+   */
+  public WetScripter getWetScripter() {
+    return wetScripter;
+  }
 
 }

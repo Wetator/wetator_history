@@ -21,42 +21,41 @@ import java.io.File;
 import org.apache.commons.lang.StringUtils;
 import org.rbri.wet.exception.WetException;
 
-
-
 /**
  * FileUtil contains some useful extensions to work with files.
- *
+ * 
  * @author rbri
  */
 public class FileUtil {
 
-
-    /**
-     * Creates the specified directory if needed 
-     *
-     * @param anOutputDirPath the name of the directoy
-     * @return the directory file object
-     * @throws WetException in case of problems 
-     */
-    public static File createOutputDir(String anOutputDirPath) throws WetException {
-        if (StringUtils.isEmpty(anOutputDirPath)) {
-            // I18n
-            throw new WetException("No output dir specified");
-        }
-
-        File tmpDir = new File(anOutputDirPath);
-        if (tmpDir.exists()) {
-            if (tmpDir.isFile()) {
-                // I18n
-                throw new WetException("There is already a file ('" + tmpDir.getAbsolutePath() + "' with the same name as the configured"
-                        + "directory. Please change the configured directory or rename the file.");
-            }
-        } else {
-            if (!tmpDir.mkdirs()) {
-                // I18n
-                throw new WetException("Can't create the directory ('" + tmpDir.getAbsolutePath() + "'. Please change the configuration.");
-            }
-        }
-        return tmpDir;
+  /**
+   * Creates the specified directory if needed
+   * 
+   * @param anOutputDirPath the name of the directoy
+   * @return the directory file object
+   * @throws WetException in case of problems
+   */
+  public static File createOutputDir(String anOutputDirPath) throws WetException {
+    if (StringUtils.isEmpty(anOutputDirPath)) {
+      // I18n
+      throw new WetException("No output dir specified");
     }
+
+    File tmpDir = new File(anOutputDirPath);
+    if (tmpDir.exists()) {
+      if (tmpDir.isFile()) {
+        // I18n
+        throw new WetException("There is already a file ('" + tmpDir.getAbsolutePath()
+            + "' with the same name as the configured"
+            + "directory. Please change the configured directory or rename the file.");
+      }
+    } else {
+      if (!tmpDir.mkdirs()) {
+        // I18n
+        throw new WetException("Can't create the directory ('" + tmpDir.getAbsolutePath()
+            + "'. Please change the configuration.");
+      }
+    }
+    return tmpDir;
+  }
 }

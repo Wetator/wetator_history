@@ -18,55 +18,48 @@ package org.rbri.wet.core.variable;
 
 import org.rbri.wet.util.SecretString;
 
-
-
 /**
  * An object that stores a variable.
- *  
+ * 
  * @author rbri
  */
 public final class Variable {
-    private String name;
-    private SecretString secretValue;
-    
+  private String name;
+  private SecretString secretValue;
 
-    /**
-     * Constructor.
-     */
-    public Variable(String aName, String aValue) {
-        this(aName, aValue, false);
+  /**
+   * Constructor.
+   */
+  public Variable(String aName, String aValue) {
+    this(aName, aValue, false);
+  }
+
+  /**
+   * Constructor.
+   */
+  public Variable(String aName, String aValue, boolean anSecretFlag) {
+    this(aName, new SecretString(aValue, anSecretFlag));
+  }
+
+  /**
+   * Constructor.
+   */
+  public Variable(String aName, SecretString aValue) {
+    super();
+
+    if (null == aName) {
+      throw new IllegalArgumentException("Parameter aName can't be null.");
     }
 
+    name = aName;
+    secretValue = aValue;
+  }
 
-    /**
-     * Constructor.
-     */
-    public Variable(String aName, String aValue, boolean anSecretFlag) {
-        this(aName, new SecretString(aValue, anSecretFlag));
-    }
+  public String getName() {
+    return name;
+  }
 
-
-    /**
-     * Constructor.
-     */
-    public Variable(String aName, SecretString aValue) {
-        super();
-
-        if (null == aName) {
-            throw new IllegalArgumentException("Parameter aName can't be null.");
-        }
-
-        name = aName;
-        secretValue = aValue;
-    }
-
-
-    public String getName() {
-        return name;
-    }
-    
-
-    public SecretString getValue() {
-        return secretValue;
-    }
+  public SecretString getValue() {
+    return secretValue;
+  }
 }

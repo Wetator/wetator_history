@@ -20,22 +20,23 @@ import java.util.List;
 
 import org.rbri.wet.util.SecretString;
 
-
-
-
-
 /**
  * The common interface for the
  * backend.
- *
+ * 
  * @author rbri
  */
 public interface ControlFinder {
 
-    public WeightedControlList getAllClickables(List<SecretString> aSearch);
-    public WeightedControlList getAllSelectables(final List<SecretString> aSearch);
-    public WeightedControlList getAllSetables(List<SecretString> aSearch);
-    public WeightedControlList getAllOtherControls(List<SecretString> aSearch);
-    public WeightedControlList getAllElementsForText(List<SecretString> aSearch); 
-    public WeightedControlList getFirstClickableTextElement(List<SecretString> aSearch);
+  public WeightedControlList getAllClickables(List<SecretString> aSearch);
+
+  public WeightedControlList getAllSelectables(final List<SecretString> aSearch);
+
+  public WeightedControlList getAllSetables(List<SecretString> aSearch);
+
+  public WeightedControlList getAllOtherControls(List<SecretString> aSearch);
+
+  public WeightedControlList getAllElementsForText(List<SecretString> aSearch);
+
+  public WeightedControlList getFirstClickableTextElement(List<SecretString> aSearch);
 }

@@ -21,15 +21,14 @@ import org.rbri.wet.core.WetContext;
 import org.rbri.wet.exception.AssertionFailedException;
 import org.rbri.wet.exception.WetException;
 
-
 /**
  * The interface every implemented command
- * fullfills. 
- *  
+ * fullfills.
+ * 
  * @author rbri
  */
 public interface WetCommandImplementation {
-    
-    public void execute(WetContext aWetContext, WetCommand aWetCommand) throws WetException, AssertionFailedException;
+
+  public void execute(WetContext aWetContext, WetCommand aWetCommand) throws WetException, AssertionFailedException;
 
 }

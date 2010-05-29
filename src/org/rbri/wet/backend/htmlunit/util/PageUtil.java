@@ -26,36 +26,31 @@ import com.gargoylesoftware.htmlunit.html.HTMLParser;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.javascript.background.JavaScriptJobManager;
 
-
-
-
 /**
  * Util class for page handling.
- *
+ * 
  * @author rbri
  */
 public class PageUtil {
-    
-    // private static final Log LOG = LogFactory.getLog(PageUtil.class);
 
+  // private static final Log LOG = LogFactory.getLog(PageUtil.class);
 
-    public static void waitForThreads(final SgmlPage aHtmlPage) {
-        // TODO make max wait time configurable
-        JavaScriptJobManager tmpJobManager = aHtmlPage.getEnclosingWindow().getJobManager();
+  public static void waitForThreads(final SgmlPage aHtmlPage) {
+    // TODO make max wait time configurable
+    JavaScriptJobManager tmpJobManager = aHtmlPage.getEnclosingWindow().getJobManager();
 
-        // execute all immediate jobs 
-        tmpJobManager.waitForJobsStartingBefore(1000); // one second
-    }
+    // execute all immediate jobs
+    tmpJobManager.waitForJobsStartingBefore(1000); // one second
+  }
 
-    
-    /**
-     * Helper for tests
-     */
-    public static HtmlPage constructPage(final String aHtmlCode) throws IOException {
-        StringWebResponse tmpResponse = new StringWebResponse(aHtmlCode, new URL("http://www.rbri.org/wet/test.html"));
-        WebClient tmpWebClient = new WebClient();
-        HtmlPage tmpPage = HTMLParser.parseHtml(tmpResponse, tmpWebClient.getCurrentWindow());
+  /**
+   * Helper for tests
+   */
+  public static HtmlPage constructPage(final String aHtmlCode) throws IOException {
+    StringWebResponse tmpResponse = new StringWebResponse(aHtmlCode, new URL("http://www.rbri.org/wet/test.html"));
+    WebClient tmpWebClient = new WebClient();
+    HtmlPage tmpPage = HTMLParser.parseHtml(tmpResponse, tmpWebClient.getCurrentWindow());
 
-        return tmpPage;
-    }
+    return tmpPage;
+  }
 }

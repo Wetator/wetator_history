@@ -23,31 +23,31 @@ import junit.framework.TestSuite;
  * @author rbri
  */
 public class AllTests {
-    public static void main(String[] args) {
-        System.out.println(org.rbri.wet.Version.getFullProductName());
+  public static void main(String[] args) {
+    System.out.println(org.rbri.wet.Version.getFullProductName());
 
-        // System.out.println();
-        // System.out.println(" Classpath: " +
-        // System.getProperty("java.class.path"));
-        // System.out.println();
+    // System.out.println();
+    // System.out.println(" Classpath: " +
+    // System.getProperty("java.class.path"));
+    // System.out.println();
 
-        // Logger.setLogService(new PrintStreamLogService());
-        // Logger.setLevelInfo();
+    // Logger.setLogService(new PrintStreamLogService());
+    // Logger.setLevelInfo();
 
-        junit.textui.TestRunner.run(suite());
-    }
+    junit.textui.TestRunner.run(suite());
+  }
 
-    public static Test suite() {
+  public static Test suite() {
 
-        TestSuite suite = new TestSuite("All Wetator tests");
+    TestSuite suite = new TestSuite("All Wetator tests");
 
-        suite.addTest(org.rbri.wet.backend.AllTests.suite());
-        suite.addTest(org.rbri.wet.core.AllTests.suite());
-        suite.addTest(org.rbri.wet.commandset.AllTests.suite());
-        suite.addTest(org.rbri.wet.i18n.AllTests.suite());
-        suite.addTest(org.rbri.wet.scripter.AllTests.suite());
-        suite.addTest(org.rbri.wet.util.AllTests.suite());
+    suite.addTest(org.rbri.wet.backend.AllTests.suite());
+    suite.addTest(org.rbri.wet.core.AllTests.suite());
+    suite.addTest(org.rbri.wet.commandset.AllTests.suite());
+    suite.addTest(org.rbri.wet.i18n.AllTests.suite());
+    suite.addTest(org.rbri.wet.scripter.AllTests.suite());
+    suite.addTest(org.rbri.wet.util.AllTests.suite());
 
-        return suite;
-    }
+    return suite;
+  }
 }

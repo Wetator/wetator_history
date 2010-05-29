@@ -23,41 +23,40 @@ import javax.swing.UIDefaults;
 import javax.swing.UIManager;
 
 /**
- * 
  * @author rbri
  */
 public class LookAndFeelUtil {
 
-    public static Color getActiveTitleForegroundColor() {
-        return UIManager.getColor("InternalFrame.activeTitleForeground");
-    }
+  public static Color getActiveTitleForegroundColor() {
+    return UIManager.getColor("InternalFrame.activeTitleForeground");
+  }
 
-    public static Color getActiveTitleBackgroundColor() {
-        return UIManager.getColor("InternalFrame.activeTitleBackground");
-    }
+  public static Color getActiveTitleBackgroundColor() {
+    return UIManager.getColor("InternalFrame.activeTitleBackground");
+  }
 
-    public static Color getControlColor() {
-        return UIManager.getColor("control");
-    }
+  public static Color getControlColor() {
+    return UIManager.getColor("control");
+  }
 
-    public static Color getControlLtHighlightColor() {
-        return UIManager.getColor("controlLtHighlight");
-    }
+  public static Color getControlLtHighlightColor() {
+    return UIManager.getColor("controlLtHighlight");
+  }
 
-    public static Color getControlShadowColor() {
-        return UIManager.getColor("controlShadow");
-    }
+  public static Color getControlShadowColor() {
+    return UIManager.getColor("controlShadow");
+  }
 
-    public static void main(String[] anArgsArray) {
-        UIDefaults tmpUIDefaults = UIManager.getLookAndFeelDefaults();
-        Enumeration<Object> tmpKeys = tmpUIDefaults.keys();
-        while (tmpKeys.hasMoreElements()) {
-            Object tmpKey = tmpKeys.nextElement();
-            Object tmpValue = tmpUIDefaults.get(tmpKey);
-            if (null != tmpValue) {
-                System.out.println(tmpKey.getClass() + " " + tmpValue.getClass());
-            }
-            System.out.println(tmpKey + " " + tmpValue);
-        }
+  public static void main(String[] anArgsArray) {
+    UIDefaults tmpUIDefaults = UIManager.getLookAndFeelDefaults();
+    Enumeration<Object> tmpKeys = tmpUIDefaults.keys();
+    while (tmpKeys.hasMoreElements()) {
+      Object tmpKey = tmpKeys.nextElement();
+      Object tmpValue = tmpUIDefaults.get(tmpKey);
+      if (null != tmpValue) {
+        System.out.println(tmpKey.getClass() + " " + tmpValue.getClass());
+      }
+      System.out.println(tmpKey + " " + tmpValue);
     }
+  }
 }

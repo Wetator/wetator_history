@@ -19,24 +19,23 @@ package org.rbri.wet.ant;
 import org.apache.tools.ant.Project;
 import org.rbri.wet.util.StdOutProgressListener;
 
-
 /**
  * Simple progress listener that writes to the ant output system.
- *
+ * 
  * @author rbri
  */
 public final class AntOutProgressListener extends StdOutProgressListener {
-    private Wetator antTask;
+  private Wetator antTask;
 
-    public AntOutProgressListener(Wetator aWetator) {
-        antTask = aWetator;
-    }
+  public AntOutProgressListener(Wetator aWetator) {
+    antTask = aWetator;
+  }
 
-    protected void print(String aString) {
-        // print nothing
-    }
+  protected void print(String aString) {
+    // print nothing
+  }
 
-    protected void println(String aString) {
-         antTask.log(aString, Project.MSG_INFO);
-    }
+  protected void println(String aString) {
+    antTask.log(aString, Project.MSG_INFO);
+  }
 }

@@ -29,17 +29,17 @@ import org.rbri.wet.exception.AssertionFailedException;
  */
 public class WetResultWriterTest extends TestCase {
 
-    public static void main(String[] args) {
-        junit.textui.TestRunner.run(suite());
-    }
+  public static void main(String[] args) {
+    junit.textui.TestRunner.run(suite());
+  }
 
-    public static Test suite() {
-        return new TestSuite(WetResultWriterTest.class);
-    }
+  public static Test suite() {
+    return new TestSuite(WetResultWriterTest.class);
+  }
 
-    public void test() throws AssertionFailedException {
-        StringWriter tmpStringWriter = new StringWriter();
+  public void test() throws AssertionFailedException {
+    StringWriter tmpStringWriter = new StringWriter();
 
-        WetResultWriter tmpResultWriter;
-    }
+    WetResultWriter tmpResultWriter;
+  }
 }

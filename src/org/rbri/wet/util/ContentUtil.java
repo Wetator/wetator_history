@@ -29,103 +29,102 @@ import org.rbri.wet.exception.AssertionFailedException;
 
 /**
  * ContentUtil contains some useful helpers for content conversion handling.
- *
+ * 
  * @author rbri
  */
 public class ContentUtil {
 
-    /**
-     * Converts a pdf document to string
-     *
-     * @param anInputStream the input
-     * @return a String
-     * @throws AssertionFailedException if conversion fails
-     * @throws IOException
-     */
-    public static String getPdfContentAsString(InputStream anInputStream) throws IOException {
-        PDDocument tmpDocument;
-        tmpDocument = PDDocument.load(anInputStream);
-        try {
-            PDFTextStripper tmpStripper = new PDFTextStripper();
-            String tmpContentAsText = tmpStripper.getText(tmpDocument);
-            NormalizedContent tmpResult = new NormalizedContent();
-            tmpResult.append(tmpContentAsText);
-            return tmpResult.toString().trim();
-        } finally {
-            tmpDocument.close();
-        }
+  /**
+   * Converts a pdf document to string
+   * 
+   * @param anInputStream the input
+   * @return a String
+   * @throws AssertionFailedException if conversion fails
+   * @throws IOException
+   */
+  public static String getPdfContentAsString(InputStream anInputStream) throws IOException {
+    PDDocument tmpDocument;
+    tmpDocument = PDDocument.load(anInputStream);
+    try {
+      PDFTextStripper tmpStripper = new PDFTextStripper();
+      String tmpContentAsText = tmpStripper.getText(tmpDocument);
+      NormalizedContent tmpResult = new NormalizedContent();
+      tmpResult.append(tmpContentAsText);
+      return tmpResult.toString().trim();
+    } finally {
+      tmpDocument.close();
     }
+  }
 
-    /**
-     * Converts a xls document to string
-     *
-     * @param anInputStream the input
-     * @return a String
-     * @throws AssertionFailedException if conversion fails
-     * @throws IOException
-     */
-    public static String getXlsContentAsString(InputStream anInputStream) throws IOException {
-        NormalizedContent tmpResult = new NormalizedContent();
-        HSSFWorkbook tmpWorkbook = new HSSFWorkbook(anInputStream);
+  /**
+   * Converts a xls document to string
+   * 
+   * @param anInputStream the input
+   * @return a String
+   * @throws AssertionFailedException if conversion fails
+   * @throws IOException
+   */
+  public static String getXlsContentAsString(InputStream anInputStream) throws IOException {
+    NormalizedContent tmpResult = new NormalizedContent();
+    HSSFWorkbook tmpWorkbook = new HSSFWorkbook(anInputStream);
 
-        for (int i = 0; i < tmpWorkbook.getNumberOfSheets(); i++) {
-            HSSFSheet tmpSheet = tmpWorkbook.getSheetAt(i);
-            tmpResult.append("[");
-            tmpResult.append(tmpSheet.getSheetName());
-            tmpResult.append("] ");
+    for (int i = 0; i < tmpWorkbook.getNumberOfSheets(); i++) {
+      HSSFSheet tmpSheet = tmpWorkbook.getSheetAt(i);
+      tmpResult.append("[");
+      tmpResult.append(tmpSheet.getSheetName());
+      tmpResult.append("] ");
 
-            for (int tmpRowNum = 0; tmpRowNum <= tmpSheet.getLastRowNum(); tmpRowNum++) {
-                HSSFRow tmpRow = tmpSheet.getRow(tmpRowNum);
-                if (null != tmpRow) {
-                    for (int tmpCellNum = 0; tmpCellNum <= tmpRow.getLastCellNum(); tmpCellNum++) {
-                        String tmpCellValue = readCellContentAsString(tmpRow, tmpCellNum);
-                        if (null != tmpCellValue) {
-                            tmpResult.append(tmpCellValue);
-                            tmpResult.append(" ");
-                        }
-                    }
-                    tmpResult.append(" ");
-                }
+      for (int tmpRowNum = 0; tmpRowNum <= tmpSheet.getLastRowNum(); tmpRowNum++) {
+        HSSFRow tmpRow = tmpSheet.getRow(tmpRowNum);
+        if (null != tmpRow) {
+          for (int tmpCellNum = 0; tmpCellNum <= tmpRow.getLastCellNum(); tmpCellNum++) {
+            String tmpCellValue = readCellContentAsString(tmpRow, tmpCellNum);
+            if (null != tmpCellValue) {
+              tmpResult.append(tmpCellValue);
+              tmpResult.append(" ");
             }
+          }
+          tmpResult.append(" ");
         }
-
-        return tmpResult.toString().trim();
+      }
     }
 
+    return tmpResult.toString().trim();
+  }
 
-    public static String readCellContentAsString(HSSFRow aRow, int aColumnsNo) {
-        String tmpResult = null;
-        HSSFCell tmpCell;
-        int tmpCellType;
+  public static String readCellContentAsString(HSSFRow aRow, int aColumnsNo) {
+    String tmpResult = null;
+    HSSFCell tmpCell;
+    int tmpCellType;
 
-        tmpCell = aRow.getCell(aColumnsNo);
-        if (null == tmpCell) {
-            return tmpResult;
-        }
-
-        tmpCellType = tmpCell.getCellType();
-
-        switch (tmpCellType) {
-        case HSSFCell.CELL_TYPE_BLANK:
-            tmpResult = "";
-            break;
-        case HSSFCell.CELL_TYPE_STRING:
-            tmpResult = tmpCell.getRichStringCellValue().getString();
-            break;
-        case HSSFCell.CELL_TYPE_NUMERIC:
-            tmpResult = "" + tmpCell.getNumericCellValue();
-            break;
-
-        // deal with the other possible cases
-        case HSSFCell.CELL_TYPE_BOOLEAN:
-            // ignore
-        case HSSFCell.CELL_TYPE_ERROR:
-            // ignore
-        case HSSFCell.CELL_TYPE_FORMULA:
-            // ignore
-        default:
-            // ignore
-        }
-        return tmpResult;
+    tmpCell = aRow.getCell(aColumnsNo);
+    if (null == tmpCell) {
+      return tmpResult;
     }
+
+    tmpCellType = tmpCell.getCellType();
+
+    switch (tmpCellType) {
+      case HSSFCell.CELL_TYPE_BLANK:
+        tmpResult = "";
+        break;
+      case HSSFCell.CELL_TYPE_STRING:
+        tmpResult = tmpCell.getRichStringCellValue().getString();
+        break;
+      case HSSFCell.CELL_TYPE_NUMERIC:
+        tmpResult = "" + tmpCell.getNumericCellValue();
+        break;
+
+      // deal with the other possible cases
+      case HSSFCell.CELL_TYPE_BOOLEAN:
+        // ignore
+      case HSSFCell.CELL_TYPE_ERROR:
+        // ignore
+      case HSSFCell.CELL_TYPE_FORMULA:
+        // ignore
+      default:
+        // ignore
+    }
+    return tmpResult;
+  }
 }

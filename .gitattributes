@@ -1,6 +1,10 @@
 * text=auto !eol
+/.checkstyle -text
 /.classpath -text
 /.project -text
+.settings/org.eclipse.jdt.core.prefs -text svneol=unset#text/plain
+.settings/org.eclipse.jdt.launching.prefs -text svneol=unset#text/plain
+.settings/org.eclipse.jdt.ui.prefs -text svneol=unset#text/plain
 /LICENSE.txt -text
 /build-properties.xml -text
 /build.xml -text
@@ -83,6 +87,8 @@ src/wetator.config -text
 test/ant/build.xml -text
 test/ant/sample.xls -text
 test/ant/wet.config -text
+test/checkstyle/checkstyle.xml -text svneol=unset#text/plain
+test/checkstyle/test-checkstyle.xml -text svneol=unset#text/plain
 test/excel/ajax_jquery.xls -text
 test/excel/ajax_prototype.xls -text
 test/excel/anchor_inside_page.xls -text

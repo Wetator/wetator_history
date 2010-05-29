@@ -35,283 +35,202 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
  */
 public class HtmlUnitControlFinderGetAllOtherControlsTest extends TestCase {
 
-    public static void main(String[] args) {
-        junit.textui.TestRunner.run(suite());
-    }
+  public static void main(String[] args) {
+    junit.textui.TestRunner.run(suite());
+  }
 
-    public static Test suite() {
-        return new TestSuite(HtmlUnitControlFinderGetAllOtherControlsTest.class);
-    }
+  public static Test suite() {
+    return new TestSuite(HtmlUnitControlFinderGetAllOtherControlsTest.class);
+  }
 
-    public void testGetAllOtherControls_Empty() throws IOException {
-        String tmpHtmlCode = "<html><body>" + "</body></html>";
-        HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+  public void testGetAllOtherControls_Empty() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "</body></html>";
+    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
 
-        List<SecretString> tmpSearch = new ArrayList<SecretString>();
-        tmpSearch.add(new SecretString("Name", false));
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("Name", false));
 
-        HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
-        WeightedControlList tmpFound = tmpFinder.getAllOtherControls(tmpSearch);
+    HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
+    WeightedControlList tmpFound = tmpFinder.getAllOtherControls(tmpSearch);
 
-        assertEquals(0, tmpFound.getElementsSorted().size());
-    }
+    assertEquals(0, tmpFound.getElementsSorted().size());
+  }
 
+  public void testGetAllOtherControls_Select_ById() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<select id='MyId' name='MySelectName' size='2'>"
+        + "<option id='MyOptionId' value='o_value1'>option1</option>" + "<option value='o_value2'>option2</option>"
+        + "<option value='o_value3'>option3</option>" + "</select>" + "</form>" + "</body></html>";
+    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
 
-    public void testGetAllOtherControls_Select_ById() throws IOException {
-        String tmpHtmlCode =
-            "<html><body>"
-            + "<form action='test'>"
-            + "<select id='MyId' name='MySelectName' size='2'>"
-            + "<option id='MyOptionId' value='o_value1'>option1</option>"
-            + "<option value='o_value2'>option2</option>"
-            + "<option value='o_value3'>option3</option>"
-            + "</select>"
-            + "</form>"
-            + "</body></html>";
-        HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("MyId", false));
 
-        List<SecretString> tmpSearch = new ArrayList<SecretString>();
-        tmpSearch.add(new SecretString("MyId", false));
+    HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
+    WeightedControlList tmpFound = tmpFinder.getAllOtherControls(tmpSearch);
 
-        HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
-        WeightedControlList tmpFound = tmpFinder.getAllOtherControls(tmpSearch);
+    assertEquals(1, tmpFound.getElementsSorted().size());
+    assertEquals("[HtmlSelect (id='MyId') (name='MySelectName')] found by: BY_ID coverage: 0 distance: 0", tmpFound
+        .getElementsSorted().get(0).toString());
+  }
 
-        assertEquals(1, tmpFound.getElementsSorted().size());
-        assertEquals("[HtmlSelect (id='MyId') (name='MySelectName')] found by: BY_ID coverage: 0 distance: 0", tmpFound.getElementsSorted().get(0).toString());
-    }
+  public void testGetAllOtherControls_Select_ByTextBefore() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "FirstSelectLabelText"
+        + "<select name='MyFirstSelectName' size='2'>" + "<option id='1_1' value='o_value1'>option1</option>"
+        + "<option id='1_2' value='o_value2'>option2</option>" + "<option id='1_3' value='o_value3'>option3</option>"
+        + "</select>" + "SecondSelectLabelText" + "<select name='MySecondSelectName' size='2'>"
+        + "<option id='2_1' value='o_value1'>option1</option>" + "<option id='2_2' value='o_value2'>option2</option>"
+        + "<option id='2_3' value='o_value3'>option3</option>" + "</select>" + "</form>" + "</body></html>";
+    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
 
-    public void testGetAllOtherControls_Select_ByTextBefore() throws IOException {
-        String tmpHtmlCode =
-            "<html><body>"
-            + "<form action='test'>"
-            + "FirstSelectLabelText"
-            + "<select name='MyFirstSelectName' size='2'>"
-            + "<option id='1_1' value='o_value1'>option1</option>"
-            + "<option id='1_2' value='o_value2'>option2</option>"
-            + "<option id='1_3' value='o_value3'>option3</option>"
-            + "</select>"
-            + "SecondSelectLabelText"
-            + "<select name='MySecondSelectName' size='2'>"
-            + "<option id='2_1' value='o_value1'>option1</option>"
-            + "<option id='2_2' value='o_value2'>option2</option>"
-            + "<option id='2_3' value='o_value3'>option3</option>"
-            + "</select>"
-            + "</form>"
-            + "</body></html>";
-        HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("SecondSelectLabelText", false));
 
-        List<SecretString> tmpSearch = new ArrayList<SecretString>();
-        tmpSearch.add(new SecretString("SecondSelectLabelText", false));
+    HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
+    WeightedControlList tmpFound = tmpFinder.getAllOtherControls(tmpSearch);
 
-        HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
-        WeightedControlList tmpFound = tmpFinder.getAllOtherControls(tmpSearch);
+    assertEquals(1, tmpFound.getElementsSorted().size());
+    assertEquals("[HtmlSelect (name='MySecondSelectName')] found by: BY_LABEL coverage: 0 distance: 66", tmpFound
+        .getElementsSorted().get(0).toString());
+  }
 
-        assertEquals(1, tmpFound.getElementsSorted().size());
-        assertEquals("[HtmlSelect (name='MySecondSelectName')] found by: BY_LABEL coverage: 0 distance: 66", tmpFound.getElementsSorted().get(0).toString());
-    }
+  public void testGetAllOtherControls_Select_ByTextBeforeWildcard() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "FirstSelectLabelText"
+        + "<select name='MyFirstSelectName' size='2'>" + "<option id='1_1' value='o_value1'>option1</option>"
+        + "<option id='1_2' value='o_value2'>option2</option>" + "<option id='1_3' value='o_value3'>option3</option>"
+        + "</select>" + "SecondSelectLabelText" + "<select name='MySecondSelectName' size='2'>"
+        + "<option id='2_1' value='o_value1'>option1</option>" + "<option id='2_2' value='o_value2'>option2</option>"
+        + "<option id='2_3' value='o_value3'>option3</option>" + "</select>" + "</form>" + "</body></html>";
+    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
 
-    public void testGetAllOtherControls_Select_ByTextBeforeWildcard() throws IOException {
-        String tmpHtmlCode =
-            "<html><body>"
-            + "<form action='test'>"
-            + "FirstSelectLabelText"
-            + "<select name='MyFirstSelectName' size='2'>"
-            + "<option id='1_1' value='o_value1'>option1</option>"
-            + "<option id='1_2' value='o_value2'>option2</option>"
-            + "<option id='1_3' value='o_value3'>option3</option>"
-            + "</select>"
-            + "SecondSelectLabelText"
-            + "<select name='MySecondSelectName' size='2'>"
-            + "<option id='2_1' value='o_value1'>option1</option>"
-            + "<option id='2_2' value='o_value2'>option2</option>"
-            + "<option id='2_3' value='o_value3'>option3</option>"
-            + "</select>"
-            + "</form>"
-            + "</body></html>";
-        HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("cond*elText", false));
 
-        List<SecretString> tmpSearch = new ArrayList<SecretString>();
-        tmpSearch.add(new SecretString("cond*elText", false));
+    HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
+    WeightedControlList tmpFound = tmpFinder.getAllOtherControls(tmpSearch);
 
-        HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
-        WeightedControlList tmpFound = tmpFinder.getAllOtherControls(tmpSearch);
+    assertEquals(1, tmpFound.getElementsSorted().size());
+    assertEquals("[HtmlSelect (name='MySecondSelectName')] found by: BY_LABEL coverage: 2 distance: 66", tmpFound
+        .getElementsSorted().get(0).toString());
+  }
 
-        assertEquals(1, tmpFound.getElementsSorted().size());
-        assertEquals("[HtmlSelect (name='MySecondSelectName')] found by: BY_LABEL coverage: 2 distance: 66", tmpFound.getElementsSorted().get(0).toString());
-    }
+  public void testGetAllOtherControls_Select_ByTextPathBefore() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "FirstSelectLabelText"
+        + "<select name='MyFirstSelectName' size='2'>" + "<option id='1_1' value='o_value1'>option1</option>"
+        + "<option id='1_2' value='o_value2'>option2</option>" + "<option id='1_3' value='o_value3'>option3</option>"
+        + "</select>" + "SecondSelectLabelText" + "<select name='MySecondSelectName' size='2'>"
+        + "<option id='2_1' value='o_value1'>option1</option>" + "<option id='2_2' value='o_value2'>option2</option>"
+        + "<option id='2_3' value='o_value3'>option3</option>" + "</select>" + "</form>" + "</body></html>";
+    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
 
-    public void testGetAllOtherControls_Select_ByTextPathBefore() throws IOException {
-        String tmpHtmlCode =
-            "<html><body>"
-            + "<form action='test'>"
-            + "FirstSelectLabelText"
-            + "<select name='MyFirstSelectName' size='2'>"
-            + "<option id='1_1' value='o_value1'>option1</option>"
-            + "<option id='1_2' value='o_value2'>option2</option>"
-            + "<option id='1_3' value='o_value3'>option3</option>"
-            + "</select>"
-            + "SecondSelectLabelText"
-            + "<select name='MySecondSelectName' size='2'>"
-            + "<option id='2_1' value='o_value1'>option1</option>"
-            + "<option id='2_2' value='o_value2'>option2</option>"
-            + "<option id='2_3' value='o_value3'>option3</option>"
-            + "</select>"
-            + "</form>"
-            + "</body></html>";
-        HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("Fir", false));
+    tmpSearch.add(new SecretString("tSelectLabelText", false));
 
-        List<SecretString> tmpSearch = new ArrayList<SecretString>();
-        tmpSearch.add(new SecretString("Fir", false));
-        tmpSearch.add(new SecretString("tSelectLabelText", false));
+    HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
+    WeightedControlList tmpFound = tmpFinder.getAllOtherControls(tmpSearch);
 
-        HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
-        WeightedControlList tmpFound = tmpFinder.getAllOtherControls(tmpSearch);
+    assertEquals(2, tmpFound.getElementsSorted().size());
+    assertEquals("[HtmlSelect (name='MyFirstSelectName')] found by: BY_LABEL coverage: 4 distance: 17", tmpFound
+        .getElementsSorted().get(0).toString());
+    assertEquals("[HtmlSelect (name='MySecondSelectName')] found by: BY_TEXT coverage: 46 distance: 46", tmpFound
+        .getElementsSorted().get(1).toString());
+  }
 
-        assertEquals(2, tmpFound.getElementsSorted().size());
-        assertEquals("[HtmlSelect (name='MyFirstSelectName')] found by: BY_LABEL coverage: 4 distance: 17", tmpFound.getElementsSorted().get(0).toString());
-        assertEquals("[HtmlSelect (name='MySecondSelectName')] found by: BY_TEXT coverage: 46 distance: 46", tmpFound.getElementsSorted().get(1).toString());
-    }
+  public void testGetAllOtherControls_Select_ByName() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "FirstSelectLabelText"
+        + "<select name='MyFirstSelectName' size='2'>" + "<option id='1_1' value='o_value1'>option1</option>"
+        + "<option id='1_2' value='o_value2'>option2</option>" + "<option id='1_3' value='o_value3'>option3</option>"
+        + "</select>" + "SecondSelectLabelText" + "<select name='MySecondSelectName' size='2'>"
+        + "<option id='2_1' value='o_value1'>option1</option>" + "<option id='2_2' value='o_value2'>option2</option>"
+        + "<option id='2_3' value='o_value3'>option3</option>" + "</select>" + "</form>" + "</body></html>";
+    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
 
-    public void testGetAllOtherControls_Select_ByName() throws IOException {
-        String tmpHtmlCode =
-            "<html><body>"
-            + "<form action='test'>"
-            + "FirstSelectLabelText"
-            + "<select name='MyFirstSelectName' size='2'>"
-            + "<option id='1_1' value='o_value1'>option1</option>"
-            + "<option id='1_2' value='o_value2'>option2</option>"
-            + "<option id='1_3' value='o_value3'>option3</option>"
-            + "</select>"
-            + "SecondSelectLabelText"
-            + "<select name='MySecondSelectName' size='2'>"
-            + "<option id='2_1' value='o_value1'>option1</option>"
-            + "<option id='2_2' value='o_value2'>option2</option>"
-            + "<option id='2_3' value='o_value3'>option3</option>"
-            + "</select>"
-            + "</form>"
-            + "</body></html>";
-        HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("MyFirstSelectName", false));
 
-        List<SecretString> tmpSearch = new ArrayList<SecretString>();
-        tmpSearch.add(new SecretString("MyFirstSelectName", false));
+    HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
+    WeightedControlList tmpFound = tmpFinder.getAllOtherControls(tmpSearch);
 
-        HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
-        WeightedControlList tmpFound = tmpFinder.getAllOtherControls(tmpSearch);
+    assertEquals(1, tmpFound.getElementsSorted().size());
+    assertEquals("[HtmlSelect (name='MyFirstSelectName')] found by: BY_NAME coverage: 0 distance: 20", tmpFound
+        .getElementsSorted().get(0).toString());
+  }
 
-        assertEquals(1, tmpFound.getElementsSorted().size());
-        assertEquals("[HtmlSelect (name='MyFirstSelectName')] found by: BY_NAME coverage: 0 distance: 20", tmpFound.getElementsSorted().get(0).toString());
-    }
+  public void testGetAllOtherControls_Select_ByLabelText() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<form action='test'>"
+        + "<label for='MyFirstSelectId'>FirstSelectLabelText</label>" + "<select id='MyFirstSelectId' size='2'>"
+        + "<option id='1_1' value='o_value1'>option1</option>" + "<option id='1_2' value='o_value2'>option2</option>"
+        + "<option id='1_3' value='o_value3'>option3</option>" + "</select>"
+        + "<label for='MySecondSelectId'>SecondSelectLabelText</label>" + "<select id='MySecondSelectId' size='2'>"
+        + "<option id='2_1' value='o_value1'>option1</option>" + "<option id='2_2' value='o_value2'>option2</option>"
+        + "<option id='2_3' value='o_value3'>option3</option>" + "</select>" + "</form>" + "</body></html>";
+    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
 
-    public void testGetAllOtherControls_Select_ByLabelText() throws IOException {
-        String tmpHtmlCode =
-            "<html><body>"
-            + "<form action='test'>"
-            + "<label for='MyFirstSelectId'>FirstSelectLabelText</label>"
-            + "<select id='MyFirstSelectId' size='2'>"
-            + "<option id='1_1' value='o_value1'>option1</option>"
-            + "<option id='1_2' value='o_value2'>option2</option>"
-            + "<option id='1_3' value='o_value3'>option3</option>"
-            + "</select>"
-            + "<label for='MySecondSelectId'>SecondSelectLabelText</label>"
-            + "<select id='MySecondSelectId' size='2'>"
-            + "<option id='2_1' value='o_value1'>option1</option>"
-            + "<option id='2_2' value='o_value2'>option2</option>"
-            + "<option id='2_3' value='o_value3'>option3</option>"
-            + "</select>"
-            + "</form>"
-            + "</body></html>";
-        HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("SecondSelectLabelText", false));
 
-        List<SecretString> tmpSearch = new ArrayList<SecretString>();
-        tmpSearch.add(new SecretString("SecondSelectLabelText", false));
+    HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
+    WeightedControlList tmpFound = tmpFinder.getAllOtherControls(tmpSearch);
 
-        HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
-        WeightedControlList tmpFound = tmpFinder.getAllOtherControls(tmpSearch);
+    assertEquals(1, tmpFound.getElementsSorted().size());
+    assertEquals("[HtmlSelect (id='MySecondSelectId')] found by: BY_LABEL coverage: 0 distance: 44", tmpFound
+        .getElementsSorted().get(0).toString());
+  }
 
-        assertEquals(1, tmpFound.getElementsSorted().size());
-        assertEquals("[HtmlSelect (id='MySecondSelectId')] found by: BY_LABEL coverage: 0 distance: 44", tmpFound.getElementsSorted().get(0).toString());
-    }
+  public void testGetAllOtherControls_Select_ByLabelTextChild() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<label>FirstSelectLabelText"
+        + "<select id='MyFirstSelectId' size='2'>" + "<option id='1_1' value='o_value1'>option1</option>"
+        + "<option id='1_2' value='o_value2'>option2</option>" + "<option id='1_3' value='o_value3'>option3</option>"
+        + "</select>" + "</label>" + "<label>SecondSelectLabelText" + "<select id='MySecondSelectId' size='2'>"
+        + "<option id='2_1' value='o_value1'>option1</option>" + "<option id='2_2' value='o_value2'>option2</option>"
+        + "<option id='2_3' value='o_value3'>option3</option>" + "</select>" + "</label>" + "</form>"
+        + "</body></html>";
+    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
 
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("SecondSelectLabelText", false));
 
-    public void testGetAllOtherControls_Select_ByLabelTextChild() throws IOException {
-        String tmpHtmlCode =
-            "<html><body>"
-            + "<form action='test'>"
-            + "<label>FirstSelectLabelText"
-            + "<select id='MyFirstSelectId' size='2'>"
-            + "<option id='1_1' value='o_value1'>option1</option>"
-            + "<option id='1_2' value='o_value2'>option2</option>"
-            + "<option id='1_3' value='o_value3'>option3</option>"
-            + "</select>"
-            + "</label>"
-            + "<label>SecondSelectLabelText"
-            + "<select id='MySecondSelectId' size='2'>"
-            + "<option id='2_1' value='o_value1'>option1</option>"
-            + "<option id='2_2' value='o_value2'>option2</option>"
-            + "<option id='2_3' value='o_value3'>option3</option>"
-            + "</select>"
-            + "</label>"
-            + "</form>"
-            + "</body></html>";
-        HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
+    WeightedControlList tmpFound = tmpFinder.getAllOtherControls(tmpSearch);
 
-        List<SecretString> tmpSearch = new ArrayList<SecretString>();
-        tmpSearch.add(new SecretString("SecondSelectLabelText", false));
+    assertEquals(1, tmpFound.getElementsSorted().size());
+    assertEquals("[HtmlSelect (id='MySecondSelectId')] found by: BY_LABEL coverage: 0 distance: 66", tmpFound
+        .getElementsSorted().get(0).toString());
+  }
 
-        HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
-        WeightedControlList tmpFound = tmpFinder.getAllOtherControls(tmpSearch);
+  public void testGetAllOtherControls_OptionGroup_ByLabelText() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<select id='MyFirstSelectId' size='2'>"
+        + "<optgroup label='colors' id='optgroup_colors'>" + "<option value='o_red'>red</option>"
+        + "<option value='o_green'>green</option>" + "<option value='o_blue'>blue</option>" + "</select>" + "</form>"
+        + "</body></html>";
+    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
 
-        assertEquals(1, tmpFound.getElementsSorted().size());
-        assertEquals("[HtmlSelect (id='MySecondSelectId')] found by: BY_LABEL coverage: 0 distance: 66", tmpFound.getElementsSorted().get(0).toString());
-    }
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("colors", false));
 
+    HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
+    WeightedControlList tmpFound = tmpFinder.getAllOtherControls(tmpSearch);
 
-    public void testGetAllOtherControls_OptionGroup_ByLabelText() throws IOException {
-        String tmpHtmlCode =
-            "<html><body>"
-            + "<form action='test'>"
-            + "<select id='MyFirstSelectId' size='2'>"
-            + "<optgroup label='colors' id='optgroup_colors'>"
-            + "<option value='o_red'>red</option>"
-            + "<option value='o_green'>green</option>"
-            + "<option value='o_blue'>blue</option>"
-            + "</select>"
-            + "</form>"
-            + "</body></html>";
-        HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    assertEquals(1, tmpFound.getElementsSorted().size());
+    assertEquals("[HtmlOptionGroup 'colors' (id='optgroup_colors')] found by: BY_LABEL_TEXT coverage: 0 distance: 0",
+        tmpFound.getElementsSorted().get(0).toString());
+  }
 
-        List<SecretString> tmpSearch = new ArrayList<SecretString>();
-        tmpSearch.add(new SecretString("colors", false));
+  public void testGetAllOtherControls_OptionGroup_ById() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<select id='MyFirstSelectId' size='2'>"
+        + "<optgroup label='colors' id='optgroup_colors'>" + "<option value='o_red'>red</option>"
+        + "<option value='o_green'>green</option>" + "<option value='o_blue'>blue</option>" + "</select>" + "</form>"
+        + "</body></html>";
+    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
 
-        HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
-        WeightedControlList tmpFound = tmpFinder.getAllOtherControls(tmpSearch);
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("optgroup_colors", false));
 
-        assertEquals(1, tmpFound.getElementsSorted().size());
-        assertEquals("[HtmlOptionGroup 'colors' (id='optgroup_colors')] found by: BY_LABEL_TEXT coverage: 0 distance: 0", tmpFound.getElementsSorted().get(0).toString());
-    }
+    HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
+    WeightedControlList tmpFound = tmpFinder.getAllOtherControls(tmpSearch);
 
-
-    public void testGetAllOtherControls_OptionGroup_ById() throws IOException {
-        String tmpHtmlCode =
-            "<html><body>"
-            + "<form action='test'>"
-            + "<select id='MyFirstSelectId' size='2'>"
-            + "<optgroup label='colors' id='optgroup_colors'>"
-            + "<option value='o_red'>red</option>"
-            + "<option value='o_green'>green</option>"
-            + "<option value='o_blue'>blue</option>"
-            + "</select>"
-            + "</form>"
-            + "</body></html>";
-        HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
-
-        List<SecretString> tmpSearch = new ArrayList<SecretString>();
-        tmpSearch.add(new SecretString("optgroup_colors", false));
-
-        HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
-        WeightedControlList tmpFound = tmpFinder.getAllOtherControls(tmpSearch);
-
-        assertEquals(1, tmpFound.getElementsSorted().size());
-        assertEquals("[HtmlOptionGroup 'colors' (id='optgroup_colors')] found by: BY_ID coverage: 0 distance: 0", tmpFound.getElementsSorted().get(0).toString());
-    }
+    assertEquals(1, tmpFound.getElementsSorted().size());
+    assertEquals("[HtmlOptionGroup 'colors' (id='optgroup_colors')] found by: BY_ID coverage: 0 distance: 0", tmpFound
+        .getElementsSorted().get(0).toString());
+  }
 }

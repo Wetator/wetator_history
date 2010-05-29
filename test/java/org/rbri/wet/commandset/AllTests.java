@@ -23,16 +23,16 @@ import junit.framework.TestSuite;
  * @author rbri
  */
 public class AllTests {
-    public static void main(String[] args) {
-        junit.textui.TestRunner.run(suite());
-    }
+  public static void main(String[] args) {
+    junit.textui.TestRunner.run(suite());
+  }
 
-    public static Test suite() {
+  public static Test suite() {
 
-        TestSuite suite = new TestSuite("All Wetator backend htmlunit util tests");
+    TestSuite suite = new TestSuite("All Wetator backend htmlunit util tests");
 
-        suite.addTest(DefaultCommandSetTest.suite());
+    suite.addTest(DefaultCommandSetTest.suite());
 
-        return suite;
-    }
+    return suite;
+  }
 }

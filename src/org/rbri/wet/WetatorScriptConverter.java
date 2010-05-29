@@ -13,6 +13,7 @@
  * limitations under the License.
  */
 
+
 package org.rbri.wet;
 
 import java.io.File;
@@ -30,64 +31,66 @@ import org.rbri.wet.scripter.WetScripter;
 
 /**
  * The command line interface for converting test scripts.
- *
+ * 
  * @author tobwoerk
  */
 public final class WetatorScriptConverter {
 
-	private static final Log LOG = LogFactory.getLog(WetatorScriptConverter.class);;
+  private static final Log LOG = LogFactory.getLog(WetatorScriptConverter.class);;
 
-	/**
-	 * The start point for the command line call
-	 *
-	 * @param anArgsArray
-	 *            the command line arguments
-	 */
-	public static void main(String[] anArgsArray) {
-		LOG.info(Version.getFullProductName());
-		LOG.info("    " + com.gargoylesoftware.htmlunit.Version.getProductName() + " " + com.gargoylesoftware.htmlunit.Version.getProductVersion());
+  /**
+   * The start point for the command line call
+   * 
+   * @param anArgsArray
+   *        the command line arguments
+   */
+  public static void main(String[] anArgsArray) {
+    LOG.info(Version.getFullProductName());
+    LOG.info("    " + com.gargoylesoftware.htmlunit.Version.getProductName() + " "
+        + com.gargoylesoftware.htmlunit.Version.getProductVersion());
 
-		if (null == anArgsArray || anArgsArray.length < 3) {
-			System.err.println("Parameters: <scripter> <script creator> <outputDir> (<dtd type> <dtd>)");
-			System.err.println("example1: xsl xml /Users/me/tests");
-			System.err.println("example2: xsl xml /Users/me/tests SYSTEM testcase.dtd");
-			System.exit(1);
-		}
-		String tmpScripterType = anArgsArray[0];
-		String tmpScriptCreatorType = anArgsArray[1];
-		String tmpOutputDir = anArgsArray[2];
-		LOG.info("Starting converter using scripter '" + tmpScripterType + "', script creator '" + tmpScriptCreatorType + " and output directory '" + tmpOutputDir + "'.");
+    if (null == anArgsArray || anArgsArray.length < 3) {
+      System.err.println("Parameters: <scripter> <script creator> <outputDir> (<dtd type> <dtd>)");
+      System.err.println("example1: xsl xml /Users/me/tests");
+      System.err.println("example2: xsl xml /Users/me/tests SYSTEM testcase.dtd");
+      System.exit(1);
+    }
+    String tmpScripterType = anArgsArray[0];
+    String tmpScriptCreatorType = anArgsArray[1];
+    String tmpOutputDir = anArgsArray[2];
+    LOG.info("Starting converter using scripter '" + tmpScripterType + "', script creator '" + tmpScriptCreatorType
+        + " and output directory '" + tmpOutputDir + "'.");
 
-		WetScriptConverter tmpConverter = new WetScriptConverter();
-		try {
-			Scripter tmpScripter = Scripter.valueOf(tmpScripterType.toUpperCase());
-			WetScripter tmpWetScripter = tmpScripter.getWetScripter();
-			ScriptCreator tmpScriptCreator = ScriptCreator.valueOf(tmpScriptCreatorType.toUpperCase());
-			WetScriptCreator tmpCreator = tmpScriptCreator.getWetScriptCreator();
-			tmpCreator.setOutputDir(tmpOutputDir);
-			if (tmpCreator instanceof XmlScriptCreator && anArgsArray.length == 5) {
-				String tmpDtd = anArgsArray[3] + " \"" + anArgsArray[4] + "\"";
-				LOG.info("Using DTD '" + tmpDtd + "'.");
-				((XmlScriptCreator) tmpCreator).setDtd(tmpDtd);
-			}
-			tmpConverter.setScripter(tmpWetScripter);
-			tmpConverter.setCreator(tmpCreator);
-			File[] tmpFiles = DialogUtil.chooseFiles();
-			if (null == tmpFiles || (tmpFiles.length < 1)) {
-				return;
-			}
+    WetScriptConverter tmpConverter = new WetScriptConverter();
+    try {
+      Scripter tmpScripter = Scripter.valueOf(tmpScripterType.toUpperCase());
+      WetScripter tmpWetScripter = tmpScripter.getWetScripter();
+      ScriptCreator tmpScriptCreator = ScriptCreator.valueOf(tmpScriptCreatorType.toUpperCase());
+      WetScriptCreator tmpCreator = tmpScriptCreator.getWetScriptCreator();
+      tmpCreator.setOutputDir(tmpOutputDir);
+      if (tmpCreator instanceof XmlScriptCreator && anArgsArray.length == 5) {
+        String tmpDtd = anArgsArray[3] + " \"" + anArgsArray[4] + "\"";
+        LOG.info("Using DTD '" + tmpDtd + "'.");
+        ((XmlScriptCreator) tmpCreator).setDtd(tmpDtd);
+      }
+      tmpConverter.setScripter(tmpWetScripter);
+      tmpConverter.setCreator(tmpCreator);
+      File[] tmpFiles = DialogUtil.chooseFiles();
+      if (null == tmpFiles || (tmpFiles.length < 1)) {
+        return;
+      }
 
-			for (int i = 0; i < tmpFiles.length; i++) {
-				tmpConverter.addTestFile(tmpFiles[i]);
-			}
+      for (int i = 0; i < tmpFiles.length; i++) {
+        tmpConverter.addTestFile(tmpFiles[i]);
+      }
 
-			LOG.info("Begin converting...");
-			tmpConverter.convert();
-			LOG.info("Converting successfully completed.");
-		} catch (WetException e) {
-			e.printStackTrace();
-			System.exit(1);
-		}
-		System.exit(0);
-	}
+      LOG.info("Begin converting...");
+      tmpConverter.convert();
+      LOG.info("Converting successfully completed.");
+    } catch (WetException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
+    System.exit(0);
+  }
 }

@@ -28,79 +28,79 @@ import org.rbri.wet.i18n.Messages;
  * @author rbri
  */
 public class DialogUtil {
-    
-    private static final String LAST_DIR = "lastDir";
 
-    /**
-     * Helper for displaying a file selector dialog
-     * @return the files
-     */
-    public static File chooseFile() {
-        File[] tmpResult;
-        // we can make this configurable later
-        tmpResult = chooseFilesSwing(false);
-        if (null == tmpResult) {
-            return null;
-        }
-        return tmpResult[0];
+  private static final String LAST_DIR = "lastDir";
+
+  /**
+   * Helper for displaying a file selector dialog
+   * 
+   * @return the files
+   */
+  public static File chooseFile() {
+    File[] tmpResult;
+    // we can make this configurable later
+    tmpResult = chooseFilesSwing(false);
+    if (null == tmpResult) {
+      return null;
+    }
+    return tmpResult[0];
+  }
+
+  /**
+   * Helper for displaying a file selector dialog
+   * 
+   * @return the files
+   */
+  public static File[] chooseFiles() {
+    File[] tmpResult;
+    // we can make this configurable later
+    tmpResult = chooseFilesSwing(true);
+
+    return tmpResult;
+  }
+
+  protected static File[] chooseFilesSwing(boolean aMultiSelectionFlag) {
+    Preferences tmpPreferences = Preferences.userNodeForPackage(Wetator.class);
+    String tmpLastDirName = tmpPreferences.get(LAST_DIR, "");
+
+    File tmpLastDir = new File(tmpLastDirName);
+    if (!tmpLastDir.exists() || !tmpLastDir.isDirectory()) {
+      tmpLastDir = null;
     }
 
-    
-    /**
-     * Helper for displaying a file selector dialog
-     * @return the files
-     */
-    public static File[] chooseFiles() {
-        File[] tmpResult;
-        // we can make this configurable later
-        tmpResult = chooseFilesSwing(true);
-        
-        return tmpResult;
-    }
+    JFileChooser tmpFileChooser = new JFileChooser();
+    tmpFileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+    tmpFileChooser.setMultiSelectionEnabled(aMultiSelectionFlag);
+    tmpFileChooser.setDialogTitle(Messages.getMessage("fileChooserTitle", null));
+    tmpFileChooser.setCurrentDirectory(tmpLastDir);
 
-    
-    protected static File[] chooseFilesSwing(boolean aMultiSelectionFlag) {
-        Preferences tmpPreferences = Preferences.userNodeForPackage(Wetator.class);
-        String tmpLastDirName = tmpPreferences.get(LAST_DIR, "");
+    // TODO File[] tmpSelFiles = new File[1];
+    // tmpSelFiles[0] = new File("open_url.xls");
+    // tmpFileChooser.setSelectedFiles(tmpSelFiles);
 
-        File tmpLastDir = new File(tmpLastDirName);
-        if (!tmpLastDir.exists() || !tmpLastDir.isDirectory()) {
-            tmpLastDir = null;
-        }
-        
-        JFileChooser tmpFileChooser = new JFileChooser();
-        tmpFileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-        tmpFileChooser.setMultiSelectionEnabled(aMultiSelectionFlag);
-        tmpFileChooser.setDialogTitle(Messages.getMessage("fileChooserTitle", null));
-        tmpFileChooser.setCurrentDirectory(tmpLastDir);
-        
-        // TODO File[] tmpSelFiles = new File[1];
-        // tmpSelFiles[0] = new File("open_url.xls");
-        // tmpFileChooser.setSelectedFiles(tmpSelFiles);
-        
-        int tmpChooserAction = tmpFileChooser.showOpenDialog(null);
-        
-        switch (tmpChooserAction) {
-        case JFileChooser.APPROVE_OPTION:
-            if (aMultiSelectionFlag) {
-                File[] tmpSelectedFiles = tmpFileChooser.getSelectedFiles();
+    int tmpChooserAction = tmpFileChooser.showOpenDialog(null);
 
-                if (tmpSelectedFiles.length > 0) {
-                    tmpPreferences.put(LAST_DIR, tmpSelectedFiles[0].getParentFile().getAbsolutePath());
-                }
+    switch (tmpChooserAction) {
+      case JFileChooser.APPROVE_OPTION:
+        if (aMultiSelectionFlag) {
+          File[] tmpSelectedFiles = tmpFileChooser.getSelectedFiles();
 
-                return tmpSelectedFiles;
-            } else {
-                File tmpSelectedFile = tmpFileChooser.getSelectedFile();
-                if (null == tmpSelectedFile) {
-                    return null;
-                }
-                return new File[] {tmpSelectedFile};
-            }
-        case JFileChooser.CANCEL_OPTION:
+          if (tmpSelectedFiles.length > 0) {
+            tmpPreferences.put(LAST_DIR, tmpSelectedFiles[0].getParentFile().getAbsolutePath());
+          }
+
+          return tmpSelectedFiles;
+        } else {
+          File tmpSelectedFile = tmpFileChooser.getSelectedFile();
+          if (null == tmpSelectedFile) {
             return null;
-        default:
-            return null;
+          }
+          return new File[] { tmpSelectedFile };
         }
+      case JFileChooser.CANCEL_OPTION:
+        return null;
+      default:
+        return null;
     }
+  }
 }

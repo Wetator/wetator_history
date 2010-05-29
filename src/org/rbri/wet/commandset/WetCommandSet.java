@@ -19,19 +19,20 @@ package org.rbri.wet.commandset;
 import java.util.List;
 import java.util.Properties;
 
-
 /**
  * A collection of available commands.
  * This class also holds the implementation.
- *  
+ * 
  * @author rbri
  */
 public interface WetCommandSet {
 
-    // TODO javadoc
-    public void initialize(Properties aConfiguration);
-    public List<String> getInitializationMessages();
-    public void cleanup();
+  // TODO javadoc
+  public void initialize(Properties aConfiguration);
 
-    public WetCommandImplementation getCommandImplementationFor(String aCommandName);
+  public List<String> getInitializationMessages();
+
+  public void cleanup();
+
+  public WetCommandImplementation getCommandImplementationFor(String aCommandName);
 }

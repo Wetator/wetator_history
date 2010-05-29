@@ -13,32 +13,30 @@
  * limitations under the License.
  */
 
+
 package org.rbri.wet.scriptcreator;
-
-
 
 /**
  * Script creator enum.
- *
+ * 
  * @author tobwoerk
  */
-public enum ScriptCreator
-{
-    /**
-     * XML
-     */
-    XML (new XmlScriptCreator());
+public enum ScriptCreator {
+  /**
+   * XML
+   */
+  XML(new XmlScriptCreator());
 
-    private WetScriptCreator wetScriptCreator;
+  private WetScriptCreator wetScriptCreator;
 
-    private ScriptCreator(WetScriptCreator aWetScriptCreator) {
-    	wetScriptCreator = aWetScriptCreator;
-    }
+  private ScriptCreator(WetScriptCreator aWetScriptCreator) {
+    wetScriptCreator = aWetScriptCreator;
+  }
 
-	/**
-	 * @return the wetScriptCreator
-	 */
-	public WetScriptCreator getWetScriptCreator() {
-		return wetScriptCreator;
-	}
+  /**
+   * @return the wetScriptCreator
+   */
+  public WetScriptCreator getWetScriptCreator() {
+    return wetScriptCreator;
+  }
 }

@@ -13,6 +13,7 @@
  * limitations under the License.
  */
 
+
 package org.rbri.wet.scriptconverter;
 
 import java.io.File;
@@ -29,82 +30,82 @@ import org.rbri.wet.scripter.WetScripter;
 /**
  * The converter for wetator test scripts. To use it set a scripter and a creator first.<br/>
  * Then - with addTestFile() - add the test files to convert and call convert() afterwards.
- *
+ * 
  * @author tobwoerk
  */
 public class WetScriptConverter {
 
-	private static final Log LOG = LogFactory.getLog(WetScriptConverter.class);
+  private static final Log LOG = LogFactory.getLog(WetScriptConverter.class);
 
-	WetScripter scripter;
-	WetScriptCreator creator;
+  WetScripter scripter;
+  WetScriptCreator creator;
 
-	private LinkedList<File> inputFiles;
+  private LinkedList<File> inputFiles;
 
-	/**
-	 * Constructor
-	 */
-	public WetScriptConverter() {
-		inputFiles = new LinkedList<File>();
-	}
+  /**
+   * Constructor
+   */
+  public WetScriptConverter() {
+    inputFiles = new LinkedList<File>();
+  }
 
-	/**
-	 * @throws WetException in case of errors
-	 */
-	public void convert() throws WetException {
-		for (File tmpInputFile : inputFiles) {
-			LOG.trace("Converting '" + tmpInputFile.getAbsolutePath() + "'...");
-			scripter.setFile(tmpInputFile);
-			List<WetCommand> tmpCommands = scripter.getCommands();
+  /**
+   * @throws WetException in case of errors
+   */
+  public void convert() throws WetException {
+    for (File tmpInputFile : inputFiles) {
+      LOG.trace("Converting '" + tmpInputFile.getAbsolutePath() + "'...");
+      scripter.setFile(tmpInputFile);
+      List<WetCommand> tmpCommands = scripter.getCommands();
 
-			String tmpFileName = tmpInputFile.getName().substring(0, tmpInputFile.getName().lastIndexOf('.'));
-			creator.setFileName(tmpFileName);
-			creator.setCommands(tmpCommands);
-			creator.createScript();
-			LOG.trace("Converted '" + tmpInputFile.getAbsolutePath() + "'...");
-		}
-	}
+      String tmpFileName = tmpInputFile.getName().substring(0, tmpInputFile.getName().lastIndexOf('.'));
+      creator.setFileName(tmpFileName);
+      creator.setCommands(tmpCommands);
+      creator.createScript();
+      LOG.trace("Converted '" + tmpInputFile.getAbsolutePath() + "'...");
+    }
+  }
 
-	/**
-	 * @return the scripter
-	 */
-	public WetScripter getScripter() {
-		return scripter;
-	}
+  /**
+   * @return the scripter
+   */
+  public WetScripter getScripter() {
+    return scripter;
+  }
 
-	/**
-	 * @param aScripter
-	 *            the scripter to set
-	 */
-	public void setScripter(WetScripter aScripter) {
-		scripter = aScripter;
-	}
+  /**
+   * @param aScripter
+   *        the scripter to set
+   */
+  public void setScripter(WetScripter aScripter) {
+    scripter = aScripter;
+  }
 
-	/**
-	 * @return the creator
-	 */
-	public WetScriptCreator getCreator() {
-		return creator;
-	}
+  /**
+   * @return the creator
+   */
+  public WetScriptCreator getCreator() {
+    return creator;
+  }
 
-	/**
-	 * @param aCreator
-	 *            the creator to set
-	 */
-	public void setCreator(WetScriptCreator aCreator) {
-		creator = aCreator;
-	}
+  /**
+   * @param aCreator
+   *        the creator to set
+   */
+  public void setCreator(WetScriptCreator aCreator) {
+    creator = aCreator;
+  }
 
-	/**
-	 * @param aFile
-	 *            the file to add
-	 * @throws WetException
-	 *             if aFile does not exist
-	 */
-	public void addTestFile(File aFile) throws WetException {
-		if (!aFile.exists()) {
-			throw new WetException("The file '" + aFile.getAbsolutePath() + "' does not exist.");
-		}
-		inputFiles.add(aFile);
-	}
+  /**
+   * @param aFile
+   *        the file to add
+   * @throws WetException
+   *         if aFile does not exist
+   */
+  public void addTestFile(File aFile) throws WetException {
+    if (!aFile.exists()) {
+      throw new WetException("The file '" + aFile.getAbsolutePath() + "' does not exist.");
+    }
+    inputFiles.add(aFile);
+  }
 }

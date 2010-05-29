@@ -27,15 +27,15 @@ import org.rbri.wet.exception.AssertionFailedException;
  */
 public class XslTransformerTest extends TestCase {
 
-    public static void main(String[] args) {
-        junit.textui.TestRunner.run(suite());
-    }
+  public static void main(String[] args) {
+    junit.textui.TestRunner.run(suite());
+  }
 
-    public static Test suite() {
-        return new TestSuite(XslTransformerTest.class);
-    }
+  public static Test suite() {
+    return new TestSuite(XslTransformerTest.class);
+  }
 
-    public void test() throws AssertionFailedException {
-        // TODO
-    }
+  public void test() throws AssertionFailedException {
+    // TODO
+  }
 }
