@@ -56,13 +56,17 @@ public final class ExcelScripter implements WetScripter {
   private HSSFSheet sheet;
   private List<WetCommand> commands;
 
+  /**
+   * Standard constructor.
+   */
   public ExcelScripter() {
     super();
   }
 
   /**
-   * @throws WetException
-   * @see WetScripter#setFile(File)
+   * {@inheritDoc}
+   * 
+   * @see org.rbri.wet.scripter.WetScripter#setFile(java.io.File)
    */
   public void setFile(File aFile) throws WetException {
     file = aFile;
@@ -70,12 +74,17 @@ public final class ExcelScripter implements WetScripter {
     commands = readCommands();
   }
 
-  public File getFile() throws WetException {
+  /**
+   * @return the file
+   */
+  public File getFile() {
     return file;
   }
 
   /**
-   * @see WetScripter#isSupported(File)
+   * {@inheritDoc}
+   * 
+   * @see org.rbri.wet.scripter.WetScripter#isSupported(java.io.File)
    */
   public boolean isSupported(File aFile) {
     String tmpFileName;
@@ -171,10 +180,20 @@ public final class ExcelScripter implements WetScripter {
     }
   }
 
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.rbri.wet.scripter.WetScripter#getCommands()
+   */
   public List<WetCommand> getCommands() {
     return commands;
   }
 
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.rbri.wet.scripter.WetScripter#initialize(java.util.Properties)
+   */
   public void initialize(Properties aConfiguration) {
     // nothing to do
   }

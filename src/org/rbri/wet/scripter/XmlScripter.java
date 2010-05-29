@@ -74,9 +74,9 @@ public final class XmlScripter implements WetScripter {
   }
 
   /**
-   * @throws WetException
-   *         if commands cannot be read
-   * @see WetScripter#setFile(File)
+   * {@inheritDoc}
+   * 
+   * @see org.rbri.wet.scripter.WetScripter#setFile(java.io.File)
    */
   public void setFile(File aFile) throws WetException {
     file = aFile;
@@ -92,7 +92,9 @@ public final class XmlScripter implements WetScripter {
   }
 
   /**
-   * @see WetScripter#isSupported(File)
+   * {@inheritDoc}
+   * 
+   * @see org.rbri.wet.scripter.WetScripter#isSupported(java.io.File)
    */
   public boolean isSupported(File aFile) {
     String tmpFileName;
@@ -145,8 +147,13 @@ public final class XmlScripter implements WetScripter {
               tmpWetCommand.setFirstParameter(new Parameter(tmpParameters));
             }
           } else if (E_OPTIONAL_PARAMETER.equals(reader.getLocalName())) {
-            String tmpOptionalParameters = reader.getElementText();
-            tmpWetCommand.setSecondParameter(new Parameter(tmpOptionalParameters));
+            String tmpOptionalParameter = reader.getElementText();
+            if (null == tmpWetCommand) {
+              throw new WetException("Error parsing file '" + getFile().getAbsolutePath()
+                  + "'. Unexpected optional parameter '" + tmpOptionalParameter + "'.");
+            }
+
+            tmpWetCommand.setSecondParameter(new Parameter(tmpOptionalParameter));
           }
         }
         if (reader.getEventType() == XMLStreamConstants.END_ELEMENT && E_STEP.equals(reader.getLocalName())) {
@@ -168,6 +175,8 @@ public final class XmlScripter implements WetScripter {
   }
 
   /**
+   * {@inheritDoc}
+   * 
    * @see org.rbri.wet.scripter.WetScripter#getCommands()
    */
   public List<WetCommand> getCommands() {
@@ -175,6 +184,8 @@ public final class XmlScripter implements WetScripter {
   }
 
   /**
+   * {@inheritDoc}
+   * 
    * @see org.rbri.wet.scripter.WetScripter#initialize(java.util.Properties)
    */
   public void initialize(Properties aConfiguration) {

@@ -37,8 +37,8 @@ public class WetScriptConverter {
 
   private static final Log LOG = LogFactory.getLog(WetScriptConverter.class);
 
-  WetScripter scripter;
-  WetScriptCreator creator;
+  private WetScripter scripter;
+  private WetScriptCreator creator;
 
   private List<File> inputFiles;
 

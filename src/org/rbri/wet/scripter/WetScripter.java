@@ -57,5 +57,8 @@ public interface WetScripter {
    */
   public List<WetCommand> getCommands();
 
+  /**
+   * @param aConfiguration the configuration to use for initialization
+   */
   public void initialize(Properties aConfiguration);
 }
