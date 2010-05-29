@@ -308,8 +308,8 @@ public final class XHtmlOutputter {
 
     while (tmpNodeClass != HtmlElement.class) {
       try {
-        Field tempField = tmpNodeClass.getDeclaredField("TAG_NAME");
-        tmpTag = (String) tempField.get(null);
+        Field tmpField = tmpNodeClass.getDeclaredField("TAG_NAME");
+        tmpTag = (String) tmpField.get(null);
         return tmpTag;
       } catch (Exception e) {
         // ignore

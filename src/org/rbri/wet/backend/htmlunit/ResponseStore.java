@@ -73,8 +73,6 @@ public final class ResponseStore {
 
   /**
    * This method has to be called before any page is logged, because it creates the logdir.
-   * 
-   * @param aStarttime The starttime is used to name the directory for the responses.
    */
   public void initOutputDir() {
     String tmpDirectoryName;
