@@ -31,10 +31,12 @@ public final class AntOutProgressListener extends StdOutProgressListener {
     antTask = aWetator;
   }
 
+  @Override
   protected void print(String aString) {
     // print nothing
   }
 
+  @Override
   protected void println(String aString) {
     antTask.log(aString, Project.MSG_INFO);
   }

@@ -19,7 +19,7 @@ package org.rbri.wet.ant;
 import java.io.File;
 import java.util.Enumeration;
 import java.util.HashMap;
-import java.util.Hashtable;
+import java.util.Map;
 import java.util.Set;
 import java.util.Vector;
 
@@ -42,9 +42,9 @@ import org.rbri.wet.exception.WetException;
  * @author rbri
  */
 public class Wetator extends Task {
-  private String config = null;
-  private Path classpath = null;
-  private FileSet fileset = null;
+  private String config;
+  private Path classpath;
+  private FileSet fileset;
   private Vector<Property> properties = new Vector<Property>();
 
   /**
@@ -64,8 +64,8 @@ public class Wetator extends Task {
     }
 
     // read the properties from project
-    Hashtable<String, String> tmpProjectProperties = getProject().getProperties();
-    HashMap<String, String> tmpOurProperties = new HashMap<String, String>();
+    Map<String, String> tmpProjectProperties = getProject().getProperties();
+    Map<String, String> tmpOurProperties = new HashMap<String, String>();
     Set<String> tmpKeys = tmpProjectProperties.keySet();
     for (String tmpKey : tmpKeys) {
       if (tmpKey.startsWith(WetConfiguration.VARIABLE_PREFIX + WetConfiguration.SECRET_PREFIX)) {
