@@ -314,12 +314,12 @@ public class DomNodeText {
   /**
    * Appends a &lt;ol&gt; taking care to numerate it.
    * 
-   * @param htmlOrderedList the OL element
+   * @param aHtmlOrderedList the OL element
    */
-  private void appendHtmlOrderedList(final HtmlOrderedList htmlOrderedList) {
+  private void appendHtmlOrderedList(final HtmlOrderedList aHtmlOrderedList) {
     text.append(" ");
     int i = 1;
-    for (final DomNode tmpItem : htmlOrderedList.getChildren()) {
+    for (final DomNode tmpItem : aHtmlOrderedList.getChildren()) {
       if (tmpItem instanceof HtmlListItem) {
         // hack for fixing the start pos
         int tmpStartPos = text.length();
