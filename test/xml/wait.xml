@@ -1,8 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE testcase SYSTEM "dtd/testcase.dtd">
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE testcase SYSTEM "dtd/testcase.dtd">
+
 <testcase>
-	<step command="Open_Url"><![CDATA[wait_for.html]]></step>
-	<step command="Assert_Title"><![CDATA[Wetator / Wait For]]></step>
-	<step command="Comment"><![CDATA[click the link]]></step>
-	<step command="Click_On"><![CDATA[startIndirectJump]]></step>
-	<step command="Assert_Content"><![CDATA[Wait For Result page]]></step>
+    <step command="Open_Url">wait_for.html</step>
+    <step command="Assert_Title">Wetator / Wait For</step>
+    <step command="Comment">click the link</step>
+    <step command="Click_On">startIndirectJump</step>
+    <step command="Assert_Content">Wait For Result page</step>
 </testcase>
