@@ -93,10 +93,12 @@
                 <xsl:variable name="testcase.failedPercent" select="ceiling($testcase.failed * 100 div $testcase.total)"/>
                 <xsl:variable name="testcase.okPercent" select="100 - $testcase.failedPercent"/>
 
+                <xsl:variable name="testcase.stepsGreenPercent" select="format-number($testcase.stepsGreen * 100 div $testcase.stepsTotal, '#')"/>
+                <xsl:variable name="testcase.stepsRedPercent" select="format-number(100 - $testcase.stepsGreenPercent, '#')"/>
+                <xsl:variable name="testcase.stepsOkPercent" select="format-number($testcase.stepsOk * 100 div $testcase.stepsTotal, '#')"/>
+                <xsl:variable name="testcase.stepsVacantOkPercent" select="format-number($testcase.stepsGreenPercent - $testcase.stepsOkPercent, '#')"/>
                 <xsl:variable name="testcase.stepsFailedPercent" select="format-number($testcase.failed * 100 div $testcase.stepsTotal, '#')"/>
-                <xsl:variable name="testcase.stepsVacantFailedPercent" select="format-number($testcase.stepsVacantFailed * 100 div $testcase.stepsTotal, '#')"/>
-                <xsl:variable name="testcase.stepsVacantOkPercent" select="format-number($testcase.stepsVacantOk * 100 div $testcase.stepsTotal, '#')"/>
-                <xsl:variable name="testcase.stepsOkPercent" select="format-number(100 - $testcase.stepsFailedPercent - $testcase.stepsVacantFailedPercent - $testcase.stepsVacantOkPercent, '#')"/>
+                <xsl:variable name="testcase.stepsVacantFailedPercent" select="format-number($testcase.stepsRedPercent - $testcase.stepsFailedPercent, '#')"/>
 
                 <table cellpadding="4" cellspacing="0" class="smallBorder" border="0" width="100%">
                     <tr>
