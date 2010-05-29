@@ -25,7 +25,7 @@ import junit.framework.TestSuite;
  */
 public class SearchPatternTest extends TestCase {
 
-  public static void main(String[] args) {
+  public static void main(String[] anArgsArray) {
     junit.textui.TestRunner.run(suite());
   }
 
@@ -1095,11 +1095,9 @@ public class SearchPatternTest extends TestCase {
   }
 
   public void test_Equals() {
-    SearchPattern tmpPattern;
+    SearchPattern tmpPattern = new SearchPattern("te*");
 
-    tmpPattern = new SearchPattern("te*");
-
-    // assertEquals(true, tmpPattern.matches("test"));
+    assertTrue(tmpPattern.matches("test"));
     assertFalse(tmpPattern.equals("test"));
     assertTrue(tmpPattern.equals("te*"));
     assertEquals("te*", tmpPattern.getOriginalString());

@@ -16,14 +16,12 @@
 
 package org.rbri.wet.commandset;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Properties;
 
 import org.rbri.wet.core.Parameter;
 import org.rbri.wet.core.WetCommand;
 import org.rbri.wet.core.WetContext;
-import org.rbri.wet.core.result.WetResultWriter;
 import org.rbri.wet.exception.AssertionFailedException;
 import org.rbri.wet.exception.WetException;
 import org.rbri.wet.util.Assert;
@@ -40,10 +38,19 @@ public final class TestCommandSet extends AbstractCommandSet {
     super();
   }
 
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.rbri.wet.commandset.AbstractCommandSet#registerCommands()
+   */
+  @Override
   protected void registerCommands() {
     registerCommand("Assert Fail", new CommandAssertFail());
   }
 
+  /**
+   * The assert fail command.
+   */
   public final class CommandAssertFail implements WetCommandImplementation {
     public void execute(WetContext aWetContext, WetCommand aWetCommand) throws WetException, AssertionFailedException {
 
@@ -71,15 +78,23 @@ public final class TestCommandSet extends AbstractCommandSet {
     }
   }
 
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.rbri.wet.commandset.WetCommandSet#initialize(java.util.Properties)
+   */
   public void initialize(Properties aConfiguration) {
     // nothing to do at the moment
   }
 
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.rbri.wet.commandset.WetCommandSet#cleanup()
+   */
+  @Override
   public void cleanup() {
-    // nothing to do at the moment
-  }
+    // TODO Auto-generated method stub
 
-  public void printConfiguration(WetResultWriter wetResultWriter) throws IOException {
-    // nothing to do at the moment
   }
 }

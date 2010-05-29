@@ -16,15 +16,16 @@
 
 package org.rbri.wet.core;
 
-import java.io.IOException;
-
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
+/**
+ * @author rbri
+ */
 public final class WetCommandTest extends TestCase {
 
-  public static void main(String[] args) {
+  public static void main(String[] anArgsArray) {
     junit.textui.TestRunner.run(suite());
   }
 
@@ -32,7 +33,7 @@ public final class WetCommandTest extends TestCase {
     return new TestSuite(WetCommandTest.class);
   }
 
-  public void testConstructor() throws IOException {
+  public void testConstructor() {
     WetCommand tmpCommand = new WetCommand("TestCommand", false);
 
     assertEquals("TestCommand", tmpCommand.getName());
@@ -41,7 +42,7 @@ public final class WetCommandTest extends TestCase {
     // TODO assertEquals("", tmpCommand.toPrintableString(aWetContext));
   }
 
-  public void testConstructor_comment() throws IOException {
+  public void testConstructor_comment() {
     WetCommand tmpCommand = new WetCommand("TestCommand", true);
 
     assertEquals("TestCommand", tmpCommand.getName());

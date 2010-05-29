@@ -37,7 +37,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
  */
 public class WeightedControlListTest extends TestCase {
 
-  public static void main(String[] args) {
+  public static void main(String[] anArgsArray) {
     junit.textui.TestRunner.run(suite());
   }
 

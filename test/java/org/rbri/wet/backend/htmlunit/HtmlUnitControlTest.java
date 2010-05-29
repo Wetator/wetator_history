@@ -24,7 +24,6 @@ import junit.framework.TestSuite;
 
 import org.rbri.wet.backend.htmlunit.util.PageUtil;
 import org.rbri.wet.exception.AssertionFailedException;
-import org.rbri.wet.exception.WetException;
 
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
@@ -33,7 +32,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
  */
 public class HtmlUnitControlTest extends TestCase {
 
-  public static void main(String[] args) {
+  public static void main(String[] anArgsArray) {
     junit.textui.TestRunner.run(suite());
   }
 
@@ -41,7 +40,7 @@ public class HtmlUnitControlTest extends TestCase {
     return new TestSuite(HtmlUnitControlTest.class);
   }
 
-  public void testIsDisabled() throws IOException, WetException, AssertionFailedException {
+  public void testIsDisabled() throws IOException, AssertionFailedException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<button disabled='disabled' id='myId' type='button' name='MyName'>" + "<p>ButtonWithText</p>" + "</button>"
         + "</form>" + "</body></html>";
@@ -52,7 +51,7 @@ public class HtmlUnitControlTest extends TestCase {
     assertTrue(tmpControl.isDisabled());
   }
 
-  public void testIsDisabled_Not() throws IOException, WetException, AssertionFailedException {
+  public void testIsDisabled_Not() throws IOException, AssertionFailedException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<button style='visible: none' id='myId' type='button' name='MyName'>" + "<p>ButtonWithText</p>"
         + "</button>" + "</form>" + "</body></html>";

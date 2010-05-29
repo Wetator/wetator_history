@@ -20,14 +20,12 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
-import org.rbri.wet.exception.AssertionFailedException;
-
 /**
  * @author rbri
  */
 public class XslTransformerTest extends TestCase {
 
-  public static void main(String[] args) {
+  public static void main(String[] anArgsArray) {
     junit.textui.TestRunner.run(suite());
   }
 
@@ -35,7 +33,7 @@ public class XslTransformerTest extends TestCase {
     return new TestSuite(XslTransformerTest.class);
   }
 
-  public void test() throws AssertionFailedException {
-    // TODO
+  public void test() {
+    fail("I am not a test.");
   }
 }

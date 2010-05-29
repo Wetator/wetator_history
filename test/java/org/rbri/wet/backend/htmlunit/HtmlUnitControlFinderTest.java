@@ -16,8 +16,6 @@
 
 package org.rbri.wet.backend.htmlunit;
 
-import java.io.IOException;
-
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
@@ -27,7 +25,7 @@ import junit.framework.TestSuite;
  */
 public class HtmlUnitControlFinderTest extends TestCase {
 
-  public static void main(String[] args) {
+  public static void main(String[] anArgsArray) {
     junit.textui.TestRunner.run(suite());
   }
 
@@ -35,7 +33,7 @@ public class HtmlUnitControlFinderTest extends TestCase {
     return new TestSuite(HtmlUnitControlFinderTest.class);
   }
 
-  public void testConstructorNullPage() throws IOException {
+  public void testConstructorNullPage() {
     try {
       new HtmlUnitControlFinder(null);
       fail("NullPointerException expected.");

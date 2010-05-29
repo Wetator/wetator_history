@@ -21,6 +21,7 @@ package org.rbri.wet.commandset;
  * 
  * @author rbri
  */
+@SuppressWarnings("unused")
 public final class ExecTester {
 
   public static void staticVoidMethodWithoutParams() {

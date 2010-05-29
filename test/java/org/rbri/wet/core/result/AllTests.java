@@ -17,23 +17,24 @@
 package org.rbri.wet.core.result;
 
 import junit.framework.Test;
+import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
 /**
  * @author rbri
  */
-public class AllTests {
-  public static void main(String[] args) {
+public class AllTests extends TestCase {
+  public static void main(String[] anArgsArray) {
     junit.textui.TestRunner.run(suite());
   }
 
   public static Test suite() {
 
-    TestSuite suite = new TestSuite("All Wetator core result tests");
+    TestSuite tmpSuite = new TestSuite("All Wetator core result tests");
 
-    suite.addTest(WetResultWriterTest.suite());
-    suite.addTest(XslTransformerTest.suite());
+    tmpSuite.addTest(WetResultWriterTest.suite());
+    tmpSuite.addTest(XslTransformerTest.suite());
 
-    return suite;
+    return tmpSuite;
   }
 }

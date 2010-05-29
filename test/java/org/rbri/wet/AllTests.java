@@ -17,13 +17,14 @@
 package org.rbri.wet;
 
 import junit.framework.Test;
+import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
 /**
  * @author rbri
  */
-public class AllTests {
-  public static void main(String[] args) {
+public class AllTests extends TestCase {
+  public static void main(String[] anArgsArray) {
     System.out.println(org.rbri.wet.Version.getFullProductName());
 
     // System.out.println();
@@ -39,15 +40,15 @@ public class AllTests {
 
   public static Test suite() {
 
-    TestSuite suite = new TestSuite("All Wetator tests");
+    TestSuite tmpSuite = new TestSuite("All Wetator tests");
 
-    suite.addTest(org.rbri.wet.backend.AllTests.suite());
-    suite.addTest(org.rbri.wet.core.AllTests.suite());
-    suite.addTest(org.rbri.wet.commandset.AllTests.suite());
-    suite.addTest(org.rbri.wet.i18n.AllTests.suite());
-    suite.addTest(org.rbri.wet.scripter.AllTests.suite());
-    suite.addTest(org.rbri.wet.util.AllTests.suite());
+    tmpSuite.addTest(org.rbri.wet.backend.AllTests.suite());
+    tmpSuite.addTest(org.rbri.wet.core.AllTests.suite());
+    tmpSuite.addTest(org.rbri.wet.commandset.AllTests.suite());
+    tmpSuite.addTest(org.rbri.wet.i18n.AllTests.suite());
+    tmpSuite.addTest(org.rbri.wet.scripter.AllTests.suite());
+    tmpSuite.addTest(org.rbri.wet.util.AllTests.suite());
 
-    return suite;
+    return tmpSuite;
   }
 }

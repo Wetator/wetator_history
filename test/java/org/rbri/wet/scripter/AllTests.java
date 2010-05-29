@@ -17,24 +17,25 @@
 package org.rbri.wet.scripter;
 
 import junit.framework.Test;
+import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
 /**
  * @author rbri, tobwoerk
  */
-public class AllTests {
+public class AllTests extends TestCase {
 
-  public static void main(String[] args) {
+  public static void main(String[] anArgsArray) {
     junit.textui.TestRunner.run(suite());
   }
 
   public static Test suite() {
 
-    TestSuite suite = new TestSuite("All Wetator scripter result tests");
+    TestSuite tmpSuite = new TestSuite("All Wetator scripter result tests");
 
-    suite.addTest(ExcelScripterTest.suite());
-    suite.addTest(XmlScripterTest.suite());
+    tmpSuite.addTest(ExcelScripterTest.suite());
+    tmpSuite.addTest(XmlScripterTest.suite());
 
-    return suite;
+    return tmpSuite;
   }
 }

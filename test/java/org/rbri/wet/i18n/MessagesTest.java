@@ -25,7 +25,7 @@ import junit.framework.TestSuite;
  */
 public class MessagesTest extends TestCase {
 
-  public static void main(String[] args) {
+  public static void main(String[] anArgsArray) {
     junit.textui.TestRunner.run(suite());
   }
 

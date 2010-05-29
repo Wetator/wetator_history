@@ -17,34 +17,35 @@
 package org.rbri.wet.backend.htmlunit;
 
 import junit.framework.Test;
+import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
 /**
  * @author rbri
  */
-public class AllTests {
-  public static void main(String[] args) {
+public class AllTests extends TestCase {
+  public static void main(String[] anArgsArray) {
     junit.textui.TestRunner.run(suite());
   }
 
   public static Test suite() {
 
-    TestSuite suite = new TestSuite("All Wetator backend htmlunit tests");
+    TestSuite tmpSuite = new TestSuite("All Wetator backend htmlunit tests");
 
-    suite.addTest(org.rbri.wet.backend.htmlunit.util.AllTests.suite());
+    tmpSuite.addTest(org.rbri.wet.backend.htmlunit.util.AllTests.suite());
 
-    suite.addTest(HtmlElementUtilTest.suite());
+    tmpSuite.addTest(HtmlElementUtilTest.suite());
     // suite.addTest(HtmlUnitControlFinderAllBodyControlsForTextTest.suite());
 
-    suite.addTest(HtmlUnitControlFinderTest.suite());
-    suite.addTest(HtmlUnitControlFinderGetAllClickablesTest.suite());
-    suite.addTest(HtmlUnitControlFinderGetAllElementsForTextTest.suite());
-    suite.addTest(HtmlUnitControlFinderGetAllOtherControlsTest.suite());
-    suite.addTest(HtmlUnitControlFinderGetAllSetablesTest.suite());
-    suite.addTest(HtmlUnitControlFinderGetAllSelectablesTest.suite());
-    suite.addTest(HtmlUnitControlFinderGetFirstClickableTextElementTest.suite());
-    suite.addTest(HtmlUnitControlTest.suite());
+    tmpSuite.addTest(HtmlUnitControlFinderTest.suite());
+    tmpSuite.addTest(HtmlUnitControlFinderGetAllClickablesTest.suite());
+    tmpSuite.addTest(HtmlUnitControlFinderGetAllElementsForTextTest.suite());
+    tmpSuite.addTest(HtmlUnitControlFinderGetAllOtherControlsTest.suite());
+    tmpSuite.addTest(HtmlUnitControlFinderGetAllSetablesTest.suite());
+    tmpSuite.addTest(HtmlUnitControlFinderGetAllSelectablesTest.suite());
+    tmpSuite.addTest(HtmlUnitControlFinderGetFirstClickableTextElementTest.suite());
+    tmpSuite.addTest(HtmlUnitControlTest.suite());
 
-    return suite;
+    return tmpSuite;
   }
 }

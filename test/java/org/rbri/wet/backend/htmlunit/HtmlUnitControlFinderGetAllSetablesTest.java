@@ -35,7 +35,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
  */
 public class HtmlUnitControlFinderGetAllSetablesTest extends TestCase {
 
-  public static void main(String[] args) {
+  public static void main(String[] anArgsArray) {
     junit.textui.TestRunner.run(suite());
   }
 
@@ -43,7 +43,7 @@ public class HtmlUnitControlFinderGetAllSetablesTest extends TestCase {
     return new TestSuite(HtmlUnitControlFinderGetAllSetablesTest.class);
   }
 
-  public void testConstructorNullPage() throws IOException {
+  public void testConstructorNullPage() {
     try {
       new HtmlUnitControlFinder(null);
       fail("NullPointerException expected.");

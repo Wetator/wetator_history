@@ -25,11 +25,11 @@ import junit.framework.TestSuite;
  */
 public class XmlUtilTest extends TestCase {
 
-  public XmlUtilTest(String name) {
-    super(name);
+  public XmlUtilTest(String aName) {
+    super(aName);
   }
 
-  public static void main(String[] args) {
+  public static void main(String[] anArgsArray) {
     junit.textui.TestRunner.run(suite());
   }
 

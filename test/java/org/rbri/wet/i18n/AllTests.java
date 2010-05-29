@@ -17,22 +17,23 @@
 package org.rbri.wet.i18n;
 
 import junit.framework.Test;
+import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
 /**
  * @author rbri
  */
-public class AllTests {
-  public static void main(String[] args) {
+public class AllTests extends TestCase {
+  public static void main(String[] anArgsArray) {
     junit.textui.TestRunner.run(suite());
   }
 
   public static Test suite() {
 
-    TestSuite suite = new TestSuite("All Wetator i18n tests");
+    TestSuite tmpSuite = new TestSuite("All Wetator i18n tests");
 
-    suite.addTest(MessagesTest.suite());
+    tmpSuite.addTest(MessagesTest.suite());
 
-    return suite;
+    return tmpSuite;
   }
 }

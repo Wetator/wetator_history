@@ -16,20 +16,16 @@
 
 package org.rbri.wet.core.result;
 
-import java.io.StringWriter;
-
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
-
-import org.rbri.wet.exception.AssertionFailedException;
 
 /**
  * @author rbri
  */
 public class WetResultWriterTest extends TestCase {
 
-  public static void main(String[] args) {
+  public static void main(String[] anArgsArray) {
     junit.textui.TestRunner.run(suite());
   }
 
@@ -37,9 +33,10 @@ public class WetResultWriterTest extends TestCase {
     return new TestSuite(WetResultWriterTest.class);
   }
 
-  public void test() throws AssertionFailedException {
-    StringWriter tmpStringWriter = new StringWriter();
-
-    WetResultWriter tmpResultWriter;
+  public void test() {
+    // StringWriter tmpStringWriter = new StringWriter();
+    //
+    // WetResultWriter tmpResultWriter;
+    fail("I am not a test.");
   }
 }

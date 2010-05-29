@@ -26,11 +26,11 @@ import junit.framework.TestSuite;
  * @author rbri
  */
 public class StringUtilTest extends TestCase {
-  public StringUtilTest(String name) {
-    super(name);
+  public StringUtilTest(String aName) {
+    super(aName);
   }
 
-  public static void main(String[] args) {
+  public static void main(String[] anArgsArray) {
     junit.textui.TestRunner.run(suite());
   }
 
@@ -201,15 +201,5 @@ public class StringUtilTest extends TestCase {
     assertEquals(2, tmpResult.size());
     assertEquals("a12", tmpResult.get(0));
     assertEquals("34", tmpResult.get(1));
-  }
-
-  public void testForEmma() {
-    new StringUtilEmma();
-  }
-
-  static class StringUtilEmma extends StringUtil {
-    protected StringUtilEmma() {
-      super();
-    }
   }
 }

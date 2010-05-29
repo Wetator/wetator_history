@@ -17,27 +17,28 @@
 package org.rbri.wet.util;
 
 import junit.framework.Test;
+import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
 /**
  * @author rbri
  */
-public class AllTests {
-  public static void main(String[] args) {
+public class AllTests extends TestCase {
+  public static void main(String[] anArgsArray) {
     junit.textui.TestRunner.run(suite());
   }
 
   public static Test suite() {
 
-    TestSuite suite = new TestSuite("All Wetator util tests");
+    TestSuite tmpSuite = new TestSuite("All Wetator util tests");
 
-    suite.addTest(AssertTest.suite());
-    suite.addTest(ContentUtilTest.suite());
-    suite.addTest(SearchPatternTest.suite());
-    suite.addTest(StringUtilTest.suite());
-    suite.addTest(VariableReplaceUtilUtilTest.suite());
-    suite.addTest(XmlUtilTest.suite());
+    tmpSuite.addTest(AssertTest.suite());
+    tmpSuite.addTest(ContentUtilTest.suite());
+    tmpSuite.addTest(SearchPatternTest.suite());
+    tmpSuite.addTest(StringUtilTest.suite());
+    tmpSuite.addTest(VariableReplaceUtilUtilTest.suite());
+    tmpSuite.addTest(XmlUtilTest.suite());
 
-    return suite;
+    return tmpSuite;
   }
 }
