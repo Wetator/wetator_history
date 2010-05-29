@@ -21,29 +21,62 @@ package org.rbri.wet;
  * 
  * @author rbri
  */
-public class Version {
+public final class Version {
 
+  /**
+   * The product name.
+   */
   public static final String PRODUCT_NAME = "Wetator";
+  /**
+   * The version.
+   */
   public static final String VERSION = "0.9.1";
+  /**
+   * The build.
+   */
   public static final String BUILD = "2010052801";
 
+  /**
+   * A simple main function to be able to ask for the version from a command line.
+   * 
+   * @param anArgsArray ignored
+   */
   public static void main(String[] anArgsArray) {
     System.out.println(getFullProductName());
   }
 
+  /**
+   * @return the full name with the complete version information.
+   */
   public static String getFullProductName() {
     return getProductName() + " Version " + getVersion() + " Build " + getBuild();
   }
 
+  /**
+   * @return the product name.
+   */
   public static String getProductName() {
     return PRODUCT_NAME;
   }
 
+  /**
+   * @return the version.
+   */
   public static String getVersion() {
     return VERSION;
   }
 
+  /**
+   * @return the build number.
+   */
   public static String getBuild() {
     return BUILD;
+  }
+
+  /**
+   * This class should not be instantiated.
+   */
+  private Version() {
+    // nothing
   }
 }

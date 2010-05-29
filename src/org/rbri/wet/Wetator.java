@@ -18,6 +18,7 @@ package org.rbri.wet;
 
 import java.io.File;
 import java.util.LinkedList;
+import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -49,7 +50,7 @@ public final class Wetator {
     WetEngineProgressListener tmpProgressListener = new StdOutProgressListener();
 
     String tmpConfigFileName = null;
-    LinkedList<String> tmpFileNames = new LinkedList<String>();
+    List<String> tmpFileNames = new LinkedList<String>();
     // parse the command line
     for (int i = 0; i < anArgsArray.length; i++) {
       String tmpArg = anArgsArray[i].trim();
@@ -99,5 +100,12 @@ public final class Wetator {
       System.exit(1);
     }
     System.exit(0);
+  }
+
+  /**
+   * This class should not be instantiated.
+   */
+  private Wetator() {
+    // nothing
   }
 }

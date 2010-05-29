@@ -54,6 +54,7 @@ public final class WetatorScriptConverter {
       System.err.println("example1: xsl xml /Users/me/tests");
       System.err.println("example2: xsl xml /Users/me/tests SYSTEM testcase.dtd");
       System.exit(1);
+      return;
     }
     String tmpScripterType = anArgsArray[0];
     String tmpScriptCreatorType = anArgsArray[1];
@@ -92,5 +93,12 @@ public final class WetatorScriptConverter {
       System.exit(1);
     }
     System.exit(0);
+  }
+
+  /**
+   * This class should not be instantiated.
+   */
+  private WetatorScriptConverter() {
+    // nothing
   }
 }
