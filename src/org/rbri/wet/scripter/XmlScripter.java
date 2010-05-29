@@ -121,39 +121,35 @@ public final class XmlScripter implements WetScripter {
 		try {
 			WetCommand tmpWetCommand = null;
 			while (reader.hasNext()) {
-				switch (reader.next()) {
-					case XMLStreamConstants.START_ELEMENT: {
-						if (E_STEP.equals(reader.getLocalName())) {
-							String tmpCommandName = reader.getAttributeValue(null, A_COMMAND).replace('_', ' ');
+				if (reader.next() == XMLStreamConstants.START_ELEMENT) {
+					if (E_STEP.equals(reader.getLocalName())) {
+						String tmpCommandName = reader.getAttributeValue(null, A_COMMAND).replace('_', ' ');
 
-							// comment handling
-							boolean tmpIsComment = A_COMMENT.equals(tmpCommandName.toLowerCase());
-							if (!tmpIsComment) {
-								String tmpIsCommentAsString = reader.getAttributeValue(null, A_COMMENT);
-								if (StringUtils.isNotEmpty(tmpIsCommentAsString)) {
-									tmpIsComment = Boolean.valueOf(tmpIsCommentAsString).booleanValue();
-								}
+						// comment handling
+						boolean tmpIsComment = A_COMMENT.equals(tmpCommandName.toLowerCase());
+						if (!tmpIsComment) {
+							String tmpIsCommentAsString = reader.getAttributeValue(null, A_COMMENT);
+							if (StringUtils.isNotEmpty(tmpIsCommentAsString)) {
+								tmpIsComment = Boolean.valueOf(tmpIsCommentAsString).booleanValue();
 							}
-
-							// build WetCommand
-							tmpWetCommand = new WetCommand(tmpCommandName, tmpIsComment);
-							tmpWetCommand.setLineNo(tmpResult.size() + 1);
-
-							// go to CHARACTER event (parameter) if there
-							if (reader.next() == XMLStreamConstants.CHARACTERS) {
-								String tmpParameters = reader.getText();
-								tmpWetCommand.setFirstParameter(new Parameter(tmpParameters));
-							}
-						} else if (E_OPTIONAL_PARAMETER.equals(reader.getLocalName())) {
-							String tmpOptionalParameters = reader.getElementText();
-							tmpWetCommand.setSecondParameter(new Parameter(tmpOptionalParameters));
 						}
-					}
-					case XMLStreamConstants.END_ELEMENT: {
-						if (E_STEP.equals(reader.getLocalName())) {
-							tmpResult.add(tmpWetCommand);
+
+						// build WetCommand
+						tmpWetCommand = new WetCommand(tmpCommandName, tmpIsComment);
+						tmpWetCommand.setLineNo(tmpResult.size() + 1);
+
+						// go to CHARACTER event (parameter) if there
+						if (reader.next() == XMLStreamConstants.CHARACTERS) {
+							String tmpParameters = reader.getText();
+							tmpWetCommand.setFirstParameter(new Parameter(tmpParameters));
 						}
+					} else if (E_OPTIONAL_PARAMETER.equals(reader.getLocalName())) {
+						String tmpOptionalParameters = reader.getElementText();
+						tmpWetCommand.setSecondParameter(new Parameter(tmpOptionalParameters));
 					}
+				}
+				if (reader.getEventType() == XMLStreamConstants.END_ELEMENT && E_STEP.equals(reader.getLocalName())) {
+					tmpResult.add(tmpWetCommand);
 				}
 			}
 
