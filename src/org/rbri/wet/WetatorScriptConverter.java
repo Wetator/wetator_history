@@ -81,7 +81,9 @@ public final class WetatorScriptConverter {
 				tmpConverter.addTestFile(tmpFiles[i]);
 			}
 
+			LOG.info("Begin converting...");
 			tmpConverter.convert();
+			LOG.info("Converting successfully completed.");
 		} catch (WetException e) {
 			e.printStackTrace();
 			System.exit(1);
