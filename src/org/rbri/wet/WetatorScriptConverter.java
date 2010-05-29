@@ -56,7 +56,7 @@ public final class WetatorScriptConverter {
 		String tmpScripterType = anArgsArray[0];
 		String tmpScriptCreatorType = anArgsArray[1];
 		String tmpOutputDir = anArgsArray[2];
-		System.out.println("Starting converter using scripter '" + tmpScripterType + "', script creator '" + tmpScriptCreatorType + " and output directory '" + tmpOutputDir + "'.");
+		LOG.info("Starting converter using scripter '" + tmpScripterType + "', script creator '" + tmpScriptCreatorType + " and output directory '" + tmpOutputDir + "'.");
 
 		WetScriptConverter tmpConverter = new WetScriptConverter();
 		try {
@@ -67,7 +67,7 @@ public final class WetatorScriptConverter {
 			tmpCreator.setOutputDir(tmpOutputDir);
 			if (tmpCreator instanceof XmlScriptCreator && anArgsArray.length == 5) {
 				String tmpDtd = anArgsArray[3] + " \"" + anArgsArray[4] + "\"";
-				System.out.println("Using DTD '" + tmpDtd + "'.");
+				LOG.info("Using DTD '" + tmpDtd + "'.");
 				((XmlScriptCreator) tmpCreator).setDtd(tmpDtd);
 			}
 			tmpConverter.setScripter(tmpWetScripter);
