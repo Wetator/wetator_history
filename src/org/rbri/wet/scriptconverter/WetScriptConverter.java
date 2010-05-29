@@ -19,6 +19,8 @@ import java.io.File;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.rbri.wet.core.WetCommand;
 import org.rbri.wet.exception.WetException;
 import org.rbri.wet.scriptcreator.WetScriptCreator;
@@ -31,6 +33,8 @@ import org.rbri.wet.scripter.WetScripter;
  * @author tobwoerk
  */
 public class WetScriptConverter {
+
+	private static final Log LOG = LogFactory.getLog(WetScriptConverter.class);
 
 	WetScripter scripter;
 	WetScriptCreator creator;
@@ -49,7 +53,7 @@ public class WetScriptConverter {
 	 */
 	public void convert() throws WetException {
 		for (File tmpInputFile : inputFiles) {
-			System.out.println("Converting '" + tmpInputFile.getAbsolutePath() + "'...");
+			LOG.trace("Converting '" + tmpInputFile.getAbsolutePath() + "'...");
 			scripter.setFile(tmpInputFile);
 			List<WetCommand> tmpCommands = scripter.getCommands();
 
@@ -57,7 +61,7 @@ public class WetScriptConverter {
 			creator.setFileName(tmpFileName);
 			creator.setCommands(tmpCommands);
 			creator.createScript();
-			System.out.println("Converted '" + tmpInputFile.getAbsolutePath() + "'...");
+			LOG.trace("Converted '" + tmpInputFile.getAbsolutePath() + "'...");
 		}
 	}
 

@@ -35,7 +35,7 @@ import org.rbri.wet.util.StdOutProgressListener;
  */
 public final class Wetator {
 
-    private static final Log LOG = LogFactory.getLog(Wetator.class);;
+    private static final Log LOG = LogFactory.getLog(Wetator.class);
 
 
     /**
