@@ -21,14 +21,25 @@ package org.rbri.wet.exception;
  * 
  * @author rbri
  */
-public class WetException extends Exception {
+public class WetException extends RuntimeException {
 
   private static final long serialVersionUID = 3757691195403775693L;
 
+  /**
+   * Constructor
+   * 
+   * @param aMessage the message text
+   */
   public WetException(String aMessage) {
     super(aMessage);
   }
 
+  /**
+   * Constructor
+   * 
+   * @param aMessage the message text
+   * @param aThrowable the reason of this exception
+   */
   public WetException(String aMessage, Throwable aThrowable) {
     super(aMessage, aThrowable);
   }

@@ -16,10 +16,13 @@
 
 package org.rbri.wet.core.variable;
 
+import org.apache.commons.lang.StringUtils;
 import org.rbri.wet.util.SecretString;
 
 /**
  * An object that stores a variable.
+ * This supports a name, a value and a secret flag.
+ * The value of variables marked as secret is never visible in the output reports.
  * 
  * @author rbri
  */
@@ -29,6 +32,10 @@ public final class Variable {
 
   /**
    * Constructor.
+   * The value is not secret
+   * 
+   * @param aName the name of the variable (required)
+   * @param aValue the value of the variable
    */
   public Variable(String aName, String aValue) {
     this(aName, aValue, false);
@@ -36,6 +43,10 @@ public final class Variable {
 
   /**
    * Constructor.
+   * 
+   * @param aName the name of the variable (required)
+   * @param aValue the value of the variable
+   * @param anSecretFlag true if the value is a secret
    */
   public Variable(String aName, String aValue, boolean anSecretFlag) {
     this(aName, new SecretString(aValue, anSecretFlag));
@@ -43,11 +54,14 @@ public final class Variable {
 
   /**
    * Constructor.
+   * 
+   * @param aName the name of the variable
+   * @param aValue the value as SecretString
    */
   public Variable(String aName, SecretString aValue) {
     super();
 
-    if (null == aName) {
+    if (StringUtils.isEmpty(aName)) {
       throw new IllegalArgumentException("Parameter aName can't be null.");
     }
 
@@ -55,10 +69,20 @@ public final class Variable {
     secretValue = aValue;
   }
 
+  /**
+   * Getter for the name
+   * 
+   * @return the name of this variable
+   */
   public String getName() {
     return name;
   }
 
+  /**
+   * Getter for the secret string
+   * 
+   * @return the secret string
+   */
   public SecretString getValue() {
     return secretValue;
   }

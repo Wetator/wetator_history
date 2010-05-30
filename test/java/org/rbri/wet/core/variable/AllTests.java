@@ -14,23 +14,28 @@
  */
 
 
-package org.rbri.wet.exception;
+package org.rbri.wet.core.variable;
+
+import junit.framework.Test;
+import junit.framework.TestCase;
+import junit.framework.TestSuite;
 
 /**
- * Special error in case an assertion fails
- * 
  * @author rbri
  */
-public class AssertionFailedException extends Exception {
+public class AllTests extends TestCase {
+  public static void main(String[] anArgsArray) {
+    junit.textui.TestRunner.run(suite());
+  }
 
-  private static final long serialVersionUID = -1587032805061848761L;
+  public static Test suite() {
 
-  /**
-   * Constructor
-   * 
-   * @param aMessage the message text
-   */
-  public AssertionFailedException(String aMessage) {
-    super(aMessage);
+    TestSuite tmpSuite = new TestSuite("All Wetator core tests");
+
+    tmpSuite.addTest(org.rbri.wet.core.result.AllTests.suite());
+
+    tmpSuite.addTest(VariableTest.suite());
+
+    return tmpSuite;
   }
 }

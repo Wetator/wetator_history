@@ -37,6 +37,12 @@ public final class WetCommand {
   private Parameter thirdParameter;
   private int lineNo;
 
+  /**
+   * Constructor
+   * 
+   * @param aName the name of the command
+   * @param anIsCommentFlag true if the command is a comment
+   */
   public WetCommand(String aName, boolean anIsCommentFlag) {
     name = aName;
     isComment = anIsCommentFlag;
@@ -120,8 +126,7 @@ public final class WetCommand {
     lineNo = aLineNo;
   }
 
-  public List<SecretString> getFirstParameterValues(WetContext aWetContext) throws AssertionFailedException,
-      WetException {
+  public List<SecretString> getFirstParameterValues(WetContext aWetContext) throws AssertionFailedException {
     Parameter tmpFirstParameter = getFirstParameter();
     List<SecretString> tmpResult = new LinkedList<SecretString>();
 
@@ -138,7 +143,7 @@ public final class WetCommand {
     return tmpResult;
   }
 
-  public SecretString getFirstParameterValue(WetContext aWetContext) throws AssertionFailedException, WetException {
+  public SecretString getFirstParameterValue(WetContext aWetContext) throws AssertionFailedException {
     Parameter tmpFirstParameter = getFirstParameter();
 
     if (null == tmpFirstParameter) {
@@ -149,8 +154,7 @@ public final class WetCommand {
     return tmpFirstValue;
   }
 
-  public List<SecretString> getRequiredFirstParameterValues(WetContext aWetContext) throws AssertionFailedException,
-      WetException {
+  public List<SecretString> getRequiredFirstParameterValues(WetContext aWetContext) throws AssertionFailedException {
     Parameter tmpFirstParameter = getFirstParameter();
 
     if (null == tmpFirstParameter) {
