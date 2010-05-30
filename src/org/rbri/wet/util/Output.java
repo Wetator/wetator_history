@@ -36,7 +36,7 @@ public final class Output {
   /**
    * Constructor.
    * 
-   * @param anOutputStream the writer to write to
+   * @param aWriter the writer to write to
    * @param anIndent String to be used for indenting (e.g. "", " ", " ", "\t")
    */
   public Output(Writer aWriter, String anIndent) {

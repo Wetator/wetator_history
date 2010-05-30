@@ -76,6 +76,6 @@ public final class NormalizedContent {
 
   private boolean isWhitespace(char aChar) {
     // char 160 not detected as whitespace by java
-    return (Character.isWhitespace(aChar) || (char) 160 == aChar);
+    return Character.isWhitespace(aChar) || (char) 160 == aChar;
   }
 }
