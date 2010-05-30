@@ -19,7 +19,6 @@ package org.rbri.wet.commandset;
 import org.rbri.wet.core.WetCommand;
 import org.rbri.wet.core.WetContext;
 import org.rbri.wet.exception.AssertionFailedException;
-import org.rbri.wet.exception.WetException;
 
 /**
  * The interface every implemented command
@@ -29,6 +28,6 @@ import org.rbri.wet.exception.WetException;
  */
 public interface WetCommandImplementation {
 
-  public void execute(WetContext aWetContext, WetCommand aWetCommand) throws WetException, AssertionFailedException;
+  public void execute(WetContext aWetContext, WetCommand aWetCommand) throws AssertionFailedException;
 
 }

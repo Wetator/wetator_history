@@ -104,7 +104,7 @@ public final class WetConfiguration {
 
   private List<Variable> variables; // store them in defined order
 
-  public WetConfiguration(File aConfigurationFile, Map<String, String> anExternalPropertiesMap) throws WetException {
+  public WetConfiguration(File aConfigurationFile, Map<String, String> anExternalPropertiesMap) {
     super();
 
     LOG.info("Config  file is '" + aConfigurationFile.getAbsolutePath() + "'");
@@ -112,8 +112,7 @@ public final class WetConfiguration {
     LOG.debug("Config  reading of the config file finished'");
   }
 
-  private void initializeFromFile(File aConfigurationFile, Map<String, String> anExternalPropertiesMap)
-      throws WetException {
+  private void initializeFromFile(File aConfigurationFile, Map<String, String> anExternalPropertiesMap) {
     // lets do some validations first
     if (!aConfigurationFile.exists()) {
       throw new WetException("The configuration file '" + aConfigurationFile.getAbsolutePath() + "' does not exist.");

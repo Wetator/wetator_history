@@ -36,7 +36,6 @@ import org.rbri.wet.core.WetCommand;
 import org.rbri.wet.core.WetConfiguration;
 import org.rbri.wet.core.WetContext;
 import org.rbri.wet.exception.AssertionFailedException;
-import org.rbri.wet.exception.WetException;
 import org.rbri.wet.util.Assert;
 import org.rbri.wet.util.SecretString;
 import org.rbri.wet.util.StringUtil;
@@ -75,7 +74,7 @@ public final class SqlCommandSet extends AbstractCommandSet {
   }
 
   public final class CommandExecuteSql implements WetCommandImplementation {
-    public void execute(WetContext aWetContext, WetCommand aWetCommand) throws WetException, AssertionFailedException {
+    public void execute(WetContext aWetContext, WetCommand aWetCommand) throws AssertionFailedException {
 
       SecretString tmpSqlParam = aWetCommand.getRequiredFirstParameterValue(aWetContext);
       aWetCommand.assertNoUnusedSecondParameter(aWetContext);
@@ -103,7 +102,7 @@ public final class SqlCommandSet extends AbstractCommandSet {
   }
 
   public final class CommandAssertSql implements WetCommandImplementation {
-    public void execute(WetContext aWetContext, WetCommand aWetCommand) throws WetException, AssertionFailedException {
+    public void execute(WetContext aWetContext, WetCommand aWetCommand) throws AssertionFailedException {
 
       SecretString tmpSqlParam = aWetCommand.getRequiredFirstParameterValue(aWetContext);
       List<SecretString> tmpExpected = aWetCommand.getRequiredSecondParameterValues(aWetContext);
@@ -150,7 +149,7 @@ public final class SqlCommandSet extends AbstractCommandSet {
   }
 
   public final class CommandAssertSqlInContent implements WetCommandImplementation {
-    public void execute(WetContext aWetContext, WetCommand aWetCommand) throws WetException, AssertionFailedException {
+    public void execute(WetContext aWetContext, WetCommand aWetCommand) throws AssertionFailedException {
 
       SecretString tmpSqlParam = aWetCommand.getRequiredFirstParameterValue(aWetContext);
       aWetCommand.assertNoUnusedSecondParameter(aWetContext);
@@ -253,7 +252,7 @@ public final class SqlCommandSet extends AbstractCommandSet {
     }
   }
 
-  protected String extractConnectionName(WetContext aWetContext, SecretString aParameter) throws WetException {
+  protected String extractConnectionName(WetContext aWetContext, SecretString aParameter) {
     // check for '@' at start for handling connections
     if (aParameter.startsWith(DB_NAME_PREFIX)) {
       for (Map.Entry<String, Connection> tmpEntry : connections.entrySet()) {

@@ -23,7 +23,6 @@ import org.rbri.wet.core.Parameter;
 import org.rbri.wet.core.WetCommand;
 import org.rbri.wet.core.WetContext;
 import org.rbri.wet.exception.AssertionFailedException;
-import org.rbri.wet.exception.WetException;
 import org.rbri.wet.util.Assert;
 import org.rbri.wet.util.SecretString;
 
@@ -52,7 +51,7 @@ public final class TestCommandSet extends AbstractCommandSet {
    * The assert fail command.
    */
   public final class CommandAssertFail implements WetCommandImplementation {
-    public void execute(WetContext aWetContext, WetCommand aWetCommand) throws WetException, AssertionFailedException {
+    public void execute(WetContext aWetContext, WetCommand aWetCommand) throws AssertionFailedException {
 
       List<Parameter.Part> tmpFirstParameters = aWetCommand.getFirstParameter().getParts();
       SecretString tmpExpected = tmpFirstParameters.get(1).getValue(aWetContext);

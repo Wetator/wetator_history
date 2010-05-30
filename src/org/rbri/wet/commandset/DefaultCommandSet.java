@@ -39,7 +39,6 @@ import org.rbri.wet.core.WetContext;
 import org.rbri.wet.core.result.WetResultWriter;
 import org.rbri.wet.core.variable.Variable;
 import org.rbri.wet.exception.AssertionFailedException;
-import org.rbri.wet.exception.WetException;
 import org.rbri.wet.util.Assert;
 import org.rbri.wet.util.SecretString;
 
@@ -78,7 +77,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
   }
 
   public final class CommandOpenUrl implements WetCommandImplementation {
-    public void execute(WetContext aWetContext, WetCommand aWetCommand) throws WetException, AssertionFailedException {
+    public void execute(WetContext aWetContext, WetCommand aWetCommand) throws AssertionFailedException {
 
       SecretString tmpUrlParam = aWetCommand.getRequiredFirstParameterValue(aWetContext);
       aWetCommand.assertNoUnusedSecondParameter(aWetContext);
@@ -108,7 +107,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
   }
 
   public final class CommandUseModule implements WetCommandImplementation {
-    public void execute(WetContext aWetContext, WetCommand aWetCommand) throws WetException, AssertionFailedException {
+    public void execute(WetContext aWetContext, WetCommand aWetCommand) throws AssertionFailedException {
 
       SecretString tmpModuleParam = aWetCommand.getRequiredFirstParameterValue(aWetContext);
       List<SecretString> tmpModuleParameters = aWetCommand.getSecondParameterValues(aWetContext);
@@ -136,7 +135,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
   }
 
   public final class CommandSet implements WetCommandImplementation {
-    public void execute(WetContext aWetContext, WetCommand aWetCommand) throws WetException, AssertionFailedException {
+    public void execute(WetContext aWetContext, WetCommand aWetCommand) throws AssertionFailedException {
 
       List<SecretString> tmpSearchParam = aWetCommand.getFirstParameterValues(aWetContext);
       SecretString tmpValueParam = aWetCommand.getSecondParameterValue(aWetContext);
@@ -161,7 +160,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
   }
 
   public final class CommandClickOn implements WetCommandImplementation {
-    public void execute(WetContext aWetContext, WetCommand aWetCommand) throws WetException, AssertionFailedException {
+    public void execute(WetContext aWetContext, WetCommand aWetCommand) throws AssertionFailedException {
 
       List<SecretString> tmpSearchParam = aWetCommand.getRequiredFirstParameterValues(aWetContext);
       aWetCommand.assertNoUnusedSecondParameter(aWetContext);
@@ -183,7 +182,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
   }
 
   public final class CommandSelect implements WetCommandImplementation {
-    public void execute(WetContext aWetContext, WetCommand aWetCommand) throws WetException, AssertionFailedException {
+    public void execute(WetContext aWetContext, WetCommand aWetCommand) throws AssertionFailedException {
 
       List<SecretString> tmpSearchParam = aWetCommand.getRequiredFirstParameterValues(aWetContext);
       aWetCommand.assertNoUnusedSecondParameter(aWetContext);
@@ -202,7 +201,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
   }
 
   public final class CommandMouseOver implements WetCommandImplementation {
-    public void execute(WetContext aWetContext, WetCommand aWetCommand) throws WetException, AssertionFailedException {
+    public void execute(WetContext aWetContext, WetCommand aWetCommand) throws AssertionFailedException {
 
       List<SecretString> tmpSearchParam = aWetCommand.getRequiredFirstParameterValues(aWetContext);
       aWetCommand.assertNoUnusedSecondParameter(aWetContext);
@@ -220,7 +219,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
   }
 
   public final class CommandCloseWindow implements WetCommandImplementation {
-    public void execute(WetContext aWetContext, WetCommand aWetCommand) throws WetException, AssertionFailedException {
+    public void execute(WetContext aWetContext, WetCommand aWetCommand) throws AssertionFailedException {
 
       SecretString tmpWindowNameParam = aWetCommand.getFirstParameterValue(aWetContext);
       aWetCommand.assertNoUnusedSecondParameter(aWetContext);
@@ -231,7 +230,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
   }
 
   public final class CommandGoBack implements WetCommandImplementation {
-    public void execute(WetContext aWetContext, WetCommand aWetCommand) throws WetException, AssertionFailedException {
+    public void execute(WetContext aWetContext, WetCommand aWetCommand) throws AssertionFailedException {
 
       SecretString tmpStepsParam = aWetCommand.getFirstParameterValue(aWetContext);
       aWetCommand.assertNoUnusedSecondParameter(aWetContext);
@@ -254,7 +253,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
 
   public final class CommandAssertTitle implements WetCommandImplementation {
 
-    public void execute(WetContext aWetContext, WetCommand aWetCommand) throws WetException, AssertionFailedException {
+    public void execute(WetContext aWetContext, WetCommand aWetCommand) throws AssertionFailedException {
 
       List<SecretString> tmpExpected = aWetCommand.getRequiredFirstParameterValues(aWetContext);
       aWetCommand.assertNoUnusedSecondParameter(aWetContext);
@@ -267,7 +266,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
   }
 
   public final class CommandAssertContent implements WetCommandImplementation {
-    public void execute(WetContext aWetContext, WetCommand aWetCommand) throws WetException, AssertionFailedException {
+    public void execute(WetContext aWetContext, WetCommand aWetCommand) throws AssertionFailedException {
 
       List<SecretString> tmpExpected = aWetCommand.getRequiredFirstParameterValues(aWetContext);
       aWetCommand.assertNoUnusedSecondParameter(aWetContext);
@@ -280,7 +279,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
   }
 
   public final class CommandAssertDisabled implements WetCommandImplementation {
-    public void execute(WetContext aWetContext, WetCommand aWetCommand) throws WetException, AssertionFailedException {
+    public void execute(WetContext aWetContext, WetCommand aWetCommand) throws AssertionFailedException {
 
       List<SecretString> tmpSearchParam = aWetCommand.getRequiredFirstParameterValues(aWetContext);
       aWetCommand.assertNoUnusedSecondParameter(aWetContext);
@@ -308,7 +307,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
   }
 
   public final class CommandAssertSet implements WetCommandImplementation {
-    public void execute(WetContext aWetContext, WetCommand aWetCommand) throws WetException, AssertionFailedException {
+    public void execute(WetContext aWetContext, WetCommand aWetCommand) throws AssertionFailedException {
 
       List<SecretString> tmpSearchParam = aWetCommand.getRequiredFirstParameterValues(aWetContext);
       SecretString tmpValueParam = aWetCommand.getRequiredSecondParameterValue(aWetContext);
@@ -329,7 +328,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
   }
 
   public final class CommandAssertSelected implements WetCommandImplementation {
-    public void execute(WetContext aWetContext, WetCommand aWetCommand) throws WetException, AssertionFailedException {
+    public void execute(WetContext aWetContext, WetCommand aWetCommand) throws AssertionFailedException {
       List<SecretString> tmpSearchParam = aWetCommand.getRequiredFirstParameterValues(aWetContext);
       aWetCommand.assertNoUnusedSecondParameter(aWetContext);
 
@@ -347,7 +346,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
   }
 
   public final class CommandAssertDeselected implements WetCommandImplementation {
-    public void execute(WetContext aWetContext, WetCommand aWetCommand) throws WetException, AssertionFailedException {
+    public void execute(WetContext aWetContext, WetCommand aWetCommand) throws AssertionFailedException {
       List<SecretString> tmpSearchParam = aWetCommand.getRequiredFirstParameterValues(aWetContext);
       aWetCommand.assertNoUnusedSecondParameter(aWetContext);
 
@@ -366,7 +365,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
 
   public final class CommandExecJava implements WetCommandImplementation {
     @SuppressWarnings("unchecked")
-    public void execute(WetContext aWetContext, WetCommand aWetCommand) throws WetException, AssertionFailedException {
+    public void execute(WetContext aWetContext, WetCommand aWetCommand) throws AssertionFailedException {
       SecretString tmpCall = aWetCommand.getRequiredFirstParameterValue(aWetContext);
       List<SecretString> tmpMethodParameters = aWetCommand.getSecondParameterValues(aWetContext);
 

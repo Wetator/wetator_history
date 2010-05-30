@@ -101,9 +101,8 @@ public final class ResponseStore {
    * This method writes the page to a file with a unique name.
    * 
    * @param aPage the page to save
-   * @throws WetException
    */
-  public String storePage(WebClient aWebClient, Page aPage) throws WetException {
+  public String storePage(WebClient aWebClient, Page aPage) {
     webClient = aWebClient;
 
     try {

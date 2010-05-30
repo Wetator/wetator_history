@@ -28,15 +28,51 @@ import org.rbri.wet.util.SecretString;
  */
 public interface ControlFinder {
 
+  /**
+   * Return a list of all clickables for the given search
+   * 
+   * @param aSearch the list of secret strings describing the search
+   * @return a WeightedControlList
+   */
   public WeightedControlList getAllClickables(List<SecretString> aSearch);
 
+  /**
+   * Return a list of all selectables for the given search
+   * 
+   * @param aSearch the list of secret strings describing the search
+   * @return a WeightedControlList
+   */
   public WeightedControlList getAllSelectables(final List<SecretString> aSearch);
 
+  /**
+   * Return a list of all setables for the given search
+   * 
+   * @param aSearch the list of secret strings describing the search
+   * @return a WeightedControlList
+   */
   public WeightedControlList getAllSetables(List<SecretString> aSearch);
 
+  /**
+   * Return a list of all other controls for the given search
+   * 
+   * @param aSearch the list of secret strings describing the search
+   * @return a WeightedControlList
+   */
   public WeightedControlList getAllOtherControls(List<SecretString> aSearch);
 
+  /**
+   * Return a list of all elements for the given search
+   * 
+   * @param aSearch the list of secret strings describing the search
+   * @return a WeightedControlList
+   */
   public WeightedControlList getAllElementsForText(List<SecretString> aSearch);
 
+  /**
+   * Return a list with the first clickable text for the given search
+   * 
+   * @param aSearch the list of secret strings describing the search
+   * @return a WeightedControlList
+   */
   public WeightedControlList getFirstClickableTextElement(List<SecretString> aSearch);
 }

@@ -20,7 +20,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.rbri.wet.exception.AssertionFailedException;
-import org.rbri.wet.exception.WetException;
 import org.rbri.wet.util.Assert;
 import org.rbri.wet.util.SecretString;
 
@@ -171,8 +170,7 @@ public final class WetCommand {
     return tmpResult;
   }
 
-  public SecretString getRequiredFirstParameterValue(WetContext aWetContext) throws AssertionFailedException,
-      WetException {
+  public SecretString getRequiredFirstParameterValue(WetContext aWetContext) throws AssertionFailedException {
     Parameter tmpFirstParameter = getFirstParameter();
 
     if (null == tmpFirstParameter) {
@@ -183,8 +181,7 @@ public final class WetCommand {
     return tmpFirstValue;
   }
 
-  public List<SecretString> getRequiredSecondParameterValues(WetContext aWetContext) throws AssertionFailedException,
-      WetException {
+  public List<SecretString> getRequiredSecondParameterValues(WetContext aWetContext) throws AssertionFailedException {
     Parameter tmpSecondParameter = getSecondParameter();
 
     if (null == tmpSecondParameter) {
@@ -201,8 +198,7 @@ public final class WetCommand {
     return tmpResult;
   }
 
-  public SecretString getRequiredSecondParameterValue(WetContext aWetContext) throws AssertionFailedException,
-      WetException {
+  public SecretString getRequiredSecondParameterValue(WetContext aWetContext) throws AssertionFailedException {
     Parameter tmpSecondParameter = getSecondParameter();
 
     if (null == tmpSecondParameter) {
@@ -213,8 +209,7 @@ public final class WetCommand {
     return tmpSecondValue;
   }
 
-  public List<SecretString> getSecondParameterValues(WetContext aWetContext) throws AssertionFailedException,
-      WetException {
+  public List<SecretString> getSecondParameterValues(WetContext aWetContext) throws AssertionFailedException {
     Parameter tmpSecondParameter = getSecondParameter();
 
     List<SecretString> tmpResult = new LinkedList<SecretString>();
@@ -231,7 +226,7 @@ public final class WetCommand {
     return tmpResult;
   }
 
-  public SecretString getSecondParameterValue(WetContext aWetContext) throws AssertionFailedException, WetException {
+  public SecretString getSecondParameterValue(WetContext aWetContext) throws AssertionFailedException {
     Parameter tmpSecondParameter = getSecondParameter();
 
     if (null == tmpSecondParameter) {

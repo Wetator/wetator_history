@@ -19,7 +19,6 @@ package org.rbri.wet.backend;
 import java.net.URL;
 
 import org.rbri.wet.exception.AssertionFailedException;
-import org.rbri.wet.exception.WetException;
 import org.rbri.wet.util.SecretString;
 
 /**
@@ -50,7 +49,7 @@ public interface WetBackend {
 
   public ControlFinder getControlFinder() throws AssertionFailedException;
 
-  public void openUrl(URL aUrl) throws WetException, AssertionFailedException;
+  public void openUrl(URL aUrl) throws AssertionFailedException;
 
   public String getCurrentTitle() throws AssertionFailedException;
 

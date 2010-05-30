@@ -111,7 +111,7 @@ public class WetContext {
     return new SecretString(tmpResultValue, tmpResultValueForPrint);
   }
 
-  private void executeCommand(WetCommand aWetCommand) throws WetException {
+  private void executeCommand(WetCommand aWetCommand) {
 
     engine.informListenersContextExecuteCommandStart(this, aWetCommand);
     try {
@@ -133,7 +133,7 @@ public class WetContext {
     }
   }
 
-  public void determineAndExecuteCommandImpl(WetCommand aWetCommand) throws WetException, AssertionFailedException {
+  public void determineAndExecuteCommandImpl(WetCommand aWetCommand) throws AssertionFailedException {
     WetCommandImplementation tmpImpl = engine.getCommandImplementationFor(aWetCommand.getName());
     if (null == tmpImpl) {
       // TODO better error description
@@ -144,7 +144,7 @@ public class WetContext {
     tmpImpl.execute(this, aWetCommand);
   }
 
-  public void execute() throws WetException {
+  public void execute() {
     File tmpFile = getFile();
 
     engine.informListenersContextTestStart(tmpFile.getAbsolutePath());

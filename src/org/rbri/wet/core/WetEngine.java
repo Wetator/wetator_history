@@ -84,14 +84,14 @@ public final class WetEngine {
     setWetBackend(tmpBrowser);
   }
 
-  public void addTestFile(File aFile) throws WetException {
+  public void addTestFile(File aFile) {
     if (!aFile.exists()) {
       throw new WetException("The test file '" + aFile.getAbsolutePath() + "' does not exist.");
     }
     files.add(aFile);
   }
 
-  public void executeTests() throws WetException {
+  public void executeTests() {
     addProgressListener(new WetResultWriter());
 
     informListenersSetup();
@@ -145,7 +145,7 @@ public final class WetEngine {
     configuration = new WetConfiguration(tmpConfigFile, getExternalProperties());
   }
 
-  private WetScripter createScripter(File aFile) throws WetException {
+  private WetScripter createScripter(File aFile) {
     for (WetScripter tmpScripter : scripter) {
       if (tmpScripter.isSupported(aFile)) {
         tmpScripter.setFile(aFile);

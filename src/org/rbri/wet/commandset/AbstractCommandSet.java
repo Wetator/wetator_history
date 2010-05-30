@@ -29,7 +29,6 @@ import org.rbri.wet.backend.WeightedControlList;
 import org.rbri.wet.backend.WetBackend;
 import org.rbri.wet.core.WetContext;
 import org.rbri.wet.exception.AssertionFailedException;
-import org.rbri.wet.exception.WetException;
 import org.rbri.wet.util.Assert;
 import org.rbri.wet.util.SecretString;
 
@@ -88,7 +87,7 @@ public abstract class AbstractCommandSet implements WetCommandSet {
   }
 
   protected Control getRequiredFirstHtmlElementFrom(WetContext aWetContext, WeightedControlList aWeightedControlList,
-      List<SecretString> aSearchParam) throws AssertionFailedException, WetException {
+      List<SecretString> aSearchParam) throws AssertionFailedException {
     if (aWeightedControlList.isEmpty()) {
       Assert.fail("noHtmlElementFound", new String[] { SecretString.toString(aSearchParam) });
     }
