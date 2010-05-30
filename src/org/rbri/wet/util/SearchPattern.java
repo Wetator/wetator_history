@@ -30,18 +30,18 @@ import dk.brics.automaton.RunAutomaton;
  * @author rbri
  */
 public final class SearchPattern {
-  private static long constructor = 0;
-  private static long noOfCharsBeforeFirstOccurenceIn = 0;
-  private static long noOfCharsBeforeLastOccurenceIn = 0;
-  private static long noOfCharsAfterLastOccurenceIn = 0;
-  private static long matches = 0;
-  private static long noOfSurroundingCharsIn = 0;
-  private static long noOfMatchingCharsIn = 0;
-  private static long matchesAtEnd = 0;
-  private static long noOfCharsBeforeFirstOccurenceInAfter = 0;
+  private static long constructor;
+  private static long noOfCharsBeforeFirstOccurenceIn;
+  private static long noOfCharsBeforeLastOccurenceIn;
+  private static long noOfCharsAfterLastOccurenceIn;
+  private static long matches;
+  private static long noOfSurroundingCharsIn;
+  private static long noOfMatchingCharsIn;
+  private static long matchesAtEnd;
+  private static long noOfCharsBeforeFirstOccurenceInAfter;
 
-  private static long firstOccurenceIn = 0;
-  private static long lastOccurenceIn = 0;
+  private static long firstOccurenceIn;
+  private static long lastOccurenceIn;
 
   public static void dumpStatistics() {
     System.out.println("constructor: " + constructor);
@@ -445,11 +445,52 @@ public final class SearchPattern {
     return tmpResult;
   }
 
-  public boolean equals(String aString) {
-    return originalString.equals(aString);
-  }
-
+  /**
+   * Getter for attribute originalString
+   * 
+   * @return the value of attribute originalString
+   */
   public String getOriginalString() {
     return originalString;
   }
+
+  @Override
+  public int hashCode() {
+    final int tmpPrime = 31;
+    int tmpResult = 1;
+    tmpResult = tmpPrime * tmpResult;
+    if (originalString != null) {
+      tmpResult = tmpResult + originalString.hashCode();
+    }
+    return tmpResult;
+  }
+
+  @Override
+  public boolean equals(Object anObject) {
+    if (this == anObject) {
+      return true;
+    }
+    if (anObject == null) {
+      return false;
+    }
+
+    if (anObject instanceof String) {
+      return anObject.equals(originalString);
+    }
+
+    if (getClass() != anObject.getClass()) {
+      return false;
+    }
+
+    SearchPattern tmpOther = (SearchPattern) anObject;
+    if (originalString == null) {
+      if (tmpOther.originalString != null) {
+        return false;
+      }
+    } else if (!originalString.equals(tmpOther.originalString)) {
+      return false;
+    }
+    return true;
+  }
+
 }
