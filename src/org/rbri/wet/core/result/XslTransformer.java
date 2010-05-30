@@ -44,16 +44,21 @@ public final class XslTransformer {
   private static final String IMAGES_DIRECTORY = "images";
   private File wetResultFile;
 
+  /**
+   * Constructor
+   * 
+   * @param aWetResultFile the name of the report xml file
+   */
   public XslTransformer(File aWetResultFile) {
     wetResultFile = aWetResultFile;
   }
 
   /**
-   * Transforms the Document to HTML. The stylesheet is
+   * Transforms the result xml file to various output files. The stylesheets are
    * read from the configured location.
    * 
-   * @param aDoc the Document
-   * @param aFile the file to write html to
+   * @param aListOfXslFileNames the names of the xsl files for transformation
+   * @param anOutputDirectory the directory to write to
    */
   public void transform(Iterable<String> aListOfXslFileNames, File anOutputDirectory) {
     for (String tmpXslFileName : aListOfXslFileNames) {
