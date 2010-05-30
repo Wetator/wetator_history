@@ -1099,7 +1099,7 @@ public class SearchPatternTest extends TestCase {
 
     assertTrue(tmpPattern.matches("test"));
     assertFalse("test".equals(tmpPattern));
-    assertEquals("te*", tmpPattern);
+    assertTrue(tmpPattern.equals("te*"));
     assertEquals("te*", tmpPattern.getOriginalString());
   }
 }
