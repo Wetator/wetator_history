@@ -52,287 +52,287 @@ public class HtmlElementUtil {
     super();
   }
 
-  public static String getDescribingTextForHtmlAnchor(HtmlAnchor aHtmlAnchor) {
+  public static String getDescribingTextForHtmlAnchor(HtmlAnchor anHtmlAnchor) {
     StringBuilder tmpResult = new StringBuilder();
 
     tmpResult.append("[HtmlAnchor");
 
     // TODO this handles only the most common situations
-    if (aHtmlAnchor.getFirstChild() instanceof HtmlImage) {
+    if (anHtmlAnchor.getFirstChild() instanceof HtmlImage) {
       tmpResult.append(" '");
       tmpResult.append("image: ");
-      tmpResult.append(((HtmlImage) aHtmlAnchor.getFirstChild()).getSrcAttribute());
+      tmpResult.append(((HtmlImage) anHtmlAnchor.getFirstChild()).getSrcAttribute());
       tmpResult.append("'");
     }
 
-    String tmpText = aHtmlAnchor.asText();
+    String tmpText = anHtmlAnchor.asText();
     if (StringUtils.isNotEmpty(tmpText)) {
       tmpResult.append(" '");
       tmpResult.append(tmpText);
       tmpResult.append("'");
     }
 
-    addId(tmpResult, aHtmlAnchor);
-    addName(tmpResult, aHtmlAnchor);
+    addId(tmpResult, anHtmlAnchor);
+    addName(tmpResult, anHtmlAnchor);
 
     tmpResult.append("]");
     return tmpResult.toString();
   }
 
-  public static String getDescribingTextForHtmlButton(HtmlButton aHtmlButton) {
+  public static String getDescribingTextForHtmlButton(HtmlButton anHtmlButton) {
     StringBuilder tmpResult = new StringBuilder();
 
     tmpResult.append("[HtmlButton");
 
     // TODO this handles only the most common situations
-    if (aHtmlButton.getFirstChild() instanceof HtmlImage) {
+    if (anHtmlButton.getFirstChild() instanceof HtmlImage) {
       tmpResult.append(" '");
       tmpResult.append("image: ");
-      tmpResult.append(((HtmlImage) aHtmlButton.getFirstChild()).getSrcAttribute());
+      tmpResult.append(((HtmlImage) anHtmlButton.getFirstChild()).getSrcAttribute());
       tmpResult.append("'");
     }
-    if (StringUtils.isNotEmpty(aHtmlButton.asText())) {
+    if (StringUtils.isNotEmpty(anHtmlButton.asText())) {
       tmpResult.append(" '");
-      tmpResult.append(aHtmlButton.asText());
+      tmpResult.append(anHtmlButton.asText());
       tmpResult.append("'");
-    } else if (StringUtils.isNotEmpty(aHtmlButton.getValueAttribute())) {
+    } else if (StringUtils.isNotEmpty(anHtmlButton.getValueAttribute())) {
       tmpResult.append(" '");
-      tmpResult.append(aHtmlButton.getValueAttribute());
+      tmpResult.append(anHtmlButton.getValueAttribute());
       tmpResult.append("'");
     }
 
-    addId(tmpResult, aHtmlButton);
-    addName(tmpResult, aHtmlButton);
+    addId(tmpResult, anHtmlButton);
+    addName(tmpResult, anHtmlButton);
 
     tmpResult.append("]");
     return tmpResult.toString();
   }
 
-  public static String getDescribingTextForHtmlButtonInput(HtmlButtonInput aHtmlButtonInput) {
+  public static String getDescribingTextForHtmlButtonInput(HtmlButtonInput anHtmlButtonInput) {
     StringBuilder tmpResult = new StringBuilder();
 
     tmpResult.append("[HtmlButtonInput '");
-    tmpResult.append(aHtmlButtonInput.getValueAttribute());
+    tmpResult.append(anHtmlButtonInput.getValueAttribute());
     tmpResult.append("'");
 
-    addId(tmpResult, aHtmlButtonInput);
-    addName(tmpResult, aHtmlButtonInput);
+    addId(tmpResult, anHtmlButtonInput);
+    addName(tmpResult, anHtmlButtonInput);
 
     tmpResult.append("]");
     return tmpResult.toString();
   }
 
-  public static String getDescribingTextForHtmlCheckBoxInput(HtmlCheckBoxInput aHtmlCheckBoxInput) {
+  public static String getDescribingTextForHtmlCheckBoxInput(HtmlCheckBoxInput anHtmlCheckBoxInput) {
     StringBuilder tmpResult = new StringBuilder();
 
     tmpResult.append("[HtmlCheckBoxInput");
 
-    addId(tmpResult, aHtmlCheckBoxInput);
-    addName(tmpResult, aHtmlCheckBoxInput);
+    addId(tmpResult, anHtmlCheckBoxInput);
+    addName(tmpResult, anHtmlCheckBoxInput);
 
     tmpResult.append("]");
     return tmpResult.toString();
   }
 
-  public static String getDescribingTextForHtmlFileInput(HtmlFileInput aHtmlFileInput) {
+  public static String getDescribingTextForHtmlFileInput(HtmlFileInput anHtmlFileInput) {
     StringBuilder tmpResult = new StringBuilder();
 
     tmpResult.append("[HtmlFileInput");
 
-    addId(tmpResult, aHtmlFileInput);
-    addName(tmpResult, aHtmlFileInput);
+    addId(tmpResult, anHtmlFileInput);
+    addName(tmpResult, anHtmlFileInput);
 
     tmpResult.append("]");
     return tmpResult.toString();
   }
 
-  public static String getDescribingTextForHtmlImage(HtmlImage aHtmlImage) {
+  public static String getDescribingTextForHtmlImage(HtmlImage anHtmlImage) {
     StringBuilder tmpResult = new StringBuilder();
 
     tmpResult.append("[HtmlImage '");
-    tmpResult.append(aHtmlImage.getSrcAttribute());
+    tmpResult.append(anHtmlImage.getSrcAttribute());
     tmpResult.append("'");
 
-    addId(tmpResult, aHtmlImage);
-    addName(tmpResult, aHtmlImage);
+    addId(tmpResult, anHtmlImage);
+    addName(tmpResult, anHtmlImage);
 
     tmpResult.append("]");
     return tmpResult.toString();
   }
 
-  public static String getDescribingTextForHtmlImageInput(HtmlImageInput aHtmlImageInput) {
+  public static String getDescribingTextForHtmlImageInput(HtmlImageInput anHtmlImageInput) {
     StringBuilder tmpResult = new StringBuilder();
 
     tmpResult.append("[HtmlImageInput '");
-    tmpResult.append(aHtmlImageInput.getValueAttribute());
+    tmpResult.append(anHtmlImageInput.getValueAttribute());
     tmpResult.append("'");
 
     tmpResult.append(" (src='");
-    tmpResult.append(aHtmlImageInput.getSrcAttribute());
+    tmpResult.append(anHtmlImageInput.getSrcAttribute());
     tmpResult.append("')");
 
-    addId(tmpResult, aHtmlImageInput);
-    addName(tmpResult, aHtmlImageInput);
+    addId(tmpResult, anHtmlImageInput);
+    addName(tmpResult, anHtmlImageInput);
 
     tmpResult.append("]");
     return tmpResult.toString();
   }
 
-  public static String getDescribingTextForHtmlParagraph(HtmlParagraph aHtmlParagraph) {
+  public static String getDescribingTextForHtmlParagraph(HtmlParagraph anHtmlParagraph) {
     StringBuilder tmpResult = new StringBuilder();
 
     tmpResult.append("[HtmlParagraph");
 
-    String tmpText = aHtmlParagraph.asText();
+    String tmpText = anHtmlParagraph.asText();
     if (StringUtils.isNotEmpty(tmpText)) {
       tmpResult.append(" '");
       tmpResult.append(tmpText);
       tmpResult.append("'");
     }
 
-    addId(tmpResult, aHtmlParagraph);
-    addName(tmpResult, aHtmlParagraph);
+    addId(tmpResult, anHtmlParagraph);
+    addName(tmpResult, anHtmlParagraph);
 
     tmpResult.append("]");
     return tmpResult.toString();
   }
 
-  public static String getDescribingTextForHtmlPasswordInput(HtmlPasswordInput aHtmlPasswordInput) {
+  public static String getDescribingTextForHtmlPasswordInput(HtmlPasswordInput anHtmlPasswordInput) {
     StringBuilder tmpResult = new StringBuilder();
 
     tmpResult.append("[HtmlPasswordInput");
 
-    addId(tmpResult, aHtmlPasswordInput);
-    addName(tmpResult, aHtmlPasswordInput);
+    addId(tmpResult, anHtmlPasswordInput);
+    addName(tmpResult, anHtmlPasswordInput);
 
     tmpResult.append("]");
     return tmpResult.toString();
   }
 
-  public static String getDescribingTextForHtmlRadioButtonInput(HtmlRadioButtonInput aHtmlRadioButtonInput) {
+  public static String getDescribingTextForHtmlRadioButtonInput(HtmlRadioButtonInput anHtmlRadioButtonInput) {
     StringBuilder tmpResult = new StringBuilder();
 
     tmpResult.append("[HtmlRadioButtonInput '");
-    tmpResult.append(aHtmlRadioButtonInput.getValueAttribute());
+    tmpResult.append(anHtmlRadioButtonInput.getValueAttribute());
     tmpResult.append("'");
 
-    addId(tmpResult, aHtmlRadioButtonInput);
-    addName(tmpResult, aHtmlRadioButtonInput);
+    addId(tmpResult, anHtmlRadioButtonInput);
+    addName(tmpResult, anHtmlRadioButtonInput);
 
     tmpResult.append("]");
     return tmpResult.toString();
   }
 
-  public static String getDescribingTextForHtmlResetInput(HtmlResetInput aHtmlResetInput) {
+  public static String getDescribingTextForHtmlResetInput(HtmlResetInput anHtmlResetInput) {
     StringBuilder tmpResult = new StringBuilder();
 
     tmpResult.append("[HtmlResetInput '");
-    tmpResult.append(aHtmlResetInput.getValueAttribute());
+    tmpResult.append(anHtmlResetInput.getValueAttribute());
     tmpResult.append("'");
 
-    addId(tmpResult, aHtmlResetInput);
-    addName(tmpResult, aHtmlResetInput);
+    addId(tmpResult, anHtmlResetInput);
+    addName(tmpResult, anHtmlResetInput);
 
     tmpResult.append("]");
     return tmpResult.toString();
   }
 
-  public static String getDescribingTextForHtmlSelect(HtmlSelect aHtmlSelect) {
+  public static String getDescribingTextForHtmlSelect(HtmlSelect anHtmlSelect) {
     StringBuilder tmpResult = new StringBuilder();
 
     tmpResult.append("[HtmlSelect");
 
-    addId(tmpResult, aHtmlSelect);
-    addName(tmpResult, aHtmlSelect);
+    addId(tmpResult, anHtmlSelect);
+    addName(tmpResult, anHtmlSelect);
 
     tmpResult.append("]");
     return tmpResult.toString();
   }
 
-  public static String getDescribingTextForHtmlSpan(HtmlSpan aHtmlSpan) {
+  public static String getDescribingTextForHtmlSpan(HtmlSpan anHtmlSpan) {
     StringBuilder tmpResult = new StringBuilder();
 
     tmpResult.append("[HtmlSpan '");
-    tmpResult.append(aHtmlSpan.asText());
+    tmpResult.append(anHtmlSpan.asText());
     tmpResult.append("'");
 
-    addId(tmpResult, aHtmlSpan);
-    addName(tmpResult, aHtmlSpan);
+    addId(tmpResult, anHtmlSpan);
+    addName(tmpResult, anHtmlSpan);
 
     tmpResult.append("]");
     return tmpResult.toString();
   }
 
-  public static String getDescribingTextForHtmlSubmitInput(HtmlSubmitInput aHtmlSubmitInput) {
+  public static String getDescribingTextForHtmlSubmitInput(HtmlSubmitInput anHtmlSubmitInput) {
     StringBuilder tmpResult = new StringBuilder();
 
     tmpResult.append("[HtmlSubmitInput '");
-    tmpResult.append(aHtmlSubmitInput.getValueAttribute());
+    tmpResult.append(anHtmlSubmitInput.getValueAttribute());
     tmpResult.append("'");
 
-    addId(tmpResult, aHtmlSubmitInput);
-    addName(tmpResult, aHtmlSubmitInput);
+    addId(tmpResult, anHtmlSubmitInput);
+    addName(tmpResult, anHtmlSubmitInput);
 
     tmpResult.append("]");
     return tmpResult.toString();
   }
 
-  public static String getDescribingTextForHtmlTextArea(HtmlTextArea aHtmlTextArea) {
+  public static String getDescribingTextForHtmlTextArea(HtmlTextArea anHtmlTextArea) {
     StringBuilder tmpResult = new StringBuilder();
 
     tmpResult.append("[HtmlTextArea");
 
-    addId(tmpResult, aHtmlTextArea);
-    addName(tmpResult, aHtmlTextArea);
+    addId(tmpResult, anHtmlTextArea);
+    addName(tmpResult, anHtmlTextArea);
 
     tmpResult.append("]");
     return tmpResult.toString();
   }
 
-  public static String getDescribingTextForHtmlTextInput(HtmlTextInput aHtmlTextInput) {
+  public static String getDescribingTextForHtmlTextInput(HtmlTextInput anHtmlTextInput) {
     StringBuilder tmpResult = new StringBuilder();
 
     tmpResult.append("[HtmlTextInput");
 
-    addId(tmpResult, aHtmlTextInput);
-    addName(tmpResult, aHtmlTextInput);
+    addId(tmpResult, anHtmlTextInput);
+    addName(tmpResult, anHtmlTextInput);
 
     tmpResult.append("]");
     return tmpResult.toString();
   }
 
-  public static String getDescribingTextForHtmlOption(HtmlOption aHtmlOption) {
+  public static String getDescribingTextForHtmlOption(HtmlOption anHtmlOption) {
     StringBuilder tmpResult = new StringBuilder();
 
     tmpResult.append("[HtmlOption '");
 
-    tmpResult.append(aHtmlOption.asText());
+    tmpResult.append(anHtmlOption.asText());
     tmpResult.append("'");
 
-    addId(tmpResult, aHtmlOption);
-    addName(tmpResult, aHtmlOption);
+    addId(tmpResult, anHtmlOption);
+    addName(tmpResult, anHtmlOption);
 
     tmpResult.append("]");
     return tmpResult.toString();
   }
 
-  public static String getDescribingTextForHtmlOptionGroup(HtmlOptionGroup aHtmlOptionGroup) {
+  public static String getDescribingTextForHtmlOptionGroup(HtmlOptionGroup anHtmlOptionGroup) {
     StringBuilder tmpResult = new StringBuilder();
 
     tmpResult.append("[HtmlOptionGroup '");
 
-    tmpResult.append(aHtmlOptionGroup.getLabelAttribute());
+    tmpResult.append(anHtmlOptionGroup.getLabelAttribute());
     tmpResult.append("'");
 
-    addId(tmpResult, aHtmlOptionGroup);
-    addName(tmpResult, aHtmlOptionGroup);
+    addId(tmpResult, anHtmlOptionGroup);
+    addName(tmpResult, anHtmlOptionGroup);
 
     tmpResult.append("]");
     return tmpResult.toString();
   }
 
-  private static void addId(StringBuilder aStringBuilder, HtmlElement aHtmlElement) {
-    String tmpId = aHtmlElement.getAttribute("id");
+  private static void addId(StringBuilder aStringBuilder, HtmlElement anHtmlElement) {
+    String tmpId = anHtmlElement.getAttribute("id");
     if ((null != tmpId) && (tmpId.length() > 0)) {
       aStringBuilder.append(" (id='");
       aStringBuilder.append(tmpId);
@@ -340,8 +340,8 @@ public class HtmlElementUtil {
     }
   }
 
-  private static void addName(StringBuilder aStringBuilder, HtmlElement aHtmlElement) {
-    String tmpName = aHtmlElement.getAttribute("name");
+  private static void addName(StringBuilder aStringBuilder, HtmlElement anHtmlElement) {
+    String tmpName = anHtmlElement.getAttribute("name");
     if ((null != tmpName) && (tmpName.length() > 0)) {
       aStringBuilder.append(" (name='");
       aStringBuilder.append(tmpName);

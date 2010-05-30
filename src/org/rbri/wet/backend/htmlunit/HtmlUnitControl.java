@@ -62,9 +62,9 @@ import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
 public final class HtmlUnitControl implements Control {
   private HtmlElement htmlElement;
 
-  public HtmlUnitControl(final HtmlElement aHtmlElement) {
+  public HtmlUnitControl(final HtmlElement anHtmlElement) {
     super();
-    htmlElement = aHtmlElement;
+    htmlElement = anHtmlElement;
   }
 
   public boolean hasSameBackendControl(Control aControl) {
@@ -388,8 +388,8 @@ public final class HtmlUnitControl implements Control {
     return tmpResult.toString();
   }
 
-  private static void addId(final StringBuilder aStringBuilder, final HtmlElement aHtmlElement) {
-    String tmpId = aHtmlElement.getAttribute("id");
+  private static void addId(final StringBuilder aStringBuilder, final HtmlElement anHtmlElement) {
+    String tmpId = anHtmlElement.getAttribute("id");
     if ((null != tmpId) && (tmpId.length() > 0)) {
       aStringBuilder.append(" (id='");
       aStringBuilder.append(tmpId);
@@ -397,8 +397,8 @@ public final class HtmlUnitControl implements Control {
     }
   }
 
-  private static void addName(final StringBuilder aStringBuilder, final HtmlElement aHtmlElement) {
-    String tmpName = aHtmlElement.getAttribute("name");
+  private static void addName(final StringBuilder aStringBuilder, final HtmlElement anHtmlElement) {
+    String tmpName = anHtmlElement.getAttribute("name");
     if ((null != tmpName) && (tmpName.length() > 0)) {
       aStringBuilder.append(" (name='");
       aStringBuilder.append(tmpName);

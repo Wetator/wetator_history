@@ -35,9 +35,9 @@ public class PageUtil {
 
   // private static final Log LOG = LogFactory.getLog(PageUtil.class);
 
-  public static void waitForThreads(final SgmlPage aHtmlPage) {
+  public static void waitForThreads(final SgmlPage anHtmlPage) {
     // TODO make max wait time configurable
-    JavaScriptJobManager tmpJobManager = aHtmlPage.getEnclosingWindow().getJobManager();
+    JavaScriptJobManager tmpJobManager = anHtmlPage.getEnclosingWindow().getJobManager();
 
     // execute all immediate jobs
     tmpJobManager.waitForJobsStartingBefore(1000); // one second
@@ -46,8 +46,8 @@ public class PageUtil {
   /**
    * Helper for tests
    */
-  public static HtmlPage constructPage(final String aHtmlCode) throws IOException {
-    StringWebResponse tmpResponse = new StringWebResponse(aHtmlCode, new URL("http://www.rbri.org/wet/test.html"));
+  public static HtmlPage constructPage(final String anHtmlCode) throws IOException {
+    StringWebResponse tmpResponse = new StringWebResponse(anHtmlCode, new URL("http://www.rbri.org/wet/test.html"));
     WebClient tmpWebClient = new WebClient();
     HtmlPage tmpPage = HTMLParser.parseHtml(tmpResponse, tmpWebClient.getCurrentWindow());
 

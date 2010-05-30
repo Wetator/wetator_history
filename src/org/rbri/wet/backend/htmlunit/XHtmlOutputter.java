@@ -113,9 +113,9 @@ public final class XHtmlOutputter {
     SINGLE_LINE_TAGS.add(HtmlOption.class.getName());
   }
 
-  public XHtmlOutputter(HtmlPage aHtmlPage, ResponseStore aResponseStore) {
+  public XHtmlOutputter(HtmlPage anHtmlPage, ResponseStore aResponseStore) {
     super();
-    htmlPage = aHtmlPage;
+    htmlPage = anHtmlPage;
     responseStore = aResponseStore;
   }
 

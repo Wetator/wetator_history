@@ -371,9 +371,9 @@ public final class HtmlUnitBrowser implements WetBackend {
   public static final class WebWindowListener implements com.gargoylesoftware.htmlunit.WebWindowListener {
     private HtmlUnitBrowser htmlUnitBrowser;
 
-    public WebWindowListener(HtmlUnitBrowser aHtmlUnitBrowser) {
+    public WebWindowListener(HtmlUnitBrowser anHtmlUnitBrowser) {
       super();
-      htmlUnitBrowser = aHtmlUnitBrowser;
+      htmlUnitBrowser = anHtmlUnitBrowser;
     }
 
     public void webWindowOpened(WebWindowEvent anEvent) {

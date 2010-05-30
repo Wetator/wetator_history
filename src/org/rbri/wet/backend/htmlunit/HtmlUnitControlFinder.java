@@ -67,13 +67,13 @@ public class HtmlUnitControlFinder implements ControlFinder {
   /**
    * Constructor
    * 
-   * @param aHtmlPage the page to search in
+   * @param anHtmlPage the page to search in
    */
-  public HtmlUnitControlFinder(HtmlPage aHtmlPage) {
-    if (null == aHtmlPage) {
+  public HtmlUnitControlFinder(HtmlPage anHtmlPage) {
+    if (null == anHtmlPage) {
       throw new NullPointerException("HtmlPage can't be null");
     }
-    htmlPage = aHtmlPage;
+    htmlPage = anHtmlPage;
     domNodeText = new DomNodeText(htmlPage);
   }
 
@@ -926,14 +926,14 @@ public class HtmlUnitControlFinder implements ControlFinder {
     return tmpFoundElements;
   }
 
-  private HtmlElement getFirstClickableTextElement(HtmlElement aHtmlElement, SearchPattern aSearchPattern,
+  private HtmlElement getFirstClickableTextElement(HtmlElement anHtmlElement, SearchPattern aSearchPattern,
       SearchPattern aPathSearchPattern) {
-    String tmpText = domNodeText.getAsText(aHtmlElement);
+    String tmpText = domNodeText.getAsText(anHtmlElement);
     if ((aSearchPattern.noOfMatchingCharsIn(tmpText) < 0)) {
       return null;
     }
 
-    String tmpTextBefore = domNodeText.getTextBefore(aHtmlElement);
+    String tmpTextBefore = domNodeText.getTextBefore(anHtmlElement);
 
     // it is a bit more complicated to calculate the text
     int tmpPos = aSearchPattern.noOfCharsBeforeLastOccurenceIn(tmpText);
@@ -945,13 +945,13 @@ public class HtmlUnitControlFinder implements ControlFinder {
       return null;
     }
 
-    for (HtmlElement tmpHtmlElement : aHtmlElement.getChildElements()) {
+    for (HtmlElement tmpHtmlElement : anHtmlElement.getChildElements()) {
       HtmlElement tmpResult = getFirstClickableTextElement(tmpHtmlElement, aSearchPattern, aPathSearchPattern);
       if (null != tmpResult) {
         return tmpResult;
       }
     }
-    return aHtmlElement;
+    return anHtmlElement;
   }
 
   /**
@@ -998,10 +998,10 @@ public class HtmlUnitControlFinder implements ControlFinder {
   /**
    * returns the body node of the given page
    * 
-   * @param aHtmlPage the page
+   * @param anHtmlPage the page
    * @return the body node or null if not found
    */
-  protected HtmlBody getBody(HtmlPage aHtmlPage) {
+  protected HtmlBody getBody(HtmlPage anHtmlPage) {
     DomNode tmpBodyNode = htmlPage.getFirstChild();
     if (null == tmpBodyNode) {
       LOG.warn("No elements found in html page.");

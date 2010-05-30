@@ -97,8 +97,8 @@ public class DomNodeText {
     return nodesBottomUp;
   }
 
-  public FindSpot getPosition(HtmlElement aHtmlElement) {
-    return positions.get(aHtmlElement);
+  public FindSpot getPosition(HtmlElement anHtmlElement) {
+    return positions.get(anHtmlElement);
   }
 
   public FindSpot firstOccurence(SearchPattern aSearchPattern) {
@@ -155,15 +155,15 @@ public class DomNodeText {
     return text.substring(tmpStartPos, tmpFindSpot.startPos).trim();
   }
 
-  public String getLabelTextAfter(final HtmlElement aHtmlElement) {
-    FindSpot tmpFindSpot = positions.get(aHtmlElement);
+  public String getLabelTextAfter(final HtmlElement anHtmlElement) {
+    FindSpot tmpFindSpot = positions.get(anHtmlElement);
     if (null == tmpFindSpot) {
       return null;
     }
 
-    HtmlForm tmpCurrentForm = aHtmlElement.getEnclosingForm();
+    HtmlForm tmpCurrentForm = anHtmlElement.getEnclosingForm();
     int tmpEndPos = text.length();
-    ListIterator<DomNode> tmpIter = nodes.listIterator(nodes.indexOf(aHtmlElement));
+    ListIterator<DomNode> tmpIter = nodes.listIterator(nodes.indexOf(anHtmlElement));
     // start with the next element
     tmpIter.next();
 
@@ -269,35 +269,35 @@ public class DomNodeText {
     text.append(aDomText.getData());
   }
 
-  private void appendHtmlImageInput(final HtmlImageInput aHtmlImageInput) {
-    text.append(aHtmlImageInput.getAltAttribute());
+  private void appendHtmlImageInput(final HtmlImageInput anHtmlImageInput) {
+    text.append(anHtmlImageInput.getAltAttribute());
   }
 
-  private void appendHtmlInput(final HtmlInput aHtmlInput) {
-    text.append(aHtmlInput.getValueAttribute());
+  private void appendHtmlInput(final HtmlInput anHtmlInput) {
+    text.append(anHtmlInput.getValueAttribute());
   }
 
-  private void appendHtmlImage(final HtmlImage aHtmlImage) {
-    text.append(aHtmlImage.getAltAttribute());
+  private void appendHtmlImage(final HtmlImage anHtmlImage) {
+    text.append(anHtmlImage.getAltAttribute());
   }
 
-  private void appendHtmlLegend(final HtmlLegend aHtmlLegend) {
-    parseChildren(aHtmlLegend);
+  private void appendHtmlLegend(final HtmlLegend anHtmlLegend) {
+    parseChildren(anHtmlLegend);
     text.append(" ");
   }
 
-  private void appendHtmlOptionGroup(final HtmlOptionGroup aHtmlOptionGroup) {
-    String tmpLabel = aHtmlOptionGroup.getLabelAttribute();
+  private void appendHtmlOptionGroup(final HtmlOptionGroup anHtmlOptionGroup) {
+    String tmpLabel = anHtmlOptionGroup.getLabelAttribute();
     text.append(tmpLabel);
   }
 
-  private void appendHtmlCheckBoxInput(final HtmlCheckBoxInput aHtmlCheckBoxInput) {
-    parseChildren(aHtmlCheckBoxInput);
+  private void appendHtmlCheckBoxInput(final HtmlCheckBoxInput anHtmlCheckBoxInput) {
+    parseChildren(anHtmlCheckBoxInput);
     text.append(" ");
   }
 
-  private void appendHtmlRadioButtonInput(final HtmlRadioButtonInput aHtmlRadioButtonInput) {
-    parseChildren(aHtmlRadioButtonInput);
+  private void appendHtmlRadioButtonInput(final HtmlRadioButtonInput anHtmlRadioButtonInput) {
+    parseChildren(anHtmlRadioButtonInput);
     text.append(" ");
   }
 
@@ -314,12 +314,12 @@ public class DomNodeText {
   /**
    * Appends a &lt;ol&gt; taking care to numerate it.
    * 
-   * @param aHtmlOrderedList the OL element
+   * @param anHtmlOrderedList the OL element
    */
-  private void appendHtmlOrderedList(final HtmlOrderedList aHtmlOrderedList) {
+  private void appendHtmlOrderedList(final HtmlOrderedList anHtmlOrderedList) {
     text.append(" ");
     int i = 1;
-    for (final DomNode tmpItem : aHtmlOrderedList.getChildren()) {
+    for (final DomNode tmpItem : anHtmlOrderedList.getChildren()) {
       if (tmpItem instanceof HtmlListItem) {
         // hack for fixing the start pos
         int tmpStartPos = text.length();
