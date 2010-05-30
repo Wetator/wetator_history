@@ -79,7 +79,7 @@ public class XmlUtilTest extends TestCase {
 
   public void testNormalizeBody_EscapeEuro() {
     XmlUtil tmpXmlUtil = new XmlUtil("iso-8859-1");
-    assertEquals("11 &#8364;", tmpXmlUtil.normalizeBodyValue("11 Û"));
+    assertEquals("11 &#8364;", tmpXmlUtil.normalizeBodyValue("11 \u20AC"));
   }
 
   public void testNormalizeBodyValueChar_Empty() {
