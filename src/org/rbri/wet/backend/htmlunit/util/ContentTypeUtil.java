@@ -29,7 +29,14 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
  * @author rbri
  */
 
-public class ContentTypeUtil {
+public final class ContentTypeUtil {
+
+  /**
+   * This class should not be instantiated.
+   */
+  private ContentTypeUtil() {
+    // nothing
+  }
 
   public static ContentType getContentType(Page aPage) {
     if (aPage instanceof HtmlPage) {

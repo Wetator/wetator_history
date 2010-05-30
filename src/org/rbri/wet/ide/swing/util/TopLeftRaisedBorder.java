@@ -31,10 +31,12 @@ public class TopLeftRaisedBorder extends AbstractBorder {
 
   private static final Insets INSETS = new Insets(1, 1, 1, 0);
 
+  @Override
   public Insets getBorderInsets(Component aComponent) {
     return INSETS;
   }
 
+  @Override
   public void paintBorder(Component aComponent, Graphics aGraphics, int anX, int aY, int aWidth, int aHeight) {
     aGraphics.translate(anX, aY);
 

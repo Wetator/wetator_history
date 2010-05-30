@@ -270,9 +270,8 @@ public final class HtmlUnitControl implements Control {
       DisabledElement tmpDisabledElement = (DisabledElement) tmpHtmlElement;
 
       return tmpDisabledElement.isDisabled();
-    } else {
-      Assert.fail("disabledCheckNotSupported", new String[] { getDescribingText() });
     }
+    Assert.fail("disabledCheckNotSupported", new String[] { getDescribingText() });
 
     return false;
   }
@@ -284,17 +283,18 @@ public final class HtmlUnitControl implements Control {
       HtmlCheckBoxInput tmpHtmlCheckBoxInput = (HtmlCheckBoxInput) tmpHtmlElement;
 
       return tmpHtmlCheckBoxInput.isChecked();
-    } else if (tmpHtmlElement instanceof HtmlRadioButtonInput) {
+    }
+    if (tmpHtmlElement instanceof HtmlRadioButtonInput) {
       HtmlRadioButtonInput tmpHtmlRadioButtonInput = (HtmlRadioButtonInput) tmpHtmlElement;
 
       return tmpHtmlRadioButtonInput.isChecked();
-    } else if (tmpHtmlElement instanceof HtmlOption) {
+    }
+    if (tmpHtmlElement instanceof HtmlOption) {
       HtmlOption tmpOption = (HtmlOption) tmpHtmlElement;
 
       return tmpOption.isSelected();
-    } else {
-      Assert.fail("selectedCheckNotSupported", new String[] { getDescribingText() });
     }
+    Assert.fail("selectedCheckNotSupported", new String[] { getDescribingText() });
 
     return false;
   }

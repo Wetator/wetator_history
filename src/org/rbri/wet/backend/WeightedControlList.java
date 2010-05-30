@@ -59,6 +59,7 @@ public final class WeightedControlList {
       return value;
     }
 
+    @Override
     public String toString() {
       return name();
     }

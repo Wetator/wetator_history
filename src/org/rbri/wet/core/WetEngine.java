@@ -47,7 +47,7 @@ public final class WetEngine {
 
   private String configFileName;
   private Map<String, String> externalProperties;
-  private LinkedList<File> files;
+  private List<File> files;
 
   private WetConfiguration configuration;
   private WetBackend backend;

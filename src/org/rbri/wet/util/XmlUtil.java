@@ -44,7 +44,6 @@ public class XmlUtil {
    * @param aString the String to be normalized or null
    * @return a new String
    */
-  @SuppressWarnings("null")
   public String normalizeBodyValue(String aString) {
     StringBuffer tmpResult = null;
     int tmpLength;
@@ -140,7 +139,6 @@ public class XmlUtil {
    *        the String to be normalized or null
    * @return a new String
    */
-  @SuppressWarnings("null")
   public String normalizeAttributeValue(String aString) {
     StringBuffer tmpResult = null;
     int tmpLength;

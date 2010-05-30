@@ -33,10 +33,12 @@ public class BottomRightShadowBorder extends AbstractBorder {
 
   private static final Insets INSETS = new Insets(1, 1, 3, 3);
 
+  @Override
   public Insets getBorderInsets(Component aComponent) {
     return INSETS;
   }
 
+  @Override
   public void paintBorder(Component aComponent, Graphics aGraphics, int anX, int aY, int aWidth, int aHeight) {
     Color tmpShadowColor = UIManager.getColor("controlShadow");
     if (tmpShadowColor == null) {

@@ -27,13 +27,20 @@ import org.rbri.wet.i18n.Messages;
  * 
  * @author rbri
  */
-public class Assert {
+public final class Assert {
 
   protected static final String MORE_MARKER = "...";
   protected static final String TEXT_EXPECTED = "expected: ";
   protected static final String LEFT_VALUE_MARKER = "<";
   protected static final String RIGHT_VALUE_MARKER = ">";
   protected static final String TEXT_WAS = " but was: ";
+
+  /**
+   * This class should not be instantiated.
+   */
+  private Assert() {
+    // nothing
+  }
 
   /**
    * Throws an AssertionFailedException with the given
@@ -179,7 +186,8 @@ public class Assert {
       }
     }
 
-    String tmpCurrent, tmpExpected;
+    String tmpCurrent;
+    String tmpExpected;
 
     // equal strings
     if (j < i && k < i) {

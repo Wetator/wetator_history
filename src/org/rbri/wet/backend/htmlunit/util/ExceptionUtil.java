@@ -27,6 +27,13 @@ import com.gargoylesoftware.htmlunit.ScriptException;
  */
 public final class ExceptionUtil {
 
+  /**
+   * This class should not be instantiated.
+   */
+  private ExceptionUtil() {
+    // nothing
+  }
+
   // private static final Log LOG = WetLogger.getWetLogger();
 
   public static String getMessageFromScriptExceptionCauseIfPossible(WrappedException aWrappedException) {

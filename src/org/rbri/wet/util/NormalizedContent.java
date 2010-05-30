@@ -70,6 +70,7 @@ public final class NormalizedContent {
     return content.length();
   }
 
+  @Override
   public String toString() {
     return content.toString();
   }

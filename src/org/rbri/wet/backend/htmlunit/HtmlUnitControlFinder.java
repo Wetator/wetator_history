@@ -929,7 +929,7 @@ public class HtmlUnitControlFinder implements ControlFinder {
   private HtmlElement getFirstClickableTextElement(HtmlElement anHtmlElement, SearchPattern aSearchPattern,
       SearchPattern aPathSearchPattern) {
     String tmpText = domNodeText.getAsText(anHtmlElement);
-    if ((aSearchPattern.noOfMatchingCharsIn(tmpText) < 0)) {
+    if (aSearchPattern.noOfMatchingCharsIn(tmpText) < 0) {
       return null;
     }
 

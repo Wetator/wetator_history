@@ -25,7 +25,14 @@ import javax.swing.UIManager;
 /**
  * @author rbri
  */
-public class LookAndFeelUtil {
+public final class LookAndFeelUtil {
+
+  /**
+   * This class should not be instantiated.
+   */
+  private LookAndFeelUtil() {
+    // nothing
+  }
 
   public static Color getActiveTitleForegroundColor() {
     return UIManager.getColor("InternalFrame.activeTitleForeground");

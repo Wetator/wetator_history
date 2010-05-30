@@ -67,6 +67,7 @@ public final class SqlCommandSet extends AbstractCommandSet {
     connections = new HashMap<String, Connection>();
   }
 
+  @Override
   protected void registerCommands() {
     registerCommand("Execute SQL", new CommandExecuteSql());
     registerCommand("Assert SQL", new CommandAssertSql());

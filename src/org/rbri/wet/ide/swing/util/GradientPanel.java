@@ -42,6 +42,7 @@ public class GradientPanel extends JPanel {
     super();
   }
 
+  @Override
   public void paintComponent(Graphics aGraphics) {
     super.paintComponent(aGraphics);
     if (!isOpaque()) {

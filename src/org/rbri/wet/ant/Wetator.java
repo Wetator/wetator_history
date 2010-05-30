@@ -50,6 +50,7 @@ public class Wetator extends Task {
   /**
    * The main method called by Ant.
    */
+  @SuppressWarnings("unchecked")
   @Override
   public void execute() {
     // check the input

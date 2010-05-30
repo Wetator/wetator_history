@@ -23,6 +23,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JToolBar;
+import javax.swing.SwingConstants;
 
 /**
  * @author rbri
@@ -38,7 +39,7 @@ public class PanelWithTitle extends JPanel {
   public PanelWithTitle(String aTitle, JToolBar aToolBar) {
     super(new BorderLayout());
 
-    titleLabel = new JLabel(aTitle, JLabel.LEADING);
+    titleLabel = new JLabel(aTitle, SwingConstants.LEADING);
     titleLabel.setBackground(LookAndFeelUtil.getActiveTitleBackgroundColor());
     titleLabel.setForeground(LookAndFeelUtil.getActiveTitleForegroundColor());
     titleLabel.setOpaque(false);

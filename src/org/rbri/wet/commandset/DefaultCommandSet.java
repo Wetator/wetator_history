@@ -56,6 +56,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
     super();
   }
 
+  @Override
   protected void registerCommands() {
     registerCommand("Open Url", new CommandOpenUrl());
     registerCommand("Use Module", new CommandUseModule());
@@ -364,6 +365,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
   }
 
   public final class CommandExecJava implements WetCommandImplementation {
+    @SuppressWarnings("unchecked")
     public void execute(WetContext aWetContext, WetCommand aWetCommand) throws WetException, AssertionFailedException {
       SecretString tmpCall = aWetCommand.getRequiredFirstParameterValue(aWetContext);
       List<SecretString> tmpMethodParameters = aWetCommand.getSecondParameterValues(aWetContext);
