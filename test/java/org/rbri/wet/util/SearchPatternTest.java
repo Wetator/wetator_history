@@ -1098,8 +1098,8 @@ public class SearchPatternTest extends TestCase {
     SearchPattern tmpPattern = new SearchPattern("te*");
 
     assertTrue(tmpPattern.matches("test"));
-    assertFalse(tmpPattern.equals("test"));
-    assertTrue(tmpPattern.equals("te*"));
+    assertFalse("test".equals(tmpPattern));
+    assertEquals("te*", tmpPattern);
     assertEquals("te*", tmpPattern.getOriginalString());
   }
 }
