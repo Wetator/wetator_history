@@ -117,15 +117,15 @@ public class DomNodeText {
     return text.substring(0, tmpFindSpot.startPos).trim();
   }
 
-  public String getLabelTextBefore(final HtmlElement aHtmlElement) {
-    FindSpot tmpFindSpot = positions.get(aHtmlElement);
+  public String getLabelTextBefore(final HtmlElement anHtmlElement) {
+    FindSpot tmpFindSpot = positions.get(anHtmlElement);
     if (null == tmpFindSpot) {
       return null;
     }
 
-    HtmlForm tmpCurrentForm = aHtmlElement.getEnclosingForm();
+    HtmlForm tmpCurrentForm = anHtmlElement.getEnclosingForm();
     int tmpStartPos = 0;
-    ListIterator<DomNode> tmpIter = nodes.listIterator(nodes.indexOf(aHtmlElement));
+    ListIterator<DomNode> tmpIter = nodes.listIterator(nodes.indexOf(anHtmlElement));
     while (tmpIter.hasPrevious()) {
       DomNode tmpNode = tmpIter.previous();
 

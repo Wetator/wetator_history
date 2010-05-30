@@ -125,8 +125,8 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       WetContext tmpWetContext = new WetContext(aWetContext, tmpFile);
 
       int i = 1;
-      for (SecretString secretString : tmpModuleParameters) {
-        Variable tmpVariable = new Variable("" + i, secretString);
+      for (SecretString tmpSecretString : tmpModuleParameters) {
+        Variable tmpVariable = new Variable("" + i, tmpSecretString);
         tmpWetContext.addVariable(tmpVariable);
         i++;
       }

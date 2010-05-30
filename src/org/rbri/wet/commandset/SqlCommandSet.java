@@ -49,7 +49,7 @@ import org.rbri.wet.util.StringUtil;
 public final class SqlCommandSet extends AbstractCommandSet {
   protected static final String DB_NAME_PREFIX = "@";
 
-  private final Log LOG = LogFactory.getLog(SqlCommandSet.class);
+  private final Log log = LogFactory.getLog(SqlCommandSet.class);
 
   private static final String PROPERTY_PREFIX = WetConfiguration.PROPERTY_PREFIX + "db.";
   private static final String PROPERTY_CONNECTIONS = PROPERTY_PREFIX + "connections";
@@ -222,12 +222,12 @@ public final class SqlCommandSet extends AbstractCommandSet {
       String tmpPassword = aConfiguration.getProperty(PROPERTY_PREFIX + tmpConnectionName + PROPERTY_PART_PASSWORD);
 
       if (StringUtils.isEmpty(tmpDriver)) {
-        LOG.warn("No database driver class specified for connection named '" + tmpConnectionName + "'.");
+        log.warn("No database driver class specified for connection named '" + tmpConnectionName + "'.");
       } else {
         try {
           Class.forName(tmpDriver);
         } catch (Exception e) {
-          LOG.warn("Error during load of database driver class '" + tmpDriver + "' for connection named '"
+          log.warn("Error during load of database driver class '" + tmpDriver + "' for connection named '"
               + tmpConnectionName + "'.", e);
         }
       }
@@ -247,7 +247,7 @@ public final class SqlCommandSet extends AbstractCommandSet {
           addInitializationMessage("DB " + tmpConnectionName + ": " + tmpUrl);
         }
       } catch (Exception e) {
-        LOG.warn("Error connection to database '" + tmpUrl + "' for connection named '" + tmpConnectionName + "'.", e);
+        log.warn("Error connection to database '" + tmpUrl + "' for connection named '" + tmpConnectionName + "'.", e);
       }
     }
   }
@@ -281,7 +281,7 @@ public final class SqlCommandSet extends AbstractCommandSet {
       try {
         tmpEntry.getValue().close();
       } catch (Exception e) {
-        LOG.warn("Error during close of connection to db '" + tmpEntry.getKey() + "'.", e);
+        log.warn("Error during close of connection to db '" + tmpEntry.getKey() + "'.", e);
       }
     }
     defaultConnectionName = null;

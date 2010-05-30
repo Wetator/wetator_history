@@ -33,7 +33,7 @@ import org.rbri.wet.exception.AssertionFailedException;
  */
 public class StdOutProgressListener implements WetEngineProgressListener {
 
-  private static final int dotsPerLine = 100;
+  private static final int DOTS_PER_LINE = 100;
 
   private long stepsCount;
   private long errorCount;
@@ -67,7 +67,7 @@ public class StdOutProgressListener implements WetEngineProgressListener {
   public void contextExecuteCommandError(Throwable aThrowable) {
     errorCount++;
 
-    if (dotCount == dotsPerLine) {
+    if (dotCount == DOTS_PER_LINE) {
       println("E");
       dotCount = 1;
       return;
@@ -79,7 +79,7 @@ public class StdOutProgressListener implements WetEngineProgressListener {
   public void contextExecuteCommandFailure(AssertionFailedException anAssertionFailedException) {
     failureCount++;
 
-    if (dotCount == dotsPerLine) {
+    if (dotCount == DOTS_PER_LINE) {
       println("F");
       dotCount = 1;
       return;
@@ -89,7 +89,7 @@ public class StdOutProgressListener implements WetEngineProgressListener {
   }
 
   public void contextExecuteCommandSuccess() {
-    if (dotCount == dotsPerLine) {
+    if (dotCount == DOTS_PER_LINE) {
       println(".");
       dotCount = 1;
       return;
@@ -134,7 +134,7 @@ public class StdOutProgressListener implements WetEngineProgressListener {
     println("Steps: " + stepsCount + ",  Failures: " + failureCount + ",  Errors: " + errorCount);
   }
 
-  public void commandSetSetup(WetCommandSet wetCommandSet) {
+  public void commandSetSetup(WetCommandSet aWetCommandSet) {
   }
 
   public void warn(String aMessageKey, String[] aParameterArray) {

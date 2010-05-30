@@ -35,8 +35,8 @@ public class TopLeftRaisedBorder extends AbstractBorder {
     return INSETS;
   }
 
-  public void paintBorder(Component aComponent, Graphics aGraphics, int x, int y, int aWidth, int aHeight) {
-    aGraphics.translate(x, y);
+  public void paintBorder(Component aComponent, Graphics aGraphics, int anX, int aY, int aWidth, int aHeight) {
+    aGraphics.translate(anX, aY);
 
     aGraphics.setColor(LookAndFeelUtil.getControlLtHighlightColor());
     aGraphics.fillRect(0, 0, aWidth, 1);
@@ -45,7 +45,7 @@ public class TopLeftRaisedBorder extends AbstractBorder {
     aGraphics.setColor(LookAndFeelUtil.getControlShadowColor());
     aGraphics.fillRect(0, aHeight - 1, aWidth, 1);
 
-    aGraphics.translate(-x, -y);
+    aGraphics.translate(-anX, -aY);
   }
 
 }

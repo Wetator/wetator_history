@@ -25,9 +25,13 @@ import dk.brics.automaton.RunAutomaton;
  */
 public final class AutomatonShortFromEndMatcher implements MatchResult {
 
-  public AutomatonShortFromEndMatcher(final CharSequence chars, final RunAutomaton automaton) {
-    this.chars = chars;
-    this.automaton = automaton;
+  /**
+   * @param aChars the chars to set
+   * @param anAutomaton the automaton to set
+   */
+  public AutomatonShortFromEndMatcher(final CharSequence aChars, final RunAutomaton anAutomaton) {
+    chars = aChars;
+    automaton = anAutomaton;
   }
 
   private final RunAutomaton automaton;
@@ -43,63 +47,62 @@ public final class AutomatonShortFromEndMatcher implements MatchResult {
    * @return {@code true} if there is a matching subsequence.
    */
   public boolean find() {
-    int begin;
+    int tmpBegin;
     if (matchEnd == -2) {
       return false;
     } else if (matchEnd == -1) {
-      begin = chars.length() - 1;
+      tmpBegin = chars.length() - 1;
     } else {
-      begin = matchEnd - 1;
+      tmpBegin = matchEnd - 1;
     }
 
-    int match_start;
-    int match_end;
+    int tmpMatchStart;
+    int tmpMatchEnd;
     if (automaton.isAccept(automaton.getInitialState())) {
-      match_start = begin;
-      match_end = begin;
+      tmpMatchStart = tmpBegin;
+      tmpMatchEnd = tmpBegin;
     } else {
-      match_start = -1;
-      match_end = -1;
+      tmpMatchStart = -1;
+      tmpMatchEnd = -1;
     }
-    int l = chars.length();
-    while (begin > -1) {
-      int p = automaton.getInitialState();
-      for (int i = begin; i < l; i += 1) {
-        final int new_state = automaton.step(p, chars.charAt(i));
-        if (new_state == -1) {
+    int tmpLength = chars.length();
+    while (tmpBegin > -1) {
+      int tmpInitState = automaton.getInitialState();
+      for (int i = tmpBegin; i < tmpLength; i += 1) {
+        final int tmpNewState = automaton.step(tmpInitState, chars.charAt(i));
+        if (tmpNewState == -1) {
           break;
-        } else if (automaton.isAccept(new_state)) {
-          if (match_start == -1) {
-            match_start = begin;
+        } else if (automaton.isAccept(tmpNewState)) {
+          if (tmpMatchStart == -1) {
+            tmpMatchStart = tmpBegin;
           }
-          match_end = i;
+          tmpMatchEnd = i;
 
-          setMatch(match_start, match_end + 1);
+          setMatch(tmpMatchStart, tmpMatchEnd + 1);
           return true;
         }
-        p = new_state;
+        tmpInitState = tmpNewState;
       }
-      if (match_start != -1) {
-        setMatch(match_start, match_end + 1);
+      if (tmpMatchStart != -1) {
+        setMatch(tmpMatchStart, tmpMatchEnd + 1);
         return true;
       }
-      begin -= 1;
+      tmpBegin -= 1;
     }
-    if (match_start != -1) {
-      setMatch(match_start, match_end + 1);
+    if (tmpMatchStart != -1) {
+      setMatch(tmpMatchStart, tmpMatchEnd + 1);
       return true;
-    } else {
-      setMatch(-2, -2);
-      return false;
     }
+    setMatch(-2, -2);
+    return false;
   }
 
-  private void setMatch(final int matchStart, final int matchEnd) throws IllegalArgumentException {
-    if (matchStart > matchEnd) {
-      throw new IllegalArgumentException("Start must be less than or equal to end: " + matchStart + ", " + matchEnd);
+  private void setMatch(final int aMatchStart, final int aMatchEnd) throws IllegalArgumentException {
+    if (aMatchStart > aMatchEnd) {
+      throw new IllegalArgumentException("Start must be less than or equal to end: " + aMatchStart + ", " + aMatchEnd);
     }
-    this.matchStart = matchStart;
-    this.matchEnd = matchEnd;
+    matchStart = aMatchStart;
+    matchEnd = aMatchEnd;
   }
 
   /**
@@ -120,7 +123,7 @@ public final class AutomatonShortFromEndMatcher implements MatchResult {
    * Note that because the automaton does not support capturing groups the
    * only valid group is 0 (the entire match).
    * 
-   * @param group the desired capturing group.
+   * @param aGroup the desired capturing group.
    * @return The offset after the last character matched of the specified
    *         capturing group.
    * @throws IllegalStateException if there has not been a match attempt or
@@ -128,8 +131,8 @@ public final class AutomatonShortFromEndMatcher implements MatchResult {
    * @throws IndexOutOfBoundsException if the specified capturing group does
    *         not exist in the underlying automaton.
    */
-  public int end(final int group) throws IndexOutOfBoundsException, IllegalStateException {
-    onlyZero(group);
+  public int end(final int aGroup) throws IndexOutOfBoundsException, IllegalStateException {
+    onlyZero(aGroup);
     return end();
   }
 
@@ -151,7 +154,7 @@ public final class AutomatonShortFromEndMatcher implements MatchResult {
    * Note that because the automaton does not support capturing groups the
    * only valid group is 0 (the entire match).
    * 
-   * @param group the desired capturing group.
+   * @param aGroup the desired capturing group.
    * @return The subsequence of the input found by the specified capturing
    *         group during the previous match operation the previous match. Or {@code null} if the given group did match.
    * @throws IllegalStateException if there has not been a match attempt or
@@ -159,8 +162,8 @@ public final class AutomatonShortFromEndMatcher implements MatchResult {
    * @throws IndexOutOfBoundsException if the specified capturing group does
    *         not exist in the underlying automaton.
    */
-  public String group(final int group) throws IndexOutOfBoundsException, IllegalStateException {
-    onlyZero(group);
+  public String group(final int aGroup) throws IndexOutOfBoundsException, IllegalStateException {
+    onlyZero(aGroup);
     return group();
   }
 
@@ -193,7 +196,7 @@ public final class AutomatonShortFromEndMatcher implements MatchResult {
    * Note that because the automaton does not support capturing groups the
    * only valid group is 0 (the entire match).
    * 
-   * @param group the desired capturing group.
+   * @param aGroup the desired capturing group.
    * @return The offset of the first character matched of the specified
    *         capturing group.
    * @throws IllegalStateException if there has not been a match attempt or
@@ -201,14 +204,14 @@ public final class AutomatonShortFromEndMatcher implements MatchResult {
    * @throws IndexOutOfBoundsException if the specified capturing group does
    *         not exist in the underlying automaton.
    */
-  public int start(int group) throws IndexOutOfBoundsException, IllegalStateException {
-    onlyZero(group);
+  public int start(int aGroup) throws IndexOutOfBoundsException, IllegalStateException {
+    onlyZero(aGroup);
     return start();
   }
 
   /** Helper method that requires the group argument to be 0. */
-  private static void onlyZero(final int group) throws IndexOutOfBoundsException {
-    if (group != 0) {
+  private static void onlyZero(final int aGroup) throws IndexOutOfBoundsException {
+    if (aGroup != 0) {
       throw new IndexOutOfBoundsException("The only group supported is 0.");
     }
   }

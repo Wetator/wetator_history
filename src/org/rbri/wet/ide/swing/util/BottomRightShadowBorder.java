@@ -37,7 +37,7 @@ public class BottomRightShadowBorder extends AbstractBorder {
     return INSETS;
   }
 
-  public void paintBorder(Component aComponent, Graphics aGraphics, int x, int y, int aWidth, int aHeight) {
+  public void paintBorder(Component aComponent, Graphics aGraphics, int anX, int aY, int aWidth, int aHeight) {
     Color tmpShadowColor = UIManager.getColor("controlShadow");
     if (tmpShadowColor == null) {
       tmpShadowColor = Color.GRAY;
@@ -48,7 +48,7 @@ public class BottomRightShadowBorder extends AbstractBorder {
     Color tmpLighterShadowColor = new Color(tmpShadowColor.getRed(), tmpShadowColor.getGreen(), tmpShadowColor
         .getBlue(), 70);
 
-    aGraphics.translate(x, y);
+    aGraphics.translate(anX, aY);
 
     // first a line around the whole box
     aGraphics.setColor(tmpShadowColor);
@@ -75,6 +75,6 @@ public class BottomRightShadowBorder extends AbstractBorder {
     aGraphics.fillRect(aWidth - 1, 1, 1, aHeight - 2);
     aGraphics.fillRect(1, aHeight - 1, aWidth - 2, 1);
 
-    aGraphics.translate(-x, -y);
+    aGraphics.translate(-anX, -aY);
   }
 }

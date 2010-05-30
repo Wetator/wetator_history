@@ -142,9 +142,9 @@ public final class HtmlUnitBrowser implements WetBackend {
           && StringUtils.isNotEmpty(tmpConfiguration.getBasicAuthUser().getValue())) {
         String tmpUser = tmpConfiguration.getBasicAuthUser().getValue();
         String tmpPassword = tmpConfiguration.getBasicAuthPassword().getValue();
-        DefaultCredentialsProvider credentialProvider = new DefaultCredentialsProvider();
-        credentialProvider.addProxyCredentials(tmpUser, tmpPassword);
-        webClient.setCredentialsProvider(credentialProvider);
+        DefaultCredentialsProvider tmpCredentialProvider = new DefaultCredentialsProvider();
+        tmpCredentialProvider.addProxyCredentials(tmpUser, tmpPassword);
+        webClient.setCredentialsProvider(tmpCredentialProvider);
         // TODO logging
       }
 
@@ -152,9 +152,9 @@ public final class HtmlUnitBrowser implements WetBackend {
           && StringUtils.isNotEmpty(tmpConfiguration.getProxyUser().getValue())) {
         String tmpUser = tmpConfiguration.getProxyUser().getValue();
         String tmpPassword = tmpConfiguration.getProxyPassword().getValue();
-        DefaultCredentialsProvider credentialProvider = new DefaultCredentialsProvider();
-        credentialProvider.addProxyCredentials(tmpUser, tmpPassword);
-        webClient.setCredentialsProvider(credentialProvider);
+        DefaultCredentialsProvider tmpCredentialProvider = new DefaultCredentialsProvider();
+        tmpCredentialProvider.addProxyCredentials(tmpUser, tmpPassword);
+        webClient.setCredentialsProvider(tmpCredentialProvider);
         // TODO logging
       }
 
@@ -251,9 +251,9 @@ public final class HtmlUnitBrowser implements WetBackend {
       Assert.fail("openServerError", new String[] { aUrl.toString(), e.getMessage() });
     }
 
-    String aRef = aUrl.getRef();
-    if (StringUtils.isNotEmpty(aRef)) {
-      checkAnchor(aRef);
+    String tmpRef = aUrl.getRef();
+    if (StringUtils.isNotEmpty(tmpRef)) {
+      checkAnchor(tmpRef);
     }
   }
 
@@ -396,10 +396,10 @@ public final class HtmlUnitBrowser implements WetBackend {
       // first load into a new window
       if (null != tmpNewPage && null == anEvent.getOldPage()) {
         URL tmpUrl = tmpNewPage.getWebResponse().getRequestUrl();
-        String aRef = tmpUrl.getRef();
-        if (StringUtils.isNotEmpty(aRef)) {
+        String tmpRef = tmpUrl.getRef();
+        if (StringUtils.isNotEmpty(tmpRef)) {
           try {
-            checkAnchor(aRef, tmpNewPage);
+            checkAnchor(tmpRef, tmpNewPage);
           } catch (AssertionFailedException e) {
             htmlUnitBrowser.failure = e;
           }

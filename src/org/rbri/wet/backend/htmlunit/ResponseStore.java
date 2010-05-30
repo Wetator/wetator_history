@@ -48,7 +48,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 public final class ResponseStore {
   private static final Log LOG = LogFactory.getLog(ResponseStore.class);;
 
-  private static long COUNTER = 9999;
+  private static long counter = 9999;
 
   private File outputDir;
   private boolean overwrite;
@@ -57,11 +57,14 @@ public final class ResponseStore {
   private File storeDir;
 
   private long getUniqueId() {
-    return ++COUNTER;
+    return ++counter;
   }
 
   /**
    * Constructor
+   * 
+   * @param anOutputDir the outputDir to set
+   * @param anOverwriteFlag the overwrite to set
    */
   public ResponseStore(File anOutputDir, boolean anOverwriteFlag) {
     super();

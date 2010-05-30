@@ -35,8 +35,8 @@ public class FlatSplitPane extends JSplitPane {
 
     SplitPaneUI tmpSplitPaneUI = this.getUI();
     if (tmpSplitPaneUI instanceof BasicSplitPaneUI) {
-      BasicSplitPaneUI basicUI = (BasicSplitPaneUI) tmpSplitPaneUI;
-      basicUI.getDivider().setBorder(BorderFactory.createEmptyBorder());
+      BasicSplitPaneUI tmpBasicUI = (BasicSplitPaneUI) tmpSplitPaneUI;
+      tmpBasicUI.getDivider().setBorder(BorderFactory.createEmptyBorder());
     }
   }
 
