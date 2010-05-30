@@ -25,10 +25,18 @@ import org.rbri.wet.core.variable.Variable;
  * 
  * @author rbri
  */
-public class VariableReplaceUtil {
+public final class VariableReplaceUtil {
   private static final String VAR_START_SEQ = "${";
   private static final String VAR_END_SEQ = "}";
 
+  /**
+   * Replace all place holders in aStringWithPlaceholders
+   * 
+   * @param aStringWithPlaceholders the string with the place holders
+   * @param aVariables the values for the place holders
+   * @param aForPrintFlag indicated, if the replacement is done for any kind of output; if yes secrets are not visible
+   * @return the string after the replacement
+   */
   public static String replaceVariables(String aStringWithPlaceholders, List<Variable> aVariables, boolean aForPrintFlag) {
     if (null == aStringWithPlaceholders) {
       return aStringWithPlaceholders;
@@ -71,5 +79,12 @@ public class VariableReplaceUtil {
     }
 
     return tmpResult.toString();
+  }
+
+  /**
+   * Private constructor to be invisible
+   */
+  private VariableReplaceUtil() {
+    super();
   }
 }

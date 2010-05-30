@@ -26,7 +26,7 @@ import java.util.List;
  * 
  * @author rbri
  */
-public class StringUtil {
+public final class StringUtil {
 
   /**
    * Extract all fields in a String given a list of delimiter characters and
@@ -63,7 +63,7 @@ public class StringUtil {
    * @return a list, if there are no parts alway an empty list is returned
    */
   public static List<String> extractStrings(String aReceiver, String aDelimiter, int anEscapeChar) {
-    LinkedList<String> tmpResult = new LinkedList<String>();
+    List<String> tmpResult = new LinkedList<String>();
     StringBuffer tmpCurrentToken;
     int tmpIndex;
     int tmpSize;
@@ -118,5 +118,12 @@ public class StringUtil {
     tmpResult.add(tmpCurrentToken.toString());
 
     return tmpResult;
+  }
+
+  /**
+   * Private constructor to be invisible
+   */
+  private StringUtil() {
+    super();
   }
 }
