@@ -31,9 +31,7 @@ import com.gargoylesoftware.htmlunit.javascript.background.JavaScriptJobManager;
  * 
  * @author rbri
  */
-public class PageUtil {
-
-  // private static final Log LOG = LogFactory.getLog(PageUtil.class);
+public final class PageUtil {
 
   public static void waitForThreads(final SgmlPage anHtmlPage) {
     // TODO make max wait time configurable
@@ -52,5 +50,12 @@ public class PageUtil {
     HtmlPage tmpPage = HTMLParser.parseHtml(tmpResponse, tmpWebClient.getCurrentWindow());
 
     return tmpPage;
+  }
+
+  /**
+   * Private constructor to be invisible
+   */
+  private PageUtil() {
+    super();
   }
 }

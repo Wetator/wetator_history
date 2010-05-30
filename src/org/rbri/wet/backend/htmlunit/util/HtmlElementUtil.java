@@ -43,7 +43,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
  * 
  * @author exxws
  */
-public class HtmlElementUtil {
+public final class HtmlElementUtil {
 
   /**
    * Private constructor; this util has only static methods

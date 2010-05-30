@@ -23,9 +23,18 @@ package org.rbri.wet.backend.htmlunit.util;
  * @author rbri
  */
 public final class FindSpot {
+  /**
+   * the start position of a match
+   */
   public int startPos;
+  /**
+   * the end position of a match
+   */
   public int endPos;
 
+  /**
+   * Constructor
+   */
   public FindSpot() {
     startPos = -1;
     endPos = -1;
