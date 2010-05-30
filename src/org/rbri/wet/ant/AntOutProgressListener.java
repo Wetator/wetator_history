@@ -25,10 +25,15 @@ import org.rbri.wet.util.StdOutProgressListener;
  * @author rbri
  */
 public final class AntOutProgressListener extends StdOutProgressListener {
-  private Wetator antTask;
+  private Wetator wetator;
 
+  /**
+   * Constructor
+   * 
+   * @param aWetator the wetator this executes
+   */
   public AntOutProgressListener(Wetator aWetator) {
-    antTask = aWetator;
+    wetator = aWetator;
   }
 
   @Override
@@ -38,6 +43,6 @@ public final class AntOutProgressListener extends StdOutProgressListener {
 
   @Override
   protected void println(String aString) {
-    antTask.log(aString, Project.MSG_INFO);
+    wetator.log(aString, Project.MSG_INFO);
   }
 }

@@ -17,11 +17,11 @@
 package org.rbri.wet.ant;
 
 import java.io.File;
-import java.util.Enumeration;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.Vector;
 
 import org.apache.tools.ant.AntClassLoader;
 import org.apache.tools.ant.BuildException;
@@ -45,11 +45,12 @@ public class Wetator extends Task {
   private String config;
   private Path classpath;
   private FileSet fileset;
-  private Vector<Property> properties = new Vector<Property>();
+  private List<Property> properties = new ArrayList<Property>();
 
   /**
    * The main method called by Ant.
    */
+  @Override
   public void execute() {
     // check the input
 
@@ -80,10 +81,7 @@ public class Wetator extends Task {
     }
 
     // read the properties from property sets
-    Enumeration<Property> tmpProperties = properties.elements();
-    while (tmpProperties.hasMoreElements()) {
-      Property tmpProperty = tmpProperties.nextElement();
-
+    for (Property tmpProperty : properties) {
       String tmpName = tmpProperty.getName();
       if (tmpName.startsWith(WetConfiguration.VARIABLE_PREFIX + WetConfiguration.SECRET_PREFIX)) {
         log("set property '" + tmpName + "' to '****'", Project.MSG_INFO);
@@ -122,23 +120,48 @@ public class Wetator extends Task {
     }
   }
 
+  /**
+   * Getter for attribute config
+   * 
+   * @return current config
+   */
   protected String getConfig() {
     return config;
   }
 
+  /**
+   * Setter for attribute config
+   * 
+   * @param aConfig the new config
+   */
   public void setConfig(String aConfig) {
     config = aConfig;
   }
 
+  /**
+   * Getter for attribute fileset
+   * 
+   * @return current fileset
+   */
   protected FileSet getFileset() {
     return fileset;
   }
 
+  /**
+   * Creates a new file set and stores it in attribute fileset
+   * 
+   * @return the new file set
+   */
   public FileSet createFileSet() {
     fileset = new FileSet();
     return fileset;
   }
 
+  /**
+   * Lazy initialization for attribute classpath
+   * 
+   * @return the attribute classpath
+   */
   public Path createClasspath() {
     if (null == classpath) {
       classpath = new Path(getProject());
@@ -146,7 +169,12 @@ public class Wetator extends Task {
     return classpath;
   }
 
+  /**
+   * Adds a property to the list of known properties
+   * 
+   * @param aProperty the new proptery
+   */
   public void addProperty(Property aProperty) {
-    properties.addElement(aProperty);
+    properties.add(aProperty);
   }
 }
