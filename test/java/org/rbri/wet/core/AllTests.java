@@ -30,7 +30,7 @@ public class AllTests extends TestCase {
 
   public static Test suite() {
 
-    TestSuite tmpSuite = new TestSuite("All Wetator core variable tests");
+    TestSuite tmpSuite = new TestSuite("All Wetator core tests");
 
     tmpSuite.addTest(org.rbri.wet.core.result.AllTests.suite());
     tmpSuite.addTest(org.rbri.wet.core.variable.AllTests.suite());

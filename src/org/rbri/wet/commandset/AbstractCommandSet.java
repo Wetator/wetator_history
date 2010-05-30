@@ -41,9 +41,12 @@ public abstract class AbstractCommandSet implements WetCommandSet {
   private static final Log LOG = LogFactory.getLog(AbstractCommandSet.class);
 
   private List<String> initializationMessages;
-  public Map<String, WetCommandImplementation> commandImplementations;
-  protected int noOfCommands;
+  private Map<String, WetCommandImplementation> commandImplementations;
+  private int noOfCommands;
 
+  /**
+   * Constructor
+   */
   protected AbstractCommandSet() {
     super();
     initializationMessages = new LinkedList<String>();
