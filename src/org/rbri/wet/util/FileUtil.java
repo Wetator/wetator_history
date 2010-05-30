@@ -26,12 +26,12 @@ import org.rbri.wet.exception.WetException;
  * 
  * @author rbri
  */
-public class FileUtil {
+public final class FileUtil {
 
   /**
    * Creates the specified directory if needed
    * 
-   * @param anOutputDirPath the name of the directoy
+   * @param anOutputDirPath the name of the directory
    * @return the directory file object
    * @throws WetException in case of problems
    */
@@ -57,5 +57,12 @@ public class FileUtil {
       }
     }
     return tmpDir;
+  }
+
+  /**
+   * Private constructor to be invisible
+   */
+  private FileUtil() {
+    super();
   }
 }

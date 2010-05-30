@@ -26,11 +26,13 @@ import dk.brics.automaton.RunAutomaton;
 public final class AutomatonShortFromEndMatcher implements MatchResult {
 
   /**
-   * @param aChars the chars to set
+   * Constructor.
+   * 
+   * @param aCharSequence the chars to set
    * @param anAutomaton the automaton to set
    */
-  public AutomatonShortFromEndMatcher(final CharSequence aChars, final RunAutomaton anAutomaton) {
-    chars = aChars;
+  public AutomatonShortFromEndMatcher(final CharSequence aCharSequence, final RunAutomaton anAutomaton) {
+    chars = aCharSequence;
     automaton = anAutomaton;
   }
 

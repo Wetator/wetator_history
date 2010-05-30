@@ -25,22 +25,21 @@ import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.rbri.wet.exception.AssertionFailedException;
+import org.apache.poi.ss.usermodel.Cell;
 
 /**
  * ContentUtil contains some useful helpers for content conversion handling.
  * 
  * @author rbri
  */
-public class ContentUtil {
+public final class ContentUtil {
 
   /**
    * Converts a pdf document to string
    * 
    * @param anInputStream the input
-   * @return a String
-   * @throws AssertionFailedException if conversion fails
-   * @throws IOException
+   * @return the normalizes content string
+   * @throws IOException in case of io errors
    */
   public static String getPdfContentAsString(InputStream anInputStream) throws IOException {
     PDDocument tmpDocument;
@@ -60,9 +59,8 @@ public class ContentUtil {
    * Converts a xls document to string
    * 
    * @param anInputStream the input
-   * @return a String
-   * @throws AssertionFailedException if conversion fails
-   * @throws IOException
+   * @return the normalizes content string
+   * @throws IOException in case of io errors
    */
   public static String getXlsContentAsString(InputStream anInputStream) throws IOException {
     NormalizedContent tmpResult = new NormalizedContent();
@@ -92,7 +90,7 @@ public class ContentUtil {
     return tmpResult.toString().trim();
   }
 
-  public static String readCellContentAsString(HSSFRow aRow, int aColumnsNo) {
+  private static String readCellContentAsString(HSSFRow aRow, int aColumnsNo) {
     String tmpResult = null;
     HSSFCell tmpCell;
     int tmpCellType;
@@ -105,26 +103,33 @@ public class ContentUtil {
     tmpCellType = tmpCell.getCellType();
 
     switch (tmpCellType) {
-      case HSSFCell.CELL_TYPE_BLANK:
+      case Cell.CELL_TYPE_BLANK:
         tmpResult = "";
         break;
-      case HSSFCell.CELL_TYPE_STRING:
+      case Cell.CELL_TYPE_STRING:
         tmpResult = tmpCell.getRichStringCellValue().getString();
         break;
-      case HSSFCell.CELL_TYPE_NUMERIC:
+      case Cell.CELL_TYPE_NUMERIC:
         tmpResult = "" + tmpCell.getNumericCellValue();
         break;
 
       // deal with the other possible cases
-      case HSSFCell.CELL_TYPE_BOOLEAN:
+      case Cell.CELL_TYPE_BOOLEAN:
         // ignore
-      case HSSFCell.CELL_TYPE_ERROR:
+      case Cell.CELL_TYPE_ERROR:
         // ignore
-      case HSSFCell.CELL_TYPE_FORMULA:
+      case Cell.CELL_TYPE_FORMULA:
         // ignore
       default:
         // ignore
     }
     return tmpResult;
+  }
+
+  /**
+   * Private constructor to be invisible
+   */
+  private ContentUtil() {
+    super();
   }
 }
