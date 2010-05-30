@@ -91,10 +91,6 @@
     <module name="HideUtilityClassConstructor"/>
     <module name="InterfaceIsType"/>
     <module name="UpperEll"/>
-    <module name="Indentation">
-      <property name="basicOffset" value="2"/>
-      <property name="caseIndent" value="2"/>
-    </module>
     <module name="MissingDeprecated"/>
     <module name="MissingOverride">
       <property name="javaFiveCompatibility" value="true"/>
