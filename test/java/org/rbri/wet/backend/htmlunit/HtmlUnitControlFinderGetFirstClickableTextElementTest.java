@@ -161,8 +161,8 @@ public class HtmlUnitControlFinderGetFirstClickableTextElementTest extends TestC
     WeightedControlList tmpFound = tmpFinder.getFirstClickableTextElement(tmpSearch);
 
     assertEquals(1, tmpFound.getElementsSorted().size());
-    assertEquals("[HtmlParagraph 'First\r\nline'] found by: BY_TEXT coverage: 0 distance: 0", tmpFound
-        .getElementsSorted().get(0).toString());
+    assertEquals("[HtmlParagraph 'First" + System.getProperty("line.separator")
+        + "line'] found by: BY_TEXT coverage: 0 distance: 0", tmpFound.getElementsSorted().get(0).toString());
   }
 
   public void testGetFirstClickableTextElement_TableCell() throws IOException {
