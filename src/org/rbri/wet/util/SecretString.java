@@ -30,6 +30,12 @@ public final class SecretString {
   private String value;
   private String valueForPrint;
 
+  /**
+   * Constructs a comma separated string from the given list of secret strings
+   * 
+   * @param aSecretStringList the input
+   * @return the constucted string
+   */
   public static String toString(List<SecretString> aSecretStringList) {
     StringBuilder tmpResult = new StringBuilder();
 
@@ -48,6 +54,9 @@ public final class SecretString {
 
   /**
    * Constructor.
+   * 
+   * @param aValue the value of the string
+   * @param aSecretFlag true of the value is visible in any kind of output
    */
   public SecretString(String aValue, boolean aSecretFlag) {
     this(aValue, SECRET_PRINT);
@@ -57,6 +66,12 @@ public final class SecretString {
     }
   }
 
+  /**
+   * Constructor.
+   * 
+   * @param aValue the value of the string
+   * @param aValueForPrint the string that is visible in any kind of output
+   */
   public SecretString(String aValue, String aValueForPrint) {
     super();
 
@@ -64,14 +79,30 @@ public final class SecretString {
     valueForPrint = aValueForPrint;
   }
 
+  /**
+   * Returns the value
+   * 
+   * @return the value
+   */
   public String getValue() {
     return value;
   }
 
+  /**
+   * Prefixes the value and the printout with the given string
+   * 
+   * @param aValuePrefix the prefix
+   */
   public void prefixWith(String aValuePrefix) {
     prefixWith(aValuePrefix, aValuePrefix);
   }
 
+  /**
+   * Prefixes the value and the printout with the given string
+   * 
+   * @param aValuePrefix the prefix for the value
+   * @param aValueForPrintPrefix the prefix for the printout
+   */
   public void prefixWith(String aValuePrefix, String aValueForPrintPrefix) {
     value = aValuePrefix + value;
     valueForPrint = aValueForPrintPrefix + valueForPrint;
@@ -82,22 +113,52 @@ public final class SecretString {
     return valueForPrint;
   }
 
+  /**
+   * Constructs and returns a new search pattern from the value
+   * 
+   * @return the search pattern
+   */
   public SearchPattern getSearchPattern() {
     return new SearchPattern(getValue());
   }
 
+  /**
+   * Returns true if a value starts with the given prefix
+   * 
+   * @param aPrefix the prefix
+   * @return true or false
+   */
   public boolean startsWith(String aPrefix) {
     return value.startsWith(aPrefix);
   }
 
+  /**
+   * Returns true if a value starts at offset with the given prefix
+   * 
+   * @param aPrefix the prefix
+   * @param anOffset the start position
+   * @return true or false
+   */
   public boolean startsWith(String aPrefix, int anOffset) {
     return value.startsWith(aPrefix, anOffset);
   }
 
+  /**
+   * Returns the lower case form of the string
+   * 
+   * @param aLocale the locale for the conversion
+   * @return the lower case form of the string
+   */
   public String toLowerCase(Locale aLocale) {
     return value.toLowerCase(aLocale);
   }
 
+  /**
+   * Trims the value and the print value of this object.<br>
+   * this returns NOT a new object
+   * 
+   * @return this
+   */
   public SecretString trim() {
     value = value.trim();
     valueForPrint = valueForPrint.trim();
