@@ -50,10 +50,20 @@ public final class WetCommand {
     lineNo = -1;
   }
 
+  /**
+   * Getter for the name
+   * 
+   * @return the name
+   */
   public String getName() {
     return name;
   }
 
+  /**
+   * Getter for the isComment flag
+   * 
+   * @return the isComment flag
+   */
   public boolean isComment() {
     return isComment;
   }

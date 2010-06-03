@@ -42,6 +42,8 @@ public final class Parameter {
 
     /**
      * Constructor.
+     * 
+     * @param aValue the value of this part
      */
     public Part(String aValue) {
       super();
@@ -49,6 +51,12 @@ public final class Parameter {
       value = aValue;
     }
 
+    /**
+     * Constructs a secret string from the value
+     * 
+     * @param aWetContext the wet context needed to resolve the value (variables)
+     * @return the constructed secret string
+     */
     public SecretString getValue(WetContext aWetContext) {
       // double dispatch to resolve the variables
       SecretString tmpResult = aWetContext.replaceVariables(value);
@@ -61,6 +69,8 @@ public final class Parameter {
 
   /**
    * Constructor.
+   * 
+   * @param aValue the value of this parameter
    */
   public Parameter(String aValue) {
     super();
