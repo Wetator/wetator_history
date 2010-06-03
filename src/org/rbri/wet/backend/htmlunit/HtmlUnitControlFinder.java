@@ -25,6 +25,7 @@ import org.apache.commons.logging.LogFactory;
 import org.rbri.wet.backend.ControlFinder;
 import org.rbri.wet.backend.WeightedControlList;
 import org.rbri.wet.backend.htmlunit.util.DomNodeText;
+import org.rbri.wet.backend.htmlunit.util.FindSpot;
 import org.rbri.wet.util.SearchPattern;
 import org.rbri.wet.util.SecretString;
 
@@ -903,55 +904,26 @@ public class HtmlUnitControlFinder implements ControlFinder {
       return tmpFoundElements;
     }
 
-    String tmpText = domNodeText.getAsText(tmpBodyNode);
-    int tmpLengthBefore = tmpSearchPattern.noOfCharsBeforeLastOccurenceIn(tmpText);
-    if (tmpLengthBefore < 0) {
-      return tmpFoundElements;
-    }
+    // TODO use only elements from body
+    FindSpot tmpPathSpot = domNodeText.firstOccurence(tmpPathSearchPattern);
+    for (HtmlElement tmpHtmlElement : domNodeText.getAllVisibleHtmlElementsBottomUpBottomUp()) {
+      FindSpot tmpNodeSpot = domNodeText.getPosition(tmpHtmlElement);
 
-    if (tmpPathSearchPattern.noOfMatchingCharsIn(tmpText.substring(0, tmpLengthBefore)) < 0) {
-      return tmpFoundElements;
-    }
+      // has the node the text before
+      if (tmpPathSpot.endPos <= tmpNodeSpot.startPos) {
+        String tmpElementText = domNodeText.getAsText(tmpHtmlElement);
+        int tmpCoverage = tmpSearchPattern.noOfSurroundingCharsIn(tmpElementText);
+        if (tmpCoverage > -1) {
+          String tmpTextBefore = domNodeText.getTextBefore(tmpHtmlElement);
+          int tmpDistance = tmpPathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
+          tmpFoundElements.add(new HtmlUnitControl(tmpHtmlElement), WeightedControlList.FoundType.BY_TEXT, tmpCoverage,
+              tmpDistance);
+          break;
+        }
 
-    for (HtmlElement tmpHtmlElement : tmpBodyNode.getChildElements()) {
-      HtmlElement tmpResult = getFirstClickableTextElement(tmpHtmlElement, tmpSearchPattern, tmpPathSearchPattern);
-      if (null != tmpResult) {
-        // TODO
-        tmpFoundElements.add(new HtmlUnitControl(tmpResult), WeightedControlList.FoundType.BY_TEXT, 0, 0);
-        return tmpFoundElements;
       }
     }
-    // TODO
-    tmpFoundElements.add(new HtmlUnitControl(tmpBodyNode), WeightedControlList.FoundType.BY_TEXT, 0, 0);
     return tmpFoundElements;
-  }
-
-  private HtmlElement getFirstClickableTextElement(HtmlElement anHtmlElement, SearchPattern aSearchPattern,
-      SearchPattern aPathSearchPattern) {
-    String tmpText = domNodeText.getAsText(anHtmlElement);
-    if (aSearchPattern.noOfMatchingCharsIn(tmpText) < 0) {
-      return null;
-    }
-
-    String tmpTextBefore = domNodeText.getTextBefore(anHtmlElement);
-
-    // it is a bit more complicated to calculate the text
-    int tmpPos = aSearchPattern.noOfCharsBeforeLastOccurenceIn(tmpText);
-    if (tmpPos > 0) {
-      tmpTextBefore = tmpTextBefore + " " + tmpText.substring(0, tmpPos);
-    }
-
-    if (aPathSearchPattern.noOfMatchingCharsIn(tmpTextBefore) < 0) {
-      return null;
-    }
-
-    for (HtmlElement tmpHtmlElement : anHtmlElement.getChildElements()) {
-      HtmlElement tmpResult = getFirstClickableTextElement(tmpHtmlElement, aSearchPattern, aPathSearchPattern);
-      if (null != tmpResult) {
-        return tmpResult;
-      }
-    }
-    return anHtmlElement;
   }
 
   /**

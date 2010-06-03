@@ -71,7 +71,7 @@ public class DomNodeText {
 
   private NormalizedContent text;
   private List<DomNode> nodes;
-  private List<DomNode> nodesBottomUp;
+  private List<HtmlElement> visibleHtmlElementsBottomUp;
   private List<HtmlElement> visibleHtmlElements;
   private Map<DomNode, FindSpot> positions;
 
@@ -83,7 +83,7 @@ public class DomNodeText {
   public DomNodeText(final DomNode aDomNode) {
     text = new NormalizedContent();
     nodes = new LinkedList<DomNode>();
-    nodesBottomUp = new LinkedList<DomNode>();
+    visibleHtmlElementsBottomUp = new LinkedList<HtmlElement>();
     visibleHtmlElements = new LinkedList<HtmlElement>();
     positions = new HashMap<DomNode, FindSpot>();
 
@@ -109,12 +109,12 @@ public class DomNodeText {
   }
 
   /**
-   * Returns the list of all dom nodes always starting with the leaves
+   * Returns the list of all visible html elements always starting with the leaves
    * 
-   * @return the list of all dom nodes
+   * @return the list of all html elements
    */
-  public List<DomNode> getAllDomNodesBottomUp() {
-    return nodesBottomUp;
+  public List<HtmlElement> getAllVisibleHtmlElementsBottomUpBottomUp() {
+    return visibleHtmlElementsBottomUp;
   }
 
   /**
@@ -247,7 +247,7 @@ public class DomNodeText {
   }
 
   /**
-   * Returns the (trimmed) text of the given node and all its childs
+   * Returns the (trimmed) text of the given node and all its children
    * 
    * @param aDomNode the node to look at
    * @return the text
@@ -313,12 +313,14 @@ public class DomNodeText {
           text.append(" ");
         }
       }
+
+      if (aDomNode instanceof HtmlElement) {
+        visibleHtmlElementsBottomUp.add((HtmlElement) aDomNode);
+      }
     }
     // mark pos after
     tmpFindSpot = positions.get(aDomNode);
     tmpFindSpot.endPos = text.length();
-
-    nodesBottomUp.add(aDomNode);
   }
 
   private void parseChildren(final DomNode aNode) {

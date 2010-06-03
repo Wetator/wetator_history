@@ -113,7 +113,7 @@ public class HtmlUnitControlFinderGetFirstClickableTextElementTest extends TestC
     WeightedControlList tmpFound = tmpFinder.getFirstClickableTextElement(tmpSearch);
 
     assertEquals(1, tmpFound.getElementsSorted().size());
-    assertEquals("[HtmlParagraph 'First line'] found by: BY_TEXT coverage: 0 distance: 0", tmpFound.getElementsSorted()
+    assertEquals("[HtmlParagraph 'First line'] found by: BY_TEXT coverage: 3 distance: 0", tmpFound.getElementsSorted()
         .get(0).toString());
   }
 
@@ -130,7 +130,7 @@ public class HtmlUnitControlFinderGetFirstClickableTextElementTest extends TestC
     WeightedControlList tmpFound = tmpFinder.getFirstClickableTextElement(tmpSearch);
 
     assertEquals(1, tmpFound.getElementsSorted().size());
-    assertEquals("[HtmlParagraph 'Last line'] found by: BY_TEXT coverage: 0 distance: 0", tmpFound.getElementsSorted()
+    assertEquals("[HtmlParagraph 'Last line'] found by: BY_TEXT coverage: 5 distance: 0", tmpFound.getElementsSorted()
         .get(0).toString());
   }
 
@@ -146,7 +146,7 @@ public class HtmlUnitControlFinderGetFirstClickableTextElementTest extends TestC
     WeightedControlList tmpFound = tmpFinder.getFirstClickableTextElement(tmpSearch);
 
     assertEquals(1, tmpFound.getElementsSorted().size());
-    assertEquals("[HtmlParagraph 'This text is styled.'] found by: BY_TEXT coverage: 0 distance: 0", tmpFound
+    assertEquals("[HtmlParagraph 'This text is styled.'] found by: BY_TEXT coverage: 1 distance: 10", tmpFound
         .getElementsSorted().get(0).toString());
   }
 
@@ -179,7 +179,7 @@ public class HtmlUnitControlFinderGetFirstClickableTextElementTest extends TestC
     assertEquals(1, tmpFound.getElementsSorted().size());
     // TODO
     assertEquals(
-        "[Unknown HtmlElement 'class com.gargoylesoftware.htmlunit.html.HtmlTableDataCell'] found by: BY_TEXT coverage: 0 distance: 0",
+        "[Unknown HtmlElement 'class com.gargoylesoftware.htmlunit.html.HtmlTableDataCell'] found by: BY_TEXT coverage: 0 distance: 17",
         tmpFound.getElementsSorted().get(0).toString());
   }
 
@@ -215,7 +215,7 @@ public class HtmlUnitControlFinderGetFirstClickableTextElementTest extends TestC
     assertEquals(1, tmpFound.getElementsSorted().size());
     // TODO
     assertEquals(
-        "[Unknown HtmlElement 'class com.gargoylesoftware.htmlunit.html.HtmlDivision'] found by: BY_TEXT coverage: 0 distance: 0",
+        "[Unknown HtmlElement 'class com.gargoylesoftware.htmlunit.html.HtmlDivision'] found by: BY_TEXT coverage: 9 distance: 0",
         tmpFound.getElementsSorted().get(0).toString());
   }
 }
