@@ -101,7 +101,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
           aWetContext.informListenersWarn("absoluteUrl", new String[] { tmpUrlParam.toString() });
         } else {
           if (!tmpUrlParam.startsWith("/")) {
-            tmpUrlParam.prefixWith("/", "/");
+            tmpUrlParam.prefixWith("/");
           }
 
           tmpUrlParam.prefixWith(aWetContext.getWetConfiguration().getBaseUrl());
