@@ -149,8 +149,4 @@ public final class WeightedControlList {
   public boolean isEmpty() {
     return entries.isEmpty();
   }
-
-  public boolean hasManyEntires() {
-    return entries.size() > 1;
-  }
 }

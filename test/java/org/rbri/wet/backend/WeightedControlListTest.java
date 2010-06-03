@@ -49,8 +49,6 @@ public class WeightedControlListTest extends TestCase {
     WeightedControlList tmpWeightedControlList = new WeightedControlList();
 
     assertTrue(tmpWeightedControlList.isEmpty());
-    assertFalse(tmpWeightedControlList.hasManyEntires());
-
     assertTrue(tmpWeightedControlList.getElementsSorted().isEmpty());
   }
 
@@ -61,8 +59,6 @@ public class WeightedControlListTest extends TestCase {
     tmpWeightedControlList.add(tmpControl, WeightedControlList.FoundType.BY_ID, 100, 11);
 
     assertFalse(tmpWeightedControlList.isEmpty());
-    assertFalse(tmpWeightedControlList.hasManyEntires());
-
     assertFalse(tmpWeightedControlList.getElementsSorted().isEmpty());
   }
 
@@ -74,7 +70,6 @@ public class WeightedControlListTest extends TestCase {
     tmpWeightedControlList.add(tmpControl, WeightedControlList.FoundType.BY_ID, 200, 11);
 
     assertFalse(tmpWeightedControlList.isEmpty());
-    assertTrue(tmpWeightedControlList.hasManyEntires());
 
     assertFalse(tmpWeightedControlList.getElementsSorted().isEmpty());
   }

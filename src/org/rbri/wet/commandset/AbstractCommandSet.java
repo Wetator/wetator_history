@@ -61,14 +61,29 @@ public abstract class AbstractCommandSet implements WetCommandSet {
     LOG.debug(ClassUtils.getShortClassName(this.getClass()) + " registered; " + noOfCommands + " commands added");
   }
 
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.rbri.wet.commandset.WetCommandSet#getCommandImplementationFor(java.lang.String)
+   */
   public final WetCommandImplementation getCommandImplementationFor(String aCommandName) {
     return commandImplementations.get(aCommandName);
   }
 
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.rbri.wet.commandset.WetCommandSet#getInitializationMessages()
+   */
   public List<String> getInitializationMessages() {
     return initializationMessages;
   }
 
+  /**
+   * Adds an initialization message to this command set
+   * 
+   * @param aMessage the message to be added
+   */
   public void addInitializationMessage(String aMessage) {
     initializationMessages.add(aMessage);
   }
@@ -78,29 +93,52 @@ public abstract class AbstractCommandSet implements WetCommandSet {
    */
   protected abstract void registerCommands();
 
+  /**
+   * Registers a command under the given name
+   * 
+   * @param aCommandName the name of the command
+   * @param aWetCommandImplementation the implementation (class) of the command
+   */
   protected void registerCommand(String aCommandName, WetCommandImplementation aWetCommandImplementation) {
     LOG.debug(ClassUtils.getShortClassName(this.getClass()) + " - register command : '" + aCommandName + "'");
     commandImplementations.put(aCommandName, aWetCommandImplementation);
     noOfCommands++;
   }
 
-  protected WetBackend getWetBackend(WetContext aWetContext) throws AssertionFailedException {
+  /**
+   * Getter for the backend
+   * 
+   * @param aWetContext the wet context
+   * @return the WetBackend
+   */
+  protected WetBackend getWetBackend(WetContext aWetContext) {
     WetBackend tmpWetBackend = aWetContext.getWetBackend();
     return tmpWetBackend;
   }
 
+  /**
+   * Returns the first control from the WeightedControlList<br>
+   * if the list is empty a AssertionFailedException is thrown<br>
+   * if the list has elements for more than one control then some warnings are fired
+   * 
+   * @param aWetContext the wet context
+   * @param aWeightedControlList the WeightedControlList
+   * @param aSearchParam the search param (only needed for the warning message)
+   * @return the first control from the list
+   * @throws AssertionFailedException if the list is empty
+   */
   protected Control getRequiredFirstHtmlElementFrom(WetContext aWetContext, WeightedControlList aWeightedControlList,
       List<SecretString> aSearchParam) throws AssertionFailedException {
     if (aWeightedControlList.isEmpty()) {
       Assert.fail("noHtmlElementFound", new String[] { SecretString.toString(aSearchParam) });
     }
 
-    WeightedControlList.Entry tmpEntry = aWeightedControlList.getElementsSorted().get(0);
-    if (aWeightedControlList.hasManyEntires()) {
+    List<WeightedControlList.Entry> tmpEntries = aWeightedControlList.getElementsSorted();
+    WeightedControlList.Entry tmpEntry = tmpEntries.get(0);
+    if (tmpEntries.size() > 1) {
       aWetContext.informListenersWarn("manyElementsFound", new String[] { SecretString.toString(aSearchParam),
           tmpEntry.getControl().getDescribingText() });
 
-      List<WeightedControlList.Entry> tmpEntries = aWeightedControlList.getElementsSorted();
       for (WeightedControlList.Entry tmpEachEntry : tmpEntries) {
         aWetContext.informListenersInfo("elementFound", new String[] { tmpEachEntry.toString() });
       }
