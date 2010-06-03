@@ -51,6 +51,9 @@ import org.rbri.wet.util.SecretString;
 public final class DefaultCommandSet extends AbstractCommandSet {
   // private static final Log LOG = LogFactory.getLog(DefaultCommandSet.class);
 
+  /**
+   * Constructor of the default command set
+   */
   public DefaultCommandSet() {
     super();
   }
@@ -76,7 +79,16 @@ public final class DefaultCommandSet extends AbstractCommandSet {
     registerCommand("Exec Java", new CommandExecJava());
   }
 
+  /**
+   * Command 'Open Url'
+   */
   public final class CommandOpenUrl implements WetCommandImplementation {
+    /**
+     * {@inheritDoc}
+     * 
+     * @see org.rbri.wet.commandset.WetCommandImplementation#execute(org.rbri.wet.core.WetContext,
+     *      org.rbri.wet.core.WetCommand)
+     */
     public void execute(WetContext aWetContext, WetCommand aWetCommand) throws AssertionFailedException {
 
       SecretString tmpUrlParam = aWetCommand.getRequiredFirstParameterValue(aWetContext);
@@ -106,7 +118,16 @@ public final class DefaultCommandSet extends AbstractCommandSet {
     }
   }
 
+  /**
+   * Command 'Use Module'
+   */
   public final class CommandUseModule implements WetCommandImplementation {
+    /**
+     * {@inheritDoc}
+     * 
+     * @see org.rbri.wet.commandset.WetCommandImplementation#execute(org.rbri.wet.core.WetContext,
+     *      org.rbri.wet.core.WetCommand)
+     */
     public void execute(WetContext aWetContext, WetCommand aWetCommand) throws AssertionFailedException {
 
       SecretString tmpModuleParam = aWetCommand.getRequiredFirstParameterValue(aWetContext);
@@ -134,7 +155,16 @@ public final class DefaultCommandSet extends AbstractCommandSet {
     }
   }
 
+  /**
+   * Command 'Set'
+   */
   public final class CommandSet implements WetCommandImplementation {
+    /**
+     * {@inheritDoc}
+     * 
+     * @see org.rbri.wet.commandset.WetCommandImplementation#execute(org.rbri.wet.core.WetContext,
+     *      org.rbri.wet.core.WetCommand)
+     */
     public void execute(WetContext aWetContext, WetCommand aWetCommand) throws AssertionFailedException {
 
       List<SecretString> tmpSearchParam = aWetCommand.getFirstParameterValues(aWetContext);
@@ -159,7 +189,16 @@ public final class DefaultCommandSet extends AbstractCommandSet {
     }
   }
 
+  /**
+   * Command 'Click On'
+   */
   public final class CommandClickOn implements WetCommandImplementation {
+    /**
+     * {@inheritDoc}
+     * 
+     * @see org.rbri.wet.commandset.WetCommandImplementation#execute(org.rbri.wet.core.WetContext,
+     *      org.rbri.wet.core.WetCommand)
+     */
     public void execute(WetContext aWetContext, WetCommand aWetCommand) throws AssertionFailedException {
 
       List<SecretString> tmpSearchParam = aWetCommand.getRequiredFirstParameterValues(aWetContext);
@@ -181,7 +220,16 @@ public final class DefaultCommandSet extends AbstractCommandSet {
     }
   }
 
+  /**
+   * Command 'Select'
+   */
   public final class CommandSelect implements WetCommandImplementation {
+    /**
+     * {@inheritDoc}
+     * 
+     * @see org.rbri.wet.commandset.WetCommandImplementation#execute(org.rbri.wet.core.WetContext,
+     *      org.rbri.wet.core.WetCommand)
+     */
     public void execute(WetContext aWetContext, WetCommand aWetCommand) throws AssertionFailedException {
 
       List<SecretString> tmpSearchParam = aWetCommand.getRequiredFirstParameterValues(aWetContext);
@@ -200,7 +248,16 @@ public final class DefaultCommandSet extends AbstractCommandSet {
     }
   }
 
+  /**
+   * Command 'Mouse Over'
+   */
   public final class CommandMouseOver implements WetCommandImplementation {
+    /**
+     * {@inheritDoc}
+     * 
+     * @see org.rbri.wet.commandset.WetCommandImplementation#execute(org.rbri.wet.core.WetContext,
+     *      org.rbri.wet.core.WetCommand)
+     */
     public void execute(WetContext aWetContext, WetCommand aWetCommand) throws AssertionFailedException {
 
       List<SecretString> tmpSearchParam = aWetCommand.getRequiredFirstParameterValues(aWetContext);
@@ -218,7 +275,16 @@ public final class DefaultCommandSet extends AbstractCommandSet {
     }
   }
 
+  /**
+   * Command 'close Window'
+   */
   public final class CommandCloseWindow implements WetCommandImplementation {
+    /**
+     * {@inheritDoc}
+     * 
+     * @see org.rbri.wet.commandset.WetCommandImplementation#execute(org.rbri.wet.core.WetContext,
+     *      org.rbri.wet.core.WetCommand)
+     */
     public void execute(WetContext aWetContext, WetCommand aWetCommand) throws AssertionFailedException {
 
       SecretString tmpWindowNameParam = aWetCommand.getFirstParameterValue(aWetContext);
@@ -229,7 +295,16 @@ public final class DefaultCommandSet extends AbstractCommandSet {
     }
   }
 
+  /**
+   * Command 'Go Back'
+   */
   public final class CommandGoBack implements WetCommandImplementation {
+    /**
+     * {@inheritDoc}
+     * 
+     * @see org.rbri.wet.commandset.WetCommandImplementation#execute(org.rbri.wet.core.WetContext,
+     *      org.rbri.wet.core.WetCommand)
+     */
     public void execute(WetContext aWetContext, WetCommand aWetCommand) throws AssertionFailedException {
 
       SecretString tmpStepsParam = aWetCommand.getFirstParameterValue(aWetContext);
@@ -251,8 +326,16 @@ public final class DefaultCommandSet extends AbstractCommandSet {
     }
   }
 
+  /**
+   * Command 'Assert Title'
+   */
   public final class CommandAssertTitle implements WetCommandImplementation {
-
+    /**
+     * {@inheritDoc}
+     * 
+     * @see org.rbri.wet.commandset.WetCommandImplementation#execute(org.rbri.wet.core.WetContext,
+     *      org.rbri.wet.core.WetCommand)
+     */
     public void execute(WetContext aWetContext, WetCommand aWetCommand) throws AssertionFailedException {
 
       List<SecretString> tmpExpected = aWetCommand.getRequiredFirstParameterValues(aWetContext);
@@ -265,9 +348,17 @@ public final class DefaultCommandSet extends AbstractCommandSet {
     }
   }
 
+  /**
+   * Command 'Assert Content'
+   */
   public final class CommandAssertContent implements WetCommandImplementation {
+    /**
+     * {@inheritDoc}
+     * 
+     * @see org.rbri.wet.commandset.WetCommandImplementation#execute(org.rbri.wet.core.WetContext,
+     *      org.rbri.wet.core.WetCommand)
+     */
     public void execute(WetContext aWetContext, WetCommand aWetCommand) throws AssertionFailedException {
-
       List<SecretString> tmpExpected = aWetCommand.getRequiredFirstParameterValues(aWetContext);
       aWetCommand.assertNoUnusedSecondParameter(aWetContext);
 
@@ -278,9 +369,17 @@ public final class DefaultCommandSet extends AbstractCommandSet {
     }
   }
 
+  /**
+   * Command 'Assert Disabled'
+   */
   public final class CommandAssertDisabled implements WetCommandImplementation {
+    /**
+     * {@inheritDoc}
+     * 
+     * @see org.rbri.wet.commandset.WetCommandImplementation#execute(org.rbri.wet.core.WetContext,
+     *      org.rbri.wet.core.WetCommand)
+     */
     public void execute(WetContext aWetContext, WetCommand aWetCommand) throws AssertionFailedException {
-
       List<SecretString> tmpSearchParam = aWetCommand.getRequiredFirstParameterValues(aWetContext);
       aWetCommand.assertNoUnusedSecondParameter(aWetContext);
 
@@ -306,9 +405,17 @@ public final class DefaultCommandSet extends AbstractCommandSet {
     }
   }
 
+  /**
+   * Command 'Assert Set'
+   */
   public final class CommandAssertSet implements WetCommandImplementation {
+    /**
+     * {@inheritDoc}
+     * 
+     * @see org.rbri.wet.commandset.WetCommandImplementation#execute(org.rbri.wet.core.WetContext,
+     *      org.rbri.wet.core.WetCommand)
+     */
     public void execute(WetContext aWetContext, WetCommand aWetCommand) throws AssertionFailedException {
-
       List<SecretString> tmpSearchParam = aWetCommand.getRequiredFirstParameterValues(aWetContext);
       SecretString tmpValueParam = aWetCommand.getRequiredSecondParameterValue(aWetContext);
 
@@ -327,7 +434,16 @@ public final class DefaultCommandSet extends AbstractCommandSet {
     }
   }
 
+  /**
+   * Command 'Assert Selected'
+   */
   public final class CommandAssertSelected implements WetCommandImplementation {
+    /**
+     * {@inheritDoc}
+     * 
+     * @see org.rbri.wet.commandset.WetCommandImplementation#execute(org.rbri.wet.core.WetContext,
+     *      org.rbri.wet.core.WetCommand)
+     */
     public void execute(WetContext aWetContext, WetCommand aWetCommand) throws AssertionFailedException {
       List<SecretString> tmpSearchParam = aWetCommand.getRequiredFirstParameterValues(aWetContext);
       aWetCommand.assertNoUnusedSecondParameter(aWetContext);
@@ -345,7 +461,16 @@ public final class DefaultCommandSet extends AbstractCommandSet {
     }
   }
 
+  /**
+   * Command 'Assert Deselected'
+   */
   public final class CommandAssertDeselected implements WetCommandImplementation {
+    /**
+     * {@inheritDoc}
+     * 
+     * @see org.rbri.wet.commandset.WetCommandImplementation#execute(org.rbri.wet.core.WetContext,
+     *      org.rbri.wet.core.WetCommand)
+     */
     public void execute(WetContext aWetContext, WetCommand aWetCommand) throws AssertionFailedException {
       List<SecretString> tmpSearchParam = aWetCommand.getRequiredFirstParameterValues(aWetContext);
       aWetCommand.assertNoUnusedSecondParameter(aWetContext);
@@ -363,7 +488,16 @@ public final class DefaultCommandSet extends AbstractCommandSet {
     }
   }
 
+  /**
+   * Command 'Exec Java'
+   */
   public final class CommandExecJava implements WetCommandImplementation {
+    /**
+     * {@inheritDoc}
+     * 
+     * @see org.rbri.wet.commandset.WetCommandImplementation#execute(org.rbri.wet.core.WetContext,
+     *      org.rbri.wet.core.WetCommand)
+     */
     @SuppressWarnings("unchecked")
     public void execute(WetContext aWetContext, WetCommand aWetCommand) throws AssertionFailedException {
       SecretString tmpCall = aWetCommand.getRequiredFirstParameterValue(aWetContext);
@@ -444,14 +578,31 @@ public final class DefaultCommandSet extends AbstractCommandSet {
     }
   }
 
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.rbri.wet.commandset.WetCommandSet#initialize(java.util.Properties)
+   */
   public void initialize(Properties aConfiguration) {
     // nothing to do at the moment
   }
 
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.rbri.wet.commandset.WetCommandSet#cleanup()
+   */
   public void cleanup() {
     // nothing to do at the moment
   }
 
+  /**
+   * Write the configuration to the result.
+   * 
+   * @param aWetResultWriter the writer to write to
+   * @throws IOException in case of error
+   */
+  @SuppressWarnings("unused")
   public void printConfiguration(WetResultWriter aWetResultWriter) throws IOException {
     // nothing to do at the moment
   }
