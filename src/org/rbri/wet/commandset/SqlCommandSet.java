@@ -46,6 +46,9 @@ import org.rbri.wet.util.StringUtil;
  * @author rbri
  */
 public final class SqlCommandSet extends AbstractCommandSet {
+  /**
+   * The prefix used to mark the db name
+   */
   protected static final String DB_NAME_PREFIX = "@";
 
   private final Log log = LogFactory.getLog(SqlCommandSet.class);
@@ -60,6 +63,9 @@ public final class SqlCommandSet extends AbstractCommandSet {
   private Map<String, Connection> connections;
   private String defaultConnectionName;
 
+  /**
+   * The set of supported sql commands.
+   */
   public SqlCommandSet() {
     super();
 
@@ -68,12 +74,21 @@ public final class SqlCommandSet extends AbstractCommandSet {
 
   @Override
   protected void registerCommands() {
-    registerCommand("Execute SQL", new CommandExecuteSql());
+    registerCommand("Exec SQL", new CommandExecSql());
     registerCommand("Assert SQL", new CommandAssertSql());
     registerCommand("Assert SQL in Content", new CommandAssertSqlInContent());
   }
 
-  public final class CommandExecuteSql implements WetCommandImplementation {
+  /**
+   * Command 'Exec Sql'
+   */
+  public final class CommandExecSql implements WetCommandImplementation {
+    /**
+     * {@inheritDoc}
+     * 
+     * @see org.rbri.wet.commandset.WetCommandImplementation#execute(org.rbri.wet.core.WetContext,
+     *      org.rbri.wet.core.WetCommand)
+     */
     public void execute(WetContext aWetContext, WetCommand aWetCommand) throws AssertionFailedException {
 
       SecretString tmpSqlParam = aWetCommand.getRequiredFirstParameterValue(aWetContext);
@@ -101,7 +116,16 @@ public final class SqlCommandSet extends AbstractCommandSet {
     }
   }
 
+  /**
+   * Command 'Assert Sql'
+   */
   public final class CommandAssertSql implements WetCommandImplementation {
+    /**
+     * {@inheritDoc}
+     * 
+     * @see org.rbri.wet.commandset.WetCommandImplementation#execute(org.rbri.wet.core.WetContext,
+     *      org.rbri.wet.core.WetCommand)
+     */
     public void execute(WetContext aWetContext, WetCommand aWetCommand) throws AssertionFailedException {
 
       SecretString tmpSqlParam = aWetCommand.getRequiredFirstParameterValue(aWetContext);
@@ -148,7 +172,16 @@ public final class SqlCommandSet extends AbstractCommandSet {
     }
   }
 
+  /**
+   * Command 'Assert Sql in Content'
+   */
   public final class CommandAssertSqlInContent implements WetCommandImplementation {
+    /**
+     * {@inheritDoc}
+     * 
+     * @see org.rbri.wet.commandset.WetCommandImplementation#execute(org.rbri.wet.core.WetContext,
+     *      org.rbri.wet.core.WetCommand)
+     */
     public void execute(WetContext aWetContext, WetCommand aWetCommand) throws AssertionFailedException {
 
       SecretString tmpSqlParam = aWetCommand.getRequiredFirstParameterValue(aWetContext);
@@ -198,6 +231,11 @@ public final class SqlCommandSet extends AbstractCommandSet {
     }
   }
 
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.rbri.wet.commandset.WetCommandSet#initialize(java.util.Properties)
+   */
   public void initialize(Properties aConfiguration) {
     // any connections defined?
     String tmpPropConnections = aConfiguration.getProperty(PROPERTY_CONNECTIONS);
@@ -252,6 +290,13 @@ public final class SqlCommandSet extends AbstractCommandSet {
     }
   }
 
+  /**
+   * extract the connection name from a string
+   * 
+   * @param aWetContext the wet context
+   * @param aParameter the parameter
+   * @return the connection name
+   */
   protected String extractConnectionName(WetContext aWetContext, SecretString aParameter) {
     // check for '@' at start for handling connections
     if (aParameter.startsWith(DB_NAME_PREFIX)) {
@@ -266,6 +311,13 @@ public final class SqlCommandSet extends AbstractCommandSet {
     return defaultConnectionName;
   }
 
+  /**
+   * removes the connection name from an sql
+   * 
+   * @param aSql the sql
+   * @param aConnectionName the connection name
+   * @return the connection name
+   */
   protected String removeConnectionName(String aSql, String aConnectionName) {
     String tmpConnectionName = DB_NAME_PREFIX + aConnectionName;
     if (aSql.startsWith(tmpConnectionName)) {
@@ -276,6 +328,11 @@ public final class SqlCommandSet extends AbstractCommandSet {
     return aSql;
   }
 
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.rbri.wet.commandset.WetCommandSet#cleanup()
+   */
   public void cleanup() {
     for (Map.Entry<String, Connection> tmpEntry : connections.entrySet()) {
       try {
