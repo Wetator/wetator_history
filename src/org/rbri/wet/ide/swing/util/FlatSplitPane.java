@@ -31,7 +31,7 @@ public class FlatSplitPane extends JSplitPane {
   public FlatSplitPane(int anOrientation, boolean aContinuousLayoutFlag) {
     super(anOrientation, aContinuousLayoutFlag);
 
-    this.setBorder(BorderFactory.createEmptyBorder());
+    setBorder(BorderFactory.createEmptyBorder());
 
     SplitPaneUI tmpSplitPaneUI = this.getUI();
     if (tmpSplitPaneUI instanceof BasicSplitPaneUI) {
