@@ -33,9 +33,15 @@ import com.gargoylesoftware.htmlunit.javascript.background.JavaScriptJobManager;
  */
 public final class PageUtil {
 
-  public static void waitForThreads(final SgmlPage anHtmlPage) {
+  /**
+   * Wait for finishing of all jobs scheduled for execution
+   * in the next 1s
+   * 
+   * @param aSgmlPage the page
+   */
+  public static void waitForThreads(final SgmlPage aSgmlPage) {
     // TODO make max wait time configurable
-    JavaScriptJobManager tmpJobManager = anHtmlPage.getEnclosingWindow().getJobManager();
+    JavaScriptJobManager tmpJobManager = aSgmlPage.getEnclosingWindow().getJobManager();
 
     // execute all immediate jobs
     tmpJobManager.waitForJobsStartingBefore(1000); // one second
@@ -43,6 +49,10 @@ public final class PageUtil {
 
   /**
    * Helper for tests
+   * 
+   * @param anHtmlCode the html source of the page
+   * @return the HtmlPage result of parsing the source
+   * @throws IOException in case of problems
    */
   public static HtmlPage constructPage(final String anHtmlCode) throws IOException {
     StringWebResponse tmpResponse = new StringWebResponse(anHtmlCode, new URL("http://www.rbri.org/wet/test.html"));
