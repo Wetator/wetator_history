@@ -21,7 +21,7 @@ import net.sourceforge.htmlunit.corejs.javascript.WrappedException;
 import com.gargoylesoftware.htmlunit.ScriptException;
 
 /**
- * Util class for exception handling.
+ * Utility class for exception handling.
  * 
  * @author rbri
  */
@@ -36,6 +36,12 @@ public final class ExceptionUtil {
 
   // private static final Log LOG = WetLogger.getWetLogger();
 
+  /**
+   * Try to get the message text from a script exception.
+   * 
+   * @param aWrappedException the exception to analyze
+   * @return the message text
+   */
   public static String getMessageFromScriptExceptionCauseIfPossible(WrappedException aWrappedException) {
     Throwable tmpThrowable = aWrappedException.getCause();
 

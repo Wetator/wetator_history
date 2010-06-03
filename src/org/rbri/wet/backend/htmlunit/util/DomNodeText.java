@@ -75,6 +75,11 @@ public class DomNodeText {
   private List<HtmlElement> visibleHtmlElements;
   private Map<DomNode, FindSpot> positions;
 
+  /**
+   * Constructor
+   * 
+   * @param aDomNode the root node to start with
+   */
   public DomNodeText(final DomNode aDomNode) {
     text = new NormalizedContent();
     nodes = new LinkedList<DomNode>();
@@ -85,30 +90,69 @@ public class DomNodeText {
     parseDomNode(aDomNode);
   }
 
+  /**
+   * Returns the whole text trimmed.
+   * 
+   * @return the whole text
+   */
   public String getText() {
     return text.toString().trim();
   }
 
+  /**
+   * Returns a list of all visible HtmlElements
+   * 
+   * @return the list of all visible HtmlElements
+   */
   public List<HtmlElement> getAllVisibleHtmlElements() {
     return visibleHtmlElements;
   }
 
+  /**
+   * Returns the list of all dom nodes always starting with the leaves
+   * 
+   * @return the list of all dom nodes
+   */
   public List<DomNode> getAllDomNodesBottomUp() {
     return nodesBottomUp;
   }
 
+  /**
+   * Returns the start and end position of this html element as FindSpot
+   * 
+   * @param anHtmlElement the element
+   * @return the position
+   */
   public FindSpot getPosition(HtmlElement anHtmlElement) {
     return positions.get(anHtmlElement);
   }
 
+  /**
+   * Returns the start and end position of the first occurrence of the string in the text
+   * 
+   * @param aSearchPattern the search pattern
+   * @return the position
+   */
   public FindSpot firstOccurence(SearchPattern aSearchPattern) {
     return aSearchPattern.firstOccurenceIn(text.toString());
   }
 
+  /**
+   * Returns the start and end position of the last occurrence of the string in the text
+   * 
+   * @param aSearchPattern the search pattern
+   * @return the position
+   */
   public FindSpot lastOccurence(SearchPattern aSearchPattern) {
     return aSearchPattern.lastOccurenceIn(text.toString());
   }
 
+  /**
+   * Returns the whole (trimmed) text before the given dom node
+   * 
+   * @param aDomNode the node to look at
+   * @return the text before the node
+   */
   public String getTextBefore(final DomNode aDomNode) {
     FindSpot tmpFindSpot = positions.get(aDomNode);
     if (null == tmpFindSpot) {
@@ -117,6 +161,12 @@ public class DomNodeText {
     return text.substring(0, tmpFindSpot.startPos).trim();
   }
 
+  /**
+   * Returns the whole (trimmed) text between this element and the preceding form element or the form start
+   * 
+   * @param anHtmlElement the element to start from
+   * @return the text before
+   */
   public String getLabelTextBefore(final HtmlElement anHtmlElement) {
     FindSpot tmpFindSpot = positions.get(anHtmlElement);
     if (null == tmpFindSpot) {
@@ -155,6 +205,12 @@ public class DomNodeText {
     return text.substring(tmpStartPos, tmpFindSpot.startPos).trim();
   }
 
+  /**
+   * Returns the whole (trimmed) text between this element and the next form element or the form end
+   * 
+   * @param anHtmlElement the element to start from
+   * @return the text after
+   */
   public String getLabelTextAfter(final HtmlElement anHtmlElement) {
     FindSpot tmpFindSpot = positions.get(anHtmlElement);
     if (null == tmpFindSpot) {
@@ -190,6 +246,12 @@ public class DomNodeText {
     return text.substring(tmpFindSpot.endPos, tmpEndPos).trim();
   }
 
+  /**
+   * Returns the (trimmed) text of the given node and all its childs
+   * 
+   * @param aDomNode the node to look at
+   * @return the text
+   */
   public String getAsText(final DomNode aDomNode) {
     FindSpot tmpFindSpot = positions.get(aDomNode);
     if (null == tmpFindSpot) {
