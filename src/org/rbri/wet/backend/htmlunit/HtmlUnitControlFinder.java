@@ -881,20 +881,25 @@ public class HtmlUnitControlFinder implements ControlFinder {
     SearchPattern tmpSearchPattern = aSearch.get(aSearch.size() - 1).getSearchPattern();
     SearchPattern tmpPathSearchPattern = SearchPattern.createFromList(aSearch, aSearch.size() - 1);
 
+    FindSpot tmpPathSpot = domNodeText.firstOccurence(tmpPathSearchPattern);
+
     // search with id
-    Iterable<HtmlElement> tmpElements = htmlPage.getHtmlElementDescendants();
-    for (HtmlElement tmpElement : tmpElements) {
-      String tmpTextBefore = domNodeText.getTextBefore(tmpElement);
+    for (HtmlElement tmpHtmlElement : domNodeText.getAllVisibleHtmlElements()) {
+      FindSpot tmpNodeSpot = domNodeText.getPosition(tmpHtmlElement);
 
-      int tmpDistance = tmpPathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
+      // has the node the text before
+      if (tmpPathSpot.endPos <= tmpNodeSpot.startPos) {
 
-      String tmpId = tmpElement.getId();
-      if (StringUtils.isNotEmpty(tmpId) && tmpSearchPattern.matches(tmpId)) {
-        int tmpCoverage = tmpSearchPattern.noOfSurroundingCharsIn(tmpId);
-        if ((tmpCoverage > -1) && (tmpDistance > -1)) {
-          tmpFoundElements.add(new HtmlUnitControl(tmpElement), WeightedControlList.FoundType.BY_ID, tmpCoverage,
-              tmpDistance);
-          continue;
+        String tmpId = tmpHtmlElement.getId();
+        if (StringUtils.isNotEmpty(tmpId) && tmpSearchPattern.matches(tmpId)) {
+          int tmpCoverage = tmpSearchPattern.noOfSurroundingCharsIn(tmpId);
+          if (tmpCoverage > -1) {
+            String tmpTextBefore = domNodeText.getTextBefore(tmpHtmlElement);
+            int tmpDistance = tmpPathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
+            tmpFoundElements.add(new HtmlUnitControl(tmpHtmlElement), WeightedControlList.FoundType.BY_ID, tmpCoverage,
+                tmpDistance);
+            continue;
+          }
         }
       }
     }
@@ -905,7 +910,6 @@ public class HtmlUnitControlFinder implements ControlFinder {
     }
 
     // TODO use only elements from body
-    FindSpot tmpPathSpot = domNodeText.firstOccurence(tmpPathSearchPattern);
     for (HtmlElement tmpHtmlElement : domNodeText.getAllVisibleHtmlElementsBottomUpBottomUp()) {
       FindSpot tmpNodeSpot = domNodeText.getPosition(tmpHtmlElement);
 
