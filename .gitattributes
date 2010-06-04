@@ -6,6 +6,9 @@
 .settings/org.eclipse.jdt.launching.prefs -text svneol=unset#text/plain
 .settings/org.eclipse.jdt.ui.prefs -text svneol=unset#text/plain
 /LICENSE.txt -text
+ant_lib/ivy-2.1.0.jar -text
+ant_lib/one-jar-ant-task-0.96.jar -text
+ant_lib/version_tool.jar -text
 /build-properties.xml -text
 /build.xml -text
 /chat -text
