@@ -62,7 +62,13 @@ import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
 public class HtmlUnitControlFinder implements ControlFinder {
   private static final Log LOG = LogFactory.getLog(HtmlUnitControlFinder.class);;
 
+  /**
+   * the page to work on
+   */
   protected HtmlPage htmlPage;
+  /**
+   * the DomNodeText index of the page
+   */
   protected DomNodeText domNodeText;
 
   /**
@@ -102,6 +108,9 @@ public class HtmlUnitControlFinder implements ControlFinder {
     SearchPattern tmpWholePathSearchPattern = SearchPattern.createFromList(aSearch);
 
     FindSpot tmpPathSpot = domNodeText.firstOccurence(tmpPathSearchPattern);
+    if (null == tmpPathSpot) {
+      return tmpFoundElements;
+    }
 
     for (HtmlElement tmpHtmlElement : domNodeText.getAllVisibleHtmlElements()) {
 
@@ -233,248 +242,311 @@ public class HtmlUnitControlFinder implements ControlFinder {
     SearchPattern tmpSearchPattern = aSearch.get(aSearch.size() - 1).getSearchPattern();
     SearchPattern tmpPathSearchPattern = SearchPattern.createFromList(aSearch, aSearch.size() - 1);
 
-    for (HtmlElement tmpElement : domNodeText.getAllVisibleHtmlElements()) {
-      if ((tmpElement instanceof HtmlSubmitInput) || (tmpElement instanceof HtmlResetInput)
-          || (tmpElement instanceof HtmlButtonInput)) {
+    FindSpot tmpPathSpot = domNodeText.firstOccurence(tmpPathSearchPattern);
+    if (null == tmpPathSpot) {
+      return tmpFoundElements;
+    }
 
-        String tmpLabel = tmpElement.getAttribute("value");
-        String tmpTextBefore = domNodeText.getTextBefore(tmpElement);
+    for (HtmlElement tmpHtmlElement : domNodeText.getAllVisibleHtmlElements()) {
+      if ((tmpHtmlElement instanceof HtmlSubmitInput) || (tmpHtmlElement instanceof HtmlResetInput)
+          || (tmpHtmlElement instanceof HtmlButtonInput)) {
 
-        int tmpDistance = tmpPathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
+        // has the node the text before
+        FindSpot tmpNodeSpot = domNodeText.getPosition(tmpHtmlElement);
+        if (tmpPathSpot.endPos <= tmpNodeSpot.startPos) {
 
-        int tmpCoverage = tmpSearchPattern.noOfSurroundingCharsIn(tmpLabel);
-        if ((tmpDistance > -1) && (tmpCoverage > -1)) {
-          tmpFoundElements.add(new HtmlUnitControl(tmpElement), WeightedControlList.FoundType.BY_LABEL_TEXT,
-              tmpCoverage, tmpDistance);
-          continue;
-        }
+          String tmpLabel = tmpHtmlElement.getAttribute("value");
 
-        String tmpName = tmpElement.getAttribute("name");
-        if (StringUtils.isNotEmpty(tmpName) && tmpSearchPattern.matches(tmpName)) {
-          tmpCoverage = tmpSearchPattern.noOfSurroundingCharsIn(tmpName);
-          if ((tmpCoverage > -1) && (tmpDistance > -1)) {
-            tmpFoundElements.add(new HtmlUnitControl(tmpElement), WeightedControlList.FoundType.BY_NAME, tmpCoverage,
-                tmpDistance);
+          int tmpCoverage = tmpSearchPattern.noOfSurroundingCharsIn(tmpLabel);
+          if (tmpCoverage > -1) {
+            String tmpTextBefore = domNodeText.getTextBefore(tmpHtmlElement);
+            int tmpDistance = tmpPathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
+            tmpFoundElements.add(new HtmlUnitControl(tmpHtmlElement), WeightedControlList.FoundType.BY_LABEL_TEXT,
+                tmpCoverage, tmpDistance);
             continue;
           }
-        }
-      } else if (tmpElement instanceof HtmlImageInput) {
-        HtmlImageInput tmpImage = (HtmlImageInput) tmpElement;
-        String tmpTextBefore = domNodeText.getTextBefore(tmpElement);
 
-        int tmpDistance = tmpPathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
-
-        // does image alt-text match?
-        int tmpCoverage = tmpSearchPattern.noOfSurroundingCharsIn(tmpImage.getAltAttribute());
-        if ((tmpDistance > -1) && (tmpCoverage > -1)) {
-          tmpFoundElements.add(new HtmlUnitControl(tmpElement), WeightedControlList.FoundType.BY_IMG_ALT_ATTRIBUTE,
-              tmpCoverage, tmpDistance);
-          continue;
-        }
-
-        // does image title-text match?
-        tmpCoverage = tmpSearchPattern.noOfSurroundingCharsIn(tmpImage.getAttribute("title"));
-        if ((tmpDistance > -1) && (tmpCoverage > -1)) {
-          tmpFoundElements.add(new HtmlUnitControl(tmpElement), WeightedControlList.FoundType.BY_IMG_TITLE_ATTRIBUTE,
-              tmpCoverage, tmpDistance);
-          continue;
-        }
-
-        // does image filename match?
-        String tmpSrc = tmpImage.getSrcAttribute();
-        if ((tmpSearchPattern.matchesAtEnd(tmpSrc)) && (tmpDistance > -1)) {
-          tmpCoverage = tmpSearchPattern.noOfCharsBeforeLastOccurenceIn(tmpSrc);
-          tmpFoundElements.add(new HtmlUnitControl(tmpElement), WeightedControlList.FoundType.BY_IMG_SRC_ATTRIBUTE,
-              tmpCoverage, tmpDistance);
-          continue;
-        }
-
-        String tmpName = tmpElement.getAttribute("name");
-        if (StringUtils.isNotEmpty(tmpName) && tmpSearchPattern.matches(tmpName)) {
-          tmpCoverage = tmpSearchPattern.noOfSurroundingCharsIn(tmpName);
-          if ((tmpCoverage > -1) && (tmpDistance > -1)) {
-            tmpFoundElements.add(new HtmlUnitControl(tmpElement), WeightedControlList.FoundType.BY_NAME, tmpCoverage,
-                tmpDistance);
-            continue;
-          }
-        }
-      } else if (tmpElement instanceof HtmlButton) {
-        String tmpLabel = domNodeText.getAsText(tmpElement);
-        String tmpTextBefore = domNodeText.getTextBefore(tmpElement);
-
-        int tmpDistance = tmpPathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
-
-        int tmpCoverage = tmpSearchPattern.noOfSurroundingCharsIn(tmpLabel);
-        if ((tmpDistance > -1) && (tmpCoverage > -1)) {
-          tmpFoundElements.add(new HtmlUnitControl(tmpElement), WeightedControlList.FoundType.BY_LABEL_TEXT,
-              tmpCoverage, tmpDistance);
-          continue;
-        }
-
-        String tmpName = tmpElement.getAttribute("name");
-        if (StringUtils.isNotEmpty(tmpName) && tmpSearchPattern.matches(tmpName)) {
-          tmpCoverage = tmpSearchPattern.noOfSurroundingCharsIn(tmpName);
-          if ((tmpCoverage > -1) && (tmpDistance > -1)) {
-            tmpFoundElements.add(new HtmlUnitControl(tmpElement), WeightedControlList.FoundType.BY_NAME, tmpCoverage,
-                tmpDistance);
-            continue;
-          }
-        }
-
-        // now check for the including image
-        Iterable<HtmlElement> tmpAllChilds = tmpElement.getHtmlElementDescendants();
-        for (HtmlElement tmpInnerElement : tmpAllChilds) {
-          if (tmpInnerElement instanceof HtmlImage) {
-            HtmlImage tmpImage = (HtmlImage) tmpInnerElement;
-            // check for the image alt tag is not needed, alt text is part of the button text text
-
-            // does image title-text match?
-            tmpCoverage = tmpSearchPattern.noOfSurroundingCharsIn(tmpImage.getAttribute("title"));
-            if ((tmpDistance > -1) && (tmpCoverage > -1)) {
-              tmpFoundElements.add(new HtmlUnitControl(tmpElement),
-                  WeightedControlList.FoundType.BY_INNER_IMG_TITLE_ATTRIBUTE, tmpCoverage, tmpDistance);
+          String tmpName = tmpHtmlElement.getAttribute("name");
+          if (StringUtils.isNotEmpty(tmpName) && tmpSearchPattern.matches(tmpName)) {
+            tmpCoverage = tmpSearchPattern.noOfSurroundingCharsIn(tmpName);
+            if (tmpCoverage > -1) {
+              String tmpTextBefore = domNodeText.getTextBefore(tmpHtmlElement);
+              int tmpDistance = tmpPathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
+              tmpFoundElements.add(new HtmlUnitControl(tmpHtmlElement), WeightedControlList.FoundType.BY_NAME, tmpCoverage,
+                  tmpDistance);
               continue;
             }
+          }
+        }
+      } else if (tmpHtmlElement instanceof HtmlImageInput) {
 
-            // does image filename match?
-            String tmpSrc = tmpImage.getSrcAttribute();
-            if ((tmpSearchPattern.matchesAtEnd(tmpSrc)) && (tmpDistance > -1)) {
-              tmpCoverage = tmpSearchPattern.noOfCharsBeforeLastOccurenceIn(tmpSrc);
-              tmpFoundElements.add(new HtmlUnitControl(tmpElement),
-                  WeightedControlList.FoundType.BY_INNER_IMG_SRC_ATTRIBUTE, tmpCoverage, tmpDistance);
+        // has the node the text before
+        FindSpot tmpNodeSpot = domNodeText.getPosition(tmpHtmlElement);
+        if (tmpPathSpot.endPos <= tmpNodeSpot.startPos) {
+
+          HtmlImageInput tmpImage = (HtmlImageInput) tmpHtmlElement;
+
+          // does image alt-text match?
+          int tmpCoverage = tmpSearchPattern.noOfSurroundingCharsIn(tmpImage.getAltAttribute());
+          if (tmpCoverage > -1) {
+            String tmpTextBefore = domNodeText.getTextBefore(tmpHtmlElement);
+            int tmpDistance = tmpPathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
+            tmpFoundElements.add(new HtmlUnitControl(tmpHtmlElement), WeightedControlList.FoundType.BY_IMG_ALT_ATTRIBUTE,
+                tmpCoverage, tmpDistance);
+            continue;
+          }
+
+          // does image title-text match?
+          tmpCoverage = tmpSearchPattern.noOfSurroundingCharsIn(tmpImage.getAttribute("title"));
+          if (tmpCoverage > -1) {
+            String tmpTextBefore = domNodeText.getTextBefore(tmpHtmlElement);
+            int tmpDistance = tmpPathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
+            tmpFoundElements.add(new HtmlUnitControl(tmpHtmlElement), WeightedControlList.FoundType.BY_IMG_TITLE_ATTRIBUTE,
+                tmpCoverage, tmpDistance);
+            continue;
+          }
+
+          // does image filename match?
+          String tmpSrc = tmpImage.getSrcAttribute();
+          if (tmpSearchPattern.matchesAtEnd(tmpSrc)) {
+            String tmpTextBefore = domNodeText.getTextBefore(tmpHtmlElement);
+            int tmpDistance = tmpPathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
+            tmpCoverage = tmpSearchPattern.noOfCharsBeforeLastOccurenceIn(tmpSrc);
+            tmpFoundElements.add(new HtmlUnitControl(tmpHtmlElement), WeightedControlList.FoundType.BY_IMG_SRC_ATTRIBUTE,
+                tmpCoverage, tmpDistance);
+            continue;
+          }
+
+          String tmpName = tmpHtmlElement.getAttribute("name");
+          if (StringUtils.isNotEmpty(tmpName) && tmpSearchPattern.matches(tmpName)) {
+            tmpCoverage = tmpSearchPattern.noOfSurroundingCharsIn(tmpName);
+            if (tmpCoverage > -1) {
+              String tmpTextBefore = domNodeText.getTextBefore(tmpHtmlElement);
+              int tmpDistance = tmpPathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
+              tmpFoundElements.add(new HtmlUnitControl(tmpHtmlElement), WeightedControlList.FoundType.BY_NAME, tmpCoverage,
+                  tmpDistance);
               continue;
             }
+          }
+        }
+      } else if (tmpHtmlElement instanceof HtmlButton) {
 
-            tmpName = tmpImage.getAttribute("name");
-            if (StringUtils.isNotEmpty(tmpName) && tmpSearchPattern.matches(tmpName)) {
-              tmpCoverage = tmpSearchPattern.noOfSurroundingCharsIn(tmpName);
-              if ((tmpCoverage > -1) && (tmpDistance > -1)) {
-                tmpFoundElements.add(new HtmlUnitControl(tmpElement), WeightedControlList.FoundType.BY_INNER_NAME,
-                    tmpCoverage, tmpDistance);
+        // has the node the text before
+        FindSpot tmpNodeSpot = domNodeText.getPosition(tmpHtmlElement);
+        if (tmpPathSpot.endPos <= tmpNodeSpot.startPos) {
+
+          String tmpLabel = domNodeText.getAsText(tmpHtmlElement);
+
+          int tmpCoverage = tmpSearchPattern.noOfSurroundingCharsIn(tmpLabel);
+          if (tmpCoverage > -1) {
+            String tmpTextBefore = domNodeText.getTextBefore(tmpHtmlElement);
+            int tmpDistance = tmpPathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
+            tmpFoundElements.add(new HtmlUnitControl(tmpHtmlElement), WeightedControlList.FoundType.BY_LABEL_TEXT,
+                tmpCoverage, tmpDistance);
+            continue;
+          }
+
+          String tmpName = tmpHtmlElement.getAttribute("name");
+          if (StringUtils.isNotEmpty(tmpName) && tmpSearchPattern.matches(tmpName)) {
+            tmpCoverage = tmpSearchPattern.noOfSurroundingCharsIn(tmpName);
+            if (tmpCoverage > -1) {
+              String tmpTextBefore = domNodeText.getTextBefore(tmpHtmlElement);
+              int tmpDistance = tmpPathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
+              tmpFoundElements.add(new HtmlUnitControl(tmpHtmlElement), WeightedControlList.FoundType.BY_NAME, tmpCoverage,
+                  tmpDistance);
+              continue;
+            }
+          }
+
+          // now check for the including image
+          Iterable<HtmlElement> tmpAllChilds = tmpHtmlElement.getHtmlElementDescendants();
+          for (HtmlElement tmpInnerElement : tmpAllChilds) {
+            if (tmpInnerElement instanceof HtmlImage) {
+              HtmlImage tmpImage = (HtmlImage) tmpInnerElement;
+              // check for the image alt tag is not needed, alt text is part of the button text text
+
+              // does image title-text match?
+              tmpCoverage = tmpSearchPattern.noOfSurroundingCharsIn(tmpImage.getAttribute("title"));
+              if (tmpCoverage > -1) {
+                String tmpTextBefore = domNodeText.getTextBefore(tmpHtmlElement);
+                int tmpDistance = tmpPathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
+                tmpFoundElements.add(new HtmlUnitControl(tmpHtmlElement),
+                    WeightedControlList.FoundType.BY_INNER_IMG_TITLE_ATTRIBUTE, tmpCoverage, tmpDistance);
                 continue;
+              }
+
+              // does image filename match?
+              String tmpSrc = tmpImage.getSrcAttribute();
+              if (tmpSearchPattern.matchesAtEnd(tmpSrc)) {
+                String tmpTextBefore = domNodeText.getTextBefore(tmpHtmlElement);
+                int tmpDistance = tmpPathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
+                tmpCoverage = tmpSearchPattern.noOfCharsBeforeLastOccurenceIn(tmpSrc);
+                tmpFoundElements.add(new HtmlUnitControl(tmpHtmlElement),
+                    WeightedControlList.FoundType.BY_INNER_IMG_SRC_ATTRIBUTE, tmpCoverage, tmpDistance);
+                continue;
+              }
+
+              tmpName = tmpImage.getAttribute("name");
+              if (StringUtils.isNotEmpty(tmpName) && tmpSearchPattern.matches(tmpName)) {
+                tmpCoverage = tmpSearchPattern.noOfSurroundingCharsIn(tmpName);
+                if (tmpCoverage > -1) {
+                  String tmpTextBefore = domNodeText.getTextBefore(tmpHtmlElement);
+                  int tmpDistance = tmpPathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
+                  tmpFoundElements.add(new HtmlUnitControl(tmpHtmlElement), WeightedControlList.FoundType.BY_INNER_NAME,
+                      tmpCoverage, tmpDistance);
+                  continue;
+                }
               }
             }
           }
         }
-      } else if (tmpElement instanceof HtmlAnchor) {
-        HtmlAnchor tmpAnchor = (HtmlAnchor) tmpElement;
-        String tmpTextBefore = domNodeText.getTextBefore(tmpElement);
+      } else if (tmpHtmlElement instanceof HtmlAnchor) {
 
-        int tmpDistance = tmpPathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
+        // has the node the text before
+        FindSpot tmpNodeSpot = domNodeText.getPosition(tmpHtmlElement);
+        if (tmpPathSpot.endPos <= tmpNodeSpot.startPos) {
 
-        // text match?
-        String tmpText = domNodeText.getAsText(tmpAnchor);
-        int tmpCoverage = tmpSearchPattern.noOfSurroundingCharsIn(tmpText);
-        if ((tmpDistance > -1) && (tmpCoverage > -1)) {
-          tmpFoundElements.add(new HtmlUnitControl(tmpAnchor), WeightedControlList.FoundType.BY_LABEL_TEXT,
-              tmpCoverage, tmpDistance);
-          continue;
-        }
+          HtmlAnchor tmpAnchor = (HtmlAnchor) tmpHtmlElement;
 
-        // now check for the including image
-        Iterable<HtmlElement> tmpAllchildElements = tmpAnchor.getHtmlElementDescendants();
-        for (HtmlElement tmpChildElement : tmpAllchildElements) {
-          if (tmpChildElement instanceof HtmlImage) {
-            HtmlImage tmpImage = (HtmlImage) tmpChildElement;
-            // check for the image alt tag is not needed, alt text is part of the anchor text
+          // text match?
+          String tmpText = domNodeText.getAsText(tmpAnchor);
+          int tmpCoverage = tmpSearchPattern.noOfSurroundingCharsIn(tmpText);
+          if (tmpCoverage > -1) {
+            String tmpTextBefore = domNodeText.getTextBefore(tmpHtmlElement);
+            int tmpDistance = tmpPathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
+            tmpFoundElements.add(new HtmlUnitControl(tmpAnchor), WeightedControlList.FoundType.BY_LABEL_TEXT,
+                tmpCoverage, tmpDistance);
+            continue;
+          }
 
-            // does image title-text match?
-            tmpCoverage = tmpSearchPattern.noOfSurroundingCharsIn(tmpImage.getAttribute("title"));
-            if ((tmpDistance > -1) && (tmpCoverage > -1)) {
-              tmpFoundElements.add(new HtmlUnitControl(tmpAnchor),
-                  WeightedControlList.FoundType.BY_INNER_IMG_TITLE_ATTRIBUTE, tmpCoverage, tmpDistance);
-              continue;
-            }
+          // now check for the including image
+          Iterable<HtmlElement> tmpAllchildElements = tmpAnchor.getHtmlElementDescendants();
+          for (HtmlElement tmpChildElement : tmpAllchildElements) {
+            if (tmpChildElement instanceof HtmlImage) {
+              HtmlImage tmpImage = (HtmlImage) tmpChildElement;
+              // check for the image alt tag is not needed, alt text is part of the anchor text
 
-            // does image filename match?
-            String tmpSrc = tmpImage.getSrcAttribute();
-            if ((tmpSearchPattern.matchesAtEnd(tmpSrc)) && (tmpDistance > -1)) {
-              tmpCoverage = tmpSearchPattern.noOfCharsBeforeLastOccurenceIn(tmpSrc);
-              tmpFoundElements.add(new HtmlUnitControl(tmpAnchor),
-                  WeightedControlList.FoundType.BY_INNER_IMG_SRC_ATTRIBUTE, tmpCoverage, tmpDistance);
-              continue;
-            }
-
-            String tmpName = tmpImage.getAttribute("name");
-            if (StringUtils.isNotEmpty(tmpName) && tmpSearchPattern.matches(tmpName)) {
-              tmpCoverage = tmpSearchPattern.noOfSurroundingCharsIn(tmpName);
-              if ((tmpCoverage > -1) && (tmpDistance > -1)) {
-                tmpFoundElements.add(new HtmlUnitControl(tmpAnchor), WeightedControlList.FoundType.BY_INNER_NAME,
-                    tmpCoverage, tmpDistance);
+              // does image title-text match?
+              tmpCoverage = tmpSearchPattern.noOfSurroundingCharsIn(tmpImage.getAttribute("title"));
+              if (tmpCoverage > -1) {
+                String tmpTextBefore = domNodeText.getTextBefore(tmpHtmlElement);
+                int tmpDistance = tmpPathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
+                tmpFoundElements.add(new HtmlUnitControl(tmpAnchor),
+                    WeightedControlList.FoundType.BY_INNER_IMG_TITLE_ATTRIBUTE, tmpCoverage, tmpDistance);
                 continue;
+              }
+
+              // does image filename match?
+              String tmpSrc = tmpImage.getSrcAttribute();
+              if (tmpSearchPattern.matchesAtEnd(tmpSrc)) {
+                String tmpTextBefore = domNodeText.getTextBefore(tmpHtmlElement);
+                int tmpDistance = tmpPathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
+                tmpCoverage = tmpSearchPattern.noOfCharsBeforeLastOccurenceIn(tmpSrc);
+                tmpFoundElements.add(new HtmlUnitControl(tmpAnchor),
+                    WeightedControlList.FoundType.BY_INNER_IMG_SRC_ATTRIBUTE, tmpCoverage, tmpDistance);
+                continue;
+              }
+
+              String tmpName = tmpImage.getAttribute("name");
+              if (StringUtils.isNotEmpty(tmpName) && tmpSearchPattern.matches(tmpName)) {
+                tmpCoverage = tmpSearchPattern.noOfSurroundingCharsIn(tmpName);
+                if (tmpCoverage > -1) {
+                  String tmpTextBefore = domNodeText.getTextBefore(tmpHtmlElement);
+                  int tmpDistance = tmpPathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
+                  tmpFoundElements.add(new HtmlUnitControl(tmpAnchor), WeightedControlList.FoundType.BY_INNER_NAME,
+                      tmpCoverage, tmpDistance);
+                  continue;
+                }
               }
             }
           }
-        }
 
-        // name match?
-        String tmpName = tmpElement.getAttribute("name");
-        if (StringUtils.isNotEmpty(tmpName) && tmpSearchPattern.matches(tmpName)) {
-          tmpCoverage = tmpSearchPattern.noOfSurroundingCharsIn(tmpName);
-          if ((tmpCoverage > -1) && (tmpDistance > -1)) {
-            tmpFoundElements.add(new HtmlUnitControl(tmpAnchor), WeightedControlList.FoundType.BY_NAME, tmpCoverage,
-                tmpDistance);
-            continue;
+          // name match?
+          String tmpName = tmpHtmlElement.getAttribute("name");
+          if (StringUtils.isNotEmpty(tmpName) && tmpSearchPattern.matches(tmpName)) {
+            tmpCoverage = tmpSearchPattern.noOfSurroundingCharsIn(tmpName);
+            if (tmpCoverage > -1) {
+              String tmpTextBefore = domNodeText.getTextBefore(tmpHtmlElement);
+              int tmpDistance = tmpPathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
+              tmpFoundElements.add(new HtmlUnitControl(tmpAnchor), WeightedControlList.FoundType.BY_NAME, tmpCoverage,
+                  tmpDistance);
+              continue;
+            }
           }
         }
-      } else if (tmpElement instanceof HtmlImage) {
-        HtmlImage tmpImage = (HtmlImage) tmpElement;
-        String tmpTextBefore = domNodeText.getTextBefore(tmpElement);
+      } else if (tmpHtmlElement instanceof HtmlImage) {
 
-        int tmpDistance = tmpPathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
+        // has the node the text before
+        FindSpot tmpNodeSpot = domNodeText.getPosition(tmpHtmlElement);
+        if (tmpPathSpot.endPos <= tmpNodeSpot.startPos) {
 
-        // does image alt-text match?
-        int tmpCoverage = tmpSearchPattern.noOfSurroundingCharsIn(tmpImage.getAltAttribute());
-        if ((tmpDistance > -1) && (tmpCoverage > -1)) {
-          tmpFoundElements.add(new HtmlUnitControl(tmpImage), WeightedControlList.FoundType.BY_IMG_ALT_ATTRIBUTE,
-              tmpCoverage, tmpDistance);
-          continue;
-        }
+          HtmlImage tmpImage = (HtmlImage) tmpHtmlElement;
 
-        // does image title-text match?
-        tmpCoverage = tmpSearchPattern.noOfSurroundingCharsIn(tmpImage.getAttribute("title"));
-        if ((tmpDistance > -1) && (tmpCoverage > -1)) {
-          tmpFoundElements.add(new HtmlUnitControl(tmpImage), WeightedControlList.FoundType.BY_IMG_TITLE_ATTRIBUTE,
-              tmpCoverage, tmpDistance);
-          continue;
-        }
-
-        // does image filename match?
-        String tmpSrc = tmpImage.getSrcAttribute();
-        if ((tmpSearchPattern.matchesAtEnd(tmpSrc)) && (tmpDistance > -1)) {
-          tmpCoverage = tmpSearchPattern.noOfCharsBeforeLastOccurenceIn(tmpSrc);
-          tmpFoundElements.add(new HtmlUnitControl(tmpImage), WeightedControlList.FoundType.BY_IMG_SRC_ATTRIBUTE,
-              tmpCoverage, tmpDistance);
-          continue;
-        }
-
-        String tmpName = tmpImage.getAttribute("name");
-        if (StringUtils.isNotEmpty(tmpName) && tmpSearchPattern.matches(tmpName)) {
-          tmpCoverage = tmpSearchPattern.noOfSurroundingCharsIn(tmpName);
-          if ((tmpCoverage > -1) && (tmpDistance > -1)) {
-            tmpFoundElements.add(new HtmlUnitControl(tmpImage), WeightedControlList.FoundType.BY_NAME, tmpCoverage,
-                tmpDistance);
+          // does image alt-text match?
+          int tmpCoverage = tmpSearchPattern.noOfSurroundingCharsIn(tmpImage.getAltAttribute());
+          if (tmpCoverage > -1) {
+            String tmpTextBefore = domNodeText.getTextBefore(tmpHtmlElement);
+            int tmpDistance = tmpPathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
+            tmpFoundElements.add(new HtmlUnitControl(tmpImage), WeightedControlList.FoundType.BY_IMG_ALT_ATTRIBUTE,
+                tmpCoverage, tmpDistance);
             continue;
+          }
+
+          // does image title-text match?
+          tmpCoverage = tmpSearchPattern.noOfSurroundingCharsIn(tmpImage.getAttribute("title"));
+          if (tmpCoverage > -1) {
+            String tmpTextBefore = domNodeText.getTextBefore(tmpHtmlElement);
+            int tmpDistance = tmpPathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
+            tmpFoundElements.add(new HtmlUnitControl(tmpImage), WeightedControlList.FoundType.BY_IMG_TITLE_ATTRIBUTE,
+                tmpCoverage, tmpDistance);
+            continue;
+          }
+
+          // does image filename match?
+          String tmpSrc = tmpImage.getSrcAttribute();
+          if (tmpSearchPattern.matchesAtEnd(tmpSrc)) {
+            tmpCoverage = tmpSearchPattern.noOfCharsBeforeLastOccurenceIn(tmpSrc);
+            String tmpTextBefore = domNodeText.getTextBefore(tmpHtmlElement);
+            int tmpDistance = tmpPathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
+            tmpFoundElements.add(new HtmlUnitControl(tmpImage), WeightedControlList.FoundType.BY_IMG_SRC_ATTRIBUTE,
+                tmpCoverage, tmpDistance);
+            continue;
+          }
+
+          String tmpName = tmpImage.getAttribute("name");
+          if (StringUtils.isNotEmpty(tmpName) && tmpSearchPattern.matches(tmpName)) {
+            tmpCoverage = tmpSearchPattern.noOfSurroundingCharsIn(tmpName);
+            if (tmpCoverage > -1) {
+              String tmpTextBefore = domNodeText.getTextBefore(tmpHtmlElement);
+              int tmpDistance = tmpPathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
+              tmpFoundElements.add(new HtmlUnitControl(tmpImage), WeightedControlList.FoundType.BY_NAME, tmpCoverage,
+                  tmpDistance);
+              continue;
+            }
           }
         }
       }
 
       // id match?
-      if ((tmpElement instanceof HtmlSubmitInput) || (tmpElement instanceof HtmlResetInput)
-          || (tmpElement instanceof HtmlButtonInput) || (tmpElement instanceof HtmlImageInput)
-          || (tmpElement instanceof HtmlButton) || (tmpElement instanceof HtmlAnchor)
-          || (tmpElement instanceof HtmlImage)) {
-        String tmpTextBefore = domNodeText.getTextBefore(tmpElement);
+      if ((tmpHtmlElement instanceof HtmlSubmitInput) || (tmpHtmlElement instanceof HtmlResetInput)
+          || (tmpHtmlElement instanceof HtmlButtonInput) || (tmpHtmlElement instanceof HtmlImageInput)
+          || (tmpHtmlElement instanceof HtmlButton) || (tmpHtmlElement instanceof HtmlAnchor)
+          || (tmpHtmlElement instanceof HtmlImage)) {
 
-        int tmpDistance = tmpPathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
+        // has the node the text before
+        FindSpot tmpNodeSpot = domNodeText.getPosition(tmpHtmlElement);
+        if (tmpPathSpot.endPos <= tmpNodeSpot.startPos) {
 
-        String tmpId = tmpElement.getId();
-        if (StringUtils.isNotEmpty(tmpId) && tmpSearchPattern.matches(tmpId)) {
-          int tmpCoverage = tmpSearchPattern.noOfSurroundingCharsIn(tmpId);
-          if ((tmpCoverage > -1) && (tmpDistance > -1)) {
-            tmpFoundElements.add(new HtmlUnitControl(tmpElement), WeightedControlList.FoundType.BY_ID, tmpCoverage,
-                tmpDistance);
-            continue;
+          String tmpId = tmpHtmlElement.getId();
+          if (StringUtils.isNotEmpty(tmpId) && tmpSearchPattern.matches(tmpId)) {
+            int tmpCoverage = tmpSearchPattern.noOfSurroundingCharsIn(tmpId);
+            if (tmpCoverage > -1) {
+              String tmpTextBefore = domNodeText.getTextBefore(tmpHtmlElement);
+              int tmpDistance = tmpPathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
+              tmpFoundElements.add(new HtmlUnitControl(tmpHtmlElement), WeightedControlList.FoundType.BY_ID, tmpCoverage,
+                  tmpDistance);
+              continue;
+            }
           }
         }
       }
