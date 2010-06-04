@@ -165,9 +165,10 @@ public class DomNodeText {
    * Returns the whole (trimmed) text between this element and the preceding form element or the form start
    * 
    * @param anHtmlElement the element to start from
+   * @param aStartPos the start pos, text found before this will be not part of the result
    * @return the text before
    */
-  public String getLabelTextBefore(final HtmlElement anHtmlElement) {
+  public String getLabelTextBefore(final HtmlElement anHtmlElement, final int aStartPos) {
     FindSpot tmpFindSpot = positions.get(anHtmlElement);
     if (null == tmpFindSpot) {
       return null;
@@ -202,7 +203,7 @@ public class DomNodeText {
       }
     }
 
-    return text.substring(tmpStartPos, tmpFindSpot.startPos).trim();
+    return text.substring(Math.max(tmpStartPos, aStartPos), tmpFindSpot.startPos).trim();
   }
 
   /**
