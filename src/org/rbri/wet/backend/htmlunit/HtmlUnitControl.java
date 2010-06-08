@@ -39,6 +39,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlButtonInput;
 import com.gargoylesoftware.htmlunit.html.HtmlCheckBoxInput;
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlFileInput;
+import com.gargoylesoftware.htmlunit.html.HtmlHiddenInput;
 import com.gargoylesoftware.htmlunit.html.HtmlImage;
 import com.gargoylesoftware.htmlunit.html.HtmlImageInput;
 import com.gargoylesoftware.htmlunit.html.HtmlInput;
@@ -228,6 +229,9 @@ public final class HtmlUnitControl implements Control {
 
           tmpHtmlFileInput.setValueAttribute(tmpFile.getAbsolutePath());
         }
+      } else if (tmpHtmlElement instanceof HtmlHiddenInput) {
+        HtmlHiddenInput tmpHtmlHiddenInput = (HtmlHiddenInput) tmpHtmlElement;
+        tmpHtmlHiddenInput.setValueAttribute(aValue.getValue());
       } else if (tmpHtmlElement instanceof HtmlInput) {
         HtmlInput tmpHtmlInput = (HtmlInput) tmpHtmlElement;
         String tmpValue = aValue.getValue();
