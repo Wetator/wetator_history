@@ -77,7 +77,12 @@ public class HtmlUnitControl implements Control {
     return false;
   }
 
-  private HtmlElement getHtmlElement() {
+  /**
+   * Getter for the backing htmlElement from HtmlUnit
+   * 
+   * @return the html element
+   */
+  protected HtmlElement getHtmlElement() {
     return htmlElement;
   }
 
