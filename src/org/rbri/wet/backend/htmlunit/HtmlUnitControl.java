@@ -56,11 +56,11 @@ import com.gargoylesoftware.htmlunit.html.HtmlTextArea;
 import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
 
 /**
- * The HtmlUnit backend.
+ * The HtmlUnit Control implementation.
  * 
  * @author rbri
  */
-public final class HtmlUnitControl implements Control {
+public class HtmlUnitControl implements Control {
   private HtmlElement htmlElement;
 
   public HtmlUnitControl(final HtmlElement anHtmlElement) {
