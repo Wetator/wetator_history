@@ -1,0 +1,570 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+  <title>Wetator / Event Handler</title>
+  <link type="text/css" href="../wet.css" rel="stylesheet">
+
+  <script type="text/javascript">
+  <!--
+    function writeTrace(eventText) {
+      var traceCtrl=document.getElementById('traceOutout');
+      var currentTrace = traceCtrl.value
+      traceCtrl.value = currentTrace + eventText
+    }
+  //-->
+  </script>
+
+</head>
+
+
+<body>
+
+  <div class="header">
+    <img src="../images/wetator.png" alt="Wetator">
+  </div>
+  
+  <h1 class="command_test">Wetator / Event Handler</h1>
+
+  <div class="test_content">
+
+    <table border='0' cellspacing='20' cellpadding='30'>
+      <!-- top row -->
+      <tr valign='top' bgcolor='eeeeee'>
+        <td colspan='3'>
+        <form id='mainForm' action='http://www.wetator.org/testcases/snoopy.php'>
+          <textArea id="traceOutout" name="eventTrace" cols="50" rows="10"></textArea>
+          <input type="submit" name="OnFocusOnBlurTest" value="OK">
+          <input type="reset" name="OnFocusOnBlurTestReset" value="Clear">
+        </form>
+        </td>
+      </tr>
+
+      <tr valign='top' bgcolor='eeeeee'>
+        <td>
+          <form enctype="multipart/form-data" action="http://www.wetator.org/testcases/snoopy.php" method="post">
+          <table border='0'>
+            <tr>
+              <td><h3>Buttons</h3></td>
+            </tr>
+
+            <tr>
+              <td><input type="submit" name="submitTest" value="submitTest"
+                    onClick="writeTrace('onClick(submitTest);\n');"
+              		  onChange="writeTrace('onChange(submitTest);\n');"
+              		  onFocus="writeTrace('onFocus(submitTest);\n');"
+              		  onBlur="writeTrace('onBlur(submitTest);\n');"
+                    onKeyPress = "writeTrace('onKeyPress(inputText);\n');"
+                    onKeyUp = "writeTrace('onKeyUp(inputText);\n');"
+                    onKeyDown = "writeTrace('onKeyDown(inputText);\n');"></td>
+            </tr>
+
+            <tr>
+              <td><input type="reset" name="resetTest" value="resetTest"
+                    onClick="writeTrace('onClick(resetTest);\n');"
+                    onChange="writeTrace('onChange(resetTest);\n');"
+                    onFocus="writeTrace('onFocus(resetTest);\n');"
+                    onBlur="writeTrace('onBlur(resetTest);\n');"
+                    onKeyPress = "writeTrace('onKeyPress(resetTest);\n');"
+                    onKeyUp = "writeTrace('onKeyUp(resetTest);\n');"
+                    onKeyDown = "writeTrace('onKeyDown(resetTest);\n');"></td>
+            </tr>
+
+            <tr>
+              <td><input type="button" name="buttonTest" value="buttonTest"
+                    onClick="writeTrace('onClick(buttonTest);\n');"
+                    onChange="writeTrace('onChange(buttonTest);\n');"
+                    onFocus="writeTrace('onFocus(buttonTest);\n');"
+                    onBlur="writeTrace('onBlur(buttonTest);\n');"
+                    onKeyPress = "writeTrace('onKeyPress(buttonTest);\n');"
+                    onKeyUp = "writeTrace('onKeyUp(buttonTest);\n');"
+                    onKeyDown = "writeTrace('onKeyDown(buttonTest);\n');"></td>
+            </tr>
+          </table>
+          </form>
+        </td>
+
+        <td>
+          <form enctype="multipart/form-data" action="http://www.wetator.org/testcases/snoopy.php" method="post">
+          <table border='0'>
+            <tr>
+              <td colspan="2" align="center"><h3>Sets</h3></td>
+            </tr>
+            <tr>
+              <td><label for="inputText">InputText</label></td>
+              <td><input type="text" id="inputText" name="inputText"
+                    onClick="writeTrace('onClick(inputText);\n');"
+                    onChange="writeTrace('onChange(inputText);\n');"
+                    onFocus="writeTrace('onFocus(inputText);\n');"
+                    onBlur="writeTrace('onBlur(inputText);\n');"
+                    onKeyPress = "writeTrace('onKeyPress(inputText);\n');"
+                    onKeyUp = "writeTrace('onKeyUp(inputText);\n');"
+                    onKeyDown = "writeTrace('onKeyDown(inputText);\n');"></td>
+            </tr>
+
+            <tr>
+              <td><label for="inputPassword">InputPassword</label></td>
+              <td><input type="password" id="inputPassword" name="inputPassword"
+                    onClick="writeTrace('onClick(inputPassword);\n');"
+                    onChange="writeTrace('onChange(inputPassword);\n');"
+                    onFocus="writeTrace('onFocus(inputPassword);\n');"
+                    onBlur="writeTrace('onBlur(inputPassword);\n');"
+                    onKeyPress = "writeTrace('onKeyPress(inputPassword);\n');"
+                    onKeyUp = "writeTrace('onKeyUp(inputPassword);\n');"
+                    onKeyDown = "writeTrace('onKeyDown(inputPassword);\n');"></td>
+            </tr>
+
+            <tr>
+              <td><label for="textarea">Textarea</label></td>
+              <td><textarea id="textarea" name="textarea" cols="10" rows="1"
+                    onClick="writeTrace('onClick(textarea);\n');"
+                    onChange="writeTrace('onChange(textarea);\n');"
+                    onFocus="writeTrace('onFocus(textarea);\n');"
+                    onBlur="writeTrace('onBlur(textarea);\n');"
+                    onKeyPress = "writeTrace('onKeyPress(textarea);\n');"
+                    onKeyUp = "writeTrace('onKeyUp(textarea);\n');"
+                    onKeyDown = "writeTrace('onKeyDown(textarea);\n');"></textarea></td>
+            </tr>
+
+            <tr>
+              <td><label for="upload">Upload</label></td>
+              <td><input type="file" name="upload" id="upload"
+                    onClick="writeTrace('onClick(upload);\n');"
+                    onChange="writeTrace('onChange(upload);\n');"
+                    onFocus="writeTrace('onFocus(upload);\n');"
+                    onBlur="writeTrace('onBlur(upload);\n');"
+                    onKeyPress = "writeTrace('onKeyPress(upload);\n');"
+                    onKeyUp = "writeTrace('onKeyUp(upload);\n');"
+                    onKeyDown = "writeTrace('onKeyDown(upload);\n');"></td>
+            </tr>
+
+          </table>
+          </form>
+        </td>
+
+        <td>
+          <form action="http://www.wetator.org/testcases/snoopy.php">
+          <table border='0'>
+            <tr>
+              <td colspan="2" align="center"><h3>Selects</h3></td>
+            </tr>
+            <tr>
+              <td><label for="singleSelect">SingleSelect</label></td>
+              <td>
+                <select name="singleSelect" id="singleSelect" size="2"
+                    onClick="writeTrace('onClick(singleSelect);\n');"
+                    onChange="writeTrace('onChange(singleSelect);\n');"
+                    onFocus="writeTrace('onFocus(singleSelect);\n');"
+                    onBlur="writeTrace('onBlur(singleSelect);\n');"
+                    onKeyPress = "writeTrace('onKeyPress(singleSelect);\n');"
+                    onKeyUp = "writeTrace('onKeyUp(singleSelect);\n');"
+                    onKeyDown = "writeTrace('onKeyDown(singleSelect);\n');">
+                  <option value="o_value1">option1</option>
+                  <option value="o_value2">option2</option>
+                  <option value="o_value3">option3</option>
+                  <option value="o_value4">option4</option>
+                </select>
+              </td>
+            </tr>
+
+            <tr>
+              <td><label for="multipleSelect">MultipleSelect</label></td>
+              <td>
+                <select name="multipleSelect" id="multipleSelect" size="2" multiple
+                    onClick="writeTrace('onClick(multipleSelect);\n');"
+                    onChange="writeTrace('onChange(multipleSelect);\n');"
+                    onFocus="writeTrace('onFocus(multipleSelect);\n');"
+                    onBlur="writeTrace('onBlur(multipleSelect);\n');"
+                    onKeyPress = "writeTrace('onKeyPress(multipleSelect);\n');"
+                    onKeyUp = "writeTrace('onKeyUp(multipleSelect);\n');"
+                    onKeyDown = "writeTrace('onKeyDown(multipleSelect);\n');">
+                  <option value="o_value1">option1</option>
+                  <option value="o_value2">option2</option>
+                  <option value="o_value3">option3</option>
+                  <option value="o_value4">option4</option>
+                </select>
+              </td>
+            </tr>
+
+            <tr>
+              <td><label for="checkbox">Checkbox</label></td>
+              <td>
+                <input type="checkbox" id="checkbox" name="checkbox" value="checkboxValue"
+                    onClick="writeTrace('onClick(checkbox);\n');"
+                    onChange="writeTrace('onChange(checkbox);\n');"
+                    onFocus="writeTrace('onFocus(checkbox);\n');"
+                    onBlur="writeTrace('onBlur(checkbox);\n');"
+                    onKeyPress = "writeTrace('onKeyPress(checkbox);\n');"
+                    onKeyUp = "writeTrace('onKeyUp(checkbox);\n');"
+                    onKeyDown = "writeTrace('onKeyDown(checkbox);\n');">
+              </td>
+            </tr>
+
+            <tr>
+              <td><label>RadioGroup</label></td>
+              <td>
+                <input type="radio" id="radio1" name="radioGroup" value="r_value1"
+                    onClick="writeTrace('onClick(radio1);\n');"
+                    onChange="writeTrace('onChange(radio1);\n');"
+                    onFocus="writeTrace('onFocus(radio1);\n');"
+                    onBlur="writeTrace('onBlur(radio1);\n');"
+                    onKeyPress = "writeTrace('onKeyPress(radio1);\n');"
+                    onKeyUp = "writeTrace('onKeyUp(radio1);\n');"
+                    onKeyDown = "writeTrace('onKeyDown(radio1);\n');">Radio1<br>
+                <input type="radio" id="radio2" name="radioGroup" value="r_value2"
+                    onClick="writeTrace('onClick(radio2);\n');"
+                    onChange="writeTrace('onChange(radio2);\n');"
+                    onFocus="writeTrace('onFocus(radio2);\n');"
+                    onBlur="writeTrace('onBlur(radio2);\n');"
+                    onKeyPress = "writeTrace('onKeyPress(radio2);\n');"
+                    onKeyUp = "writeTrace('onKeyUp(radio2);\n');"
+                    onKeyDown = "writeTrace('onKeyDown(radio2);\n');">Radio2<br>
+              </td>
+            </tr>
+
+          </table>
+          </form>
+        </td>
+      </tr>
+
+      <tr valign='top' bgcolor='eeeeee'>
+        <td>
+        </td>
+
+        <td>
+          <form enctype="multipart/form-data" action="http://www.wetator.org/testcases/snoopy.php" method="post">
+          <table border='0'>
+            <tr>
+              <td colspan="2" align="center"><h3>Set with default values</h3></td>
+            </tr>
+            <tr>
+              <td><label for="inputTextDefault">InputText</label></td>
+              <td><input type="text" id="inputTextDefault" name="inputTextDefault" value="default"
+                    onClick="writeTrace('onClick(inputTextDefault);\n');"
+                    onChange="writeTrace('onChange(inputTextDefault);\n');"
+                    onFocus="writeTrace('onFocus(inputTextDefault);\n');"
+                    onBlur="writeTrace('onBlur(inputTextDefault);\n');"
+                    onKeyPress = "writeTrace('onKeyPress(inputTextDefault);\n');"
+                    onKeyUp = "writeTrace('onKeyUp(inputTextDefault);\n');"
+                    onKeyDown = "writeTrace('onKeyDown(inputTextDefault);\n');"></td>
+            </tr>
+
+            <tr>
+              <td><label for="inputPasswordDefault">InputPassword</label></td>
+              <td><input type="password" id="inputPasswordDefault" name="inputPasswordDefault" value="default"
+                    onClick="writeTrace('onClick(inputPasswordDefault);\n');"
+                    onChange="writeTrace('onChange(inputPasswordDefault);\n');"
+                    onFocus="writeTrace('onFocus(inputPasswordDefault);\n');"
+                    onBlur="writeTrace('onBlur(inputPasswordDefault);\n');"
+                    onKeyPress = "writeTrace('onKeyPress(inputPasswordDefault);\n');"
+                    onKeyUp = "writeTrace('onKeyUp(inputPasswordDefault);\n');"
+                    onKeyDown = "writeTrace('onKeyDown(inputPasswordDefault);\n');"></td>
+            </tr>
+
+            <tr>
+              <td><label for="textareaDefault">Textarea</label></td>
+              <td><textarea id="textareaDefault" name="textareaDefault" cols="10" rows="1"
+                    onClick="writeTrace('onClick(textareaDefault);\n');"
+                    onChange="writeTrace('onChange(textareaDefault);\n');"
+                    onFocus="writeTrace('onFocus(textareaDefault);\n');"
+                    onBlur="writeTrace('onBlur(textareaDefault);\n');"
+                    onKeyPress = "writeTrace('onKeyPress(textareaDefault);\n');"
+                    onKeyUp = "writeTrace('onKeyUp(textareaDefault);\n');"
+                    onKeyDown = "writeTrace('onKeyDown(textareaDefault);\n');">default</textarea></td>
+            </tr>
+
+            <tr>
+              <td><label for="uploadDefault">Upload</label></td>
+              <td><input type="file" name="uploadDefault" id="uploadDefault" value="default"
+                    onClick="writeTrace('onClick(uploadDefault);\n');"
+                    onChange="writeTrace('onChange(uploadDefault);\n');"
+                    onFocus="writeTrace('onFocus(uploadDefault);\n');"
+                    onBlur="writeTrace('onBlur(uploadDefault);\n');"
+                    onKeyPress = "writeTrace('onKeyPress(uploadDefault);\n');"
+                    onKeyUp = "writeTrace('onKeyUp(uploadDefault);\n');"
+                    onKeyDown = "writeTrace('onKeyDown(uploadDefault);\n');"></td>
+            </tr>
+
+          </table>
+          </form>
+        </td>
+
+        <td>
+          <form action="http://www.wetator.org/testcases/snoopy.php">
+          <table border='0'>
+            <tr>
+              <td colspan="2" align="center"><h3>Selects with selection</h3></td>
+            </tr>
+            <tr>
+              <td><label for="singleSelectSelected">SingleSelect</label></td>
+              <td>
+                <select name="singleSelectSelected" id="singleSelectSelected" size="2"
+                    onClick="writeTrace('onClick(singleSelectSelected);\n');"
+                    onChange="writeTrace('onChange(singleSelectSelected);\n');"
+                    onFocus="writeTrace('onFocus(singleSelectSelected);\n');"
+                    onBlur="writeTrace('onBlur(singleSelectSelected);\n');"
+                    onKeyPress = "writeTrace('onKeyPress(singleSelectSelected);\n');"
+                    onKeyUp = "writeTrace('onKeyUp(singleSelectSelected);\n');"
+                    onKeyDown = "writeTrace('onKeyDown(singleSelectSelected);\n');">
+                  <option value="o_value1" selected>option1</option>
+                  <option value="o_value2">option2</option>
+                  <option value="o_value3">option3</option>
+                  <option value="o_value4">option4</option>
+                </select>
+              </td>
+            </tr>
+
+            <tr>
+              <td><label for="multipleSelectSelected">MultipleSelect</label></td>
+              <td>
+                <select name="multipleSelectSelected" id="multipleSelectSelected" size="2" multiple
+                    onClick="writeTrace('onClick(multipleSelectSelected);\n');"
+                    onChange="writeTrace('onChange(multipleSelectSelected);\n');"
+                    onFocus="writeTrace('onFocus(multipleSelectSelected);\n');"
+                    onBlur="writeTrace('onBlur(multipleSelectSelected);\n');"
+                    onKeyPress = "writeTrace('onKeyPress(multipleSelectSelected);\n');"
+                    onKeyUp = "writeTrace('onKeyUp(multipleSelectSelected);\n');"
+                    onKeyDown = "writeTrace('onKeyDown(multipleSelectSelected);\n');">
+                  <option value="o_value1" selected>option1</option>
+                  <option value="o_value2">option2</option>
+                  <option value="o_value3">option3</option>
+                  <option value="o_value4">option4</option>
+                </select>
+              </td>
+            </tr>
+
+            <tr>
+              <td><label for="checkbox">Checkbox</label></td>
+              <td>
+                <input type="checkbox" id="checkboxChecked" name="checkboxChecked" value="checkboxValue" checked
+                    onClick="writeTrace('onClick(checkboxChecked);\n');"
+                    onChange="writeTrace('onChange(checkboxChecked);\n');"
+                    onFocus="writeTrace('onFocus(checkboxChecked);\n');"
+                    onBlur="writeTrace('onBlur(checkboxChecked);\n');"
+                    onKeyPress = "writeTrace('onKeyPress(checkboxChecked);\n');"
+                    onKeyUp = "writeTrace('onKeyUp(checkboxChecked);\n');"
+                    onKeyDown = "writeTrace('onKeyDown(checkboxChecked);\n');">
+              </td>
+            </tr>
+
+            <tr>
+              <td><label>RadioGroup</label></td>
+              <td>
+                <input type="radio" id="radio1" name="radioGroup" value="r_value1" selected
+                    onClick="writeTrace('onClick(radio1);\n');"
+                    onChange="writeTrace('onChange(radio1);\n');"
+                    onFocus="writeTrace('onFocus(radio1);\n');"
+                    onBlur="writeTrace('onBlur(radio1);\n');"
+                    onKeyPress = "writeTrace('onKeyPress(radio1);\n');"
+                    onKeyUp = "writeTrace('onKeyUp(radio1);\n');"
+                    onKeyDown = "writeTrace('onKeyDown(radio1);\n');">Radio1<br>
+                <input type="radio" id="radio2" name="radioGroup" value="r_value2"
+                    onClick="writeTrace('onClick(radio2);\n');"
+                    onChange="writeTrace('onChange(radio2);\n');"
+                    onFocus="writeTrace('onFocus(radio2);\n');"
+                    onBlur="writeTrace('onBlur(radio2);\n');"
+                    onKeyPress = "writeTrace('onKeyPress(radio2);\n');"
+                    onKeyUp = "writeTrace('onKeyUp(radio2);\n');"
+                    onKeyDown = "writeTrace('onKeyDown(radio2);\n');">Radio2<br>
+              </td>
+            </tr>
+
+          </table>
+          </form>
+        </td>
+      </tr>
+
+      <tr valign='top' bgcolor='eeeeee'>
+        <td>
+          <form enctype="multipart/form-data" action="http://www.wetator.org/testcases/snoopy.php" method="post">
+          <table border='0'>
+            <tr>
+              <td><h3>Disabled Buttons</h3></td>
+            </tr>
+
+            <tr>
+              <td><input type="submit" name="submitTestDisabled" value="submitTestDisabled" disabled="disabled"
+                    onClick="writeTrace('onClick(submitTestDisabled);\n');"
+                    onChange="writeTrace('onChange(submitTestDisabled);\n');"
+                    onFocus="writeTrace('onFocus(submitTestDisabled);\n');"
+                    onBlur="writeTrace('onBlur(submitTestDisabled);\n');"
+                    onKeyPress = "writeTrace('onKeyPress(submitTestDisabled);\n');"
+                    onKeyUp = "writeTrace('onKeyUp(submitTestDisabled);\n');"
+                    onKeyDown = "writeTrace('onKeyDown(submitTestDisabled);\n');"></td>
+            </tr>
+
+            <tr>
+              <td><input type="reset" name="resetTestDisabled" value="resetTestDisabled" disabled="disabled"
+                    onClick="writeTrace('onClick(resetTestDisabled);\n');"
+                    onChange="writeTrace('onChange(resetTestDisabled);\n');"
+                    onFocus="writeTrace('onFocus(resetTestDisabled);\n');"
+                    onBlur="writeTrace('onBlur(resetTestDisabled);\n');"
+                    onKeyPress = "writeTrace('onKeyPress(resetTestDisabled);\n');"
+                    onKeyUp = "writeTrace('onKeyUp(resetTestDisabled);\n');"
+                    onKeyDown = "writeTrace('onKeyDown(resetTestDisabled);\n');"></td>
+            </tr>
+
+            <tr>
+              <td><input type="button" name="buttonTestDisabled" value="buttonTestDisabled" disabled="disabled"
+                    onClick="writeTrace('onClick(buttonTestDisabled);\n');"
+                    onChange="writeTrace('onChange(buttonTestDisabled);\n');"
+                    onFocus="writeTrace('onFocus(buttonTestDisabled);\n');"
+                    onBlur="writeTrace('onBlur(buttonTestDisabled);\n');"
+                    onKeyPress = "writeTrace('onKeyPress(buttonTestDisabled);\n');"
+                    onKeyUp = "writeTrace('onKeyUp(buttonTestDisabled);\n');"
+                    onKeyDown = "writeTrace('onKeyDown(buttonTestDisabled);\n');"></td>
+            </tr>
+          </table>
+          </form>
+        </td>
+
+        <td>
+          <form enctype="multipart/form-data" action="http://www.wetator.org/testcases/snoopy.php" method="post">
+          <table border='0'>
+            <tr>
+              <td colspan="2" align="center"><h3>Disabled Sets</h3></td>
+            </tr>
+            <tr>
+              <td><label for="inputTextDisabled">InputText Disabled</label></td>
+              <td><input type="text" id="inputTextDisabled" name="inputTextDisabled" disabled="disabled" 
+                    onClick="writeTrace('onClick(inputTextDisabled);\n');"
+                    onChange="writeTrace('onChange(inputTextDisabled);\n');"
+                    onFocus="writeTrace('onFocus(inputTextDisabled);\n');"
+                    onBlur="writeTrace('onBlur(inputTextDisabled);\n');"
+                    onKeyPress = "writeTrace('onKeyPress(inputTextDisabled);\n');"
+                    onKeyUp = "writeTrace('onKeyUp(inputTextDisabled);\n');"
+                    onKeyDown = "writeTrace('onKeyDown(inputTextDisabled);\n');"></td>
+            </tr>
+
+            <tr>
+              <td><label for="inputPasswordDisabled">InputPassword Disabled</label></td>
+              <td><input type="password" id="inputPasswordDisabled" name="inputPasswordDisabled" disabled="disabled"  
+                    onClick="writeTrace('onClick(inputPasswordDisabled);\n');"
+                    onChange="writeTrace('onChange(inputPasswordDisabled);\n');"
+                    onFocus="writeTrace('onFocus(inputPasswordDisabled);\n');"
+                    onBlur="writeTrace('onBlur(inputPasswordDisabled);\n');"
+                    onKeyPress = "writeTrace('onKeyPress(inputPasswordDisabled);\n');"
+                    onKeyUp = "writeTrace('onKeyUp(inputPasswordDisabled);\n');"
+                    onKeyDown = "writeTrace('onKeyDown(inputPasswordDisabled);\n');"></td>
+            </tr>
+
+            <tr>
+              <td><label for="textareaDisabled">Textarea Disabled</label></td>
+              <td><textarea id="textareaDisabled" name="textareaDisabled" cols="10" rows="1" disabled="disabled"   
+                    onClick="writeTrace('onClick(textareaDisabled);\n');"
+                    onChange="writeTrace('onChange(textareaDisabled);\n');"
+                    onFocus="writeTrace('onFocus(textareaDisabled);\n');"
+                    onBlur="writeTrace('onBlur(textareaDisabled);\n');"
+                    onKeyPress = "writeTrace('onKeyPress(textareaDisabled);\n');"
+                    onKeyUp = "writeTrace('onKeyUp(textareaDisabled);\n');"
+                    onKeyDown = "writeTrace('onKeyDown(textareaDisabled);\n');"></textarea></td>
+            </tr>
+
+            <tr>
+              <td><label for="uploadDisabled">Upload Disabled</label></td>
+              <td><input type="file" name="uploadDisabled" id="uploadDisabled" disabled="disabled"  
+                    onClick="writeTrace('onClick(uploadDisabled);\n');"
+                    onChange="writeTrace('onChange(uploadDisabled);\n');"
+                    onFocus="writeTrace('onFocus(uploadDisabled);\n');"
+                    onBlur="writeTrace('onBlur(uploadDisabled);\n');"
+                    onKeyPress = "writeTrace('onKeyPress(uploadDisabled);\n');"
+                    onKeyUp = "writeTrace('onKeyUp(uploadDisabled);\n');"
+                    onKeyDown = "writeTrace('onKeyDown(uploadDisabled);\n');"></td>
+            </tr>
+
+          </table>
+          </form>
+        </td>
+
+        <td>
+          <form action="http://www.wetator.org/testcases/snoopy.php">
+          <table border='0'>
+            <tr>
+              <td colspan="2" align="center"><h3>Disabled Selects</h3></td>
+            </tr>
+            <tr>
+              <td><label for="singleSelectDisabled">SingleSelect</label></td>
+              <td>
+                <select name="singleSelectDisabled" id="singleSelectDisabled" size="2" disabled="disabled"  
+                    onClick="writeTrace('onClick(singleSelectDisabled);\n');"
+                    onChange="writeTrace('onChange(singleSelectDisabled);\n');"
+                    onFocus="writeTrace('onFocus(singleSelectDisabled);\n');"
+                    onBlur="writeTrace('onBlur(singleSelectDisabled);\n');"
+                    onKeyPress = "writeTrace('onKeyPress(singleSelectDisabled);\n');"
+                    onKeyUp = "writeTrace('onKeyUp(singleSelectDisabled);\n');"
+                    onKeyDown = "writeTrace('onKeyDown(singleSelectDisabled);\n');">
+                  <option value="o_value1">option1</option>
+                  <option value="o_value2">option2</option>
+                  <option value="o_value3">option3</option>
+                  <option value="o_value4">option4</option>
+                </select>
+              </td>
+            </tr>
+
+            <tr>
+              <td><label for="multipleSelectDisabled">MultipleSelect</label></td>
+              <td>
+                <select name="multipleSelectDisabled" id="multipleSelectDisabled" size="2" multiple disabled="disabled"  
+                    onClick="writeTrace('onClick(multipleSelectDisabled);\n');"
+                    onChange="writeTrace('onChange(multipleSelectDisabled);\n');"
+                    onFocus="writeTrace('onFocus(multipleSelectDisabled);\n');"
+                    onBlur="writeTrace('onBlur(multipleSelectDisabled);\n');"
+                    onKeyPress = "writeTrace('onKeyPress(multipleSelectDisabled);\n');"
+                    onKeyUp = "writeTrace('onKeyUp(multipleSelectDisabled);\n');"
+                    onKeyDown = "writeTrace('onKeyDown(multipleSelectDisabled);\n');">
+                  <option value="o_value1">option1</option>
+                  <option value="o_value2">option2</option>
+                  <option value="o_value3">option3</option>
+                  <option value="o_value4">option4</option>
+                </select>
+              </td>
+            </tr>
+
+            <tr>
+              <td><label for="checkbox">Checkbox</label></td>
+              <td>
+                <input type="checkbox" id="checkboxDisabled" name="checkboxDisabled" value="checkboxValue" disabled="disabled"  
+                    onClick="writeTrace('onClick(checkboxDisabled);\n');"
+                    onChange="writeTrace('onChange(checkboxDisabled);\n');"
+                    onFocus="writeTrace('onFocus(checkboxDisabled);\n');"
+                    onBlur="writeTrace('onBlur(checkboxDisabled);\n');"
+                    onKeyPress = "writeTrace('onKeyPress(checkboxDisabled);\n');"
+                    onKeyUp = "writeTrace('onKeyUp(checkboxDisabled);\n');"
+                    onKeyDown = "writeTrace('onKeyDown(checkboxDisabled);\n');">
+              </td>
+            </tr>
+
+            <tr>
+              <td><label>RadioGroup Disabled</label></td>
+              <td>
+                <input type="radio" id="radio1Disabled" name="radioGroup" value="r_value1" disabled="disabled"  
+                    onClick="writeTrace('onClick(radio1Disabled);\n');"
+                    onChange="writeTrace('onChange(radio1Disabled);\n');"
+                    onFocus="writeTrace('onFocus(radio1Disabled);\n');"
+                    onBlur="writeTrace('onBlur(radio1Disabled);\n');"
+                    onKeyPress = "writeTrace('onKeyPress(radio1Disabled);\n');"
+                    onKeyUp = "writeTrace('onKeyUp(radio1Disabled);\n');"
+                    onKeyDown = "writeTrace('onKeyDown(radio1Disabled);\n');">Radio1<br>
+                <input type="radio" id="radio2Disabled" name="radioGroup" value="r_value2" disabled="disabled"  
+                    onClick="writeTrace('onClick(radio2Disabled);\n');"
+                    onChange="writeTrace('onChange(radio2Disabled);\n');"
+                    onFocus="writeTrace('onFocus(radio2Disabled);\n');"
+                    onBlur="writeTrace('onBlur(radio2Disabled);\n');"
+                    onKeyPress = "writeTrace('onKeyPress(radio2Disabled);\n');"
+                    onKeyUp = "writeTrace('onKeyUp(radio2Disabled);\n');"
+                    onKeyDown = "writeTrace('onKeyDown(radio2Disabled);\n');">Radio2<br>
+              </td>
+            </tr>
+
+          </table>
+          </form>
+        </td>
+      </tr>
+
+    </table>
+
+  </div>
+
+</body>
+</html>
+
