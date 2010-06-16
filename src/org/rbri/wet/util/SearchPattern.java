@@ -157,6 +157,11 @@ public final class SearchPattern {
   }
 
   public FindSpot firstOccurenceIn(String aString) {
+    return firstOccurenceIn(aString, 0);
+
+  }
+
+  public FindSpot firstOccurenceIn(String aString, int aStartPos) {
     firstOccurenceIn++;
     FindSpot tmpResult = new FindSpot();
 
@@ -168,15 +173,19 @@ public final class SearchPattern {
       return tmpResult;
     }
 
-    AutomatonShortMatcher tmpMatcher = new AutomatonShortMatcher(aString, automaton);
+    String tmpString = aString;
+    if (aStartPos > 0) {
+      tmpString = tmpString.substring(aStartPos);
+    }
+    AutomatonShortMatcher tmpMatcher = new AutomatonShortMatcher(tmpString, automaton);
 
     boolean tmpFound = tmpMatcher.find();
     if (!tmpFound) {
       return null;
     }
 
-    tmpResult.startPos = tmpMatcher.start();
-    tmpResult.endPos = tmpMatcher.end();
+    tmpResult.startPos = tmpMatcher.start() + aStartPos;
+    tmpResult.endPos = tmpMatcher.end() + aStartPos;
 
     return tmpResult;
   }

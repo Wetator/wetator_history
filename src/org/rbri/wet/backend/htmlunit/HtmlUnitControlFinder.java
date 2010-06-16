@@ -16,7 +16,6 @@
 
 package org.rbri.wet.backend.htmlunit;
 
-import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
@@ -30,15 +29,12 @@ import org.rbri.wet.util.SearchPattern;
 import org.rbri.wet.util.SecretString;
 
 import com.gargoylesoftware.htmlunit.ElementNotFoundException;
-import com.gargoylesoftware.htmlunit.html.DomNode;
 import com.gargoylesoftware.htmlunit.html.HtmlAnchor;
-import com.gargoylesoftware.htmlunit.html.HtmlBody;
 import com.gargoylesoftware.htmlunit.html.HtmlButton;
 import com.gargoylesoftware.htmlunit.html.HtmlButtonInput;
 import com.gargoylesoftware.htmlunit.html.HtmlCheckBoxInput;
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlFileInput;
-import com.gargoylesoftware.htmlunit.html.HtmlHtml;
 import com.gargoylesoftware.htmlunit.html.HtmlImage;
 import com.gargoylesoftware.htmlunit.html.HtmlImageInput;
 import com.gargoylesoftware.htmlunit.html.HtmlLabel;
@@ -81,7 +77,7 @@ public class HtmlUnitControlFinder implements ControlFinder {
       throw new NullPointerException("HtmlPage can't be null");
     }
     htmlPage = anHtmlPage;
-    domNodeText = new DomNodeText(htmlPage);
+    domNodeText = new DomNodeText(htmlPage.getBody());
   }
 
   public WeightedControlList getAllSetables(List<SecretString> aSearch) {
@@ -272,8 +268,8 @@ public class HtmlUnitControlFinder implements ControlFinder {
             if (tmpCoverage > -1) {
               String tmpTextBefore = domNodeText.getTextBefore(tmpHtmlElement);
               int tmpDistance = tmpPathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
-              tmpFoundElements.add(new HtmlUnitControl(tmpHtmlElement), WeightedControlList.FoundType.BY_NAME, tmpCoverage,
-                  tmpDistance);
+              tmpFoundElements.add(new HtmlUnitControl(tmpHtmlElement), WeightedControlList.FoundType.BY_NAME,
+                  tmpCoverage, tmpDistance);
               continue;
             }
           }
@@ -291,8 +287,8 @@ public class HtmlUnitControlFinder implements ControlFinder {
           if (tmpCoverage > -1) {
             String tmpTextBefore = domNodeText.getTextBefore(tmpHtmlElement);
             int tmpDistance = tmpPathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
-            tmpFoundElements.add(new HtmlUnitControl(tmpHtmlElement), WeightedControlList.FoundType.BY_IMG_ALT_ATTRIBUTE,
-                tmpCoverage, tmpDistance);
+            tmpFoundElements.add(new HtmlUnitControl(tmpHtmlElement),
+                WeightedControlList.FoundType.BY_IMG_ALT_ATTRIBUTE, tmpCoverage, tmpDistance);
             continue;
           }
 
@@ -301,8 +297,8 @@ public class HtmlUnitControlFinder implements ControlFinder {
           if (tmpCoverage > -1) {
             String tmpTextBefore = domNodeText.getTextBefore(tmpHtmlElement);
             int tmpDistance = tmpPathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
-            tmpFoundElements.add(new HtmlUnitControl(tmpHtmlElement), WeightedControlList.FoundType.BY_IMG_TITLE_ATTRIBUTE,
-                tmpCoverage, tmpDistance);
+            tmpFoundElements.add(new HtmlUnitControl(tmpHtmlElement),
+                WeightedControlList.FoundType.BY_IMG_TITLE_ATTRIBUTE, tmpCoverage, tmpDistance);
             continue;
           }
 
@@ -312,8 +308,8 @@ public class HtmlUnitControlFinder implements ControlFinder {
             String tmpTextBefore = domNodeText.getTextBefore(tmpHtmlElement);
             int tmpDistance = tmpPathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
             tmpCoverage = tmpSearchPattern.noOfCharsBeforeLastOccurenceIn(tmpSrc);
-            tmpFoundElements.add(new HtmlUnitControl(tmpHtmlElement), WeightedControlList.FoundType.BY_IMG_SRC_ATTRIBUTE,
-                tmpCoverage, tmpDistance);
+            tmpFoundElements.add(new HtmlUnitControl(tmpHtmlElement),
+                WeightedControlList.FoundType.BY_IMG_SRC_ATTRIBUTE, tmpCoverage, tmpDistance);
             continue;
           }
 
@@ -323,8 +319,8 @@ public class HtmlUnitControlFinder implements ControlFinder {
             if (tmpCoverage > -1) {
               String tmpTextBefore = domNodeText.getTextBefore(tmpHtmlElement);
               int tmpDistance = tmpPathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
-              tmpFoundElements.add(new HtmlUnitControl(tmpHtmlElement), WeightedControlList.FoundType.BY_NAME, tmpCoverage,
-                  tmpDistance);
+              tmpFoundElements.add(new HtmlUnitControl(tmpHtmlElement), WeightedControlList.FoundType.BY_NAME,
+                  tmpCoverage, tmpDistance);
               continue;
             }
           }
@@ -352,8 +348,8 @@ public class HtmlUnitControlFinder implements ControlFinder {
             if (tmpCoverage > -1) {
               String tmpTextBefore = domNodeText.getTextBefore(tmpHtmlElement);
               int tmpDistance = tmpPathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
-              tmpFoundElements.add(new HtmlUnitControl(tmpHtmlElement), WeightedControlList.FoundType.BY_NAME, tmpCoverage,
-                  tmpDistance);
+              tmpFoundElements.add(new HtmlUnitControl(tmpHtmlElement), WeightedControlList.FoundType.BY_NAME,
+                  tmpCoverage, tmpDistance);
               continue;
             }
           }
@@ -392,8 +388,8 @@ public class HtmlUnitControlFinder implements ControlFinder {
                 if (tmpCoverage > -1) {
                   String tmpTextBefore = domNodeText.getTextBefore(tmpHtmlElement);
                   int tmpDistance = tmpPathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
-                  tmpFoundElements.add(new HtmlUnitControl(tmpHtmlElement), WeightedControlList.FoundType.BY_INNER_NAME,
-                      tmpCoverage, tmpDistance);
+                  tmpFoundElements.add(new HtmlUnitControl(tmpHtmlElement),
+                      WeightedControlList.FoundType.BY_INNER_NAME, tmpCoverage, tmpDistance);
                   continue;
                 }
               }
@@ -543,8 +539,8 @@ public class HtmlUnitControlFinder implements ControlFinder {
             if (tmpCoverage > -1) {
               String tmpTextBefore = domNodeText.getTextBefore(tmpHtmlElement);
               int tmpDistance = tmpPathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
-              tmpFoundElements.add(new HtmlUnitControl(tmpHtmlElement), WeightedControlList.FoundType.BY_ID, tmpCoverage,
-                  tmpDistance);
+              tmpFoundElements.add(new HtmlUnitControl(tmpHtmlElement), WeightedControlList.FoundType.BY_ID,
+                  tmpCoverage, tmpDistance);
               continue;
             }
           }
@@ -900,70 +896,35 @@ public class HtmlUnitControlFinder implements ControlFinder {
   public WeightedControlList getAllElementsForText(List<SecretString> aSearch) {
     WeightedControlList tmpFoundElements = new WeightedControlList();
 
-    SearchPattern tmpLabelSearchPattern = aSearch.get(aSearch.size() - 1).getSearchPattern();
+    SearchPattern tmpSearchPattern = aSearch.get(aSearch.size() - 1).getSearchPattern();
     SearchPattern tmpPathSearchPattern = SearchPattern.createFromList(aSearch, aSearch.size() - 1);
 
-    DomNode tmpBodyNode = getBody(htmlPage);
-    if (null == tmpBodyNode) {
+    FindSpot tmpPathSpot = domNodeText.firstOccurence(tmpPathSearchPattern);
+    if (null == tmpPathSpot) {
       return tmpFoundElements;
     }
 
-    String tmpText = domNodeText.getAsText(tmpBodyNode);
-    int tmpCoverage = tmpLabelSearchPattern.noOfSurroundingCharsIn(tmpText);
-    if (!(tmpCoverage > -1)) {
-      return tmpFoundElements;
-    }
+    FindSpot tmpHitSpot = domNodeText.firstOccurence(tmpSearchPattern, Math.max(0, tmpPathSpot.endPos));
+    while ((null != tmpHitSpot) && (tmpHitSpot.endPos > -1)) {
+      // found a hit
 
-    List<HtmlElement> tmpElementsToTest = new LinkedList<HtmlElement>();
-    List<HtmlElement> tmpNextElementsToTest = new LinkedList<HtmlElement>();
-    tmpNextElementsToTest.add((HtmlBody) tmpBodyNode);
-
-    do {
-      tmpElementsToTest = tmpNextElementsToTest;
-      tmpNextElementsToTest = new LinkedList<HtmlElement>();
-
-      // iterate over the current level
-      for (HtmlElement tmpHtmlElement : tmpElementsToTest) {
-        // check the child's of the current node
-        List<HtmlElement> tmpChildElementsFound = new LinkedList<HtmlElement>();
-        for (HtmlElement tmpChildElement : tmpHtmlElement.getChildElements()) {
-          String tmpChildElementText = domNodeText.getAsText(tmpChildElement);
-          if (tmpLabelSearchPattern.noOfMatchingCharsIn(tmpChildElementText) > 0) {
-            tmpChildElementsFound.add(tmpChildElement);
-          }
-        }
-        if (tmpChildElementsFound.isEmpty()) {
-          // if we found nothing
-          // then the current node is part of the results
-          String tmpTextBefore = domNodeText.getTextBefore(tmpHtmlElement);
-
-          // it is a bit more complicated to calculate the text
+      // find the first element that surrounds this
+      for (HtmlElement tmpHtmlElement : domNodeText.getAllVisibleHtmlElementsBottomUpBottomUp()) {
+        FindSpot tmpNodeSpot = domNodeText.getPosition(tmpHtmlElement);
+        if ((tmpNodeSpot.startPos <= tmpHitSpot.startPos) && (tmpHitSpot.endPos <= tmpNodeSpot.endPos)) {
+          // found one
           String tmpElementText = domNodeText.getAsText(tmpHtmlElement);
-          int tmpPos = tmpLabelSearchPattern.noOfCharsBeforeLastOccurenceIn(tmpElementText);
-          if (tmpPos > 0) {
-            tmpTextBefore = tmpTextBefore + " " + tmpElementText.substring(0, tmpPos);
-          }
-
+          int tmpCoverage = tmpSearchPattern.noOfSurroundingCharsIn(tmpElementText);
+          String tmpTextBefore = domNodeText.getTextBefore(tmpHtmlElement);
           int tmpDistance = tmpPathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
-          tmpCoverage = tmpLabelSearchPattern.noOfSurroundingCharsIn(tmpElementText);
-          if (tmpDistance > -1) {
-            tmpFoundElements.add(new HtmlUnitControl(tmpHtmlElement), WeightedControlList.FoundType.BY_TEXT,
-                tmpCoverage, tmpDistance);
-          }
-        } else {
-          // we have to check the child's
-          // in the next round
-          tmpNextElementsToTest.addAll(tmpChildElementsFound);
+          tmpFoundElements.add(new HtmlUnitControl(tmpHtmlElement), WeightedControlList.FoundType.BY_TEXT, tmpCoverage,
+              tmpDistance);
+          break;
         }
       }
 
-      // nothing new found, so lets stop
-      if (tmpNextElementsToTest.isEmpty()) {
-        break;
-      }
-
-    } while (true);
-
+      tmpHitSpot = domNodeText.firstOccurence(tmpSearchPattern, tmpHitSpot.startPos + 1);
+    }
     return tmpFoundElements;
   }
 
@@ -1002,12 +963,6 @@ public class HtmlUnitControlFinder implements ControlFinder {
       }
     }
 
-    HtmlBody tmpBodyNode = getBody(htmlPage);
-    if (null == tmpBodyNode) {
-      return tmpFoundElements;
-    }
-
-    // TODO use only elements from body
     for (HtmlElement tmpHtmlElement : domNodeText.getAllVisibleHtmlElementsBottomUpBottomUp()) {
       FindSpot tmpNodeSpot = domNodeText.getPosition(tmpHtmlElement);
 
@@ -1022,7 +977,6 @@ public class HtmlUnitControlFinder implements ControlFinder {
               tmpDistance);
           break;
         }
-
       }
     }
     return tmpFoundElements;
@@ -1068,39 +1022,4 @@ public class HtmlUnitControlFinder implements ControlFinder {
     }
     return tmpFound;
   }
-
-  /**
-   * returns the body node of the given page
-   * 
-   * @param anHtmlPage the page
-   * @return the body node or null if not found
-   */
-  protected HtmlBody getBody(HtmlPage anHtmlPage) {
-    DomNode tmpBodyNode = htmlPage.getFirstChild();
-    if (null == tmpBodyNode) {
-      LOG.warn("No elements found in html page.");
-      return null;
-    }
-
-    // search for HTML
-    while ((null != tmpBodyNode) && !(tmpBodyNode instanceof HtmlHtml)) {
-      tmpBodyNode = tmpBodyNode.getNextSibling();
-    }
-    if (null == tmpBodyNode) {
-      LOG.warn("No <html> element found in html page.");
-      return null;
-    }
-
-    // search for BODY
-    tmpBodyNode = tmpBodyNode.getFirstChild();
-    while ((null != tmpBodyNode) && !(tmpBodyNode instanceof HtmlBody)) {
-      tmpBodyNode = tmpBodyNode.getNextSibling();
-    }
-    if (null == tmpBodyNode) {
-      LOG.warn("No <body> element found in html page.");
-      return null;
-    }
-    return (HtmlBody) tmpBodyNode;
-  }
-
 }

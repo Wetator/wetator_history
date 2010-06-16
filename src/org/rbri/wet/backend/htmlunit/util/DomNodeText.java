@@ -134,7 +134,18 @@ public class DomNodeText {
    * @return the position
    */
   public FindSpot firstOccurence(SearchPattern aSearchPattern) {
-    return aSearchPattern.firstOccurenceIn(text.toString());
+    return aSearchPattern.firstOccurenceIn(text.toString(), 0);
+  }
+
+  /**
+   * Returns the start and end position of the first occurrence of the string in the text
+   * 
+   * @param aSearchPattern the search pattern
+   * @param aStartPos the pos to start with the search
+   * @return the position
+   */
+  public FindSpot firstOccurence(SearchPattern aSearchPattern, int aStartPos) {
+    return aSearchPattern.firstOccurenceIn(text.toString(), aStartPos);
   }
 
   /**
