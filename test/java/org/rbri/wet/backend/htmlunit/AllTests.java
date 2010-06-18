@@ -43,7 +43,6 @@ public class AllTests extends TestCase {
     tmpSuite.addTest(HtmlUnitControlFinderGetAllOtherControlsTest.suite());
     tmpSuite.addTest(HtmlUnitControlFinderGetAllSetablesTest.suite());
     tmpSuite.addTest(HtmlUnitControlFinderGetAllSelectablesTest.suite());
-    tmpSuite.addTest(HtmlUnitControlFinderGetFirstClickableTextElementTest.suite());
     tmpSuite.addTest(HtmlUnitControlTest.suite());
 
     return tmpSuite;

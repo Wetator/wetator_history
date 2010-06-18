@@ -146,7 +146,6 @@ test/java/org/rbri/wet/backend/htmlunit/HtmlUnitControlFinderGetAllElementsForTe
 test/java/org/rbri/wet/backend/htmlunit/HtmlUnitControlFinderGetAllOtherControlsTest.java -text
 test/java/org/rbri/wet/backend/htmlunit/HtmlUnitControlFinderGetAllSelectablesTest.java -text
 test/java/org/rbri/wet/backend/htmlunit/HtmlUnitControlFinderGetAllSetablesTest.java -text
-test/java/org/rbri/wet/backend/htmlunit/HtmlUnitControlFinderGetFirstClickableTextElementTest.java -text
 test/java/org/rbri/wet/backend/htmlunit/HtmlUnitControlFinderTest.java -text
 test/java/org/rbri/wet/backend/htmlunit/HtmlUnitControlTest.java -text
 test/java/org/rbri/wet/backend/htmlunit/HtmlUnitTest.html -text

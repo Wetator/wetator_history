@@ -67,12 +67,4 @@ public interface ControlFinder {
    * @return a WeightedControlList
    */
   public WeightedControlList getAllElementsForText(List<SecretString> aSearch);
-
-  /**
-   * Return a list with the first clickable text for the given search
-   * 
-   * @param aSearch the list of secret strings describing the search
-   * @return a WeightedControlList
-   */
-  public WeightedControlList getFirstClickableTextElement(List<SecretString> aSearch);
 }

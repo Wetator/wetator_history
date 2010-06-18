@@ -173,6 +173,20 @@ public class DomNodeText {
   }
 
   /**
+   * Returns the whole (trimmed) text before the given dom node
+   * 
+   * @param aDomNode the node to look at
+   * @return the text before the node
+   */
+  public String getTextBeforeIncludingMyself(final DomNode aDomNode) {
+    FindSpot tmpFindSpot = positions.get(aDomNode);
+    if (null == tmpFindSpot) {
+      return null;
+    }
+    return text.substring(0, tmpFindSpot.endPos).trim();
+  }
+
+  /**
    * Returns the whole (trimmed) text between this element and the preceding form element or the form start
    * 
    * @param anHtmlElement the element to start from

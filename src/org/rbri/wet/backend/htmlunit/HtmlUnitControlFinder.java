@@ -904,44 +904,6 @@ public class HtmlUnitControlFinder implements ControlFinder {
       return tmpFoundElements;
     }
 
-    FindSpot tmpHitSpot = domNodeText.firstOccurence(tmpSearchPattern, Math.max(0, tmpPathSpot.endPos));
-    while ((null != tmpHitSpot) && (tmpHitSpot.endPos > -1)) {
-      // found a hit
-
-      // find the first element that surrounds this
-      for (HtmlElement tmpHtmlElement : domNodeText.getAllVisibleHtmlElementsBottomUpBottomUp()) {
-        FindSpot tmpNodeSpot = domNodeText.getPosition(tmpHtmlElement);
-        if ((tmpNodeSpot.startPos <= tmpHitSpot.startPos) && (tmpHitSpot.endPos <= tmpNodeSpot.endPos)) {
-          // found one
-          String tmpElementText = domNodeText.getAsText(tmpHtmlElement);
-          int tmpCoverage = tmpSearchPattern.noOfSurroundingCharsIn(tmpElementText);
-          String tmpTextBefore = domNodeText.getTextBefore(tmpHtmlElement);
-          int tmpDistance = tmpPathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
-          tmpFoundElements.add(new HtmlUnitControl(tmpHtmlElement), WeightedControlList.FoundType.BY_TEXT, tmpCoverage,
-              tmpDistance);
-          break;
-        }
-      }
-
-      tmpHitSpot = domNodeText.firstOccurence(tmpSearchPattern, tmpHitSpot.startPos + 1);
-    }
-    return tmpFoundElements;
-  }
-
-  /**
-   * TODO Returns
-   * 
-   * @param aSearchPattern the filter
-   * @return the first matching control
-   */
-  public WeightedControlList getFirstClickableTextElement(List<SecretString> aSearch) {
-    WeightedControlList tmpFoundElements = new WeightedControlList();
-
-    SearchPattern tmpSearchPattern = aSearch.get(aSearch.size() - 1).getSearchPattern();
-    SearchPattern tmpPathSearchPattern = SearchPattern.createFromList(aSearch, aSearch.size() - 1);
-
-    FindSpot tmpPathSpot = domNodeText.firstOccurence(tmpPathSearchPattern);
-
     // search with id
     for (HtmlElement tmpHtmlElement : domNodeText.getAllVisibleHtmlElements()) {
       FindSpot tmpNodeSpot = domNodeText.getPosition(tmpHtmlElement);
@@ -963,21 +925,29 @@ public class HtmlUnitControlFinder implements ControlFinder {
       }
     }
 
-    for (HtmlElement tmpHtmlElement : domNodeText.getAllVisibleHtmlElementsBottomUpBottomUp()) {
-      FindSpot tmpNodeSpot = domNodeText.getPosition(tmpHtmlElement);
+    FindSpot tmpHitSpot = domNodeText.firstOccurence(tmpSearchPattern, Math.max(0, tmpPathSpot.endPos));
+    while ((null != tmpHitSpot) && (tmpHitSpot.endPos > -1)) {
+      // found a hit
 
-      // has the node the text before
-      if (tmpPathSpot.endPos <= tmpNodeSpot.startPos) {
-        String tmpElementText = domNodeText.getAsText(tmpHtmlElement);
-        int tmpCoverage = tmpSearchPattern.noOfSurroundingCharsIn(tmpElementText);
-        if (tmpCoverage > -1) {
-          String tmpTextBefore = domNodeText.getTextBefore(tmpHtmlElement);
+      // find the first element that surrounds this
+      for (HtmlElement tmpHtmlElement : domNodeText.getAllVisibleHtmlElementsBottomUpBottomUp()) {
+        FindSpot tmpNodeSpot = domNodeText.getPosition(tmpHtmlElement);
+        if ((tmpNodeSpot.startPos <= tmpHitSpot.startPos) && (tmpHitSpot.endPos <= tmpNodeSpot.endPos)) {
+          // found one
+          String tmpTextBefore = domNodeText.getTextBeforeIncludingMyself(tmpHtmlElement);
+          FindSpot tmpLastOccurence = tmpSearchPattern.lastOccurenceIn(tmpTextBefore);
+          int tmpCoverage = tmpTextBefore.length() - tmpLastOccurence.endPos;
+
+          tmpTextBefore = tmpTextBefore.substring(0, tmpLastOccurence.startPos);
           int tmpDistance = tmpPathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
+
           tmpFoundElements.add(new HtmlUnitControl(tmpHtmlElement), WeightedControlList.FoundType.BY_TEXT, tmpCoverage,
               tmpDistance);
           break;
         }
       }
+
+      tmpHitSpot = domNodeText.firstOccurence(tmpSearchPattern, tmpHitSpot.startPos + 1);
     }
     return tmpFoundElements;
   }
