@@ -8,7 +8,7 @@
   <script type="text/javascript">
   <!--
     function writeTrace(eventText) {
-      var traceCtrl=document.getElementById('traceOutout');
+      var traceCtrl=document.getElementById('traceOutput');
       var currentTrace = traceCtrl.value
       traceCtrl.value = currentTrace + eventText
     }
@@ -18,7 +18,7 @@
 </head>
 
 
-<body>
+<body onload="document.getElementById('traceOutput').focus()">
 
   <div class="header">
     <img src="../images/wetator.png" alt="Wetator">
@@ -33,7 +33,7 @@
       <tr valign='top' bgcolor='eeeeee'>
         <td colspan='3'>
         <form id='mainForm' action='http://www.wetator.org/testcases/snoopy.php'>
-          <textArea id="traceOutout" name="eventTrace" cols="50" rows="10"></textArea>
+          <textArea id="traceOutput" name="eventTrace" cols="50" rows="10"></textArea>
           <input type="submit" name="OnFocusOnBlurTest" value="OK">
           <input type="reset" name="OnFocusOnBlurTestReset" value="Clear">
         </form>
@@ -50,10 +50,10 @@
 
             <tr>
               <td><input type="submit" name="submitTest" value="submitTest"
-                    onClick="writeTrace('onClick(submitTest);\n');"
-              		  onChange="writeTrace('onChange(submitTest);\n');"
-              		  onFocus="writeTrace('onFocus(submitTest);\n');"
-              		  onBlur="writeTrace('onBlur(submitTest);\n');"
+                    onClick="writeTrace('onClick(submitTest);\n');return false;"
+                    onChange="writeTrace('onChange(submitTest);\n');"
+                    onFocus="writeTrace('onFocus(submitTest);\n');"
+                    onBlur="writeTrace('onBlur(submitTest);\n');"
                     onKeyPress = "writeTrace('onKeyPress(inputText);\n');"
                     onKeyUp = "writeTrace('onKeyUp(inputText);\n');"
                     onKeyDown = "writeTrace('onKeyDown(inputText);\n');"></td>
@@ -350,7 +350,7 @@
             <tr>
               <td><label>RadioGroup</label></td>
               <td>
-                <input type="radio" id="radio1" name="radioGroup" value="r_value1" selected
+                <input type="radio" id="radio1" name="radioGroup" value="r_value1" checked
                     onClick="writeTrace('onClick(radio1);\n');"
                     onChange="writeTrace('onChange(radio1);\n');"
                     onFocus="writeTrace('onFocus(radio1);\n');"
