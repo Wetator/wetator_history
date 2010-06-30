@@ -35,7 +35,7 @@ import org.rbri.wet.exception.WetException;
 
 import com.gargoylesoftware.htmlunit.Page;
 import com.gargoylesoftware.htmlunit.WebClient;
-import com.gargoylesoftware.htmlunit.WebRequestSettings;
+import com.gargoylesoftware.htmlunit.WebRequest;
 import com.gargoylesoftware.htmlunit.WebResponse;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
@@ -100,7 +100,9 @@ public final class ResponseStore {
   /**
    * This method writes the page to a file with a unique name.
    * 
+   * @param aWebClient the web client
    * @param aPage the page to save
+   * @return the file name used for this page
    */
   public String storePage(WebClient aWebClient, Page aPage) {
     webClient = aWebClient;
@@ -139,9 +141,15 @@ public final class ResponseStore {
     }
   }
 
+  /**
+   * This method writes the page to a file with a unique name.
+   * 
+   * @param aUrl the url of the file to save
+   * @return the file name used for this page
+   */
   public String storeContentFromUrl(URL aUrl) {
     try {
-      WebResponse tmpWebResponse = webClient.loadWebResponse(new WebRequestSettings(aUrl));
+      WebResponse tmpWebResponse = webClient.loadWebResponse(new WebRequest(aUrl));
       String tmpFileName = aUrl.getPath();
       String tmpQuery = aUrl.getQuery();
       if (null != tmpQuery) {
@@ -168,6 +176,12 @@ public final class ResponseStore {
         } finally {
           tmpOutStream.close();
         }
+
+        // System.out.println("" + aUrl + "  " + tmpWebResponse.getContentType());
+        // if ("text/css".equalsIgnoreCase(tmpWebResponse.getContentType())) {
+        // tmpInStream = tmpWebResponse.getContentAsStream();
+        // parseCSS(new InputSource(new InputStreamReader(tmpInStream)));
+        // }
       }
       // write our path
       String tmpResult;
@@ -181,4 +195,64 @@ public final class ResponseStore {
     }
     return null;
   }
+
+  // TODO handle background-image in css
+
+  // static class ErrorHandler implements org.w3c.css.sac.ErrorHandler {
+  // private boolean parsingSuccess = true;
+  //
+  // public boolean wasParsingSuccessful() {
+  // return parsingSuccess;
+  // }
+  //
+  // @Override
+  // public void warning(CSSParseException aCSSParseException) throws CSSException {
+  // // ignore
+  // }
+  //
+  // @Override
+  // public void fatalError(CSSParseException aArg0) throws CSSException {
+  // parsingSuccess = false;
+  // }
+  //
+  // @Override
+  // public void error(CSSParseException aArg0) throws CSSException {
+  // parsingSuccess = false;
+  // }
+  // };
+  //
+  // private void parseCSS(InputSource anInputSource) {
+  // try {
+  // final ErrorHandler tmpErrorHandler = new ErrorHandler();
+  // final CSSOMParser tmpCSSOMParser = new CSSOMParser(new SACParserCSS21());
+  // tmpCSSOMParser.setErrorHandler(tmpErrorHandler);
+  // org.w3c.dom.css.CSSStyleSheet tmpCSSStyleSheet;
+  // tmpCSSStyleSheet = tmpCSSOMParser.parseStyleSheet(anInputSource, null, null);
+  //
+  // if (tmpErrorHandler.wasParsingSuccessful()) {
+  // CSSRuleList tmpRuleList = tmpCSSStyleSheet.getCssRules();
+  // System.out.println("Number of rules: " + tmpRuleList.getLength());
+  //
+  // for (int i = 0; i < tmpRuleList.getLength(); i++) {
+  // CSSRule rule = tmpRuleList.item(i);
+  // if (rule instanceof CSSStyleRule) {
+  // CSSStyleRule styleRule = (CSSStyleRule) rule;
+  // System.out.println("selector:" + i + ": " + styleRule.getSelectorText());
+  // CSSStyleDeclaration styleDeclaration = styleRule.getStyle();
+  //
+  // for (int j = 0; j < styleDeclaration.getLength(); j++) {
+  // String property = styleDeclaration.item(j);
+  // System.out.println("property: " + property);
+  // System.out.println("value: " + styleDeclaration.getPropertyCSSValue(property).getCssText());
+  // System.out.println("priority: " + styleDeclaration.getPropertyPriority(property));
+  // }
+  // }
+  // }
+  // }
+  // } catch (final Exception e) {
+  // // ignore
+  // } catch (final Error e) {
+  // // ignore
+  // }
+  // }
 }
