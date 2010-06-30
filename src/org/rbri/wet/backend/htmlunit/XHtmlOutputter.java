@@ -61,12 +61,13 @@ import com.gargoylesoftware.htmlunit.html.HtmlRadioButtonInput;
 import com.gargoylesoftware.htmlunit.html.HtmlScript;
 import com.gargoylesoftware.htmlunit.html.HtmlStyle;
 import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
+import com.gargoylesoftware.htmlunit.html.HtmlTextArea;
 import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
 import com.gargoylesoftware.htmlunit.html.HtmlTitle;
 import com.gargoylesoftware.htmlunit.html.HtmlUnknownElement;
 
 /**
- * Helper methods to work with the HtmlUnit page.
+ * Helper methods to write the HtmlUnit page as XHtml to a file.
  * 
  * @author rbri
  */
@@ -111,14 +112,29 @@ public final class XHtmlOutputter {
     SINGLE_LINE_TAGS.add(HtmlHeading5.class.getName());
     SINGLE_LINE_TAGS.add(HtmlHeading6.class.getName());
     SINGLE_LINE_TAGS.add(HtmlOption.class.getName());
+    // TextArea because the content is preformated
+    SINGLE_LINE_TAGS.add(HtmlTextArea.class.getName());
   }
 
+  /**
+   * Constructor
+   * 
+   * @param anHtmlPage the page to be written
+   * @param aResponseStore the response store that is responsible to store files
+   *        linked from this page. The links are changed to point to this page
+   */
   public XHtmlOutputter(HtmlPage anHtmlPage, ResponseStore aResponseStore) {
     super();
     htmlPage = anHtmlPage;
     responseStore = aResponseStore;
   }
 
+  /**
+   * The real worker; dumps the page as XHTML to this file
+   * 
+   * @param aFile the file to write to
+   * @throws IOException in case of error
+   */
   public void writeTo(File aFile) throws IOException {
     FileWriterWithEncoding tmpFileWriter = new FileWriterWithEncoding(aFile, htmlPage.getPageEncoding());
     try {
@@ -137,6 +153,12 @@ public final class XHtmlOutputter {
     }
   }
 
+  /**
+   * Helper rot writing subnodes
+   * 
+   * @param aDomNode the parent node
+   * @throws IOException in case of error
+   */
   protected void writeSubNodes(DomNode aDomNode) throws IOException {
     DomNode tmpChild;
 
@@ -153,6 +175,12 @@ public final class XHtmlOutputter {
     }
   }
 
+  /**
+   * Writes the opening part of the tag
+   * 
+   * @param aDomNode the node to work on
+   * @throws IOException in case of error
+   */
   protected void writeStartTag(DomNode aDomNode) throws IOException {
     if (aDomNode instanceof HtmlHtml) {
       output.println("<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\" lang=\"en\">");
@@ -212,6 +240,12 @@ public final class XHtmlOutputter {
     }
   }
 
+  /**
+   * Writes the closing part of the tag
+   * 
+   * @param aDomNode the node to work on
+   * @throws IOException in case of error
+   */
   protected void writeEndTag(DomNode aDomNode) throws IOException {
     if (aDomNode instanceof HtmlHtml) {
       output.println("</html>");
@@ -233,8 +267,14 @@ public final class XHtmlOutputter {
     // ignore the unsupported ones because they are reported form the start tag handler
   }
 
+  /**
+   * Writes the attributes of the tag
+   * 
+   * @param aDomNode the node to work on
+   * @throws IOException in case of error
+   */
   protected void writeAttributes(DomNode aDomNode) throws IOException {
-    URL tmpPageUrl = htmlPage.getWebResponse().getRequestSettings().getUrl();
+    URL tmpPageUrl = htmlPage.getWebResponse().getWebRequest().getUrl();
     String tmpPageHost = tmpPageUrl.getHost();
 
     if (aDomNode instanceof HtmlElement) {
