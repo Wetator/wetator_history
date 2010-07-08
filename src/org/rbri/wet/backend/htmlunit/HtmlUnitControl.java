@@ -17,6 +17,7 @@
 package org.rbri.wet.backend.htmlunit;
 
 import java.io.File;
+import java.io.IOException;
 
 import net.sourceforge.htmlunit.corejs.javascript.WrappedException;
 
@@ -45,6 +46,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlImageInput;
 import com.gargoylesoftware.htmlunit.html.HtmlInput;
 import com.gargoylesoftware.htmlunit.html.HtmlOption;
 import com.gargoylesoftware.htmlunit.html.HtmlOptionGroup;
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlParagraph;
 import com.gargoylesoftware.htmlunit.html.HtmlPasswordInput;
 import com.gargoylesoftware.htmlunit.html.HtmlRadioButtonInput;
@@ -162,23 +164,26 @@ public class HtmlUnitControl implements Control {
     String tmpScriptErrorMessage = null;
 
     try {
-      tmpHtmlElement.focus();
-    } catch (ScriptException e) {
-      tmpScriptErrorMessage = e.getMessage();
-    } catch (WrappedException e) {
-      tmpScriptErrorMessage = ExceptionUtil.getMessageFromScriptExceptionCauseIfPossible(e);
-    }
-
-    try {
       if (tmpHtmlElement instanceof HtmlCheckBoxInput) {
         HtmlCheckBoxInput tmpHtmlCheckBoxInput = (HtmlCheckBoxInput) tmpHtmlElement;
-        tmpHtmlCheckBoxInput.setChecked(true);
+
+        tmpHtmlCheckBoxInput.focus();
+        // tmpHtmlCheckBoxInput.setChecked(false);
+        if (!tmpHtmlCheckBoxInput.isChecked()) {
+          tmpHtmlCheckBoxInput.click();
+        }
       } else if (tmpHtmlElement instanceof HtmlRadioButtonInput) {
         HtmlRadioButtonInput tmpHtmlRadioButtonInput = (HtmlRadioButtonInput) tmpHtmlElement;
-        tmpHtmlRadioButtonInput.setChecked(true);
+        // tmpHtmlRadioButtonInput.setChecked(true);
+        if (!tmpHtmlRadioButtonInput.isChecked()) {
+          tmpHtmlRadioButtonInput.click();
+        }
       } else if (tmpHtmlElement instanceof HtmlOption) {
         HtmlOption tmpHtmlOption = (HtmlOption) tmpHtmlElement;
-        tmpHtmlOption.setSelected(true);
+
+        if (!tmpHtmlOption.isSelected()) {
+          tmpHtmlOption.click();
+        }
       } else {
         Assert.fail("selectNotSupported", new String[] { getDescribingText() });
       }
@@ -204,7 +209,10 @@ public class HtmlUnitControl implements Control {
     String tmpScriptErrorMessage = null;
 
     try {
-      tmpHtmlElement.focus();
+      tmpHtmlElement.click();
+    } catch (IOException e) {
+      // TODO
+      tmpScriptErrorMessage = e.getMessage();
     } catch (ScriptException e) {
       tmpScriptErrorMessage = e.getMessage();
     } catch (WrappedException e) {
@@ -232,7 +240,10 @@ public class HtmlUnitControl implements Control {
             Assert.fail("fileNotFound", new String[] { tmpFile.getAbsolutePath() });
           }
 
+          // simulate events during file selection via file dialog
+          ((HtmlPage) tmpHtmlFileInput.getPage()).setFocusedElement(null);
           tmpHtmlFileInput.setValueAttribute(tmpFile.getAbsolutePath());
+          tmpHtmlFileInput.focus();
         }
       } else if (tmpHtmlElement instanceof HtmlHiddenInput) {
         HtmlHiddenInput tmpHtmlHiddenInput = (HtmlHiddenInput) tmpHtmlElement;
@@ -241,14 +252,19 @@ public class HtmlUnitControl implements Control {
         HtmlInput tmpHtmlInput = (HtmlInput) tmpHtmlElement;
         String tmpValue = aValue.getValue();
 
-        tmpHtmlInput.setValueAttribute("");
+        if (StringUtils.isNotEmpty(tmpHtmlInput.getValueAttribute())) {
+          tmpHtmlInput.setValueAttribute("");
+        }
         if (tmpValue.length() > 0) {
           tmpHtmlInput.type(tmpValue);
         }
       } else if (tmpHtmlElement instanceof HtmlTextArea) {
         HtmlTextArea tmpHtmlTextArea = (HtmlTextArea) tmpHtmlElement;
         String tmpValue = aValue.getValue();
-        tmpHtmlTextArea.setText("");
+
+        if (StringUtils.isNotEmpty(tmpHtmlTextArea.getText())) {
+          tmpHtmlTextArea.setText("");
+        }
         if (tmpValue.length() > 0) {
           tmpHtmlTextArea.type(aValue.getValue());
         }
