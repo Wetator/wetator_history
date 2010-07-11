@@ -470,20 +470,25 @@ public final class HtmlUnitBrowser implements WetBackend {
       // ok, not found, maybe we have to be more patient
     }
 
-    int noOfJobsLeft = 1;
+    int tmpNoOfJobsLeft = 1;
     long tmpEndTime = System.currentTimeMillis() + aTimeoutInSeconds * 1000;
-    while (noOfJobsLeft > 0 && System.currentTimeMillis() < tmpEndTime) {
-      JavaScriptJobManager tmpJobManager = getCurrentHtmlPage().getEnclosingWindow().getJobManager();
+    while (tmpNoOfJobsLeft > 0 && System.currentTimeMillis() < tmpEndTime) {
+      tmpHtmlPage = getCurrentHtmlPage();
+      JavaScriptJobManager tmpJobManager = tmpHtmlPage.getEnclosingWindow().getJobManager();
 
-      long tmpWaitTime = System.currentTimeMillis() - tmpEndTime;
-      noOfJobsLeft = tmpJobManager.waitForJobsStartingBefore(Math.max(1000, tmpWaitTime));
+      long tmpWaitTime = tmpEndTime - System.currentTimeMillis();
+      tmpNoOfJobsLeft = tmpJobManager.waitForJobsStartingBefore(Math.max(1000, tmpWaitTime));
 
-      tmpCurrentTitle = getCurrentHtmlPage().getTitleText();
+      tmpCurrentTitle = tmpHtmlPage.getTitleText();
       try {
         Assert.assertListMatch(aTitleToWaitFor, tmpCurrentTitle);
         return tmpCurrentTitle;
       } catch (AssertionFailedException e) {
         // ok, not found, maybe we have to be more patient
+      }
+      // current page is changed, we have to make another try
+      if (tmpHtmlPage != getCurrentHtmlPage()) {
+        tmpNoOfJobsLeft = 1;
       }
     }
 
