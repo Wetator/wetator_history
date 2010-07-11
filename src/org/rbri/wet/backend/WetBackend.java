@@ -17,6 +17,7 @@
 package org.rbri.wet.backend;
 
 import java.net.URL;
+import java.util.List;
 
 import org.rbri.wet.exception.AssertionFailedException;
 import org.rbri.wet.util.SecretString;
@@ -51,7 +52,8 @@ public interface WetBackend {
 
   public void openUrl(URL aUrl) throws AssertionFailedException;
 
-  public String getCurrentTitle() throws AssertionFailedException;
+  public String waitForTitle(List<SecretString> aTitleToWaitFor, long aTimeoutInSeconds)
+      throws AssertionFailedException;
 
   public String getCurrentContentAsString() throws AssertionFailedException;
 

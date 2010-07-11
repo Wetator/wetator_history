@@ -58,6 +58,7 @@ import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.WebWindow;
 import com.gargoylesoftware.htmlunit.WebWindowEvent;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import com.gargoylesoftware.htmlunit.javascript.background.JavaScriptJobManager;
 import com.gargoylesoftware.htmlunit.xml.XmlPage;
 
 /**
@@ -457,9 +458,37 @@ public final class HtmlUnitBrowser implements WetBackend {
     return new HtmlUnitControlFinder(tmpHtmlPage);
   }
 
-  public String getCurrentTitle() throws AssertionFailedException {
+  public String waitForTitle(List<SecretString> aTitleToWaitFor, long aTimeoutInSeconds)
+      throws AssertionFailedException {
     HtmlPage tmpHtmlPage = getCurrentHtmlPage();
-    return tmpHtmlPage.getTitleText();
+
+    String tmpCurrentTitle = tmpHtmlPage.getTitleText();
+    try {
+      Assert.assertListMatch(aTitleToWaitFor, tmpCurrentTitle);
+      return tmpCurrentTitle;
+    } catch (AssertionFailedException e) {
+      // ok, not found, maybe we have to be more patient
+    }
+
+    int noOfJobsLeft = 1;
+    long tmpEndTime = System.currentTimeMillis() + aTimeoutInSeconds * 1000;
+    while (noOfJobsLeft > 0 && System.currentTimeMillis() < tmpEndTime) {
+      JavaScriptJobManager tmpJobManager = getCurrentHtmlPage().getEnclosingWindow().getJobManager();
+
+      long tmpWaitTime = System.currentTimeMillis() - tmpEndTime;
+      noOfJobsLeft = tmpJobManager.waitForJobsStartingBefore(Math.max(1000, tmpWaitTime));
+
+      tmpCurrentTitle = getCurrentHtmlPage().getTitleText();
+      try {
+        Assert.assertListMatch(aTitleToWaitFor, tmpCurrentTitle);
+        return tmpCurrentTitle;
+      } catch (AssertionFailedException e) {
+        // ok, not found, maybe we have to be more patient
+      }
+    }
+
+    Assert.assertListMatch(aTitleToWaitFor, tmpCurrentTitle);
+    return "";
   }
 
   public void checkFailure() throws AssertionFailedException {

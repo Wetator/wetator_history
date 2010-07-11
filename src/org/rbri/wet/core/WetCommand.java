@@ -16,9 +16,11 @@
 
 package org.rbri.wet.core;
 
+import java.math.BigDecimal;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.rbri.wet.exception.AssertionFailedException;
 import org.rbri.wet.util.Assert;
 import org.rbri.wet.util.SecretString;
@@ -245,6 +247,31 @@ public final class WetCommand {
 
     SecretString tmpSecondValue = tmpSecondParameter.getValue(aWetContext);
     return tmpSecondValue;
+  }
+
+  public long getSecondParameterLongValue(WetContext aWetContext) throws AssertionFailedException {
+    Parameter tmpSecondParameter = getSecondParameter();
+
+    if (null == tmpSecondParameter) {
+      return -1;
+    }
+
+    SecretString tmpSecondValue = tmpSecondParameter.getValue(aWetContext);
+    if (StringUtils.isEmpty(tmpSecondValue.getValue())) {
+      return -1;
+    }
+
+    try {
+      BigDecimal tmpValue = new BigDecimal(tmpSecondValue.getValue());
+      return Long.valueOf(tmpValue.longValueExact());
+    } catch (NumberFormatException e) {
+      Assert.fail("integerParameterExpected", new String[] { getName(),
+          tmpSecondParameter.getValue(aWetContext).toString(), "2" });
+    } catch (ArithmeticException e) {
+      Assert.fail("integerParameterExpected", new String[] { getName(),
+          tmpSecondParameter.getValue(aWetContext).toString(), "2" });
+    }
+    return -1;
   }
 
   public void assertNoUnusedSecondParameter(WetContext aWetContext) throws AssertionFailedException {
