@@ -65,11 +65,21 @@ import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
 public class HtmlUnitControl implements Control {
   private HtmlElement htmlElement;
 
+  /**
+   * Contructor
+   * 
+   * @param anHtmlElement the backend HtmlElement
+   */
   public HtmlUnitControl(final HtmlElement anHtmlElement) {
     super();
     htmlElement = anHtmlElement;
   }
 
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.rbri.wet.backend.Control#hasSameBackendControl(org.rbri.wet.backend.Control)
+   */
   public boolean hasSameBackendControl(Control aControl) {
     if (aControl instanceof HtmlUnitControl) {
       HtmlUnitControl tmpHtmlUnitControl = (HtmlUnitControl) aControl;
@@ -88,6 +98,11 @@ public class HtmlUnitControl implements Control {
     return htmlElement;
   }
 
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.rbri.wet.backend.Control#click()
+   */
   public void click() throws AssertionFailedException {
     HtmlElement tmpHtmlElement = getHtmlElement();
     String tmpScriptErrorMessage = null;
@@ -118,6 +133,9 @@ public class HtmlUnitControl implements Control {
       Assert.fail("javascriptError", new String[] { e.getMessage() });
     } catch (WrappedException e) {
       Assert.fail("javascriptError", new String[] { ExceptionUtil.getMessageFromScriptExceptionCauseIfPossible(e) });
+    } catch (AssertionFailedException e) {
+      // pass through
+      throw e;
     } catch (Throwable e) {
       Assert.fail("serverError", new String[] { e.getMessage(), getDescribingText() });
     }
@@ -128,6 +146,11 @@ public class HtmlUnitControl implements Control {
     }
   }
 
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.rbri.wet.backend.Control#mouseOver()
+   */
   public void mouseOver() throws AssertionFailedException {
     HtmlElement tmpHtmlElement = getHtmlElement();
     String tmpScriptErrorMessage = null;
@@ -159,22 +182,24 @@ public class HtmlUnitControl implements Control {
     }
   }
 
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.rbri.wet.backend.Control#select()
+   */
   public void select() throws AssertionFailedException {
     HtmlElement tmpHtmlElement = getHtmlElement();
-    String tmpScriptErrorMessage = null;
 
     try {
       if (tmpHtmlElement instanceof HtmlCheckBoxInput) {
         HtmlCheckBoxInput tmpHtmlCheckBoxInput = (HtmlCheckBoxInput) tmpHtmlElement;
 
         tmpHtmlCheckBoxInput.focus();
-        // tmpHtmlCheckBoxInput.setChecked(false);
         if (!tmpHtmlCheckBoxInput.isChecked()) {
           tmpHtmlCheckBoxInput.click();
         }
       } else if (tmpHtmlElement instanceof HtmlRadioButtonInput) {
         HtmlRadioButtonInput tmpHtmlRadioButtonInput = (HtmlRadioButtonInput) tmpHtmlElement;
-        // tmpHtmlRadioButtonInput.setChecked(true);
         if (!tmpHtmlRadioButtonInput.isChecked()) {
           tmpHtmlRadioButtonInput.click();
         }
@@ -194,16 +219,19 @@ public class HtmlUnitControl implements Control {
       Assert.fail("javascriptError", new String[] { e.getMessage() });
     } catch (WrappedException e) {
       Assert.fail("javascriptError", new String[] { ExceptionUtil.getMessageFromScriptExceptionCauseIfPossible(e) });
+    } catch (AssertionFailedException e) {
+      // pass through
+      throw e;
     } catch (Throwable e) {
       Assert.fail("serverError", new String[] { e.getMessage(), getDescribingText() });
     }
-
-    // only a problem with the javascript triggered by the focus call
-    if (null != tmpScriptErrorMessage) {
-      Assert.fail("javascriptError", new String[] { tmpScriptErrorMessage });
-    }
   }
 
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.rbri.wet.backend.Control#setValue(org.rbri.wet.util.SecretString, java.io.File)
+   */
   public void setValue(final SecretString aValue, final File aDirectory) throws AssertionFailedException {
     HtmlElement tmpHtmlElement = getHtmlElement();
     String tmpScriptErrorMessage = null;
@@ -278,6 +306,9 @@ public class HtmlUnitControl implements Control {
       Assert.fail("javascriptError", new String[] { e.getMessage() });
     } catch (WrappedException e) {
       Assert.fail("javascriptError", new String[] { ExceptionUtil.getMessageFromScriptExceptionCauseIfPossible(e) });
+    } catch (AssertionFailedException e) {
+      // pass through
+      throw e;
     } catch (Throwable e) {
       Assert.fail("serverError", new String[] { e.getMessage(), getDescribingText() });
     }
@@ -288,6 +319,11 @@ public class HtmlUnitControl implements Control {
     }
   }
 
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.rbri.wet.backend.Control#isDisabled()
+   */
   public boolean isDisabled() throws AssertionFailedException {
     HtmlElement tmpHtmlElement = getHtmlElement();
 
@@ -301,6 +337,11 @@ public class HtmlUnitControl implements Control {
     return false;
   }
 
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.rbri.wet.backend.Control#isSelected()
+   */
   public boolean isSelected() throws AssertionFailedException {
     HtmlElement tmpHtmlElement = getHtmlElement();
 
@@ -324,6 +365,11 @@ public class HtmlUnitControl implements Control {
     return false;
   }
 
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.rbri.wet.backend.Control#getValue()
+   */
   public String getValue() throws AssertionFailedException {
     HtmlElement tmpHtmlElement = getHtmlElement();
 
@@ -341,6 +387,11 @@ public class HtmlUnitControl implements Control {
     return null;
   }
 
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.rbri.wet.backend.Control#getDescribingText()
+   */
   public String getDescribingText() {
     HtmlElement tmpHtmlElement = getHtmlElement();
 
