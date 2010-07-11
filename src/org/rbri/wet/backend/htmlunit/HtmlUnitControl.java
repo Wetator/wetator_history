@@ -66,7 +66,7 @@ public class HtmlUnitControl implements Control {
   private HtmlElement htmlElement;
 
   /**
-   * Contructor
+   * Constructor
    * 
    * @param anHtmlElement the backend HtmlElement
    */
