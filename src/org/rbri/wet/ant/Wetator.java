@@ -101,7 +101,11 @@ public class Wetator extends Task {
         AntClassLoader tmpClassLoader = getProject().createClassLoader(getProject().getCoreLoader(), classpath);
         tmpClassLoader.setThreadContextLoader();
       }
-      tmpWetEngine.setConfigFileName(getConfig());
+
+      // configuration is relative to the base dir of the project
+      File tmpConfigFile = new File(getProject().getBaseDir(), getConfig());
+      tmpWetEngine.setConfigFileName(tmpConfigFile.getAbsolutePath());
+
       tmpWetEngine.setExternalProperties(tmpOurProperties);
       AntOutProgressListener tmpListener = new AntOutProgressListener(this);
       tmpWetEngine.addProgressListener(tmpListener);
