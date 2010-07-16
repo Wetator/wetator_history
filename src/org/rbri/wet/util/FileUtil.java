@@ -18,7 +18,6 @@ package org.rbri.wet.util;
 
 import java.io.File;
 
-import org.apache.commons.lang.StringUtils;
 import org.rbri.wet.exception.WetException;
 
 /**
@@ -35,28 +34,26 @@ public final class FileUtil {
    * @return the directory file object
    * @throws WetException in case of problems
    */
-  public static File createOutputDir(String anOutputDirPath) throws WetException {
-    if (StringUtils.isEmpty(anOutputDirPath)) {
+  public static void createOutputDir(File anOutputDir) throws WetException {
+    if (null == anOutputDir) {
       // I18n
       throw new WetException("No output dir specified");
     }
 
-    File tmpDir = new File(anOutputDirPath);
-    if (tmpDir.exists()) {
-      if (tmpDir.isFile()) {
+    if (anOutputDir.exists()) {
+      if (anOutputDir.isFile()) {
         // I18n
-        throw new WetException("There is already a file ('" + tmpDir.getAbsolutePath()
+        throw new WetException("There is already a file ('" + anOutputDir.getAbsolutePath()
             + "' with the same name as the configured"
             + "directory. Please change the configured directory or rename the file.");
       }
     } else {
-      if (!tmpDir.mkdirs()) {
+      if (!anOutputDir.mkdirs()) {
         // I18n
-        throw new WetException("Can't create the directory ('" + tmpDir.getAbsolutePath()
+        throw new WetException("Can't create the directory ('" + anOutputDir.getAbsolutePath()
             + "'. Please change the configuration.");
       }
     }
-    return tmpDir;
   }
 
   /**

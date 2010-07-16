@@ -240,7 +240,9 @@ public final class WetConfiguration {
 
       // outputDir
       tmpValue = tmpProperties.getProperty(PROPERTY_OUTPUT_DIR, DEFAULT_OUTPUT_DIR);
-      outputDir = FileUtil.createOutputDir(tmpValue);
+      // output dir is relative to the config file
+      outputDir = new File(aConfigurationFile.getParentFile(), tmpValue);
+      FileUtil.createOutputDir(outputDir);
 
       tmpValue = tmpProperties.getProperty(PROPERTY_DISTINCT_OUTPUT, DEFAULT_DISTINCT_OUTPUT);
       boolean tmpDistinctOutput = Boolean.parseBoolean(tmpValue);
@@ -326,10 +328,20 @@ public final class WetConfiguration {
       // xslTemplates
       tmpValue = tmpProperties.getProperty(PROPERTY_XSL_TEMPLATES, "");
       tmpProperties.remove(PROPERTY_XSL_TEMPLATES);
-      // TODO parse to list
-      // TODO validate
+
       xslTemplates = new LinkedList<String>();
-      xslTemplates.add(tmpValue);
+
+      List<String> tmpParts = StringUtil.extractStrings(tmpValue, ",", '\\');
+      for (String tmpString : tmpParts) {
+        if (StringUtils.isNotBlank(tmpString)) {
+          File tmpTemplateFile = new File(aConfigurationFile.getParentFile(), tmpString);
+          if (tmpTemplateFile.exists()) {
+            xslTemplates.add(tmpTemplateFile.getAbsolutePath());
+          } else {
+            throw new WetException("Configured XSL template '" + tmpTemplateFile.getAbsolutePath() + "' not found.");
+          }
+        }
+      }
 
       // all tmpProperties starting with $ are variables
       variables = new LinkedList<Variable>();
