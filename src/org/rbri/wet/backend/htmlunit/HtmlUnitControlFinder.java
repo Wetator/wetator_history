@@ -992,4 +992,16 @@ public class HtmlUnitControlFinder implements ControlFinder {
     }
     return tmpFound;
   }
+
+  /**
+   * TODO helper; has to be removed writing your own finder is possible
+   */
+  public final <E extends HtmlElement> List<E> getElementsByAttribute(String anElementName, String anAttributeName,
+      String anAttributeValue) {
+    HtmlElement tmpBody = htmlPage.getBody();
+    if (null == tmpBody) {
+      return null;
+    }
+    return tmpBody.getElementsByAttribute(anElementName, anAttributeName, anAttributeValue);
+  }
 }
