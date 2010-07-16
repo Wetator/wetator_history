@@ -21,6 +21,7 @@ import java.io.File;
 import org.rbri.wet.Version;
 import org.rbri.wet.commandset.WetCommandSet;
 import org.rbri.wet.core.WetCommand;
+import org.rbri.wet.core.WetConfiguration;
 import org.rbri.wet.core.WetContext;
 import org.rbri.wet.core.WetEngine;
 import org.rbri.wet.core.WetEngineProgressListener;
@@ -53,7 +54,14 @@ public class StdOutProgressListener implements WetEngineProgressListener {
 
     File tmpConfigFile = aWetEngine.getConfigFile();
     if (null != tmpConfigFile) {
-      println("  Config: '" + tmpConfigFile.getAbsolutePath() + "'");
+      println("  Config:     '" + tmpConfigFile.getAbsolutePath() + "'");
+
+      WetConfiguration tmpConfiguration = aWetEngine.getWetConfiguration();
+      println("   OutputDir: '" + tmpConfiguration.getOutputDir().getAbsolutePath() + "'");
+      println("   Templates:");
+      for (String tmpTemplate : tmpConfiguration.getXslTemplates()) {
+        println("              '" + tmpTemplate + "'");
+      }
     }
   }
 
