@@ -190,6 +190,11 @@ public class HtmlUnitControl implements Control {
   public void select() throws AssertionFailedException {
     HtmlElement tmpHtmlElement = getHtmlElement();
 
+    if (tmpHtmlElement instanceof DisabledElement) {
+      DisabledElement tmpDisabledElement = (DisabledElement) tmpHtmlElement;
+      Assert.assertTrue(!tmpDisabledElement.isDisabled(), "elementDisabled", new String[] { getDescribingText() });
+    }
+
     try {
       if (tmpHtmlElement instanceof HtmlCheckBoxInput) {
         HtmlCheckBoxInput tmpHtmlCheckBoxInput = (HtmlCheckBoxInput) tmpHtmlElement;
