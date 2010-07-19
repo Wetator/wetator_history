@@ -236,6 +236,11 @@ public class HtmlUnitControl implements Control {
     HtmlElement tmpHtmlElement = getHtmlElement();
     String tmpScriptErrorMessage = null;
 
+    if (tmpHtmlElement instanceof DisabledElement) {
+      DisabledElement tmpDisabledElement = (DisabledElement) tmpHtmlElement;
+      Assert.assertTrue(!tmpDisabledElement.isDisabled(), "elementDisabled", new String[] { getDescribingText() });
+    }
+
     try {
       tmpHtmlElement.click();
     } catch (IOException e) {
