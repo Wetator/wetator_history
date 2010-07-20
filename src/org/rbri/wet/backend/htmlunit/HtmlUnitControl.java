@@ -210,6 +210,8 @@ public class HtmlUnitControl implements Control {
         }
       } else if (tmpHtmlElement instanceof HtmlOption) {
         HtmlOption tmpHtmlOption = (HtmlOption) tmpHtmlElement;
+        Assert.assertTrue(!tmpHtmlOption.getEnclosingSelect().isDisabled(), "elementDisabled",
+            new String[] { getDescribingText() });
 
         if (!tmpHtmlOption.isSelected()) {
           tmpHtmlOption.click();
