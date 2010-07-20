@@ -78,7 +78,7 @@ src/org/rbri/wet/util/AutomatonShortFromEndMatcher.java -text
 src/org/rbri/wet/util/AutomatonShortMatcher.java -text
 src/org/rbri/wet/util/ContentUtil.java -text
 src/org/rbri/wet/util/FileUtil.java -text
-src/org/rbri/wet/util/NormalizedContent.java -text
+src/org/rbri/wet/util/NormalizedString.java -text
 src/org/rbri/wet/util/Output.java -text
 src/org/rbri/wet/util/SearchPattern.java -text
 src/org/rbri/wet/util/SecretString.java -text
@@ -173,6 +173,7 @@ test/java/org/rbri/wet/scripter/XmlScripterTest.java -text svneol=unset#text/pla
 test/java/org/rbri/wet/util/AllTests.java -text
 test/java/org/rbri/wet/util/AssertTest.java -text
 test/java/org/rbri/wet/util/ContentUtilTest.java -text
+test/java/org/rbri/wet/util/NormalizedStringTest.java -text svneol=unset#text/plain
 test/java/org/rbri/wet/util/SearchPatternTest.java -text
 test/java/org/rbri/wet/util/StringUtilTest.java -text
 test/java/org/rbri/wet/util/VariableReplaceUtilUtilTest.java -text

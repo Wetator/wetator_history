@@ -47,9 +47,8 @@ public final class ContentUtil {
     try {
       PDFTextStripper tmpStripper = new PDFTextStripper();
       String tmpContentAsText = tmpStripper.getText(tmpDocument);
-      NormalizedContent tmpResult = new NormalizedContent();
-      tmpResult.append(tmpContentAsText);
-      return tmpResult.toString().trim();
+      NormalizedString tmpResult = new NormalizedString(tmpContentAsText);
+      return tmpResult.toString();
     } finally {
       tmpDocument.close();
     }
@@ -63,7 +62,7 @@ public final class ContentUtil {
    * @throws IOException in case of io errors
    */
   public static String getXlsContentAsString(InputStream anInputStream) throws IOException {
-    NormalizedContent tmpResult = new NormalizedContent();
+    NormalizedString tmpResult = new NormalizedString();
     HSSFWorkbook tmpWorkbook = new HSSFWorkbook(anInputStream);
 
     for (int i = 0; i < tmpWorkbook.getNumberOfSheets(); i++) {
@@ -87,7 +86,7 @@ public final class ContentUtil {
       }
     }
 
-    return tmpResult.toString().trim();
+    return tmpResult.toString();
   }
 
   private static String readCellContentAsString(HSSFRow aRow, int aColumnsNo) {

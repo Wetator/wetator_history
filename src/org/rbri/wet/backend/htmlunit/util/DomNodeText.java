@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
 
-import org.rbri.wet.util.NormalizedContent;
+import org.rbri.wet.util.NormalizedString;
 import org.rbri.wet.util.SearchPattern;
 
 import com.gargoylesoftware.htmlunit.html.DomComment;
@@ -69,7 +69,7 @@ import com.gargoylesoftware.htmlunit.html.SubmittableElement;
  */
 public class DomNodeText {
 
-  private NormalizedContent text;
+  private NormalizedString text;
   private List<DomNode> nodes;
   private List<HtmlElement> visibleHtmlElementsBottomUp;
   private List<HtmlElement> visibleHtmlElements;
@@ -81,7 +81,7 @@ public class DomNodeText {
    * @param aDomNode the root node to start with
    */
   public DomNodeText(final DomNode aDomNode) {
-    text = new NormalizedContent();
+    text = new NormalizedString();
     nodes = new LinkedList<DomNode>();
     visibleHtmlElementsBottomUp = new LinkedList<HtmlElement>();
     visibleHtmlElements = new LinkedList<HtmlElement>();
@@ -96,7 +96,7 @@ public class DomNodeText {
    * @return the whole text
    */
   public String getText() {
-    return text.toString().trim();
+    return text.toString();
   }
 
   /**
@@ -169,7 +169,7 @@ public class DomNodeText {
     if (null == tmpFindSpot) {
       return null;
     }
-    return text.substring(0, tmpFindSpot.startPos).trim();
+    return text.substring(0, tmpFindSpot.startPos);
   }
 
   /**
@@ -183,7 +183,7 @@ public class DomNodeText {
     if (null == tmpFindSpot) {
       return null;
     }
-    return text.substring(0, tmpFindSpot.endPos).trim();
+    return text.substring(0, tmpFindSpot.endPos);
   }
 
   /**
@@ -228,7 +228,7 @@ public class DomNodeText {
       }
     }
 
-    return text.substring(Math.max(tmpStartPos, aStartPos), tmpFindSpot.startPos).trim();
+    return text.substring(Math.max(tmpStartPos, aStartPos), tmpFindSpot.startPos);
   }
 
   /**
@@ -269,7 +269,7 @@ public class DomNodeText {
       }
     }
 
-    return text.substring(tmpFindSpot.endPos, tmpEndPos).trim();
+    return text.substring(tmpFindSpot.endPos, tmpEndPos);
   }
 
   /**
@@ -283,7 +283,7 @@ public class DomNodeText {
     if (null == tmpFindSpot) {
       return null;
     }
-    return text.substring(tmpFindSpot.startPos, tmpFindSpot.endPos).trim();
+    return text.substring(tmpFindSpot.startPos, tmpFindSpot.endPos);
   }
 
   private void parseDomNode(final DomNode aDomNode) {

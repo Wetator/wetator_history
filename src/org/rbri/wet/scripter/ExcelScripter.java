@@ -34,7 +34,7 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.rbri.wet.core.Parameter;
 import org.rbri.wet.core.WetCommand;
 import org.rbri.wet.exception.WetException;
-import org.rbri.wet.util.NormalizedContent;
+import org.rbri.wet.util.NormalizedString;
 
 /**
  * Scripter for excel files
@@ -137,7 +137,7 @@ public final class ExcelScripter implements WetScripter {
         tmpCommentFlag = StringUtils.isNotEmpty(tmpCommentString);
 
         tmpCommandName = readCellContentAsString(tmpRow, COMMAND_NAME_COLUMN_NO);
-        tmpCommandName = new NormalizedContent(tmpCommandName).toString().trim();
+        tmpCommandName = new NormalizedString(tmpCommandName).toString();
 
         // empty command means comment
         if (tmpCommentFlag && StringUtils.isEmpty(tmpCommandName)) {
