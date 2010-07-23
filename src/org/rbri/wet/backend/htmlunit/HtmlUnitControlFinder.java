@@ -964,30 +964,28 @@ public class HtmlUnitControlFinder implements ControlFinder {
     boolean tmpFound = false;
     Iterable<HtmlOption> tmpOptions = aSelect.getOptions();
     for (HtmlOption tmpOption : tmpOptions) {
-      if (!tmpOption.isDisabled()) {
-        String tmpText = domNodeText.getAsText(tmpOption);
-        int tmpCoverage = aSearchPattern.noOfSurroundingCharsIn(tmpText);
-        if (tmpCoverage > -1) {
-          aWeightedControlList.add(new HtmlUnitControl(tmpOption), WeightedControlList.FoundType.BY_LABEL, tmpCoverage,
-              aDistance);
-          tmpFound = true;
-        }
+      String tmpText = domNodeText.getAsText(tmpOption);
+      int tmpCoverage = aSearchPattern.noOfSurroundingCharsIn(tmpText);
+      if (tmpCoverage > -1) {
+        aWeightedControlList.add(new HtmlUnitControl(tmpOption), WeightedControlList.FoundType.BY_LABEL, tmpCoverage,
+            aDistance);
+        tmpFound = true;
+      }
 
-        tmpText = tmpOption.getLabelAttribute();
-        tmpCoverage = aSearchPattern.noOfSurroundingCharsIn(tmpText);
-        if (tmpCoverage > -1) {
-          aWeightedControlList.add(new HtmlUnitControl(tmpOption), WeightedControlList.FoundType.BY_LABEL, tmpCoverage,
-              aDistance);
-          tmpFound = true;
-        }
+      tmpText = tmpOption.getLabelAttribute();
+      tmpCoverage = aSearchPattern.noOfSurroundingCharsIn(tmpText);
+      if (tmpCoverage > -1) {
+        aWeightedControlList.add(new HtmlUnitControl(tmpOption), WeightedControlList.FoundType.BY_LABEL, tmpCoverage,
+            aDistance);
+        tmpFound = true;
+      }
 
-        tmpText = tmpOption.getValueAttribute();
-        tmpCoverage = aSearchPattern.noOfSurroundingCharsIn(tmpText);
-        if (tmpCoverage > -1) {
-          aWeightedControlList.add(new HtmlUnitControl(tmpOption), WeightedControlList.FoundType.BY_LABEL, tmpCoverage,
-              aDistance);
-          tmpFound = true;
-        }
+      tmpText = tmpOption.getValueAttribute();
+      tmpCoverage = aSearchPattern.noOfSurroundingCharsIn(tmpText);
+      if (tmpCoverage > -1) {
+        aWeightedControlList.add(new HtmlUnitControl(tmpOption), WeightedControlList.FoundType.BY_LABEL, tmpCoverage,
+            aDistance);
+        tmpFound = true;
       }
     }
     return tmpFound;
