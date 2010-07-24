@@ -56,6 +56,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlSpan;
 import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
 import com.gargoylesoftware.htmlunit.html.HtmlTextArea;
 import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
+import com.gargoylesoftware.htmlunit.html.impl.SelectableTextInput;
 
 /**
  * The HtmlUnit Control implementation.
@@ -288,25 +289,39 @@ public class HtmlUnitControl implements Control {
       } else if (tmpHtmlElement instanceof HtmlHiddenInput) {
         HtmlHiddenInput tmpHtmlHiddenInput = (HtmlHiddenInput) tmpHtmlElement;
         tmpHtmlHiddenInput.setValueAttribute(aValue.getValue());
-      } else if (tmpHtmlElement instanceof HtmlInput) {
-        HtmlInput tmpHtmlInput = (HtmlInput) tmpHtmlElement;
-        String tmpValue = aValue.getValue();
+      } else if (tmpHtmlElement instanceof SelectableTextInput) {
+        SelectableTextInput tmpSelectableTextInput = (SelectableTextInput) tmpHtmlElement;
 
-        if (StringUtils.isNotEmpty(tmpHtmlInput.getValueAttribute())) {
-          tmpHtmlInput.setValueAttribute("");
-        }
-        if (tmpValue.length() > 0) {
-          tmpHtmlInput.type(tmpValue);
-        }
-      } else if (tmpHtmlElement instanceof HtmlTextArea) {
-        HtmlTextArea tmpHtmlTextArea = (HtmlTextArea) tmpHtmlElement;
         String tmpValue = aValue.getValue();
+        tmpSelectableTextInput.select();
 
-        if (StringUtils.isNotEmpty(tmpHtmlTextArea.getText())) {
-          tmpHtmlTextArea.setText("");
-        }
-        if (tmpValue.length() > 0) {
-          tmpHtmlTextArea.type(aValue.getValue());
+        if (tmpHtmlElement instanceof HtmlTextArea) {
+          HtmlTextArea tmpHtmlTextArea = (HtmlTextArea) tmpHtmlElement;
+
+          if (tmpValue.length() > 0) {
+            tmpHtmlTextArea.type(aValue.getValue());
+          } else {
+            tmpHtmlTextArea.setText("");
+          }
+        } else {
+          HtmlInput tmpHtmlInput = (HtmlInput) tmpHtmlElement;
+
+          int tmpMaxLength = -1;
+          try {
+            String tmpMaxLengthString = tmpHtmlInput.getMaxLengthAttribute();
+            tmpMaxLength = Integer.parseInt(tmpMaxLengthString);
+          } catch (NumberFormatException e) {
+            // TODO warn
+          }
+
+          if (tmpMaxLength > -1) {
+            tmpValue = tmpValue.substring(0, Math.min(tmpMaxLength, tmpValue.length()));
+          }
+          if (tmpValue.length() > 0) {
+            tmpHtmlElement.type(tmpValue);
+          } else {
+            tmpHtmlInput.setValueAttribute("");
+          }
         }
       } else {
         Assert.fail("setNotSupported", new String[] { getDescribingText() });
