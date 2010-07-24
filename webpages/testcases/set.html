@@ -207,7 +207,7 @@
 
           </table>
 
-          <h4>disabled</h4>
+          <h4>Special Cases</h4>
 
           <table border='0'>
 
@@ -220,6 +220,38 @@
                   <table border='0'>
                     <tr>
                       <td><input type="text" id="inputText_Disabled" name="inputText_Disabled" value="" disabled></td>
+                    </tr>
+                  </table>
+                </form>
+              </td>
+            </tr>
+
+            <tr>
+              <td><label for="inputText_overwrite">InputText with value - overwrite</label></td>
+            </tr>
+            <tr>
+              <td>
+                <form action="http://wetator.rbri.org/testcases/snoopy.php">
+                  <table border='0'>
+                    <tr>
+                      <td><input type="text" id="inputText_overwrite" name="inputText_overwrite" value="myValue"></td>
+                      <td><input type="submit" name="InputTextOverwriteTest" value="OK"></td>
+                    </tr>
+                  </table>
+                </form>
+              </td>
+            </tr>
+
+            <tr>
+              <td><label for="inputText_maxlength">InputText with maxlength</label></td>
+            </tr>
+            <tr>
+              <td>
+                <form action="http://wetator.rbri.org/testcases/snoopy.php">
+                  <table border='0'>
+                    <tr>
+                      <td><input type="text" id="inputText_maxlength" name="inputText_maxlength" value="" maxlength="4"></td>
+                      <td><input type="submit" name="InputTextMaxlengthTest" value="OK"></td>
                     </tr>
                   </table>
                 </form>
@@ -419,7 +451,7 @@
 
           </table>
 
-          <h4>disabled</h4>
+          <h4>Special Cases</h4>
 
           <table border='0'>
 
@@ -431,7 +463,39 @@
                 <form action="http://wetator.rbri.org/testcases/snoopy.php">
                   <table border='0'>
                     <tr>
-                      <td><input type="password" id="inputpassword_Disabled" name="inputpassword_Disabled" value="" disabled></td>
+                      <td><input type="password" id="inputPassword_Disabled" name="inputPassword_Disabled" value="" disabled></td>
+                    </tr>
+                  </table>
+                </form>
+              </td>
+            </tr>
+
+            <tr>
+              <td><label for="inputPassword_overwrite">InputPassword with value - overwrite</label></td>
+            </tr>
+            <tr>
+              <td>
+                <form action="http://wetator.rbri.org/testcases/snoopy.php">
+                  <table border='0'>
+                    <tr>
+                      <td><input type="password" id="inputPassword_overwrite" name="inputPassword_overwrite" value="myValue"></td>
+                      <td><input type="submit" name="InputPasswordOverwriteTest" value="OK"></td>
+                    </tr>
+                  </table>
+                </form>
+              </td>
+            </tr>
+
+            <tr>
+              <td><label for="inputPassword_maxlength">InputPassword with maxlength</label></td>
+            </tr>
+            <tr>
+              <td>
+                <form action="http://wetator.rbri.org/testcases/snoopy.php">
+                  <table border='0'>
+                    <tr>
+                      <td><input type="password" id="inputPassword_maxlength" name="inputPassword_maxlength" value="" maxlength="4"></td>
+                      <td><input type="submit" name="InputPasswordMaxlengthTest" value="OK"></td>
                     </tr>
                   </table>
                 </form>
@@ -631,19 +695,35 @@
 
           </table>
 
-          <h4>disabled</h4>
+          <h4>Special Cases</h4>
 
           <table border='0'>
 
             <tr>
-              <td><label for="inputTextArea_Disabled">Disabled TextArea</label></td>
+              <td><label for="textArea_Disabled">Disabled TextArea</label></td>
             </tr>
             <tr>
               <td>
                 <form action="http://wetator.rbri.org/testcases/snoopy.php">
                   <table border='0'>
                     <tr>
-                      <td><textarea name="inputTextArea_Disabled" cols="50" rows="1" disabled></textarea></td>
+                      <td><textarea name="textArea_Disabled" cols="50" rows="1" disabled></textarea></td>
+                    </tr>
+                  </table>
+                </form>
+              </td>
+            </tr>
+
+            <tr>
+              <td><label for="textArea_overwrite">TextArea with value - overwrite</label></td>
+            </tr>
+            <tr>
+              <td>
+                <form action="http://wetator.rbri.org/testcases/snoopy.php">
+                  <table border='0'>
+                    <tr>
+                      <td><textarea name="textArea_overwrite" cols="50" rows="1">myValue</textarea></td>
+                      <td><input type="submit" name="TextAreaOverwriteTest" value="OK"></td>
                     </tr>
                   </table>
                 </form>
