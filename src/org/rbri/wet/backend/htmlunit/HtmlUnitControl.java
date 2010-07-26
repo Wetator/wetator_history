@@ -32,6 +32,7 @@ import org.rbri.wet.util.SecretString;
 
 import com.gargoylesoftware.htmlunit.Page;
 import com.gargoylesoftware.htmlunit.ScriptException;
+import com.gargoylesoftware.htmlunit.ScriptResult;
 import com.gargoylesoftware.htmlunit.SgmlPage;
 import com.gargoylesoftware.htmlunit.html.DisabledElement;
 import com.gargoylesoftware.htmlunit.html.HtmlAnchor;
@@ -57,6 +58,8 @@ import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
 import com.gargoylesoftware.htmlunit.html.HtmlTextArea;
 import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
 import com.gargoylesoftware.htmlunit.html.impl.SelectableTextInput;
+import com.gargoylesoftware.htmlunit.javascript.host.Event;
+import com.gargoylesoftware.htmlunit.javascript.host.KeyboardEvent;
 
 /**
  * The HtmlUnit Control implementation.
@@ -320,7 +323,23 @@ public class HtmlUnitControl implements Control {
           if (tmpValue.length() > 0) {
             tmpHtmlElement.type(tmpValue);
           } else {
-            tmpHtmlInput.setValueAttribute("");
+            // no way to simulate type of the del key
+            char tmpDel = (char) 46;
+
+            Event tmpKeyDownEvent = new KeyboardEvent(tmpHtmlElement, Event.TYPE_KEY_DOWN, tmpDel, false, false, false);
+            ScriptResult tmpKeyDownResult = tmpHtmlElement.fireEvent(tmpKeyDownEvent);
+
+            Event tmpKeyPressEvent = new KeyboardEvent(tmpHtmlElement, Event.TYPE_KEY_PRESS, tmpDel, false, false,
+                false);
+            ScriptResult tmpKeyPressResult = tmpHtmlElement.fireEvent(tmpKeyPressEvent);
+
+            if (!tmpKeyDownEvent.isAborted(tmpKeyDownResult) && !tmpKeyPressEvent.isAborted(tmpKeyPressResult)) {
+              tmpHtmlInput.setValueAttribute("");
+            }
+
+            Event tmpKeyUpEvent = new KeyboardEvent(tmpHtmlElement, Event.TYPE_KEY_UP, tmpDel, false, false, false);
+            tmpHtmlElement.fireEvent(tmpKeyUpEvent);
+
           }
         }
       } else {
