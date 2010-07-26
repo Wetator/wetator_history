@@ -144,7 +144,7 @@ public final class HtmlUnitBrowser implements WetBackend {
         String tmpUser = tmpConfiguration.getBasicAuthUser().getValue();
         String tmpPassword = tmpConfiguration.getBasicAuthPassword().getValue();
         DefaultCredentialsProvider tmpCredentialProvider = new DefaultCredentialsProvider();
-        tmpCredentialProvider.addProxyCredentials(tmpUser, tmpPassword);
+        tmpCredentialProvider.addCredentials(tmpUser, tmpPassword);
         webClient.setCredentialsProvider(tmpCredentialProvider);
         // TODO logging
       }
@@ -154,7 +154,7 @@ public final class HtmlUnitBrowser implements WetBackend {
         String tmpUser = tmpConfiguration.getProxyUser().getValue();
         String tmpPassword = tmpConfiguration.getProxyPassword().getValue();
         DefaultCredentialsProvider tmpCredentialProvider = new DefaultCredentialsProvider();
-        tmpCredentialProvider.addProxyCredentials(tmpUser, tmpPassword);
+        tmpCredentialProvider.addCredentials(tmpUser, tmpPassword);
         webClient.setCredentialsProvider(tmpCredentialProvider);
         // TODO logging
       }
@@ -162,7 +162,9 @@ public final class HtmlUnitBrowser implements WetBackend {
       Set<String> tmpNonProxyHosts = tmpConfiguration.getProxyHostsToBypass();
 
       for (String tmpString : tmpNonProxyHosts) {
-        webClient.getProxyConfig().addHostsToProxyBypass(tmpString);
+        if (StringUtils.isNotEmpty(tmpString)) {
+          webClient.getProxyConfig().addHostsToProxyBypass(tmpString.trim());
+        }
       }
     } else {
       webClient = new WebClient(tmpBrowserVersion);
@@ -274,7 +276,7 @@ public final class HtmlUnitBrowser implements WetBackend {
       }
       String tmpUrl = "";
       try {
-        tmpUrl = aPage.getWebResponse().getRequestSettings().getUrl().toExternalForm();
+        tmpUrl = aPage.getWebResponse().getWebRequest().getUrl().toExternalForm();
       } catch (NullPointerException e) {
         // ignore
       }
@@ -387,7 +389,7 @@ public final class HtmlUnitBrowser implements WetBackend {
         LOG.debug("webWindowClosed: (page null)");
       } else {
         LOG.debug("webWindowClosed: (url '"
-            + anEvent.getWebWindow().getEnclosedPage().getWebResponse().getRequestSettings().getUrl() + "')");
+            + anEvent.getWebWindow().getEnclosedPage().getWebResponse().getWebRequest().getUrl() + "')");
       }
     }
 
@@ -396,7 +398,7 @@ public final class HtmlUnitBrowser implements WetBackend {
       Page tmpNewPage = anEvent.getNewPage();
       // first load into a new window
       if (null != tmpNewPage && null == anEvent.getOldPage()) {
-        URL tmpUrl = tmpNewPage.getWebResponse().getRequestUrl();
+        URL tmpUrl = tmpNewPage.getWebResponse().getWebRequest().getUrl();
         String tmpRef = tmpUrl.getRef();
         if (StringUtils.isNotEmpty(tmpRef)) {
           try {
