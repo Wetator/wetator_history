@@ -268,7 +268,7 @@ public class HtmlUnitControl implements Control {
         HtmlFileInput tmpHtmlFileInput = (HtmlFileInput) tmpHtmlElement;
 
         String tmpValue = aValue.getValue();
-        if (tmpValue.length() == 0) {
+        if (StringUtils.isBlank(tmpValue)) {
           tmpHtmlFileInput.setValueAttribute("");
         } else {
           // now we have to determine the correct absolute file path
@@ -301,7 +301,7 @@ public class HtmlUnitControl implements Control {
         if (tmpHtmlElement instanceof HtmlTextArea) {
           HtmlTextArea tmpHtmlTextArea = (HtmlTextArea) tmpHtmlElement;
 
-          if (tmpValue.length() > 0) {
+          if (StringUtils.isNotBlank(tmpValue)) {
             tmpHtmlTextArea.type(aValue.getValue());
           } else {
             tmpHtmlTextArea.setText("");
