@@ -123,7 +123,7 @@ public abstract class AbstractCommandSet implements WetCommandSet {
    * 
    * @param aWetContext the wet context
    * @param aWeightedControlList the WeightedControlList
-   * @param aSearchParam the search param (only needed for the warning message)
+   * @param aSearchParam the search parameter (only needed for the warning message)
    * @return the first control from the list
    * @throws AssertionFailedException if the list is empty
    */
@@ -135,14 +135,16 @@ public abstract class AbstractCommandSet implements WetCommandSet {
 
     List<WeightedControlList.Entry> tmpEntries = aWeightedControlList.getElementsSorted();
     WeightedControlList.Entry tmpEntry = tmpEntries.get(0);
+
     if (tmpEntries.size() > 1) {
       aWetContext.informListenersWarn("manyElementsFound", new String[] { SecretString.toString(aSearchParam),
           tmpEntry.getControl().getDescribingText() });
-
-      for (WeightedControlList.Entry tmpEachEntry : tmpEntries) {
-        aWetContext.informListenersInfo("elementFound", new String[] { tmpEachEntry.toString() });
-      }
     }
+
+    for (WeightedControlList.Entry tmpEachEntry : tmpEntries) {
+      aWetContext.informListenersInfo("elementFound", new String[] { tmpEachEntry.toString() });
+    }
+
     return tmpEntry.getControl();
   }
 }
