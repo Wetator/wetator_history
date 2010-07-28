@@ -22,6 +22,7 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
 import org.rbri.wet.util.NormalizedString;
 import org.rbri.wet.util.SearchPattern;
 
@@ -214,7 +215,10 @@ public class DomNodeText {
       // we have to stop if we found some other (visible) form control
       if ((tmpNode instanceof SubmittableElement) && !(tmpNode instanceof HtmlHiddenInput)) {
         tmpStartPos = positions.get(tmpNode).endPos;
-        break;
+        String tmpText = text.substring(Math.max(tmpStartPos, aStartPos), tmpFindSpot.startPos);
+        if (StringUtils.isNotEmpty(tmpText)) {
+          return tmpText;
+        }
       }
 
       // we have to stop if we are reaching an element of another form

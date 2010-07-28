@@ -319,6 +319,78 @@ public class DomNodeTextTest extends TestCase {
     assertEquals("", tmpResult.getText());
   }
 
+  public void testGetLabelTextBefore_None() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<form action='test'>"
+        + "<input id='MyInputId' name='MyInputName' value='value1' type='text'>" + "</form>" + "</body></html>";
+
+    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    DomNodeText tmpDomNodeText = new DomNodeText(tmpHtmlPage);
+
+    assertEquals("", tmpDomNodeText.getLabelTextBefore(tmpHtmlPage.getElementById("MyInputId"), 0));
+  }
+
+  public void testGetLabelTextBefore_AtStart() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<form action='test'>"
+        + "MyLabel<input id='MyInputId' name='MyInputName' value='value1' type='text'>" + "</form>" + "</body></html>";
+
+    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    DomNodeText tmpDomNodeText = new DomNodeText(tmpHtmlPage);
+
+    assertEquals("MyLabel", tmpDomNodeText.getLabelTextBefore(tmpHtmlPage.getElementById("MyInputId"), 0));
+  }
+
+  public void testGetLabelTextBefore_IgnoreHidden() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<form action='test'>MyLabel" + "<input value='hiddenValue' type='hidden'>"
+        + "<input id='MyInputId' name='MyInputName' value='value1' type='text'>" + "</form>" + "</body></html>";
+
+    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    DomNodeText tmpDomNodeText = new DomNodeText(tmpHtmlPage);
+
+    assertEquals("MyLabel", tmpDomNodeText.getLabelTextBefore(tmpHtmlPage.getElementById("MyInputId"), 0));
+  }
+
+  public void testGetLabelTextBefore_BeforeForm() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<p>MoreText</p>" + "<form action='test'>"
+        + "MyLabel<input id='MyInputId' name='MyInputName' value='value1' type='text'>" + "</form>" + "</body></html>";
+
+    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    DomNodeText tmpDomNodeText = new DomNodeText(tmpHtmlPage);
+
+    assertEquals("MoreText MyLabel", tmpDomNodeText.getLabelTextBefore(tmpHtmlPage.getElementById("MyInputId"), 0));
+  }
+
+  public void testGetLabelTextBefore_IgnoreDifferentForm() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<form action='test2'><p>MoreText</p></form>" + "<form action='test'>"
+        + "MyLabel<input id='MyInputId' name='MyInputName' value='value1' type='text'>" + "</form>" + "</body></html>";
+
+    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    DomNodeText tmpDomNodeText = new DomNodeText(tmpHtmlPage);
+
+    assertEquals("MyLabel", tmpDomNodeText.getLabelTextBefore(tmpHtmlPage.getElementById("MyInputId"), 0));
+  }
+
+  public void testGetLabelTextBefore_UntilNext() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<form action='test'>"
+        + "Other<input id='MyOtherInputId' value='value2' type='text'>"
+        + "MyLabel<input id='MyInputId' name='MyInputName' value='value1' type='text'>" + "</form>" + "</body></html>";
+
+    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    DomNodeText tmpDomNodeText = new DomNodeText(tmpHtmlPage);
+
+    assertEquals("MyLabel", tmpDomNodeText.getLabelTextBefore(tmpHtmlPage.getElementById("MyInputId"), 0));
+  }
+
+  public void testGetLabelTextBefore_ChainedControls() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<form action='test'>"
+        + "MyLabel <input id='MyOtherInputId' value='value2' type='text'> "
+        + "<input id='MyInputId' name='MyInputName' value='value1' type='text'>" + "</form>" + "</body></html>";
+
+    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    DomNodeText tmpDomNodeText = new DomNodeText(tmpHtmlPage);
+
+    assertEquals("MyLabel value2", tmpDomNodeText.getLabelTextBefore(tmpHtmlPage.getElementById("MyInputId"), 0));
+  }
+
   public void testGetLabelTextAfter_None() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<input id='MyCheckboxId' name='MyCheckboxName' value='value1' type='checkbox'>" + "</form>"

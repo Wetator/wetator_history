@@ -190,7 +190,7 @@ public class HtmlUnitControlFinderGetAllSetablesTest extends TestCase {
   public void testGetAllSetables_TextInputByLabelChild() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<label>Label"
         + "<input id='inputId' name='TextInput' type='text'>" + "</label>"
-        + "<input id='another' name='AnotherTextInput' type='text'>" + "</form>" + "</body></html>";
+        + "abc<input id='another' name='AnotherTextInput' type='text'>" + "</form>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
@@ -202,7 +202,7 @@ public class HtmlUnitControlFinderGetAllSetablesTest extends TestCase {
     assertEquals(2, tmpFound.getElementsSorted().size());
     assertEquals("[HtmlTextInput (id='inputId') (name='TextInput')] found by: BY_LABEL coverage: 0 distance: 0",
         tmpFound.getElementsSorted().get(0).toString());
-    assertEquals("[HtmlTextInput (id='another') (name='AnotherTextInput')] found by: BY_TEXT coverage: 0 distance: 5",
+    assertEquals("[HtmlTextInput (id='another') (name='AnotherTextInput')] found by: BY_TEXT coverage: 3 distance: 8",
         tmpFound.getElementsSorted().get(1).toString());
   }
 
@@ -326,7 +326,8 @@ public class HtmlUnitControlFinderGetAllSetablesTest extends TestCase {
     assertEquals(2, tmpFound.getElementsSorted().size());
     assertEquals("[HtmlTextInput (id='inputId') (name='TextInput')] found by: BY_LABEL coverage: 0 distance: 0",
         tmpFound.getElementsSorted().get(0).toString());
-    assertEquals("[HtmlTextInput (id='another') (name='AnotherTextInput')] found by: BY_TEXT coverage: 0 distance: 5",
+    assertEquals(
+        "[HtmlTextInput (id='another') (name='AnotherTextInput')] found by: BY_LABEL_TEXT coverage: 0 distance: 0",
         tmpFound.getElementsSorted().get(1).toString());
   }
 
@@ -345,7 +346,8 @@ public class HtmlUnitControlFinderGetAllSetablesTest extends TestCase {
     assertEquals(2, tmpFound.getElementsSorted().size());
     assertEquals("[HtmlTextInput (id='inputId') (name='TextInput')] found by: BY_LABEL coverage: 0 distance: 0",
         tmpFound.getElementsSorted().get(0).toString());
-    assertEquals("[HtmlTextInput (id='another') (name='AnotherTextInput')] found by: BY_TEXT coverage: 0 distance: 5",
+    assertEquals(
+        "[HtmlTextInput (id='another') (name='AnotherTextInput')] found by: BY_LABEL_TEXT coverage: 0 distance: 0",
         tmpFound.getElementsSorted().get(1).toString());
   }
 
@@ -364,7 +366,8 @@ public class HtmlUnitControlFinderGetAllSetablesTest extends TestCase {
     assertEquals(2, tmpFound.getElementsSorted().size());
     assertEquals("[HtmlTextInput (id='inputId') (name='TextInput')] found by: BY_LABEL coverage: 0 distance: 0",
         tmpFound.getElementsSorted().get(0).toString());
-    assertEquals("[HtmlTextInput (id='another') (name='AnotherTextInput')] found by: BY_TEXT coverage: 0 distance: 5",
+    assertEquals(
+        "[HtmlTextInput (id='another') (name='AnotherTextInput')] found by: BY_LABEL_TEXT coverage: 0 distance: 0",
         tmpFound.getElementsSorted().get(1).toString());
   }
 
