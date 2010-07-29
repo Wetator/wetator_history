@@ -13,7 +13,7 @@
   <meta name="robots" content="index,nofollow">
   <meta name="revisit-after" content="14 days">
 
-  <title>Wetator Command Reference / Assert Selected</title>
+  <title>Wetator Command Reference / Deselect</title>
   <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
   <link type="text/css" href="../wet.css" rel="stylesheet">
 </head>
@@ -60,14 +60,14 @@
   <p class="navi_link">
     <a class="navi_header" href="../commands/select.html">Select</a>
   </p>
-  <p class="navi_link">
+  <p class="navi_link_sel">
     <a class="navi_header" href="../commands/deselect.html">Deselect</a>
   </p>
   <p class="navi_link">
-    <a class="navi_header" href="../commands/mouseover.html">Mouse Over</a>
+    <a class="navi_header" href="../commands/execjava.html">Exec Java</a>
   </p>
   <p class="navi_link">
-    <a class="navi_header" href="../commands/execjava.html">Exec Java</a>
+    <a class="navi_header" href="../commands/mouseover.html">Mouse Over</a>
   </p>
   <p class="navi_link">
     <a class="navi_header" href="../commands/asserttitle.html">Assert Title</a>
@@ -81,7 +81,7 @@
   <p class="navi_link">
     <a class="navi_header" href="../commands/assertset.html">Assert Set</a>
   </p>
-  <p class="navi_link_sel">
+  <p class="navi_link">
     <a class="navi_header" href="../commands/assertselected.html">Assert Selected</a>
   </p>
   <p class="navi_link">
@@ -103,43 +103,43 @@
 
 
 <!-- content -->
-<h1 class="command">Assert Selected</h1>
+<h1 class="command">Deselect</h1>
 
 <div class="content">
   <h1>Description</h1>
 
-  <p>Asserts, that an entry from a list is selected.
+  <p>Deselects an entry from a list.
      <br>
-     Use this to check the selection from a single or multiple select list, a group of radio buttons
-     or select a checkbox.
+     Use this to deselect options from a single or multiple select list, a group of radio buttons
+     or deselect a checkbox.
   </p>
 </div>
 
 <div class="content">
   <h1>First Parameter</h1>
-  <p>Required<br>The 'path' to the item to be selected.
+  <p>Required<br>The 'path' to the item to deselect.
   </p>
   <p>
      Single Select Box
      <br>
-     The path is usually the label of the select box, a comma and then the text of the option to check.
+     The path is usually the label of the select box, a comma and then the text of the option to deselect.
   </p>
   <p>
      Multiple Select Box
      <br>
-     To check more than one selections in a multiple select box, use more than one Assert Selected calls.
+     To clear more than one selection in a multiple select box, use more than one Deselect call.
   </p>
   <p>
      Radio Group
      <br>
-     Use the label of the radio button you like to check. If this text is not unique you can as always
+     Use the label of the radio button you like to deselect. If this text is not unique you can as always
      define some words before to make the path unique.
   </p>
 
   <p>
      Check Box
      <br>
-     Use the text usually placed after the checkbox you like to check. If this text is not unique you can as always
+     Use the text usually placed after the checkbox you like to deselect. If this text is not unique you can as always
      define some words before to make the path unique.
   </p>
 
@@ -148,7 +148,7 @@
     zero or many characters; '?' matches one single character.
     <br>
     It is also possible to define a comma separated list of words (with '*' and '?'
-    if needed). Then this command selects the first element after all these
+    if needed). Then this command deselects the first element after all these
     words.
   </p>
 
@@ -169,7 +169,7 @@
     ...
   </p>
 
-  <p>Assert, that the color named 'red' from a select box labled 'Choose color' is selected.</p>
+  <p>Deselect the color named 'red' from a select box labled 'Choose color'</p>
   <table class="exampletable">
     <tr>
       <td class="col_comment, comment">#</td>
@@ -180,22 +180,22 @@
     <tr>
       <td class="col_comment"></td>
       <td class="col_commmand">Open Url</td>
-      <td class="col_param1">testcases/assert_selected.html</td>
+      <td class="col_param1">testcases/deselect.html</td>
       <td class="col_param2"></td>
     </tr>
     <tr>
       <td class="col_comment"></td>
-      <td class="col_commmand">Assert Selected</td>
+      <td class="col_commmand">Deselect</td>
       <td class="col_param1">Choose color:, red</td>
       <td class="col_param2"></td>
     </tr>
   </table>
 
-  <p class="sample">Complete 'Assert Selected' tests.
-  <br><a href="../exceltests/assert_selected_checkbox.xls"><img src="../images/xls_file.jpg" alt="Download file">assert_selected_checkbox.xls</a>
-  <br><a href="../exceltests/assert_selected_multipleSelect.xls"><img src="../images/xls_file.jpg" alt="Download file">assert_selected_multipleSelect.xls</a>
-  <br><a href="../exceltests/assert_selected_radio.xls"><img src="../images/xls_file.jpg" alt="Download file">assert_selected_radio.xls</a>
-  <br><a href="../exceltests/assert_selected_singleSelect.xls"><img src="../images/xls_file.jpg" alt="Download file">assert_selected_singleSelect.xls</a>
+  <p class="sample">Complete 'Deselect' tests.
+  <br><a href="../exceltests/deselect_checkbox.xls"><img src="../images/xls_file.jpg" alt="Download file">deselect_checkbox.xls</a>
+  <br><a href="../exceltests/deselect_multipleSelect.xls"><img src="../images/xls_file.jpg" alt="Download file">deselect_multipleSelect.xls</a>
+  <br><a href="../exceltests/deselect_radio.xls"><img src="../images/xls_file.jpg" alt="Download file">deselect_radio.xls</a>
+  <br><a href="../exceltests/deselect_singleSelect.xls"><img src="../images/xls_file.jpg" alt="Download file">deselect_singleSelect.xls</a>
   </p>
 </div>
 
