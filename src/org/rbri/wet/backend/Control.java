@@ -68,6 +68,13 @@ public interface Control {
   public void select() throws AssertionFailedException;
 
   /**
+   * Deselects the control
+   * 
+   * @throws AssertionFailedException if the control is not supported
+   */
+  public void deselect() throws AssertionFailedException;
+
+  /**
    * Sets the value of the control
    * 
    * @param aValue the new value of the control

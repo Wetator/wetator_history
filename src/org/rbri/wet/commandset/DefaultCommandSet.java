@@ -65,6 +65,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
     registerCommand("Click On", new CommandClickOn());
     registerCommand("Set", new CommandSet());
     registerCommand("Select", new CommandSelect());
+    registerCommand("Deselect", new CommandDeselect());
     registerCommand("Mouse Over", new CommandMouseOver());
     registerCommand("Close Window", new CommandCloseWindow());
     registerCommand("Go Back", new CommandGoBack());
@@ -244,6 +245,34 @@ public final class DefaultCommandSet extends AbstractCommandSet {
 
       Control tmpControl = getRequiredFirstHtmlElementFrom(aWetContext, tmpFoundElements, tmpSearchParam);
       tmpControl.select();
+      tmpBackend.saveCurrentWindowToLog();
+      tmpBackend.checkFailure();
+    }
+  }
+
+  /**
+   * Command 'Deselect'
+   */
+  public final class CommandDeselect implements WetCommandImplementation {
+    /**
+     * {@inheritDoc}
+     * 
+     * @see org.rbri.wet.commandset.WetCommandImplementation#execute(org.rbri.wet.core.WetContext,
+     *      org.rbri.wet.core.WetCommand)
+     */
+    public void execute(WetContext aWetContext, WetCommand aWetCommand) throws AssertionFailedException {
+
+      List<SecretString> tmpSearchParam = aWetCommand.getRequiredFirstParameterValues(aWetContext);
+      aWetCommand.assertNoUnusedSecondParameter(aWetContext);
+
+      WetBackend tmpBackend = getWetBackend(aWetContext);
+      ControlFinder tmpControlFinder = tmpBackend.getControlFinder();
+
+      // (Select)Options / Checkboxes / Radiobuttons
+      WeightedControlList tmpFoundElements = tmpControlFinder.getAllSelectables(tmpSearchParam);
+
+      Control tmpControl = getRequiredFirstHtmlElementFrom(aWetContext, tmpFoundElements, tmpSearchParam);
+      tmpControl.deselect();
       tmpBackend.saveCurrentWindowToLog();
       tmpBackend.checkFailure();
     }

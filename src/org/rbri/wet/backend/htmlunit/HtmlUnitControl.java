@@ -241,6 +241,58 @@ public class HtmlUnitControl implements Control {
   /**
    * {@inheritDoc}
    * 
+   * @see org.rbri.wet.backend.Control#deselect()
+   */
+  public void deselect() throws AssertionFailedException {
+    HtmlElement tmpHtmlElement = getHtmlElement();
+
+    if (tmpHtmlElement instanceof DisabledElement) {
+      DisabledElement tmpDisabledElement = (DisabledElement) tmpHtmlElement;
+      Assert.assertTrue(!tmpDisabledElement.isDisabled(), "elementDisabled", new String[] { getDescribingText() });
+    }
+
+    try {
+      if (tmpHtmlElement instanceof HtmlCheckBoxInput) {
+        HtmlCheckBoxInput tmpHtmlCheckBoxInput = (HtmlCheckBoxInput) tmpHtmlElement;
+
+        tmpHtmlCheckBoxInput.focus();
+        if (tmpHtmlCheckBoxInput.isChecked()) {
+          tmpHtmlCheckBoxInput.click();
+        }
+      } else if (tmpHtmlElement instanceof HtmlRadioButtonInput) {
+        HtmlRadioButtonInput tmpHtmlRadioButtonInput = (HtmlRadioButtonInput) tmpHtmlElement;
+        if (tmpHtmlRadioButtonInput.isChecked()) {
+          tmpHtmlRadioButtonInput.click();
+        }
+      } else if (tmpHtmlElement instanceof HtmlOption) {
+        HtmlOption tmpHtmlOption = (HtmlOption) tmpHtmlElement;
+        Assert.assertTrue(!tmpHtmlOption.getEnclosingSelect().isDisabled(), "elementDisabled",
+            new String[] { getDescribingText() });
+
+        if (tmpHtmlOption.isSelected()) {
+          tmpHtmlOption.click();
+        }
+      } else {
+        Assert.fail("selectNotSupported", new String[] { getDescribingText() });
+      }
+
+      // wait for silence
+      PageUtil.waitForThreads(tmpHtmlElement.getPage());
+    } catch (ScriptException e) {
+      Assert.fail("javascriptError", new String[] { e.getMessage() });
+    } catch (WrappedException e) {
+      Assert.fail("javascriptError", new String[] { ExceptionUtil.getMessageFromScriptExceptionCauseIfPossible(e) });
+    } catch (AssertionFailedException e) {
+      // pass through
+      throw e;
+    } catch (Throwable e) {
+      Assert.fail("serverError", new String[] { e.getMessage(), getDescribingText() });
+    }
+  }
+
+  /**
+   * {@inheritDoc}
+   * 
    * @see org.rbri.wet.backend.Control#setValue(org.rbri.wet.util.SecretString, java.io.File)
    */
   public void setValue(final SecretString aValue, final File aDirectory) throws AssertionFailedException {
