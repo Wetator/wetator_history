@@ -96,6 +96,10 @@ test/excel/ajax_jquery.xls -text
 test/excel/ajax_prototype.xls -text
 test/excel/anchor_inside_page.xls -text
 test/excel/assert_content.xls -text
+test/excel/assert_deselected_checkbox.xls -text
+test/excel/assert_deselected_multipleSelect.xls -text
+test/excel/assert_deselected_radio.xls -text
+test/excel/assert_deselected_singleSelect.xls -text
 test/excel/assert_disabled.xls -text
 test/excel/assert_selected_checkbox.xls -text
 test/excel/assert_selected_multipleSelect.xls -text
