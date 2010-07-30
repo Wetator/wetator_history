@@ -259,11 +259,6 @@ public class HtmlUnitControl implements Control {
         if (tmpHtmlCheckBoxInput.isChecked()) {
           tmpHtmlCheckBoxInput.click();
         }
-      } else if (tmpHtmlElement instanceof HtmlRadioButtonInput) {
-        HtmlRadioButtonInput tmpHtmlRadioButtonInput = (HtmlRadioButtonInput) tmpHtmlElement;
-        if (tmpHtmlRadioButtonInput.isChecked()) {
-          tmpHtmlRadioButtonInput.click();
-        }
       } else if (tmpHtmlElement instanceof HtmlOption) {
         HtmlOption tmpHtmlOption = (HtmlOption) tmpHtmlElement;
         Assert.assertTrue(!tmpHtmlOption.getEnclosingSelect().isDisabled(), "elementDisabled",
@@ -273,7 +268,7 @@ public class HtmlUnitControl implements Control {
           tmpHtmlOption.click();
         }
       } else {
-        Assert.fail("selectNotSupported", new String[] { getDescribingText() });
+        Assert.fail("deselectNotSupported", new String[] { getDescribingText() });
       }
 
       // wait for silence
