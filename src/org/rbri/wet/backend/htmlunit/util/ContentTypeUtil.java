@@ -24,11 +24,10 @@ import com.gargoylesoftware.htmlunit.WebResponse;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 /**
- * Utils for content type handling
+ * Utility class for content type handling.
  * 
  * @author rbri
  */
-
 public final class ContentTypeUtil {
 
   /**
@@ -38,6 +37,10 @@ public final class ContentTypeUtil {
     // nothing
   }
 
+  /**
+   * @param aPage The {@link Page} to get the content type for.
+   * @return The content type.
+   */
   public static ContentType getContentType(Page aPage) {
     if (aPage instanceof HtmlPage) {
       return ContentType.HTML;
@@ -59,6 +62,10 @@ public final class ContentTypeUtil {
     return ContentType.OTHER;
   }
 
+  /**
+   * @param aPage The {@link Page} to get the (default) file suffix for.
+   * @return The file suffix.
+   */
   public static String getFileSuffix(Page aPage) {
     ContentType tmpContentType = getContentType(aPage);
     String tmpResult;
