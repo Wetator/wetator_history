@@ -58,9 +58,14 @@ public class StdOutProgressListener implements WetEngineProgressListener {
 
       WetConfiguration tmpConfiguration = aWetEngine.getWetConfiguration();
       println("   OutputDir: '" + tmpConfiguration.getOutputDir().getAbsolutePath() + "'");
-      println("   Templates:");
+      boolean tmpFirst = true;
       for (String tmpTemplate : tmpConfiguration.getXslTemplates()) {
-        println("              '" + tmpTemplate + "'");
+        if (tmpFirst) {
+          println("   Templates: '" + tmpTemplate + "'");
+          tmpFirst = false;
+        } else {
+          println("              '" + tmpTemplate + "'");
+        }
       }
     }
   }
