@@ -25,6 +25,8 @@ import org.rbri.wet.Wetator;
 import org.rbri.wet.i18n.Messages;
 
 /**
+ * Utility class to display a file selector dialog.
+ * 
  * @author rbri
  */
 public final class DialogUtil {
@@ -59,6 +61,12 @@ public final class DialogUtil {
     return tmpResult;
   }
 
+  /**
+   * Displays a file selector dialog using swing.
+   * 
+   * @param aMultiSelectionFlag if true multiple files can be selected.
+   * @return the selected files.
+   */
   protected static File[] chooseFilesSwing(boolean aMultiSelectionFlag) {
     Preferences tmpPreferences = Preferences.userNodeForPackage(Wetator.class);
     String tmpLastDirName = tmpPreferences.get(LAST_DIR, "");
