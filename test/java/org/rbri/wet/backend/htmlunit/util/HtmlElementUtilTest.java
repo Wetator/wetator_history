@@ -762,10 +762,10 @@ public class HtmlElementUtilTest extends TestCase {
     HtmlOption tmpHtmlOption = (HtmlOption) tmpForm.getFirstChild().getFirstChild();
 
     String tmpResult = new HtmlUnitControl(tmpHtmlOption).getDescribingText();
-    assertEquals("[HtmlOption 'red' (id='optId') part of [HtmlSelect (id='MyFirstSelectId')]]", tmpResult);
+    assertEquals("[HtmlOption 'red' part of [HtmlSelect (id='MyFirstSelectId')]]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlOption(tmpHtmlOption);
-    assertEquals("[HtmlOption 'red' (id='optId') part of [HtmlSelect (id='MyFirstSelectId')]]", tmpResult);
+    assertEquals("[HtmlOption 'red' part of [HtmlSelect (id='MyFirstSelectId')]]", tmpResult);
   }
 
   public void testGetDescribingTextFor_HtmlOptionGroup_Name() throws IOException {
