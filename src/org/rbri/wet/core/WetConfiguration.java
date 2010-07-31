@@ -60,7 +60,7 @@ public final class WetConfiguration {
   public static final String PROPERTY_SCRIPTERS = PROPERTY_PREFIX + "scripters";
   public static final String PROPERTY_BASE_URL = PROPERTY_PREFIX + "baseUrl";
 
-  private static final String PROPERTY_BROWSER = PROPERTY_PREFIX + "browser";
+  public static final String PROPERTY_BROWSER = PROPERTY_PREFIX + "browser";
   public static final String PROPERTY_ACCEPT_LANGUAGE = PROPERTY_PREFIX + "acceptLanguage";
 
   public static final String PROPERTY_OUTPUT_DIR = PROPERTY_PREFIX + "outputDir";

@@ -44,7 +44,7 @@ import org.rbri.wet.util.XmlUtil;
 /**
  * The class that generates the output.
  * 
- * @author rbri
+ * @author rbri, frank.danek
  */
 public class WetResultWriter implements WetEngineProgressListener {
   private static final Log LOG = LogFactory.getLog(WetResultWriter.class);
@@ -124,8 +124,7 @@ public class WetResultWriter implements WetEngineProgressListener {
       printlnStartTag(TAG_CONFIGURATION);
 
       printConfigurationProperty(WetConfiguration.PROPERTY_BASE_URL, tmpWetConfiguration.getBaseUrl());
-      // writeConfigurationProperty(WetConfiguration.PROPERTY_BROWSER,
-      // aWetConfiguration.getBrowserVersion());
+      printConfigurationProperty(WetConfiguration.PROPERTY_BROWSER, tmpWetConfiguration.getBrowser().name());
       printConfigurationProperty(WetConfiguration.PROPERTY_ACCEPT_LANGUAGE, tmpWetConfiguration.getAcceptLanaguage());
       printConfigurationProperty(WetConfiguration.PROPERTY_OUTPUT_DIR, tmpWetConfiguration.getOutputDir()
           .getAbsolutePath());
