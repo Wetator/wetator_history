@@ -21,12 +21,20 @@ import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
 /**
- * This class provides all messages that are used by WeT.
+ * This class provides all messages that are used by the wetator.
  * 
  * @author rbri
  */
 public final class Messages {
 
+  /**
+   * Returns the message for the given message key from the resource bundle 'org.rbri.wet.Messages'. Additionally the
+   * values from the given parameter array are applied to the found message (see {@link MessageFormat}).
+   * 
+   * @param aMessageKey The message key.
+   * @param aParameterArray An array containing the message parameters.
+   * @return The message.
+   */
   public static final String getMessage(String aMessageKey, Object[] aParameterArray) {
     // TODO move the messages file to the root level
     ResourceBundle tmpMessages = ResourceBundle.getBundle("org.rbri.wet.Messages");
