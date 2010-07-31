@@ -35,6 +35,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlFileInput;
 import com.gargoylesoftware.htmlunit.html.HtmlForm;
 import com.gargoylesoftware.htmlunit.html.HtmlImage;
 import com.gargoylesoftware.htmlunit.html.HtmlImageInput;
+import com.gargoylesoftware.htmlunit.html.HtmlOption;
 import com.gargoylesoftware.htmlunit.html.HtmlOptionGroup;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlParagraph;
@@ -735,6 +736,38 @@ public class HtmlElementUtilTest extends TestCase {
     assertEquals("[HtmlPasswordInput]", tmpResult);
   }
 
+  public void testGetDescribingTextFor_HtmlOption_Id() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<select id='MyFirstSelectId' size='2'>"
+        + "<option id='optId' value='o_red'>red</option>" + "</select>" + "</form>" + "</body></html>";
+    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+
+    HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
+
+    HtmlOption tmpHtmlOption = (HtmlOption) tmpForm.getFirstChild().getFirstChild();
+
+    String tmpResult = new HtmlUnitControl(tmpHtmlOption).getDescribingText();
+    assertEquals("[HtmlOption 'red' (id='optId') part of [HtmlSelect (id='MyFirstSelectId')]]", tmpResult);
+
+    tmpResult = HtmlElementUtil.getDescribingTextForHtmlOption(tmpHtmlOption);
+    assertEquals("[HtmlOption 'red' (id='optId') part of [HtmlSelect (id='MyFirstSelectId')]]", tmpResult);
+  }
+
+  public void testGetDescribingTextFor_HtmlOptionGroup_ValueOnly() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<select id='MyFirstSelectId' size='2'>"
+        + "<option value='o_red'>red</option>" + "</select>" + "</form>" + "</body></html>";
+    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+
+    HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
+
+    HtmlOption tmpHtmlOption = (HtmlOption) tmpForm.getFirstChild().getFirstChild();
+
+    String tmpResult = new HtmlUnitControl(tmpHtmlOption).getDescribingText();
+    assertEquals("[HtmlOption 'red' (id='optId') part of [HtmlSelect (id='MyFirstSelectId')]]", tmpResult);
+
+    tmpResult = HtmlElementUtil.getDescribingTextForHtmlOption(tmpHtmlOption);
+    assertEquals("[HtmlOption 'red' (id='optId') part of [HtmlSelect (id='MyFirstSelectId')]]", tmpResult);
+  }
+
   public void testGetDescribingTextFor_HtmlOptionGroup_Name() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<select id='MyFirstSelectId' size='2'>"
         + "<optgroup label='colors' name='optgroup_colors'>" + "<option value='o_red'>red</option>" + "</optgroup>"
@@ -746,10 +779,12 @@ public class HtmlElementUtilTest extends TestCase {
     HtmlOptionGroup tmpHtmlOptionGroup = (HtmlOptionGroup) tmpForm.getFirstChild().getFirstChild();
 
     String tmpResult = new HtmlUnitControl(tmpHtmlOptionGroup).getDescribingText();
-    assertEquals("[HtmlOptionGroup 'colors' (name='optgroup_colors')]", tmpResult);
+    assertEquals("[HtmlOptionGroup 'colors' (name='optgroup_colors') part of [HtmlSelect (id='MyFirstSelectId')]]",
+        tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlOptionGroup(tmpHtmlOptionGroup);
-    assertEquals("[HtmlOptionGroup 'colors' (name='optgroup_colors')]", tmpResult);
+    assertEquals("[HtmlOptionGroup 'colors' (name='optgroup_colors') part of [HtmlSelect (id='MyFirstSelectId')]]",
+        tmpResult);
   }
 
   public void testGetDescribingTextFor_HtmlOptionGroup_Id() throws IOException {
@@ -763,10 +798,12 @@ public class HtmlElementUtilTest extends TestCase {
     HtmlOptionGroup tmpHtmlOptionGroup = (HtmlOptionGroup) tmpForm.getFirstChild().getFirstChild();
 
     String tmpResult = new HtmlUnitControl(tmpHtmlOptionGroup).getDescribingText();
-    assertEquals("[HtmlOptionGroup 'colors' (id='optgroup_colors')]", tmpResult);
+    assertEquals("[HtmlOptionGroup 'colors' (id='optgroup_colors') part of [HtmlSelect (id='MyFirstSelectId')]]",
+        tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlOptionGroup(tmpHtmlOptionGroup);
-    assertEquals("[HtmlOptionGroup 'colors' (id='optgroup_colors')]", tmpResult);
+    assertEquals("[HtmlOptionGroup 'colors' (id='optgroup_colors') part of [HtmlSelect (id='MyFirstSelectId')]]",
+        tmpResult);
   }
 
   public void testGetDescribingTextFor_HtmlOptionGroup_Name_Id() throws IOException {
@@ -780,10 +817,14 @@ public class HtmlElementUtilTest extends TestCase {
     HtmlOptionGroup tmpHtmlOptionGroup = (HtmlOptionGroup) tmpForm.getFirstChild().getFirstChild();
 
     String tmpResult = new HtmlUnitControl(tmpHtmlOptionGroup).getDescribingText();
-    assertEquals("[HtmlOptionGroup 'colors' (id='optgroup_colors') (name='optgroup_name')]", tmpResult);
+    assertEquals(
+        "[HtmlOptionGroup 'colors' (id='optgroup_colors') (name='optgroup_name') part of [HtmlSelect (id='MyFirstSelectId')]]",
+        tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlOptionGroup(tmpHtmlOptionGroup);
-    assertEquals("[HtmlOptionGroup 'colors' (id='optgroup_colors') (name='optgroup_name')]", tmpResult);
+    assertEquals(
+        "[HtmlOptionGroup 'colors' (id='optgroup_colors') (name='optgroup_name') part of [HtmlSelect (id='MyFirstSelectId')]]",
+        tmpResult);
   }
 
   public void testGetDescribingTextFor_HtmlOptionGroup_LabelOnly() throws IOException {
@@ -797,10 +838,10 @@ public class HtmlElementUtilTest extends TestCase {
     HtmlOptionGroup tmpHtmlOptionGroup = (HtmlOptionGroup) tmpForm.getFirstChild().getFirstChild();
 
     String tmpResult = new HtmlUnitControl(tmpHtmlOptionGroup).getDescribingText();
-    assertEquals("[HtmlOptionGroup 'colors']", tmpResult);
+    assertEquals("[HtmlOptionGroup 'colors' part of [HtmlSelect (id='MyFirstSelectId')]]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlOptionGroup(tmpHtmlOptionGroup);
-    assertEquals("[HtmlOptionGroup 'colors']", tmpResult);
+    assertEquals("[HtmlOptionGroup 'colors' part of [HtmlSelect (id='MyFirstSelectId')]]", tmpResult);
   }
 
   public void testGetDescribingTextFor_HtmlOptionGroup_NoLabel() throws IOException {
@@ -814,10 +855,10 @@ public class HtmlElementUtilTest extends TestCase {
     HtmlOptionGroup tmpHtmlOptionGroup = (HtmlOptionGroup) tmpForm.getFirstChild().getFirstChild();
 
     String tmpResult = new HtmlUnitControl(tmpHtmlOptionGroup).getDescribingText();
-    assertEquals("[HtmlOptionGroup '']", tmpResult);
+    assertEquals("[HtmlOptionGroup '' part of [HtmlSelect (id='MyFirstSelectId')]]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlOptionGroup(tmpHtmlOptionGroup);
-    assertEquals("[HtmlOptionGroup '']", tmpResult);
+    assertEquals("[HtmlOptionGroup '' part of [HtmlSelect (id='MyFirstSelectId')]]", tmpResult);
   }
 
   public void testGetDescribingTextFor_HtmlPasswordInput_Name() throws IOException {

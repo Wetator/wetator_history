@@ -52,6 +52,12 @@ public final class HtmlElementUtil {
     super();
   }
 
+  /**
+   * Generates a describing text for the {@link HtmlAnchor}.
+   * 
+   * @param anHtmlAnchor the control
+   * @return the describing text
+   */
   public static String getDescribingTextForHtmlAnchor(HtmlAnchor anHtmlAnchor) {
     StringBuilder tmpResult = new StringBuilder();
 
@@ -79,6 +85,12 @@ public final class HtmlElementUtil {
     return tmpResult.toString();
   }
 
+  /**
+   * Generates a describing text for the HtmlButton.
+   * 
+   * @param anHtmlButton the control
+   * @return the describing text
+   */
   public static String getDescribingTextForHtmlButton(HtmlButton anHtmlButton) {
     StringBuilder tmpResult = new StringBuilder();
 
@@ -108,6 +120,12 @@ public final class HtmlElementUtil {
     return tmpResult.toString();
   }
 
+  /**
+   * Generates a describing text for the HtmlButtonInput.
+   * 
+   * @param anHtmlButtonInput the control
+   * @return the describing text
+   */
   public static String getDescribingTextForHtmlButtonInput(HtmlButtonInput anHtmlButtonInput) {
     StringBuilder tmpResult = new StringBuilder();
 
@@ -122,6 +140,12 @@ public final class HtmlElementUtil {
     return tmpResult.toString();
   }
 
+  /**
+   * Generates a describing text for the HtmlCheckBoxInput.
+   * 
+   * @param anHtmlCheckBoxInput the control
+   * @return the describing text
+   */
   public static String getDescribingTextForHtmlCheckBoxInput(HtmlCheckBoxInput anHtmlCheckBoxInput) {
     StringBuilder tmpResult = new StringBuilder();
 
@@ -134,6 +158,12 @@ public final class HtmlElementUtil {
     return tmpResult.toString();
   }
 
+  /**
+   * Generates a describing text for the HtmlFileInput.
+   * 
+   * @param anHtmlFileInput the control
+   * @return the describing text
+   */
   public static String getDescribingTextForHtmlFileInput(HtmlFileInput anHtmlFileInput) {
     StringBuilder tmpResult = new StringBuilder();
 
@@ -146,6 +176,12 @@ public final class HtmlElementUtil {
     return tmpResult.toString();
   }
 
+  /**
+   * Generates a describing text for the HtmlImage.
+   * 
+   * @param anHtmlImage the control
+   * @return the describing text
+   */
   public static String getDescribingTextForHtmlImage(HtmlImage anHtmlImage) {
     StringBuilder tmpResult = new StringBuilder();
 
@@ -160,6 +196,12 @@ public final class HtmlElementUtil {
     return tmpResult.toString();
   }
 
+  /**
+   * Generates a describing text for the HtmlImageInput.
+   * 
+   * @param anHtmlImageInput the control
+   * @return the describing text
+   */
   public static String getDescribingTextForHtmlImageInput(HtmlImageInput anHtmlImageInput) {
     StringBuilder tmpResult = new StringBuilder();
 
@@ -178,6 +220,12 @@ public final class HtmlElementUtil {
     return tmpResult.toString();
   }
 
+  /**
+   * Generates a describing text for the HtmlParagraph.
+   * 
+   * @param anHtmlParagraph the control
+   * @return the describing text
+   */
   public static String getDescribingTextForHtmlParagraph(HtmlParagraph anHtmlParagraph) {
     StringBuilder tmpResult = new StringBuilder();
 
@@ -197,6 +245,12 @@ public final class HtmlElementUtil {
     return tmpResult.toString();
   }
 
+  /**
+   * Generates a describing text for the HtmlPasswordInput.
+   * 
+   * @param anHtmlPasswordInput the control
+   * @return the describing text
+   */
   public static String getDescribingTextForHtmlPasswordInput(HtmlPasswordInput anHtmlPasswordInput) {
     StringBuilder tmpResult = new StringBuilder();
 
@@ -209,6 +263,12 @@ public final class HtmlElementUtil {
     return tmpResult.toString();
   }
 
+  /**
+   * Generates a describing text for the HtmlRadioButtonInput.
+   * 
+   * @param anHtmlRadioButtonInput the control
+   * @return the describing text
+   */
   public static String getDescribingTextForHtmlRadioButtonInput(HtmlRadioButtonInput anHtmlRadioButtonInput) {
     StringBuilder tmpResult = new StringBuilder();
 
@@ -223,6 +283,12 @@ public final class HtmlElementUtil {
     return tmpResult.toString();
   }
 
+  /**
+   * Generates a describing text for the HtmlResetInput.
+   * 
+   * @param anHtmlResetInput the control
+   * @return the describing text
+   */
   public static String getDescribingTextForHtmlResetInput(HtmlResetInput anHtmlResetInput) {
     StringBuilder tmpResult = new StringBuilder();
 
@@ -237,6 +303,12 @@ public final class HtmlElementUtil {
     return tmpResult.toString();
   }
 
+  /**
+   * Generates a describing text for the HtmlSelect.
+   * 
+   * @param anHtmlSelect the control
+   * @return the describing text
+   */
   public static String getDescribingTextForHtmlSelect(HtmlSelect anHtmlSelect) {
     StringBuilder tmpResult = new StringBuilder();
 
@@ -249,6 +321,12 @@ public final class HtmlElementUtil {
     return tmpResult.toString();
   }
 
+  /**
+   * Generates a describing text for the HtmlSpan.
+   * 
+   * @param anHtmlSpan the control
+   * @return the describing text
+   */
   public static String getDescribingTextForHtmlSpan(HtmlSpan anHtmlSpan) {
     StringBuilder tmpResult = new StringBuilder();
 
@@ -263,6 +341,12 @@ public final class HtmlElementUtil {
     return tmpResult.toString();
   }
 
+  /**
+   * Generates a describing text for the HtmlSubmitInput.
+   * 
+   * @param anHtmlSubmitInput the control
+   * @return the describing text
+   */
   public static String getDescribingTextForHtmlSubmitInput(HtmlSubmitInput anHtmlSubmitInput) {
     StringBuilder tmpResult = new StringBuilder();
 
@@ -277,6 +361,12 @@ public final class HtmlElementUtil {
     return tmpResult.toString();
   }
 
+  /**
+   * Generates a describing text for the HtmlTextArea.
+   * 
+   * @param anHtmlTextArea the control
+   * @return the describing text
+   */
   public static String getDescribingTextForHtmlTextArea(HtmlTextArea anHtmlTextArea) {
     StringBuilder tmpResult = new StringBuilder();
 
@@ -289,6 +379,12 @@ public final class HtmlElementUtil {
     return tmpResult.toString();
   }
 
+  /**
+   * Generates a describing text for the HtmlTextInput.
+   * 
+   * @param anHtmlTextInput the control
+   * @return the describing text
+   */
   public static String getDescribingTextForHtmlTextInput(HtmlTextInput anHtmlTextInput) {
     StringBuilder tmpResult = new StringBuilder();
 
@@ -301,6 +397,12 @@ public final class HtmlElementUtil {
     return tmpResult.toString();
   }
 
+  /**
+   * Generates a describing text for the HtmlOption.
+   * 
+   * @param anHtmlOption the control
+   * @return the describing text
+   */
   public static String getDescribingTextForHtmlOption(HtmlOption anHtmlOption) {
     StringBuilder tmpResult = new StringBuilder();
 
@@ -312,10 +414,22 @@ public final class HtmlElementUtil {
     addId(tmpResult, anHtmlOption);
     addName(tmpResult, anHtmlOption);
 
+    HtmlSelect tmpSelect = anHtmlOption.getEnclosingSelect();
+    if (null != tmpSelect) {
+      tmpResult.append(" part of ");
+      tmpResult.append(getDescribingTextForHtmlSelect(tmpSelect));
+    }
+
     tmpResult.append("]");
     return tmpResult.toString();
   }
 
+  /**
+   * Generates a describing text for the HtmlOptionGroup.
+   * 
+   * @param anHtmlOptionGroup the control
+   * @return the describing text
+   */
   public static String getDescribingTextForHtmlOptionGroup(HtmlOptionGroup anHtmlOptionGroup) {
     StringBuilder tmpResult = new StringBuilder();
 
@@ -326,6 +440,13 @@ public final class HtmlElementUtil {
 
     addId(tmpResult, anHtmlOptionGroup);
     addName(tmpResult, anHtmlOptionGroup);
+
+    // HtmlSelect tmpSelect = anHtmlOptionGroup.getEnclosingSelect();
+    HtmlSelect tmpSelect = (HtmlSelect) anHtmlOptionGroup.getEnclosingElement("select");
+    if (null != tmpSelect) {
+      tmpResult.append(" part of ");
+      tmpResult.append(getDescribingTextForHtmlSelect(tmpSelect));
+    }
 
     tmpResult.append("]");
     return tmpResult.toString();
