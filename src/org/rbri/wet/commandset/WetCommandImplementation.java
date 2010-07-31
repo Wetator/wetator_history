@@ -22,12 +22,20 @@ import org.rbri.wet.exception.AssertionFailedException;
 
 /**
  * The interface every implemented command
- * fullfills.
+ * fulfills.
  * 
  * @author rbri
  */
 public interface WetCommandImplementation {
 
+  /**
+   * This method executes the given WetCommand. The implementation of this method must contain the logic for executing
+   * the WetCommand.
+   * 
+   * @param aWetContext The current WetContext.
+   * @param aWetCommand The WetCommand to execute.
+   * @throws AssertionFailedException in case of a wrong assertion (if the command is an assert).
+   */
   public void execute(WetContext aWetContext, WetCommand aWetCommand) throws AssertionFailedException;
 
 }

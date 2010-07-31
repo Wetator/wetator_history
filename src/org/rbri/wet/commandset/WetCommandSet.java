@@ -21,18 +21,36 @@ import java.util.Properties;
 
 /**
  * A collection of available commands.
- * This class also holds the implementation.
+ * The implementation of this interface also holds the implementation of the commands.
  * 
  * @author rbri
  */
 public interface WetCommandSet {
 
-  // TODO javadoc
+  /**
+   * Initialize everything the command set needs here. To leave messages for the result presentation use
+   * {@link #getInitializationMessages()}.
+   * 
+   * @param aConfiguration The configuration properties.
+   */
   public void initialize(Properties aConfiguration);
 
+  /**
+   * @return The messages (e.g. info, warnings, errors) stored during initialization of the command set.
+   */
   public List<String> getInitializationMessages();
 
+  /**
+   * Close everything the command set needed and which has to be closed (e.g. database connections).
+   */
   public void cleanup();
 
+  /**
+   * Returns the {@link WetCommandImplementation} for the given command name or null, if no
+   * {@link WetCommandImplementation} was found.
+   * 
+   * @param aCommandName The name of the {@link WetCommandImplementation}.
+   * @return The found {@link WetCommandImplementation}.
+   */
   public WetCommandImplementation getCommandImplementationFor(String aCommandName);
 }
