@@ -127,7 +127,7 @@ public final class WetEngine {
   }
 
   /**
-   * Reads all commands of the given file and returns them in the same order they occure in the file.
+   * Reads all commands of the given file and returns them in the same order they occur in the file.
    * 
    * @param aFile the file to read the commands from.
    * @return a list of {@link WetCommand}s.
