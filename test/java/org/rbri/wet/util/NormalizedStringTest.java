@@ -103,6 +103,14 @@ public class NormalizedStringTest extends TestCase {
     tmpResult.append("y");
     assertEquals(9, tmpResult.length());
     assertEquals("ab c d xy", tmpResult.toString());
+
+    tmpResult.append("\r\n");
+    assertEquals(9, tmpResult.length());
+    assertEquals("ab c d xy", tmpResult.toString());
+
+    tmpResult.append("z");
+    assertEquals(11, tmpResult.length());
+    assertEquals("ab c d xy z", tmpResult.toString());
   }
 
   public void testSubstring_Empty() {
