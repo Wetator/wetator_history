@@ -268,8 +268,8 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       WetBackend tmpBackend = getWetBackend(aWetContext);
       ControlFinder tmpControlFinder = tmpBackend.getControlFinder();
 
-      // (Select)Options / Checkboxes / Radiobuttons
-      WeightedControlList tmpFoundElements = tmpControlFinder.getAllSelectables(tmpSearchParam);
+      // (Select)Options / Checkboxes
+      WeightedControlList tmpFoundElements = tmpControlFinder.getAllDeselectables(tmpSearchParam);
 
       Control tmpControl = getRequiredFirstHtmlElementFrom(aWetContext, tmpFoundElements, tmpSearchParam);
       tmpControl.deselect();
