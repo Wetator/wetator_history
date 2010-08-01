@@ -764,6 +764,181 @@ public class HtmlUnitControlFinder implements ControlFinder {
     return tmpFoundElements;
   }
 
+  public WeightedControlList getAllDeselectables(final List<SecretString> aSearch) {
+    WeightedControlList tmpFoundElements = new WeightedControlList();
+
+    SearchPattern tmpSearchPattern = aSearch.get(aSearch.size() - 1).getSearchPattern();
+    SearchPattern tmpPathSearchPattern = SearchPattern.createFromList(aSearch, aSearch.size() - 1);
+
+    SearchPattern tmpSearchPatternSelect = new SearchPattern("");
+    if (aSearch.size() > 1) {
+      tmpSearchPatternSelect = aSearch.get(aSearch.size() - 2).getSearchPattern();
+    }
+    SearchPattern tmpPathSearchPatternSelect = SearchPattern.createFromList(aSearch, aSearch.size() - 2);
+
+    for (HtmlElement tmpElement : domNodeText.getAllVisibleHtmlElements()) {
+      if (tmpElement instanceof HtmlLabel) {
+        HtmlLabel tmpLabel = (HtmlLabel) tmpElement;
+
+        // found a label with this text
+        String tmpText = domNodeText.getAsText(tmpLabel);
+        String tmpTextBefore = domNodeText.getTextBefore(tmpLabel);
+
+        int tmpDistance = tmpPathSearchPatternSelect.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
+
+        // label for select
+        int tmpCoverage = tmpSearchPatternSelect.noOfCharsAfterLastOccurenceIn(tmpText);
+        if ((tmpDistance > -1) && (tmpCoverage > -1)) {
+          String tmpForAttribute = tmpLabel.getForAttribute();
+          // label contains a for-attribute => find corresponding element
+          if (StringUtils.isNotEmpty(tmpForAttribute)) {
+            try {
+              HtmlElement tmpElementForLabel = htmlPage.getHtmlElementById(tmpForAttribute);
+
+              if (tmpElementForLabel instanceof HtmlSelect) {
+                HtmlSelect tmpHtmlSelect = (HtmlSelect) tmpElementForLabel;
+                if (tmpHtmlSelect.isMultipleSelectEnabled()) {
+                  boolean tmpFound = getOption(tmpHtmlSelect, tmpSearchPattern, tmpDistance, tmpFoundElements);
+                  if (tmpFound) {
+                    continue;
+                  }
+                }
+              }
+            } catch (ElementNotFoundException e) {
+              // not found
+            }
+          }
+
+          // Element must be a nested element of label
+          Iterable<HtmlElement> tmpChilds = tmpLabel.getHtmlElementDescendants();
+          for (HtmlElement tmpChildElement : tmpChilds) {
+            if (tmpChildElement instanceof HtmlSelect) {
+              HtmlSelect tmpHtmlSelect = (HtmlSelect) tmpChildElement;
+              if (tmpHtmlSelect.isMultipleSelectEnabled()) {
+                boolean tmpFound = getOption(tmpHtmlSelect, tmpSearchPattern, tmpDistance, tmpFoundElements);
+                if (tmpFound) {
+                  continue;
+                }
+              }
+            }
+          }
+        }
+
+        // label for Checkbox
+        tmpDistance = tmpPathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
+        tmpCoverage = tmpSearchPattern.noOfSurroundingCharsIn(tmpText);
+        if ((tmpDistance > -1) && (tmpCoverage > -1)) {
+          String tmpForAttribute = tmpLabel.getForAttribute();
+          // label contains a for-attribute => find corresponding element
+          if (StringUtils.isNotEmpty(tmpForAttribute)) {
+            try {
+              HtmlElement tmpElementForLabel = htmlPage.getHtmlElementById(tmpForAttribute);
+
+              if (tmpElementForLabel instanceof HtmlCheckBoxInput) {
+                tmpFoundElements.add(new HtmlUnitControl(tmpElementForLabel), WeightedControlList.FoundType.BY_LABEL,
+                    tmpCoverage, tmpDistance);
+                continue;
+              }
+            } catch (ElementNotFoundException e) {
+              // not found
+            }
+          }
+
+          // Element must be a nested element of label
+          Iterable<HtmlElement> tmpChilds = tmpLabel.getHtmlElementDescendants();
+          for (HtmlElement tmpChildElement : tmpChilds) {
+            if (tmpChildElement instanceof HtmlCheckBoxInput) {
+              tmpFoundElements.add(new HtmlUnitControl(tmpChildElement), WeightedControlList.FoundType.BY_LABEL,
+                  tmpCoverage, tmpDistance);
+              continue;
+            }
+          }
+        }
+
+      } else if (tmpElement instanceof HtmlSelect) {
+        HtmlSelect tmpHtmlSelect = (HtmlSelect) tmpElement;
+        if (tmpHtmlSelect.isMultipleSelectEnabled()) {
+          String tmpTextBefore = domNodeText.getTextBefore(tmpElement);
+
+          // if the select follows text directly and text matches => choose it
+          // TODO
+          String tmpLabelTextBefore = domNodeText.getLabelTextBefore(tmpElement, -1);
+
+          int tmpDistance = tmpPathSearchPatternSelect.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
+          int tmpLabelDistance = tmpSearchPatternSelect.noOfSurroundingCharsIn(tmpLabelTextBefore);
+          if ((tmpDistance > -1) && (tmpLabelDistance > -1)) {
+            boolean tmpFound = getOption(tmpHtmlSelect, tmpSearchPattern, tmpLabelDistance, tmpFoundElements);
+            if (tmpFound) {
+              continue;
+            }
+          }
+
+          // name
+          String tmpName = tmpElement.getAttribute("name");
+          if (StringUtils.isNotEmpty(tmpName) && tmpSearchPatternSelect.matches(tmpName)) {
+            int tmpCoverage = tmpSearchPatternSelect.noOfSurroundingCharsIn(tmpName);
+            if ((tmpCoverage > -1) && (tmpDistance > -1)) {
+              boolean tmpFound = getOption(tmpHtmlSelect, tmpSearchPattern, tmpDistance, tmpFoundElements);
+              if (tmpFound) {
+                continue;
+              }
+            }
+          }
+
+          // id
+          String tmpId = tmpElement.getId();
+          if (StringUtils.isNotEmpty(tmpId) && tmpSearchPatternSelect.matches(tmpId)) {
+            int tmpCoverage = tmpSearchPatternSelect.noOfSurroundingCharsIn(tmpId);
+            if ((tmpCoverage > -1) && (tmpDistance > -1)) {
+              boolean tmpFound = getOption(tmpHtmlSelect, tmpSearchPattern, tmpDistance, tmpFoundElements);
+              if (tmpFound) {
+                continue;
+              }
+            }
+          }
+        }
+      } else if (tmpElement instanceof HtmlCheckBoxInput) {
+        HtmlCheckBoxInput tmpCheckBox = (HtmlCheckBoxInput) tmpElement;
+        String tmpTextBefore = domNodeText.getTextBefore(tmpElement);
+
+        // if the select follows text directly and text matches => choose it
+        String tmpLabelTextAfter = domNodeText.getLabelTextAfter(tmpElement);
+
+        int tmpDistance = tmpPathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
+        int tmpCoverage = tmpSearchPattern.noOfSurroundingCharsIn(tmpLabelTextAfter);
+        if ((tmpDistance > -1) && (tmpCoverage > -1)) {
+          tmpFoundElements.add(new HtmlUnitControl(tmpCheckBox), WeightedControlList.FoundType.BY_LABEL_TEXT,
+              tmpCoverage, tmpDistance);
+          continue;
+        }
+
+        // by name
+        String tmpName = tmpCheckBox.getAttribute("name");
+        if (StringUtils.isNotEmpty(tmpName) && tmpSearchPattern.matches(tmpName)) {
+          tmpCoverage = tmpSearchPattern.noOfSurroundingCharsIn(tmpName);
+          if ((tmpCoverage > -1) && (tmpDistance > -1)) {
+            tmpFoundElements.add(new HtmlUnitControl(tmpCheckBox), WeightedControlList.FoundType.BY_NAME, tmpCoverage,
+                tmpDistance);
+            continue;
+          }
+        }
+
+        // id
+        String tmpId = tmpCheckBox.getId();
+        if (StringUtils.isNotEmpty(tmpId) && tmpSearchPattern.matches(tmpId)) {
+          tmpCoverage = tmpSearchPattern.noOfSurroundingCharsIn(tmpId);
+          if ((tmpCoverage > -1) && (tmpDistance > -1)) {
+            tmpFoundElements.add(new HtmlUnitControl(tmpCheckBox), WeightedControlList.FoundType.BY_ID, tmpCoverage,
+                tmpDistance);
+            continue;
+          }
+        }
+      }
+    }
+
+    return tmpFoundElements;
+  }
+
   public WeightedControlList getAllOtherControls(final List<SecretString> aSearch) {
     WeightedControlList tmpFoundElements = new WeightedControlList();
 

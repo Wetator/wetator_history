@@ -42,6 +42,14 @@ public interface ControlFinder {
    * @param aSearch the list of secret strings describing the search
    * @return a WeightedControlList
    */
+  public WeightedControlList getAllDeselectables(final List<SecretString> aSearch);
+
+  /**
+   * Return a list of all deselectables for the given search
+   * 
+   * @param aSearch the list of secret strings describing the search
+   * @return a WeightedControlList
+   */
   public WeightedControlList getAllSelectables(final List<SecretString> aSearch);
 
   /**
