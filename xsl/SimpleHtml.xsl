@@ -309,6 +309,7 @@
                         <th>No</th>
                         <th><xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text></th>
                         <th>Name</th>
+                        <th>Browser</th>
                         <th colspan="2">Steps</th>
                         <th><xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text></th>
                         <th>Graph</th>
@@ -440,6 +441,9 @@
                     <xsl:value-of select="@name"/>
                 </a>
             </td>
+            <td>
+                <xsl:value-of select="@browser"/>
+            </td>
             <td align="right">
                  <xsl:value-of select="count(command[not(@isComment)])"/>
             </td>
@@ -546,6 +550,9 @@
                 </xsl:attribute>
                 <xsl:value-of select="@name"/>
             </a>
+            <xsl:text> (</xsl:text>
+            <xsl:value-of select="@browser"/>
+            <xsl:text>)</xsl:text>
         </h2>
         <xsl:call-template name="testcaseTable" />
 

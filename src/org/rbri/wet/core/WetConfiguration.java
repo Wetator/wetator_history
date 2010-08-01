@@ -376,26 +376,31 @@ public final class WetConfiguration {
 
   private WetBackend.Browser parseBrowser(String aBrowser) {
     if (null == aBrowser) {
-      return WetBackend.Browser.FIREFOX_2;
+      return WetBackend.Browser.FIREFOX_3;
     }
 
-    if ("IE_6".equalsIgnoreCase(aBrowser)) {
+    if (StringUtils.isEmpty(aBrowser)) {
+      return WetBackend.Browser.FIREFOX_3;
+    }
+
+    String tmpBrowser = aBrowser.trim();
+    if ("IE_6".equalsIgnoreCase(tmpBrowser)) {
       return WetBackend.Browser.INTERNET_EXPLORER_6;
     }
 
-    if ("IE_7".equalsIgnoreCase(aBrowser)) {
+    if ("IE_7".equalsIgnoreCase(tmpBrowser)) {
       return WetBackend.Browser.INTERNET_EXPLORER_7;
     }
 
-    if ("IE_8".equalsIgnoreCase(aBrowser)) {
+    if ("IE_8".equalsIgnoreCase(tmpBrowser)) {
       return WetBackend.Browser.INTERNET_EXPLORER_8;
     }
 
-    if ("Firefox_2".equalsIgnoreCase(aBrowser)) {
+    if ("Firefox_2".equalsIgnoreCase(tmpBrowser)) {
       return WetBackend.Browser.FIREFOX_2;
     }
 
-    if ("Firefox_3".equalsIgnoreCase(aBrowser)) {
+    if ("Firefox_3".equalsIgnoreCase(tmpBrowser)) {
       return WetBackend.Browser.FIREFOX_3;
     }
 

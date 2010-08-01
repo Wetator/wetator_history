@@ -124,7 +124,6 @@ public class WetResultWriter implements WetEngineProgressListener {
       printlnStartTag(TAG_CONFIGURATION);
 
       printConfigurationProperty(WetConfiguration.PROPERTY_BASE_URL, tmpWetConfiguration.getBaseUrl());
-      // printConfigurationProperty(WetConfiguration.PROPERTY_BROWSER, tmpWetConfiguration.getBrowser().name());
       printConfigurationProperty(WetConfiguration.PROPERTY_ACCEPT_LANGUAGE, tmpWetConfiguration.getAcceptLanaguage());
       printConfigurationProperty(WetConfiguration.PROPERTY_OUTPUT_DIR, tmpWetConfiguration.getOutputDir()
           .getAbsolutePath());
@@ -248,9 +247,9 @@ public class WetResultWriter implements WetEngineProgressListener {
       printStartTagOpener(TAG_TESTCASE);
       output.print("name=\"");
       output.print(xmlUtil.normalizeAttributeValue(aFileName));
-      output.print(" name=\"");
+      output.print("\" browser=\"");
       output.print(xmlUtil.normalizeAttributeValue(aBrowserName));
-      output.println("\" >");
+      output.println("\">");
       output.indent();
     } catch (IOException e) {
       LOG.error(e.getMessage(), e);
