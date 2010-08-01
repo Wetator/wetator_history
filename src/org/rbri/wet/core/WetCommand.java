@@ -53,6 +53,20 @@ public final class WetCommand {
   }
 
   /**
+   * @return the lineNo
+   */
+  public int getLineNo() {
+    return lineNo;
+  }
+
+  /**
+   * @param aLineNo the lineNo to set
+   */
+  public void setLineNo(int aLineNo) {
+    lineNo = aLineNo;
+  }
+
+  /**
    * Getter for the name
    * 
    * @return the name
@@ -70,28 +84,46 @@ public final class WetCommand {
     return isComment;
   }
 
-  public void setFirstParameter(Parameter aParameter) {
-    firstParameter = aParameter;
-  }
-
-  public void setSecondParameter(Parameter aParameter) {
-    secondParameter = aParameter;
-  }
-
-  public void setThirdParameter(Parameter aParameter) {
-    thirdParameter = aParameter;
-  }
-
+  /**
+   * @return the firstParameter
+   */
   public Parameter getFirstParameter() {
     return firstParameter;
   }
 
+  /**
+   * @param aFirstParameter the firstParameter to set
+   */
+  public void setFirstParameter(Parameter aFirstParameter) {
+    firstParameter = aFirstParameter;
+  }
+
+  /**
+   * @return the secondParameter
+   */
   public Parameter getSecondParameter() {
     return secondParameter;
   }
 
+  /**
+   * @param aSecondParameter the secondParameter to set
+   */
+  public void setSecondParameter(Parameter aSecondParameter) {
+    secondParameter = aSecondParameter;
+  }
+
+  /**
+   * @return the thirdParameter
+   */
   public Parameter getThirdParameter() {
     return thirdParameter;
+  }
+
+  /**
+   * @param aThirdParameter the thirdParameter to set
+   */
+  public void setThirdParameter(Parameter aThirdParameter) {
+    thirdParameter = aThirdParameter;
   }
 
   public String toPrintableString(WetContext aWetContext) {
@@ -127,14 +159,6 @@ public final class WetCommand {
 
     tmpResult.append("]");
     return tmpResult.toString();
-  }
-
-  public int getLineNo() {
-    return lineNo;
-  }
-
-  public void setLineNo(int aLineNo) {
-    lineNo = aLineNo;
   }
 
   public List<SecretString> getFirstParameterValues(WetContext aWetContext) throws AssertionFailedException {

@@ -115,7 +115,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       } catch (MalformedURLException e) {
         Assert.fail("invalidUrl", new String[] { tmpUrlParam.toString(), e.getMessage() });
       }
-      aWetContext.getWetBackend().saveCurrentWindowToLog();
+      getWetBackend(aWetContext).saveCurrentWindowToLog();
     }
   }
 
