@@ -34,9 +34,9 @@ import org.rbri.wet.exception.WetException;
 import org.rbri.wet.scripter.WetScripter;
 
 /**
- * The engine that makes the monster running
+ * The engine that makes the monster running.<br/>
  * Everything that is in common use for the
- * whole test process is stored there.
+ * whole test process is stored here.
  * 
  * @author rbri
  */
@@ -55,14 +55,6 @@ public final class WetEngine {
   private List<WetCommandSet> commandSets;
   private List<WetScripter> scripter;
   private List<WetEngineProgressListener> progressListener;
-
-  public WetBackend getWetBackend() {
-    return backend;
-  }
-
-  public void setWetBackend(WetBackend aWetBackend) {
-    backend = aWetBackend;
-  }
 
   public WetEngine() throws WetException {
     super();
@@ -85,6 +77,12 @@ public final class WetEngine {
     setWetBackend(tmpBrowser);
   }
 
+  /**
+   * Adds a test file to be executed.
+   * 
+   * @param aFile the test file to be added.
+   * @throws WetException if the test file does not exist.
+   */
   public void addTestFile(File aFile) {
     if (!aFile.exists()) {
       throw new WetException("The test file '" + aFile.getAbsolutePath() + "' does not exist.");
@@ -129,6 +127,13 @@ public final class WetEngine {
     }
   }
 
+  /**
+   * Reads all commands of the given file and returns them in the same order they occure in the file.
+   * 
+   * @param aFile the file to read the commands from.
+   * @return a list of {@link WetCommand}s.
+   * @throws WetException if no {@link WetScripter} can be found for the given file.
+   */
   protected List<WetCommand> readCommandsFromFile(File aFile) throws WetException {
     WetScripter tmpScripter;
     List<WetCommand> tmpResult;
@@ -137,10 +142,6 @@ public final class WetEngine {
     tmpResult = tmpScripter.getCommands();
 
     return tmpResult;
-  }
-
-  public WetConfiguration getWetConfiguration() {
-    return configuration;
   }
 
   private void readWetConfiguration() throws WetException {
@@ -182,22 +183,61 @@ public final class WetEngine {
     return tmpConfigFile;
   }
 
+  /**
+   * @return the backend
+   */
+  public WetBackend getWetBackend() {
+    return backend;
+  }
+
+  /**
+   * @param aWetBackend the backend to set
+   */
+  public void setWetBackend(WetBackend aWetBackend) {
+    backend = aWetBackend;
+  }
+
+  /**
+   * @return the configuration
+   */
+  public WetConfiguration getWetConfiguration() {
+    return configuration;
+  }
+
+  /**
+   * @return the configFileName
+   */
   public String getConfigFileName() {
     return configFileName;
   }
 
+  /**
+   * @param aConfigFileName the configFileName to set
+   */
   public void setConfigFileName(String aConfigFileName) {
     configFileName = aConfigFileName;
   }
 
-  protected Map<String, String> getExternalProperties() {
+  /**
+   * @return the externalProperties
+   */
+  public Map<String, String> getExternalProperties() {
     return externalProperties;
   }
 
-  public void setExternalProperties(Map<String, String> anExternalProperties) {
-    externalProperties = anExternalProperties;
+  /**
+   * @param aExternalProperties the externalProperties to set
+   */
+  public void setExternalProperties(Map<String, String> aExternalProperties) {
+    externalProperties = aExternalProperties;
   }
 
+  /**
+   * Adds the given {@link WetEngineProgressListener} as listener. If this listener is already added it will not be
+   * added again but the listener added first will be taken.
+   * 
+   * @param aProgressListener the listener to add
+   */
   public void addProgressListener(WetEngineProgressListener aProgressListener) {
     if (progressListener.contains(aProgressListener)) {
       return;
@@ -205,90 +245,155 @@ public final class WetEngine {
     progressListener.add(aProgressListener);
   }
 
-  protected void informListenersSetup() throws WetException {
+  /**
+   * Informs all listeners about 'engineSetup'.
+   */
+  protected void informListenersSetup() {
     for (WetEngineProgressListener tmpListener : progressListener) {
       tmpListener.engineSetup(this);
     }
   }
 
-  protected void informListenersCommandSetSetup(WetCommandSet aWetCommandSet) throws WetException {
+  /**
+   * Informs all listeners about 'commandSetSetup'.
+   * 
+   * @param aWetCommandSet the {@link WetCommandSet} that was set up
+   */
+  protected void informListenersCommandSetSetup(WetCommandSet aWetCommandSet) {
     for (WetEngineProgressListener tmpListener : progressListener) {
       tmpListener.commandSetSetup(aWetCommandSet);
     }
   }
 
-  protected void informListenersTestStart() throws WetException {
+  /**
+   * Informs all listeners about 'engineTestStart'.
+   */
+  protected void informListenersTestStart() {
     for (WetEngineProgressListener tmpListener : progressListener) {
       tmpListener.engineTestStart();
     }
   }
 
+  /**
+   * Informs all listeners about 'engineTestEnd'.
+   */
   protected void informListenersTestEnd() {
     for (WetEngineProgressListener tmpListener : progressListener) {
       tmpListener.engineTestEnd();
     }
   }
 
+  /**
+   * Informs all listeners about 'engineFinish'.
+   */
   protected void informListenersFinish() {
     for (WetEngineProgressListener tmpListener : progressListener) {
       tmpListener.engineFinish();
     }
   }
 
+  /**
+   * Informs all listeners about 'contextTestStart'.
+   * 
+   * @param aFileName the file name of the test started.
+   * @param aBrowserName the browser name of the test started.
+   */
   protected void informListenersContextTestStart(String aFileName, String aBrowserName) {
     for (WetEngineProgressListener tmpListener : progressListener) {
       tmpListener.contextTestStart(aFileName, aBrowserName);
     }
   }
 
+  /**
+   * Informs all listeners about 'contextTestEnd'.
+   */
   protected void informListenersContextTestEnd() {
     for (WetEngineProgressListener tmpListener : progressListener) {
       tmpListener.contextTestEnd();
     }
   }
 
+  /**
+   * Informs all listeners about 'contextExecuteCommandStart'.
+   * 
+   * @param aWetContext the {@link WetContext} used to execute the command.
+   * @param aCommand the {@link WetCommand} to be executed.
+   */
   protected void informListenersContextExecuteCommandStart(WetContext aWetContext, WetCommand aCommand) {
     for (WetEngineProgressListener tmpListener : progressListener) {
       tmpListener.contextExecuteCommandStart(aWetContext, aCommand);
     }
   }
 
+  /**
+   * Informs all listeners about 'contextExecuteCommandEnd'.
+   */
   protected void informListenersContextExecuteCommandEnd() {
     for (WetEngineProgressListener tmpListener : progressListener) {
       tmpListener.contextExecuteCommandEnd();
     }
   }
 
+  /**
+   * Informs all listeners about 'contextExecuteCommandSuccess'.
+   */
   protected void informListenersContextExecuteCommandSuccess() {
     for (WetEngineProgressListener tmpListener : progressListener) {
       tmpListener.contextExecuteCommandSuccess();
     }
   }
 
+  /**
+   * Informs all listeners about 'contextExecuteCommandFailure'.
+   * 
+   * @param anAssertionFailedException The exception thrown by the failed command.
+   */
   protected void informListenersContextExecuteCommandFailure(AssertionFailedException anAssertionFailedException) {
     for (WetEngineProgressListener tmpListener : progressListener) {
       tmpListener.contextExecuteCommandFailure(anAssertionFailedException);
     }
   }
 
+  /**
+   * Informs all listeners about 'contextExecuteCommandError'.
+   * 
+   * @param aThrowable The exception thrown by the command.
+   */
   protected void informListenersContextExecuteCommandError(Throwable aThrowable) {
     for (WetEngineProgressListener tmpListener : progressListener) {
       tmpListener.contextExecuteCommandError(aThrowable);
     }
   }
 
+  /**
+   * Informs all listeners about 'warn'.
+   * 
+   * @param aMessageKey the message key of the warning.
+   * @param aParameterArray the message parameters.
+   */
   protected void informListenersWarn(String aMessageKey, String[] aParameterArray) {
     for (WetEngineProgressListener tmpListener : progressListener) {
       tmpListener.warn(aMessageKey, aParameterArray);
     }
   }
 
+  /**
+   * Informs all listeners about 'info'.
+   * 
+   * @param aMessageKey the message key of the warning.
+   * @param aParameterArray the message parameters.
+   */
   public void informListenersInfo(String aMessageKey, String[] aParameterArray) {
     for (WetEngineProgressListener tmpListener : progressListener) {
       tmpListener.info(aMessageKey, aParameterArray);
     }
   }
 
+  /**
+   * Informs all listeners about 'engineResponseStored'.
+   * 
+   * @param aResponseFileName the file name of the stored response.
+   */
   public void informListenersResponseStored(String aResponseFileName) {
     for (WetEngineProgressListener tmpListener : progressListener) {
       tmpListener.engineResponseStored(aResponseFileName);
