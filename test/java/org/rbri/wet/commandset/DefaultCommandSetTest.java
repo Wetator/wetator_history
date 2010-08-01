@@ -34,4 +34,7 @@ public final class DefaultCommandSetTest extends TestCase {
   }
 
   // is it possible to test commands?
+  public void test() {
+    fail("I am not a test.");
+  }
 }
