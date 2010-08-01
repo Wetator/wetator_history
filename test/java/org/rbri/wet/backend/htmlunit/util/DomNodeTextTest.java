@@ -119,6 +119,15 @@ public class DomNodeTextTest extends TestCase {
 
   }
 
+  public void testAsText_Heading() throws IOException {
+    String tmpHtmlCode = "<html><body>before" + "<h1>Heading1</h1>" + "<h2>Heading2</h2>" + "<h3>Heading3</h3>"
+        + "<h4>Heading4</h4>" + "<h5>Heading5</h5>" + "<h6>Heading6</h6>" + "after</body></html>";
+    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+
+    DomNodeText tmpResult = new DomNodeText(tmpHtmlPage);
+    assertEquals("before Heading1 Heading2 Heading3 Heading4 Heading5 Heading6 after", tmpResult.getText());
+  }
+
   public void testAsText_Table() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<table id='idTable'>" + "<tr id='idTr1'>"
         + "  <th id='idTh1'>header1</th><th id='idTh2'>header2</th>" + "</tr>" + "<tr id='idTr2'>"

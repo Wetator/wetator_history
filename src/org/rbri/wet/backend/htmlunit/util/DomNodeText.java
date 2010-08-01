@@ -38,6 +38,12 @@ import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlFileInput;
 import com.gargoylesoftware.htmlunit.html.HtmlForm;
 import com.gargoylesoftware.htmlunit.html.HtmlHead;
+import com.gargoylesoftware.htmlunit.html.HtmlHeading1;
+import com.gargoylesoftware.htmlunit.html.HtmlHeading2;
+import com.gargoylesoftware.htmlunit.html.HtmlHeading3;
+import com.gargoylesoftware.htmlunit.html.HtmlHeading4;
+import com.gargoylesoftware.htmlunit.html.HtmlHeading5;
+import com.gargoylesoftware.htmlunit.html.HtmlHeading6;
 import com.gargoylesoftware.htmlunit.html.HtmlHiddenInput;
 import com.gargoylesoftware.htmlunit.html.HtmlImage;
 import com.gargoylesoftware.htmlunit.html.HtmlImageInput;
@@ -334,6 +340,9 @@ public class DomNodeText {
             || (aDomNode instanceof HtmlTable) || (aDomNode instanceof HtmlTableRow)
             || (aDomNode instanceof HtmlTableHeader) || (aDomNode instanceof HtmlTableDataCell)
             || (aDomNode instanceof HtmlTableCell) || (aDomNode instanceof HtmlUnorderedList)
+            || (aDomNode instanceof HtmlHeading1) || (aDomNode instanceof HtmlHeading2)
+            || (aDomNode instanceof HtmlHeading3) || (aDomNode instanceof HtmlHeading4)
+            || (aDomNode instanceof HtmlHeading5) || (aDomNode instanceof HtmlHeading6)
             || (aDomNode instanceof HtmlListItem);
         if (tmpIsBlock) {
           text.append(" ");
