@@ -109,6 +109,8 @@ test/excel/assert_set.xls -text
 test/excel/assert_title.xls -text
 test/excel/click_after_text.xls -text
 test/excel/click_on.xls -text
+test/excel/deselect_checkbox.xls -text
+test/excel/deselect_multipleSelect.xls -text
 test/excel/event_handler.xls -text
 test/excel/exec_java.xls -text
 test/excel/flow_simple_login.xls -text
