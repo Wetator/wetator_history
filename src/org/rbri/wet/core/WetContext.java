@@ -61,15 +61,25 @@ public class WetContext {
   }
 
   /**
-   * Constructor for a subcontext
+   * Constructor for a sub context
    * 
    * @param aWetContext the parent context
    * @param aFile the file this context is for
    */
-  public WetContext(WetContext aWetContext, File aFile) {
+  protected WetContext(WetContext aWetContext, File aFile) {
     this(aWetContext.engine, aFile);
 
     parentWetContext = aWetContext;
+  }
+
+  /**
+   * Use this method to create a sub context.
+   * 
+   * @param aFile the file the sub context is for
+   * @return the sub context
+   */
+  public WetContext createSubContext(File aFile) {
+    return new WetContext(this, aFile);
   }
 
   public File getFile() {

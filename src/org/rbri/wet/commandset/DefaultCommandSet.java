@@ -144,7 +144,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       }
 
       // setup the new context
-      WetContext tmpWetContext = new WetContext(aWetContext, tmpFile);
+      WetContext tmpWetContext = aWetContext.createSubContext(tmpFile);
 
       int i = 1;
       for (SecretString tmpSecretString : tmpModuleParameters) {
