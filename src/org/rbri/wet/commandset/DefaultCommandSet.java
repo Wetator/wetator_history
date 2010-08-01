@@ -634,6 +634,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
    */
   @SuppressWarnings("unused")
   public void printConfiguration(WetResultWriter aWetResultWriter) throws IOException {
+    // TODO this method isn't called anywhere. do we need it?
     // nothing to do at the moment
   }
 }
