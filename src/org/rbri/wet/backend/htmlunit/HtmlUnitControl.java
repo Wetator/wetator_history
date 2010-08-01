@@ -261,11 +261,18 @@ public class HtmlUnitControl implements Control {
         }
       } else if (tmpHtmlElement instanceof HtmlOption) {
         HtmlOption tmpHtmlOption = (HtmlOption) tmpHtmlElement;
-        Assert.assertTrue(!tmpHtmlOption.getEnclosingSelect().isDisabled(), "elementDisabled",
-            new String[] { getDescribingText() });
 
-        if (tmpHtmlOption.isSelected()) {
-          tmpHtmlOption.click();
+        HtmlSelect tmpHtmpSelect = tmpHtmlOption.getEnclosingSelect();
+        if (tmpHtmpSelect.isMultipleSelectEnabled()) {
+          Assert.assertTrue(!tmpHtmpSelect.isDisabled(), "elementDisabled", new String[] { getDescribingText() });
+
+          if (tmpHtmlOption.isSelected()) {
+            // TODO event support
+            tmpHtmlOption.setSelected(false);
+            // tmpHtmlOption.click(false, true, false);
+          }
+        } else {
+          Assert.fail("deselectNotSupported", new String[] { getDescribingText() });
         }
       } else {
         Assert.fail("deselectNotSupported", new String[] { getDescribingText() });
