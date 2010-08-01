@@ -35,8 +35,7 @@ import org.rbri.wet.scripter.WetScripter;
 
 /**
  * The engine that makes the monster running.<br/>
- * Everything that is in common use for the
- * whole test process is stored here.
+ * Everything that is in common use for the whole test process is stored here.
  * 
  * @author rbri
  */
