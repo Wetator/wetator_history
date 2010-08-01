@@ -581,10 +581,10 @@
         <xsl:variable name="lineStyle">
             <xsl:choose>
                 <xsl:when test="@isComment">
-                    <xsl:text>comment; topBorder</xsl:text>
+                    <xsl:text>comment topBorder</xsl:text>
                 </xsl:when>
                 <xsl:otherwise>
-                    <xsl:text>light, topBorder</xsl:text>
+                    <xsl:text>light topBorder</xsl:text>
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:variable>
