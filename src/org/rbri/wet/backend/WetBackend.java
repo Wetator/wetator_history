@@ -41,11 +41,21 @@ public interface WetBackend {
   };
 
   public enum Browser {
-    FIREFOX_2,
-    FIREFOX_3,
-    INTERNET_EXPLORER_6,
-    INTERNET_EXPLORER_7,
-    INTERNET_EXPLORER_8
+    FIREFOX_2("Firefox2"),
+    FIREFOX_3("Firefox3"),
+    INTERNET_EXPLORER_6("IE6"),
+    INTERNET_EXPLORER_7("IE7"),
+    INTERNET_EXPLORER_8("IE8");
+
+    private String name;
+
+    Browser(String aName) {
+      name = aName;
+    }
+
+    public String getName() {
+      return name;
+    }
   };
 
   public ControlFinder getControlFinder() throws AssertionFailedException;
@@ -63,7 +73,7 @@ public interface WetBackend {
 
   public void closeWindow(SecretString aWindowName) throws AssertionFailedException;
 
-  public void startNewSession();
+  public void startNewSession(WetBackend.Browser aBrowser);
 
   public void checkFailure() throws AssertionFailedException;
 

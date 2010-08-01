@@ -124,7 +124,7 @@ public class WetResultWriter implements WetEngineProgressListener {
       printlnStartTag(TAG_CONFIGURATION);
 
       printConfigurationProperty(WetConfiguration.PROPERTY_BASE_URL, tmpWetConfiguration.getBaseUrl());
-      printConfigurationProperty(WetConfiguration.PROPERTY_BROWSER, tmpWetConfiguration.getBrowser().name());
+      // printConfigurationProperty(WetConfiguration.PROPERTY_BROWSER, tmpWetConfiguration.getBrowser().name());
       printConfigurationProperty(WetConfiguration.PROPERTY_ACCEPT_LANGUAGE, tmpWetConfiguration.getAcceptLanaguage());
       printConfigurationProperty(WetConfiguration.PROPERTY_OUTPUT_DIR, tmpWetConfiguration.getOutputDir()
           .getAbsolutePath());
@@ -241,13 +241,15 @@ public class WetResultWriter implements WetEngineProgressListener {
   /**
    * {@inheritDoc}
    * 
-   * @see org.rbri.wet.core.WetEngineProgressListener#contextTestStart(java.lang.String)
+   * @see org.rbri.wet.core.WetEngineProgressListener#contextTestStart(java.lang.String, java.lang.String)
    */
-  public void contextTestStart(String aFileName) {
+  public void contextTestStart(String aFileName, String aBrowserName) {
     try {
       printStartTagOpener(TAG_TESTCASE);
       output.print("name=\"");
       output.print(xmlUtil.normalizeAttributeValue(aFileName));
+      output.print(" name=\"");
+      output.print(xmlUtil.normalizeAttributeValue(aBrowserName));
       output.println("\" >");
       output.indent();
     } catch (IOException e) {

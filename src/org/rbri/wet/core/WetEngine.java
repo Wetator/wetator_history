@@ -24,6 +24,7 @@ import java.util.Map;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.rbri.wet.backend.WetBackend;
+import org.rbri.wet.backend.WetBackend.Browser;
 import org.rbri.wet.backend.htmlunit.HtmlUnitBrowser;
 import org.rbri.wet.commandset.WetCommandImplementation;
 import org.rbri.wet.commandset.WetCommandSet;
@@ -107,12 +108,14 @@ public final class WetEngine {
             // TODO
             LOG.info("Executing tests from file '" + tmpFile.getAbsolutePath() + "'");
 
-            // new session for every (root) file
-            getWetBackend().startNewSession();
+            for (Browser tmpBrowser : configuration.getBrowsers()) {
+              // new session for every (root) file and browser
+              getWetBackend().startNewSession(tmpBrowser);
 
-            // setup the context
-            WetContext tmpWetContext = new WetContext(this, tmpFile);
-            tmpWetContext.execute();
+              // setup the context
+              WetContext tmpWetContext = new WetContext(this, tmpFile, tmpBrowser);
+              tmpWetContext.execute();
+            }
           } catch (Throwable e) {
             // informListenersWarn("testCaseError", new String[] {e.getMessage()});
             e.printStackTrace();
@@ -232,9 +235,9 @@ public final class WetEngine {
     }
   }
 
-  protected void informListenersContextTestStart(String aFileName) {
+  protected void informListenersContextTestStart(String aFileName, String aBrowserName) {
     for (WetEngineProgressListener tmpListener : progressListener) {
-      tmpListener.contextTestStart(aFileName);
+      tmpListener.contextTestStart(aFileName, aBrowserName);
     }
   }
 

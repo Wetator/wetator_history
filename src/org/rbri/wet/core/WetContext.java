@@ -23,6 +23,7 @@ import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.rbri.wet.backend.WetBackend;
+import org.rbri.wet.backend.WetBackend.Browser;
 import org.rbri.wet.commandset.WetCommandImplementation;
 import org.rbri.wet.core.variable.Variable;
 import org.rbri.wet.exception.AssertionFailedException;
@@ -43,6 +44,7 @@ public class WetContext {
 
   private WetEngine engine;
   private File file;
+  private Browser browser;
   private List<Variable> variables; // store them in defined order
 
   private WetContext parentWetContext;
@@ -53,10 +55,11 @@ public class WetContext {
    * @param aWetEngine the engine that processes this file
    * @param aFile the file this context is for
    */
-  public WetContext(WetEngine aWetEngine, File aFile) {
+  public WetContext(WetEngine aWetEngine, File aFile, Browser aBrowser) {
     super();
     engine = aWetEngine;
     file = aFile;
+    browser = aBrowser;
     variables = new LinkedList<Variable>();
   }
 
@@ -67,7 +70,7 @@ public class WetContext {
    * @param aFile the file this context is for
    */
   protected WetContext(WetContext aWetContext, File aFile) {
-    this(aWetContext.engine, aFile);
+    this(aWetContext.engine, aFile, aWetContext.browser);
 
     parentWetContext = aWetContext;
   }
@@ -157,7 +160,7 @@ public class WetContext {
   public void execute() {
     File tmpFile = getFile();
 
-    engine.informListenersContextTestStart(tmpFile.getAbsolutePath());
+    engine.informListenersContextTestStart(tmpFile.getAbsolutePath(), browser.getName());
     try {
       List<WetCommand> tmpCommands = engine.readCommandsFromFile(tmpFile);
 

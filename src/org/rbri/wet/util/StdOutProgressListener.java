@@ -121,12 +121,12 @@ public class StdOutProgressListener implements WetEngineProgressListener {
     }
   }
 
-  public void contextTestStart(String aFileName) {
+  public void contextTestStart(String aFileName, String aBrowserName) {
     if (contextDeep > 0) {
       // subcontext
       print("<");
     } else {
-      println("Test: " + aFileName);
+      println("Test: '" + aFileName + "' (" + aBrowserName + ")");
       dotCount = 1;
     }
     contextDeep++;

@@ -38,7 +38,7 @@ public interface WetEngineProgressListener {
 
   public void commandSetSetup(WetCommandSet aWetCommandSet);
 
-  public void contextTestStart(String aFileName);
+  public void contextTestStart(String aFileName, String aBrowserName);
 
   public void contextExecuteCommandStart(WetContext aWetContext, WetCommand aCommand);
 

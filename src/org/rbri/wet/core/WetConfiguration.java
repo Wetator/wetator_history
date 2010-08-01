@@ -89,7 +89,7 @@ public final class WetConfiguration {
   private String baseUrl;
   private File outputDir;
 
-  private WetBackend.Browser browser;
+  private List<WetBackend.Browser> browsers;
   private String acceptLanaguage;
 
   private String proxyHost;
@@ -264,7 +264,16 @@ public final class WetConfiguration {
       // browserVersion
       tmpValue = tmpProperties.getProperty(PROPERTY_BROWSER, "");
       tmpProperties.remove(PROPERTY_BROWSER);
-      browser = parseBrowser(tmpValue);
+
+      browsers = new LinkedList<WetBackend.Browser>();
+
+      List<String> tmpParts = StringUtil.extractStrings(tmpValue, ",", '\\');
+      for (String tmpString : tmpParts) {
+        if (StringUtils.isNotBlank(tmpString)) {
+          WetBackend.Browser tmpBrowser = parseBrowser(tmpString);
+          browsers.add(tmpBrowser);
+        }
+      }
 
       // accept language
       tmpValue = tmpProperties.getProperty(PROPERTY_ACCEPT_LANGUAGE, "en-us,en;q=0.8,de-de;q=0.5,de;q=0.3");
@@ -331,7 +340,7 @@ public final class WetConfiguration {
 
       xslTemplates = new LinkedList<String>();
 
-      List<String> tmpParts = StringUtil.extractStrings(tmpValue, ",", '\\');
+      tmpParts = StringUtil.extractStrings(tmpValue, ",", '\\');
       for (String tmpString : tmpParts) {
         if (StringUtils.isNotBlank(tmpString)) {
           File tmpTemplateFile = new File(aConfigurationFile.getParentFile(), tmpString);
@@ -409,8 +418,8 @@ public final class WetConfiguration {
     return outputDir;
   }
 
-  public WetBackend.Browser getBrowser() {
-    return browser;
+  public List<WetBackend.Browser> getBrowsers() {
+    return browsers;
   }
 
   public String getAcceptLanaguage() {

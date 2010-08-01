@@ -117,11 +117,10 @@ public final class HtmlUnitBrowser implements WetBackend {
   public void stop() {
   }
 
-  public void startNewSession() {
+  public void startNewSession(WetBackend.Browser aBrowser) {
     WetConfiguration tmpConfiguration = wetEngine.getWetConfiguration();
 
-    WetBackend.Browser tmpWetBrowser = tmpConfiguration.getBrowser();
-    BrowserVersion tmpBrowserVersion = determineBrowserVersionFor(tmpWetBrowser);
+    BrowserVersion tmpBrowserVersion = determineBrowserVersionFor(aBrowser);
 
     // TODO maybe we have to do more here
     if (null != webClient) {
