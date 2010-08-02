@@ -212,7 +212,8 @@ public class HtmlUnitControlFinderGetAllOtherControlsTest extends TestCase {
     WeightedControlList tmpFound = tmpFinder.getAllOtherControls(tmpSearch);
 
     assertEquals(1, tmpFound.getElementsSorted().size());
-    assertEquals("[HtmlOptionGroup 'colors' (id='optgroup_colors')] found by: BY_LABEL_TEXT coverage: 0 distance: 0",
+    assertEquals(
+        "[HtmlOptionGroup 'colors' (id='optgroup_colors') part of [HtmlSelect (id='MyFirstSelectId')]] found by: BY_LABEL_TEXT coverage: 0 distance: 0",
         tmpFound.getElementsSorted().get(0).toString());
   }
 
@@ -230,7 +231,8 @@ public class HtmlUnitControlFinderGetAllOtherControlsTest extends TestCase {
     WeightedControlList tmpFound = tmpFinder.getAllOtherControls(tmpSearch);
 
     assertEquals(1, tmpFound.getElementsSorted().size());
-    assertEquals("[HtmlOptionGroup 'colors' (id='optgroup_colors')] found by: BY_ID coverage: 0 distance: 0", tmpFound
-        .getElementsSorted().get(0).toString());
+    assertEquals(
+        "[HtmlOptionGroup 'colors' (id='optgroup_colors') part of [HtmlSelect (id='MyFirstSelectId')]] found by: BY_ID coverage: 0 distance: 0",
+        tmpFound.getElementsSorted().get(0).toString());
   }
 }

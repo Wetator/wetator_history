@@ -723,10 +723,10 @@ public class HtmlElementUtilTest extends TestCase {
 
     String tmpResult;
     tmpResult = new HtmlUnitControl(tmpHtmlOption).getDescribingText();
-    assertEquals("[HtmlOption 'Option1']", tmpResult);
+    assertEquals("[HtmlOption 'Option1' part of [HtmlSelect]]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlOption(tmpHtmlOption);
-    assertEquals("[HtmlOption 'Option1']", tmpResult);
+    assertEquals("[HtmlOption 'Option1' part of [HtmlSelect]]", tmpResult);
   }
 
   public void testGetDescribingTextFor_HtmlOption_Name() throws IOException {
@@ -741,10 +741,10 @@ public class HtmlElementUtilTest extends TestCase {
 
     String tmpResult;
     tmpResult = new HtmlUnitControl(tmpHtmlOption).getDescribingText();
-    assertEquals("[HtmlOption 'Option1' (name='optionName')]", tmpResult);
+    assertEquals("[HtmlOption 'Option1' (name='optionName') part of [HtmlSelect]]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlOption(tmpHtmlOption);
-    assertEquals("[HtmlOption 'Option1' (name='optionName')]", tmpResult);
+    assertEquals("[HtmlOption 'Option1' (name='optionName') part of [HtmlSelect]]", tmpResult);
   }
 
   public void testGetDescribingTextFor_HtmlOption_Id() throws IOException {
@@ -759,10 +759,10 @@ public class HtmlElementUtilTest extends TestCase {
 
     String tmpResult;
     tmpResult = new HtmlUnitControl(tmpHtmlOption).getDescribingText();
-    assertEquals("[HtmlOption 'Option1' (id='optionId')]", tmpResult);
+    assertEquals("[HtmlOption 'Option1' (id='optionId') part of [HtmlSelect]]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlOption(tmpHtmlOption);
-    assertEquals("[HtmlOption 'Option1' (id='optionId')]", tmpResult);
+    assertEquals("[HtmlOption 'Option1' (id='optionId') part of [HtmlSelect]]", tmpResult);
   }
 
   public void testGetDescribingTextFor_HtmlOption_Name_Id() throws IOException {
@@ -777,10 +777,10 @@ public class HtmlElementUtilTest extends TestCase {
 
     String tmpResult;
     tmpResult = new HtmlUnitControl(tmpHtmlOption).getDescribingText();
-    assertEquals("[HtmlOption 'Option1' (id='optionId') (name='optionName')]", tmpResult);
+    assertEquals("[HtmlOption 'Option1' (id='optionId') (name='optionName') part of [HtmlSelect]]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlOption(tmpHtmlOption);
-    assertEquals("[HtmlOption 'Option1' (id='optionId') (name='optionName')]", tmpResult);
+    assertEquals("[HtmlOption 'Option1' (id='optionId') (name='optionName') part of [HtmlSelect]]", tmpResult);
   }
 
   public void testGetDescribingTextFor_HtmlOptionGroup() throws IOException {
@@ -795,10 +795,10 @@ public class HtmlElementUtilTest extends TestCase {
 
     String tmpResult;
     tmpResult = new HtmlUnitControl(tmpHtmlOptionGroup).getDescribingText();
-    assertEquals("[HtmlOptionGroup 'optGroupLabel']", tmpResult);
+    assertEquals("[HtmlOptionGroup 'optGroupLabel' part of [HtmlSelect]]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlOptionGroup(tmpHtmlOptionGroup);
-    assertEquals("[HtmlOptionGroup 'optGroupLabel']", tmpResult);
+    assertEquals("[HtmlOptionGroup 'optGroupLabel' part of [HtmlSelect]]", tmpResult);
   }
 
   public void testGetDescribingTextFor_HtmlOptionGroup_Name() throws IOException {
@@ -814,10 +814,10 @@ public class HtmlElementUtilTest extends TestCase {
 
     String tmpResult;
     tmpResult = new HtmlUnitControl(tmpHtmlOptionGroup).getDescribingText();
-    assertEquals("[HtmlOptionGroup 'optGroupLabel' (name='optionName')]", tmpResult);
+    assertEquals("[HtmlOptionGroup 'optGroupLabel' (name='optionName') part of [HtmlSelect]]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlOptionGroup(tmpHtmlOptionGroup);
-    assertEquals("[HtmlOptionGroup 'optGroupLabel' (name='optionName')]", tmpResult);
+    assertEquals("[HtmlOptionGroup 'optGroupLabel' (name='optionName') part of [HtmlSelect]]", tmpResult);
   }
 
   public void testGetDescribingTextFor_HtmlOptionGroup_Id() throws IOException {
@@ -833,10 +833,10 @@ public class HtmlElementUtilTest extends TestCase {
 
     String tmpResult;
     tmpResult = new HtmlUnitControl(tmpHtmlOptionGroup).getDescribingText();
-    assertEquals("[HtmlOptionGroup 'optGroupLabel' (id='optionId')]", tmpResult);
+    assertEquals("[HtmlOptionGroup 'optGroupLabel' (id='optionId') part of [HtmlSelect]]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlOptionGroup(tmpHtmlOptionGroup);
-    assertEquals("[HtmlOptionGroup 'optGroupLabel' (id='optionId')]", tmpResult);
+    assertEquals("[HtmlOptionGroup 'optGroupLabel' (id='optionId') part of [HtmlSelect]]", tmpResult);
   }
 
   public void testGetDescribingTextFor_HtmlOptionGroup_Name_Id() throws IOException {
@@ -852,10 +852,12 @@ public class HtmlElementUtilTest extends TestCase {
 
     String tmpResult;
     tmpResult = new HtmlUnitControl(tmpHtmlOptionGroup).getDescribingText();
-    assertEquals("[HtmlOptionGroup 'optGroupLabel' (id='optionId') (name='optionName')]", tmpResult);
+    assertEquals("[HtmlOptionGroup 'optGroupLabel' (id='optionId') (name='optionName') part of [HtmlSelect]]",
+        tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlOptionGroup(tmpHtmlOptionGroup);
-    assertEquals("[HtmlOptionGroup 'optGroupLabel' (id='optionId') (name='optionName')]", tmpResult);
+    assertEquals("[HtmlOptionGroup 'optGroupLabel' (id='optionId') (name='optionName') part of [HtmlSelect]]",
+        tmpResult);
   }
 
   public void testGetDescribingTextFor_HtmlParagraph() throws IOException {
