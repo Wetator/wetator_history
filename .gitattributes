@@ -667,6 +667,10 @@ xsl/images/collapselog.png -text
 xsl/images/expandall.png -text
 xsl/images/expandlog.png -text
 xsl/images/failed.png -text
+xsl/images/firefox.png -text
+xsl/images/ie6.png -text
+xsl/images/ie7.png -text
+xsl/images/ie8.png -text
 xsl/images/log_info.png -text
 xsl/images/log_warn.png -text
 xsl/images/next.png -text
