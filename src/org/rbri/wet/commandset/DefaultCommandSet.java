@@ -389,12 +389,12 @@ public final class DefaultCommandSet extends AbstractCommandSet {
      */
     public void execute(WetContext aWetContext, WetCommand aWetCommand) throws AssertionFailedException {
       List<SecretString> tmpExpected = aWetCommand.getRequiredFirstParameterValues(aWetContext);
-      aWetCommand.assertNoUnusedSecondParameter(aWetContext);
+      long tmpTimeout = aWetCommand.getSecondParameterLongValue(aWetContext);
+
+      tmpTimeout = Math.max(0, tmpTimeout);
 
       WetBackend tmpBackend = getWetBackend(aWetContext);
-      String tmpCurrentContent = tmpBackend.getCurrentContentAsString();
-
-      Assert.assertListMatch(tmpExpected, tmpCurrentContent);
+      tmpBackend.waitForContent(tmpExpected, tmpTimeout);
     }
   }
 

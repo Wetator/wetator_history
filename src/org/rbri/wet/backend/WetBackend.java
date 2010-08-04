@@ -65,7 +65,8 @@ public interface WetBackend {
   public String waitForTitle(List<SecretString> aTitleToWaitFor, long aTimeoutInSeconds)
       throws AssertionFailedException;
 
-  public String getCurrentContentAsString() throws AssertionFailedException;
+  public String waitForContent(List<SecretString> aContentToWaitFor, long aTimeoutInSeconds)
+      throws AssertionFailedException;
 
   public void saveCurrentWindowToLog();
 
