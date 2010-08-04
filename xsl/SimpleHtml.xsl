@@ -309,7 +309,7 @@
                         <th>No</th>
                         <th><xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text></th>
                         <th>Name</th>
-                        <th>Browser</th>
+                        <th><xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text></th>
                         <th colspan="2">Steps</th>
                         <th><xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text></th>
                         <th>Graph</th>
@@ -442,7 +442,36 @@
                 </a>
             </td>
             <td>
-                <xsl:value-of select="@browser"/>
+                <img>
+                    <xsl:attribute name="src">
+                        <xsl:choose>
+                            <xsl:when test="@browser='Firefox2'">
+                                <xsl:text disable-output-escaping="yes">images/firefox.png</xsl:text>
+                            </xsl:when>
+                            <xsl:when test="@browser='Firefox3'">
+                                <xsl:text disable-output-escaping="yes">images/firefox.png</xsl:text>
+                            </xsl:when>
+                            <xsl:when test="@browser='IE6'">
+                                <xsl:text disable-output-escaping="yes">images/ie6.png</xsl:text>
+                            </xsl:when>
+                            <xsl:when test="@browser='IE7'">
+                                <xsl:text disable-output-escaping="yes">images/ie7.png</xsl:text>
+                            </xsl:when>
+                            <xsl:when test="@browser='IE8'">
+                                <xsl:text disable-output-escaping="yes">images/ie8.png</xsl:text>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:text disable-output-escaping="yes">images/firefox.png</xsl:text>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:attribute>
+                    <xsl:attribute name="alt">
+                        <xsl:value-of select="@browser"/>
+                    </xsl:attribute>
+                    <xsl:attribute name="title">
+                        <xsl:value-of select="@browser"/>
+                    </xsl:attribute>
+                </img>
             </td>
             <td align="right">
                  <xsl:value-of select="count(command[not(@isComment)])"/>
@@ -802,41 +831,41 @@
         </xsl:if>
 
         <xsl:if test="count(./log) &gt; 0">
-          <tr style="display: none;">
+            <tr style="display: none;">
                 <xsl:attribute name="id">
                     <xsl:text>log_</xsl:text>
                     <xsl:value-of select="@id" />
                 </xsl:attribute>
 
-              <td class="light"/>
-              <td class="light"/>
-              <td class="light"/>
-              <td class="light"/>
-              <td class="message" colspan="4">
-                <table cellpadding="1" cellspacing="0" width="100%">
-                    <xsl:for-each select="./log">
-                            <tr>
-                              <td>
-                      <xsl:choose>
-                          <xsl:when test="./level[text() = 'INFO']">
-                              <img src="./images/log_info.png" width="11" height="11" alt="failed"/>
-                          </xsl:when>
-                                      <xsl:when test="./level[text() = 'WARN']">
-                                          <img src="./images/log_warn.png" width="11" height="11" alt="failed"/>
-                                      </xsl:when>
-                          <xsl:otherwise>
-                              <xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text>
-                          </xsl:otherwise>
-                      </xsl:choose>
-                              </td>
-                            <td>
-                                <xsl:value-of select="./message"/>
-                            </td>
-                          </tr>
-                    </xsl:for-each>
-                </table>
-              </td>
-          </tr>
+                <td class="light"/>
+                <td class="light"/>
+                <td class="light"/>
+                <td class="light"/>
+                <td class="message" colspan="4">
+	                <table cellpadding="1" cellspacing="0" width="100%">
+	                    <xsl:for-each select="./log">
+	                        <tr>
+	                            <td>
+	                        <xsl:choose>
+	                            <xsl:when test="./level[text() = 'INFO']">
+	                                <img src="./images/log_info.png" width="11" height="11" alt="failed"/>
+	                            </xsl:when>
+	                            <xsl:when test="./level[text() = 'WARN']">
+	                                <img src="./images/log_warn.png" width="11" height="11" alt="failed"/>
+	                            </xsl:when>
+	                            <xsl:otherwise>
+	                                <xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text>
+	                            </xsl:otherwise>
+	                        </xsl:choose>
+	                            </td>
+	                            <td>
+	                                <xsl:value-of select="./message"/>
+	                            </td>
+	                        </tr>
+	                    </xsl:for-each>
+	                </table>
+                </td>
+            </tr>
         </xsl:if>
 
         <xsl:if test="(count(./testcase)) &gt; 0">
