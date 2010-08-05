@@ -44,7 +44,7 @@ public class ExcelScripterTest extends TestCase {
     tmpExcelScripter.setFile(new File("test/excel/assert_content.xls"));
 
     List<WetCommand> tmpCommands = tmpExcelScripter.getCommands();
-    assertEquals(55, tmpCommands.size());
+    assertEquals(73, tmpCommands.size());
 
     WetCommand tmpCommand = tmpCommands.get(0);
     assertTrue(tmpCommand.isComment());
