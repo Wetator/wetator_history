@@ -29,10 +29,18 @@ public final class NormalizedString {
 
   private StringBuilder content;
 
+  /**
+   * Default constructor; creates a new empty NormalizedString
+   */
   public NormalizedString() {
     content = new StringBuilder();
   }
 
+  /**
+   * Default constructor; creates a new NormalizedString with an initial value
+   * 
+   * @param aString the initial value
+   */
   public NormalizedString(String aString) {
     this();
     append(aString);

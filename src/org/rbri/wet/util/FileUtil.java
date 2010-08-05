@@ -30,8 +30,7 @@ public final class FileUtil {
   /**
    * Creates the specified directory if needed
    * 
-   * @param anOutputDirPath the name of the directory
-   * @return the directory file object
+   * @param anOutputDir the name of the directory
    * @throws WetException in case of problems
    */
   public static void createOutputDir(File anOutputDir) throws WetException {

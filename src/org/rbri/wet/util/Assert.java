@@ -29,11 +29,16 @@ import org.rbri.wet.i18n.Messages;
  */
 public final class Assert {
 
+  /** the marker for more content */
   protected static final String MORE_MARKER = "...";
-  protected static final String TEXT_EXPECTED = "expected: ";
+  /** the fixed text 'expected: ' */
+  protected static final String TEXT_EXPECTED = "expected: "; // TODO i18n
+  /** the start merker for values */
   protected static final String LEFT_VALUE_MARKER = "<";
+  /** the start merker for values */
   protected static final String RIGHT_VALUE_MARKER = ">";
-  protected static final String TEXT_WAS = " but was: ";
+  /** the fixed text ' but was: ' */
+  protected static final String TEXT_WAS = " but was: "; // TODO i18n
 
   /**
    * This class should not be instantiated.
@@ -48,6 +53,7 @@ public final class Assert {
    * 
    * @param aMessageKey the key for the message lookup
    * @param aParameterArray the parameters as array
+   * @throws AssertionFailedException always
    */
   public static void fail(String aMessageKey, Object[] aParameterArray) throws AssertionFailedException {
     String tmpMessage = Messages.getMessage(aMessageKey, aParameterArray);
@@ -61,6 +67,7 @@ public final class Assert {
    * @param anObject an object to check
    * @param aMessageKey the key for the message lookup
    * @param aParameterArray the parameters as array
+   * @throws AssertionFailedException always
    */
   public static void assertNotNull(Object anObject, String aMessageKey, Object[] aParameterArray)
       throws AssertionFailedException {
@@ -77,6 +84,7 @@ public final class Assert {
    * @param aValue a string to check
    * @param aMessageKey the key for the message lookup
    * @param aParameterArray the parameters as array
+   * @throws AssertionFailedException if the value is null or empty
    */
   public static void assertNotEmptyOrNull(String aValue, String aMessageKey, Object[] aParameterArray)
       throws AssertionFailedException {
@@ -88,11 +96,12 @@ public final class Assert {
 
   /**
    * Throws an AssertionFailedException with the given
-   * message if aCondition is NOT true.
+   * message if the condition is NOT true.
    * 
    * @param aCondition a boolean to check
    * @param aMessageKey the key for the message lookup
    * @param aParameterArray the parameters as array
+   * @throws AssertionFailedException if the condition is NOT true
    */
   public static void assertTrue(boolean aCondition, String aMessageKey, Object[] aParameterArray)
       throws AssertionFailedException {
@@ -104,11 +113,12 @@ public final class Assert {
 
   /**
    * Throws an AssertionFailedException with the given
-   * message if aCondition is NOT false.
+   * message if the condition is NOT false.
    * 
    * @param aCondition a boolean to check
    * @param aMessageKey the key for the message lookup
    * @param aParameterArray the parameters as array
+   * @throws AssertionFailedException if the condition is NOT false
    */
   public static void assertFalse(boolean aCondition, String aMessageKey, Object[] aParameterArray)
       throws AssertionFailedException {
@@ -119,13 +129,14 @@ public final class Assert {
   }
 
   /**
-   * Asserts that two booleans are equal. If they are not
+   * Asserts that two booleans are equal.
    * Otherwise throws an AssertionFailedException.
    * 
    * @param anExpectedBoolean a boolean to check
    * @param aCurrentBoolean a boolean to check
    * @param aMessageKey the key for the message lookup
    * @param aParameterArray the parameters as array
+   * @throws AssertionFailedException if the to booleans are not the same
    */
   public static void assertEquals(boolean anExpectedBoolean, boolean aCurrentBoolean, String aMessageKey,
       Object[] aParameterArray) throws AssertionFailedException {
@@ -143,6 +154,7 @@ public final class Assert {
    * @param aCurrentString a String to check
    * @param aMessageKey the key for the message lookup
    * @param aParameterArray the parameters as array
+   * @throws AssertionFailedException if the two strings are not the same
    */
   public static void assertEquals(String anExpectedString, String aCurrentString, String aMessageKey,
       Object[] aParameterArray) throws AssertionFailedException {
@@ -212,7 +224,16 @@ public final class Assert {
         + aCurrentString + RIGHT_VALUE_MARKER;
   }
 
+  /**
+   * Asserts that a list of strings is part of the content in the given order.
+   * Otherwise throws an AssertionFailedException.
+   * 
+   * @param anExpected the list of Strings to check
+   * @param aContent a String to check
+   * @throws AssertionFailedException if the two strings are not the same
+   */
   public static void assertListMatch(List<SecretString> anExpected, String aContent) throws AssertionFailedException {
+    // TODO i18n
     int tmpStartPos = 0;
     boolean tmpAssertFailed = false;
     StringBuilder tmpResultMessage = new StringBuilder();
