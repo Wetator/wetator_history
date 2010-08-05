@@ -32,29 +32,57 @@ import org.rbri.wet.util.SecretString;
  */
 public interface WetBackend {
 
+  /**
+   * Enum for the supported content type.
+   */
   public enum ContentType {
+    /** html */
     HTML,
+    /** plain text */
     TEXT,
+    /** pdf */
     PDF,
+    /** excel */
     XLS,
+    /** the rest */
     OTHER
   };
 
+  /**
+   * Enum for the supported browsers.
+   */
   public enum Browser {
+    /** firefox 2 */
     FIREFOX_2("Firefox2"),
+    /** firefox 3 */
     FIREFOX_3("Firefox3"),
+    /** firefox 3.6 */
+    FIREFOX_3_6("Firefox3.6"),
+    /** the famous internet explorer 6 */
     INTERNET_EXPLORER_6("IE6"),
+    /** internet explorer 7 */
     INTERNET_EXPLORER_7("IE7"),
+    /** internet explorer 8 */
     INTERNET_EXPLORER_8("IE8");
 
-    private String name;
+    private String label;
 
-    Browser(String aName) {
-      name = aName;
+    /**
+     * Constructor
+     * 
+     * @param aLabel the label of the browser
+     */
+    Browser(String aLabel) {
+      label = aLabel;
     }
 
-    public String getName() {
-      return name;
+    /**
+     * Getter for the label
+     * 
+     * @return the label
+     */
+    public String getLabel() {
+      return label;
     }
   };
 

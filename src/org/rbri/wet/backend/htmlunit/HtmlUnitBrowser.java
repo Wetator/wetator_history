@@ -70,6 +70,7 @@ import com.gargoylesoftware.htmlunit.xml.XmlPage;
 public final class HtmlUnitBrowser implements WetBackend {
   private static final Log LOG = LogFactory.getLog(HtmlUnitBrowser.class);;
 
+  /** the maximum history size */
   protected static final int MAX_HISTORY_SIZE = 15;
 
   protected WebClient webClient;
@@ -384,6 +385,9 @@ public final class HtmlUnitBrowser implements WetBackend {
     }
     if (WetBackend.Browser.FIREFOX_3 == aWetBrowser) {
       return BrowserVersion.FIREFOX_3;
+    }
+    if (WetBackend.Browser.FIREFOX_3_6 == aWetBrowser) {
+      return BrowserVersion.FIREFOX_3_6;
     }
     if (WetBackend.Browser.INTERNET_EXPLORER_6 == aWetBrowser) {
       return BrowserVersion.INTERNET_EXPLORER_6;

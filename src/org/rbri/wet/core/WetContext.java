@@ -54,6 +54,7 @@ public class WetContext {
    * 
    * @param aWetEngine the engine that processes this file
    * @param aFile the file this context is for
+   * @param aBrowser the emulated browser
    */
   public WetContext(WetEngine aWetEngine, File aFile, Browser aBrowser) {
     super();
@@ -160,7 +161,7 @@ public class WetContext {
   public void execute() {
     File tmpFile = getFile();
 
-    engine.informListenersContextTestStart(tmpFile.getAbsolutePath(), browser.getName());
+    engine.informListenersContextTestStart(tmpFile.getAbsolutePath(), browser.getLabel());
     try {
       List<WetCommand> tmpCommands = engine.readCommandsFromFile(tmpFile);
 

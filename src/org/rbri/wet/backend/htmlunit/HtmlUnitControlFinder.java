@@ -19,8 +19,6 @@ package org.rbri.wet.backend.htmlunit;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.rbri.wet.backend.ControlFinder;
 import org.rbri.wet.backend.WeightedControlList;
 import org.rbri.wet.backend.htmlunit.util.DomNodeText;
@@ -56,7 +54,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
  * @author rbri
  */
 public class HtmlUnitControlFinder implements ControlFinder {
-  private static final Log LOG = LogFactory.getLog(HtmlUnitControlFinder.class);;
+  // private static final Log LOG = LogFactory.getLog(HtmlUnitControlFinder.class);;
 
   /**
    * the page to work on
@@ -80,6 +78,11 @@ public class HtmlUnitControlFinder implements ControlFinder {
     domNodeText = new DomNodeText(htmlPage.getBody());
   }
 
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.rbri.wet.backend.ControlFinder#getAllSetables(java.util.List)
+   */
   public WeightedControlList getAllSetables(List<SecretString> aSearch) {
     WeightedControlList tmpFoundElements = new WeightedControlList();
 
@@ -229,7 +232,7 @@ public class HtmlUnitControlFinder implements ControlFinder {
    * HtmlButtonInput, HtmlButton) on the page with
    * the given name (value, name).
    * 
-   * @param aSearchPattern the filter
+   * @param aSearch the filter
    * @return the list of matching clickables
    */
   public WeightedControlList getAllClickables(List<SecretString> aSearch) {
@@ -551,6 +554,11 @@ public class HtmlUnitControlFinder implements ControlFinder {
     return tmpFoundElements;
   }
 
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.rbri.wet.backend.ControlFinder#getAllSelectables(java.util.List)
+   */
   public WeightedControlList getAllSelectables(final List<SecretString> aSearch) {
     WeightedControlList tmpFoundElements = new WeightedControlList();
 
@@ -764,6 +772,11 @@ public class HtmlUnitControlFinder implements ControlFinder {
     return tmpFoundElements;
   }
 
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.rbri.wet.backend.ControlFinder#getAllDeselectables(java.util.List)
+   */
   public WeightedControlList getAllDeselectables(final List<SecretString> aSearch) {
     WeightedControlList tmpFoundElements = new WeightedControlList();
 
@@ -939,6 +952,11 @@ public class HtmlUnitControlFinder implements ControlFinder {
     return tmpFoundElements;
   }
 
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.rbri.wet.backend.ControlFinder#getAllOtherControls(java.util.List)
+   */
   public WeightedControlList getAllOtherControls(final List<SecretString> aSearch) {
     WeightedControlList tmpFoundElements = new WeightedControlList();
 
@@ -1065,7 +1083,7 @@ public class HtmlUnitControlFinder implements ControlFinder {
   /**
    * Returns all elements for the text (path).
    * 
-   * @param aSearchPattern the filter
+   * @param aSearch the filter
    * @return the list of matching elements
    */
   public WeightedControlList getAllElementsForText(List<SecretString> aSearch) {
@@ -1131,7 +1149,9 @@ public class HtmlUnitControlFinder implements ControlFinder {
    * searches for nested option of a given select by label, value or text
    * 
    * @param aSelect HtmlSelect which should contain this option
-   * @param aName value or label of option
+   * @param aSearchPattern value or label of option
+   * @param aDistance the distance of the control
+   * @param aWeightedControlList the list to add the control to
    * @return found
    */
   protected boolean getOption(HtmlSelect aSelect, SearchPattern aSearchPattern, int aDistance,
@@ -1167,7 +1187,7 @@ public class HtmlUnitControlFinder implements ControlFinder {
   }
 
   /**
-   * TODO helper; has to be removed writing your own finder is possible
+   * TODO helper; has to be removed if writing your own finder is possible
    */
   public final <E extends HtmlElement> List<E> getElementsByAttribute(String anElementName, String anAttributeName,
       String anAttributeValue) {
