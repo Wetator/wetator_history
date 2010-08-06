@@ -20,6 +20,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -265,14 +266,22 @@ public final class WetConfiguration {
       tmpValue = tmpProperties.getProperty(PROPERTY_BROWSER, "");
       tmpProperties.remove(PROPERTY_BROWSER);
 
-      browsers = new LinkedList<WetBackend.Browser>();
+      browsers = new ArrayList<WetBackend.Browser>();
 
       List<String> tmpParts = StringUtil.extractStrings(tmpValue, ",", '\\');
       for (String tmpString : tmpParts) {
         if (StringUtils.isNotBlank(tmpString)) {
           WetBackend.Browser tmpBrowser = parseBrowser(tmpString);
-          browsers.add(tmpBrowser);
+          if (null == tmpBrowser) {
+            LOG.warn("Unsupported browser '" + tmpString + "'.");
+          } else {
+            browsers.add(tmpBrowser);
+          }
         }
+      }
+      // if nothing configured fall back to default
+      if (browsers.isEmpty()) {
+        browsers.add(WetBackend.Browser.FIREFOX_3_6);
       }
 
       // accept language
@@ -376,11 +385,7 @@ public final class WetConfiguration {
 
   private WetBackend.Browser parseBrowser(String aBrowser) {
     if (null == aBrowser) {
-      return WetBackend.Browser.FIREFOX_3;
-    }
-
-    if (StringUtils.isEmpty(aBrowser)) {
-      return WetBackend.Browser.FIREFOX_3;
+      return null;
     }
 
     String tmpBrowser = aBrowser.trim();
@@ -404,7 +409,10 @@ public final class WetConfiguration {
       return WetBackend.Browser.FIREFOX_3;
     }
 
-    return WetBackend.Browser.FIREFOX_3;
+    if ("Firefox_3_6".equalsIgnoreCase(tmpBrowser)) {
+      return WetBackend.Browser.FIREFOX_3_6;
+    }
+    return null;
   }
 
   public List<WetCommandSet> getCommandSets() {
