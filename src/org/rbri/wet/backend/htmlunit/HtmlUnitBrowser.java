@@ -204,7 +204,7 @@ public final class HtmlUnitBrowser implements WetBackend {
     } catch (UnknownHostException e) {
       Assert.fail("unknownHostError", new String[] { aUrl.toString(), e.getMessage() });
     } catch (Throwable e) {
-      LOG.fatal("OpenUrl '" + aUrl.toExternalForm() + "'fails", e);
+      LOG.error("OpenUrl '" + aUrl.toExternalForm() + "'fails. " + e.getMessage());
       Assert.fail("openServerError", new String[] { aUrl.toString(), e.getMessage() });
     }
 
