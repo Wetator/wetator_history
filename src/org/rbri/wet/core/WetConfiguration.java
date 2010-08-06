@@ -39,7 +39,7 @@ import org.rbri.wet.commandset.DefaultCommandSet;
 import org.rbri.wet.commandset.WetCommandSet;
 import org.rbri.wet.core.variable.Variable;
 import org.rbri.wet.exception.WetException;
-import org.rbri.wet.scripter.ExcelScripter;
+import org.rbri.wet.scripter.Scripter;
 import org.rbri.wet.scripter.WetScripter;
 import org.rbri.wet.util.FileUtil;
 import org.rbri.wet.util.SecretString;
@@ -163,7 +163,10 @@ public final class WetConfiguration {
       scripters = new LinkedList<WetScripter>();
 
       WetScripter tmpScripter;
-      tmpScripter = new ExcelScripter();
+      tmpScripter = Scripter.XML.getWetScripter();
+      scripters.add(tmpScripter);
+      LOG.info("Config  scripter '" + tmpScripter.getClass().getName() + "' registered.");
+      tmpScripter = Scripter.XSL.getWetScripter();
       scripters.add(tmpScripter);
       LOG.info("Config  scripter '" + tmpScripter.getClass().getName() + "' registered.");
 

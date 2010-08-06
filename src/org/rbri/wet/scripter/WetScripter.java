@@ -24,9 +24,15 @@ import org.rbri.wet.core.WetCommand;
 import org.rbri.wet.exception.WetException;
 
 /**
- * The interface for all backends.
- * This interface contains the functions used
- * by the core CommandSet.
+ * The interface for scripters.
+ * Scripters are responsible for reading an input file
+ * and parsing the commands.<br>
+ * Sripters are reused for many files. The flow is:
+ * <ol>
+ * <li>isSupported()
+ * <li>setFile()
+ * <li>getCommands()
+ * <ol>
  * 
  * @author rbri
  */
