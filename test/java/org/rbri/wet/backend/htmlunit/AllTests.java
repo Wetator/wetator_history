@@ -44,6 +44,7 @@ public class AllTests extends TestCase {
     tmpSuite.addTest(HtmlUnitControlFinderGetAllSetablesTest.suite());
     tmpSuite.addTest(HtmlUnitControlFinderGetAllSelectablesTest.suite());
     tmpSuite.addTest(HtmlUnitControlTest.suite());
+    tmpSuite.addTest(XHtmlOutputterXHtmlPageTest.suite());
 
     return tmpSuite;
   }
