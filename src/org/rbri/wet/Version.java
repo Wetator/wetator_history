@@ -30,11 +30,11 @@ public final class Version {
   /**
    * The version.
    */
-  public static final String VERSION = "0.9.2 Beta5";
+  public static final String VERSION = "0.9.2";
   /**
    * The build.
    */
-  public static final String BUILD = "2010071605";
+  public static final String BUILD = "2010080701";
 
   /**
    * A simple main function to be able to ask for the version from a command line.
