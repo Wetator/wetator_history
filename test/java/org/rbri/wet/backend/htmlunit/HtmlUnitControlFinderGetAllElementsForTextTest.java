@@ -45,7 +45,7 @@ public class HtmlUnitControlFinderGetAllElementsForTextTest extends TestCase {
 
   public void testGetAllControlsForText_NoHtml() throws IOException {
     String tmpHtmlCode = "";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("Name", false));
@@ -58,7 +58,7 @@ public class HtmlUnitControlFinderGetAllElementsForTextTest extends TestCase {
 
   public void testGetAllControlsForText_NoBody() throws IOException {
     String tmpHtmlCode = "<html>" + "<head><title>MyTitle</title></head>" + "</html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("Name", false));
@@ -71,7 +71,7 @@ public class HtmlUnitControlFinderGetAllElementsForTextTest extends TestCase {
 
   public void testGetAllControlsForText_Empty() throws IOException {
     String tmpHtmlCode = "<html><body>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("Name", false));
@@ -84,7 +84,7 @@ public class HtmlUnitControlFinderGetAllElementsForTextTest extends TestCase {
 
   public void testGetAllControlsForText_TextNotFound() throws IOException {
     String tmpHtmlCode = "<html><body>" + "MyText" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("YourText", false));
@@ -97,7 +97,7 @@ public class HtmlUnitControlFinderGetAllElementsForTextTest extends TestCase {
 
   public void testGetAllControlsForText_TextExact() throws IOException {
     String tmpHtmlCode = "<html><body>" + "MyText" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("MyText", false));
@@ -113,7 +113,7 @@ public class HtmlUnitControlFinderGetAllElementsForTextTest extends TestCase {
 
   public void testGetAllControlsForText_TextWildcard() throws IOException {
     String tmpHtmlCode = "<html><body>" + "MyText" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("My*", false));
@@ -129,7 +129,7 @@ public class HtmlUnitControlFinderGetAllElementsForTextTest extends TestCase {
 
   public void testGetAllControlsForText_ParagraphTextNotFound() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<p>MyText</p>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("YourText", false));
@@ -142,7 +142,7 @@ public class HtmlUnitControlFinderGetAllElementsForTextTest extends TestCase {
 
   public void testGetAllControlsForText_ParagraphTextExact() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<p>MyText</p>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("MyText", false));
@@ -157,7 +157,7 @@ public class HtmlUnitControlFinderGetAllElementsForTextTest extends TestCase {
 
   public void testGetAllControlsForText_ParagraphTextWildcard() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<p>MyText</p>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("My*", false));
@@ -172,7 +172,7 @@ public class HtmlUnitControlFinderGetAllElementsForTextTest extends TestCase {
 
   public void testGetAllControlsForText_AnchorTextExact() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<a>MyText</a>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("MyText", false));
@@ -187,7 +187,7 @@ public class HtmlUnitControlFinderGetAllElementsForTextTest extends TestCase {
 
   public void testGetAllControlsForText_AnchorAndParagraphTextExact() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<a>MyText</a><p>MyText</p>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("MyText", false));
@@ -204,7 +204,7 @@ public class HtmlUnitControlFinderGetAllElementsForTextTest extends TestCase {
 
   public void testGetAllControlsForText_ParagraphFormatedTextExact() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<a>My<b>T</b>ext</a>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("MyText", false));
@@ -219,7 +219,7 @@ public class HtmlUnitControlFinderGetAllElementsForTextTest extends TestCase {
 
   public void testGetAllControlsForText_ManyParagraphs() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<p>My<b>T</b>ext</p>" + "<p>line2</p>" + "<p>line3</p>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("MyText", false));
@@ -235,7 +235,7 @@ public class HtmlUnitControlFinderGetAllElementsForTextTest extends TestCase {
 
   public void testGetAllControlsForText_ManyParagraphs_MatchInside() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<p>line2</p>" + "<p>line3</p>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("line2 li", false));

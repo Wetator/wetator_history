@@ -63,7 +63,7 @@ public class HtmlElementUtilTest extends TestCase {
 
   public void testGetDescribingTextFor_HtmlAnchor() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<a href='wet.html'>AnchorText</a>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     Iterator<HtmlElement> tmpHtmlElements = tmpHtmlPage.getHtmlElementDescendants().iterator();
 
@@ -82,7 +82,7 @@ public class HtmlElementUtilTest extends TestCase {
 
   public void testGetDescribingTextFor_HtmlAnchor_FormatedText() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<a href='wet.html'>A<font>n</font>chor<b>Text</a>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     Iterator<HtmlElement> tmpHtmlElements = tmpHtmlPage.getHtmlElementDescendants().iterator();
 
@@ -101,7 +101,7 @@ public class HtmlElementUtilTest extends TestCase {
 
   public void testGetDescribingTextFor_HtmlAnchor_Name() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<a href='wet.html' name='AnchorName'>AnchorText</a>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     Iterator<HtmlElement> tmpHtmlElements = tmpHtmlPage.getHtmlElementDescendants().iterator();
 
@@ -120,7 +120,7 @@ public class HtmlElementUtilTest extends TestCase {
 
   public void testGetDescribingTextFor_HtmlAnchor_Image() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<a href='wet.html'><img src='wet.src'></a>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     Iterator<HtmlElement> tmpHtmlElements = tmpHtmlPage.getHtmlElementDescendants().iterator();
 
@@ -139,7 +139,7 @@ public class HtmlElementUtilTest extends TestCase {
 
   public void testGetDescribingTextFor_HtmlAnchor_ImageAndText() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<a href='wet.html'><img src='wet.src'>AnchorText</a>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     Iterator<HtmlElement> tmpHtmlElements = tmpHtmlPage.getHtmlElementDescendants().iterator();
 
@@ -158,7 +158,7 @@ public class HtmlElementUtilTest extends TestCase {
 
   public void testGetDescribingTextFor_HtmlAnchor_Id() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<a href='wet.html' id='AnchorId'>AnchorText</a>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     Iterator<HtmlElement> tmpHtmlElements = tmpHtmlPage.getHtmlElementDescendants().iterator();
 
@@ -178,7 +178,7 @@ public class HtmlElementUtilTest extends TestCase {
   public void testGetDescribingTextFor_HtmlAnchor_Name_Id() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<a href='wet.html' name='AnchorName' id='AnchorId'>AnchorText</a>"
         + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     Iterator<HtmlElement> tmpHtmlElements = tmpHtmlPage.getHtmlElementDescendants().iterator();
 
@@ -198,7 +198,7 @@ public class HtmlElementUtilTest extends TestCase {
   public void testGetDescribingTextFor_HtmlButton() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<button type='button'>TestButton</button>"
         + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -214,7 +214,7 @@ public class HtmlElementUtilTest extends TestCase {
   public void testGetDescribingTextFor_HtmlButton_Value() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<button type='button' value='TestButton' />"
         + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -230,7 +230,7 @@ public class HtmlElementUtilTest extends TestCase {
   public void testGetDescribingTextFor_HtmlButton_FormatedText() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<button type='button'>T<font>e</font>st<b>Button</b></button>" + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -246,7 +246,7 @@ public class HtmlElementUtilTest extends TestCase {
   public void testGetDescribingTextFor_HtmlButton_Image() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<button type='button'><img src='wet.src'></button>"
         + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -262,7 +262,7 @@ public class HtmlElementUtilTest extends TestCase {
   public void testGetDescribingTextFor_HtmlButton_ImageAndText() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<button type='button'><img src='wet.src'>Text</button>" + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -278,7 +278,7 @@ public class HtmlElementUtilTest extends TestCase {
   public void testGetDescribingTextFor_HtmlButton_Name() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<button type='button' name='ButtonName'>Text</button>" + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -294,7 +294,7 @@ public class HtmlElementUtilTest extends TestCase {
   public void testGetDescribingTextFor_HtmlButton_Id() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<button type='button' id='ButtonId'>Text</button>"
         + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -310,7 +310,7 @@ public class HtmlElementUtilTest extends TestCase {
   public void testGetDescribingTextFor_HtmlButton_Name_Id() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<button type='button' id='ButtonId' name='ButtonName'>Text</button>" + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -326,7 +326,7 @@ public class HtmlElementUtilTest extends TestCase {
   public void testGetDescribingTextFor_HtmlButtonInput() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<input type='button' value='Button'>" + "</form>"
         + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -342,7 +342,7 @@ public class HtmlElementUtilTest extends TestCase {
   public void testGetDescribingTextFor_HtmlButtonInput_Name() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<input name='ButtonName' type='button' value='Button'>" + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -358,7 +358,7 @@ public class HtmlElementUtilTest extends TestCase {
   public void testGetDescribingTextFor_HtmlButtonInput_Id() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<input id='sb' type='button' value='Button'>"
         + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -374,7 +374,7 @@ public class HtmlElementUtilTest extends TestCase {
   public void testGetDescribingTextFor_HtmlButtonInput_Name_Id() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<input id='sb' name='ButtonName' type='button' value='Button'>" + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -390,7 +390,7 @@ public class HtmlElementUtilTest extends TestCase {
   public void testGetDescribingTextFor_HtmlCheckBoxInput() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<input type='checkbox' value='CheckBoxValue'>"
         + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -406,7 +406,7 @@ public class HtmlElementUtilTest extends TestCase {
   public void testGetDescribingTextFor_HtmlCheckBoxInput_Name() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<input type='checkbox' value='CheckBoxValue' name='CheckBoxName'>" + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -422,7 +422,7 @@ public class HtmlElementUtilTest extends TestCase {
   public void testGetDescribingTextFor_HtmlCheckBoxInput_Id() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<input type='checkbox' value='CheckBoxValue' id='CheckBoxId'>" + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -439,7 +439,7 @@ public class HtmlElementUtilTest extends TestCase {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<input type='checkbox' value='CheckBoxValue' name='CheckBoxName' id='CheckBoxId'>" + "</form>"
         + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -454,7 +454,7 @@ public class HtmlElementUtilTest extends TestCase {
 
   public void testGetDescribingTextFor_HtmlFileInput() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<input type='file'>" + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -470,7 +470,7 @@ public class HtmlElementUtilTest extends TestCase {
   public void testGetDescribingTextFor_HtmlFileInput_Name() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<input type='file' name='FileInputName'>"
         + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -486,7 +486,7 @@ public class HtmlElementUtilTest extends TestCase {
   public void testGetDescribingTextFor_HtmlFileInput_Id() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<input type='file' id='FileInputId'>" + "</form>"
         + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -502,7 +502,7 @@ public class HtmlElementUtilTest extends TestCase {
   public void testGetDescribingTextFor_HtmlFileInput_Name_Id() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<input type='file' name='FileInputName' id='FileInputId'>" + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -517,7 +517,7 @@ public class HtmlElementUtilTest extends TestCase {
 
   public void testGetDescribingTextFor_HtmlImage() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<img src='wet.png'>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     Iterator<HtmlElement> tmpHtmlElements = tmpHtmlPage.getHtmlElementDescendants().iterator();
 
@@ -536,7 +536,7 @@ public class HtmlElementUtilTest extends TestCase {
 
   public void testGetDescribingTextFor_HtmlImage_Name() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<img src='wet.png' name='ImageName'>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     Iterator<HtmlElement> tmpHtmlElements = tmpHtmlPage.getHtmlElementDescendants().iterator();
 
@@ -556,7 +556,7 @@ public class HtmlElementUtilTest extends TestCase {
 
   public void testGetDescribingTextFor_HtmlImage_Id() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<img src='wet.png' id='ImageId'>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     Iterator<HtmlElement> tmpHtmlElements = tmpHtmlPage.getHtmlElementDescendants().iterator();
 
@@ -575,7 +575,7 @@ public class HtmlElementUtilTest extends TestCase {
 
   public void testGetDescribingTextFor_HtmlImage_Name_Id() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<img src='wet.png' name='ImageName' id='ImageId'>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     Iterator<HtmlElement> tmpHtmlElements = tmpHtmlPage.getHtmlElementDescendants().iterator();
 
@@ -595,7 +595,7 @@ public class HtmlElementUtilTest extends TestCase {
   public void testGetDescribingTextFor_HtmlImageInput() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<input type='Image' value='ImageInput' src='sample.src'>" + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -612,7 +612,7 @@ public class HtmlElementUtilTest extends TestCase {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<input type='Image' name='ImageInputName' value='ImageInput' src='sample.src'>" + "</form>"
         + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -628,7 +628,7 @@ public class HtmlElementUtilTest extends TestCase {
   public void testGetDescribingTextFor_HtmlImageInput_Id() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<input type='Image' id='ImageInputId' value='ImageInput' src='sample.src'>" + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -645,7 +645,7 @@ public class HtmlElementUtilTest extends TestCase {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<input type='Image' id='ImageInputId' name='ImageInputName' value='ImageInput' src='sample.src'>"
         + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -662,7 +662,7 @@ public class HtmlElementUtilTest extends TestCase {
 
   public void testGetDescribingTextFor_HtmlParagraph() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<p>test</p>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     Iterator<DomNode> tmpChilds = tmpHtmlPage.getFirstChild().getChildren().iterator();
     tmpChilds.next();
@@ -677,7 +677,7 @@ public class HtmlElementUtilTest extends TestCase {
 
   public void testGetDescribingTextFor_HtmlParagraph_Name() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<p name='MyName' >test</p>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     Iterator<DomNode> tmpChilds = tmpHtmlPage.getFirstChild().getChildren().iterator();
     tmpChilds.next();
@@ -692,7 +692,7 @@ public class HtmlElementUtilTest extends TestCase {
 
   public void testGetDescribingTextFor_HtmlParagraph_Id() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<p id='MyId'>test</p>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     Iterator<DomNode> tmpChilds = tmpHtmlPage.getFirstChild().getChildren().iterator();
     tmpChilds.next();
@@ -707,7 +707,7 @@ public class HtmlElementUtilTest extends TestCase {
 
   public void testGetDescribingTextFor_HtmlParagraph_Name_Id() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<p name='MyName' id='MyId'>test</p>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     Iterator<DomNode> tmpChilds = tmpHtmlPage.getFirstChild().getChildren().iterator();
     tmpChilds.next();
@@ -723,7 +723,7 @@ public class HtmlElementUtilTest extends TestCase {
   public void testGetDescribingTextFor_HtmlPasswordInput() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<input type='password' value='Password'>"
         + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -739,7 +739,7 @@ public class HtmlElementUtilTest extends TestCase {
   public void testGetDescribingTextFor_HtmlOption_Id() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<select id='MyFirstSelectId' size='2'>"
         + "<option id='optId' value='o_red'>red</option>" + "</select>" + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -755,7 +755,7 @@ public class HtmlElementUtilTest extends TestCase {
   public void testGetDescribingTextFor_HtmlOptionGroup_ValueOnly() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<select id='MyFirstSelectId' size='2'>"
         + "<option value='o_red'>red</option>" + "</select>" + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -772,7 +772,7 @@ public class HtmlElementUtilTest extends TestCase {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<select id='MyFirstSelectId' size='2'>"
         + "<optgroup label='colors' name='optgroup_colors'>" + "<option value='o_red'>red</option>" + "</optgroup>"
         + "</select>" + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -791,7 +791,7 @@ public class HtmlElementUtilTest extends TestCase {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<select id='MyFirstSelectId' size='2'>"
         + "<optgroup label='colors' id='optgroup_colors'>" + "<option value='o_red'>red</option>" + "</optgroup>"
         + "</select>" + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -810,7 +810,7 @@ public class HtmlElementUtilTest extends TestCase {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<select id='MyFirstSelectId' size='2'>"
         + "<optgroup label='colors' id='optgroup_colors' name='optgroup_name'>" + "<option value='o_red'>red</option>"
         + "</optgroup>" + "</select>" + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -831,7 +831,7 @@ public class HtmlElementUtilTest extends TestCase {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<select id='MyFirstSelectId' size='2'>"
         + "<optgroup label='colors'>" + "<option value='o_red'>red</option>" + "</optgroup>" + "</select>" + "</form>"
         + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -848,7 +848,7 @@ public class HtmlElementUtilTest extends TestCase {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<select id='MyFirstSelectId' size='2'>"
         + "<optgroup>" + "<option value='o_red'>red</option>" + "</optgroup>" + "</select>" + "</form>"
         + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -864,7 +864,7 @@ public class HtmlElementUtilTest extends TestCase {
   public void testGetDescribingTextFor_HtmlPasswordInput_Name() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<input name='PasswordName' type='password' value='Password'>" + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -880,7 +880,7 @@ public class HtmlElementUtilTest extends TestCase {
   public void testGetDescribingTextFor_HtmlPasswordInput_Id() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<input id='tx' type='password' value='Password'>"
         + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -896,7 +896,7 @@ public class HtmlElementUtilTest extends TestCase {
   public void testGetDescribingTextFor_HtmlPasswordInput_Name_Id() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<input id='tx' name='PasswordName' type='password' value='Password'>" + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -912,7 +912,7 @@ public class HtmlElementUtilTest extends TestCase {
   public void testGetDescribingTextFor_HtmlRadioButtonInput() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<input type='radio' value='RadioButton'>"
         + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -928,7 +928,7 @@ public class HtmlElementUtilTest extends TestCase {
   public void testGetDescribingTextFor_HtmlRadioButtonInput_Name() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<input type='radio' value='RadioButton' name='RadioButtonName'>" + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -944,7 +944,7 @@ public class HtmlElementUtilTest extends TestCase {
   public void testGetDescribingTextFor_HtmlRadioButtonInput_Id() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<input type='radio' value='RadioButton' id='RadioButtonId'>" + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -961,7 +961,7 @@ public class HtmlElementUtilTest extends TestCase {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<input type='radio' value='RadioButton' name='RadioButtonName' id='RadioButtonId'>" + "</form>"
         + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -977,7 +977,7 @@ public class HtmlElementUtilTest extends TestCase {
   public void testGetDescribingTextFor_HtmlResetInput() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<input type='reset' value='ResetButton'>"
         + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -993,7 +993,7 @@ public class HtmlElementUtilTest extends TestCase {
   public void testGetDescribingTextFor_HtmlResetInput_Name() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<input name='ResetButtonName' type='reset' value='ResetButton'>" + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -1009,7 +1009,7 @@ public class HtmlElementUtilTest extends TestCase {
   public void testGetDescribingTextFor_HtmlResetInput_Id() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<input id='sb' type='reset' value='ResetButton'>"
         + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -1025,7 +1025,7 @@ public class HtmlElementUtilTest extends TestCase {
   public void testGetDescribingTextFor_HtmlResetInput_Name_Id() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<input id='sb' name='ResetButtonName' type='reset' value='ResetButton'>" + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -1041,7 +1041,7 @@ public class HtmlElementUtilTest extends TestCase {
   public void testGetDescribingTextFor_HtmlSelect() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<select>" + "<option>Option1</option>"
         + "</select>" + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -1057,7 +1057,7 @@ public class HtmlElementUtilTest extends TestCase {
   public void testGetDescribingTextFor_HtmlSelect_Name() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<select name='SelectName'>"
         + "<option>Option1</option>" + "</select>" + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -1073,7 +1073,7 @@ public class HtmlElementUtilTest extends TestCase {
   public void testGetDescribingTextFor_HtmlSelect_Id() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<select id='SelectId'>"
         + "<option>Option1</option>" + "</select>" + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -1089,7 +1089,7 @@ public class HtmlElementUtilTest extends TestCase {
   public void testGetDescribingTextFor_HtmlSelect_Name_Id() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<select id='SelectId' name='SelectName'>"
         + "<option>Option1</option>" + "</select>" + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -1104,7 +1104,7 @@ public class HtmlElementUtilTest extends TestCase {
 
   public void testGetDescribingTextFor_HtmlSpan() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<span class='abc'>some text</span>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     Iterator<HtmlElement> tmpHtmlElements = tmpHtmlPage.getHtmlElementDescendants().iterator();
 
@@ -1123,7 +1123,7 @@ public class HtmlElementUtilTest extends TestCase {
 
   public void testGetDescribingTextFor_HtmlSpan_Empty() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<span style='abc'></span>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     Iterator<HtmlElement> tmpHtmlElements = tmpHtmlPage.getHtmlElementDescendants().iterator();
 
@@ -1142,7 +1142,7 @@ public class HtmlElementUtilTest extends TestCase {
 
   public void testGetDescribingTextFor_HtmlSpan_Name() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<span name='Spanname'>some text</span>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     Iterator<HtmlElement> tmpHtmlElements = tmpHtmlPage.getHtmlElementDescendants().iterator();
 
@@ -1161,7 +1161,7 @@ public class HtmlElementUtilTest extends TestCase {
 
   public void testGetDescribingTextFor_HtmlSpan_Id() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<span id='SpanId'>some text</span>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     Iterator<HtmlElement> tmpHtmlElements = tmpHtmlPage.getHtmlElementDescendants().iterator();
 
@@ -1180,7 +1180,7 @@ public class HtmlElementUtilTest extends TestCase {
 
   public void testGetDescribingTextFor_HtmlSpan_Name_Id() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<span id='SpanId' name='Spanname'>some text</span>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     Iterator<HtmlElement> tmpHtmlElements = tmpHtmlPage.getHtmlElementDescendants().iterator();
 
@@ -1200,7 +1200,7 @@ public class HtmlElementUtilTest extends TestCase {
   public void testGetDescribingTextFor_HtmlSubmitInput() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<input type='submit' value='SubmitButton'>"
         + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -1216,7 +1216,7 @@ public class HtmlElementUtilTest extends TestCase {
   public void testGetDescribingTextFor_HtmlSubmitInput_Name() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<input name='SubmitButtonName' type='submit' value='SubmitButton'>" + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -1232,7 +1232,7 @@ public class HtmlElementUtilTest extends TestCase {
   public void testGetDescribingTextFor_HtmlSubmitInput_Id() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<input id='sb' type='submit' value='SubmitButton'>"
         + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -1248,7 +1248,7 @@ public class HtmlElementUtilTest extends TestCase {
   public void testGetDescribingTextFor_HtmlSubmitInput_Name_Id() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<input id='sb' name='SubmitButtonName' type='submit' value='SubmitButton'>" + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -1264,7 +1264,7 @@ public class HtmlElementUtilTest extends TestCase {
   public void testGetDescribingTextFor_HtmlTextInput() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<input type='text' value='Text'>" + "</form>"
         + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -1280,7 +1280,7 @@ public class HtmlElementUtilTest extends TestCase {
   public void testGetDescribingTextFor_HtmlTextInput_Name() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<input name='TextName' type='text' value='Text'>"
         + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -1296,7 +1296,7 @@ public class HtmlElementUtilTest extends TestCase {
   public void testGetDescribingTextFor_HtmlTextInput_Id() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<input id='tx' type='text' value='Text'>"
         + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -1312,7 +1312,7 @@ public class HtmlElementUtilTest extends TestCase {
   public void testGetDescribingTextFor_HtmlTextInput_Name_Id() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<input id='tx' name='TextName' type='text' value='Text'>" + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -1328,7 +1328,7 @@ public class HtmlElementUtilTest extends TestCase {
   public void testGetDescribingTextFor_HtmlTextArea() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<textarea></textarea>" + "</form>"
         + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -1344,7 +1344,7 @@ public class HtmlElementUtilTest extends TestCase {
   public void testGetDescribingTextFor_HtmlTextArea_Name() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<textarea name='TextAreaName'></textarea>"
         + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -1360,7 +1360,7 @@ public class HtmlElementUtilTest extends TestCase {
   public void testGetDescribingTextFor_HtmlTextArea_Id() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<textarea id='TextAreaId'></textarea>" + "</form>"
         + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -1376,7 +1376,7 @@ public class HtmlElementUtilTest extends TestCase {
   public void testGetDescribingTextFor_HtmlTextArea_Name_Id() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<textarea name='TextAreaName' id='TextAreaId'></textarea>" + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 

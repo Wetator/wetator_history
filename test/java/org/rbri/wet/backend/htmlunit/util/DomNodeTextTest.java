@@ -39,7 +39,7 @@ public class DomNodeTextTest extends TestCase {
 
   public void testAsText_EmptyPage() throws IOException {
     String tmpHtmlCode = "<html><body>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     DomNodeText tmpResult = new DomNodeText(tmpHtmlPage);
     assertEquals("", tmpResult.getText());
@@ -49,7 +49,7 @@ public class DomNodeTextTest extends TestCase {
     String tmpHtmlCode = "<html>" + "<head>" + "<META http-equiv='Content-Type' content='text/html; charset=UTF-8'>"
         + "<title>Page Title</title>" + "</head>" + "<body>" + "<p>Paragraph 1</p>" + "<p>Paragraph 2</p>"
         + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     DomNodeText tmpResult = new DomNodeText(tmpHtmlPage);
 
@@ -59,7 +59,7 @@ public class DomNodeTextTest extends TestCase {
 
   public void testAsText_PageHeader() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<p>Paragraph 1</p>" + "<p>Paragraph 2</p>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     DomNodeText tmpResult = new DomNodeText(tmpHtmlPage);
 
@@ -97,7 +97,7 @@ public class DomNodeTextTest extends TestCase {
         + "<input name='ButtonInput' type='button' value='buttonInputValue'>" + "<p> </p>"
         + "<input name='SubmitInput' type='submit' value='submitInputValue'>" + "<p> </p>"
         + "<input name='ResetInput' type='reset' value='resetInputValue'>" + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     DomNodeText tmpResult = new DomNodeText(tmpHtmlPage);
     assertEquals("PageStart " + "LegendLabel " + "LabelLabel " + "inputValue " + "secretInputValue " + "textAreaValue "
@@ -122,7 +122,7 @@ public class DomNodeTextTest extends TestCase {
   public void testAsText_Heading() throws IOException {
     String tmpHtmlCode = "<html><body>before" + "<h1>Heading1</h1>" + "<h2>Heading2</h2>" + "<h3>Heading3</h3>"
         + "<h4>Heading4</h4>" + "<h5>Heading5</h5>" + "<h6>Heading6</h6>" + "after</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     DomNodeText tmpResult = new DomNodeText(tmpHtmlPage);
     assertEquals("before Heading1 Heading2 Heading3 Heading4 Heading5 Heading6 after", tmpResult.getText());
@@ -134,7 +134,7 @@ public class DomNodeTextTest extends TestCase {
         + "  <td id='idTd1'>data1</td><td id='idTd2'>data2</td>" + "</tr>" + "<tr id='idTr3'>"
         + "  <td id='idTd3'>data3</td><td id='idTd4'>data4</td>" + "</tr>" + "<tr id='idTr4'>"
         + "  <td colspan='2' id='idTd5'>data5</td>" + "</tr>" + "</table>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     DomNodeText tmpResult = new DomNodeText(tmpHtmlPage);
     assertEquals("header1 header2 " + "data1 data2 " + "data3 data4 " + "data5", tmpResult.getText());
@@ -182,7 +182,7 @@ public class DomNodeTextTest extends TestCase {
   public void testAsText_OrderedList() throws IOException {
     String tmpHtmlCode = "<html><body>" + "before" + "<ol id='idOl'>" + "  <li id='idLi1'>Line1"
         + "  <li id='idLi2'>Line2" + "</ol>" + "after" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     DomNodeText tmpResult = new DomNodeText(tmpHtmlPage);
     assertEquals("before 1. Line1 2. Line2 after", tmpResult.getText());
@@ -200,7 +200,7 @@ public class DomNodeTextTest extends TestCase {
   public void testAsText_UnorderedList() throws IOException {
     String tmpHtmlCode = "<html><body>" + "before" + "<ul id='idUl'>" + "  <li id='idLi1'>Line1"
         + "  <li id='idLi2'>Line2" + "</ul>" + "after" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     DomNodeText tmpResult = new DomNodeText(tmpHtmlPage);
     assertEquals("before Line1 Line2 after", tmpResult.getText());
@@ -219,7 +219,7 @@ public class DomNodeTextTest extends TestCase {
     String tmpHtmlCode = "<html><body>" + "<select>" + "<option value='o_red'>red</option>"
         + "<option value='o_green'>green</option>" + "<option value='o_blue'>blue</option>" + "</select>"
         + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     DomNodeText tmpResult = new DomNodeText(tmpHtmlPage);
 
@@ -229,7 +229,7 @@ public class DomNodeTextTest extends TestCase {
 
   public void testAsText_EmptySelect() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<select>" + "</select>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     DomNodeText tmpResult = new DomNodeText(tmpHtmlPage);
 
@@ -241,7 +241,7 @@ public class DomNodeTextTest extends TestCase {
     String tmpHtmlCode = "<html><body>" + "123<select>" + "<option value='o_red'>red</option>"
         + "<option value='o_green'>green</option>" + "<option value='o_blue'>blue</option>" + "</select>456"
         + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     DomNodeText tmpResult = new DomNodeText(tmpHtmlPage);
 
@@ -253,7 +253,7 @@ public class DomNodeTextTest extends TestCase {
     String tmpHtmlCode = "<html><body>" + "<select>" + "<optgroup label='colors' id='optgroup_colors'>"
         + "<option value='o_red'>red</option>" + "<option value='o_green'>green</option>"
         + "<option value='o_blue'>blue</option>" + "</optgroup>" + "</select>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     DomNodeText tmpResult = new DomNodeText(tmpHtmlPage);
 
@@ -264,7 +264,7 @@ public class DomNodeTextTest extends TestCase {
   public void testAsText_InputImageWithAlt() throws IOException {
     String tmpHtmlCode = "<html><body>" + "before "
         + "<input type='image' id='image_id' src='src.img' alt='Test Image'>" + " after" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     DomNodeText tmpResult = new DomNodeText(tmpHtmlPage);
 
@@ -275,7 +275,7 @@ public class DomNodeTextTest extends TestCase {
   public void testAsText_ImageWithAlt() throws IOException {
     String tmpHtmlCode = "<html><body>" + "before " + "<img src='src.img' alt='test image'>" + " after"
         + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     DomNodeText tmpResult = new DomNodeText(tmpHtmlPage);
 
@@ -287,7 +287,7 @@ public class DomNodeTextTest extends TestCase {
     String tmpHtmlCode = "<html><body>" + "before "
         + "<input id='MyRadioButtonId' name='MyRadioButtonName' value='value' type='radio'>RadioButton" + " after"
         + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     DomNodeText tmpResult = new DomNodeText(tmpHtmlPage);
 
@@ -299,7 +299,7 @@ public class DomNodeTextTest extends TestCase {
     String tmpHtmlCode = "<html><body>" + "before "
         + "<input id='MyRadioButtonId' name='MyRadioButtonName' value='value' type='radio' checked>RadioButton"
         + " after" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     DomNodeText tmpResult = new DomNodeText(tmpHtmlPage);
 
@@ -311,7 +311,7 @@ public class DomNodeTextTest extends TestCase {
     String tmpHtmlCode = "<html><body>" + "before " + "<label>LabelText"
         + "<input id='MyRadioButtonId' name='MyRadioButtonName' value='value' type='radio' selected>RadioButton"
         + "</label>" + " after" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     DomNodeText tmpResult = new DomNodeText(tmpHtmlPage);
 
@@ -322,7 +322,7 @@ public class DomNodeTextTest extends TestCase {
   public void testAsText_Javascript() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<script language='JavaScript' type='text/javascript'>" + "function foo() {}"
         + "</script>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     DomNodeText tmpResult = new DomNodeText(tmpHtmlPage);
     assertEquals("", tmpResult.getText());
@@ -332,7 +332,7 @@ public class DomNodeTextTest extends TestCase {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<input id='MyInputId' name='MyInputName' value='value1' type='text'>" + "</form>" + "</body></html>";
 
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
     DomNodeText tmpDomNodeText = new DomNodeText(tmpHtmlPage);
 
     assertEquals("", tmpDomNodeText.getLabelTextBefore(tmpHtmlPage.getElementById("MyInputId"), 0));
@@ -342,7 +342,7 @@ public class DomNodeTextTest extends TestCase {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "MyLabel<input id='MyInputId' name='MyInputName' value='value1' type='text'>" + "</form>" + "</body></html>";
 
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
     DomNodeText tmpDomNodeText = new DomNodeText(tmpHtmlPage);
 
     assertEquals("MyLabel", tmpDomNodeText.getLabelTextBefore(tmpHtmlPage.getElementById("MyInputId"), 0));
@@ -352,7 +352,7 @@ public class DomNodeTextTest extends TestCase {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>MyLabel" + "<input value='hiddenValue' type='hidden'>"
         + "<input id='MyInputId' name='MyInputName' value='value1' type='text'>" + "</form>" + "</body></html>";
 
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
     DomNodeText tmpDomNodeText = new DomNodeText(tmpHtmlPage);
 
     assertEquals("MyLabel", tmpDomNodeText.getLabelTextBefore(tmpHtmlPage.getElementById("MyInputId"), 0));
@@ -362,7 +362,7 @@ public class DomNodeTextTest extends TestCase {
     String tmpHtmlCode = "<html><body>" + "<p>MoreText</p>" + "<form action='test'>"
         + "MyLabel<input id='MyInputId' name='MyInputName' value='value1' type='text'>" + "</form>" + "</body></html>";
 
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
     DomNodeText tmpDomNodeText = new DomNodeText(tmpHtmlPage);
 
     assertEquals("MoreText MyLabel", tmpDomNodeText.getLabelTextBefore(tmpHtmlPage.getElementById("MyInputId"), 0));
@@ -372,7 +372,7 @@ public class DomNodeTextTest extends TestCase {
     String tmpHtmlCode = "<html><body>" + "<form action='test2'><p>MoreText</p></form>" + "<form action='test'>"
         + "MyLabel<input id='MyInputId' name='MyInputName' value='value1' type='text'>" + "</form>" + "</body></html>";
 
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
     DomNodeText tmpDomNodeText = new DomNodeText(tmpHtmlPage);
 
     assertEquals("MyLabel", tmpDomNodeText.getLabelTextBefore(tmpHtmlPage.getElementById("MyInputId"), 0));
@@ -383,7 +383,7 @@ public class DomNodeTextTest extends TestCase {
         + "Other<input id='MyOtherInputId' value='value2' type='text'>"
         + "MyLabel<input id='MyInputId' name='MyInputName' value='value1' type='text'>" + "</form>" + "</body></html>";
 
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
     DomNodeText tmpDomNodeText = new DomNodeText(tmpHtmlPage);
 
     assertEquals("MyLabel", tmpDomNodeText.getLabelTextBefore(tmpHtmlPage.getElementById("MyInputId"), 0));
@@ -394,7 +394,7 @@ public class DomNodeTextTest extends TestCase {
         + "MyLabel <input id='MyOtherInputId' value='value2' type='text'> "
         + "<input id='MyInputId' name='MyInputName' value='value1' type='text'>" + "</form>" + "</body></html>";
 
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
     DomNodeText tmpDomNodeText = new DomNodeText(tmpHtmlPage);
 
     assertEquals("MyLabel value2", tmpDomNodeText.getLabelTextBefore(tmpHtmlPage.getElementById("MyInputId"), 0));
@@ -405,7 +405,7 @@ public class DomNodeTextTest extends TestCase {
         + "<input id='MyCheckboxId' name='MyCheckboxName' value='value1' type='checkbox'>" + "</form>"
         + "</body></html>";
 
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
     DomNodeText tmpDomNodeText = new DomNodeText(tmpHtmlPage);
 
     assertEquals("", tmpDomNodeText.getLabelTextAfter(tmpHtmlPage.getElementById("MyCheckboxId")));
@@ -416,7 +416,7 @@ public class DomNodeTextTest extends TestCase {
         + "<input id='MyCheckboxId' name='MyCheckboxName' value='value1' type='checkbox'>CheckBox" + "</form>"
         + "</body></html>";
 
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
     DomNodeText tmpDomNodeText = new DomNodeText(tmpHtmlPage);
 
     assertEquals("CheckBox", tmpDomNodeText.getLabelTextAfter(tmpHtmlPage.getElementById("MyCheckboxId")));
@@ -427,7 +427,7 @@ public class DomNodeTextTest extends TestCase {
         + "<input id='MyCheckboxId' name='MyCheckboxName' value='value1' type='checkbox'>CheckBox"
         + "<input value='hiddenValue' type='hidden'>part2" + "</form>" + "</body></html>";
 
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
     DomNodeText tmpDomNodeText = new DomNodeText(tmpHtmlPage);
 
     assertEquals("CheckBoxpart2", tmpDomNodeText.getLabelTextAfter(tmpHtmlPage.getElementById("MyCheckboxId")));
@@ -438,7 +438,7 @@ public class DomNodeTextTest extends TestCase {
         + "<input id='MyCheckboxId' name='MyCheckboxName' value='value1' type='checkbox'>CheckBox" + "</form>"
         + "<p>MoreText</p>" + "</body></html>";
 
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
     DomNodeText tmpDomNodeText = new DomNodeText(tmpHtmlPage);
 
     assertEquals("CheckBox", tmpDomNodeText.getLabelTextAfter(tmpHtmlPage.getElementById("MyCheckboxId")));
@@ -450,7 +450,7 @@ public class DomNodeTextTest extends TestCase {
         + "<input name='MyOtherCheckboxName' value='value2' type='checkbox'>CheckBox2" + "</form>" + "<p>MoreText</p>"
         + "</body></html>";
 
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
     DomNodeText tmpDomNodeText = new DomNodeText(tmpHtmlPage);
 
     assertEquals("CheckBox", tmpDomNodeText.getLabelTextAfter(tmpHtmlPage.getElementById("MyCheckboxId")));

@@ -156,6 +156,7 @@ test/java/org/rbri/wet/backend/htmlunit/HtmlUnitControlFinderGetAllSetablesTest.
 test/java/org/rbri/wet/backend/htmlunit/HtmlUnitControlFinderTest.java -text
 test/java/org/rbri/wet/backend/htmlunit/HtmlUnitControlTest.java -text
 test/java/org/rbri/wet/backend/htmlunit/HtmlUnitTest.html -text
+test/java/org/rbri/wet/backend/htmlunit/XHtmlOutputterXHtmlPageTest.java -text
 test/java/org/rbri/wet/backend/htmlunit/util/AllTests.java -text
 test/java/org/rbri/wet/backend/htmlunit/util/DomNodeTextTest.java -text
 test/java/org/rbri/wet/backend/htmlunit/util/HtmlElementUtilTest.java -text

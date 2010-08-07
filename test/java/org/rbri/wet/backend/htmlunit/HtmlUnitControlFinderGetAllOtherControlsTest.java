@@ -45,7 +45,7 @@ public class HtmlUnitControlFinderGetAllOtherControlsTest extends TestCase {
 
   public void testGetAllOtherControls_Empty() throws IOException {
     String tmpHtmlCode = "<html><body>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("Name", false));
@@ -60,7 +60,7 @@ public class HtmlUnitControlFinderGetAllOtherControlsTest extends TestCase {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<select id='MyId' name='MySelectName' size='2'>"
         + "<option id='MyOptionId' value='o_value1'>option1</option>" + "<option value='o_value2'>option2</option>"
         + "<option value='o_value3'>option3</option>" + "</select>" + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("MyId", false));
@@ -80,7 +80,7 @@ public class HtmlUnitControlFinderGetAllOtherControlsTest extends TestCase {
         + "</select>" + "SecondSelectLabelText" + "<select name='MySecondSelectName' size='2'>"
         + "<option id='2_1' value='o_value1'>option1</option>" + "<option id='2_2' value='o_value2'>option2</option>"
         + "<option id='2_3' value='o_value3'>option3</option>" + "</select>" + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("SecondSelectLabelText", false));
@@ -100,7 +100,7 @@ public class HtmlUnitControlFinderGetAllOtherControlsTest extends TestCase {
         + "</select>" + "SecondSelectLabelText" + "<select name='MySecondSelectName' size='2'>"
         + "<option id='2_1' value='o_value1'>option1</option>" + "<option id='2_2' value='o_value2'>option2</option>"
         + "<option id='2_3' value='o_value3'>option3</option>" + "</select>" + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("cond*elText", false));
@@ -120,7 +120,7 @@ public class HtmlUnitControlFinderGetAllOtherControlsTest extends TestCase {
         + "</select>" + "SecondSelectLabelText" + "<select name='MySecondSelectName' size='2'>"
         + "<option id='2_1' value='o_value1'>option1</option>" + "<option id='2_2' value='o_value2'>option2</option>"
         + "<option id='2_3' value='o_value3'>option3</option>" + "</select>" + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("Fir", false));
@@ -143,7 +143,7 @@ public class HtmlUnitControlFinderGetAllOtherControlsTest extends TestCase {
         + "</select>" + "SecondSelectLabelText" + "<select name='MySecondSelectName' size='2'>"
         + "<option id='2_1' value='o_value1'>option1</option>" + "<option id='2_2' value='o_value2'>option2</option>"
         + "<option id='2_3' value='o_value3'>option3</option>" + "</select>" + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("MyFirstSelectName", false));
@@ -164,7 +164,7 @@ public class HtmlUnitControlFinderGetAllOtherControlsTest extends TestCase {
         + "<label for='MySecondSelectId'>SecondSelectLabelText</label>" + "<select id='MySecondSelectId' size='2'>"
         + "<option id='2_1' value='o_value1'>option1</option>" + "<option id='2_2' value='o_value2'>option2</option>"
         + "<option id='2_3' value='o_value3'>option3</option>" + "</select>" + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("SecondSelectLabelText", false));
@@ -185,7 +185,7 @@ public class HtmlUnitControlFinderGetAllOtherControlsTest extends TestCase {
         + "<option id='2_1' value='o_value1'>option1</option>" + "<option id='2_2' value='o_value2'>option2</option>"
         + "<option id='2_3' value='o_value3'>option3</option>" + "</select>" + "</label>" + "</form>"
         + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("SecondSelectLabelText", false));
@@ -203,7 +203,7 @@ public class HtmlUnitControlFinderGetAllOtherControlsTest extends TestCase {
         + "<optgroup label='colors' id='optgroup_colors'>" + "<option value='o_red'>red</option>"
         + "<option value='o_green'>green</option>" + "<option value='o_blue'>blue</option>" + "</select>" + "</form>"
         + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("colors", false));
@@ -222,7 +222,7 @@ public class HtmlUnitControlFinderGetAllOtherControlsTest extends TestCase {
         + "<optgroup label='colors' id='optgroup_colors'>" + "<option value='o_red'>red</option>"
         + "<option value='o_green'>green</option>" + "<option value='o_blue'>blue</option>" + "</select>" + "</form>"
         + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("optgroup_colors", false));

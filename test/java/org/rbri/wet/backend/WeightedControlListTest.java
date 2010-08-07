@@ -158,7 +158,7 @@ public class WeightedControlListTest extends TestCase {
 
   private HtmlAnchor constructHtmlAnchor() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<a href='wet.html'>AnchorText</a>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     Iterator<HtmlElement> tmpHtmlElements = tmpHtmlPage.getHtmlElementDescendants().iterator();
 

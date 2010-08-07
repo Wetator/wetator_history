@@ -54,7 +54,7 @@ public class HtmlUnitControlFinderGetAllSetablesTest extends TestCase {
 
   public void testGetAllSetables_Empty() throws IOException {
     String tmpHtmlCode = "<html><body>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("Name", false));
@@ -68,7 +68,7 @@ public class HtmlUnitControlFinderGetAllSetablesTest extends TestCase {
   public void testGetAllSetables_OneByNameExact() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<input id='ti' name='TextInput' type='text'>"
         + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("TextInput", false));
@@ -84,7 +84,7 @@ public class HtmlUnitControlFinderGetAllSetablesTest extends TestCase {
   public void testGetAllSetables_OneByNameWildcard() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<input id='ti' name='TextInput' type='text'>"
         + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("TextI*", false));
@@ -101,7 +101,7 @@ public class HtmlUnitControlFinderGetAllSetablesTest extends TestCase {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>abc def</p>"
         + "<input id='id1' name='TextInput1' type='text'>" + "<p>abcdef</p>"
         + "<input id='id2' name='TextInput2' type='text'>" + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("abc*def", false));
@@ -127,7 +127,7 @@ public class HtmlUnitControlFinderGetAllSetablesTest extends TestCase {
   public void testGetAllSetables_OneByIdExact() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<input id='ti' name='TextInput' type='text'>"
         + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("ti", false));
@@ -143,7 +143,7 @@ public class HtmlUnitControlFinderGetAllSetablesTest extends TestCase {
   public void testGetAllSetables_OneByIdWildcard() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<input id='ti' name='TextInput' type='text'>"
         + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("t*", false));
@@ -159,7 +159,7 @@ public class HtmlUnitControlFinderGetAllSetablesTest extends TestCase {
   public void testGetAllSetables_LabelWrongId() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<label for='inputId'>Label</label>" + "</form>"
         + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("Label", false));
@@ -173,7 +173,7 @@ public class HtmlUnitControlFinderGetAllSetablesTest extends TestCase {
   public void testGetAllSetables_TextInputByLabel() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<label for='inputId'>Label</label>"
         + "<input id='inputId' name='TextInput' type='text'>" + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("Label", false));
@@ -191,7 +191,7 @@ public class HtmlUnitControlFinderGetAllSetablesTest extends TestCase {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<label>Label"
         + "<input id='inputId' name='TextInput' type='text'>" + "</label>"
         + "abc<input id='another' name='AnotherTextInput' type='text'>" + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("Label", false));
@@ -209,7 +209,7 @@ public class HtmlUnitControlFinderGetAllSetablesTest extends TestCase {
   public void testGetAllSetables_PasswordInputByLabel() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<label for='inputId'>Label</label>"
         + "<input id='inputId' name='PasswordInput' type='password'>" + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("Label", false));
@@ -227,7 +227,7 @@ public class HtmlUnitControlFinderGetAllSetablesTest extends TestCase {
   public void testGetAllSetables_PasswordInputByLabelChild() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<label>Label"
         + "<input id='inputId' name='PasswordInput' type='password'>" + "</label>" + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("Label", false));
@@ -245,7 +245,7 @@ public class HtmlUnitControlFinderGetAllSetablesTest extends TestCase {
   public void testGetAllSetables_TextAreaByLabel() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<label for='inputId'>Label</label>"
         + "<textarea id='inputId' name='TextAreaName' cols='50' rows='1'></textarea>" + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("Label", false));
@@ -263,7 +263,7 @@ public class HtmlUnitControlFinderGetAllSetablesTest extends TestCase {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<label>Label"
         + "<textarea id='inputId' name='TextAreaName' cols='50' rows='1'></textarea>" + "</label>" + "</form>"
         + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("Label", false));
@@ -280,7 +280,7 @@ public class HtmlUnitControlFinderGetAllSetablesTest extends TestCase {
   public void testGetAllSetables_FileInputByLabel() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<label for='inputId'>Label</label>"
         + "<input id='inputId' name='FileInput' type='file'>" + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("Label", false));
@@ -297,7 +297,7 @@ public class HtmlUnitControlFinderGetAllSetablesTest extends TestCase {
   public void testGetAllSetables_FileInputByLabelChild() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<label>Label"
         + "<input id='inputId' name='FileInput' type='file'>" + "</label>" + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("Label", false));
@@ -315,7 +315,7 @@ public class HtmlUnitControlFinderGetAllSetablesTest extends TestCase {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<label for='inputId'>Label</label>"
         + "<input id='inputId' name='TextInput' type='text'>"
         + "<input id='another' name='AnotherTextInput' type='text'>" + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("Label", false));
@@ -335,7 +335,7 @@ public class HtmlUnitControlFinderGetAllSetablesTest extends TestCase {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<label for='inputId'>Label</label>"
         + "<input id='inputId' name='TextInput' type='text'>"
         + "<input id='another' name='AnotherTextInput' type='text'>" + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("La*l", false));
@@ -355,7 +355,7 @@ public class HtmlUnitControlFinderGetAllSetablesTest extends TestCase {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<label>Label"
         + "<input id='inputId' name='TextInput' type='text'>" + "</label>"
         + "<input id='another' name='AnotherTextInput' type='text'>" + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("La*l", false));
@@ -377,7 +377,7 @@ public class HtmlUnitControlFinderGetAllSetablesTest extends TestCase {
         + "<td>Passwort</td>" + "<td>"
         + "<input type='password' id='userForm:passwordTxt' name='userForm:passwordTxt'/>" + "</td>" + "</tr>"
         + "</table>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("Passwort", false));
@@ -397,7 +397,7 @@ public class HtmlUnitControlFinderGetAllSetablesTest extends TestCase {
         + "<td>Passwort</td>" + "<td>"
         + "<input type='password' id='userForm:passwordTxt' name='userForm:passwordTxt'/>" + "</td>" + "</tr>"
         + "</table>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("Pass*", false));
@@ -418,7 +418,7 @@ public class HtmlUnitControlFinderGetAllSetablesTest extends TestCase {
         + "<td>Input1</td>" + "<td>" + "<input id='l2Txt1' name='l2Txt1' type='text' value='l2t1'/>" + "</td>"
         + "<td>Input2</td>" + "<td>" + "<input id='l2Txt2' name='l2Txt2' type='text' value='l2t2'/>" + "</td>"
         + "</tr>" + "</table>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("Line1", false));
@@ -466,7 +466,7 @@ public class HtmlUnitControlFinderGetAllSetablesTest extends TestCase {
     String tmpHtmlCode = "<html><body>" + "LongTextBefore Label"
         + "<input id='l1Txt1' name='l1Txt1' type='text' value='l1t1'/>" + "SecondLabel"
         + "<input id='l1Txt2' name='l1Txt2' type='text' value='l1t2'/>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("LongTextBefore", false));
@@ -486,7 +486,7 @@ public class HtmlUnitControlFinderGetAllSetablesTest extends TestCase {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<input id='ti' name='TextInput' type='text'>"
         + "</form>" + "<form action='test2'>" + "<input id='ti' name='TextInput2' type='text'>" + "</form>"
         + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("ti", false));
@@ -504,7 +504,7 @@ public class HtmlUnitControlFinderGetAllSetablesTest extends TestCase {
   public void testGetAllSetables_SameNameAndId() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<input id='TextInput' name='TextInput' type='text'>" + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("TextInput", false));
@@ -523,7 +523,7 @@ public class HtmlUnitControlFinderGetAllSetablesTest extends TestCase {
         + "</td>" + "</tr>" + "<tr>" + "<td class='name'>Passwort</td>" + "<td class='value'>"
         + "<input type='password' id='userForm:passwordTxt' name='userForm:passwordTxt'/>" + "</td>" + "</tr>"
         + "</table>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("Passwor*", false));

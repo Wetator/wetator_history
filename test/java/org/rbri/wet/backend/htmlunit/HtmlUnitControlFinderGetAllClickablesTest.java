@@ -45,7 +45,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
 
   public void testGetAllClickables_Empty() throws IOException {
     String tmpHtmlCode = "<html><body>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("Name", false));
@@ -59,7 +59,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
   public void testGetAllClickables_Hidden() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<input id='myId' type='submit' value='ClickMe' style='visibility: hidden;'>" + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("ClickMe", false));
@@ -73,7 +73,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
   public void testGetAllClickables_SubmitInputId() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<input id='myId' type='submit' value='ClickMe'>"
         + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("myId", false));
@@ -90,7 +90,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
   public void testGetAllClickables_SubmitInputId_TextBefore() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<input id='myId' type='submit' value='ClickMe'>"
         + "<p>Marker</p>" + "<input id='myId' type='submit' value='ClickMeAlso'>" + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("Marker", false));
@@ -108,7 +108,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
   public void testGetAllClickables_SubmitInputLabel() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<input id='myId' type='submit' value='ClickMe'>"
         + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("ClickMe", false));
@@ -125,7 +125,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
   public void testGetAllClickables_SubmitInputLabel_TextBefore() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
         + "<input id='myId' type='submit' value='ClickMe'>" + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("Some text", false));
@@ -143,7 +143,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
   public void testGetAllClickables_SubmitInputLabel_WrongTextBefore() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
         + "<input id='myId' type='submit' value='ClickMe'>" + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("wrong text", false));
@@ -158,7 +158,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
   public void testGetAllClickables_SubmitInputLabelPart() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<input id='myId' type='submit' value='ClickMe'>"
         + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("lickM", false));
@@ -175,7 +175,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
   public void testGetAllClickables_SubmitInputName() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<input id='myId' type='submit' name='MyName' value='ClickMe'>" + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("MyName", false));
@@ -192,7 +192,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
   public void testGetAllClickables_SubmitInputName_TextBefore() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
         + "<input id='myId' type='submit' name='MyName' value='ClickMe'>" + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("Some text", false));
@@ -210,7 +210,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
   public void testGetAllClickables_SubmitInputName_WrongTextBefore() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
         + "<input id='myId' type='submit' name='MyName' value='ClickMe'>" + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("wrong text", false));
@@ -225,7 +225,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
   public void testGetAllClickables_SubmitInputNamePart() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<input id='myId' type='submit' name='MyName' value='ClickMe'>" + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("yNam", false));
@@ -239,7 +239,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
   public void testGetAllClickables_ResetInputId() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<input id='myId' type='reset' value='ClickMe'>"
         + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("myId", false));
@@ -256,7 +256,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
   public void testGetAllClickables_ResetInputId_TextBefore() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<input id='myId' type='reset' value='ClickMe'>"
         + "<p>Marker</p>" + "<input id='myId' type='reset' value='ClickMeAlso'>" + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("Marker", false));
@@ -274,7 +274,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
   public void testGetAllClickables_ResetInputLabel() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<input id='myId' type='reset' value='ClickMe'>"
         + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("ClickMe", false));
@@ -291,7 +291,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
   public void testGetAllClickables_ResetInputLabel_TextBefore() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
         + "<input id='myId' type='reset' value='ClickMe'>" + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("Some text", false));
@@ -309,7 +309,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
   public void testGetAllClickables_ResetInputLabel_WrongTextBefore() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
         + "<input id='myId' type='reset' value='ClickMe'>" + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("wrong text", false));
@@ -324,7 +324,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
   public void testGetAllClickables_ResetInputLabelPart() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<input id='myId' type='reset' value='ClickMe'>"
         + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("lickM", false));
@@ -341,7 +341,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
   public void testGetAllClickables_ResetInputName() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<input id='myId' type='reset' name='MyName' value='ClickMe'>" + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("MyName", false));
@@ -358,7 +358,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
   public void testGetAllClickables_ResetInputName_TextBefore() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
         + "<input id='myId' type='reset' name='MyName' value='ClickMe'>" + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("Some text", false));
@@ -376,7 +376,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
   public void testGetAllClickables_ResetInputName_WrongTextBefore() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
         + "<input id='myId' type='reset' name='MyName' value='ClickMe'>" + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("wrong text", false));
@@ -391,7 +391,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
   public void testGetAllClickables_ResetInputNamePart() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<input id='myId' type='reset' name='MyName' value='ClickMe'>" + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("yNam", false));
@@ -405,7 +405,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
   public void testGetAllClickables_ButtonInputId() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<input id='myId' type='button' value='ClickMe'>"
         + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("myId", false));
@@ -422,7 +422,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
   public void testGetAllClickables_ButtonInputId_TextBefore() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<input id='myId' type='button' value='ClickMe'>"
         + "<p>Marker</p>" + "<input id='myId' type='button' value='ClickMeAlso'>" + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("Marker", false));
@@ -440,7 +440,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
   public void testGetAllClickables_ButtonInputLabel() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<input id='myId' type='button' value='ClickMe'>"
         + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("ClickMe", false));
@@ -457,7 +457,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
   public void testGetAllClickables_ButtonInputLabel_TextBefore() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
         + "<input id='myId' type='button' value='ClickMe'>" + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("Some text", false));
@@ -475,7 +475,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
   public void testGetAllClickables_ButtonInputLabel_WrongTextBefore() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
         + "<input id='myId' type='button' value='ClickMe'>" + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("wrong text", false));
@@ -490,7 +490,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
   public void testGetAllClickables_ButtonInputLabelPart() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<input id='myId' type='button' value='ClickMe'>"
         + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("lickM", false));
@@ -507,7 +507,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
   public void testGetAllClickables_ButtonInputName() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<input id='myId' type='button' name='MyName' value='ClickMe'>" + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("MyName", false));
@@ -524,7 +524,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
   public void testGetAllClickables_ButtonInputName_TextBefore() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
         + "<input id='myId' type='button' name='MyName' value='ClickMe'>" + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("Some text", false));
@@ -542,7 +542,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
   public void testGetAllClickables_ButtonInputName_WrongTextBefore() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
         + "<input id='myId' type='button' name='MyName' value='ClickMe'>" + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("wrong text", false));
@@ -557,7 +557,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
   public void testGetAllClickables_ButtonInputNamePart() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<input id='myId' type='button' name='MyName' value='ClickMe'>" + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("yNam", false));
@@ -571,7 +571,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
   public void testGetAllClickables_ImageId() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<input id='myId' type='image' name='MyName' src='picture.png'>" + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("myId", false));
@@ -589,7 +589,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
   public void testGetAllClickables_ImageName() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<input id='myId' type='image' name='MyName' src='picture.png'>" + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("MyName", false));
@@ -607,7 +607,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
   public void testGetAllClickables_ImageName_TextBefore() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
         + "<input id='myId' type='image' name='MyName' src='picture.png'>" + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("Some text", false));
@@ -626,7 +626,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
   public void testGetAllClickables_ImageAlt() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<input id='myId' type='image' name='MyName' src='picture.png' alt='MyAlt'>" + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("MyAlt", false));
@@ -644,7 +644,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
   public void testGetAllClickables_ImageAlt_TextBefore() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
         + "<input id='myId' type='image' name='MyName' src='picture.png'  alt='MyAlt'>" + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("Some text", false));
@@ -664,7 +664,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<input id='myId' type='image' name='MyName' src='picture.png' title='MyTitle'>" + "</form>"
         + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("MyTitle", false));
@@ -683,7 +683,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
         + "<input id='myId' type='image' name='MyName' src='picture.png'  title='MyTitle'>" + "</form>"
         + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("Some text", false));
@@ -702,7 +702,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
   public void testGetAllClickables_ImageFileName() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<input id='myId' type='image' name='MyName' src='picture.png'>" + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("picture.png", false));
@@ -720,7 +720,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
   public void testGetAllClickables_ImageFileNameWithPath() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<input id='myId' type='image' name='MyName' src='web/picture.png'>" + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("picture.png", false));
@@ -738,7 +738,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
   public void testGetAllClickables_ImageFileName_TextBefore() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
         + "<input id='myId' type='image' name='MyName' src='picture.png'>" + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("Some text", false));
@@ -757,7 +757,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
   public void testGetAllClickables_ButtonId() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<button id='myId' type='button' name='MyName'>"
         + "<p>ButtonWithText</p>" + "</button>" + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("myId", false));
@@ -775,7 +775,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<button id='myId' type='button' name='MyName'>"
         + "<p>ButtonWithText</p>" + "</button>" + "<p>Marker</p>" + "<button id='myId' type='button' name='MyName'>"
         + "<p>ButtonWithAnotherText</p>" + "</button>" + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("Marker", false));
@@ -794,7 +794,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
   public void testGetAllClickables_ButtonLabel() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<button id='myId' type='button' name='MyName'>"
         + "<p>ButtonWithText</p>" + "</button>" + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("ButtonWithText", false));
@@ -813,7 +813,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
         + "<button id='myId' type='button' name='MyName'>" + "<p>ButtonWithText</p>" + "</button>" + "</form>"
         + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("Some text", false));
@@ -832,7 +832,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
   public void testGetAllClickables_ButtonName() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<button id='myId' type='button' name='MyName'>"
         + "<p>ButtonWithText</p>" + "</button>" + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("MyName", false));
@@ -850,7 +850,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
         + "<button id='myId' type='button' name='MyName'>" + "<p>ButtonWithText</p>" + "</button>" + "</form>"
         + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("Some text", false));
@@ -869,7 +869,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
         + "<button id='myId' type='button' name='MyName'>" + "<p>ButtonWithText</p>" + "</button>" + "</form>"
         + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("wrong text", false));
@@ -885,7 +885,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
         + "<button id='myId' type='button' name='MyName'>" + "<p>ButtonWithText</p>" + "</button>" + "</form>"
         + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("tonWithT", false));
@@ -903,7 +903,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
   public void testGetAllClickables_Button_ImageName() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<button id='myId' type='button' name='MyName'>"
         + "<img src='picture.png' name='MyImageName'>" + "</button>" + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("MyImageName", false));
@@ -923,7 +923,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
   public void testGetAllClickables_Button_ImageAlt() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<button id='myId' type='button' name='MyName'>"
         + "<img src='picture.png' alt='MyImageAlt'>" + "</button>" + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("MyImageAlt", false));
@@ -943,7 +943,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
   public void testGetAllClickables_Button_ImageTitle() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<button id='myId' type='button' name='MyName'>"
         + "<img src='picture.png' title='MyImageTitle'>" + "</button>" + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("MyImageTitle", false));
@@ -963,7 +963,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
   public void testGetAllClickables_Button_ImageFileName() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<button id='myId' type='button' name='MyName'>"
         + "<img src='picture.png' title='MyImageTitle'>" + "</button>" + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("picture.png", false));
@@ -983,7 +983,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
   public void testGetAllClickables_Button_ImageFileNameWithPath() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<button id='myId' type='button' name='MyName'>"
         + "<img src='web/picture.png' title='MyImageTitle'>" + "</button>" + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("picture.png", false));
@@ -1003,7 +1003,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
   public void testGetAllClickables_AnchorId() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<a id='myId' href='snoopy.php'>TestAnchor</a>"
         + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("myId", false));
@@ -1020,7 +1020,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
   public void testGetAllClickables_AnchorText() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<a id='myId' name='MyName' href='snoopy.php'>TestAnchor</a>" + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("TestAnchor", false));
@@ -1038,7 +1038,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
   public void testGetAllClickables_AnchorText_TextBefore() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
         + "<a id='myId' name='MyName' href='snoopy.php'>TestAnchor</a>" + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("Some text", false));
@@ -1055,7 +1055,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
   public void testGetAllClickables_AnchorName() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<a id='myId' name='MyName' href='snoopy.php'>TestAnchor</a>" + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("MyName", false));
@@ -1072,7 +1072,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
   public void testGetAllClickables_AnchorName_TextBefore() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
         + "<a id='myId' name='MyName' href='snoopy.php'>TestAnchor</a>" + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("Some text", false));
@@ -1090,7 +1090,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
   public void testGetAllClickables_Anchor_ImageAlt() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<a id='myId' name='MyName' href='snoopy.php'>"
         + "<img src='picture.png' name='MyImageName' alt='MyAlt'>" + "</a>" + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("MyAlt", false));
@@ -1112,7 +1112,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
         + "<a id='myId' name='MyName' href='snoopy.php'>" + "<img src='picture.png' name='MyImageName' alt='MyAlt'>"
         + "</a>" + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("Some text", false));
@@ -1134,7 +1134,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
   public void testGetAllClickables_Anchor_ImageTitle() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<a id='myId' name='MyName' href='snoopy.php'>"
         + "<img src='picture.png' name='MyImageName' title='MyTitle'>" + "</a>" + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("MyTitle", false));
@@ -1156,7 +1156,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
         + "<a id='myId' name='MyName' href='snoopy.php'>"
         + "<img src='picture.png' name='MyImageName' title='MyTitle'>" + "</a>" + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("Some text", false));
@@ -1178,7 +1178,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
   public void testGetAllClickables_Anchor_ImageFileName() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<a id='myId' name='MyName' href='snoopy.php'>"
         + "<img src='picture.png' name='MyImageName' title='MyTitle'>" + "</a>" + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("picture.png", false));
@@ -1199,7 +1199,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
   public void testGetAllClickables_Anchor_ImageFileNameWithPath() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<a id='myId' name='MyName' href='snoopy.php'>"
         + "<img src='web/picture.png' name='MyImageName' title='MyTitle'>" + "</a>" + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("picture.png", false));
@@ -1221,7 +1221,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
         + "<a id='myId' name='MyName' href='snoopy.php'>"
         + "<img src='picture.png' name='MyImageName' title='MyTitle'>" + "</a>" + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("Some text", false));
@@ -1243,7 +1243,7 @@ public class HtmlUnitControlFinderGetAllClickablesTest extends TestCase {
   public void testGetAllClickables_Anchor_ImageName() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<a id='myId' name='MyName' href='snoopy.php'>"
         + "<img src='picture.png' name='MyImageName'>" + "</a>" + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("MyImageName", false));

@@ -44,7 +44,7 @@ public class HtmlUnitControlTest extends TestCase {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<button disabled='disabled' id='myId' type='button' name='MyName'>" + "<p>ButtonWithText</p>" + "</button>"
         + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     HtmlUnitControl tmpControl = new HtmlUnitControl(tmpHtmlPage.getElementById("myId"));
 
@@ -55,7 +55,7 @@ public class HtmlUnitControlTest extends TestCase {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<button style='visible: none' id='myId' type='button' name='MyName'>" + "<p>ButtonWithText</p>"
         + "</button>" + "</form>" + "</body></html>";
-    HtmlPage tmpHtmlPage = PageUtil.constructPage(tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     HtmlUnitControl tmpControl = new HtmlUnitControl(tmpHtmlPage.getElementById("myId"));
 

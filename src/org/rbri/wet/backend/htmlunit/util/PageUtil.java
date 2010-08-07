@@ -24,6 +24,7 @@ import com.gargoylesoftware.htmlunit.StringWebResponse;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HTMLParser;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import com.gargoylesoftware.htmlunit.html.XHtmlPage;
 import com.gargoylesoftware.htmlunit.javascript.background.JavaScriptJobManager;
 
 /**
@@ -54,10 +55,25 @@ public final class PageUtil {
    * @return the HtmlPage result of parsing the source
    * @throws IOException in case of problems
    */
-  public static HtmlPage constructPage(final String anHtmlCode) throws IOException {
+  public static HtmlPage constructHtmlPage(final String anHtmlCode) throws IOException {
     StringWebResponse tmpResponse = new StringWebResponse(anHtmlCode, new URL("http://www.rbri.org/wet/test.html"));
     WebClient tmpWebClient = new WebClient();
     HtmlPage tmpPage = HTMLParser.parseHtml(tmpResponse, tmpWebClient.getCurrentWindow());
+
+    return tmpPage;
+  }
+
+  /**
+   * Helper for tests
+   * 
+   * @param anXHtmlCode the XHtml source of the page
+   * @return the XHtmlPage result of parsing the source
+   * @throws IOException in case of problems
+   */
+  public static XHtmlPage constructXHtmlPage(final String anXHtmlCode) throws IOException {
+    StringWebResponse tmpResponse = new StringWebResponse(anXHtmlCode, new URL("http://www.rbri.org/wet/test.xhtml"));
+    WebClient tmpWebClient = new WebClient();
+    XHtmlPage tmpPage = HTMLParser.parseXHtml(tmpResponse, tmpWebClient.getCurrentWindow());
 
     return tmpPage;
   }
