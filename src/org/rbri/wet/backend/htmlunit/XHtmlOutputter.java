@@ -18,6 +18,7 @@ package org.rbri.wet.backend.htmlunit;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.Writer;
 import java.lang.reflect.Field;
 import java.net.URL;
 import java.util.HashSet;
@@ -137,9 +138,19 @@ public final class XHtmlOutputter {
    */
   public void writeTo(File aFile) throws IOException {
     FileWriterWithEncoding tmpFileWriter = new FileWriterWithEncoding(aFile, htmlPage.getPageEncoding());
+    writeTo(tmpFileWriter);
+  }
+
+  /**
+   * The real worker; dumps the page as XHTML to this file
+   * 
+   * @param aWriter the writer to write on
+   * @throws IOException in case of error
+   */
+  public void writeTo(Writer aWriter) throws IOException {
     try {
       xmlUtil = new XmlUtil(htmlPage.getPageEncoding());
-      output = new Output(tmpFileWriter, "  ");
+      output = new Output(aWriter, "  ");
 
       output.println("<?xml version=\"1.0\" encoding=\"" + htmlPage.getPageEncoding() + "\"?>");
       output
@@ -149,7 +160,7 @@ public final class XHtmlOutputter {
 
       output.flush();
     } finally {
-      tmpFileWriter.close();
+      aWriter.close();
     }
   }
 
