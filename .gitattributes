@@ -113,11 +113,13 @@ test/excel/deselect_checkbox.xls -text
 test/excel/deselect_multipleSelect.xls -text
 test/excel/event_handler.xls -text
 test/excel/exec_java.xls -text
+test/excel/ff3/event_handler.xls -text
 test/excel/flow_simple_login.xls -text
 test/excel/flow_simple_search.xls -text
 test/excel/go_back.xls -text
 test/excel/header.xls -text
 test/excel/htmlunit_javascript.xls -text
+test/excel/ie6/event_handler.xls -text
 test/excel/jquery.xls -text
 test/excel/jquery/modal_confirmation.xls -text
 test/excel/js_error.xls -text
