@@ -180,6 +180,11 @@ public class StdOutProgressListener implements WetEngineProgressListener {
    * @see org.rbri.wet.core.WetEngineProgressListener#engineTestStart(java.util.List)
    */
   public void engineTestStart(List<File> aTestFilesList) {
+    if (aTestFilesList.isEmpty()) {
+      println("   TestFiles: none");
+      return;
+    }
+
     boolean tmpFirst = true;
     for (File tmpTestFile : aTestFilesList) {
       if (tmpFirst) {
