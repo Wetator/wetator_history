@@ -16,6 +16,9 @@
 
 package org.rbri.wet.core;
 
+import java.io.File;
+import java.util.List;
+
 import org.rbri.wet.commandset.WetCommandSet;
 import org.rbri.wet.exception.AssertionFailedException;
 
@@ -28,7 +31,7 @@ import org.rbri.wet.exception.AssertionFailedException;
 public interface WetEngineProgressListener {
   public void engineSetup(WetEngine aWetEngine);
 
-  public void engineTestStart();
+  public void engineTestStart(List<File> aTestFilesList);
 
   public void engineResponseStored(String aResponseFileName);
 

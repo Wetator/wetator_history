@@ -17,6 +17,7 @@
 package org.rbri.wet.util;
 
 import java.io.File;
+import java.util.List;
 
 import org.rbri.wet.Version;
 import org.rbri.wet.commandset.WetCommandSet;
@@ -176,9 +177,18 @@ public class StdOutProgressListener implements WetEngineProgressListener {
   /**
    * {@inheritDoc}
    * 
-   * @see org.rbri.wet.core.WetEngineProgressListener#engineTestStart()
+   * @see org.rbri.wet.core.WetEngineProgressListener#engineTestStart(java.util.List)
    */
-  public void engineTestStart() {
+  public void engineTestStart(List<File> aTestFilesList) {
+    boolean tmpFirst = true;
+    for (File tmpTestFile : aTestFilesList) {
+      if (tmpFirst) {
+        println("   TestFiles: '" + tmpTestFile.getAbsolutePath() + "'");
+        tmpFirst = false;
+      } else {
+        println("              '" + tmpTestFile.getAbsolutePath() + "'");
+      }
+    }
   }
 
   /**

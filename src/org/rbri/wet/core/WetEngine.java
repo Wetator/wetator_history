@@ -55,6 +55,11 @@ public final class WetEngine {
   private List<WetScripter> scripter;
   private List<WetEngineProgressListener> progressListener;
 
+  /**
+   * Constructor
+   * 
+   * @throws WetException in case of problems
+   */
   public WetEngine() throws WetException {
     super();
 
@@ -98,7 +103,7 @@ public final class WetEngine {
     }
 
     try {
-      informListenersTestStart();
+      informListenersTestStart(files);
       try {
         for (File tmpFile : files) {
           try {
@@ -266,10 +271,12 @@ public final class WetEngine {
 
   /**
    * Informs all listeners about 'engineTestStart'.
+   * 
+   * @param aTestFilesList the list of test files
    */
-  protected void informListenersTestStart() {
+  protected void informListenersTestStart(List<File> aTestFilesList) {
     for (WetEngineProgressListener tmpListener : progressListener) {
-      tmpListener.engineTestStart();
+      tmpListener.engineTestStart(aTestFilesList);
     }
   }
 

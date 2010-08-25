@@ -179,9 +179,9 @@ public class WetResultWriter implements WetEngineProgressListener {
   /**
    * {@inheritDoc}
    * 
-   * @see org.rbri.wet.core.WetEngineProgressListener#engineTestStart()
+   * @see org.rbri.wet.core.WetEngineProgressListener#engineTestStart(List)
    */
-  public void engineTestStart() {
+  public void engineTestStart(List<File> aTestFilesList) {
     try {
       wetExecutionStartTime = System.currentTimeMillis();
 
