@@ -1,11 +1,3 @@
-!ATTENTION!
-Right now we use a SNAPSHOT version of HtmlUnit which is not available via IVY.
-Please download the file
-    http://build.canoo.com/htmlunit/artifacts//htmlunit-2.8-SNAPSHOT-with-dependencies.zip
-and add all relevant libraries to the folder /lib manually.
-!ATTENTION!
-
-
 HOW TO SETUP THE IDE
 
 Currently we use
