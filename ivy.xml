@@ -11,8 +11,8 @@
         <dependency org="net.sourceforge.htmlunit" name="htmlunit" rev="2.8"/>
         <dependency org="junit" name="junit" rev="4.8.1" transitive="false"/>
         <dependency org="log4j" name="log4j" rev="1.2.16" transitive="false"/>
-        <dependency org="org.apache.pdfbox" name="pdfbox" rev="1.1.0" transitive="false"/>
-        <dependency org="org.apache.pdfbox" name="fontbox" rev="1.1.0" transitive="false"/>
+        <dependency org="org.apache.pdfbox" name="pdfbox" rev="1.2.1" transitive="false"/>
+        <dependency org="org.apache.pdfbox" name="fontbox" rev="1.2.1" transitive="false"/>
         <dependency org="org.apache.poi" name="poi" rev="3.6"/>
     </dependencies>
 </ivy-module>
