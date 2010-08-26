@@ -145,9 +145,10 @@ public final class ResponseStore {
    * This method writes the page to a file with a unique name.
    * 
    * @param aUrl the url of the file to save
+   * @param aPostfix to force a specific postfix for the file name
    * @return the file name used for this page
    */
-  public String storeContentFromUrl(URL aUrl) {
+  public String storeContentFromUrl(URL aUrl, String aPostfix) {
     try {
       WebResponse tmpWebResponse = webClient.loadWebResponse(new WebRequest(aUrl));
       String tmpFileName = aUrl.getPath();
@@ -165,6 +166,12 @@ public final class ResponseStore {
       tmpFileName = tmpFileName.replaceAll("\\|", "__");
       tmpFileName = tmpFileName.replaceAll("\\?", "__");
       tmpFileName = tmpFileName.replaceAll("\\*", "__");
+
+      // ensure the postfix
+      // this helps if the result is browsed from a real server
+      if (null != aPostfix && !tmpFileName.endsWith(aPostfix)) {
+        tmpFileName = tmpFileName + aPostfix;
+      }
 
       File tmpCssFile = new File(storeDir, tmpFileName);
       if (!tmpCssFile.exists()) {

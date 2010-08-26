@@ -312,7 +312,8 @@ public final class XHtmlOutputter {
           URL tmpCssUrl = htmlPage.getFullyQualifiedUrl(tmpAttributeValue);
           String tmpHost = tmpCssUrl.getHost();
           if ((null != tmpHost) && tmpHost.equals(tmpPageHost)) {
-            String tmpStoredFileName = responseStore.storeContentFromUrl(tmpCssUrl);
+
+            String tmpStoredFileName = responseStore.storeContentFromUrl(tmpCssUrl, ".css");
             if (null != tmpStoredFileName) {
               tmpAttributeValue = tmpStoredFileName;
             }
@@ -323,7 +324,7 @@ public final class XHtmlOutputter {
           URL tmpImageUrl = htmlPage.getFullyQualifiedUrl(tmpAttributeValue);
           String tmpHost = tmpImageUrl.getHost();
           if ((null != tmpHost) && tmpHost.equals(tmpPageHost)) {
-            String tmpStoredFileName = responseStore.storeContentFromUrl(tmpImageUrl);
+            String tmpStoredFileName = responseStore.storeContentFromUrl(tmpImageUrl, null);
             if (null != tmpStoredFileName) {
               tmpAttributeValue = tmpStoredFileName;
             }
