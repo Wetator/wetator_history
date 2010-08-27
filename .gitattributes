@@ -165,6 +165,7 @@ test/java/org/rbri/wet/backend/htmlunit/util/HtmlElementUtilTest.java -text
 test/java/org/rbri/wet/commandset/AllTests.java -text
 test/java/org/rbri/wet/commandset/DefaultCommandSetTest.java -text
 test/java/org/rbri/wet/commandset/ExecTester.java -text
+test/java/org/rbri/wet/commandset/ExecTesterWithoutDefaultConstructor.java -text svneol=unset#text/plain
 test/java/org/rbri/wet/commandset/TestCommandSet.java -text
 test/java/org/rbri/wet/core/AllTests.java -text
 test/java/org/rbri/wet/core/WetCommandTest.java -text

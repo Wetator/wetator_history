@@ -16,6 +16,7 @@
 
 package org.rbri.wet.commandset;
 
+
 /**
  * Small class that offers some methods to be executed via 'Exec Java' command
  * 
@@ -102,5 +103,9 @@ public final class ExecTester {
 
   public String methodWithVarargs(String... aParams) {
     return "staticMethodWithVarargs";
+  }
+
+  public void methodThrowingException() throws Exception {
+    throw new Exception("methodThrowingException");
   }
 }
