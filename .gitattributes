@@ -50,7 +50,7 @@ src/org/rbri/wet/core/WetCommand.java -text
 src/org/rbri/wet/core/WetConfiguration.java -text
 src/org/rbri/wet/core/WetContext.java -text
 src/org/rbri/wet/core/WetEngine.java -text
-src/org/rbri/wet/core/WetEngineProgressListener.java -text
+src/org/rbri/wet/core/WetProgressListener.java -text
 src/org/rbri/wet/core/result/WetResultWriter.java -text
 src/org/rbri/wet/core/result/XslTransformer.java -text
 src/org/rbri/wet/core/variable/Variable.java -text

@@ -20,12 +20,11 @@ import java.io.File;
 import java.util.List;
 
 import org.rbri.wet.Version;
-import org.rbri.wet.commandset.WetCommandSet;
 import org.rbri.wet.core.WetCommand;
 import org.rbri.wet.core.WetConfiguration;
 import org.rbri.wet.core.WetContext;
 import org.rbri.wet.core.WetEngine;
-import org.rbri.wet.core.WetEngineProgressListener;
+import org.rbri.wet.core.WetProgressListener;
 import org.rbri.wet.exception.AssertionFailedException;
 
 /**
@@ -33,7 +32,7 @@ import org.rbri.wet.exception.AssertionFailedException;
  * 
  * @author rbri
  */
-public class StdOutProgressListener implements WetEngineProgressListener {
+public class StdOutProgressListener implements WetProgressListener {
 
   private static final int DOTS_PER_LINE = 100;
 
@@ -46,9 +45,9 @@ public class StdOutProgressListener implements WetEngineProgressListener {
   /**
    * {@inheritDoc}
    * 
-   * @see org.rbri.wet.core.WetEngineProgressListener#engineSetup(org.rbri.wet.core.WetEngine)
+   * @see org.rbri.wet.core.WetProgressListener#setup(org.rbri.wet.core.WetEngine)
    */
-  public void engineSetup(WetEngine aWetEngine) {
+  public void setup(WetEngine aWetEngine) {
     println(Version.getProductName() + " " + Version.getVersion());
     println("  using " + com.gargoylesoftware.htmlunit.Version.getProductName() + " version "
         + com.gargoylesoftware.htmlunit.Version.getProductVersion());
@@ -79,107 +78,9 @@ public class StdOutProgressListener implements WetEngineProgressListener {
   /**
    * {@inheritDoc}
    * 
-   * @see org.rbri.wet.core.WetEngineProgressListener#contextExecuteCommandStart(org.rbri.wet.core.WetContext,
-   *      org.rbri.wet.core.WetCommand)
+   * @see org.rbri.wet.core.WetProgressListener#start(java.util.List)
    */
-  public void contextExecuteCommandStart(WetContext aWetContext, WetCommand aWommand) {
-    stepsCount++;
-  }
-
-  /**
-   * {@inheritDoc}
-   * 
-   * @see org.rbri.wet.core.WetEngineProgressListener#contextExecuteCommandEnd()
-   */
-  public void contextExecuteCommandEnd() {
-  }
-
-  /**
-   * {@inheritDoc}
-   * 
-   * @see org.rbri.wet.core.WetEngineProgressListener#contextExecuteCommandError(java.lang.Throwable)
-   */
-  public void contextExecuteCommandError(Throwable aThrowable) {
-    errorCount++;
-
-    if (dotCount == DOTS_PER_LINE) {
-      println("E");
-      dotCount = 1;
-      return;
-    }
-    print("E");
-    dotCount++;
-  }
-
-  /**
-   * {@inheritDoc}
-   * 
-   * @see org.rbri.wet.core.WetEngineProgressListener#contextExecuteCommandFailure(org.rbri.wet.exception.AssertionFailedException)
-   */
-  public void contextExecuteCommandFailure(AssertionFailedException anAssertionFailedException) {
-    failureCount++;
-
-    if (dotCount == DOTS_PER_LINE) {
-      println("F");
-      dotCount = 1;
-      return;
-    }
-    print("F");
-    dotCount++;
-  }
-
-  /**
-   * {@inheritDoc}
-   * 
-   * @see org.rbri.wet.core.WetEngineProgressListener#contextExecuteCommandSuccess()
-   */
-  public void contextExecuteCommandSuccess() {
-    if (dotCount == DOTS_PER_LINE) {
-      println(".");
-      dotCount = 1;
-      return;
-    }
-    print(".");
-    dotCount++;
-  }
-
-  /**
-   * {@inheritDoc}
-   * 
-   * @see org.rbri.wet.core.WetEngineProgressListener#contextTestEnd()
-   */
-  public void contextTestEnd() {
-    contextDeep--;
-    if (contextDeep > 0) {
-      // subcontext
-      print(">");
-    } else {
-      println("");
-    }
-  }
-
-  /**
-   * {@inheritDoc}
-   * 
-   * @see org.rbri.wet.core.WetEngineProgressListener#contextTestStart(java.lang.String, java.lang.String)
-   */
-  public void contextTestStart(String aFileName, String aBrowserName) {
-    if (contextDeep > 0) {
-      // subcontext
-      print("<");
-    } else {
-      println("Test: '" + aFileName + "' (" + aBrowserName + ")");
-      dotCount = 1;
-    }
-    contextDeep++;
-  }
-
-  /**
-   * {@inheritDoc}
-   * 
-   * @see org.rbri.wet.core.WetEngineProgressListener#engineTestStart(java.util.List)
-   */
-  public void engineTestStart(List<File> aTestFilesList) {
+  public void start(List<File> aTestFilesList) {
     if (aTestFilesList.isEmpty()) {
       println("   TestFiles: none");
       return;
@@ -199,25 +100,122 @@ public class StdOutProgressListener implements WetEngineProgressListener {
   /**
    * {@inheritDoc}
    * 
-   * @see org.rbri.wet.core.WetEngineProgressListener#engineResponseStored(java.lang.String)
+   * @see org.rbri.wet.core.WetProgressListener#testCaseStart(String)
    */
-  public void engineResponseStored(String aResponseFileName) {
+  public void testCaseStart(String aTestName) {
+    println("Test: '" + aTestName + "'");
   }
 
   /**
    * {@inheritDoc}
    * 
-   * @see org.rbri.wet.core.WetEngineProgressListener#engineTestEnd()
+   * @see org.rbri.wet.core.WetProgressListener#testRunStart(String)
    */
-  public void engineTestEnd() {
+  public void testRunStart(String aBrowserName) {
+    println("    " + aBrowserName);
+    print("    ");
+    dotCount = 1;
+    contextDeep = 0;
   }
 
   /**
    * {@inheritDoc}
    * 
-   * @see org.rbri.wet.core.WetEngineProgressListener#engineFinish()
+   * @see org.rbri.wet.core.WetProgressListener#testFileStart(String)
    */
-  public void engineFinish() {
+  public void testFileStart(String aFileName) {
+    contextDeep++;
+  }
+
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.rbri.wet.core.WetProgressListener#executeCommandStart(org.rbri.wet.core.WetContext,
+   *      org.rbri.wet.core.WetCommand)
+   */
+  public void executeCommandStart(WetContext aWetContext, WetCommand aWommand) {
+  }
+
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.rbri.wet.core.WetProgressListener#executeCommandEnd()
+   */
+  public void executeCommandEnd() {
+  }
+
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.rbri.wet.core.WetProgressListener#executeCommandError(java.lang.Throwable)
+   */
+  public void executeCommandError(Throwable aThrowable) {
+    stepsCount++;
+    errorCount++;
+    printProgressSign("E");
+  }
+
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.rbri.wet.core.WetProgressListener#executeCommandFailure(org.rbri.wet.exception.AssertionFailedException)
+   */
+  public void executeCommandFailure(AssertionFailedException anAssertionFailedException) {
+    stepsCount++;
+    failureCount++;
+    printProgressSign("F");
+  }
+
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.rbri.wet.core.WetProgressListener#executeCommandSuccess()
+   */
+  public void executeCommandSuccess() {
+    stepsCount++;
+    printProgressSign(".");
+  }
+
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.rbri.wet.core.WetProgressListener#testFileEnd()
+   */
+  public void testFileEnd() {
+    contextDeep--;
+  }
+
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.rbri.wet.core.WetProgressListener#testRunEnd()
+   */
+  public void testRunEnd() {
+    println("");
+  }
+
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.rbri.wet.core.WetProgressListener#testEnd()
+   */
+  public void testCaseEnd() {
+  }
+
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.rbri.wet.core.WetProgressListener#end()
+   */
+  public void end() {
+  }
+
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.rbri.wet.core.WetProgressListener#finish()
+   */
+  public void finish() {
     // print summary
     println("");
     println("Steps: " + stepsCount + ",  Failures: " + failureCount + ",  Errors: " + errorCount);
@@ -226,15 +224,15 @@ public class StdOutProgressListener implements WetEngineProgressListener {
   /**
    * {@inheritDoc}
    * 
-   * @see org.rbri.wet.core.WetEngineProgressListener#commandSetSetup(org.rbri.wet.commandset.WetCommandSet)
+   * @see org.rbri.wet.core.WetProgressListener#responseStored(java.lang.String)
    */
-  public void commandSetSetup(WetCommandSet aWetCommandSet) {
+  public void responseStored(String aResponseFileName) {
   }
 
   /**
    * {@inheritDoc}
    * 
-   * @see org.rbri.wet.core.WetEngineProgressListener#warn(java.lang.String, java.lang.String[])
+   * @see org.rbri.wet.core.WetProgressListener#warn(java.lang.String, java.lang.String[])
    */
   public void warn(String aMessageKey, String[] aParameterArray) {
   }
@@ -242,7 +240,7 @@ public class StdOutProgressListener implements WetEngineProgressListener {
   /**
    * {@inheritDoc}
    * 
-   * @see org.rbri.wet.core.WetEngineProgressListener#info(java.lang.String, java.lang.String[])
+   * @see org.rbri.wet.core.WetProgressListener#info(java.lang.String, java.lang.String[])
    */
   public void info(String aMessageKey, String[] aParameterArray) {
   }
@@ -263,5 +261,21 @@ public class StdOutProgressListener implements WetEngineProgressListener {
    */
   protected void print(String aString) {
     System.out.print(aString);
+  }
+
+  /**
+   * The worker that does the real output
+   * 
+   * @param aProgressSign the output
+   */
+  protected void printProgressSign(String aProgressSign) {
+    if (dotCount == DOTS_PER_LINE) {
+      println(aProgressSign);
+      print("    ");
+      dotCount = 1;
+      return;
+    }
+    print(aProgressSign);
+    dotCount++;
   }
 }

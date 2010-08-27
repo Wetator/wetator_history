@@ -33,7 +33,7 @@ import org.rbri.wet.core.WetCommand;
 import org.rbri.wet.core.WetConfiguration;
 import org.rbri.wet.core.WetContext;
 import org.rbri.wet.core.WetEngine;
-import org.rbri.wet.core.WetEngineProgressListener;
+import org.rbri.wet.core.WetProgressListener;
 import org.rbri.wet.core.variable.Variable;
 import org.rbri.wet.exception.AssertionFailedException;
 import org.rbri.wet.i18n.Messages;
@@ -46,7 +46,7 @@ import org.rbri.wet.util.XmlUtil;
  * 
  * @author rbri, frank.danek
  */
-public class WetResultWriter implements WetEngineProgressListener {
+public class WetResultWriter implements WetProgressListener {
   private static final Log LOG = LogFactory.getLog(WetResultWriter.class);
 
   private static final String TAG_WET = "wet";
@@ -55,8 +55,11 @@ public class WetResultWriter implements WetEngineProgressListener {
   private static final String TAG_VERSION = "version";
   private static final String TAG_BUILD = "build";
   private static final String TAG_START_TIME = "startTime";
+  private static final String TAG_TEST_FILE = "testFile";
   private static final String TAG_EXECUTION_TIME = "executionTime";
   private static final String TAG_TESTCASE = "testcase";
+  private static final String TAG_TESTRUN = "testrun";
+  private static final String TAG_TESTFILE = "testfile";
   private static final String TAG_COMMAND = "command";
   private static final String TAG_FIRST_PARAM = "param0";
   private static final String TAG_SECOND_PARAM = "param1";
@@ -69,7 +72,7 @@ public class WetResultWriter implements WetEngineProgressListener {
   private static final String TAG_VARIABLES = "variables";
   private static final String TAG_VARIABLE = "variable";
   private static final String TAG_PROPERTY = "property";
-  private static final String TAG_COMMAND_SET_INIT = "commandSetInit";
+  private static final String TAG_COMMAND_SET = "commandSet";
 
   private Writer writer;
   private Output output;
@@ -92,9 +95,9 @@ public class WetResultWriter implements WetEngineProgressListener {
   /**
    * {@inheritDoc}
    * 
-   * @see org.rbri.wet.core.WetEngineProgressListener#engineSetup(org.rbri.wet.core.WetEngine)
+   * @see org.rbri.wet.core.WetProgressListener#setup(org.rbri.wet.core.WetEngine)
    */
-  public void engineSetup(WetEngine aWetEngine) {
+  public void setup(WetEngine aWetEngine) {
     try {
       WetConfiguration tmpWetConfiguration = aWetEngine.getWetConfiguration();
 
@@ -148,6 +151,14 @@ public class WetResultWriter implements WetEngineProgressListener {
 
       printlnEndTag(TAG_VARIABLES);
 
+      List<WetCommandSet> tmpCommandSets = tmpWetConfiguration.getCommandSets();
+      for (WetCommandSet tmpCommandSet : tmpCommandSets) {
+        printStartTagOpener(TAG_COMMAND_SET);
+        output.print("class=\"");
+        output.print(xmlUtil.normalizeAttributeValue(tmpCommandSet.getClass().toString()));
+        output.println("\" />");
+      }
+
       printlnEndTag(TAG_CONFIGURATION);
     } catch (IOException e) {
       LOG.error(e.getMessage(), e);
@@ -157,36 +168,17 @@ public class WetResultWriter implements WetEngineProgressListener {
   /**
    * {@inheritDoc}
    * 
-   * @see org.rbri.wet.core.WetEngineProgressListener#commandSetSetup(org.rbri.wet.commandset.WetCommandSet)
+   * @see org.rbri.wet.core.WetProgressListener#start(List)
    */
-  public void commandSetSetup(WetCommandSet aWetCommandSet) {
-    try {
-      printStartTagOpener(TAG_COMMAND_SET_INIT);
-      output.print("name=\"");
-      output.print(xmlUtil.normalizeAttributeValue(aWetCommandSet.getClass().getSimpleName()));
-      output.println("\" >");
-      output.indent();
-
-      for (String tmpMessage : aWetCommandSet.getInitializationMessages()) {
-        printlnNode(TAG_MESSAGE, tmpMessage);
-      }
-      printlnEndTag(TAG_COMMAND_SET_INIT);
-    } catch (IOException e) {
-      LOG.error(e.getMessage(), e);
-    }
-  }
-
-  /**
-   * {@inheritDoc}
-   * 
-   * @see org.rbri.wet.core.WetEngineProgressListener#engineTestStart(List)
-   */
-  public void engineTestStart(List<File> aTestFilesList) {
+  public void start(List<File> aTestFilesList) {
     try {
       wetExecutionStartTime = System.currentTimeMillis();
 
       // TODO unified formation
       printlnNode(TAG_START_TIME, new SimpleDateFormat().format(new Date()));
+      for (File tmpFile : aTestFilesList) {
+        printlnNode(TAG_TEST_FILE, tmpFile.getAbsolutePath());
+      }
     } catch (IOException e) {
       LOG.error(e.getMessage(), e);
     }
@@ -195,59 +187,29 @@ public class WetResultWriter implements WetEngineProgressListener {
   /**
    * {@inheritDoc}
    * 
-   * @see org.rbri.wet.core.WetEngineProgressListener#engineResponseStored(java.lang.String)
+   * @see org.rbri.wet.core.WetProgressListener#testCaseStart(String)
    */
-  public void engineResponseStored(String aResponseFileName) {
-    try {
-      printlnNode(TAG_RESPONSE, aResponseFileName);
-    } catch (IOException e) {
-      LOG.error(e.getMessage(), e);
-    }
-  }
-
-  /**
-   * {@inheritDoc}
-   * 
-   * @see org.rbri.wet.core.WetEngineProgressListener#engineTestEnd()
-   */
-  public void engineTestEnd() {
-    try {
-      printlnNode(TAG_EXECUTION_TIME, "" + (System.currentTimeMillis() - wetExecutionStartTime));
-
-      printlnEndTag(TAG_WET);
-      output.flush();
-    } catch (IOException e) {
-      LOG.error(e.getMessage(), e);
-    }
-  }
-
-  /**
-   * {@inheritDoc}
-   * 
-   * @see org.rbri.wet.core.WetEngineProgressListener#engineFinish()
-   */
-  public void engineFinish() {
-    try {
-      writer.close();
-
-      XslTransformer tmpXslTransformer = new XslTransformer(resultFile);
-      tmpXslTransformer.transform(xslTemplates, outputDir);
-    } catch (IOException e) {
-      LOG.error(e.getMessage(), e);
-    }
-  }
-
-  /**
-   * {@inheritDoc}
-   * 
-   * @see org.rbri.wet.core.WetEngineProgressListener#contextTestStart(java.lang.String, java.lang.String)
-   */
-  public void contextTestStart(String aFileName, String aBrowserName) {
+  public void testCaseStart(String aTestName) {
     try {
       printStartTagOpener(TAG_TESTCASE);
       output.print("name=\"");
-      output.print(xmlUtil.normalizeAttributeValue(aFileName));
-      output.print("\" browser=\"");
+      output.print(xmlUtil.normalizeAttributeValue(aTestName));
+      output.println("\">");
+      output.indent();
+    } catch (IOException e) {
+      LOG.error(e.getMessage(), e);
+    }
+  }
+
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.rbri.wet.core.WetProgressListener#testRunStart(String)
+   */
+  public void testRunStart(String aBrowserName) {
+    try {
+      printStartTagOpener(TAG_TESTRUN);
+      output.print("browser=\"");
       output.print(xmlUtil.normalizeAttributeValue(aBrowserName));
       output.println("\">");
       output.indent();
@@ -259,11 +221,15 @@ public class WetResultWriter implements WetEngineProgressListener {
   /**
    * {@inheritDoc}
    * 
-   * @see org.rbri.wet.core.WetEngineProgressListener#contextTestEnd()
+   * @see org.rbri.wet.core.WetProgressListener#testFileStart(String)
    */
-  public void contextTestEnd() {
+  public void testFileStart(String aFileName) {
     try {
-      printlnEndTag(TAG_TESTCASE);
+      printStartTagOpener(TAG_TESTFILE);
+      output.print("file=\"");
+      output.print(xmlUtil.normalizeAttributeValue(aFileName));
+      output.println("\">");
+      output.indent();
     } catch (IOException e) {
       LOG.error(e.getMessage(), e);
     }
@@ -272,10 +238,10 @@ public class WetResultWriter implements WetEngineProgressListener {
   /**
    * {@inheritDoc}
    * 
-   * @see org.rbri.wet.core.WetEngineProgressListener#contextExecuteCommandStart(org.rbri.wet.core.WetContext,
+   * @see org.rbri.wet.core.WetProgressListener#executeCommandStart(org.rbri.wet.core.WetContext,
    *      org.rbri.wet.core.WetCommand)
    */
-  public void contextExecuteCommandStart(WetContext aWetContext, WetCommand aWetCommand) {
+  public void executeCommandStart(WetContext aWetContext, WetCommand aWetCommand) {
     try {
       printStartTagOpener(TAG_COMMAND);
       output.print("name=\"");
@@ -312,9 +278,9 @@ public class WetResultWriter implements WetEngineProgressListener {
   /**
    * {@inheritDoc}
    * 
-   * @see org.rbri.wet.core.WetEngineProgressListener#contextExecuteCommandEnd()
+   * @see org.rbri.wet.core.WetProgressListener#executeCommandEnd()
    */
-  public void contextExecuteCommandEnd() {
+  public void executeCommandEnd() {
     try {
       printlnNode(TAG_EXECUTION_TIME, "" + (System.currentTimeMillis() - commandExecutionStartTime));
 
@@ -327,24 +293,24 @@ public class WetResultWriter implements WetEngineProgressListener {
   /**
    * {@inheritDoc}
    * 
-   * @see org.rbri.wet.core.WetEngineProgressListener#contextExecuteCommandSuccess()
+   * @see org.rbri.wet.core.WetProgressListener#executeCommandSuccess()
    */
-  public void contextExecuteCommandSuccess() {
+  public void executeCommandSuccess() {
     // nothing to do
   }
 
   /**
    * {@inheritDoc}
    * 
-   * @see org.rbri.wet.core.WetEngineProgressListener#contextExecuteCommandFailure(org.rbri.wet.exception.AssertionFailedException)
+   * @see org.rbri.wet.core.WetProgressListener#executeCommandFailure(org.rbri.wet.exception.AssertionFailedException)
    */
-  public void contextExecuteCommandFailure(AssertionFailedException anAssertionFailedException) {
+  public void executeCommandFailure(AssertionFailedException anAssertionFailedException) {
     try {
       printErrorStart(anAssertionFailedException);
 
       Throwable tmpThrowable = anAssertionFailedException.getCause();
       if (null != tmpThrowable) {
-        contextExecuteCommandError(tmpThrowable);
+        executeCommandError(tmpThrowable);
       }
       printErrorEnd();
     } catch (IOException e) {
@@ -355,15 +321,15 @@ public class WetResultWriter implements WetEngineProgressListener {
   /**
    * {@inheritDoc}
    * 
-   * @see org.rbri.wet.core.WetEngineProgressListener#contextExecuteCommandError(java.lang.Throwable)
+   * @see org.rbri.wet.core.WetProgressListener#executeCommandError(java.lang.Throwable)
    */
-  public void contextExecuteCommandError(Throwable aThrowable) {
+  public void executeCommandError(Throwable aThrowable) {
     try {
       printErrorStart(aThrowable);
 
       Throwable tmpThrowable = aThrowable.getCause();
       if (null != tmpThrowable) {
-        contextExecuteCommandError(tmpThrowable);
+        executeCommandError(tmpThrowable);
       }
       printErrorEnd();
     } catch (IOException e) {
@@ -374,7 +340,91 @@ public class WetResultWriter implements WetEngineProgressListener {
   /**
    * {@inheritDoc}
    * 
-   * @see org.rbri.wet.core.WetEngineProgressListener#warn(java.lang.String, java.lang.String[])
+   * @see org.rbri.wet.core.WetProgressListener#testFileEnd()
+   */
+  public void testFileEnd() {
+    try {
+      printlnEndTag(TAG_TESTFILE);
+    } catch (IOException e) {
+      LOG.error(e.getMessage(), e);
+    }
+  }
+
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.rbri.wet.core.WetProgressListener#testRunEnd()
+   */
+  public void testRunEnd() {
+    try {
+      printlnEndTag(TAG_TESTRUN);
+    } catch (IOException e) {
+      LOG.error(e.getMessage(), e);
+    }
+  }
+
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.rbri.wet.core.WetProgressListener#testEnd()
+   */
+  public void testCaseEnd() {
+    try {
+      printlnEndTag(TAG_TESTCASE);
+    } catch (IOException e) {
+      LOG.error(e.getMessage(), e);
+    }
+  }
+
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.rbri.wet.core.WetProgressListener#responseStored(java.lang.String)
+   */
+  public void responseStored(String aResponseFileName) {
+    try {
+      printlnNode(TAG_RESPONSE, aResponseFileName);
+    } catch (IOException e) {
+      LOG.error(e.getMessage(), e);
+    }
+  }
+
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.rbri.wet.core.WetProgressListener#end()
+   */
+  public void end() {
+    try {
+      printlnNode(TAG_EXECUTION_TIME, "" + (System.currentTimeMillis() - wetExecutionStartTime));
+
+      printlnEndTag(TAG_WET);
+      output.flush();
+    } catch (IOException e) {
+      LOG.error(e.getMessage(), e);
+    }
+  }
+
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.rbri.wet.core.WetProgressListener#finish()
+   */
+  public void finish() {
+    try {
+      writer.close();
+
+      XslTransformer tmpXslTransformer = new XslTransformer(resultFile);
+      tmpXslTransformer.transform(xslTemplates, outputDir);
+    } catch (IOException e) {
+      LOG.error(e.getMessage(), e);
+    }
+  }
+
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.rbri.wet.core.WetProgressListener#warn(java.lang.String, java.lang.String[])
    */
   public void warn(String aMessageKey, String[] aParameterArray) {
     try {
@@ -391,7 +441,7 @@ public class WetResultWriter implements WetEngineProgressListener {
   /**
    * {@inheritDoc}
    * 
-   * @see org.rbri.wet.core.WetEngineProgressListener#info(java.lang.String, java.lang.String[])
+   * @see org.rbri.wet.core.WetProgressListener#info(java.lang.String, java.lang.String[])
    */
   public void info(String aMessageKey, String[] aParameterArray) {
     try {

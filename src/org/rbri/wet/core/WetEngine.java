@@ -53,7 +53,7 @@ public final class WetEngine {
   private WetBackend backend;
   private List<WetCommandSet> commandSets;
   private List<WetScripter> scripter;
-  private List<WetEngineProgressListener> progressListener;
+  private List<WetProgressListener> progressListener;
 
   /**
    * Constructor
@@ -64,7 +64,7 @@ public final class WetEngine {
     super();
 
     files = new LinkedList<File>();
-    progressListener = new LinkedList<WetEngineProgressListener>();
+    progressListener = new LinkedList<WetProgressListener>();
   }
 
   public void init() throws WetException {
@@ -98,33 +98,38 @@ public final class WetEngine {
     addProgressListener(new WetResultWriter());
 
     informListenersSetup();
-    for (WetCommandSet tmpCommandSet : commandSets) {
-      informListenersCommandSetSetup(tmpCommandSet);
-    }
 
     try {
-      informListenersTestStart(files);
+      informListenersStart(files);
       try {
         for (File tmpFile : files) {
+          LOG.info("Executing tests from file '" + tmpFile.getAbsolutePath() + "'");
+          informListenersTestCaseStart(tmpFile.getName());
           try {
-            // TODO
-            LOG.info("Executing tests from file '" + tmpFile.getAbsolutePath() + "'");
-
             for (Browser tmpBrowser : configuration.getBrowsers()) {
-              // new session for every (root) file and browser
-              getWetBackend().startNewSession(tmpBrowser);
+              informListenersTestRunStart(tmpBrowser.getLabel());
+              try {
+                // new session for every (root) file and browser
+                getWetBackend().startNewSession(tmpBrowser);
 
-              // setup the context
-              WetContext tmpWetContext = new WetContext(this, tmpFile, tmpBrowser);
-              tmpWetContext.execute();
+                // setup the context
+                WetContext tmpWetContext = new WetContext(this, tmpFile, tmpBrowser);
+                tmpWetContext.execute();
+              } finally {
+                informListenersTestRunEnd();
+              }
             }
           } catch (Throwable e) {
+            // TODO
             // informListenersWarn("testCaseError", new String[] {e.getMessage()});
             e.printStackTrace();
+          } finally {
+            informListenersTestCaseEnd();
           }
+
         }
       } finally {
-        informListenersTestEnd();
+        informListenersEnd();
       }
     } finally {
       informListenersFinish();
@@ -237,12 +242,12 @@ public final class WetEngine {
   }
 
   /**
-   * Adds the given {@link WetEngineProgressListener} as listener. If this listener is already added it will not be
+   * Adds the given {@link WetProgressListener} as listener. If this listener is already added it will not be
    * added again but the listener added first will be taken.
    * 
    * @param aProgressListener the listener to add
    */
-  public void addProgressListener(WetEngineProgressListener aProgressListener) {
+  public void addProgressListener(WetProgressListener aProgressListener) {
     if (progressListener.contains(aProgressListener)) {
       return;
     }
@@ -250,124 +255,163 @@ public final class WetEngine {
   }
 
   /**
-   * Informs all listeners about 'engineSetup'.
+   * Informs all listeners about 'setup'.
    */
   protected void informListenersSetup() {
-    for (WetEngineProgressListener tmpListener : progressListener) {
-      tmpListener.engineSetup(this);
+    for (WetProgressListener tmpListener : progressListener) {
+      tmpListener.setup(this);
     }
   }
 
-  /**
-   * Informs all listeners about 'commandSetSetup'.
-   * 
-   * @param aWetCommandSet the {@link WetCommandSet} that was set up
-   */
-  protected void informListenersCommandSetSetup(WetCommandSet aWetCommandSet) {
-    for (WetEngineProgressListener tmpListener : progressListener) {
-      tmpListener.commandSetSetup(aWetCommandSet);
-    }
-  }
+  // /**
+  // * Informs all listeners about 'commandSetSetup'.
+  // *
+  // * @param aWetCommandSet the {@link WetCommandSet} that was set up
+  // */
+  // protected void informListenersCommandSetSetup(WetCommandSet aWetCommandSet) {
+  // for (WetProgressListener tmpListener : progressListener) {
+  // tmpListener.commandSetSetup(aWetCommandSet);
+  // }
+  // }
 
   /**
-   * Informs all listeners about 'engineTestStart'.
+   * Informs all listeners about 'start'.
    * 
    * @param aTestFilesList the list of test files
    */
-  protected void informListenersTestStart(List<File> aTestFilesList) {
-    for (WetEngineProgressListener tmpListener : progressListener) {
-      tmpListener.engineTestStart(aTestFilesList);
+  protected void informListenersStart(List<File> aTestFilesList) {
+    for (WetProgressListener tmpListener : progressListener) {
+      tmpListener.start(aTestFilesList);
     }
   }
 
   /**
-   * Informs all listeners about 'engineTestEnd'.
-   */
-  protected void informListenersTestEnd() {
-    for (WetEngineProgressListener tmpListener : progressListener) {
-      tmpListener.engineTestEnd();
-    }
-  }
-
-  /**
-   * Informs all listeners about 'engineFinish'.
-   */
-  protected void informListenersFinish() {
-    for (WetEngineProgressListener tmpListener : progressListener) {
-      tmpListener.engineFinish();
-    }
-  }
-
-  /**
-   * Informs all listeners about 'contextTestStart'.
+   * Informs all listeners about 'testStart'.
    * 
-   * @param aFileName the file name of the test started.
+   * @param aTestName the file name of the test started.
+   */
+  protected void informListenersTestCaseStart(String aTestName) {
+    for (WetProgressListener tmpListener : progressListener) {
+      tmpListener.testCaseStart(aTestName);
+    }
+  }
+
+  /**
+   * Informs all listeners about 'testRunStart'.
+   * 
    * @param aBrowserName the browser name of the test started.
    */
-  protected void informListenersContextTestStart(String aFileName, String aBrowserName) {
-    for (WetEngineProgressListener tmpListener : progressListener) {
-      tmpListener.contextTestStart(aFileName, aBrowserName);
+  protected void informListenersTestRunStart(String aBrowserName) {
+    for (WetProgressListener tmpListener : progressListener) {
+      tmpListener.testRunStart(aBrowserName);
     }
   }
 
   /**
-   * Informs all listeners about 'contextTestEnd'.
+   * Informs all listeners about 'testFileStart'.
+   * 
+   * @param aFileName the file name of the test started.
    */
-  protected void informListenersContextTestEnd() {
-    for (WetEngineProgressListener tmpListener : progressListener) {
-      tmpListener.contextTestEnd();
+  protected void informListenersTestFileStart(String aFileName) {
+    for (WetProgressListener tmpListener : progressListener) {
+      tmpListener.testFileStart(aFileName);
     }
   }
 
   /**
-   * Informs all listeners about 'contextExecuteCommandStart'.
+   * Informs all listeners about 'executeCommandStart'.
    * 
    * @param aWetContext the {@link WetContext} used to execute the command.
    * @param aCommand the {@link WetCommand} to be executed.
    */
-  protected void informListenersContextExecuteCommandStart(WetContext aWetContext, WetCommand aCommand) {
-    for (WetEngineProgressListener tmpListener : progressListener) {
-      tmpListener.contextExecuteCommandStart(aWetContext, aCommand);
+  protected void informListenersExecuteCommandStart(WetContext aWetContext, WetCommand aCommand) {
+    for (WetProgressListener tmpListener : progressListener) {
+      tmpListener.executeCommandStart(aWetContext, aCommand);
     }
   }
 
   /**
-   * Informs all listeners about 'contextExecuteCommandEnd'.
+   * Informs all listeners about 'executeCommandEnd'.
    */
-  protected void informListenersContextExecuteCommandEnd() {
-    for (WetEngineProgressListener tmpListener : progressListener) {
-      tmpListener.contextExecuteCommandEnd();
+  protected void informListenersExecuteCommandEnd() {
+    for (WetProgressListener tmpListener : progressListener) {
+      tmpListener.executeCommandEnd();
     }
   }
 
   /**
-   * Informs all listeners about 'contextExecuteCommandSuccess'.
+   * Informs all listeners about 'executeCommandSuccess'.
    */
-  protected void informListenersContextExecuteCommandSuccess() {
-    for (WetEngineProgressListener tmpListener : progressListener) {
-      tmpListener.contextExecuteCommandSuccess();
+  protected void informListenersExecuteCommandSuccess() {
+    for (WetProgressListener tmpListener : progressListener) {
+      tmpListener.executeCommandSuccess();
     }
   }
 
   /**
-   * Informs all listeners about 'contextExecuteCommandFailure'.
+   * Informs all listeners about 'executeCommandFailure'.
    * 
    * @param anAssertionFailedException The exception thrown by the failed command.
    */
-  protected void informListenersContextExecuteCommandFailure(AssertionFailedException anAssertionFailedException) {
-    for (WetEngineProgressListener tmpListener : progressListener) {
-      tmpListener.contextExecuteCommandFailure(anAssertionFailedException);
+  protected void informListenersExecuteCommandFailure(AssertionFailedException anAssertionFailedException) {
+    for (WetProgressListener tmpListener : progressListener) {
+      tmpListener.executeCommandFailure(anAssertionFailedException);
     }
   }
 
   /**
-   * Informs all listeners about 'contextExecuteCommandError'.
+   * Informs all listeners about 'executeCommandError'.
    * 
    * @param aThrowable The exception thrown by the command.
    */
-  protected void informListenersContextExecuteCommandError(Throwable aThrowable) {
-    for (WetEngineProgressListener tmpListener : progressListener) {
-      tmpListener.contextExecuteCommandError(aThrowable);
+  protected void informListenersExecuteCommandError(Throwable aThrowable) {
+    for (WetProgressListener tmpListener : progressListener) {
+      tmpListener.executeCommandError(aThrowable);
+    }
+  }
+
+  /**
+   * Informs all listeners about 'testFileEnd'.
+   */
+  protected void informListenersTestFileEnd() {
+    for (WetProgressListener tmpListener : progressListener) {
+      tmpListener.testFileEnd();
+    }
+  }
+
+  /**
+   * Informs all listeners about 'testRunEnd'.
+   */
+  protected void informListenersTestRunEnd() {
+    for (WetProgressListener tmpListener : progressListener) {
+      tmpListener.testRunEnd();
+    }
+  }
+
+  /**
+   * Informs all listeners about 'testEnd'.
+   */
+  protected void informListenersTestCaseEnd() {
+    for (WetProgressListener tmpListener : progressListener) {
+      tmpListener.testCaseEnd();
+    }
+  }
+
+  /**
+   * Informs all listeners about 'end'.
+   */
+  protected void informListenersEnd() {
+    for (WetProgressListener tmpListener : progressListener) {
+      tmpListener.end();
+    }
+  }
+
+  /**
+   * Informs all listeners about 'finish'.
+   */
+  protected void informListenersFinish() {
+    for (WetProgressListener tmpListener : progressListener) {
+      tmpListener.finish();
     }
   }
 
@@ -378,7 +422,7 @@ public final class WetEngine {
    * @param aParameterArray the message parameters.
    */
   protected void informListenersWarn(String aMessageKey, String[] aParameterArray) {
-    for (WetEngineProgressListener tmpListener : progressListener) {
+    for (WetProgressListener tmpListener : progressListener) {
       tmpListener.warn(aMessageKey, aParameterArray);
     }
   }
@@ -390,7 +434,7 @@ public final class WetEngine {
    * @param aParameterArray the message parameters.
    */
   public void informListenersInfo(String aMessageKey, String[] aParameterArray) {
-    for (WetEngineProgressListener tmpListener : progressListener) {
+    for (WetProgressListener tmpListener : progressListener) {
       tmpListener.info(aMessageKey, aParameterArray);
     }
   }
@@ -401,8 +445,8 @@ public final class WetEngine {
    * @param aResponseFileName the file name of the stored response.
    */
   public void informListenersResponseStored(String aResponseFileName) {
-    for (WetEngineProgressListener tmpListener : progressListener) {
-      tmpListener.engineResponseStored(aResponseFileName);
+    for (WetProgressListener tmpListener : progressListener) {
+      tmpListener.responseStored(aResponseFileName);
     }
   }
 }

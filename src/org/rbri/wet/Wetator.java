@@ -23,7 +23,7 @@ import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.rbri.wet.core.WetEngine;
-import org.rbri.wet.core.WetEngineProgressListener;
+import org.rbri.wet.core.WetProgressListener;
 import org.rbri.wet.exception.WetException;
 import org.rbri.wet.gui.DialogUtil;
 import org.rbri.wet.util.SearchPattern;
@@ -48,7 +48,7 @@ public final class Wetator {
     LOG.info("    " + com.gargoylesoftware.htmlunit.Version.getProductName() + " "
         + com.gargoylesoftware.htmlunit.Version.getProductVersion());
 
-    WetEngineProgressListener tmpProgressListener = new StdOutProgressListener();
+    WetProgressListener tmpProgressListener = new StdOutProgressListener();
 
     String tmpConfigFileName = null;
     List<String> tmpFileNames = new LinkedList<String>();

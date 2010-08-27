@@ -126,24 +126,23 @@ public class WetContext {
   }
 
   private void executeCommand(WetCommand aWetCommand) {
-
-    engine.informListenersContextExecuteCommandStart(this, aWetCommand);
+    engine.informListenersExecuteCommandStart(this, aWetCommand);
     try {
       if (aWetCommand.isComment()) {
         LOG.debug("Comment: '" + aWetCommand.toPrintableString(this) + "'");
       } else {
         try {
           determineAndExecuteCommandImpl(aWetCommand);
-          engine.informListenersContextExecuteCommandSuccess();
+          engine.informListenersExecuteCommandSuccess();
         } catch (AssertionFailedException e) {
-          engine.informListenersContextExecuteCommandFailure(e);
+          engine.informListenersExecuteCommandFailure(e);
         } catch (WetException e) {
-          engine.informListenersContextExecuteCommandError(e);
+          engine.informListenersExecuteCommandError(e);
           throw e;
         }
       }
     } finally {
-      engine.informListenersContextExecuteCommandEnd();
+      engine.informListenersExecuteCommandEnd();
     }
   }
 
@@ -161,7 +160,7 @@ public class WetContext {
   public void execute() {
     File tmpFile = getFile();
 
-    engine.informListenersContextTestStart(tmpFile.getAbsolutePath(), browser.getLabel());
+    engine.informListenersTestFileStart(tmpFile.getAbsolutePath());
     try {
       List<WetCommand> tmpCommands = engine.readCommandsFromFile(tmpFile);
 
@@ -169,7 +168,7 @@ public class WetContext {
         executeCommand(tmpCommand);
       }
     } finally {
-      engine.informListenersContextTestEnd();
+      engine.informListenersTestFileEnd();
     }
   }
 

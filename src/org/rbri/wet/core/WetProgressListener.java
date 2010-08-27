@@ -19,41 +19,46 @@ package org.rbri.wet.core;
 import java.io.File;
 import java.util.List;
 
-import org.rbri.wet.commandset.WetCommandSet;
 import org.rbri.wet.exception.AssertionFailedException;
 
 /**
- * The interface for listeners of the engine
+ * The interface for listeners of the wetator run
  * progress. Register a listener to be informed.
  * 
  * @author rbri
  */
-public interface WetEngineProgressListener {
-  public void engineSetup(WetEngine aWetEngine);
+public interface WetProgressListener {
+  public void setup(WetEngine aWetEngine);
 
-  public void engineTestStart(List<File> aTestFilesList);
+  public void start(List<File> aTestFilesList);
 
-  public void engineResponseStored(String aResponseFileName);
+  public void testCaseStart(String aTestName);
 
-  public void engineTestEnd();
+  public void testRunStart(String aBrowserName);
 
-  public void engineFinish();
+  public void testFileStart(String aFileName);
 
-  public void commandSetSetup(WetCommandSet aWetCommandSet);
+  public void executeCommandStart(WetContext aWetContext, WetCommand aCommand);
 
-  public void contextTestStart(String aFileName, String aBrowserName);
+  public void executeCommandSuccess();
 
-  public void contextExecuteCommandStart(WetContext aWetContext, WetCommand aCommand);
+  public void executeCommandFailure(AssertionFailedException anAssertionFailedException);
 
-  public void contextExecuteCommandSuccess();
+  public void executeCommandError(Throwable aThrowable);
 
-  public void contextExecuteCommandFailure(AssertionFailedException anAssertionFailedException);
+  public void executeCommandEnd();
 
-  public void contextExecuteCommandError(Throwable aThrowable);
+  public void testFileEnd();
 
-  public void contextExecuteCommandEnd();
+  public void testRunEnd();
 
-  public void contextTestEnd();
+  public void testCaseEnd();
+
+  public void end();
+
+  public void finish();
+
+  public void responseStored(String aResponseFileName);
 
   public void warn(String aMessageKey, String[] aParameterArray);
 
