@@ -95,9 +95,9 @@ public class WetResultWriter implements WetProgressListener {
   /**
    * {@inheritDoc}
    * 
-   * @see org.rbri.wet.core.WetProgressListener#setup(org.rbri.wet.core.WetEngine)
+   * @see org.rbri.wet.core.WetProgressListener#start(WetEngine)
    */
-  public void setup(WetEngine aWetEngine) {
+  public void start(WetEngine aWetEngine) {
     try {
       WetConfiguration tmpWetConfiguration = aWetEngine.getWetConfiguration();
 
@@ -160,25 +160,14 @@ public class WetResultWriter implements WetProgressListener {
       }
 
       printlnEndTag(TAG_CONFIGURATION);
-    } catch (IOException e) {
-      LOG.error(e.getMessage(), e);
-    }
-  }
-
-  /**
-   * {@inheritDoc}
-   * 
-   * @see org.rbri.wet.core.WetProgressListener#start(List)
-   */
-  public void start(List<File> aTestFilesList) {
-    try {
-      wetExecutionStartTime = System.currentTimeMillis();
 
       // TODO unified formation
       printlnNode(TAG_START_TIME, new SimpleDateFormat().format(new Date()));
-      for (File tmpFile : aTestFilesList) {
+      for (File tmpFile : aWetEngine.getTestFiles()) {
         printlnNode(TAG_TEST_FILE, tmpFile.getAbsolutePath());
       }
+
+      wetExecutionStartTime = System.currentTimeMillis();
     } catch (IOException e) {
       LOG.error(e.getMessage(), e);
     }
@@ -392,26 +381,14 @@ public class WetResultWriter implements WetProgressListener {
   /**
    * {@inheritDoc}
    * 
-   * @see org.rbri.wet.core.WetProgressListener#end()
+   * @see org.rbri.wet.core.WetProgressListener#end(WetEngine)
    */
-  public void end() {
+  public void end(WetEngine aWetEngine) {
     try {
       printlnNode(TAG_EXECUTION_TIME, "" + (System.currentTimeMillis() - wetExecutionStartTime));
 
       printlnEndTag(TAG_WET);
       output.flush();
-    } catch (IOException e) {
-      LOG.error(e.getMessage(), e);
-    }
-  }
-
-  /**
-   * {@inheritDoc}
-   * 
-   * @see org.rbri.wet.core.WetProgressListener#finish()
-   */
-  public void finish() {
-    try {
       writer.close();
 
       XslTransformer tmpXslTransformer = new XslTransformer(resultFile);

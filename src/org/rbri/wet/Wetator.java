@@ -26,7 +26,6 @@ import org.rbri.wet.core.WetEngine;
 import org.rbri.wet.core.WetProgressListener;
 import org.rbri.wet.exception.WetException;
 import org.rbri.wet.gui.DialogUtil;
-import org.rbri.wet.util.SearchPattern;
 import org.rbri.wet.util.StdOutProgressListener;
 
 /**

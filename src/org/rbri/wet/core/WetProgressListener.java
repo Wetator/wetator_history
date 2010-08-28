@@ -16,9 +16,6 @@
 
 package org.rbri.wet.core;
 
-import java.io.File;
-import java.util.List;
-
 import org.rbri.wet.exception.AssertionFailedException;
 
 /**
@@ -28,9 +25,15 @@ import org.rbri.wet.exception.AssertionFailedException;
  * @author rbri
  */
 public interface WetProgressListener {
-  public void setup(WetEngine aWetEngine);
 
-  public void start(List<File> aTestFilesList);
+  /**
+   * This is called after the setup is done
+   * and before the test are starting.
+   * The listener can dump the setup
+   * 
+   * @param aWetEngine the engine
+   */
+  public void start(WetEngine aWetEngine);
 
   public void testCaseStart(String aTestName);
 
@@ -54,9 +57,12 @@ public interface WetProgressListener {
 
   public void testCaseEnd();
 
-  public void end();
-
-  public void finish();
+  /**
+   * This is called after all tests are finished.
+   * 
+   * @param aWetEngine the engine
+   */
+  public void end(WetEngine aWetEngine);
 
   public void responseStored(String aResponseFileName);
 

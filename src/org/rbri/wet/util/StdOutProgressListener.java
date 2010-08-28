@@ -17,7 +17,6 @@
 package org.rbri.wet.util;
 
 import java.io.File;
-import java.util.List;
 
 import org.rbri.wet.Version;
 import org.rbri.wet.core.WetCommand;
@@ -45,9 +44,9 @@ public class StdOutProgressListener implements WetProgressListener {
   /**
    * {@inheritDoc}
    * 
-   * @see org.rbri.wet.core.WetProgressListener#setup(org.rbri.wet.core.WetEngine)
+   * @see org.rbri.wet.core.WetProgressListener#start(WetEngine)
    */
-  public void setup(WetEngine aWetEngine) {
+  public void start(WetEngine aWetEngine) {
     println(Version.getProductName() + " " + Version.getVersion());
     println("  using " + com.gargoylesoftware.htmlunit.Version.getProductName() + " version "
         + com.gargoylesoftware.htmlunit.Version.getProductVersion());
@@ -73,21 +72,14 @@ public class StdOutProgressListener implements WetProgressListener {
         }
       }
     }
-  }
 
-  /**
-   * {@inheritDoc}
-   * 
-   * @see org.rbri.wet.core.WetProgressListener#start(java.util.List)
-   */
-  public void start(List<File> aTestFilesList) {
-    if (aTestFilesList.isEmpty()) {
+    if (aWetEngine.getTestFiles().isEmpty()) {
       println("   TestFiles: none");
       return;
     }
 
     boolean tmpFirst = true;
-    for (File tmpTestFile : aTestFilesList) {
+    for (File tmpTestFile : aWetEngine.getTestFiles()) {
       if (tmpFirst) {
         println("   TestFiles: '" + tmpTestFile.getAbsolutePath() + "'");
         tmpFirst = false;
@@ -205,17 +197,9 @@ public class StdOutProgressListener implements WetProgressListener {
   /**
    * {@inheritDoc}
    * 
-   * @see org.rbri.wet.core.WetProgressListener#end()
+   * @see org.rbri.wet.core.WetProgressListener#end(WetEngine)
    */
-  public void end() {
-  }
-
-  /**
-   * {@inheritDoc}
-   * 
-   * @see org.rbri.wet.core.WetProgressListener#finish()
-   */
-  public void finish() {
+  public void end(WetEngine aWetEngine) {
     // print summary
     println("");
     println("Steps: " + stepsCount + ",  Failures: " + failureCount + ",  Errors: " + errorCount);

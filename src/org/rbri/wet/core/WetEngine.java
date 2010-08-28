@@ -82,6 +82,15 @@ public final class WetEngine {
   }
 
   /**
+   * Returns the list of all test files.
+   * 
+   * @return the list of all test files
+   */
+  public List<File> getTestFiles() {
+    return files;
+  }
+
+  /**
    * Adds a test file to be executed.
    * 
    * @param aFile the test file to be added.
@@ -97,42 +106,36 @@ public final class WetEngine {
   public void executeTests() {
     addProgressListener(new WetResultWriter());
 
-    informListenersSetup();
-
+    informListenersStart();
     try {
-      informListenersStart(files);
-      try {
-        for (File tmpFile : files) {
-          LOG.info("Executing tests from file '" + tmpFile.getAbsolutePath() + "'");
-          informListenersTestCaseStart(tmpFile.getName());
-          try {
-            for (Browser tmpBrowser : configuration.getBrowsers()) {
-              informListenersTestRunStart(tmpBrowser.getLabel());
-              try {
-                // new session for every (root) file and browser
-                getWetBackend().startNewSession(tmpBrowser);
+      for (File tmpFile : files) {
+        LOG.info("Executing tests from file '" + tmpFile.getAbsolutePath() + "'");
+        informListenersTestCaseStart(tmpFile.getName());
+        try {
+          for (Browser tmpBrowser : configuration.getBrowsers()) {
+            informListenersTestRunStart(tmpBrowser.getLabel());
+            try {
+              // new session for every (root) file and browser
+              getWetBackend().startNewSession(tmpBrowser);
 
-                // setup the context
-                WetContext tmpWetContext = new WetContext(this, tmpFile, tmpBrowser);
-                tmpWetContext.execute();
-              } finally {
-                informListenersTestRunEnd();
-              }
+              // setup the context
+              WetContext tmpWetContext = new WetContext(this, tmpFile, tmpBrowser);
+              tmpWetContext.execute();
+            } finally {
+              informListenersTestRunEnd();
             }
-          } catch (Throwable e) {
-            // TODO
-            // informListenersWarn("testCaseError", new String[] {e.getMessage()});
-            e.printStackTrace();
-          } finally {
-            informListenersTestCaseEnd();
           }
-
+        } catch (Throwable e) {
+          // TODO
+          // informListenersWarn("testCaseError", new String[] {e.getMessage()});
+          e.printStackTrace();
+        } finally {
+          informListenersTestCaseEnd();
         }
-      } finally {
-        informListenersEnd();
+
       }
     } finally {
-      informListenersFinish();
+      informListenersEnd();
     }
   }
 
@@ -255,33 +258,11 @@ public final class WetEngine {
   }
 
   /**
-   * Informs all listeners about 'setup'.
-   */
-  protected void informListenersSetup() {
-    for (WetProgressListener tmpListener : progressListener) {
-      tmpListener.setup(this);
-    }
-  }
-
-  // /**
-  // * Informs all listeners about 'commandSetSetup'.
-  // *
-  // * @param aWetCommandSet the {@link WetCommandSet} that was set up
-  // */
-  // protected void informListenersCommandSetSetup(WetCommandSet aWetCommandSet) {
-  // for (WetProgressListener tmpListener : progressListener) {
-  // tmpListener.commandSetSetup(aWetCommandSet);
-  // }
-  // }
-
-  /**
    * Informs all listeners about 'start'.
-   * 
-   * @param aTestFilesList the list of test files
    */
-  protected void informListenersStart(List<File> aTestFilesList) {
+  protected void informListenersStart() {
     for (WetProgressListener tmpListener : progressListener) {
-      tmpListener.start(aTestFilesList);
+      tmpListener.start(this);
     }
   }
 
@@ -402,16 +383,7 @@ public final class WetEngine {
    */
   protected void informListenersEnd() {
     for (WetProgressListener tmpListener : progressListener) {
-      tmpListener.end();
-    }
-  }
-
-  /**
-   * Informs all listeners about 'finish'.
-   */
-  protected void informListenersFinish() {
-    for (WetProgressListener tmpListener : progressListener) {
-      tmpListener.finish();
+      tmpListener.end(this);
     }
   }
 
