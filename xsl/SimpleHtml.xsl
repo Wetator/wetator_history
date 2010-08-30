@@ -431,7 +431,6 @@
         <tr>
             <td align="right">
             	<xsl:attribute name="rowspan"><xsl:value-of select="count(testrun/testfile)"/></xsl:attribute>
-
             	<xsl:number/>
 			</td>
 
@@ -446,8 +445,8 @@
 
                 <a>
                     <xsl:attribute name="href">
-                        <xsl:text>#testspec</xsl:text>
-                        <xsl:number/>
+                        <xsl:text>#testspec_</xsl:text>
+                        <xsl:value-of select="testrun[1]/@id"/>
                     </xsl:attribute>
                     <xsl:value-of select="@name"/>
                 </a>
@@ -600,8 +599,8 @@
 	            <xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text>
 	            <a>
 	                <xsl:attribute name="name">
-	                    <xsl:text>testspec</xsl:text>
-	                    <xsl:number/>
+	                    <xsl:text>testspec_</xsl:text>
+                        <xsl:value-of select="../@id"/>
 	                </xsl:attribute>
 	                <xsl:value-of select="@file"/>
 	            </a>
