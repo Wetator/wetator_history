@@ -52,8 +52,6 @@ public interface WetBackend {
    * Enum for the supported browsers.
    */
   public enum Browser {
-    /** firefox 2 */
-    FIREFOX_2("Firefox2"),
     /** firefox 3 */
     FIREFOX_3("Firefox3"),
     /** firefox 3.6 */
