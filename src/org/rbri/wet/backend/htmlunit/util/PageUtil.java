@@ -19,7 +19,7 @@ package org.rbri.wet.backend.htmlunit.util;
 import java.io.IOException;
 import java.net.URL;
 
-import com.gargoylesoftware.htmlunit.SgmlPage;
+import com.gargoylesoftware.htmlunit.Page;
 import com.gargoylesoftware.htmlunit.StringWebResponse;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HTMLParser;
@@ -38,11 +38,11 @@ public final class PageUtil {
    * Wait for finishing of all jobs scheduled for execution
    * in the next 1s
    * 
-   * @param aSgmlPage the page
+   * @param aPage the page
    */
-  public static void waitForThreads(final SgmlPage aSgmlPage) {
+  public static void waitForThreads(final Page aPage) {
     // TODO make max wait time configurable
-    JavaScriptJobManager tmpJobManager = aSgmlPage.getEnclosingWindow().getJobManager();
+    JavaScriptJobManager tmpJobManager = aPage.getEnclosingWindow().getJobManager();
 
     // execute all immediate jobs
     tmpJobManager.waitForJobsStartingBefore(1000); // one second
