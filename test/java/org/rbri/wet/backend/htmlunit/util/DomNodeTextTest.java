@@ -57,7 +57,7 @@ public class DomNodeTextTest extends TestCase {
     assertEquals(tmpExpected, tmpResult.getText());
   }
 
-  public void testAsText_PageHeader() throws IOException {
+  public void testAsText_Paragraph() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<p>Paragraph 1</p>" + "<p>Paragraph 2</p>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
