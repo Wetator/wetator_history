@@ -62,7 +62,7 @@
                 }
                 function makeVisible(id) {
                     tmpImage = document.getElementById('showHide_' + id);
-                    if (tmpImage.src.indexOf("expandall.png") != -1) {
+                    if (tmpImage && tmpImage.src.indexOf("expandall.png") != -1) {
                         showOrHide(tmpImage, id);
                     }
                 }
