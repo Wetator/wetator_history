@@ -52,7 +52,6 @@ import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;
 import com.gargoylesoftware.htmlunit.History;
 import com.gargoylesoftware.htmlunit.Page;
 import com.gargoylesoftware.htmlunit.ScriptException;
-import com.gargoylesoftware.htmlunit.SgmlPage;
 import com.gargoylesoftware.htmlunit.TextPage;
 import com.gargoylesoftware.htmlunit.TopLevelWindow;
 import com.gargoylesoftware.htmlunit.WebClient;
@@ -191,10 +190,7 @@ public final class HtmlUnitBrowser implements WetBackend {
     Page tmpPage = null;
     try {
       tmpPage = webClient.getPage(aUrl);
-
-      if (tmpPage instanceof SgmlPage) {
-        PageUtil.waitForThreads((SgmlPage) tmpPage);
-      }
+      PageUtil.waitForThreads(tmpPage);
     } catch (ScriptException e) {
       Assert.fail("javascriptError", new String[] { e.getMessage() });
     } catch (WrappedException e) {
@@ -380,9 +376,6 @@ public final class HtmlUnitBrowser implements WetBackend {
   }
 
   private BrowserVersion determineBrowserVersionFor(WetBackend.Browser aWetBrowser) {
-    if (WetBackend.Browser.FIREFOX_2 == aWetBrowser) {
-      return BrowserVersion.FIREFOX_2;
-    }
     if (WetBackend.Browser.FIREFOX_3 == aWetBrowser) {
       return BrowserVersion.FIREFOX_3;
     }

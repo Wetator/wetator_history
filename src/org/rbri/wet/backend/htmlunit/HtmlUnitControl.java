@@ -33,7 +33,7 @@ import org.rbri.wet.util.SecretString;
 import com.gargoylesoftware.htmlunit.Page;
 import com.gargoylesoftware.htmlunit.ScriptException;
 import com.gargoylesoftware.htmlunit.ScriptResult;
-import com.gargoylesoftware.htmlunit.SgmlPage;
+import com.gargoylesoftware.htmlunit.WebWindow;
 import com.gargoylesoftware.htmlunit.html.DisabledElement;
 import com.gargoylesoftware.htmlunit.html.HtmlAnchor;
 import com.gargoylesoftware.htmlunit.html.HtmlButton;
@@ -120,10 +120,8 @@ public class HtmlUnitControl implements Control {
     }
 
     try {
-      Page tmpResult = tmpHtmlElement.click();
-      if (tmpResult instanceof SgmlPage) {
-        PageUtil.waitForThreads((SgmlPage) tmpResult);
-      }
+      tmpHtmlElement.click();
+      PageUtil.waitForThreads(getCurrentPage());
 
       if (tmpHtmlElement instanceof HtmlAnchor) {
         HtmlAnchor tmpHtmlAnchor = (HtmlAnchor) tmpHtmlElement;
@@ -168,10 +166,8 @@ public class HtmlUnitControl implements Control {
     }
 
     try {
-      Page tmpResult = tmpHtmlElement.mouseOver();
-      if (tmpResult instanceof SgmlPage) {
-        PageUtil.waitForThreads((SgmlPage) tmpResult);
-      }
+      tmpHtmlElement.mouseOver();
+      PageUtil.waitForThreads(getCurrentPage());
     } catch (ScriptException e) {
       Assert.fail("javascriptError", new String[] { e.getMessage() });
     } catch (WrappedException e) {
@@ -225,7 +221,7 @@ public class HtmlUnitControl implements Control {
       }
 
       // wait for silence
-      PageUtil.waitForThreads(tmpHtmlElement.getPage());
+      PageUtil.waitForThreads(getCurrentPage());
     } catch (ScriptException e) {
       Assert.fail("javascriptError", new String[] { e.getMessage() });
     } catch (WrappedException e) {
@@ -279,7 +275,7 @@ public class HtmlUnitControl implements Control {
       }
 
       // wait for silence
-      PageUtil.waitForThreads(tmpHtmlElement.getPage());
+      PageUtil.waitForThreads(getCurrentPage());
     } catch (ScriptException e) {
       Assert.fail("javascriptError", new String[] { e.getMessage() });
     } catch (WrappedException e) {
@@ -401,7 +397,7 @@ public class HtmlUnitControl implements Control {
       }
 
       // wait for silence
-      PageUtil.waitForThreads(tmpHtmlElement.getPage());
+      PageUtil.waitForThreads(getCurrentPage());
     } catch (ScriptException e) {
       Assert.fail("javascriptError", new String[] { e.getMessage() });
     } catch (WrappedException e) {
@@ -580,5 +576,18 @@ public class HtmlUnitControl implements Control {
       aStringBuilder.append(tmpName);
       aStringBuilder.append("')");
     }
+  }
+
+  private Page getCurrentPage() throws AssertionFailedException {
+    WebWindow tmpWebWindow = getHtmlElement().getPage().getWebClient().getCurrentWindow();
+    if (null == tmpWebWindow) {
+      Assert.fail("noWebWindow", null);
+    }
+    Page tmpPage = tmpWebWindow.getEnclosedPage();
+    if (null == tmpPage) {
+      Assert.fail("noPageInWebWindow", null);
+    }
+
+    return tmpPage;
   }
 }
