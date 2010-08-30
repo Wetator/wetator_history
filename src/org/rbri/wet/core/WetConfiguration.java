@@ -404,10 +404,6 @@ public final class WetConfiguration {
       return WetBackend.Browser.INTERNET_EXPLORER_8;
     }
 
-    if ("Firefox_2".equalsIgnoreCase(tmpBrowser)) {
-      return WetBackend.Browser.FIREFOX_2;
-    }
-
     if ("Firefox_3".equalsIgnoreCase(tmpBrowser)) {
       return WetBackend.Browser.FIREFOX_3;
     }
