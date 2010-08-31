@@ -128,7 +128,7 @@ public class HtmlUnitControl implements Control {
         String tmpHref = tmpHtmlAnchor.getHrefAttribute();
         if (StringUtils.isNotBlank(tmpHref) && tmpHref.startsWith("#")) {
           tmpHref = tmpHref.substring(1);
-          HtmlUnitBrowser.checkAnchor(tmpHref, tmpHtmlAnchor.getPage());
+          PageUtil.checkAnchor(tmpHref, tmpHtmlAnchor.getPage());
         }
       }
     } catch (ScriptException e) {

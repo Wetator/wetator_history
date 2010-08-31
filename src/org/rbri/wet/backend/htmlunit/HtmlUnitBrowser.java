@@ -47,7 +47,6 @@ import org.rbri.wet.util.SecretString;
 import com.gargoylesoftware.htmlunit.BrowserVersion;
 import com.gargoylesoftware.htmlunit.DefaultCredentialsProvider;
 import com.gargoylesoftware.htmlunit.DialogWindow;
-import com.gargoylesoftware.htmlunit.ElementNotFoundException;
 import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;
 import com.gargoylesoftware.htmlunit.History;
 import com.gargoylesoftware.htmlunit.Page;
@@ -72,32 +71,14 @@ public final class HtmlUnitBrowser implements WetBackend {
   /** the maximum history size */
   protected static final int MAX_HISTORY_SIZE = 15;
 
+  /** htmlunit WebClient */
   protected WebClient webClient;
+  /** ResponseStore */
   protected ResponseStore responseStore;
+  /** WetEngine */
   protected WetEngine wetEngine;
+  /** AssertionFailedException */
   protected AssertionFailedException failure;
-
-  public static void checkAnchor(String aRef, Page aPage) throws AssertionFailedException {
-    if (null == aPage) {
-      return;
-    }
-
-    if ((aPage instanceof HtmlPage) && StringUtils.isNotEmpty(aRef)) {
-      HtmlPage tmpHtmlPage = (HtmlPage) aPage;
-      try {
-        // check first with id
-        tmpHtmlPage.getHtmlElementById(aRef);
-      } catch (ElementNotFoundException e) {
-        // maybe there is an anchor with this name
-        // the browser jumps to the first one
-        try {
-          tmpHtmlPage.getAnchorByName(aRef);
-        } catch (ElementNotFoundException eNF) {
-          Assert.fail("noAnchor", new String[] { aRef });
-        }
-      }
-    }
-  }
 
   // TODO implement close
 
@@ -318,7 +299,7 @@ public final class HtmlUnitBrowser implements WetBackend {
   protected void checkAnchor(String aRef) throws AssertionFailedException {
     // check the anchor part of the url
     final Page tmpPage = getCurrentPage();
-    checkAnchor(aRef, tmpPage);
+    PageUtil.checkAnchor(aRef, tmpPage);
   }
 
   public static final class WebWindowListener implements com.gargoylesoftware.htmlunit.WebWindowListener {
@@ -352,7 +333,7 @@ public final class HtmlUnitBrowser implements WetBackend {
         String tmpRef = tmpUrl.getRef();
         if (StringUtils.isNotEmpty(tmpRef)) {
           try {
-            checkAnchor(tmpRef, tmpNewPage);
+            PageUtil.checkAnchor(tmpRef, tmpNewPage);
           } catch (AssertionFailedException e) {
             htmlUnitBrowser.failure = e;
           }

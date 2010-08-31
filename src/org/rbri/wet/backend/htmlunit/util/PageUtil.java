@@ -19,6 +19,11 @@ package org.rbri.wet.backend.htmlunit.util;
 import java.io.IOException;
 import java.net.URL;
 
+import org.apache.commons.lang.StringUtils;
+import org.rbri.wet.exception.AssertionFailedException;
+import org.rbri.wet.util.Assert;
+
+import com.gargoylesoftware.htmlunit.ElementNotFoundException;
 import com.gargoylesoftware.htmlunit.Page;
 import com.gargoylesoftware.htmlunit.StringWebResponse;
 import com.gargoylesoftware.htmlunit.WebClient;
@@ -76,6 +81,35 @@ public final class PageUtil {
     XHtmlPage tmpPage = HTMLParser.parseXHtml(tmpResponse, tmpWebClient.getCurrentWindow());
 
     return tmpPage;
+  }
+
+  /**
+   * Check, if the given Anchor is on the page
+   * 
+   * @param aRef the anchor ref
+   * @param aPage the page
+   * @throws AssertionFailedException if the anchor is not on the page
+   */
+  public static void checkAnchor(String aRef, Page aPage) throws AssertionFailedException {
+    if (null == aPage) {
+      return;
+    }
+
+    if ((aPage instanceof HtmlPage) && StringUtils.isNotEmpty(aRef)) {
+      HtmlPage tmpHtmlPage = (HtmlPage) aPage;
+      try {
+        // check first with id
+        tmpHtmlPage.getHtmlElementById(aRef);
+      } catch (ElementNotFoundException e) {
+        // maybe there is an anchor with this name
+        // the browser jumps to the first one
+        try {
+          tmpHtmlPage.getAnchorByName(aRef);
+        } catch (ElementNotFoundException eNF) {
+          Assert.fail("noAnchor", new String[] { aRef });
+        }
+      }
+    }
   }
 
   /**
