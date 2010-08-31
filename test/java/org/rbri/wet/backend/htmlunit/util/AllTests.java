@@ -34,6 +34,7 @@ public class AllTests extends TestCase {
 
     tmpSuite.addTest(HtmlElementUtilTest.suite());
     tmpSuite.addTest(DomNodeTextTest.suite());
+    tmpSuite.addTest(PageUtilTest.suite());
 
     return tmpSuite;
   }
