@@ -30,7 +30,7 @@ public final class Version {
   /**
    * The version.
    */
-  public static final String VERSION = "0.9.3 beta1";
+  public static final String VERSION = "0.9.3 beta2";
   /**
    * The build.
    */
