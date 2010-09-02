@@ -228,7 +228,7 @@ public final class XHtmlOutputter {
     } else if (aDomNode instanceof DomText) {
       String tmpText = aDomNode.asText();
       if (StringUtils.isEmpty(tmpText)) {
-        output.printDirect(tmpText);
+        output.print(tmpText);
       } else {
         if ((aDomNode.getParentNode() instanceof HtmlScript) || (aDomNode.getParentNode() instanceof HtmlStyle)) {
           output.println("<![CDATA[");

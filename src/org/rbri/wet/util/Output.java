@@ -26,11 +26,11 @@ import java.io.Writer;
  * @author rbri
  */
 public final class Output {
-  private static final String NEW_LINE = "\n";
+  private static final String NEW_LINE = System.getProperty("line.separator");
 
   private Writer writer;
-  private StringBuffer currentIndent = new StringBuffer();
-  private boolean newLineComing;
+  private StringBuffer currentIndent;
+  private boolean afterNewLine;
   private final String indent;
 
   /**
@@ -42,6 +42,7 @@ public final class Output {
   public Output(Writer aWriter, String anIndent) {
     writer = new BufferedWriter(aWriter);
     indent = anIndent;
+    currentIndent = new StringBuffer();
   }
 
   /**
@@ -52,7 +53,7 @@ public final class Output {
    * @throws IOException in case of problems
    */
   public Output print(char aChar) throws IOException {
-    writeNewLineIfNeeded();
+    writeIndentIfNeeded();
     writer.write(aChar);
 
     return this;
@@ -67,7 +68,7 @@ public final class Output {
    */
   public Output print(String aString) throws IOException {
     if (null != aString) {
-      writeNewLineIfNeeded();
+      writeIndentIfNeeded();
       writer.write(aString);
     }
 
@@ -82,23 +83,10 @@ public final class Output {
    * @throws IOException in case of problems
    */
   public Output println(String aString) throws IOException {
-    writeNewLineIfNeeded();
+    writeIndentIfNeeded();
     writer.write(aString);
-    newLineComing = true;
-
-    return this;
-  }
-
-  /**
-   * Writes the given string without inserting
-   * a line break.
-   * 
-   * @param aString the string to be written
-   * @return this (for convenience)
-   * @throws IOException in case of problems
-   */
-  public Output printDirect(String aString) throws IOException {
-    writer.write(aString);
+    writer.write(NEW_LINE);
+    afterNewLine = true;
 
     return this;
   }
@@ -107,9 +95,11 @@ public final class Output {
    * Start a newline.
    * 
    * @return this (for convenience)
+   * @throws IOException in case of problems
    */
-  public Output println() {
-    newLineComing = true;
+  public Output println() throws IOException {
+    writer.write(NEW_LINE);
+    afterNewLine = true;
 
     return this;
   }
@@ -128,16 +118,24 @@ public final class Output {
 
   /**
    * Indent the following.
+   * 
+   * @return this (for convenience)
    */
-  public void indent() {
+  public Output indent() {
     currentIndent.append(indent);
+
+    return this;
   }
 
   /**
    * clear indent
+   * 
+   * @return this (for convenience)
    */
-  public void unindent() {
+  public Output unindent() {
     currentIndent.setLength(currentIndent.length() - indent.length());
+
+    return this;
   }
 
   /**
@@ -145,11 +143,10 @@ public final class Output {
    * 
    * @throws IOException in case of problems
    */
-  private void writeNewLineIfNeeded() throws IOException {
-    if (newLineComing) {
-      writer.write(NEW_LINE);
+  private void writeIndentIfNeeded() throws IOException {
+    if (afterNewLine) {
       writer.write(currentIndent.toString());
-      newLineComing = false;
+      afterNewLine = false;
     }
   }
 }
