@@ -25,6 +25,8 @@ import java.net.URL;
 import java.net.URLDecoder;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
@@ -47,8 +49,10 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
  */
 public final class ResponseStore {
   private static final Log LOG = LogFactory.getLog(ResponseStore.class);;
+  private static final int MAX_FILE_NAME_LENGTH = 200;
 
-  private static long counter = 9999;
+  private static long counter = 99999;
+  private static Map<String, String> genericFileNames;
 
   private File outputDir;
   private boolean overwrite;
@@ -72,6 +76,7 @@ public final class ResponseStore {
     overwrite = anOverwriteFlag;
 
     initOutputDir();
+    genericFileNames = new HashMap<String, String>();
   }
 
   /**
@@ -145,10 +150,10 @@ public final class ResponseStore {
    * This method writes the page to a file with a unique name.
    * 
    * @param aUrl the url of the file to save
-   * @param aPostfix to force a specific postfix for the file name
+   * @param aSuffix to force a specific suffix for the file name
    * @return the file name used for this page
    */
-  public String storeContentFromUrl(URL aUrl, String aPostfix) {
+  public String storeContentFromUrl(URL aUrl, String aSuffix) {
     try {
       WebResponse tmpWebResponse = webClient.loadWebResponse(new WebRequest(aUrl));
       String tmpFileName = aUrl.getPath();
@@ -169,15 +174,27 @@ public final class ResponseStore {
 
       // ensure the postfix
       // this helps if the result is browsed from a real server
-      if (null != aPostfix && !tmpFileName.endsWith(aPostfix)) {
-        tmpFileName = tmpFileName + aPostfix;
+      if (null != aSuffix && !tmpFileName.endsWith(aSuffix)) {
+        tmpFileName = tmpFileName + aSuffix;
       }
 
-      File tmpCssFile = new File(storeDir, tmpFileName);
-      if (!tmpCssFile.exists()) {
+      File tmpResourceFile = new File(storeDir, tmpFileName);
+
+      if (tmpResourceFile.getAbsolutePath().length() > MAX_FILE_NAME_LENGTH) {
+        // files with really long names
+        String tmpGenericFileName = genericFileNames.get(tmpFileName);
+        if (null == tmpGenericFileName) {
+          tmpGenericFileName = "resource_" + getUniqueId();
+          genericFileNames.put(tmpFileName, tmpGenericFileName);
+        }
+        tmpFileName = "resource/" + tmpGenericFileName;
+        tmpResourceFile = new File(storeDir, tmpFileName);
+      }
+
+      if (!tmpResourceFile.exists()) {
         InputStream tmpInStream = tmpWebResponse.getContentAsStream();
-        FileUtils.forceMkdir(tmpCssFile.getParentFile());
-        FileOutputStream tmpOutStream = new FileOutputStream(tmpCssFile);
+        FileUtils.forceMkdir(tmpResourceFile.getParentFile());
+        FileOutputStream tmpOutStream = new FileOutputStream(tmpResourceFile);
         try {
           IOUtils.copy(tmpInStream, tmpOutStream);
         } finally {
@@ -193,8 +210,10 @@ public final class ResponseStore {
       // write our path
       String tmpResult;
       if (!tmpFileName.startsWith("/")) {
-        tmpResult = "/" + tmpFileName;
+        tmpResult = "./" + tmpFileName;
+        return tmpResult;
       }
+
       tmpResult = "." + tmpFileName;
       return tmpResult;
     } catch (IOException e) {
@@ -202,7 +221,6 @@ public final class ResponseStore {
     }
     return null;
   }
-
   // TODO handle background-image in css
 
   // static class ErrorHandler implements org.w3c.css.sac.ErrorHandler {
