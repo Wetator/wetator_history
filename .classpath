@@ -4,7 +4,6 @@
 	<classpathentry kind="src" path="test/java"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="lib/ant-1.8.1.jar"/>
-	<classpathentry kind="lib" path="lib/automaton-1.11.2.jar"/>
 	<classpathentry kind="lib" path="lib/commons-codec-1.4.jar"/>
 	<classpathentry kind="lib" path="lib/commons-collections-3.2.1.jar"/>
 	<classpathentry kind="lib" path="lib/commons-io-1.4.jar"/>
@@ -25,9 +24,10 @@
 	<classpathentry kind="lib" path="lib/httpclient-4.0.1.jar"/>
 	<classpathentry kind="lib" path="lib/httpcore-4.0.1.jar"/>
 	<classpathentry kind="lib" path="lib/httpmime-4.0.1.jar"/>
-	<classpathentry kind="lib" path="lib/htmlunit-2.8.jar" sourcepath="lib_src/htmlunit-2.8-sources.jar"/>
 	<classpathentry kind="lib" path="lib/htmlunit-core-js-2.8.jar"/>
 	<classpathentry kind="lib" path="lib/fontbox-1.2.1.jar"/>
 	<classpathentry kind="lib" path="lib/pdfbox-1.2.1.jar"/>
+	<classpathentry kind="lib" path="lib/automaton-1.11.3.jar"/>
+	<classpathentry kind="lib" path="lib/htmlunit-2.8.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
