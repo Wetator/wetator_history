@@ -17,6 +17,8 @@
 package org.rbri.wet.util;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
 
 import org.rbri.wet.Version;
 import org.rbri.wet.core.WetCommand;
@@ -35,11 +37,20 @@ public class StdOutProgressListener implements WetProgressListener {
 
   private static final int DOTS_PER_LINE = 100;
 
+  /** the output used */
+  protected Output output;
   private long stepsCount;
   private long errorCount;
   private long failureCount;
   private int dotCount;
   private int contextDeep;
+
+  /**
+   * Constructor
+   */
+  public StdOutProgressListener() {
+    output = new Output(new PrintWriter(System.out), "  ");
+  }
 
   /**
    * {@inheritDoc}
@@ -48,7 +59,8 @@ public class StdOutProgressListener implements WetProgressListener {
    */
   public void start(WetEngine aWetEngine) {
     println(Version.getProductName() + " " + Version.getVersion());
-    println("  using " + com.gargoylesoftware.htmlunit.Version.getProductName() + " version "
+    output.indent();
+    println("using " + com.gargoylesoftware.htmlunit.Version.getProductName() + " version "
         + com.gargoylesoftware.htmlunit.Version.getProductVersion());
 
     stepsCount = 0;
@@ -58,35 +70,40 @@ public class StdOutProgressListener implements WetProgressListener {
 
     File tmpConfigFile = aWetEngine.getConfigFile();
     if (null != tmpConfigFile) {
-      println("  Config:     '" + tmpConfigFile.getAbsolutePath() + "'");
+      println("Config:     '" + tmpConfigFile.getAbsolutePath() + "'");
 
       WetConfiguration tmpConfiguration = aWetEngine.getWetConfiguration();
-      println("   OutputDir: '" + tmpConfiguration.getOutputDir().getAbsolutePath() + "'");
+      println("OutputDir:  '" + tmpConfiguration.getOutputDir().getAbsolutePath() + "'");
+
       boolean tmpFirst = true;
       for (String tmpTemplate : tmpConfiguration.getXslTemplates()) {
         if (tmpFirst) {
-          println("   Templates: '" + tmpTemplate + "'");
+          println("Templates:  '" + tmpTemplate + "'");
           tmpFirst = false;
+          output.indent().indent().indent().indent().indent().indent();
         } else {
-          println("              '" + tmpTemplate + "'");
+          println("'" + tmpTemplate + "'");
         }
       }
     }
+    output.unindent().unindent().unindent().unindent().unindent().unindent();
 
     if (aWetEngine.getTestFiles().isEmpty()) {
-      println("   TestFiles: none");
+      println("TestFiles: none");
       return;
     }
 
     boolean tmpFirst = true;
     for (File tmpTestFile : aWetEngine.getTestFiles()) {
       if (tmpFirst) {
-        println("   TestFiles: '" + tmpTestFile.getAbsolutePath() + "'");
+        println("TestFiles:  '" + tmpTestFile.getAbsolutePath() + "'");
         tmpFirst = false;
+        output.indent().indent().indent().indent().indent().indent();
       } else {
-        println("              '" + tmpTestFile.getAbsolutePath() + "'");
+        println("'" + tmpTestFile.getAbsolutePath() + "'");
       }
     }
+    output.unindent().unindent().unindent().unindent().unindent().unindent();
   }
 
   /**
@@ -104,8 +121,8 @@ public class StdOutProgressListener implements WetProgressListener {
    * @see org.rbri.wet.core.WetProgressListener#testRunStart(String)
    */
   public void testRunStart(String aBrowserName) {
-    println("    " + aBrowserName);
-    print("    ");
+    output.indent();
+    println(aBrowserName);
     dotCount = 1;
     contextDeep = 0;
   }
@@ -184,6 +201,7 @@ public class StdOutProgressListener implements WetProgressListener {
    */
   public void testRunEnd() {
     println("");
+    output.unindent();
   }
 
   /**
@@ -235,7 +253,12 @@ public class StdOutProgressListener implements WetProgressListener {
    * @param aString the output
    */
   protected void println(String aString) {
-    System.out.println(aString);
+    try {
+      output.println(aString);
+      output.flush();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
   }
 
   /**
@@ -244,18 +267,22 @@ public class StdOutProgressListener implements WetProgressListener {
    * @param aString the output
    */
   protected void print(String aString) {
-    System.out.print(aString);
+    try {
+      output.print(aString);
+      output.flush();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
   }
 
   /**
-   * The worker that does the real output
+   * The printing of the progress output
    * 
    * @param aProgressSign the output
    */
   protected void printProgressSign(String aProgressSign) {
     if (dotCount == DOTS_PER_LINE) {
       println(aProgressSign);
-      print("    ");
       dotCount = 1;
       return;
     }
