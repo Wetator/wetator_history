@@ -34,7 +34,6 @@ import org.apache.tools.ant.types.Path;
 import org.rbri.wet.Version;
 import org.rbri.wet.core.WetConfiguration;
 import org.rbri.wet.core.WetEngine;
-import org.rbri.wet.exception.WetException;
 
 /**
  * The AntTask to execute test within an ant script.
@@ -53,48 +52,48 @@ public class Wetator extends Task {
   @SuppressWarnings("unchecked")
   @Override
   public void execute() {
-    // check the input
-
-    // config is required
-    if (null == getConfig()) {
-      throw new BuildException(Version.getProductName() + " Ant: Config-File is required (set property config).");
-    }
-
-    if (null == getFileset()) {
-      throw new BuildException(Version.getProductName()
-          + " Ant: Fileset is required (define a fileset for all your test files).");
-    }
-
-    // read the properties from project
-    Map<String, String> tmpProjectProperties = getProject().getProperties();
-    Map<String, String> tmpOurProperties = new HashMap<String, String>();
-    Set<String> tmpKeys = tmpProjectProperties.keySet();
-    for (String tmpKey : tmpKeys) {
-      if (tmpKey.startsWith(WetConfiguration.VARIABLE_PREFIX + WetConfiguration.SECRET_PREFIX)) {
-        tmpOurProperties.put(tmpKey, tmpProjectProperties.get(tmpKey));
-        log("set property '" + tmpKey + "' to '****' (from project)", Project.MSG_INFO);
-      } else if (tmpKey.startsWith(WetConfiguration.PROPERTY_PREFIX)
-          || tmpKey.startsWith(WetConfiguration.VARIABLE_PREFIX)) {
-        tmpOurProperties.put(tmpKey, tmpProjectProperties.get(tmpKey));
-        log("set property '" + tmpKey + "' to '" + tmpProjectProperties.get(tmpKey) + "' (from project)",
-            Project.MSG_INFO);
-      }
-    }
-
-    // read the properties from property sets
-    for (Property tmpProperty : properties) {
-      String tmpName = tmpProperty.getName();
-      if (tmpName.startsWith(WetConfiguration.VARIABLE_PREFIX + WetConfiguration.SECRET_PREFIX)) {
-        log("set property '" + tmpName + "' to '****'", Project.MSG_INFO);
-        tmpOurProperties.put(tmpName, tmpProperty.getValue());
-      } else if (tmpName.startsWith(WetConfiguration.PROPERTY_PREFIX)
-          || tmpName.startsWith(WetConfiguration.VARIABLE_PREFIX)) {
-        log("set property '" + tmpName + "' to '" + tmpProperty.getValue() + "'", Project.MSG_INFO);
-        tmpOurProperties.put(tmpName, tmpProperty.getValue());
-      }
-    }
-
     try {
+      // check the input
+
+      // config is required
+      if (null == getConfig()) {
+        throw new BuildException(Version.getProductName() + " Ant: Config-File is required (set property config).");
+      }
+
+      if (null == getFileset()) {
+        throw new BuildException(Version.getProductName()
+            + " Ant: Fileset is required (define a fileset for all your test files).");
+      }
+
+      // read the properties from project
+      Map<String, String> tmpProjectProperties = getProject().getProperties();
+      Map<String, String> tmpOurProperties = new HashMap<String, String>();
+      Set<String> tmpKeys = tmpProjectProperties.keySet();
+      for (String tmpKey : tmpKeys) {
+        if (tmpKey.startsWith(WetConfiguration.VARIABLE_PREFIX + WetConfiguration.SECRET_PREFIX)) {
+          tmpOurProperties.put(tmpKey, tmpProjectProperties.get(tmpKey));
+          log("set property '" + tmpKey + "' to '****' (from project)", Project.MSG_INFO);
+        } else if (tmpKey.startsWith(WetConfiguration.PROPERTY_PREFIX)
+            || tmpKey.startsWith(WetConfiguration.VARIABLE_PREFIX)) {
+          tmpOurProperties.put(tmpKey, tmpProjectProperties.get(tmpKey));
+          log("set property '" + tmpKey + "' to '" + tmpProjectProperties.get(tmpKey) + "' (from project)",
+              Project.MSG_INFO);
+        }
+      }
+
+      // read the properties from property sets
+      for (Property tmpProperty : properties) {
+        String tmpName = tmpProperty.getName();
+        if (tmpName.startsWith(WetConfiguration.VARIABLE_PREFIX + WetConfiguration.SECRET_PREFIX)) {
+          log("set property '" + tmpName + "' to '****'", Project.MSG_INFO);
+          tmpOurProperties.put(tmpName, tmpProperty.getValue());
+        } else if (tmpName.startsWith(WetConfiguration.PROPERTY_PREFIX)
+            || tmpName.startsWith(WetConfiguration.VARIABLE_PREFIX)) {
+          log("set property '" + tmpName + "' to '" + tmpProperty.getValue() + "'", Project.MSG_INFO);
+          tmpOurProperties.put(tmpName, tmpProperty.getValue());
+        }
+      }
+
       WetEngine tmpWetEngine = new WetEngine();
       if (classpath != null) {
         // AntClassLoader
@@ -120,8 +119,8 @@ public class Wetator extends Task {
       }
 
       tmpWetEngine.executeTests();
-    } catch (WetException e) {
-      throw new BuildException(Version.getProductName() + " Ant: Task failed. (" + e.getMessage() + ")", e);
+    } catch (Throwable e) {
+      throw new BuildException(Version.getProductName() + ": AntTask failed. (" + e.getMessage() + ")", e);
     }
   }
 
