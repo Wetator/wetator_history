@@ -32,7 +32,7 @@ import org.rbri.wet.exception.WetException;
 public class XmlScripterTest extends TestCase {
 
   /**
-   * @param anArgs the args-array
+   * @param anArgsArray the args-array
    */
   public static void main(String[] anArgsArray) {
     junit.textui.TestRunner.run(suite());
