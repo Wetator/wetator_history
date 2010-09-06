@@ -87,6 +87,7 @@ public final class WeightedControlList {
   }
 
   protected static final class EntryComperator implements Comparator<Entry> {
+    @Override
     public int compare(final Entry anEntry1, final Entry anEntry2) {
       int tmpWeightComp = anEntry1.foundType.getValue() - anEntry2.foundType.getValue();
 
