@@ -50,6 +50,7 @@ public class XmlScriptCreator implements WetScriptCreator {
    * 
    * @see org.rbri.wet.scriptcreator.WetScriptCreator#createScript()
    */
+  @Override
   public void createScript() throws WetException {
     XMLOutputFactory tmpFactory = XMLOutputFactory.newInstance();
     try {
@@ -107,6 +108,7 @@ public class XmlScriptCreator implements WetScriptCreator {
    * 
    * @see org.rbri.wet.scriptcreator.WetScriptCreator#setCommands(java.util.List)
    */
+  @Override
   public void setCommands(List<WetCommand> aCommandList) throws WetException {
     commands = aCommandList;
   }
@@ -116,6 +118,7 @@ public class XmlScriptCreator implements WetScriptCreator {
    * 
    * @see org.rbri.wet.scriptcreator.WetScriptCreator#setFileName(java.lang.String)
    */
+  @Override
   public void setFileName(String aFileName) {
     fileName = aFileName;
   }
@@ -125,6 +128,7 @@ public class XmlScriptCreator implements WetScriptCreator {
    * 
    * @see org.rbri.wet.scriptcreator.WetScriptCreator#setOutputDir(java.lang.String)
    */
+  @Override
   public void setOutputDir(String anOutputDir) {
     outputDir = new File(anOutputDir);
   }
