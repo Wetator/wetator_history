@@ -83,6 +83,7 @@ public class HtmlUnitControlFinder implements ControlFinder {
    * 
    * @see org.rbri.wet.backend.ControlFinder#getAllSetables(java.util.List)
    */
+  @Override
   public WeightedControlList getAllSetables(List<SecretString> aSearch) {
     WeightedControlList tmpFoundElements = new WeightedControlList();
 
@@ -235,6 +236,7 @@ public class HtmlUnitControlFinder implements ControlFinder {
    * @param aSearch the filter
    * @return the list of matching clickables
    */
+  @Override
   public WeightedControlList getAllClickables(List<SecretString> aSearch) {
     WeightedControlList tmpFoundElements = new WeightedControlList();
 
@@ -559,6 +561,7 @@ public class HtmlUnitControlFinder implements ControlFinder {
    * 
    * @see org.rbri.wet.backend.ControlFinder#getAllSelectables(java.util.List)
    */
+  @Override
   public WeightedControlList getAllSelectables(final List<SecretString> aSearch) {
     WeightedControlList tmpFoundElements = new WeightedControlList();
 
@@ -777,6 +780,7 @@ public class HtmlUnitControlFinder implements ControlFinder {
    * 
    * @see org.rbri.wet.backend.ControlFinder#getAllDeselectables(java.util.List)
    */
+  @Override
   public WeightedControlList getAllDeselectables(final List<SecretString> aSearch) {
     WeightedControlList tmpFoundElements = new WeightedControlList();
 
@@ -957,6 +961,7 @@ public class HtmlUnitControlFinder implements ControlFinder {
    * 
    * @see org.rbri.wet.backend.ControlFinder#getAllOtherControls(java.util.List)
    */
+  @Override
   public WeightedControlList getAllOtherControls(final List<SecretString> aSearch) {
     WeightedControlList tmpFoundElements = new WeightedControlList();
 
@@ -1086,6 +1091,7 @@ public class HtmlUnitControlFinder implements ControlFinder {
    * @param aSearch the filter
    * @return the list of matching elements
    */
+  @Override
   public WeightedControlList getAllElementsForText(List<SecretString> aSearch) {
     WeightedControlList tmpFoundElements = new WeightedControlList();
 

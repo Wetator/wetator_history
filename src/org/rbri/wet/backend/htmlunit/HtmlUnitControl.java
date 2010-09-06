@@ -84,6 +84,7 @@ public class HtmlUnitControl implements Control {
    * 
    * @see org.rbri.wet.backend.Control#hasSameBackendControl(org.rbri.wet.backend.Control)
    */
+  @Override
   public boolean hasSameBackendControl(Control aControl) {
     if (aControl instanceof HtmlUnitControl) {
       HtmlUnitControl tmpHtmlUnitControl = (HtmlUnitControl) aControl;
@@ -107,6 +108,7 @@ public class HtmlUnitControl implements Control {
    * 
    * @see org.rbri.wet.backend.Control#click()
    */
+  @Override
   public void click() throws AssertionFailedException {
     HtmlElement tmpHtmlElement = getHtmlElement();
     String tmpScriptErrorMessage = null;
@@ -153,6 +155,7 @@ public class HtmlUnitControl implements Control {
    * 
    * @see org.rbri.wet.backend.Control#mouseOver()
    */
+  @Override
   public void mouseOver() throws AssertionFailedException {
     HtmlElement tmpHtmlElement = getHtmlElement();
     String tmpScriptErrorMessage = null;
@@ -187,6 +190,7 @@ public class HtmlUnitControl implements Control {
    * 
    * @see org.rbri.wet.backend.Control#select()
    */
+  @Override
   public void select() throws AssertionFailedException {
     HtmlElement tmpHtmlElement = getHtmlElement();
 
@@ -239,6 +243,7 @@ public class HtmlUnitControl implements Control {
    * 
    * @see org.rbri.wet.backend.Control#deselect()
    */
+  @Override
   public void deselect() throws AssertionFailedException {
     HtmlElement tmpHtmlElement = getHtmlElement();
 
@@ -293,6 +298,7 @@ public class HtmlUnitControl implements Control {
    * 
    * @see org.rbri.wet.backend.Control#setValue(org.rbri.wet.util.SecretString, java.io.File)
    */
+  @Override
   public void setValue(final SecretString aValue, final File aDirectory) throws AssertionFailedException {
     HtmlElement tmpHtmlElement = getHtmlElement();
     String tmpScriptErrorMessage = null;
@@ -420,6 +426,7 @@ public class HtmlUnitControl implements Control {
    * 
    * @see org.rbri.wet.backend.Control#isDisabled()
    */
+  @Override
   public boolean isDisabled() throws AssertionFailedException {
     HtmlElement tmpHtmlElement = getHtmlElement();
 
@@ -438,6 +445,7 @@ public class HtmlUnitControl implements Control {
    * 
    * @see org.rbri.wet.backend.Control#isSelected()
    */
+  @Override
   public boolean isSelected() throws AssertionFailedException {
     HtmlElement tmpHtmlElement = getHtmlElement();
 
@@ -466,6 +474,7 @@ public class HtmlUnitControl implements Control {
    * 
    * @see org.rbri.wet.backend.Control#getValue()
    */
+  @Override
   public String getValue() throws AssertionFailedException {
     HtmlElement tmpHtmlElement = getHtmlElement();
 
@@ -488,6 +497,7 @@ public class HtmlUnitControl implements Control {
    * 
    * @see org.rbri.wet.backend.Control#getDescribingText()
    */
+  @Override
   public String getDescribingText() {
     HtmlElement tmpHtmlElement = getHtmlElement();
 

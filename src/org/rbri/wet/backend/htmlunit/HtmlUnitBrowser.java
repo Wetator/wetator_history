@@ -99,6 +99,7 @@ public final class HtmlUnitBrowser implements WetBackend {
   public void stop() {
   }
 
+  @Override
   public void startNewSession(WetBackend.Browser aBrowser) {
     WetConfiguration tmpConfiguration = wetEngine.getWetConfiguration();
 
@@ -167,6 +168,7 @@ public final class HtmlUnitBrowser implements WetBackend {
     }
   }
 
+  @Override
   public void openUrl(URL aUrl) throws AssertionFailedException {
     Page tmpPage = null;
     try {
@@ -198,6 +200,7 @@ public final class HtmlUnitBrowser implements WetBackend {
       wetEngine = aWetEngine;
     }
 
+    @Override
     public void handleAlert(Page aPage, String aMessage) {
       LOG.debug("handleAlert " + aMessage);
 
@@ -216,6 +219,7 @@ public final class HtmlUnitBrowser implements WetBackend {
     }
   }
 
+  @Override
   public void closeWindow(SecretString aWindowName) throws AssertionFailedException {
     List<WebWindow> tmpWebWindows = webClient.getWebWindows();
     if (tmpWebWindows.isEmpty()) {
@@ -261,6 +265,7 @@ public final class HtmlUnitBrowser implements WetBackend {
     Assert.fail("noWindowByNameToClose", new String[] { aWindowName.toString() });
   }
 
+  @Override
   public void goBackInCurrentWindow(int aSteps) throws AssertionFailedException {
     WebWindow tmpCurrentWindow = webClient.getCurrentWindow();
 
@@ -282,6 +287,7 @@ public final class HtmlUnitBrowser implements WetBackend {
     }
   }
 
+  @Override
   public void saveCurrentWindowToLog() {
     WebWindow tmpCurrentWindow = webClient.getCurrentWindow();
 
@@ -310,10 +316,12 @@ public final class HtmlUnitBrowser implements WetBackend {
       htmlUnitBrowser = anHtmlUnitBrowser;
     }
 
+    @Override
     public void webWindowOpened(WebWindowEvent anEvent) {
       LOG.debug("webWindowOpened");
     }
 
+    @Override
     public void webWindowClosed(WebWindowEvent anEvent) {
       Page tmpPage = anEvent.getWebWindow().getEnclosedPage();
       if (null == tmpPage) {
@@ -324,6 +332,7 @@ public final class HtmlUnitBrowser implements WetBackend {
       }
     }
 
+    @Override
     public void webWindowContentChanged(WebWindowEvent anEvent) {
       LOG.debug("webWindowContentChanged");
       Page tmpNewPage = anEvent.getNewPage();
@@ -385,12 +394,14 @@ public final class HtmlUnitBrowser implements WetBackend {
     return null;
   }
 
+  @Override
   public ControlFinder getControlFinder() throws AssertionFailedException {
     HtmlPage tmpHtmlPage = getCurrentHtmlPage();
 
     return new HtmlUnitControlFinder(tmpHtmlPage);
   }
 
+  @Override
   public String waitForTitle(List<SecretString> aTitleToWaitFor, long aTimeoutInSeconds)
       throws AssertionFailedException {
     HtmlPage tmpHtmlPage = getCurrentHtmlPage();
@@ -430,6 +441,7 @@ public final class HtmlUnitBrowser implements WetBackend {
     return tmpCurrentTitle;
   }
 
+  @Override
   public String waitForContent(List<SecretString> aContentToWaitFor, long aTimeoutInSeconds)
       throws AssertionFailedException {
     Page tmpPage = getCurrentPage();
@@ -464,7 +476,7 @@ public final class HtmlUnitBrowser implements WetBackend {
         if (tmpPage != getCurrentPage()) {
           tmpPage = getCurrentPage();
           if (!(tmpPage instanceof HtmlPage)) {
-            // 
+            //
             break;
           }
 
@@ -523,6 +535,7 @@ public final class HtmlUnitBrowser implements WetBackend {
     return null;
   }
 
+  @Override
   public void checkFailure() throws AssertionFailedException {
     if (null == failure) {
       return;
