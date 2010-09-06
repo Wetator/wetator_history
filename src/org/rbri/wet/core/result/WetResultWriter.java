@@ -19,7 +19,6 @@ package org.rbri.wet.core.result;
 import java.io.File;
 import java.io.IOException;
 import java.io.Writer;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -39,6 +38,7 @@ import org.rbri.wet.exception.AssertionFailedException;
 import org.rbri.wet.i18n.Messages;
 import org.rbri.wet.util.Output;
 import org.rbri.wet.util.SecretString;
+import org.rbri.wet.util.StringUtil;
 import org.rbri.wet.util.XmlUtil;
 
 /**
@@ -97,6 +97,7 @@ public class WetResultWriter implements WetProgressListener {
    * 
    * @see org.rbri.wet.core.WetProgressListener#start(WetEngine)
    */
+  @Override
   public void start(WetEngine aWetEngine) {
     try {
       WetConfiguration tmpWetConfiguration = aWetEngine.getWetConfiguration();
@@ -161,8 +162,7 @@ public class WetResultWriter implements WetProgressListener {
 
       printlnEndTag(TAG_CONFIGURATION);
 
-      // TODO unified formation
-      printlnNode(TAG_START_TIME, new SimpleDateFormat().format(new Date()));
+      printlnNode(TAG_START_TIME, StringUtil.formatDate(new Date()));
       for (File tmpFile : aWetEngine.getTestFiles()) {
         printlnNode(TAG_TEST_FILE, tmpFile.getAbsolutePath());
       }
@@ -178,6 +178,7 @@ public class WetResultWriter implements WetProgressListener {
    * 
    * @see org.rbri.wet.core.WetProgressListener#testCaseStart(String)
    */
+  @Override
   public void testCaseStart(String aTestName) {
     try {
       printStartTagOpener(TAG_TESTCASE);
@@ -195,6 +196,7 @@ public class WetResultWriter implements WetProgressListener {
    * 
    * @see org.rbri.wet.core.WetProgressListener#testRunStart(String)
    */
+  @Override
   public void testRunStart(String aBrowserName) {
     try {
       printStartTagOpener(TAG_TESTRUN);
@@ -212,6 +214,7 @@ public class WetResultWriter implements WetProgressListener {
    * 
    * @see org.rbri.wet.core.WetProgressListener#testFileStart(String)
    */
+  @Override
   public void testFileStart(String aFileName) {
     try {
       printStartTagOpener(TAG_TESTFILE);
@@ -230,6 +233,7 @@ public class WetResultWriter implements WetProgressListener {
    * @see org.rbri.wet.core.WetProgressListener#executeCommandStart(org.rbri.wet.core.WetContext,
    *      org.rbri.wet.core.WetCommand)
    */
+  @Override
   public void executeCommandStart(WetContext aWetContext, WetCommand aWetCommand) {
     try {
       printStartTagOpener(TAG_COMMAND);
@@ -269,6 +273,7 @@ public class WetResultWriter implements WetProgressListener {
    * 
    * @see org.rbri.wet.core.WetProgressListener#executeCommandEnd()
    */
+  @Override
   public void executeCommandEnd() {
     try {
       printlnNode(TAG_EXECUTION_TIME, "" + (System.currentTimeMillis() - commandExecutionStartTime));
@@ -284,6 +289,7 @@ public class WetResultWriter implements WetProgressListener {
    * 
    * @see org.rbri.wet.core.WetProgressListener#executeCommandSuccess()
    */
+  @Override
   public void executeCommandSuccess() {
     // nothing to do
   }
@@ -293,6 +299,7 @@ public class WetResultWriter implements WetProgressListener {
    * 
    * @see org.rbri.wet.core.WetProgressListener#executeCommandFailure(org.rbri.wet.exception.AssertionFailedException)
    */
+  @Override
   public void executeCommandFailure(AssertionFailedException anAssertionFailedException) {
     try {
       printErrorStart(anAssertionFailedException);
@@ -312,6 +319,7 @@ public class WetResultWriter implements WetProgressListener {
    * 
    * @see org.rbri.wet.core.WetProgressListener#executeCommandError(java.lang.Throwable)
    */
+  @Override
   public void executeCommandError(Throwable aThrowable) {
     try {
       printErrorStart(aThrowable);
@@ -331,6 +339,7 @@ public class WetResultWriter implements WetProgressListener {
    * 
    * @see org.rbri.wet.core.WetProgressListener#testFileEnd()
    */
+  @Override
   public void testFileEnd() {
     try {
       printlnEndTag(TAG_TESTFILE);
@@ -344,6 +353,7 @@ public class WetResultWriter implements WetProgressListener {
    * 
    * @see org.rbri.wet.core.WetProgressListener#testRunEnd()
    */
+  @Override
   public void testRunEnd() {
     try {
       printlnEndTag(TAG_TESTRUN);
@@ -355,8 +365,9 @@ public class WetResultWriter implements WetProgressListener {
   /**
    * {@inheritDoc}
    * 
-   * @see org.rbri.wet.core.WetProgressListener#testEnd()
+   * @see org.rbri.wet.core.WetProgressListener#testCaseEnd()
    */
+  @Override
   public void testCaseEnd() {
     try {
       printlnEndTag(TAG_TESTCASE);
@@ -370,6 +381,7 @@ public class WetResultWriter implements WetProgressListener {
    * 
    * @see org.rbri.wet.core.WetProgressListener#responseStored(java.lang.String)
    */
+  @Override
   public void responseStored(String aResponseFileName) {
     try {
       printlnNode(TAG_RESPONSE, aResponseFileName);
@@ -383,6 +395,7 @@ public class WetResultWriter implements WetProgressListener {
    * 
    * @see org.rbri.wet.core.WetProgressListener#end(WetEngine)
    */
+  @Override
   public void end(WetEngine aWetEngine) {
     try {
       printlnNode(TAG_EXECUTION_TIME, "" + (System.currentTimeMillis() - wetExecutionStartTime));
@@ -403,6 +416,7 @@ public class WetResultWriter implements WetProgressListener {
    * 
    * @see org.rbri.wet.core.WetProgressListener#warn(java.lang.String, java.lang.String[])
    */
+  @Override
   public void warn(String aMessageKey, String[] aParameterArray) {
     try {
       String tmpMessage = Messages.getMessage(aMessageKey, aParameterArray);
@@ -420,6 +434,7 @@ public class WetResultWriter implements WetProgressListener {
    * 
    * @see org.rbri.wet.core.WetProgressListener#info(java.lang.String, java.lang.String[])
    */
+  @Override
   public void info(String aMessageKey, String[] aParameterArray) {
     try {
       String tmpMessage = Messages.getMessage(aMessageKey, aParameterArray);

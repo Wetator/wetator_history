@@ -16,6 +16,8 @@
 
 package org.rbri.wet.util;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -118,6 +120,14 @@ public final class StringUtil {
     tmpResult.add(tmpCurrentToken.toString());
 
     return tmpResult;
+  }
+
+  public static String formatDate(Date aDate) {
+    if (null == aDate) {
+      return null;
+    }
+
+    return new SimpleDateFormat("dd.MM.yyyy hh:mm:ss").format(aDate);
   }
 
   /**
