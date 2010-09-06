@@ -66,6 +66,7 @@ public abstract class AbstractCommandSet implements WetCommandSet {
    * 
    * @see org.rbri.wet.commandset.WetCommandSet#getCommandImplementationFor(java.lang.String)
    */
+  @Override
   public final WetCommandImplementation getCommandImplementationFor(String aCommandName) {
     return commandImplementations.get(aCommandName);
   }
@@ -75,6 +76,7 @@ public abstract class AbstractCommandSet implements WetCommandSet {
    * 
    * @see org.rbri.wet.commandset.WetCommandSet#getInitializationMessages()
    */
+  @Override
   public List<String> getInitializationMessages() {
     return initializationMessages;
   }

@@ -89,6 +89,7 @@ public final class SqlCommandSet extends AbstractCommandSet {
      * @see org.rbri.wet.commandset.WetCommandImplementation#execute(org.rbri.wet.core.WetContext,
      *      org.rbri.wet.core.WetCommand)
      */
+    @Override
     public void execute(WetContext aWetContext, WetCommand aWetCommand) throws AssertionFailedException {
 
       SecretString tmpSqlParam = aWetCommand.getRequiredFirstParameterValue(aWetContext);
@@ -126,6 +127,7 @@ public final class SqlCommandSet extends AbstractCommandSet {
      * @see org.rbri.wet.commandset.WetCommandImplementation#execute(org.rbri.wet.core.WetContext,
      *      org.rbri.wet.core.WetCommand)
      */
+    @Override
     public void execute(WetContext aWetContext, WetCommand aWetCommand) throws AssertionFailedException {
 
       SecretString tmpSqlParam = aWetCommand.getRequiredFirstParameterValue(aWetContext);
@@ -182,6 +184,7 @@ public final class SqlCommandSet extends AbstractCommandSet {
      * @see org.rbri.wet.commandset.WetCommandImplementation#execute(org.rbri.wet.core.WetContext,
      *      org.rbri.wet.core.WetCommand)
      */
+    @Override
     public void execute(WetContext aWetContext, WetCommand aWetCommand) throws AssertionFailedException {
 
       SecretString tmpSqlParam = aWetCommand.getRequiredFirstParameterValue(aWetContext);
@@ -235,6 +238,7 @@ public final class SqlCommandSet extends AbstractCommandSet {
    * 
    * @see org.rbri.wet.commandset.WetCommandSet#initialize(java.util.Properties)
    */
+  @Override
   public void initialize(Properties aConfiguration) {
     // any connections defined?
     String tmpPropConnections = aConfiguration.getProperty(PROPERTY_CONNECTIONS);
@@ -332,6 +336,7 @@ public final class SqlCommandSet extends AbstractCommandSet {
    * 
    * @see org.rbri.wet.commandset.WetCommandSet#cleanup()
    */
+  @Override
   public void cleanup() {
     for (Map.Entry<String, Connection> tmpEntry : connections.entrySet()) {
       try {
