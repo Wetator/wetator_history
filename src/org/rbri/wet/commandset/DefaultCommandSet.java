@@ -17,7 +17,6 @@
 package org.rbri.wet.commandset;
 
 import java.io.File;
-import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
@@ -37,7 +36,6 @@ import org.rbri.wet.backend.WeightedControlList;
 import org.rbri.wet.backend.WetBackend;
 import org.rbri.wet.core.WetCommand;
 import org.rbri.wet.core.WetContext;
-import org.rbri.wet.core.result.WetResultWriter;
 import org.rbri.wet.core.variable.Variable;
 import org.rbri.wet.exception.AssertionFailedException;
 import org.rbri.wet.util.Assert;
@@ -650,17 +648,6 @@ public final class DefaultCommandSet extends AbstractCommandSet {
    * @see org.rbri.wet.commandset.WetCommandSet#cleanup()
    */
   public void cleanup() {
-    // nothing to do at the moment
-  }
-
-  /**
-   * Write the configuration to the result.
-   * 
-   * @param aWetResultWriter the writer to write to
-   * @throws IOException in case of error
-   */
-  public void printConfiguration(WetResultWriter aWetResultWriter) throws IOException {
-    // TODO this method isn't called anywhere. do we need it?
     // nothing to do at the moment
   }
 }
