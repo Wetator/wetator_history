@@ -57,6 +57,7 @@ public class StdOutProgressListener implements WetProgressListener {
    * 
    * @see org.rbri.wet.core.WetProgressListener#start(WetEngine)
    */
+  @Override
   public void start(WetEngine aWetEngine) {
     println(Version.getProductName() + " " + Version.getVersion());
     output.indent();
@@ -111,6 +112,7 @@ public class StdOutProgressListener implements WetProgressListener {
    * 
    * @see org.rbri.wet.core.WetProgressListener#testCaseStart(String)
    */
+  @Override
   public void testCaseStart(String aTestName) {
     println("Test: '" + aTestName + "'");
   }
@@ -120,6 +122,7 @@ public class StdOutProgressListener implements WetProgressListener {
    * 
    * @see org.rbri.wet.core.WetProgressListener#testRunStart(String)
    */
+  @Override
   public void testRunStart(String aBrowserName) {
     output.indent();
     println(aBrowserName);
@@ -132,6 +135,7 @@ public class StdOutProgressListener implements WetProgressListener {
    * 
    * @see org.rbri.wet.core.WetProgressListener#testFileStart(String)
    */
+  @Override
   public void testFileStart(String aFileName) {
     contextDeep++;
   }
@@ -142,6 +146,7 @@ public class StdOutProgressListener implements WetProgressListener {
    * @see org.rbri.wet.core.WetProgressListener#executeCommandStart(org.rbri.wet.core.WetContext,
    *      org.rbri.wet.core.WetCommand)
    */
+  @Override
   public void executeCommandStart(WetContext aWetContext, WetCommand aWommand) {
   }
 
@@ -150,6 +155,7 @@ public class StdOutProgressListener implements WetProgressListener {
    * 
    * @see org.rbri.wet.core.WetProgressListener#executeCommandEnd()
    */
+  @Override
   public void executeCommandEnd() {
   }
 
@@ -158,6 +164,7 @@ public class StdOutProgressListener implements WetProgressListener {
    * 
    * @see org.rbri.wet.core.WetProgressListener#executeCommandError(java.lang.Throwable)
    */
+  @Override
   public void executeCommandError(Throwable aThrowable) {
     stepsCount++;
     errorCount++;
@@ -169,6 +176,7 @@ public class StdOutProgressListener implements WetProgressListener {
    * 
    * @see org.rbri.wet.core.WetProgressListener#executeCommandFailure(org.rbri.wet.exception.AssertionFailedException)
    */
+  @Override
   public void executeCommandFailure(AssertionFailedException anAssertionFailedException) {
     stepsCount++;
     failureCount++;
@@ -180,6 +188,7 @@ public class StdOutProgressListener implements WetProgressListener {
    * 
    * @see org.rbri.wet.core.WetProgressListener#executeCommandSuccess()
    */
+  @Override
   public void executeCommandSuccess() {
     stepsCount++;
     printProgressSign(".");
@@ -190,6 +199,7 @@ public class StdOutProgressListener implements WetProgressListener {
    * 
    * @see org.rbri.wet.core.WetProgressListener#testFileEnd()
    */
+  @Override
   public void testFileEnd() {
     contextDeep--;
   }
@@ -199,6 +209,7 @@ public class StdOutProgressListener implements WetProgressListener {
    * 
    * @see org.rbri.wet.core.WetProgressListener#testRunEnd()
    */
+  @Override
   public void testRunEnd() {
     println("");
     output.unindent();
@@ -207,8 +218,9 @@ public class StdOutProgressListener implements WetProgressListener {
   /**
    * {@inheritDoc}
    * 
-   * @see org.rbri.wet.core.WetProgressListener#testEnd()
+   * @see org.rbri.wet.core.WetProgressListener#testCaseEnd()
    */
+  @Override
   public void testCaseEnd() {
   }
 
@@ -217,6 +229,7 @@ public class StdOutProgressListener implements WetProgressListener {
    * 
    * @see org.rbri.wet.core.WetProgressListener#end(WetEngine)
    */
+  @Override
   public void end(WetEngine aWetEngine) {
     // print summary
     println("");
@@ -228,6 +241,7 @@ public class StdOutProgressListener implements WetProgressListener {
    * 
    * @see org.rbri.wet.core.WetProgressListener#responseStored(java.lang.String)
    */
+  @Override
   public void responseStored(String aResponseFileName) {
   }
 
@@ -236,6 +250,7 @@ public class StdOutProgressListener implements WetProgressListener {
    * 
    * @see org.rbri.wet.core.WetProgressListener#warn(java.lang.String, java.lang.String[])
    */
+  @Override
   public void warn(String aMessageKey, String[] aParameterArray) {
   }
 
@@ -244,6 +259,7 @@ public class StdOutProgressListener implements WetProgressListener {
    * 
    * @see org.rbri.wet.core.WetProgressListener#info(java.lang.String, java.lang.String[])
    */
+  @Override
   public void info(String aMessageKey, String[] aParameterArray) {
   }
 
