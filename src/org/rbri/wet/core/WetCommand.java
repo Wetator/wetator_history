@@ -26,7 +26,8 @@ import org.rbri.wet.util.Assert;
 import org.rbri.wet.util.SecretString;
 
 /**
- * The Command
+ * The Command;
+ * our class that represents a command read from an source file.
  * 
  * @author rbri
  */
@@ -126,6 +127,13 @@ public final class WetCommand {
     thirdParameter = aThirdParameter;
   }
 
+  /**
+   * Creates a printable String from the command.
+   * This takes care of secrets.
+   * 
+   * @param aWetContext the context
+   * @return the string
+   */
   public String toPrintableString(WetContext aWetContext) {
     StringBuilder tmpResult = new StringBuilder();
     tmpResult.append("[WetCommand '");
@@ -161,7 +169,7 @@ public final class WetCommand {
     return tmpResult.toString();
   }
 
-  public List<SecretString> getFirstParameterValues(WetContext aWetContext) throws AssertionFailedException {
+  public List<SecretString> getFirstParameterValues(WetContext aWetContext) {
     Parameter tmpFirstParameter = getFirstParameter();
     List<SecretString> tmpResult = new LinkedList<SecretString>();
 
@@ -178,7 +186,7 @@ public final class WetCommand {
     return tmpResult;
   }
 
-  public SecretString getFirstParameterValue(WetContext aWetContext) throws AssertionFailedException {
+  public SecretString getFirstParameterValue(WetContext aWetContext) {
     Parameter tmpFirstParameter = getFirstParameter();
 
     if (null == tmpFirstParameter) {
@@ -245,7 +253,7 @@ public final class WetCommand {
     return tmpSecondValue;
   }
 
-  public List<SecretString> getSecondParameterValues(WetContext aWetContext) throws AssertionFailedException {
+  public List<SecretString> getSecondParameterValues(WetContext aWetContext) {
     Parameter tmpSecondParameter = getSecondParameter();
 
     List<SecretString> tmpResult = new LinkedList<SecretString>();
@@ -262,7 +270,7 @@ public final class WetCommand {
     return tmpResult;
   }
 
-  public SecretString getSecondParameterValue(WetContext aWetContext) throws AssertionFailedException {
+  public SecretString getSecondParameterValue(WetContext aWetContext) {
     Parameter tmpSecondParameter = getSecondParameter();
 
     if (null == tmpSecondParameter) {
