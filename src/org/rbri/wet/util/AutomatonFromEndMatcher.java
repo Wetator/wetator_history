@@ -114,6 +114,7 @@ public final class AutomatonFromEndMatcher implements MatchResult {
    * @throws IllegalStateException if there has not been a match attempt or
    *         if the last attempt yielded no results.
    */
+  @Override
   public int end() throws IllegalStateException {
     matchGood();
     return matchEnd;
@@ -133,6 +134,7 @@ public final class AutomatonFromEndMatcher implements MatchResult {
    * @throws IndexOutOfBoundsException if the specified capturing group does
    *         not exist in the underlying automaton.
    */
+  @Override
   public int end(final int aGroup) throws IndexOutOfBoundsException, IllegalStateException {
     onlyZero(aGroup);
     return end();
@@ -145,6 +147,7 @@ public final class AutomatonFromEndMatcher implements MatchResult {
    * @throws IllegalStateException if there has not been a match attempt or
    *         if the last attempt yielded no results.
    */
+  @Override
   public String group() throws IllegalStateException {
     matchGood();
     return chars.subSequence(matchStart, matchEnd).toString();
@@ -164,6 +167,7 @@ public final class AutomatonFromEndMatcher implements MatchResult {
    * @throws IndexOutOfBoundsException if the specified capturing group does
    *         not exist in the underlying automaton.
    */
+  @Override
   public String group(final int aGroup) throws IndexOutOfBoundsException, IllegalStateException {
     onlyZero(aGroup);
     return group();
@@ -176,6 +180,7 @@ public final class AutomatonFromEndMatcher implements MatchResult {
    * 
    * @return The number of capturing groups in the underlying automaton.
    */
+  @Override
   public int groupCount() {
     return 0;
   }
@@ -187,6 +192,7 @@ public final class AutomatonFromEndMatcher implements MatchResult {
    * @throws IllegalStateException if there has not been a match attempt or
    *         if the last attempt yielded no results.
    */
+  @Override
   public int start() throws IllegalStateException {
     matchGood();
     return matchStart;
@@ -206,6 +212,7 @@ public final class AutomatonFromEndMatcher implements MatchResult {
    * @throws IndexOutOfBoundsException if the specified capturing group does
    *         not exist in the underlying automaton.
    */
+  @Override
   public int start(int aGroup) throws IndexOutOfBoundsException, IllegalStateException {
     onlyZero(aGroup);
     return start();
