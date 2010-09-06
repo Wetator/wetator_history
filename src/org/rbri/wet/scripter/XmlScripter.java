@@ -78,6 +78,7 @@ public final class XmlScripter implements WetScripter {
    * 
    * @see org.rbri.wet.scripter.WetScripter#setFile(java.io.File)
    */
+  @Override
   public void setFile(File aFile) throws WetException {
     file = aFile;
 
@@ -96,6 +97,7 @@ public final class XmlScripter implements WetScripter {
    * 
    * @see org.rbri.wet.scripter.WetScripter#isSupported(java.io.File)
    */
+  @Override
   public boolean isSupported(File aFile) {
     String tmpFileName;
     boolean tmpResult;
@@ -179,6 +181,7 @@ public final class XmlScripter implements WetScripter {
    * 
    * @see org.rbri.wet.scripter.WetScripter#getCommands()
    */
+  @Override
   public List<WetCommand> getCommands() {
     return commands;
   }
@@ -188,6 +191,7 @@ public final class XmlScripter implements WetScripter {
    * 
    * @see org.rbri.wet.scripter.WetScripter#initialize(java.util.Properties)
    */
+  @Override
   public void initialize(Properties aConfiguration) {
     // nothing to do
   }
