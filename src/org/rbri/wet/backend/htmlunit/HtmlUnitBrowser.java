@@ -79,8 +79,8 @@ public final class HtmlUnitBrowser implements WetBackend {
   protected WetEngine wetEngine;
   /** AssertionFailedException */
   protected AssertionFailedException failure;
-
-  // TODO implement close
+  /** immediateJobsTimeout */
+  protected long immediateJobsTimeout;
 
   public HtmlUnitBrowser(WetEngine aWetEngine) {
     super();
@@ -94,6 +94,9 @@ public final class HtmlUnitBrowser implements WetBackend {
     // response store
     WetConfiguration tmpConfiguration = wetEngine.getWetConfiguration();
     responseStore = new ResponseStore(tmpConfiguration.getOutputDir(), true);
+
+    // TODO read from config
+    immediateJobsTimeout = 1L * 1000L;
   }
 
   public void stop() {
@@ -170,10 +173,9 @@ public final class HtmlUnitBrowser implements WetBackend {
 
   @Override
   public void openUrl(URL aUrl) throws AssertionFailedException {
-    Page tmpPage = null;
     try {
-      tmpPage = webClient.getPage(aUrl);
-      PageUtil.waitForThreads(tmpPage);
+      webClient.getPage(aUrl);
+      waitForImmediateJobs();
     } catch (ScriptException e) {
       Assert.fail("javascriptError", new String[] { e.getMessage() });
     } catch (WrappedException e) {
@@ -399,6 +401,35 @@ public final class HtmlUnitBrowser implements WetBackend {
     HtmlPage tmpHtmlPage = getCurrentHtmlPage();
 
     return new HtmlUnitControlFinder(tmpHtmlPage);
+  }
+
+  @Override
+  public void waitForImmediateJobs() throws AssertionFailedException {
+    // no wait
+    if (immediateJobsTimeout < 1000) {
+      // at least execute all immediate jobs
+      JavaScriptJobManager tmpJobManager = getCurrentHtmlPage().getEnclosingWindow().getJobManager();
+      tmpJobManager.waitForJobsStartingBefore(1000); // one second
+      return;
+    }
+
+    // try with wait
+    int tmpNoOfJobsLeft = 1;
+    long tmpEndTime = System.currentTimeMillis() + immediateJobsTimeout;
+    while (tmpNoOfJobsLeft > 0 && System.currentTimeMillis() < tmpEndTime) {
+      HtmlPage tmpHtmlPage = getCurrentHtmlPage();
+      JavaScriptJobManager tmpJobManager = tmpHtmlPage.getEnclosingWindow().getJobManager();
+
+      long tmpWaitTime = tmpEndTime - System.currentTimeMillis();
+      tmpNoOfJobsLeft = tmpJobManager.waitForJobsStartingBefore(Math.max(1000, tmpWaitTime));
+
+      if (tmpHtmlPage != getCurrentHtmlPage()) {
+        // current page is changed, we have to make at least one try
+        tmpNoOfJobsLeft = 1;
+        // reset the timeout
+        tmpEndTime = System.currentTimeMillis() + immediateJobsTimeout;
+      }
+    }
   }
 
   @Override

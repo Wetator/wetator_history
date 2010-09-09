@@ -186,7 +186,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       if (tmpSearchParam.isEmpty()) {
         aWetContext.informListenersWarn("firstElementUsed", new String[] { tmpControl.getDescribingText() });
       }
-      tmpControl.setValue(tmpValueParam, aWetContext.getFile().getParentFile());
+      tmpControl.setValue(tmpBackend, tmpValueParam, aWetContext.getFile().getParentFile());
       tmpBackend.saveCurrentWindowToLog();
       tmpBackend.checkFailure();
     }
@@ -219,7 +219,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       tmpFoundElements.addAll(tmpControlFinder.getAllElementsForText(tmpSearchParam));
 
       Control tmpControl = getRequiredFirstHtmlElementFrom(aWetContext, tmpFoundElements, tmpSearchParam);
-      tmpControl.click();
+      tmpControl.click(tmpBackend);
       tmpBackend.saveCurrentWindowToLog();
       tmpBackend.checkFailure();
     }
@@ -248,7 +248,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       WeightedControlList tmpFoundElements = tmpControlFinder.getAllSelectables(tmpSearchParam);
 
       Control tmpControl = getRequiredFirstHtmlElementFrom(aWetContext, tmpFoundElements, tmpSearchParam);
-      tmpControl.select();
+      tmpControl.select(tmpBackend);
       tmpBackend.saveCurrentWindowToLog();
       tmpBackend.checkFailure();
     }
@@ -277,7 +277,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       WeightedControlList tmpFoundElements = tmpControlFinder.getAllDeselectables(tmpSearchParam);
 
       Control tmpControl = getRequiredFirstHtmlElementFrom(aWetContext, tmpFoundElements, tmpSearchParam);
-      tmpControl.deselect();
+      tmpControl.deselect(tmpBackend);
       tmpBackend.saveCurrentWindowToLog();
       tmpBackend.checkFailure();
     }
@@ -305,7 +305,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       WeightedControlList tmpFoundElements = tmpControlFinder.getAllElementsForText(tmpSearchParam);
 
       Control tmpControl = getRequiredFirstHtmlElementFrom(aWetContext, tmpFoundElements, tmpSearchParam);
-      tmpControl.mouseOver();
+      tmpControl.mouseOver(tmpBackend);
       tmpBackend.saveCurrentWindowToLog();
       tmpBackend.checkFailure();
     }

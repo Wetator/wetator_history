@@ -88,6 +88,8 @@ public interface WetBackend {
 
   public void openUrl(URL aUrl) throws AssertionFailedException;
 
+  public void waitForImmediateJobs() throws AssertionFailedException;
+
   public String waitForTitle(List<SecretString> aTitleToWaitFor, long aTimeoutInSeconds)
       throws AssertionFailedException;
 

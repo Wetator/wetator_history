@@ -63,40 +63,45 @@ public interface Control {
   /**
    * Selects the control
    * 
+   * @param aWetBackend the current WetBackend
    * @throws AssertionFailedException if the control is not supported
    */
-  public void select() throws AssertionFailedException;
+  public void select(WetBackend aWetBackend) throws AssertionFailedException;
 
   /**
    * Deselects the control
    * 
+   * @param aWetBackend the current WetBackend
    * @throws AssertionFailedException if the control is not supported
    */
-  public void deselect() throws AssertionFailedException;
+  public void deselect(WetBackend aWetBackend) throws AssertionFailedException;
 
   /**
    * Sets the value of the control
    * 
+   * @param aWetBackend the current WetBackend
    * @param aValue the new value of the control
    * @param aDirectory parameter only used for file upload controls; for this the aValue is the name of a file and
    *        aDirectory points to the dir for searching the file
    * @throws AssertionFailedException if the the control supports no value
    */
-  public void setValue(SecretString aValue, File aDirectory) throws AssertionFailedException;
+  public void setValue(WetBackend aWetBackend, SecretString aValue, File aDirectory) throws AssertionFailedException;
 
   /**
    * Simulates a (mouse) click on the control
    * 
+   * @param aWetBackend the current WetBackend
    * @throws AssertionFailedException if the the control has no support for clicks
    */
-  public void click() throws AssertionFailedException;
+  public void click(WetBackend aWetBackend) throws AssertionFailedException;
 
   /**
    * Simulates moving the (mouse) over the control
    * 
+   * @param aWetBackend the current WetBackend
    * @throws AssertionFailedException if the the control has no support for mouse events
    */
-  public void mouseOver() throws AssertionFailedException;
+  public void mouseOver(WetBackend aWetBackend) throws AssertionFailedException;
 
   /**
    * Checks, if the provided Control has the same backend control
