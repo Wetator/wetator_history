@@ -405,21 +405,28 @@ public final class HtmlUnitBrowser implements WetBackend {
 
   @Override
   public void waitForImmediateJobs() throws AssertionFailedException {
-    // try with wait
-    long tmpEndTime = System.currentTimeMillis() + immediateJobsTimeout;
-    while (System.currentTimeMillis() < tmpEndTime) {
-      HtmlPage tmpHtmlPage = getCurrentHtmlPage();
-      JavaScriptJobManager tmpJobManager = tmpHtmlPage.getEnclosingWindow().getJobManager();
+    Page tmpPage = getCurrentPage();
+    if (tmpPage instanceof HtmlPage) {
+      // try with wait
+      long tmpEndTime = System.currentTimeMillis() + immediateJobsTimeout;
+      while (System.currentTimeMillis() < tmpEndTime) {
+        HtmlPage tmpHtmlPage = (HtmlPage) tmpPage;
+        JavaScriptJobManager tmpJobManager = tmpHtmlPage.getEnclosingWindow().getJobManager();
 
-      tmpJobManager.waitForJobsStartingBefore(tmpEndTime - System.currentTimeMillis());
+        tmpJobManager.waitForJobsStartingBefore(tmpEndTime - System.currentTimeMillis());
 
-      if (tmpHtmlPage == getCurrentHtmlPage()) {
-        break;
+        if (tmpPage == getCurrentPage()) {
+          break;
+        }
+
+        // current page is changed, we have to make at least one try
+        // reset the timeout
+        tmpPage = getCurrentPage();
+        if (!(tmpPage instanceof HtmlPage)) {
+          break;
+        }
+        tmpEndTime = System.currentTimeMillis() + immediateJobsTimeout;
       }
-
-      // current page is changed, we have to make at least one try
-      // reset the timeout
-      tmpEndTime = System.currentTimeMillis() + immediateJobsTimeout;
     }
   }
 
@@ -428,28 +435,35 @@ public final class HtmlUnitBrowser implements WetBackend {
       throws AssertionFailedException {
     long tmpWaitTime = Math.max(immediateJobsTimeout, aTimeoutInSeconds * 1000L);
 
-    // try with wait
-    long tmpEndTime = System.currentTimeMillis() + tmpWaitTime;
-    while (System.currentTimeMillis() < tmpEndTime) {
-      HtmlPage tmpHtmlPage = getCurrentHtmlPage();
-      String tmpCurrentTitle = tmpHtmlPage.getTitleText();
-      try {
-        Assert.assertListMatch(aTitleToWaitFor, tmpCurrentTitle);
-        return tmpCurrentTitle;
-      } catch (AssertionFailedException e) {
-        // ok, not found, maybe we have to be more patient
+    Page tmpPage = getCurrentPage();
+    if (tmpPage instanceof HtmlPage) {
+      // try with wait
+      long tmpEndTime = System.currentTimeMillis() + tmpWaitTime;
+      while (System.currentTimeMillis() < tmpEndTime) {
+        HtmlPage tmpHtmlPage = (HtmlPage) tmpPage;
+        String tmpCurrentTitle = tmpHtmlPage.getTitleText();
+        try {
+          Assert.assertListMatch(aTitleToWaitFor, tmpCurrentTitle);
+          return tmpCurrentTitle;
+        } catch (AssertionFailedException e) {
+          // ok, not found, maybe we have to be more patient
+        }
+
+        JavaScriptJobManager tmpJobManager = tmpHtmlPage.getEnclosingWindow().getJobManager();
+        tmpJobManager.waitForJobsStartingBefore(tmpEndTime - System.currentTimeMillis());
+
+        if (tmpPage == getCurrentPage()) {
+          break;
+        }
+
+        // current page is changed, we have to make at least one try
+        // reset the timeout
+        tmpPage = getCurrentPage();
+        if (!(tmpPage instanceof HtmlPage)) {
+          break;
+        }
+        tmpEndTime = System.currentTimeMillis() + tmpWaitTime;
       }
-
-      JavaScriptJobManager tmpJobManager = tmpHtmlPage.getEnclosingWindow().getJobManager();
-      tmpJobManager.waitForJobsStartingBefore(tmpEndTime - System.currentTimeMillis());
-
-      if (tmpHtmlPage == getCurrentHtmlPage()) {
-        break;
-      }
-
-      // current page is changed, we have to make at least one try
-      // reset the timeout
-      tmpEndTime = System.currentTimeMillis() + tmpWaitTime;
     }
 
     HtmlPage tmpHtmlPage = getCurrentHtmlPage();
