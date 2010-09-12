@@ -23,30 +23,46 @@ import java.util.List;
 
 /**
  * List to store HtmlElements together with some 'weight' information.
- * Then it is possible to sort the list by this criterions.
+ * Then it is possible to sort the list by this criterion.
  * 
  * @author rbri
  */
 public final class WeightedControlList {
 
+  /**
+   * Enum for the different found by types.
+   * Smaller values are more important.
+   */
   public enum FoundType {
+    /** fond by text match */
     BY_TEXT(9999),
 
+    /** fond by image source attribute match */
     BY_IMG_SRC_ATTRIBUTE(5000),
+    /** fond by image alt attribute match */
     BY_IMG_ALT_ATTRIBUTE(5000),
+    /** fond by image title attribute match */
     BY_IMG_TITLE_ATTRIBUTE(5000),
 
+    /** fond by inner image source attribute match */
     BY_INNER_IMG_SRC_ATTRIBUTE(4000),
+    /** fond by inner image alt attribute match */
     BY_INNER_IMG_ALT_ATTRIBUTE(4000),
+    /** fond by inner image title attribute match */
     BY_INNER_IMG_TITLE_ATTRIBUTE(4000),
 
+    /** fond by label text match */
     BY_LABEL_TEXT(3000),
 
+    /** fond by label match */
     BY_LABEL(2000),
 
+    /** fond by name match */
     BY_NAME(1000),
+    /** fond by inner name match */
     BY_INNER_NAME(900),
 
+    /** fond by id match */
     BY_ID(400);
 
     private int value;
@@ -55,6 +71,11 @@ public final class WeightedControlList {
       value = aValue;
     }
 
+    /**
+     * Getter for the entry value.
+     * 
+     * @return the current value
+     */
     public int getValue() {
       return value;
     }
@@ -65,12 +86,20 @@ public final class WeightedControlList {
     }
   }
 
+  /**
+   * The class for the WeightedControlList entries.
+   */
   public static final class Entry {
-    protected Control control;
-    protected FoundType foundType;
-    protected int coverage;
-    protected int distance;
+    private Control control;
+    private FoundType foundType;
+    private int coverage;
+    private int distance;
 
+    /**
+     * Returns the encapsulated Control
+     * 
+     * @return the control
+     */
     public Control getControl() {
       return control;
     }
@@ -86,7 +115,10 @@ public final class WeightedControlList {
     }
   }
 
-  protected static final class EntryComperator implements Comparator<Entry> {
+  /**
+   * The comparator used to sort WeightedControlList entries
+   */
+  private static final class EntryComperator implements Comparator<Entry> {
     @Override
     public int compare(final Entry anEntry1, final Entry anEntry2) {
       int tmpWeightComp = anEntry1.foundType.getValue() - anEntry2.foundType.getValue();
@@ -106,10 +138,21 @@ public final class WeightedControlList {
 
   private final List<Entry> entries;
 
+  /**
+   * Constructor
+   */
   public WeightedControlList() {
     entries = new LinkedList<Entry>();
   }
 
+  /**
+   * Creates a new entry and add the entry to this list.
+   * 
+   * @param aControl the control
+   * @param aFoundType the found type
+   * @param aCoverage the coverage
+   * @param aDistance the distance
+   */
   public void add(Control aControl, FoundType aFoundType, int aCoverage, int aDistance) {
     Entry tmpEntry = new Entry();
     tmpEntry.control = aControl;
@@ -120,6 +163,11 @@ public final class WeightedControlList {
     entries.add(tmpEntry);
   }
 
+  /**
+   * TODO
+   * 
+   * @return
+   */
   public List<Entry> getElementsSorted() {
     Collections.sort(entries, new EntryComperator());
 
@@ -143,10 +191,20 @@ public final class WeightedControlList {
     return tmpResult;
   }
 
+  /**
+   * Adds all elements form anOtherWeightedControlList to this list.
+   * 
+   * @param anOtherWeightedControlList the list of entries to add
+   */
   public void addAll(WeightedControlList anOtherWeightedControlList) {
     entries.addAll(anOtherWeightedControlList.entries);
   }
 
+  /**
+   * Returns true, if the list is empty
+   * 
+   * @return true or false
+   */
   public boolean isEmpty() {
     return entries.isEmpty();
   }
