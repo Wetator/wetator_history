@@ -96,6 +96,12 @@ public class Wetator extends Task {
 
       WetEngine tmpWetEngine = new WetEngine();
       if (classpath != null) {
+        log("Classpath:", Project.MSG_INFO);
+        String[] tmpPaths = classpath.list();
+        for (int i = 0; i < tmpPaths.length; i++) {
+          log("    '" + tmpPaths[i] + "'", Project.MSG_INFO);
+        }
+
         // AntClassLoader
         AntClassLoader tmpClassLoader = getProject().createClassLoader(getProject().getCoreLoader(), classpath);
         tmpClassLoader.setThreadContextLoader();
