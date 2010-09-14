@@ -49,7 +49,6 @@ public class Wetator extends Task {
   /**
    * The main method called by Ant.
    */
-  @SuppressWarnings("unchecked")
   @Override
   public void execute() {
     try {
@@ -65,41 +64,12 @@ public class Wetator extends Task {
             + " Ant: Fileset is required (define a fileset for all your test files).");
       }
 
-      // read the properties from project
-      Map<String, String> tmpProjectProperties = getProject().getProperties();
-      Map<String, String> tmpOurProperties = new HashMap<String, String>();
-      Set<String> tmpKeys = tmpProjectProperties.keySet();
-      for (String tmpKey : tmpKeys) {
-        if (tmpKey.startsWith(WetConfiguration.VARIABLE_PREFIX + WetConfiguration.SECRET_PREFIX)) {
-          tmpOurProperties.put(tmpKey, tmpProjectProperties.get(tmpKey));
-          log("set property '" + tmpKey + "' to '****' (from project)", Project.MSG_INFO);
-        } else if (tmpKey.startsWith(WetConfiguration.PROPERTY_PREFIX)
-            || tmpKey.startsWith(WetConfiguration.VARIABLE_PREFIX)) {
-          tmpOurProperties.put(tmpKey, tmpProjectProperties.get(tmpKey));
-          log("set property '" + tmpKey + "' to '" + tmpProjectProperties.get(tmpKey) + "' (from project)",
-              Project.MSG_INFO);
-        }
-      }
-
-      // read the properties from property sets
-      for (Property tmpProperty : properties) {
-        String tmpName = tmpProperty.getName();
-        if (tmpName.startsWith(WetConfiguration.VARIABLE_PREFIX + WetConfiguration.SECRET_PREFIX)) {
-          log("set property '" + tmpName + "' to '****'", Project.MSG_INFO);
-          tmpOurProperties.put(tmpName, tmpProperty.getValue());
-        } else if (tmpName.startsWith(WetConfiguration.PROPERTY_PREFIX)
-            || tmpName.startsWith(WetConfiguration.VARIABLE_PREFIX)) {
-          log("set property '" + tmpName + "' to '" + tmpProperty.getValue() + "'", Project.MSG_INFO);
-          tmpOurProperties.put(tmpName, tmpProperty.getValue());
-        }
-      }
-
       WetEngine tmpWetEngine = new WetEngine();
       if (classpath != null) {
         log("Classpath:", Project.MSG_INFO);
         String[] tmpPaths = classpath.list();
         for (int i = 0; i < tmpPaths.length; i++) {
-          log("    '" + tmpPaths[i] + "'", Project.MSG_INFO);
+          log("    '" + tmpPaths[i] + "'", Project.MSG_DEBUG);
         }
 
         // AntClassLoader
@@ -111,6 +81,7 @@ public class Wetator extends Task {
       File tmpConfigFile = new File(getProject().getBaseDir(), getConfig());
       tmpWetEngine.setConfigFileName(tmpConfigFile.getAbsolutePath());
 
+      Map<String, String> tmpOurProperties = getPropertiesFromAnt();
       tmpWetEngine.setExternalProperties(tmpOurProperties);
       AntOutProgressListener tmpListener = new AntOutProgressListener(this);
       tmpWetEngine.addProgressListener(tmpListener);
@@ -128,6 +99,45 @@ public class Wetator extends Task {
     } catch (Throwable e) {
       throw new BuildException(Version.getProductName() + ": AntTask failed. (" + e.getMessage() + ")", e);
     }
+  }
+
+  /**
+   * Reads and returns the properties form ant project and from wetator task
+   * 
+   * @return a map with properties
+   */
+  @SuppressWarnings("unchecked")
+  protected Map<String, String> getPropertiesFromAnt() {
+    // read the properties from project
+    Map<String, String> tmpProjectProperties = getProject().getProperties();
+    Map<String, String> tmpOurProperties = new HashMap<String, String>();
+    Set<String> tmpKeys = tmpProjectProperties.keySet();
+    for (String tmpKey : tmpKeys) {
+      if (tmpKey.startsWith(WetConfiguration.VARIABLE_PREFIX + WetConfiguration.SECRET_PREFIX)) {
+        tmpOurProperties.put(tmpKey, tmpProjectProperties.get(tmpKey));
+        log("set property '" + tmpKey + "' to '****' (from project)", Project.MSG_INFO);
+      } else if (tmpKey.startsWith(WetConfiguration.PROPERTY_PREFIX)
+          || tmpKey.startsWith(WetConfiguration.VARIABLE_PREFIX)) {
+        tmpOurProperties.put(tmpKey, tmpProjectProperties.get(tmpKey));
+        log("set property '" + tmpKey + "' to '" + tmpProjectProperties.get(tmpKey) + "' (from project)",
+            Project.MSG_INFO);
+      }
+    }
+
+    // read the properties from property sets
+    for (Property tmpProperty : properties) {
+      String tmpName = tmpProperty.getName();
+      if (tmpName.startsWith(WetConfiguration.VARIABLE_PREFIX + WetConfiguration.SECRET_PREFIX)) {
+        log("set property '" + tmpName + "' to '****'", Project.MSG_INFO);
+        tmpOurProperties.put(tmpName, tmpProperty.getValue());
+      } else if (tmpName.startsWith(WetConfiguration.PROPERTY_PREFIX)
+          || tmpName.startsWith(WetConfiguration.VARIABLE_PREFIX)) {
+        log("set property '" + tmpName + "' to '" + tmpProperty.getValue() + "'", Project.MSG_INFO);
+        tmpOurProperties.put(tmpName, tmpProperty.getValue());
+      }
+    }
+
+    return tmpOurProperties;
   }
 
   /**
