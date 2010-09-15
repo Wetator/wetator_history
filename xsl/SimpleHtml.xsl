@@ -108,7 +108,7 @@
                         </th>
                         <th width="2%" style="text-align: center;"><img src="./images/failed.png" width="12" height="10" alt="failed" title="failed"/></th>
                         <th width="2%" style="text-align: center;"><img src="./images/ok.png" width="12" height="10" alt="ok" title="ok"/></th>
-                        <th width="2%" style="color: grey; text-align: center;" alt="vacant" title="vacant">vac</th>
+                        <th width="2%" style="color: grey; text-align: center;" title="vacant">vac</th>
                         <th style="text-align: right;">
                             Total time:&#32;
                             <xsl:call-template name="time">
@@ -430,18 +430,18 @@
 
         <tr>
             <td align="right">
-            	<xsl:attribute name="rowspan"><xsl:value-of select="count(testrun/testfile)"/></xsl:attribute>
-            	<xsl:number/>
-			</td>
+                <xsl:attribute name="rowspan"><xsl:value-of select="count(testrun/testfile)"/></xsl:attribute>
+                <xsl:number/>
+            </td>
 
             <td align="center">
-            	<xsl:attribute name="rowspan"><xsl:value-of select="count(testrun/testfile)"/></xsl:attribute>
+                <xsl:attribute name="rowspan"><xsl:value-of select="count(testrun/testfile)"/></xsl:attribute>
 
                 <xsl:call-template name="successIndicator"/>
             </td>
 
             <td>
-            	<xsl:attribute name="rowspan"><xsl:value-of select="count(testrun/testfile)"/></xsl:attribute>
+                <xsl:attribute name="rowspan"><xsl:value-of select="count(testrun/testfile)"/></xsl:attribute>
 
                 <a>
                     <xsl:attribute name="href">
@@ -453,169 +453,168 @@
             </td>
 
             <xsl:for-each select="testrun">
-	            <xsl:for-each select="testfile">
-		            <td>
-		                <img>
-		                    <xsl:attribute name="src">
-		                        <xsl:choose>
-		                            <xsl:when test="../@browser='Firefox3'">
-		                                <xsl:text disable-output-escaping="yes">images/firefox.png</xsl:text>
-		                            </xsl:when>
-		                            <xsl:when test="../@browser='Firefox3.6'">
-		                                <xsl:text disable-output-escaping="yes">images/firefox.png</xsl:text>
-		                            </xsl:when>
-		                            <xsl:when test="../@browser='IE6'">
-		                                <xsl:text disable-output-escaping="yes">images/ie6.png</xsl:text>
-		                            </xsl:when>
-		                            <xsl:when test="../@browser='IE7'">
-		                                <xsl:text disable-output-escaping="yes">images/ie7.png</xsl:text>
-		                            </xsl:when>
-		                            <xsl:when test="../@browser='IE8'">
-		                                <xsl:text disable-output-escaping="yes">images/ie8.png</xsl:text>
-		                            </xsl:when>
-		                            <xsl:otherwise>
-		                                <xsl:text disable-output-escaping="yes">images/firefox.png</xsl:text>
-		                            </xsl:otherwise>
-		                        </xsl:choose>
-		                    </xsl:attribute>
-		                    <xsl:attribute name="alt">
-		                        <xsl:value-of select="../@browser"/>
-		                    </xsl:attribute>
-		                    <xsl:attribute name="title">
-		                        <xsl:value-of select="../@browser"/>
-		                    </xsl:attribute>
-		                </img>
-		            </td>
+                <xsl:for-each select="testfile">
+                    <td>
+                        <img>
+                            <xsl:attribute name="src">
+                                <xsl:choose>
+                                    <xsl:when test="../@browser='Firefox3'">
+                                        <xsl:text disable-output-escaping="yes">images/firefox.png</xsl:text>
+                                    </xsl:when>
+                                    <xsl:when test="../@browser='Firefox3.6'">
+                                        <xsl:text disable-output-escaping="yes">images/firefox.png</xsl:text>
+                                    </xsl:when>
+                                    <xsl:when test="../@browser='IE6'">
+                                        <xsl:text disable-output-escaping="yes">images/ie6.png</xsl:text>
+                                    </xsl:when>
+                                    <xsl:when test="../@browser='IE7'">
+                                        <xsl:text disable-output-escaping="yes">images/ie7.png</xsl:text>
+                                    </xsl:when>
+                                    <xsl:when test="../@browser='IE8'">
+                                        <xsl:text disable-output-escaping="yes">images/ie8.png</xsl:text>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:text disable-output-escaping="yes">images/firefox.png</xsl:text>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                            </xsl:attribute>
+                            <xsl:attribute name="alt">
+                                <xsl:value-of select="../@browser"/>
+                            </xsl:attribute>
+                            <xsl:attribute name="title">
+                                <xsl:value-of select="../@browser"/>
+                            </xsl:attribute>
+                        </img>
+                    </td>
 
 
-		            <td align="right">
-		                 <xsl:value-of select="count(command[not(@isComment)])"/>
-		            </td>
-		            <td align="right">
-		                 (<xsl:value-of select="count(descendant::command[not(@isComment)])"/>)
-		            </td>
+                    <td align="right">
+                         <xsl:value-of select="count(command[not(@isComment)])"/>
+                    </td>
+                    <td align="right">
+                         (<xsl:value-of select="count(descendant::command[not(@isComment)])"/>)
+                    </td>
 
-		            <td width="2px"><xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text></td>
-		            <td width="80%">
-		                <xsl:variable name="linelength" select="0"/>
+                    <td width="2px"><xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text></td>
+                    <td width="80%">
+                        <xsl:variable name="linelength" select="0"/>
 
-		                <table align="left" cellpadding="0" cellspacing="0">
-		                    <tr>
-		                        <xsl:for-each select="./command[not(@isComment)]">
-		                            <xsl:variable name="noOfErrors" select="sum(descendant-or-self::error)"/>
-		                            <xsl:variable name="noOfSubSteps" select="count(descendant::command[not(@isComment)])"/>
-		                            <xsl:variable name="vacant" select="preceding-sibling::*[descendant-or-self::error]"/>
+                        <table align="left" cellpadding="0" cellspacing="0">
+                            <tr>
+                                <xsl:for-each select="./command[not(@isComment)]">
+                                    <xsl:variable name="noOfErrors" select="sum(descendant-or-self::error)"/>
+                                    <xsl:variable name="noOfSubSteps" select="count(descendant::command[not(@isComment)])"/>
+                                    <xsl:variable name="vacant" select="preceding-sibling::*[descendant-or-self::error]"/>
 
-		                            <!-- start new line if needed -->
-		                            <xsl:if test="(position() mod $noOfStepsInLine = 1) and (position() &gt; 1)">
-		                                <xsl:text disable-output-escaping="yes">&lt;/tr&gt;&lt;tr&gt;</xsl:text>
-		                            </xsl:if>
+                                    <!-- start new line if needed -->
+                                    <xsl:if test="(position() mod $noOfStepsInLine = 1) and (position() &gt; 1)">
+                                        <xsl:text disable-output-escaping="yes">&lt;/tr&gt;&lt;tr&gt;</xsl:text>
+                                    </xsl:if>
 
-		                            <td class="step" width="4px">
-		                                <xsl:attribute name="bgcolor">
-		                                    <xsl:choose>
-		                                        <xsl:when test="$noOfErrors = 0">
-		                                            <xsl:choose>
-		                                                <xsl:when test="$vacant">
-		                                                    <xsl:value-of select="$step.vacantOkColor"/>
-		                                                </xsl:when>
-		                                                <xsl:otherwise>
-		                                                    <xsl:value-of select="$step.okColor"/>
-		                                                </xsl:otherwise>
-		                                            </xsl:choose>
-		                                        </xsl:when>
-		                                        <xsl:otherwise>
-		                                            <xsl:choose>
-		                                                <xsl:when test="$vacant">
-		                                                    <xsl:value-of select="$step.vacantFailedColor"/>
-		                                                </xsl:when>
-		                                                <xsl:otherwise>
-		                                                    <xsl:value-of select="$step.failedColor"/>
-		                                                </xsl:otherwise>
-		                                            </xsl:choose>
-		                                        </xsl:otherwise>
-		                                    </xsl:choose>
-		                                </xsl:attribute>
+                                    <td class="step" width="4px">
+                                        <xsl:attribute name="bgcolor">
+                                            <xsl:choose>
+                                                <xsl:when test="$noOfErrors = 0">
+                                                    <xsl:choose>
+                                                        <xsl:when test="$vacant">
+                                                            <xsl:value-of select="$step.vacantOkColor"/>
+                                                        </xsl:when>
+                                                        <xsl:otherwise>
+                                                            <xsl:value-of select="$step.okColor"/>
+                                                        </xsl:otherwise>
+                                                    </xsl:choose>
+                                                </xsl:when>
+                                                <xsl:otherwise>
+                                                    <xsl:choose>
+                                                        <xsl:when test="$vacant">
+                                                            <xsl:value-of select="$step.vacantFailedColor"/>
+                                                        </xsl:when>
+                                                        <xsl:otherwise>
+                                                            <xsl:value-of select="$step.failedColor"/>
+                                                        </xsl:otherwise>
+                                                    </xsl:choose>
+                                                </xsl:otherwise>
+                                            </xsl:choose>
+                                        </xsl:attribute>
 
-		                                <xsl:choose>
-		                                  <xsl:when test="error">
-		                                     <xsl:attribute name="title">
-		                                         <xsl:value-of select="./error/message"/>
-		                                       </xsl:attribute>
-		                                  </xsl:when>
-		                                  <xsl:when test="$noOfErrors != 0">
-		                                    <xsl:attribute name="title">
-		                                         <xsl:value-of select="normalize-space(./testcase/command/error)"/>
-		                                       </xsl:attribute>
-		                                  </xsl:when>
-		                                </xsl:choose>
+                                        <xsl:choose>
+                                          <xsl:when test="error">
+                                             <xsl:attribute name="title">
+                                                 <xsl:value-of select="./error/message"/>
+                                               </xsl:attribute>
+                                          </xsl:when>
+                                          <xsl:when test="$noOfErrors != 0">
+                                            <xsl:attribute name="title">
+                                                 <xsl:value-of select="normalize-space(./testcase/command/error)"/>
+                                               </xsl:attribute>
+                                          </xsl:when>
+                                        </xsl:choose>
 
-		                                <xsl:element name="a">
-		                                  <xsl:attribute name="width">4px</xsl:attribute>
-		                                    <xsl:attribute name="class">linkToCommand</xsl:attribute>
-		                                    <xsl:attribute name="href">
-		                                        <xsl:text>#</xsl:text>
-		                                        <xsl:value-of select="@id"/>
-		                                    </xsl:attribute>
-		                                    <xsl:choose>
-		                                        <xsl:when test="$noOfSubSteps &gt; 0">
-		                                            <xsl:value-of select="$noOfSubSteps"/>
-		                                        </xsl:when>
-		                                        <xsl:otherwise>
-		                                            <xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text>
-		                                        </xsl:otherwise>
-		                                    </xsl:choose>
-		                                </xsl:element>
-		                            </td>
+                                        <xsl:element name="a">
+                                            <xsl:attribute name="class">linkToCommand</xsl:attribute>
+                                            <xsl:attribute name="href">
+                                                <xsl:text>#</xsl:text>
+                                                <xsl:value-of select="@id"/>
+                                            </xsl:attribute>
+                                            <xsl:choose>
+                                                <xsl:when test="$noOfSubSteps &gt; 0">
+                                                    <xsl:value-of select="$noOfSubSteps"/>
+                                                </xsl:when>
+                                                <xsl:otherwise>
+                                                    <xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text>
+                                                </xsl:otherwise>
+                                            </xsl:choose>
+                                        </xsl:element>
+                                    </td>
 
 
-		                        </xsl:for-each>
-		                        <td style="border-left:1px solid #999;"><xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text></td>
-		                    </tr>
-		                </table>
-		            </td>
-		            <xsl:variable name="duration" select="sum(./command/executionTime)"/>
-		            <td align="right">
-		                <xsl:call-template name="time">
-		                    <xsl:with-param name="msecs" select="$duration"/>
-		                </xsl:call-template>
-		            </td>
+                                </xsl:for-each>
+                                <td style="border-left:1px solid #999;"><xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text></td>
+                            </tr>
+                        </table>
+                    </td>
+                    <xsl:variable name="duration" select="sum(./command/executionTime)"/>
+                    <td align="right">
+                        <xsl:call-template name="time">
+                            <xsl:with-param name="msecs" select="$duration"/>
+                        </xsl:call-template>
+                    </td>
 
-	            </xsl:for-each>
+                </xsl:for-each>
 
-	            <xsl:text disable-output-escaping="yes">&lt;/tr&gt;</xsl:text>
-	            <xsl:text disable-output-escaping="yes">&lt;tr&gt;</xsl:text>
+                <xsl:text disable-output-escaping="yes">&lt;/tr&gt;</xsl:text>
+                <xsl:text disable-output-escaping="yes">&lt;tr&gt;</xsl:text>
             </xsl:for-each>
             <td colspan="9">
-            	<hr></hr>
+                <hr></hr>
             </td>
         </tr>
     </xsl:template>
 
     <xsl:template name="testresult">
-		<xsl:for-each select="testrun/testfile">
-	        <h2>
-	            <xsl:call-template name="successIndicator"/>
-	            <xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text>
-	            <a>
-	                <xsl:attribute name="name">
-	                    <xsl:text>testspec_</xsl:text>
+        <xsl:for-each select="testrun/testfile">
+            <h2>
+                <xsl:call-template name="successIndicator"/>
+                <xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text>
+                <a>
+                    <xsl:attribute name="name">
+                        <xsl:text>testspec_</xsl:text>
                         <xsl:value-of select="../@id"/>
-	                </xsl:attribute>
-	                <xsl:value-of select="@file"/>
-	            </a>
-	            <xsl:text> (</xsl:text>
-	            <xsl:value-of select="../@browser"/>
-	            <xsl:text>)</xsl:text>
-	        </h2>
-	        <xsl:call-template name="testcaseTable" />
+                    </xsl:attribute>
+                    <xsl:value-of select="@file"/>
+                </a>
+                <xsl:text> (</xsl:text>
+                <xsl:value-of select="../@browser"/>
+                <xsl:text>)</xsl:text>
+            </h2>
+            <xsl:call-template name="testcaseTable" />
 
-	        <p>
-	            <a href="#overview">
-	                <img src="images/top.png" width="11" height="10" alt="top"/>
-	                Back to Test Report Overview
-	            </a>
-	        </p>
+            <p>
+                <a href="#overview">
+                    <img src="images/top.png" width="11" height="10" alt="top"/>
+                    Back to Test Report Overview
+                </a>
+            </p>
         </xsl:for-each>
     </xsl:template>
 
@@ -868,28 +867,28 @@
                 <td class="light"/>
                 <td class="light"/>
                 <td class="message" colspan="4">
-	                <table cellpadding="1" cellspacing="0" width="100%">
-	                    <xsl:for-each select="./log">
-	                        <tr>
-	                            <td>
-	                        <xsl:choose>
-	                            <xsl:when test="./level[text() = 'INFO']">
-	                                <img src="./images/log_info.png" width="11" height="11" alt="failed"/>
-	                            </xsl:when>
-	                            <xsl:when test="./level[text() = 'WARN']">
-	                                <img src="./images/log_warn.png" width="11" height="11" alt="failed"/>
-	                            </xsl:when>
-	                            <xsl:otherwise>
-	                                <xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text>
-	                            </xsl:otherwise>
-	                        </xsl:choose>
-	                            </td>
-	                            <td>
-	                                <xsl:value-of select="./message"/>
-	                            </td>
-	                        </tr>
-	                    </xsl:for-each>
-	                </table>
+                    <table cellpadding="1" cellspacing="0" width="100%">
+                        <xsl:for-each select="./log">
+                            <tr>
+                                <td>
+                            <xsl:choose>
+                                <xsl:when test="./level[text() = 'INFO']">
+                                    <img src="./images/log_info.png" width="11" height="11" alt="failed"/>
+                                </xsl:when>
+                                <xsl:when test="./level[text() = 'WARN']">
+                                    <img src="./images/log_warn.png" width="11" height="11" alt="failed"/>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                                </td>
+                                <td>
+                                    <xsl:value-of select="./message"/>
+                                </td>
+                            </tr>
+                        </xsl:for-each>
+                    </table>
                 </td>
             </tr>
         </xsl:if>
