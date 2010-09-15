@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ivysettings>
-	<settings defaultResolver="chain" />
-	<resolvers>
-		<ibiblio name="ibiblio" m2compatible="true" />
-		<url name="wetator">
-			<artifact pattern="http://www.wetator.org/repo/[module]/[revision]/[artifact]-[revision].[ext]" />
-			<artifact pattern="http://www.wetator.org/repo/[module]/[revision]/[artifact].[ext]" />
-		</url>
-		<chain name="chain">
-			<resolver ref="ibiblio" />
-			<resolver ref="wetator" />
-		</chain>
-	</resolvers>
+    <settings defaultResolver="chain" />
+    <resolvers>
+        <ibiblio name="ibiblio" m2compatible="true" />
+        <url name="wetator">
+            <artifact pattern="http://www.wetator.org/repo/[module]/[revision]/[artifact]-[revision].[ext]" />
+            <artifact pattern="http://www.wetator.org/repo/[module]/[revision]/[artifact].[ext]" />
+        </url>
+        <chain name="chain">
+            <resolver ref="ibiblio" />
+            <resolver ref="wetator" />
+        </chain>
+    </resolvers>
 </ivysettings>
