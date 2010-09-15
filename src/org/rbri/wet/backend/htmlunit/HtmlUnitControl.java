@@ -22,11 +22,12 @@ import java.io.IOException;
 import net.sourceforge.htmlunit.corejs.javascript.WrappedException;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.exception.ExceptionUtils;
 import org.rbri.wet.backend.Control;
-import org.rbri.wet.backend.WetBackend;
 import org.rbri.wet.backend.htmlunit.util.ExceptionUtil;
 import org.rbri.wet.backend.htmlunit.util.HtmlElementUtil;
 import org.rbri.wet.backend.htmlunit.util.PageUtil;
+import org.rbri.wet.core.WetContext;
 import org.rbri.wet.exception.AssertionFailedException;
 import org.rbri.wet.util.Assert;
 import org.rbri.wet.util.SecretString;
@@ -72,7 +73,7 @@ public class HtmlUnitControl implements Control {
   /**
    * Constructor
    * 
-   * @param anHtmlElement the backend HtmlElement
+   * @param anHtmlElement the HtmlElement from the backend
    */
   public HtmlUnitControl(final HtmlElement anHtmlElement) {
     super();
@@ -106,10 +107,10 @@ public class HtmlUnitControl implements Control {
   /**
    * {@inheritDoc}
    * 
-   * @see org.rbri.wet.backend.Control#click(WetBackend)
+   * @see org.rbri.wet.backend.Control#click(WetContext)
    */
   @Override
-  public void click(final WetBackend aWetBackend) throws AssertionFailedException {
+  public void click(final WetContext aWetContext) throws AssertionFailedException {
     HtmlElement tmpHtmlElement = getHtmlElement();
     String tmpScriptErrorMessage = null;
 
@@ -123,7 +124,7 @@ public class HtmlUnitControl implements Control {
 
     try {
       tmpHtmlElement.click();
-      aWetBackend.waitForImmediateJobs();
+      aWetContext.getWetBackend().waitForImmediateJobs();
 
       if (tmpHtmlElement instanceof HtmlAnchor) {
         HtmlAnchor tmpHtmlAnchor = (HtmlAnchor) tmpHtmlElement;
@@ -134,13 +135,16 @@ public class HtmlUnitControl implements Control {
         }
       }
     } catch (ScriptException e) {
+      aWetContext.informListenersWarn("javascriptError", new String[] { ExceptionUtils.getStackTrace(e) });
       Assert.fail("javascriptError", new String[] { e.getMessage() });
     } catch (WrappedException e) {
+      aWetContext.informListenersWarn("javascriptError", new String[] { ExceptionUtils.getStackTrace(e) });
       Assert.fail("javascriptError", new String[] { ExceptionUtil.getMessageFromScriptExceptionCauseIfPossible(e) });
     } catch (AssertionFailedException e) {
       // pass through
       throw e;
     } catch (Throwable e) {
+      aWetContext.informListenersWarn("serverError", new String[] { ExceptionUtils.getStackTrace(e) });
       Assert.fail("serverError", new String[] { e.getMessage(), getDescribingText() });
     }
 
@@ -153,10 +157,10 @@ public class HtmlUnitControl implements Control {
   /**
    * {@inheritDoc}
    * 
-   * @see org.rbri.wet.backend.Control#mouseOver(WetBackend)
+   * @see org.rbri.wet.backend.Control#mouseOver(WetContext)
    */
   @Override
-  public void mouseOver(final WetBackend aWetBackend) throws AssertionFailedException {
+  public void mouseOver(final WetContext aWetContext) throws AssertionFailedException {
     HtmlElement tmpHtmlElement = getHtmlElement();
     String tmpScriptErrorMessage = null;
 
@@ -170,12 +174,15 @@ public class HtmlUnitControl implements Control {
 
     try {
       tmpHtmlElement.mouseOver();
-      aWetBackend.waitForImmediateJobs();
+      aWetContext.getWetBackend().waitForImmediateJobs();
     } catch (ScriptException e) {
+      aWetContext.informListenersWarn("javascriptError", new String[] { ExceptionUtils.getStackTrace(e) });
       Assert.fail("javascriptError", new String[] { e.getMessage() });
     } catch (WrappedException e) {
+      aWetContext.informListenersWarn("javascriptError", new String[] { ExceptionUtils.getStackTrace(e) });
       Assert.fail("javascriptError", new String[] { ExceptionUtil.getMessageFromScriptExceptionCauseIfPossible(e) });
     } catch (Throwable e) {
+      aWetContext.informListenersWarn("serverError", new String[] { ExceptionUtils.getStackTrace(e) });
       Assert.fail("serverError", new String[] { e.getMessage(), getDescribingText() });
     }
 
@@ -188,10 +195,10 @@ public class HtmlUnitControl implements Control {
   /**
    * {@inheritDoc}
    * 
-   * @see org.rbri.wet.backend.Control#select(WetBackend)
+   * @see org.rbri.wet.backend.Control#select(WetContext)
    */
   @Override
-  public void select(final WetBackend aWetBackend) throws AssertionFailedException {
+  public void select(final WetContext aWetContext) throws AssertionFailedException {
     HtmlElement tmpHtmlElement = getHtmlElement();
 
     if (tmpHtmlElement instanceof DisabledElement) {
@@ -225,15 +232,18 @@ public class HtmlUnitControl implements Control {
       }
 
       // wait for silence
-      aWetBackend.waitForImmediateJobs();
+      aWetContext.getWetBackend().waitForImmediateJobs();
     } catch (ScriptException e) {
+      aWetContext.informListenersWarn("javascriptError", new String[] { ExceptionUtils.getStackTrace(e) });
       Assert.fail("javascriptError", new String[] { e.getMessage() });
     } catch (WrappedException e) {
+      aWetContext.informListenersWarn("javascriptError", new String[] { ExceptionUtils.getStackTrace(e) });
       Assert.fail("javascriptError", new String[] { ExceptionUtil.getMessageFromScriptExceptionCauseIfPossible(e) });
     } catch (AssertionFailedException e) {
       // pass through
       throw e;
     } catch (Throwable e) {
+      aWetContext.informListenersWarn("serverError", new String[] { ExceptionUtils.getStackTrace(e) });
       Assert.fail("serverError", new String[] { e.getMessage(), getDescribingText() });
     }
   }
@@ -241,10 +251,10 @@ public class HtmlUnitControl implements Control {
   /**
    * {@inheritDoc}
    * 
-   * @see org.rbri.wet.backend.Control#deselect(WetBackend)
+   * @see org.rbri.wet.backend.Control#deselect(WetContext)
    */
   @Override
-  public void deselect(final WetBackend aWetBackend) throws AssertionFailedException {
+  public void deselect(final WetContext aWetContext) throws AssertionFailedException {
     HtmlElement tmpHtmlElement = getHtmlElement();
 
     if (tmpHtmlElement instanceof DisabledElement) {
@@ -280,15 +290,18 @@ public class HtmlUnitControl implements Control {
       }
 
       // wait for silence
-      aWetBackend.waitForImmediateJobs();
+      aWetContext.getWetBackend().waitForImmediateJobs();
     } catch (ScriptException e) {
+      aWetContext.informListenersWarn("javascriptError", new String[] { ExceptionUtils.getStackTrace(e) });
       Assert.fail("javascriptError", new String[] { e.getMessage() });
     } catch (WrappedException e) {
+      aWetContext.informListenersWarn("javascriptError", new String[] { ExceptionUtils.getStackTrace(e) });
       Assert.fail("javascriptError", new String[] { ExceptionUtil.getMessageFromScriptExceptionCauseIfPossible(e) });
     } catch (AssertionFailedException e) {
       // pass through
       throw e;
     } catch (Throwable e) {
+      aWetContext.informListenersWarn("serverError", new String[] { ExceptionUtils.getStackTrace(e) });
       Assert.fail("serverError", new String[] { e.getMessage(), getDescribingText() });
     }
   }
@@ -296,10 +309,10 @@ public class HtmlUnitControl implements Control {
   /**
    * {@inheritDoc}
    * 
-   * @see org.rbri.wet.backend.Control#setValue(WetBackend, SecretString, File)
+   * @see org.rbri.wet.backend.Control#setValue(WetContext, SecretString, File)
    */
   @Override
-  public void setValue(final WetBackend aWetBackend, final SecretString aValue, final File aDirectory)
+  public void setValue(final WetContext aWetContext, final SecretString aValue, final File aDirectory)
       throws AssertionFailedException {
     HtmlElement tmpHtmlElement = getHtmlElement();
     String tmpScriptErrorMessage = null;
@@ -404,15 +417,18 @@ public class HtmlUnitControl implements Control {
       }
 
       // wait for silence
-      aWetBackend.waitForImmediateJobs();
+      aWetContext.getWetBackend().waitForImmediateJobs();
     } catch (ScriptException e) {
+      aWetContext.informListenersWarn("javascriptError", new String[] { ExceptionUtils.getStackTrace(e) });
       Assert.fail("javascriptError", new String[] { e.getMessage() });
     } catch (WrappedException e) {
+      aWetContext.informListenersWarn("javascriptError", new String[] { ExceptionUtils.getStackTrace(e) });
       Assert.fail("javascriptError", new String[] { ExceptionUtil.getMessageFromScriptExceptionCauseIfPossible(e) });
     } catch (AssertionFailedException e) {
       // pass through
       throw e;
     } catch (Throwable e) {
+      aWetContext.informListenersWarn("serverError", new String[] { ExceptionUtils.getStackTrace(e) });
       Assert.fail("serverError", new String[] { e.getMessage(), getDescribingText() });
     }
 
@@ -425,10 +441,10 @@ public class HtmlUnitControl implements Control {
   /**
    * {@inheritDoc}
    * 
-   * @see org.rbri.wet.backend.Control#isDisabled()
+   * @see org.rbri.wet.backend.Control#isDisabled(WetContext)
    */
   @Override
-  public boolean isDisabled() throws AssertionFailedException {
+  public boolean isDisabled(final WetContext aWetContext) throws AssertionFailedException {
     HtmlElement tmpHtmlElement = getHtmlElement();
 
     if (tmpHtmlElement instanceof DisabledElement) {
@@ -446,10 +462,10 @@ public class HtmlUnitControl implements Control {
   /**
    * {@inheritDoc}
    * 
-   * @see org.rbri.wet.backend.Control#isSelected()
+   * @see org.rbri.wet.backend.Control#isSelected(WetContext)
    */
   @Override
-  public boolean isSelected() throws AssertionFailedException {
+  public boolean isSelected(final WetContext aWetContext) throws AssertionFailedException {
     HtmlElement tmpHtmlElement = getHtmlElement();
 
     if (tmpHtmlElement instanceof HtmlCheckBoxInput) {
@@ -475,10 +491,10 @@ public class HtmlUnitControl implements Control {
   /**
    * {@inheritDoc}
    * 
-   * @see org.rbri.wet.backend.Control#getValue()
+   * @see org.rbri.wet.backend.Control#getValue(WetContext)
    */
   @Override
-  public String getValue() throws AssertionFailedException {
+  public String getValue(final WetContext aWetContext) throws AssertionFailedException {
     HtmlElement tmpHtmlElement = getHtmlElement();
 
     if (tmpHtmlElement instanceof HtmlInput) {

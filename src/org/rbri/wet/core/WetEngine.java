@@ -393,7 +393,7 @@ public final class WetEngine {
    * @param aMessageKey the message key of the warning.
    * @param aParameterArray the message parameters.
    */
-  protected void informListenersWarn(String aMessageKey, String[] aParameterArray) {
+  public void informListenersWarn(String aMessageKey, String[] aParameterArray) {
     for (WetProgressListener tmpListener : progressListener) {
       tmpListener.warn(aMessageKey, aParameterArray);
     }

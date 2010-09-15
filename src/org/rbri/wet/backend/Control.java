@@ -18,12 +18,12 @@ package org.rbri.wet.backend;
 
 import java.io.File;
 
+import org.rbri.wet.core.WetContext;
 import org.rbri.wet.exception.AssertionFailedException;
 import org.rbri.wet.util.SecretString;
 
 /**
- * The common interface for the
- * backend.
+ * The common interface for the Control.
  * 
  * @author rbri
  */
@@ -39,69 +39,72 @@ public interface Control {
   /**
    * Returns true, if the control is selected
    * 
+   * @param aWetContext the wet context
    * @return true or false
    * @throws AssertionFailedException if the check is not supported for the control
    */
-  public boolean isSelected() throws AssertionFailedException;
+  public boolean isSelected(WetContext aWetContext) throws AssertionFailedException;
 
   /**
    * Returns true, if the control is disabled
    * 
+   * @param aWetContext the wet context
    * @return true or false
    * @throws AssertionFailedException if the check is not supported for the control
    */
-  public boolean isDisabled() throws AssertionFailedException;
+  public boolean isDisabled(WetContext aWetContext) throws AssertionFailedException;
 
   /**
    * Returns the value of the control
    * 
+   * @param aWetContext the wet context
    * @return the value as string
    * @throws AssertionFailedException if the the control supports no value
    */
-  public String getValue() throws AssertionFailedException;
+  public String getValue(WetContext aWetContext) throws AssertionFailedException;
 
   /**
    * Selects the control
    * 
-   * @param aWetBackend the current WetBackend
+   * @param aWetContext the wet context
    * @throws AssertionFailedException if the control is not supported
    */
-  public void select(WetBackend aWetBackend) throws AssertionFailedException;
+  public void select(WetContext aWetContext) throws AssertionFailedException;
 
   /**
    * Deselects the control
    * 
-   * @param aWetBackend the current WetBackend
+   * @param aWetContext the wet context
    * @throws AssertionFailedException if the control is not supported
    */
-  public void deselect(WetBackend aWetBackend) throws AssertionFailedException;
+  public void deselect(WetContext aWetContext) throws AssertionFailedException;
 
   /**
    * Sets the value of the control
    * 
-   * @param aWetBackend the current WetBackend
+   * @param aWetContext the wet context
    * @param aValue the new value of the control
    * @param aDirectory parameter only used for file upload controls; for this the aValue is the name of a file and
    *        aDirectory points to the dir for searching the file
    * @throws AssertionFailedException if the the control supports no value
    */
-  public void setValue(WetBackend aWetBackend, SecretString aValue, File aDirectory) throws AssertionFailedException;
+  public void setValue(WetContext aWetContext, SecretString aValue, File aDirectory) throws AssertionFailedException;
 
   /**
    * Simulates a (mouse) click on the control
    * 
-   * @param aWetBackend the current WetBackend
+   * @param aWetContext the wet context
    * @throws AssertionFailedException if the the control has no support for clicks
    */
-  public void click(WetBackend aWetBackend) throws AssertionFailedException;
+  public void click(WetContext aWetContext) throws AssertionFailedException;
 
   /**
    * Simulates moving the (mouse) over the control
    * 
-   * @param aWetBackend the current WetBackend
+   * @param aWetContext the wet context
    * @throws AssertionFailedException if the the control has no support for mouse events
    */
-  public void mouseOver(WetBackend aWetBackend) throws AssertionFailedException;
+  public void mouseOver(WetContext aWetContext) throws AssertionFailedException;
 
   /**
    * Checks, if the provided Control has the same backend control

@@ -26,6 +26,7 @@ import java.util.Set;
 import net.sourceforge.htmlunit.corejs.javascript.WrappedException;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.rbri.wet.backend.ControlFinder;
@@ -177,15 +178,20 @@ public final class HtmlUnitBrowser implements WetBackend {
       webClient.getPage(aUrl);
       waitForImmediateJobs();
     } catch (ScriptException e) {
+      wetEngine.informListenersWarn("javascriptError", new String[] { ExceptionUtils.getStackTrace(e) });
       Assert.fail("javascriptError", new String[] { e.getMessage() });
     } catch (WrappedException e) {
+      wetEngine.informListenersWarn("javascriptError", new String[] { ExceptionUtils.getStackTrace(e) });
       Assert.fail("javascriptError", new String[] { ExceptionUtil.getMessageFromScriptExceptionCauseIfPossible(e) });
     } catch (FailingHttpStatusCodeException e) {
+      wetEngine.informListenersWarn("javascriptError", new String[] { ExceptionUtils.getStackTrace(e) });
       Assert.fail("openServerError", new String[] { aUrl.toString(), e.getMessage() });
     } catch (UnknownHostException e) {
+      wetEngine.informListenersWarn("javascriptError", new String[] { ExceptionUtils.getStackTrace(e) });
       Assert.fail("unknownHostError", new String[] { aUrl.toString(), e.getMessage() });
     } catch (Throwable e) {
       LOG.error("OpenUrl '" + aUrl.toExternalForm() + "'fails. " + e.getMessage());
+      wetEngine.informListenersWarn("javascriptError", new String[] { ExceptionUtils.getStackTrace(e) });
       Assert.fail("openServerError", new String[] { aUrl.toString(), e.getMessage() });
     }
 

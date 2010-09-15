@@ -186,7 +186,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       if (tmpSearchParam.isEmpty()) {
         aWetContext.informListenersWarn("firstElementUsed", new String[] { tmpControl.getDescribingText() });
       }
-      tmpControl.setValue(tmpBackend, tmpValueParam, aWetContext.getFile().getParentFile());
+      tmpControl.setValue(aWetContext, tmpValueParam, aWetContext.getFile().getParentFile());
       tmpBackend.saveCurrentWindowToLog();
       tmpBackend.checkFailure();
     }
@@ -219,7 +219,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       tmpFoundElements.addAll(tmpControlFinder.getAllElementsForText(tmpSearchParam));
 
       Control tmpControl = getRequiredFirstHtmlElementFrom(aWetContext, tmpFoundElements, tmpSearchParam);
-      tmpControl.click(tmpBackend);
+      tmpControl.click(aWetContext);
       tmpBackend.saveCurrentWindowToLog();
       tmpBackend.checkFailure();
     }
@@ -248,7 +248,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       WeightedControlList tmpFoundElements = tmpControlFinder.getAllSelectables(tmpSearchParam);
 
       Control tmpControl = getRequiredFirstHtmlElementFrom(aWetContext, tmpFoundElements, tmpSearchParam);
-      tmpControl.select(tmpBackend);
+      tmpControl.select(aWetContext);
       tmpBackend.saveCurrentWindowToLog();
       tmpBackend.checkFailure();
     }
@@ -277,7 +277,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       WeightedControlList tmpFoundElements = tmpControlFinder.getAllDeselectables(tmpSearchParam);
 
       Control tmpControl = getRequiredFirstHtmlElementFrom(aWetContext, tmpFoundElements, tmpSearchParam);
-      tmpControl.deselect(tmpBackend);
+      tmpControl.deselect(aWetContext);
       tmpBackend.saveCurrentWindowToLog();
       tmpBackend.checkFailure();
     }
@@ -305,7 +305,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       WeightedControlList tmpFoundElements = tmpControlFinder.getAllElementsForText(tmpSearchParam);
 
       Control tmpControl = getRequiredFirstHtmlElementFrom(aWetContext, tmpFoundElements, tmpSearchParam);
-      tmpControl.mouseOver(tmpBackend);
+      tmpControl.mouseOver(aWetContext);
       tmpBackend.saveCurrentWindowToLog();
       tmpBackend.checkFailure();
     }
@@ -443,7 +443,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
 
       Control tmpControl = getRequiredFirstHtmlElementFrom(aWetContext, tmpFoundElements, tmpSearchParam);
 
-      boolean tmpIsDisabled = tmpControl.isDisabled();
+      boolean tmpIsDisabled = tmpControl.isDisabled(aWetContext);
       Assert.assertTrue(tmpIsDisabled, "elementNotDisabled", new String[] { tmpControl.getDescribingText() });
     }
   }
@@ -471,7 +471,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
 
       Control tmpControl = getRequiredFirstHtmlElementFrom(aWetContext, tmpFoundElements, tmpSearchParam);
 
-      String tmpValue = tmpControl.getValue();
+      String tmpValue = tmpControl.getValue(aWetContext);
 
       // TODO improve secret handling
       Assert.assertEquals(tmpValueParam.getValue(), tmpValue, "expectedValueNotFound", null);
@@ -501,7 +501,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
 
       Control tmpControl = getRequiredFirstHtmlElementFrom(aWetContext, tmpFoundElements, tmpSearchParam);
 
-      boolean tmpIsSelected = tmpControl.isSelected();
+      boolean tmpIsSelected = tmpControl.isSelected(aWetContext);
       Assert.assertTrue(tmpIsSelected, "elementNotSelected", new String[] { tmpControl.getDescribingText() });
     }
   }
@@ -529,7 +529,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
 
       Control tmpControl = getRequiredFirstHtmlElementFrom(aWetContext, tmpFoundElements, tmpSearchParam);
 
-      boolean tmpIsSelected = tmpControl.isSelected();
+      boolean tmpIsSelected = tmpControl.isSelected(aWetContext);
       Assert.assertFalse(tmpIsSelected, "elementNotDeselected", new String[] { tmpControl.getDescribingText() });
     }
   }
