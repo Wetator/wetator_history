@@ -33,9 +33,9 @@ public final class Assert {
   protected static final String MORE_MARKER = "...";
   /** the fixed text 'expected: ' */
   protected static final String TEXT_EXPECTED = "expected: "; // TODO i18n
-  /** the start merker for values */
+  /** the start marker for values */
   protected static final String LEFT_VALUE_MARKER = "<";
-  /** the start merker for values */
+  /** the start marker for values */
   protected static final String RIGHT_VALUE_MARKER = ">";
   /** the fixed text ' but was: ' */
   protected static final String TEXT_WAS = " but was: "; // TODO i18n
