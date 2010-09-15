@@ -48,7 +48,7 @@ public class HtmlUnitControlTest extends TestCase {
 
     HtmlUnitControl tmpControl = new HtmlUnitControl(tmpHtmlPage.getElementById("myId"));
 
-    assertTrue(tmpControl.isDisabled());
+    assertTrue(tmpControl.isDisabled(null));
   }
 
   public void testIsDisabled_Not() throws IOException, AssertionFailedException {
@@ -59,6 +59,6 @@ public class HtmlUnitControlTest extends TestCase {
 
     HtmlUnitControl tmpControl = new HtmlUnitControl(tmpHtmlPage.getElementById("myId"));
 
-    assertFalse(tmpControl.isDisabled());
+    assertFalse(tmpControl.isDisabled(null));
   }
 }
