@@ -4,9 +4,9 @@
 
     <property name="wetator.baseUrl" value="http://wetator.rbri.org"/>
 
-	<propertyset id="wetator-properties">
-		<propertyref prefix="wetator"/>
-	</propertyset>
+    <propertyset id="wetator-properties">
+        <propertyref prefix="wetator"/>
+    </propertyset>
 
 
     <!-- You have to declare the task first -->
@@ -21,7 +21,7 @@
         <fileset dir="." includes="test.jar"/>
     </path>
 
-	<target name="run_wetator_with_classpath">
+    <target name="run_wetator_with_classpath">
         <wetator config="wet.config">
             <classpath>
                 <fileset dir="." includes="test.jar"/>
@@ -51,7 +51,7 @@
 
             <property name="wetator.baseUrl" value="http://www.wetator.org"/>
             <property name="$user" value="dobby"/>
-        	<!-- to define a secret property you need $$$ -->
+            <!-- to define a secret property you need $$$ -->
             <property name="$$$password" value="secret"/>
         </wetator>
     </target>
