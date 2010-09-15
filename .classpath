@@ -11,7 +11,7 @@
 	<classpathentry kind="lib" path="lib/commons-logging-1.1.1.jar"/>
 	<classpathentry kind="lib" path="lib/cssparser-0.9.5.jar"/>
 	<classpathentry kind="lib" path="lib/hsqldb-1.8.0.10.jar"/>
-	<classpathentry kind="lib" path="lib/junit-4.8.1.jar"/>
+	<classpathentry kind="lib" path="lib/junit-4.8.1.jar" sourcepath="lib_src/junit-4.8.1-sources.jar"/>
 	<classpathentry kind="lib" path="lib/log4j-1.2.16.jar"/>
 	<classpathentry kind="lib" path="lib/nekohtml-1.9.14.jar"/>
 	<classpathentry kind="lib" path="lib/poi-3.6.jar"/>
@@ -28,6 +28,6 @@
 	<classpathentry kind="lib" path="lib/fontbox-1.2.1.jar"/>
 	<classpathentry kind="lib" path="lib/pdfbox-1.2.1.jar"/>
 	<classpathentry kind="lib" path="lib/automaton-1.11.3.jar"/>
-	<classpathentry kind="lib" path="lib/htmlunit-2.8.jar"/>
+	<classpathentry kind="lib" path="lib/htmlunit-2.9-SNAPSHOT.jar" sourcepath="lib_src/htmlunit-2.9-SNAPSHOT-sources.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
