@@ -37,12 +37,12 @@ import org.rbri.wet.backend.htmlunit.util.ExceptionUtil;
 import org.rbri.wet.backend.htmlunit.util.PageUtil;
 import org.rbri.wet.core.WetConfiguration;
 import org.rbri.wet.core.WetEngine;
+import org.rbri.wet.core.searchpattern.SearchPattern;
 import org.rbri.wet.exception.AssertionFailedException;
 import org.rbri.wet.exception.WetException;
 import org.rbri.wet.util.Assert;
 import org.rbri.wet.util.ContentUtil;
 import org.rbri.wet.util.NormalizedString;
-import org.rbri.wet.util.SearchPattern;
 import org.rbri.wet.util.SecretString;
 
 import com.gargoylesoftware.htmlunit.BrowserVersion;

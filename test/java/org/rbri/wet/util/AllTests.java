@@ -35,7 +35,6 @@ public class AllTests extends TestCase {
     tmpSuite.addTest(AssertTest.suite());
     tmpSuite.addTest(ContentUtilTest.suite());
     tmpSuite.addTest(NormalizedStringTest.suite());
-    tmpSuite.addTest(SearchPatternTest.suite());
     tmpSuite.addTest(StringUtilTest.suite());
     tmpSuite.addTest(VariableReplaceUtilUtilTest.suite());
     tmpSuite.addTest(XmlUtilTest.suite());

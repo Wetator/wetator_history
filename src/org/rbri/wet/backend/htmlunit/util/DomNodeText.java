@@ -23,8 +23,8 @@ import java.util.ListIterator;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
+import org.rbri.wet.core.searchpattern.SearchPattern;
 import org.rbri.wet.util.NormalizedString;
-import org.rbri.wet.util.SearchPattern;
 
 import com.gargoylesoftware.htmlunit.html.DomComment;
 import com.gargoylesoftware.htmlunit.html.DomNode;

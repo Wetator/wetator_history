@@ -19,6 +19,8 @@ package org.rbri.wet.util;
 import java.util.List;
 import java.util.Locale;
 
+import org.rbri.wet.core.searchpattern.SearchPattern;
+
 /**
  * An object that stores a variable.
  * 

@@ -23,7 +23,7 @@ import org.rbri.wet.backend.ControlFinder;
 import org.rbri.wet.backend.WeightedControlList;
 import org.rbri.wet.backend.htmlunit.util.DomNodeText;
 import org.rbri.wet.backend.htmlunit.util.FindSpot;
-import org.rbri.wet.util.SearchPattern;
+import org.rbri.wet.core.searchpattern.SearchPattern;
 import org.rbri.wet.util.SecretString;
 
 import com.gargoylesoftware.htmlunit.ElementNotFoundException;

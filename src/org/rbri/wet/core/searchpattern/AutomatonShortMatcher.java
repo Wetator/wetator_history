@@ -14,7 +14,7 @@
  */
 
 
-package org.rbri.wet.util;
+package org.rbri.wet.core.searchpattern;
 
 import java.util.regex.MatchResult;
 

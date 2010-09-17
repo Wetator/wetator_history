@@ -14,7 +14,9 @@
  */
 
 
-package org.rbri.wet.util;
+package org.rbri.wet.core.searchpattern;
+
+import org.rbri.wet.core.searchpattern.SearchPattern;
 
 import junit.framework.Test;
 import junit.framework.TestCase;

@@ -14,12 +14,13 @@
  */
 
 
-package org.rbri.wet.util;
+package org.rbri.wet.core.searchpattern;
 
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 import org.rbri.wet.backend.htmlunit.util.FindSpot;
+import org.rbri.wet.util.SecretString;
 
 import dk.brics.automaton.RegExp;
 import dk.brics.automaton.RunAutomaton;

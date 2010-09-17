@@ -14,33 +14,36 @@
  */
 
 
-package org.rbri.wet.util;
+package org.rbri.wet.core.searchpattern;
 
 import java.util.regex.MatchResult;
 
 import dk.brics.automaton.RunAutomaton;
 
 /**
+ * A tool that performs match operations on a given character sequence using a compiled automaton.
+ * This tries to find the first match by starting at the end of the char sequence.
+ * 
  * @author rbri
  */
-public final class AutomatonShortFromEndMatcher implements MatchResult {
-
-  /**
-   * Constructor.
-   * 
-   * @param aCharSequence the chars to set
-   * @param anAutomaton the automaton to set
-   */
-  public AutomatonShortFromEndMatcher(final CharSequence aCharSequence, final RunAutomaton anAutomaton) {
-    chars = aCharSequence;
-    automaton = anAutomaton;
-  }
+public final class AutomatonFromEndMatcher implements MatchResult {
 
   private final RunAutomaton automaton;
   private final CharSequence chars;
 
   private int matchStart = -1;
   private int matchEnd = -1;
+
+  /**
+   * Constructor.
+   * 
+   * @param aCharSequence the string to search inside
+   * @param anAutomaton the regex automaton
+   */
+  public AutomatonFromEndMatcher(final CharSequence aCharSequence, final RunAutomaton anAutomaton) {
+    chars = aCharSequence;
+    automaton = anAutomaton;
+  }
 
   /**
    * Find the next matching subsequence of the input. <br />
@@ -58,41 +61,38 @@ public final class AutomatonShortFromEndMatcher implements MatchResult {
       tmpBegin = matchEnd - 1;
     }
 
-    int tmpMatchStart;
+    int tmpMatchstart;
     int tmpMatchEnd;
     if (automaton.isAccept(automaton.getInitialState())) {
-      tmpMatchStart = tmpBegin;
+      tmpMatchstart = tmpBegin;
       tmpMatchEnd = tmpBegin;
     } else {
-      tmpMatchStart = -1;
+      tmpMatchstart = -1;
       tmpMatchEnd = -1;
     }
     int tmpLength = chars.length();
     while (tmpBegin > -1) {
-      int tmpInitState = automaton.getInitialState();
+      int tmpState = automaton.getInitialState();
       for (int i = tmpBegin; i < tmpLength; i += 1) {
-        final int tmpNewState = automaton.step(tmpInitState, chars.charAt(i));
+        final int tmpNewState = automaton.step(tmpState, chars.charAt(i));
         if (tmpNewState == -1) {
           break;
         } else if (automaton.isAccept(tmpNewState)) {
-          if (tmpMatchStart == -1) {
-            tmpMatchStart = tmpBegin;
+          if (tmpMatchstart == -1) {
+            tmpMatchstart = tmpBegin;
           }
           tmpMatchEnd = i;
-
-          setMatch(tmpMatchStart, tmpMatchEnd + 1);
-          return true;
         }
-        tmpInitState = tmpNewState;
+        tmpState = tmpNewState;
       }
-      if (tmpMatchStart != -1) {
-        setMatch(tmpMatchStart, tmpMatchEnd + 1);
+      if (tmpMatchstart != -1) {
+        setMatch(tmpMatchstart, tmpMatchEnd + 1);
         return true;
       }
       tmpBegin -= 1;
     }
-    if (tmpMatchStart != -1) {
-      setMatch(tmpMatchStart, tmpMatchEnd + 1);
+    if (tmpMatchstart != -1) {
+      setMatch(tmpMatchstart, tmpMatchEnd + 1);
       return true;
     }
     setMatch(-2, -2);

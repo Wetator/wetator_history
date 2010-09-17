@@ -19,6 +19,7 @@ package org.rbri.wet.util;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
+import org.rbri.wet.core.searchpattern.SearchPattern;
 import org.rbri.wet.exception.AssertionFailedException;
 import org.rbri.wet.i18n.Messages;
 

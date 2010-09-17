@@ -14,7 +14,7 @@
  */
 
 
-package org.rbri.wet;
+package org.rbri.wet.core.searchpattern;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
@@ -25,30 +25,14 @@ import junit.framework.TestSuite;
  */
 public class AllTests extends TestCase {
   public static void main(String[] anArgsArray) {
-    System.out.println(org.rbri.wet.Version.getFullProductName());
-
-    // System.out.println();
-    // System.out.println(" Classpath: " +
-    // System.getProperty("java.class.path"));
-    // System.out.println();
-
-    // Logger.setLogService(new PrintStreamLogService());
-    // Logger.setLevelInfo();
-
     junit.textui.TestRunner.run(suite());
   }
 
   public static Test suite() {
 
-    TestSuite tmpSuite = new TestSuite("All Wetator tests");
+    TestSuite tmpSuite = new TestSuite("All Wetator searchpattern tests");
 
-    tmpSuite.addTest(org.rbri.wet.backend.AllTests.suite());
-    tmpSuite.addTest(org.rbri.wet.core.AllTests.suite());
-    tmpSuite.addTest(org.rbri.wet.commandset.AllTests.suite());
-    tmpSuite.addTest(org.rbri.wet.i18n.AllTests.suite());
-    tmpSuite.addTest(org.rbri.wet.scripter.AllTests.suite());
-    tmpSuite.addTest(org.rbri.wet.core.searchpattern.AllTests.suite());
-    tmpSuite.addTest(org.rbri.wet.util.AllTests.suite());
+    tmpSuite.addTest(SearchPatternTest.suite());
 
     return tmpSuite;
   }
