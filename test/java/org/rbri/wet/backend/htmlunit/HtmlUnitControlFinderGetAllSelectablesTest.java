@@ -43,7 +43,7 @@ public class HtmlUnitControlFinderGetAllSelectablesTest extends TestCase {
     return new TestSuite(HtmlUnitControlFinderGetAllSelectablesTest.class);
   }
 
-  public void testGetAllSetables_Empty() throws IOException {
+  public void testGetAllSelectables_Empty() throws IOException {
     String tmpHtmlCode = "<html><body>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
@@ -51,7 +51,7 @@ public class HtmlUnitControlFinderGetAllSelectablesTest extends TestCase {
     tmpSearch.add(new SecretString("Name", false));
 
     HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
-    WeightedControlList tmpFound = tmpFinder.getAllSetables(tmpSearch);
+    WeightedControlList tmpFound = tmpFinder.getAllSelectables(tmpSearch);
 
     assertEquals(0, tmpFound.getElementsSorted().size());
   }
@@ -200,7 +200,7 @@ public class HtmlUnitControlFinderGetAllSelectablesTest extends TestCase {
 
     assertEquals(1, tmpFound.getElementsSorted().size());
     assertEquals(
-        "[HtmlOption 'option2' (id='2_2') part of [HtmlSelect (name='MySecondSelectName')]] found by: BY_LABEL coverage: 0 distance: 4",
+        "[HtmlOption 'option2' (id='2_2') part of [HtmlSelect (name='MySecondSelectName')]] found by: BY_LABEL coverage: 0 distance: 66",
         tmpFound.getElementsSorted().get(0).toString());
   }
 
@@ -267,7 +267,7 @@ public class HtmlUnitControlFinderGetAllSelectablesTest extends TestCase {
 
     assertEquals(1, tmpFound.getElementsSorted().size());
     assertEquals(
-        "[HtmlOption 'option1' (id='2_1') part of [HtmlSelect (id='MySecondSelectId')]] found by: BY_LABEL coverage: 0 distance: 0",
+        "[HtmlOption 'option1' (id='2_1') part of [HtmlSelect (id='MySecondSelectId')]] found by: BY_LABEL coverage: 0 distance: 44",
         tmpFound.getElementsSorted().get(0).toString());
   }
 
@@ -290,7 +290,7 @@ public class HtmlUnitControlFinderGetAllSelectablesTest extends TestCase {
 
     assertEquals(1, tmpFound.getElementsSorted().size());
     assertEquals(
-        "[HtmlOption 'option1' (id='2_1') part of [HtmlSelect (id='MySecondSelectId')]] found by: BY_LABEL coverage: 0 distance: 0",
+        "[HtmlOption 'option1' (id='2_1') part of [HtmlSelect (id='MySecondSelectId')]] found by: BY_LABEL coverage: 0 distance: 44",
         tmpFound.getElementsSorted().get(0).toString());
   }
 
