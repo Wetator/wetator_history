@@ -22,7 +22,7 @@ import org.rbri.wet.util.SecretString;
 /**
  * An object that stores a variable.
  * This supports a name, a value and a secret flag.
- * The value of variables marked as secret is never visible in the output reports.
+ * The value of variables marked as secret is never visible in any kind of output.
  * 
  * @author rbri
  */
