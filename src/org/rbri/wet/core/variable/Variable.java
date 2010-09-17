@@ -28,7 +28,7 @@ import org.rbri.wet.util.SecretString;
  */
 public final class Variable {
   private String name;
-  private SecretString secretValue;
+  private SecretString value;
 
   /**
    * Constructor.
@@ -66,7 +66,7 @@ public final class Variable {
     }
 
     name = aName;
-    secretValue = aValue;
+    value = aValue;
   }
 
   /**
@@ -84,6 +84,6 @@ public final class Variable {
    * @return the secret string
    */
   public SecretString getValue() {
-    return secretValue;
+    return value;
   }
 }
