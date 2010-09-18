@@ -20,8 +20,6 @@ import java.io.IOException;
 import java.util.Collections;
 import java.util.Enumeration;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -65,21 +63,37 @@ public class SnoopyHandler extends AbstractHandler {
       aResponse.getWriter().println("<th>Key</th>");
       aResponse.getWriter().println("<th>Value</th>");
       aResponse.getWriter().println("</tr>");
-      Map<String, String[]> tmpParameters = aRequest.getParameterMap();
-      for (Entry<String, String[]> tmpEntry : tmpParameters.entrySet()) {
+      List<String> tmpParameterNames = Collections.list((Enumeration<String>) aRequest.getParameterNames());
+      for (String tmpName : tmpParameterNames) {
         aResponse.getWriter().println("<tr>");
         aResponse.getWriter().println("<td>");
-        aResponse.getWriter().println(tmpEntry.getKey());
+        aResponse.getWriter().println(tmpName);
         aResponse.getWriter().println("</td>");
         aResponse.getWriter().println("<td>");
-        if (tmpEntry.getValue() != null && tmpEntry.getValue().length != 0) {
-          for (String tmpValue : tmpEntry.getValue()) {
+        String[] tmpValues = aRequest.getParameterValues(tmpName);
+        if (tmpValues.length != 0) {
+          for (String tmpValue : tmpValues) {
             aResponse.getWriter().println(tmpValue);
           }
         }
         aResponse.getWriter().println("</td>");
         aResponse.getWriter().println("</tr>");
       }
+      // Map<String, String[]> tmpParameters = aRequest.getParameterMap();
+      // for (Entry<String, String[]> tmpEntry : tmpParameters.entrySet()) {
+      // aResponse.getWriter().println("<tr>");
+      // aResponse.getWriter().println("<td>");
+      // aResponse.getWriter().println(tmpEntry.getKey());
+      // aResponse.getWriter().println("</td>");
+      // aResponse.getWriter().println("<td>");
+      // if (tmpEntry.getValue() != null && tmpEntry.getValue().length != 0) {
+      // for (String tmpValue : tmpEntry.getValue()) {
+      // aResponse.getWriter().println(tmpValue);
+      // }
+      // }
+      // aResponse.getWriter().println("</td>");
+      // aResponse.getWriter().println("</tr>");
+      // }
       aResponse.getWriter().println("</table>");
 
       aResponse.getWriter().println("<h1>Headers</h1>");

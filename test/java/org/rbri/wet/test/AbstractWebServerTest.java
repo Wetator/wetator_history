@@ -17,6 +17,7 @@
 package org.rbri.wet.test;
 
 import java.io.File;
+import java.util.Properties;
 
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
@@ -26,6 +27,7 @@ import org.eclipse.jetty.server.handler.ResourceHandler;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.rbri.wet.core.WetConfiguration;
 import org.rbri.wet.core.WetEngine;
 import org.rbri.wet.test.jetty.HttpHeaderHandler;
 import org.rbri.wet.test.jetty.RedirectHandler;
@@ -39,6 +41,7 @@ public abstract class AbstractWebServerTest {
 
   /** The listener port for the web server. */
   public static final int PORT = Integer.valueOf(System.getProperty("wetator.test.port", "12345"));
+  private static final String BASE_DIRECTORY = "webpages";
 
   private static Server server;
 
@@ -64,7 +67,7 @@ public abstract class AbstractWebServerTest {
     tmpResourceHandler.setDirectoriesListed(true);
     tmpResourceHandler.setWelcomeFiles(new String[] { "index.html" });
 
-    tmpResourceHandler.setResourceBase("webpages");
+    tmpResourceHandler.setResourceBase(BASE_DIRECTORY);
 
     HandlerList tmpHandlers = new HandlerList();
     tmpHandlers.setHandlers(new Handler[] { new HttpHeaderHandler(), new RedirectHandler(), new SnoopyHandler(),
@@ -76,16 +79,37 @@ public abstract class AbstractWebServerTest {
 
   @Before
   public void createWetEngine() {
-    wetEngine = new WetEngine();
+    Properties tmpProperties = new Properties();
+    tmpProperties.setProperty(WetConfiguration.PROPERTY_BASE_URL, "http://localhost:" + PORT + "/testcases");
+    tmpProperties.setProperty(WetConfiguration.PROPERTY_XSL_TEMPLATES, "./xsl/SimpleHtml.xsl");
+    tmpProperties.setProperty(WetConfiguration.PROPERTY_COMMAND_SETS,
+        "org.rbri.wet.commandset.SqlCommandSet, org.rbri.wet.commandset.TestCommandSet");
+    tmpProperties.setProperty("wetator.db.connections", "wetdb, secondDb");
 
-    // configuration is relative to the base dir of the project
-    File tmpConfigFile = new File("test/java/org/rbri/wet/test/wetator.config");
-    wetEngine.setConfigFileName(tmpConfigFile.getAbsolutePath());
+    tmpProperties.setProperty("wetator.db.wetdb.driver", "org.hsqldb.jdbcDriver");
+    tmpProperties.setProperty("wetator.db.wetdb.url", "jdbc:hsqldb:mem:wetdb");
+    tmpProperties.setProperty("wetator.db.wetdb.user", "sa");
+    tmpProperties.setProperty("wetator.db.wetdb.password", "");
+
+    tmpProperties.setProperty("wetator.db.secondDb.driver", "org.hsqldb.jdbcDriver");
+    tmpProperties.setProperty("wetator.db.secondDb.url", "jdbc:hsqldb:mem:second_db");
+    tmpProperties.setProperty("wetator.db.secondDb.user", "sa");
+    tmpProperties.setProperty("wetator.db.secondDb.password", "");
+
+    tmpProperties.setProperty("$app_user", "dobby");
+    tmpProperties.setProperty("$$app_password", "secret");
+
+    tmpProperties.setProperty("$wet", "Wetator");
+    tmpProperties.setProperty("$$wet-secret", "Wetator");
+
+    WetConfiguration tmpWetConfiguration = new WetConfiguration(new File("."), tmpProperties, null);
 
     listener = new JUnitProgressListener();
+
+    wetEngine = new WetEngine();
     wetEngine.addProgressListener(listener);
     wetEngine.addProgressListener(new StdOutProgressListener());
-    wetEngine.init();
+    wetEngine.init(tmpWetConfiguration);
   }
 
   /**

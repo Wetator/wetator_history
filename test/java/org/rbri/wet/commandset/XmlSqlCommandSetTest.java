@@ -16,25 +16,29 @@
 
 package org.rbri.wet.commandset;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+import java.io.File;
+
+import org.junit.Assert;
+import org.junit.Test;
+import org.rbri.wet.test.AbstractWebServerTest;
 
 /**
- * @author rbri
+ * @author frank.danek
  */
-public final class DefaultCommandSetTest extends TestCase {
+public class XmlSqlCommandSetTest extends AbstractWebServerTest {
 
-  public static void main(String[] anArgsArray) {
-    junit.textui.TestRunner.run(suite());
+  private static final String BASE_FOLDER = "test/xml/";
+
+  @Test
+  public void sql() {
+    executeTestFile("sql.xml");
+
+    Assert.assertEquals(40, getSteps());
+    Assert.assertEquals(0, getFailures());
+    Assert.assertEquals(0, getErrors());
   }
 
-  public static Test suite() {
-    return new TestSuite(DefaultCommandSetTest.class);
-  }
-
-  // is it possible to test commands?
-  public void test() {
-    fail("I am not a test.");
+  private void executeTestFile(String aTestFileName) {
+    executeTestFile(new File(BASE_FOLDER + aTestFileName));
   }
 }

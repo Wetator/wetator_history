@@ -25,6 +25,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.eclipse.jetty.http.HttpStatus.Code;
 import org.eclipse.jetty.server.Request;
 import org.eclipse.jetty.server.handler.AbstractHandler;
+import org.rbri.wet.test.AbstractWebServerTest;
 
 /**
  * @author frank.danek
@@ -51,7 +52,7 @@ public class RedirectHandler extends AbstractHandler {
       if (tmpTarget != null && !"".equals(tmpTarget)) {
         aResponse.setHeader("Location", tmpTarget);
       } else {
-        aResponse.setHeader("Location", "http://www.wetator.org");
+        aResponse.setHeader("Location", "http://localhost:" + AbstractWebServerTest.PORT);
       }
     } else if (aTarget.endsWith("redirect_js.php")) {
       aBaseRequest.setHandled(true);
@@ -66,7 +67,7 @@ public class RedirectHandler extends AbstractHandler {
       if (tmpTarget != null && !"".equals(tmpTarget)) {
         aResponse.getWriter().println("window.location = '" + tmpTarget + "'");
       } else {
-        aResponse.getWriter().println("window.location = 'http://www.wetator.org'");
+        aResponse.getWriter().println("window.location = 'http://localhost:" + AbstractWebServerTest.PORT + "'");
       }
       aResponse.getWriter().println("}");
       aResponse.getWriter().println("function startRedirect() {");
@@ -91,7 +92,8 @@ public class RedirectHandler extends AbstractHandler {
       if (tmpTarget != null && !"".equals(tmpTarget)) {
         aResponse.getWriter().println("<meta http-equiv='refresh' content='4; URL=" + tmpTarget + "'/>");
       } else {
-        aResponse.getWriter().println("<meta http-equiv='refresh' content='4; URL=http://www.wetator.org'/>");
+        aResponse.getWriter().println(
+            "<meta http-equiv='refresh' content='4; URL=http://localhost:" + AbstractWebServerTest.PORT + "'/>");
       }
       aResponse.getWriter().println("</head>");
       aResponse.getWriter().println("<body>");

@@ -16,24 +16,39 @@
 
 package org.rbri.wet.commandset;
 
+import junit.framework.JUnit4TestAdapter;
 import junit.framework.Test;
 import junit.framework.TestCase;
-import junit.framework.TestSuite;
+
+import org.junit.runner.JUnitCore;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
 
 /**
  * @author rbri
+ * @author frank.danek
  */
+@RunWith(Suite.class)
+@SuiteClasses( { // XlsDefaultCommandSetTest.class, //
+XlsSqlCommandSetTest.class, //
+// XmlDefaultCommandSetTest.class, //
+// XmlSqlCommandSetTest.class //
+})
 public class AllTests extends TestCase {
+
+  /**
+   * @param anArgsArray ignored
+   */
   public static void main(String[] anArgsArray) {
-    junit.textui.TestRunner.run(suite());
+    JUnitCore.main(AllTests.class.getName());
   }
 
+  /**
+   * @return the test suite
+   */
+  // TODO remove when migrated to junit4
   public static Test suite() {
-
-    TestSuite tmpSuite = new TestSuite("All Wetator backend htmlunit util tests");
-
-    tmpSuite.addTest(DefaultCommandSetTest.suite());
-
-    return tmpSuite;
+    return new JUnit4TestAdapter(AllTests.class);
   }
 }

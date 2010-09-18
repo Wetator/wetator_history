@@ -25,13 +25,13 @@ import org.rbri.wet.test.AbstractWebServerTest;
 /**
  * @author frank.danek
  */
-public class XlsFileTest extends AbstractWebServerTest {
+public class XmlDefaultCommandSetTest extends AbstractWebServerTest {
 
-  private static final String BASE_FOLDER = "test/excel/";
+  private static final String BASE_FOLDER = "test/xml/";
 
   @Test
-  public void ajaxJquery() {
-    executeTestFile("ajax_jquery.xls");
+  public void ajaxJquery() throws Exception {
+    executeTestFile("ajax_jquery.xml");
 
     Assert.assertEquals(34, getSteps());
     Assert.assertEquals(0, getFailures());
@@ -39,8 +39,8 @@ public class XlsFileTest extends AbstractWebServerTest {
   }
 
   @Test
-  public void ajaxPrototype() {
-    executeTestFile("ajax_prototype.xls");
+  public void ajaxPrototype() throws Exception {
+    executeTestFile("ajax_prototype.xml");
 
     Assert.assertEquals(10, getSteps());
     Assert.assertEquals(0, getFailures());
@@ -48,8 +48,8 @@ public class XlsFileTest extends AbstractWebServerTest {
   }
 
   @Test
-  public void anchorInsidePage() {
-    executeTestFile("anchor_inside_page.xls");
+  public void anchorInsidePage() throws Exception {
+    executeTestFile("anchor_inside_page.xml");
 
     Assert.assertEquals(14, getSteps());
     Assert.assertEquals(0, getFailures());
@@ -57,53 +57,17 @@ public class XlsFileTest extends AbstractWebServerTest {
   }
 
   @Test
-  public void assertContent() {
-    executeTestFile("assert_content.xls");
+  public void assertContent() throws Exception {
+    executeTestFile("assert_content.xml");
 
-    Assert.assertEquals(52, getSteps());
+    Assert.assertEquals(41, getSteps());
     Assert.assertEquals(0, getFailures());
     Assert.assertEquals(0, getErrors());
   }
 
   @Test
-  public void assertDeselectedCheckbox() {
-    executeTestFile("assert_deselected_checkbox.xls");
-
-    Assert.assertEquals(27, getSteps());
-    Assert.assertEquals(0, getFailures());
-    Assert.assertEquals(0, getErrors());
-  }
-
-  @Test
-  public void assertDeselectedMultipleSelect() {
-    executeTestFile("assert_deselected_multipleSelect.xls");
-
-    Assert.assertEquals(35, getSteps());
-    Assert.assertEquals(0, getFailures());
-    Assert.assertEquals(0, getErrors());
-  }
-
-  @Test
-  public void assertDeselectedRadio() {
-    executeTestFile("assert_deselected_radio.xls");
-
-    Assert.assertEquals(20, getSteps());
-    Assert.assertEquals(0, getFailures());
-    Assert.assertEquals(0, getErrors());
-  }
-
-  @Test
-  public void assertDeselectedSingleSelect() {
-    executeTestFile("assert_deselected_singleSelect.xls");
-
-    Assert.assertEquals(29, getSteps());
-    Assert.assertEquals(0, getFailures());
-    Assert.assertEquals(0, getErrors());
-  }
-
-  @Test
-  public void assertDisabled() {
-    executeTestFile("assert_disabled.xls");
+  public void assertDisabled() throws Exception {
+    executeTestFile("assert_disabled.xml");
 
     Assert.assertEquals(51, getSteps());
     Assert.assertEquals(0, getFailures());
@@ -111,8 +75,8 @@ public class XlsFileTest extends AbstractWebServerTest {
   }
 
   @Test
-  public void assertSelectedCheckbox() {
-    executeTestFile("assert_selected_checkbox.xls");
+  public void assertSelectedCheckbox() throws Exception {
+    executeTestFile("assert_selected_checkbox.xml");
 
     Assert.assertEquals(27, getSteps());
     Assert.assertEquals(0, getFailures());
@@ -120,8 +84,8 @@ public class XlsFileTest extends AbstractWebServerTest {
   }
 
   @Test
-  public void assertSelectedMultipleSelect() {
-    executeTestFile("assert_selected_multipleSelect.xls");
+  public void assertSelectedMultipleSelect() throws Exception {
+    executeTestFile("assert_selected_multipleSelect.xml");
 
     Assert.assertEquals(35, getSteps());
     Assert.assertEquals(0, getFailures());
@@ -129,8 +93,8 @@ public class XlsFileTest extends AbstractWebServerTest {
   }
 
   @Test
-  public void assertSelectedRadio() {
-    executeTestFile("assert_selected_radio.xls");
+  public void assertSelectedRadio() throws Exception {
+    executeTestFile("assert_selected_radio.xml");
 
     Assert.assertEquals(20, getSteps());
     Assert.assertEquals(0, getFailures());
@@ -138,8 +102,8 @@ public class XlsFileTest extends AbstractWebServerTest {
   }
 
   @Test
-  public void assertSelectedSingleSelect() {
-    executeTestFile("assert_selected_singleSelect.xls");
+  public void assertSelectedSingleSelect() throws Exception {
+    executeTestFile("assert_selected_singleSelect.xml");
 
     Assert.assertEquals(29, getSteps());
     Assert.assertEquals(0, getFailures());
@@ -147,8 +111,8 @@ public class XlsFileTest extends AbstractWebServerTest {
   }
 
   @Test
-  public void assertSet() {
-    executeTestFile("assert_set.xls");
+  public void assertSet() throws Exception {
+    executeTestFile("assert_set.xml");
 
     Assert.assertEquals(81, getSteps());
     Assert.assertEquals(0, getFailures());
@@ -156,17 +120,17 @@ public class XlsFileTest extends AbstractWebServerTest {
   }
 
   @Test
-  public void assertTitle() {
-    executeTestFile("assert_title.xls");
+  public void assertTitle() throws Exception {
+    executeTestFile("assert_title.xml");
 
-    Assert.assertEquals(21, getSteps());
+    Assert.assertEquals(15, getSteps());
     Assert.assertEquals(0, getFailures());
     Assert.assertEquals(0, getErrors());
   }
 
   @Test
-  public void clickAfterText() {
-    executeTestFile("click_after_text.xls");
+  public void clickAfterText() throws Exception {
+    executeTestFile("click_after_text.xml");
 
     Assert.assertEquals(280, getSteps());
     Assert.assertEquals(0, getFailures());
@@ -174,8 +138,8 @@ public class XlsFileTest extends AbstractWebServerTest {
   }
 
   @Test
-  public void clickOn() {
-    executeTestFile("click_on.xls");
+  public void clickOn() throws Exception {
+    executeTestFile("click_on.xml");
 
     Assert.assertEquals(153, getSteps());
     Assert.assertEquals(0, getFailures());
@@ -183,44 +147,17 @@ public class XlsFileTest extends AbstractWebServerTest {
   }
 
   @Test
-  public void deselectCheckbox() {
-    executeTestFile("deselect_checkbox.xls");
+  public void execJava() throws Exception {
+    executeTestFile("exec_java.xml");
 
-    Assert.assertEquals(53, getSteps());
-    Assert.assertEquals(0, getFailures());
-    Assert.assertEquals(0, getErrors());
-  }
-
-  @Test
-  public void deselectMultipleSelect() {
-    executeTestFile("deselect_multipleSelect.xls");
-
-    Assert.assertEquals(73, getSteps());
-    Assert.assertEquals(0, getFailures());
-    Assert.assertEquals(0, getErrors());
-  }
-
-  @Test
-  public void eventHandler() {
-    executeTestFile("event_handler.xls");
-
-    Assert.assertEquals(72, getSteps());
-    Assert.assertEquals(0, getFailures());
-    Assert.assertEquals(0, getErrors());
-  }
-
-  @Test
-  public void execJava() {
-    executeTestFile("exec_java.xls");
-
-    Assert.assertEquals(29, getSteps());
+    Assert.assertEquals(23, getSteps());
     Assert.assertEquals(0, getFailures());
     Assert.assertEquals(0, getErrors());
   }
 
   @Test
   public void flowSimpleLogin() {
-    executeTestFile("flow_simple_login.xls");
+    executeTestFile("flow_simple_login.xml");
 
     Assert.assertEquals(7, getSteps());
     Assert.assertEquals(0, getFailures());
@@ -229,7 +166,7 @@ public class XlsFileTest extends AbstractWebServerTest {
 
   @Test
   public void flowSimpleSearch() {
-    executeTestFile("flow_simple_search.xls");
+    executeTestFile("flow_simple_search.xml");
 
     Assert.assertEquals(12, getSteps());
     Assert.assertEquals(0, getFailures());
@@ -238,7 +175,7 @@ public class XlsFileTest extends AbstractWebServerTest {
 
   @Test
   public void goBack() {
-    executeTestFile("go_back.xls");
+    executeTestFile("go_back.xml");
 
     Assert.assertEquals(10, getSteps());
     Assert.assertEquals(0, getFailures());
@@ -247,7 +184,7 @@ public class XlsFileTest extends AbstractWebServerTest {
 
   @Test
   public void header() {
-    executeTestFile("header.xls");
+    executeTestFile("header.xml");
 
     Assert.assertEquals(3, getSteps());
     Assert.assertEquals(0, getFailures());
@@ -256,7 +193,7 @@ public class XlsFileTest extends AbstractWebServerTest {
 
   @Test
   public void htmlunitJavascript() {
-    executeTestFile("htmlunit_javascript.xls");
+    executeTestFile("htmlunit_javascript.xml");
 
     Assert.assertEquals(4, getSteps());
     Assert.assertEquals(0, getFailures());
@@ -265,7 +202,7 @@ public class XlsFileTest extends AbstractWebServerTest {
 
   @Test
   public void jquery() {
-    executeTestFile("jquery.xls");
+    executeTestFile("jquery.xml");
 
     Assert.assertEquals(9, getSteps());
     Assert.assertEquals(0, getFailures());
@@ -274,7 +211,7 @@ public class XlsFileTest extends AbstractWebServerTest {
 
   @Test
   public void jsError() {
-    executeTestFile("js_error.xls");
+    executeTestFile("js_error.xml");
 
     Assert.assertEquals(34, getSteps());
     Assert.assertEquals(0, getFailures());
@@ -283,7 +220,7 @@ public class XlsFileTest extends AbstractWebServerTest {
 
   @Test
   public void jsLibs() {
-    executeTestFile("js_libs.xls");
+    executeTestFile("js_libs.xml");
 
     Assert.assertEquals(6, getSteps());
     Assert.assertEquals(0, getFailures());
@@ -292,7 +229,7 @@ public class XlsFileTest extends AbstractWebServerTest {
 
   @Test
   public void mouseOverAfter() {
-    executeTestFile("mouse_over_after.xls");
+    executeTestFile("mouse_over_after.xml");
 
     Assert.assertEquals(33, getSteps());
     Assert.assertEquals(0, getFailures());
@@ -301,7 +238,7 @@ public class XlsFileTest extends AbstractWebServerTest {
 
   @Test
   public void mouseOver() {
-    executeTestFile("mouse_over.xls");
+    executeTestFile("mouse_over.xml");
 
     Assert.assertEquals(18, getSteps());
     Assert.assertEquals(0, getFailures());
@@ -310,7 +247,7 @@ public class XlsFileTest extends AbstractWebServerTest {
 
   @Test
   public void normalizeCommand() {
-    executeTestFile("normalize_command.xls");
+    executeTestFile("normalize_command.xml");
 
     Assert.assertEquals(6, getSteps());
     Assert.assertEquals(0, getFailures());
@@ -319,7 +256,7 @@ public class XlsFileTest extends AbstractWebServerTest {
 
   @Test
   public void onfocusOnblur() {
-    executeTestFile("onfocus_onblur.xls");
+    executeTestFile("onfocus_onblur.xml");
 
     Assert.assertEquals(56, getSteps());
     Assert.assertEquals(0, getFailures());
@@ -328,7 +265,7 @@ public class XlsFileTest extends AbstractWebServerTest {
 
   @Test
   public void onkey() {
-    executeTestFile("onkey.xls");
+    executeTestFile("onkey.xml");
 
     Assert.assertEquals(65, getSteps());
     Assert.assertEquals(0, getFailures());
@@ -336,17 +273,17 @@ public class XlsFileTest extends AbstractWebServerTest {
   }
 
   @Test
-  public void openUrl() {
-    executeTestFile("open_url.xls");
+  public void openUrl() throws Exception {
+    executeTestFile("open_url.xml");
 
-    Assert.assertEquals(19, getSteps());
+    Assert.assertEquals(18, getSteps());
     Assert.assertEquals(0, getFailures());
     Assert.assertEquals(0, getErrors());
   }
 
   @Test
   public void redirect() {
-    executeTestFile("redirect.xls");
+    executeTestFile("redirect.xml");
 
     Assert.assertEquals(12, getSteps());
     Assert.assertEquals(0, getFailures());
@@ -355,7 +292,7 @@ public class XlsFileTest extends AbstractWebServerTest {
 
   @Test
   public void selectCheckboxAfter() {
-    executeTestFile("select_checkbox_after.xls");
+    executeTestFile("select_checkbox_after.xml");
 
     Assert.assertEquals(50, getSteps());
     Assert.assertEquals(0, getFailures());
@@ -364,7 +301,7 @@ public class XlsFileTest extends AbstractWebServerTest {
 
   @Test
   public void selectCheckbox() {
-    executeTestFile("select_checkbox.xls");
+    executeTestFile("select_checkbox.xml");
 
     Assert.assertEquals(53, getSteps());
     Assert.assertEquals(0, getFailures());
@@ -373,7 +310,7 @@ public class XlsFileTest extends AbstractWebServerTest {
 
   @Test
   public void selectMultipleSelect() {
-    executeTestFile("select_multipleSelect.xls");
+    executeTestFile("select_multipleSelect.xml");
 
     Assert.assertEquals(73, getSteps());
     Assert.assertEquals(0, getFailures());
@@ -382,7 +319,7 @@ public class XlsFileTest extends AbstractWebServerTest {
 
   @Test
   public void selectRadio() {
-    executeTestFile("select_radio.xls");
+    executeTestFile("select_radio.xml");
 
     Assert.assertEquals(40, getSteps());
     Assert.assertEquals(0, getFailures());
@@ -391,7 +328,7 @@ public class XlsFileTest extends AbstractWebServerTest {
 
   @Test
   public void selectSingleSelect() {
-    executeTestFile("select_singleSelect.xls");
+    executeTestFile("select_singleSelect.xml");
 
     Assert.assertEquals(68, getSteps());
     Assert.assertEquals(0, getFailures());
@@ -400,7 +337,7 @@ public class XlsFileTest extends AbstractWebServerTest {
 
   @Test
   public void setUpload() {
-    executeTestFile("set_upload.xls");
+    executeTestFile("set_upload.xml");
 
     Assert.assertEquals(69, getSteps());
     Assert.assertEquals(0, getFailures());
@@ -409,7 +346,7 @@ public class XlsFileTest extends AbstractWebServerTest {
 
   @Test
   public void set() {
-    executeTestFile("set.xls");
+    executeTestFile("set.xml");
 
     Assert.assertEquals(214, getSteps());
     Assert.assertEquals(0, getFailures());
@@ -417,17 +354,8 @@ public class XlsFileTest extends AbstractWebServerTest {
   }
 
   @Test
-  public void sql() {
-    executeTestFile("sql.xls");
-
-    Assert.assertEquals(40, getSteps());
-    Assert.assertEquals(0, getFailures());
-    Assert.assertEquals(0, getErrors());
-  }
-
-  @Test
   public void useModule() {
-    executeTestFile("use_module.xls");
+    executeTestFile("use_module.xml");
 
     Assert.assertEquals(7, getSteps());
     Assert.assertEquals(0, getFailures());
@@ -436,7 +364,7 @@ public class XlsFileTest extends AbstractWebServerTest {
 
   @Test
   public void wait1() {
-    executeTestFile("wait.xls");
+    executeTestFile("wait.xml");
 
     Assert.assertEquals(4, getSteps());
     Assert.assertEquals(0, getFailures());
