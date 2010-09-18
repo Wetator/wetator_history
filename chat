@@ -6,8 +6,9 @@ Also %0D%0A als Umbruch.
 -> OK werde ich mir mal anschauen
 
 
-2010-08-01 15:08 frank.danek: Hallo Ronald. Ich habe das Erstellen eines SubContext in eine Methode des WetContext ausgegliedert.
-    Das war vorher ein direkter Constructor-aufruf. Dieser Constructor ist jetzt protected.
-    Die Idee ist, dass man den WetContext für Tests mocken und so vielleicht Tests für CommandImplementations
-    und CommandSets erstellen kann. Denn deren einzige Abhängigkeit ist jetzt der WetContext, der in die
-    execute()-Methode reingegeben wird.
+2010-09-19 01:25 frank.danek: Hallo Ronald. Die Asserts auf die snoopy-Seite setzen eine bestimmte
+Reihenfolge der Parameter voraus. Das ist schlecht, da die Servlet-API die Reihenfolge nicht
+beibehält. Ich glaube auch, dass die Reihenfolge vom HTTP Protokoll nicht garantiert wird. PHP behält
+einfach die Reihenfolge bei, daher funktionieren die Asserts mit der original Snoopy-Seite. Mit meinem
+Nachbau geht das leider nicht. :-( Kann man die Asserts irgendwie verändern, dass die Reihenfolge
+innerhalb der Snoopy-Seite keine Rolle mehr spielt?
