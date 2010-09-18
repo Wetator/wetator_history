@@ -32,6 +32,7 @@ import org.rbri.wet.exception.AssertionFailedException;
  * Simple progress listener that writes to stdout.
  * 
  * @author rbri
+ * @author frank.danek
  */
 public class StdOutProgressListener implements WetProgressListener {
 
@@ -72,8 +73,10 @@ public class StdOutProgressListener implements WetProgressListener {
     File tmpConfigFile = aWetEngine.getConfigFile();
     if (null != tmpConfigFile) {
       println("Config:     '" + tmpConfigFile.getAbsolutePath() + "'");
+    }
 
-      WetConfiguration tmpConfiguration = aWetEngine.getWetConfiguration();
+    WetConfiguration tmpConfiguration = aWetEngine.getWetConfiguration();
+    if (tmpConfiguration != null) {
       println("OutputDir:  '" + tmpConfiguration.getOutputDir().getAbsolutePath() + "'");
 
       boolean tmpFirst = true;

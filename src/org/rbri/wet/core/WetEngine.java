@@ -38,6 +38,7 @@ import org.rbri.wet.scripter.WetScripter;
  * Everything that is in common use for the whole test process is stored here.
  * 
  * @author rbri
+ * @author frank.danek
  */
 public final class WetEngine {
   private static final Log LOG = LogFactory.getLog(WetEngine.class);
@@ -56,7 +57,7 @@ public final class WetEngine {
   private List<WetProgressListener> progressListener;
 
   /**
-   * Constructor
+   * The constructor.
    * 
    * @throws WetException in case of problems
    */
@@ -67,8 +68,27 @@ public final class WetEngine {
     progressListener = new LinkedList<WetProgressListener>();
   }
 
+  /**
+   * Initializes the wetator engine. The configuration is read from the configuration file got by
+   * {@link #getConfigFile()}.
+   * 
+   * @throws WetException in case of problems
+   */
   public void init() throws WetException {
-    readWetConfiguration();
+    init(readWetConfiguration());
+  }
+
+  /**
+   * Initializes the wetator engine using the given configuration.
+   * 
+   * @param aWetConfiguration the configuration to use
+   * @throws WetException in case of problems
+   */
+  public void init(WetConfiguration aWetConfiguration) throws WetException {
+    configuration = aWetConfiguration;
+    if (configFileName == null) {
+      configFileName = "";
+    }
 
     // setup the scripter
     scripter = getWetConfiguration().getScripters();
@@ -156,9 +176,9 @@ public final class WetEngine {
     return tmpResult;
   }
 
-  private void readWetConfiguration() throws WetException {
+  private WetConfiguration readWetConfiguration() throws WetException {
     File tmpConfigFile = getConfigFile();
-    configuration = new WetConfiguration(tmpConfigFile, getExternalProperties());
+    return new WetConfiguration(tmpConfigFile, getExternalProperties());
   }
 
   private WetScripter createScripter(File aFile) {
@@ -184,6 +204,11 @@ public final class WetEngine {
 
   public File getConfigFile() {
     String tmpConfigName = getConfigFileName();
+
+    // config was initialized directly
+    if ("".equals(tmpConfigName)) {
+      return null;
+    }
 
     // ok try harder
     if (null == tmpConfigName) {
