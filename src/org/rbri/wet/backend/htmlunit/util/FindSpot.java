@@ -23,6 +23,12 @@ package org.rbri.wet.backend.htmlunit.util;
  * @author rbri
  */
 public final class FindSpot {
+
+  /**
+   * static object to reduce the number of objects in use
+   */
+  public static final FindSpot NOT_FOUND = new FindSpot();
+
   /**
    * the start position of a match
    */
@@ -36,7 +42,53 @@ public final class FindSpot {
    * Constructor
    */
   public FindSpot() {
-    startPos = -1;
-    endPos = -1;
+    this(-1, -1);
   }
+
+  /**
+   * Constructor
+   * 
+   * @param aStartPos the startPos
+   * @param anEndPos the endPos
+   */
+  public FindSpot(int aStartPos, int anEndPos) {
+    startPos = aStartPos;
+    endPos = anEndPos;
+  }
+
+  @Override
+  public int hashCode() {
+    final int tmpPrime = 31;
+    int tmpHash = 1;
+    tmpHash = tmpPrime * tmpHash + endPos;
+    tmpHash = tmpPrime * tmpHash + startPos;
+    return tmpHash;
+  }
+
+  @Override
+  public boolean equals(Object anObject) {
+    if (this == anObject) {
+      return true;
+    }
+    if (anObject == null) {
+      return false;
+    }
+    if (getClass() != anObject.getClass()) {
+      return false;
+    }
+    FindSpot tmpOtherFindSpot = (FindSpot) anObject;
+    if (endPos != tmpOtherFindSpot.endPos) {
+      return false;
+    }
+    if (startPos != tmpOtherFindSpot.startPos) {
+      return false;
+    }
+    return true;
+  }
+
+  @Override
+  public String toString() {
+    return "FindSpot(" + startPos + ", " + endPos + ")";
+  }
+
 }
