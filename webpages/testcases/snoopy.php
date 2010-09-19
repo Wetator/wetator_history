@@ -30,6 +30,7 @@ function emu_getallheaders() {
       </tr>
 
 <?php
+ksort($_GET, SORT_STRING);
 foreach($_GET as $key=>$value)
 {
     echo "      <tr>\n";
@@ -37,6 +38,7 @@ foreach($_GET as $key=>$value)
     if (is_array($value)) {
       echo "        <td>";
       $isNotFirst = False;
+      sort($value);
       foreach($value as $mul_key=>$mul_value) {
         if ($isNotFirst) {
           echo ", ";
@@ -65,6 +67,7 @@ foreach($_GET as $key=>$value)
       </tr>
 
 <?php
+ksort($_POST, SORT_STRING);
 foreach($_POST as $key=>$value)
 {
     echo "      <tr>\n";
@@ -89,6 +92,7 @@ if ($_FILES) {
       </tr>
 
 <?php
+ksort($_FILES);
 foreach($_FILES as $key=>$value)
 {
     echo "      <tr>\n";
@@ -146,7 +150,9 @@ foreach($_FILES as $key=>$value)
       </tr>
 
 <?php
-foreach(emu_getallheaders() as $key=>$value)
+$headers = emu_getallheaders();
+ksort($headers); 
+foreach($headers as $key=>$value)
 {
     echo "      <tr>\n";
     echo "        <td>".$key."</td>\n";
@@ -158,7 +164,7 @@ foreach(emu_getallheaders() as $key=>$value)
   </div>
 
   <div class='content'>
-    <p>&copy; rbri 2007, 2008</p>
+    <p>&copy; rbri 2007..2010</p>
   </div>
 
 </body>
