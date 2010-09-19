@@ -53,47 +53,65 @@ public class SnoopyHandler extends AbstractHandler {
           "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"DTD/xhtml1-transitional.dtd\">");
       aResponse.getWriter().println("<html>");
       aResponse.getWriter().println("<head>");
-      aResponse.getWriter().println("<title>Wetator / Request Snoopy</title>");
+      aResponse.getWriter().println("<title>Wetator / Request Snoopy / Jetty</title>");
       aResponse.getWriter().println("</head>");
       aResponse.getWriter().println("<body>");
 
+      aResponse.getWriter().println("<h1>Wetator / Request Snoopy Jetty</h1>");
       aResponse.getWriter().println("<h1>GET Parameters</h1>");
       aResponse.getWriter().println("<table border='0' cellpadding='4' cellspacing='4'>");
       aResponse.getWriter().println("<tr>");
       aResponse.getWriter().println("<th>Key</th>");
       aResponse.getWriter().println("<th>Value</th>");
       aResponse.getWriter().println("</tr>");
+
+      // a small hack to distinguish between get and post parameters
+      String tmpQueryString = aRequest.getQueryString();
       List<String> tmpParameterNames = Collections.list((Enumeration<String>) aRequest.getParameterNames());
+      Collections.sort(tmpParameterNames);
       for (String tmpName : tmpParameterNames) {
-        aResponse.getWriter().println("<tr>");
-        aResponse.getWriter().println("<td>");
-        aResponse.getWriter().println(tmpName);
-        aResponse.getWriter().println("</td>");
-        aResponse.getWriter().println("<td>");
-        String[] tmpValues = aRequest.getParameterValues(tmpName);
-        if (tmpValues.length != 0) {
-          for (String tmpValue : tmpValues) {
-            aResponse.getWriter().println(tmpValue);
+        if (null != tmpQueryString && tmpQueryString.contains(tmpName)) {
+          aResponse.getWriter().println("<tr>");
+          aResponse.getWriter().println("<td>");
+          aResponse.getWriter().println(tmpName);
+          aResponse.getWriter().println("</td>");
+          aResponse.getWriter().println("<td>");
+          String[] tmpValues = aRequest.getParameterValues(tmpName);
+          if (tmpValues.length != 0) {
+            for (String tmpValue : tmpValues) {
+              aResponse.getWriter().println(tmpValue);
+            }
           }
+          aResponse.getWriter().println("</td>");
+          aResponse.getWriter().println("</tr>");
         }
-        aResponse.getWriter().println("</td>");
-        aResponse.getWriter().println("</tr>");
       }
-      // Map<String, String[]> tmpParameters = aRequest.getParameterMap();
-      // for (Entry<String, String[]> tmpEntry : tmpParameters.entrySet()) {
-      // aResponse.getWriter().println("<tr>");
-      // aResponse.getWriter().println("<td>");
-      // aResponse.getWriter().println(tmpEntry.getKey());
-      // aResponse.getWriter().println("</td>");
-      // aResponse.getWriter().println("<td>");
-      // if (tmpEntry.getValue() != null && tmpEntry.getValue().length != 0) {
-      // for (String tmpValue : tmpEntry.getValue()) {
-      // aResponse.getWriter().println(tmpValue);
-      // }
-      // }
-      // aResponse.getWriter().println("</td>");
-      // aResponse.getWriter().println("</tr>");
-      // }
+      aResponse.getWriter().println("</table>");
+
+      aResponse.getWriter().println("<h1>POST Parameters</h1>");
+      aResponse.getWriter().println("<table border='0' cellpadding='4' cellspacing='4'>");
+      aResponse.getWriter().println("<tr>");
+      aResponse.getWriter().println("<th>Key</th>");
+      aResponse.getWriter().println("<th>Value</th>");
+      aResponse.getWriter().println("</tr>");
+
+      for (String tmpName : tmpParameterNames) {
+        if (null == tmpQueryString || !tmpQueryString.contains(tmpName)) {
+          aResponse.getWriter().println("<tr>");
+          aResponse.getWriter().println("<td>");
+          aResponse.getWriter().println(tmpName);
+          aResponse.getWriter().println("</td>");
+          aResponse.getWriter().println("<td>");
+          String[] tmpValues = aRequest.getParameterValues(tmpName);
+          if (tmpValues.length != 0) {
+            for (String tmpValue : tmpValues) {
+              aResponse.getWriter().println(tmpValue);
+            }
+          }
+          aResponse.getWriter().println("</td>");
+          aResponse.getWriter().println("</tr>");
+        }
+      }
       aResponse.getWriter().println("</table>");
 
       aResponse.getWriter().println("<h1>Headers</h1>");
@@ -103,6 +121,7 @@ public class SnoopyHandler extends AbstractHandler {
       aResponse.getWriter().println("<th>Value</th>");
       aResponse.getWriter().println("</tr>");
       List<String> tmpHeaderNames = Collections.list((Enumeration<String>) aRequest.getHeaderNames());
+      Collections.sort(tmpHeaderNames);
       for (String tmpEntry : tmpHeaderNames) {
         aResponse.getWriter().println("<tr>");
         aResponse.getWriter().println("<td>");
