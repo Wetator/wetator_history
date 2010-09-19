@@ -109,6 +109,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
         }
 
         URL tmpUrl = new URL(tmpUrlParam.getValue());
+        aWetContext.informListenersInfo("openUrl", new String[] { tmpUrl.toString() });
 
         WetBackend tmpBackend = getWetBackend(aWetContext);
         tmpBackend.openUrl(tmpUrl);
