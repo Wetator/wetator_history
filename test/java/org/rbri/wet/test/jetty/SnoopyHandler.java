@@ -19,7 +19,10 @@ package org.rbri.wet.test.jetty;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.Enumeration;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.StringTokenizer;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -66,11 +69,12 @@ public class SnoopyHandler extends AbstractHandler {
       aResponse.getWriter().println("</tr>");
 
       // a small hack to distinguish between get and post parameters
-      String tmpQueryString = aRequest.getQueryString();
+      Set<String> tmpGetParameterNames = determineGetParameterNames(aRequest);
+
       List<String> tmpParameterNames = Collections.list((Enumeration<String>) aRequest.getParameterNames());
       Collections.sort(tmpParameterNames);
       for (String tmpName : tmpParameterNames) {
-        if (null != tmpQueryString && tmpQueryString.contains(tmpName)) {
+        if (tmpGetParameterNames.contains(tmpName)) {
           aResponse.getWriter().println("<tr>");
           aResponse.getWriter().println("<td>");
           aResponse.getWriter().println(tmpName);
@@ -96,7 +100,7 @@ public class SnoopyHandler extends AbstractHandler {
       aResponse.getWriter().println("</tr>");
 
       for (String tmpName : tmpParameterNames) {
-        if (null == tmpQueryString || !tmpQueryString.contains(tmpName)) {
+        if (!tmpGetParameterNames.contains(tmpName)) {
           aResponse.getWriter().println("<tr>");
           aResponse.getWriter().println("<td>");
           aResponse.getWriter().println(tmpName);
@@ -137,6 +141,68 @@ public class SnoopyHandler extends AbstractHandler {
       aResponse.getWriter().println("</body>");
       aResponse.getWriter().println("</html>");
     }
+  }
+
+  /**
+   * HttpUtils.parseQueryString is deprecated.
+   * So we build our own based on tomcats servlet api impl.
+   * 
+   * @param aRequest the request to read from
+   * @return a set with all get parameter names
+   */
+  private Set<String> determineGetParameterNames(HttpServletRequest aRequest) {
+    String tmpQueryString = aRequest.getQueryString();
+
+    if (tmpQueryString == null) {
+      throw new IllegalArgumentException();
+    }
+    Set<String> tmpParamNames = new HashSet<String>();
+    StringTokenizer tmpTokenizer = new StringTokenizer(tmpQueryString, "&");
+    while (tmpTokenizer.hasMoreTokens()) {
+      String tmpPair = tmpTokenizer.nextToken();
+      int tmpPos = tmpPair.indexOf('=');
+      if (tmpPos == -1) {
+        throw new IllegalArgumentException();
+      }
+      String tmpKey = parseName(tmpPair.substring(0, tmpPos));
+      tmpParamNames.add(tmpKey);
+    }
+
+    return tmpParamNames;
+  }
+
+  /**
+   * Parse a name in the query string.
+   */
+  private static String parseName(String aString) {
+    StringBuffer tmpResult = new StringBuffer();
+    for (int i = 0; i < aString.length(); i++) {
+      char tmpChar = aString.charAt(i);
+      switch (tmpChar) {
+        case '+':
+          tmpResult.append(' ');
+          break;
+        case '%':
+          try {
+            tmpResult.append((char) Integer.parseInt(aString.substring(i + 1, i + 3), 16));
+            i += 2;
+          } catch (NumberFormatException e) {
+            throw new IllegalArgumentException();
+          } catch (StringIndexOutOfBoundsException e) {
+            String tmpRest = aString.substring(i);
+            tmpResult.append(tmpRest);
+            if (tmpRest.length() == 2) {
+              i++;
+            }
+          }
+
+          break;
+        default:
+          tmpResult.append(tmpChar);
+          break;
+      }
+    }
+    return tmpResult.toString();
   }
 
 }
