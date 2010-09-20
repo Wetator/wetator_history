@@ -81,10 +81,16 @@ public class SnoopyHandler extends AbstractHandler {
           aResponse.getWriter().println("</td>");
           aResponse.getWriter().println("<td>");
           String[] tmpValues = aRequest.getParameterValues(tmpName);
+          boolean tmpIsNotFirst = false;
           if (tmpValues.length != 0) {
             for (String tmpValue : tmpValues) {
-              aResponse.getWriter().println(tmpValue);
+              if (tmpIsNotFirst) {
+                aResponse.getWriter().print(", ");
+              }
+              tmpIsNotFirst = true;
+              aResponse.getWriter().print(tmpValue);
             }
+            aResponse.getWriter().println("");
           }
           aResponse.getWriter().println("</td>");
           aResponse.getWriter().println("</tr>");
@@ -107,11 +113,17 @@ public class SnoopyHandler extends AbstractHandler {
           aResponse.getWriter().println("</td>");
           aResponse.getWriter().println("<td>");
           String[] tmpValues = aRequest.getParameterValues(tmpName);
+          boolean tmpIsNotFirst = false;
           if (tmpValues.length != 0) {
             for (String tmpValue : tmpValues) {
-              aResponse.getWriter().println(tmpValue);
+              if (tmpIsNotFirst) {
+                aResponse.getWriter().print(", ");
+              }
+              tmpIsNotFirst = true;
+              aResponse.getWriter().print(tmpValue);
             }
           }
+          aResponse.getWriter().println("");
           aResponse.getWriter().println("</td>");
           aResponse.getWriter().println("</tr>");
         }
@@ -153,10 +165,11 @@ public class SnoopyHandler extends AbstractHandler {
   private Set<String> determineGetParameterNames(HttpServletRequest aRequest) {
     String tmpQueryString = aRequest.getQueryString();
 
-    if (tmpQueryString == null) {
-      throw new IllegalArgumentException();
-    }
     Set<String> tmpParamNames = new HashSet<String>();
+    if (tmpQueryString == null) {
+      return tmpParamNames;
+    }
+
     StringTokenizer tmpTokenizer = new StringTokenizer(tmpQueryString, "&");
     while (tmpTokenizer.hasMoreTokens()) {
       String tmpPair = tmpTokenizer.nextToken();
