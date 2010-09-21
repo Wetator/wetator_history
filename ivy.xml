@@ -15,5 +15,7 @@
         <dependency org="org.apache.pdfbox" name="fontbox" rev="1.2.1" transitive="false"/>
         <dependency org="org.apache.poi" name="poi" rev="3.6"/>
         <dependency org="org.eclipse.jetty" name="jetty-server" rev="7.1.6.v20100715"/>
+        <dependency org="org.slf4j" name="slf4j-log4j12" rev="1.6.1" transitive="false"/>
+        <dependency org="org.slf4j" name="slf4j-api" rev="1.6.1" transitive="false"/>
     </dependencies>
 </ivy-module>
