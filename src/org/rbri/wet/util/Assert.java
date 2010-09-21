@@ -275,4 +275,38 @@ public final class Assert {
     }
   }
 
+  /**
+   * Asserts that two Strings are matching.
+   * This supports dos style wildcards.
+   * Otherwise throws an AssertionFailedException.
+   * 
+   * @param anExpectedPattern a String to check including '*' as wildcard
+   * @param aCurrentString a String to check
+   * @param aMessageKey the key for the message lookup
+   * @param aParameterArray the parameters as array
+   * @throws AssertionFailedException if the two strings are not the same
+   */
+  public static void assertMatch(String anExpectedPattern, String aCurrentString, String aMessageKey,
+      Object[] aParameterArray) throws AssertionFailedException {
+    if (anExpectedPattern == null && aCurrentString == null) {
+      return;
+    }
+
+    if (anExpectedPattern != null) {
+      if (anExpectedPattern.isEmpty()) {
+        if (null != aCurrentString && aCurrentString.isEmpty()) {
+          return;
+        }
+      } else {
+        SearchPattern tmpSearchPattern = new SearchPattern(anExpectedPattern);
+        if (tmpSearchPattern.matches(aCurrentString)) {
+          return;
+        }
+      }
+    }
+
+    String tmpMessage = Messages.getMessage(aMessageKey, aParameterArray);
+    tmpMessage = tmpMessage + " " + constructComparisonMessage(anExpectedPattern, aCurrentString);
+    throw new AssertionFailedException(tmpMessage);
+  }
 }

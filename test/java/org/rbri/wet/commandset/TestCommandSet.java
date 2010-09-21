@@ -69,7 +69,7 @@ public final class TestCommandSet extends AbstractCommandSet {
         aWetContext.determineAndExecuteCommandImpl(tmpCommand);
       } catch (AssertionFailedException e) {
         String tmpResult = e.getMessage();
-        Assert.assertEquals(tmpExpected.toString(), tmpResult, "wrongErrorMessage", null);
+        Assert.assertMatch(tmpExpected.toString(), tmpResult, "wrongErrorMessage", null);
         return;
       }
 

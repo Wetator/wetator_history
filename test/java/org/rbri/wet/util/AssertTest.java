@@ -78,4 +78,38 @@ public class AssertTest extends TestCase {
     }
   }
 
+  public void testAssertMatch() throws AssertionFailedException {
+    Assert.assertMatch(null, null, "wrongErrorMessage", null);
+    Assert.assertMatch("", "", "wrongErrorMessage", null);
+    Assert.assertMatch("abc", "abc", "wrongErrorMessage", null);
+    Assert.assertMatch("a*c", "abc", "wrongErrorMessage", null);
+
+    try {
+      Assert.assertMatch(null, "", "wrongErrorMessage", null);
+      fail("AssertionFailedException expected");
+    } catch (AssertionFailedException e) {
+      assertEquals("Wrong error message: expected: <null> but was: <>", e.getMessage());
+    }
+
+    try {
+      Assert.assertMatch("", null, "wrongErrorMessage", null);
+      fail("AssertionFailedException expected");
+    } catch (AssertionFailedException e) {
+      assertEquals("Wrong error message: expected: <> but was: <null>", e.getMessage());
+    }
+
+    try {
+      Assert.assertMatch("abc", "dxy", "wrongErrorMessage", null);
+      fail("AssertionFailedException expected");
+    } catch (AssertionFailedException e) {
+      assertEquals("Wrong error message: expected: <abc> but was: <dxy>", e.getMessage());
+    }
+
+    try {
+      Assert.assertMatch("a*c", "abx", "wrongErrorMessage", null);
+      fail("AssertionFailedException expected");
+    } catch (AssertionFailedException e) {
+      assertEquals("Wrong error message: expected: <a*c> but was: <abx>", e.getMessage());
+    }
+  }
 }
