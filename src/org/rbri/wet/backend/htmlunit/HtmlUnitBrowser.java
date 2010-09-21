@@ -83,6 +83,11 @@ public final class HtmlUnitBrowser implements WetBackend {
   /** immediateJobsTimeout */
   protected long immediateJobsTimeout;
 
+  /**
+   * Constructor.
+   * 
+   * @param aWetEngine the engine to work with
+   */
   public HtmlUnitBrowser(WetEngine aWetEngine) {
     super();
 
@@ -103,6 +108,11 @@ public final class HtmlUnitBrowser implements WetBackend {
   public void stop() {
   }
 
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.rbri.wet.backend.WetBackend#startNewSession(org.rbri.wet.backend.WetBackend.Browser)
+   */
   @Override
   public void startNewSession(WetBackend.Browser aBrowser) {
     WetConfiguration tmpConfiguration = wetEngine.getWetConfiguration();
@@ -172,6 +182,11 @@ public final class HtmlUnitBrowser implements WetBackend {
     }
   }
 
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.rbri.wet.backend.WetBackend#openUrl(java.net.URL)
+   */
   @Override
   public void openUrl(URL aUrl) throws AssertionFailedException {
     try {
