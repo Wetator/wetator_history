@@ -24,14 +24,16 @@ import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.DefaultHandler;
 import org.eclipse.jetty.server.handler.HandlerList;
 import org.eclipse.jetty.server.handler.ResourceHandler;
+import org.eclipse.jetty.servlet.ServletContextHandler;
+import org.eclipse.jetty.servlet.ServletHolder;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.rbri.wet.core.WetConfiguration;
 import org.rbri.wet.core.WetEngine;
-import org.rbri.wet.test.jetty.HttpHeaderHandler;
-import org.rbri.wet.test.jetty.RedirectHandler;
-import org.rbri.wet.test.jetty.SnoopyHandler;
+import org.rbri.wet.test.jetty.HttpHeaderServlet;
+import org.rbri.wet.test.jetty.RedirectServlet;
+import org.rbri.wet.test.jetty.SnoopyServlet;
 import org.rbri.wet.util.StdOutProgressListener;
 
 /**
@@ -40,7 +42,7 @@ import org.rbri.wet.util.StdOutProgressListener;
 public abstract class AbstractWebServerTest {
 
   /** The listener port for the web server. */
-  public static final int PORT = Integer.valueOf(System.getProperty("wetator.test.port", "12345"));
+  public static final int PORT = Integer.valueOf(System.getProperty("wetator.test.port", "4711"));
   private static final String BASE_DIRECTORY = "webpages";
 
   private static Server server;
@@ -66,12 +68,18 @@ public abstract class AbstractWebServerTest {
     ResourceHandler tmpResourceHandler = new ResourceHandler();
     tmpResourceHandler.setDirectoriesListed(true);
     tmpResourceHandler.setWelcomeFiles(new String[] { "index.html" });
-
     tmpResourceHandler.setResourceBase(BASE_DIRECTORY);
 
+    ServletContextHandler tmpContextHandler = new ServletContextHandler(ServletContextHandler.SESSIONS);
+    tmpContextHandler.setContextPath("/testcases");
+    tmpContextHandler.addServlet(new ServletHolder(new HttpHeaderServlet()), "/http_header.php");
+    tmpContextHandler.addServlet(new ServletHolder(new RedirectServlet()), "/redirect_header.php");
+    tmpContextHandler.addServlet(new ServletHolder(new RedirectServlet()), "/redirect_js.php");
+    tmpContextHandler.addServlet(new ServletHolder(new RedirectServlet()), "/redirect_meta.php");
+    tmpContextHandler.addServlet(new ServletHolder(new SnoopyServlet()), "/snoopy.php");
+
     HandlerList tmpHandlers = new HandlerList();
-    tmpHandlers.setHandlers(new Handler[] { new HttpHeaderHandler(), new RedirectHandler(), new SnoopyHandler(),
-        tmpResourceHandler, new DefaultHandler() });
+    tmpHandlers.setHandlers(new Handler[] { tmpContextHandler, tmpResourceHandler, new DefaultHandler() });
     server.setHandler(tmpHandlers);
 
     server.start();

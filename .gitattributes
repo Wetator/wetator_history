@@ -188,9 +188,9 @@ test/java/org/rbri/wet/scripter/ExcelScripterTest.java -text
 test/java/org/rbri/wet/scripter/XmlScripterTest.java -text svneol=unset#text/plain
 test/java/org/rbri/wet/test/AbstractWebServerTest.java -text svneol=unset#text/plain
 test/java/org/rbri/wet/test/JUnitProgressListener.java -text svneol=unset#text/plain
-test/java/org/rbri/wet/test/jetty/HttpHeaderHandler.java -text svneol=unset#text/plain
-test/java/org/rbri/wet/test/jetty/RedirectHandler.java -text svneol=unset#text/plain
-test/java/org/rbri/wet/test/jetty/SnoopyHandler.java -text svneol=unset#text/plain
+test/java/org/rbri/wet/test/jetty/HttpHeaderServlet.java -text svneol=unset#text/plain
+test/java/org/rbri/wet/test/jetty/RedirectServlet.java -text svneol=unset#text/plain
+test/java/org/rbri/wet/test/jetty/SnoopyServlet.java -text svneol=unset#text/plain
 test/java/org/rbri/wet/util/AllTests.java -text
 test/java/org/rbri/wet/util/AssertTest.java -text
 test/java/org/rbri/wet/util/ContentUtilTest.java -text

@@ -19,45 +19,35 @@ package org.rbri.wet.test.jetty;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.eclipse.jetty.http.HttpStatus.Code;
-import org.eclipse.jetty.server.Request;
-import org.eclipse.jetty.server.handler.AbstractHandler;
 import org.rbri.wet.test.AbstractWebServerTest;
 
 /**
  * @author frank.danek
  */
-public class RedirectHandler extends AbstractHandler {
+public class RedirectServlet extends HttpServlet {
 
-  /**
-   * {@inheritDoc}
-   * 
-   * @see org.eclipse.jetty.server.Handler#handle(java.lang.String, org.eclipse.jetty.server.Request,
-   *      javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
-   */
+  private static final long serialVersionUID = -2150482777498443709L;
+
   @Override
-  public void handle(String aTarget, Request aBaseRequest, HttpServletRequest aRequest, HttpServletResponse aResponse)
-      throws IOException, ServletException {
-    if (aBaseRequest.isHandled()) {
-      return;
-    }
+  protected void doGet(HttpServletRequest aRequest, HttpServletResponse aResponse) throws ServletException, IOException {
+    String tmpPath = aRequest.getServletPath();
 
-    if (aTarget.endsWith("redirect_header.php")) {
-      aBaseRequest.setHandled(true);
+    if (tmpPath.endsWith("redirect_header.php")) {
       aResponse.setStatus(Code.MOVED_TEMPORARILY.getCode());
-      String tmpTarget = aBaseRequest.getParameter("target");
+      String tmpTarget = aRequest.getParameter("target");
       if (tmpTarget != null && !"".equals(tmpTarget)) {
         aResponse.setHeader("Location", tmpTarget);
       } else {
         aResponse.setHeader("Location", "http://localhost:" + AbstractWebServerTest.PORT);
       }
-    } else if (aTarget.endsWith("redirect_js.php")) {
-      aBaseRequest.setHandled(true);
-      String tmpTarget = aBaseRequest.getParameter("target");
-      String tmpWait = aBaseRequest.getParameter("wait");
+    } else if (tmpPath.endsWith("redirect_js.php")) {
+      String tmpTarget = aRequest.getParameter("target");
+      String tmpWait = aRequest.getParameter("wait");
       aResponse.getWriter().println(
           "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"DTD/xhtml1-transitional.dtd\">");
       aResponse.getWriter().println("<html>");
@@ -82,9 +72,8 @@ public class RedirectHandler extends AbstractHandler {
       aResponse.getWriter().println("<body onLoad=\"startRedirect();\">");
       aResponse.getWriter().println("</body>");
       aResponse.getWriter().println("</html>");
-    } else if (aTarget.endsWith("redirect_meta.php")) {
-      aBaseRequest.setHandled(true);
-      String tmpTarget = aBaseRequest.getParameter("target");
+    } else if (tmpPath.endsWith("redirect_meta.php")) {
+      String tmpTarget = aRequest.getParameter("target");
       aResponse.getWriter().println(
           "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"DTD/xhtml1-transitional.dtd\">");
       aResponse.getWriter().println("<html>");
@@ -100,6 +89,12 @@ public class RedirectHandler extends AbstractHandler {
       aResponse.getWriter().println("</body>");
       aResponse.getWriter().println("</html>");
     }
+    aResponse.getWriter().flush();
+  }
+
+  @Override
+  protected void doPost(HttpServletRequest aReq, HttpServletResponse aResp) throws ServletException, IOException {
+    super.doGet(aReq, aResp);
   }
 
 }

@@ -19,38 +19,30 @@ package org.rbri.wet.test.jetty;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.eclipse.jetty.http.HttpStatus;
 import org.eclipse.jetty.http.HttpStatus.Code;
-import org.eclipse.jetty.server.Request;
-import org.eclipse.jetty.server.handler.AbstractHandler;
 
 /**
  * @author frank.danek
  */
-public class HttpHeaderHandler extends AbstractHandler {
+public class HttpHeaderServlet extends HttpServlet {
 
-  /**
-   * {@inheritDoc}
-   * 
-   * @see org.eclipse.jetty.server.Handler#handle(java.lang.String, org.eclipse.jetty.server.Request,
-   *      javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
-   */
+  private static final long serialVersionUID = 2466057799555730590L;
+
   @Override
-  public void handle(String aTarget, Request aBaseRequest, HttpServletRequest aRequest, HttpServletResponse aResponse)
-      throws IOException, ServletException {
-    if (aBaseRequest.isHandled()) {
-      return;
-    }
+  protected void doGet(HttpServletRequest aRequest, HttpServletResponse aResponse) throws ServletException, IOException {
+    String tmpCode = aRequest.getParameter("code");
+    Code tmpStatusCode = HttpStatus.getCode(Integer.valueOf(tmpCode));
+    aResponse.sendError(tmpStatusCode.getCode(), tmpStatusCode.getMessage());
+  }
 
-    if (aTarget.endsWith("http_header.php")) {
-      aBaseRequest.setHandled(true);
-      String tmpCode = aBaseRequest.getParameter("code");
-      Code tmpStatusCode = HttpStatus.getCode(Integer.valueOf(tmpCode));
-      aResponse.sendError(tmpStatusCode.getCode(), tmpStatusCode.getMessage());
-    }
+  @Override
+  protected void doPost(HttpServletRequest aReq, HttpServletResponse aResp) throws ServletException, IOException {
+    super.doGet(aReq, aResp);
   }
 
 }
