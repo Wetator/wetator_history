@@ -184,14 +184,14 @@ public final class HtmlUnitBrowser implements WetBackend {
       wetEngine.informListenersWarn("javascriptError", new String[] { ExceptionUtils.getStackTrace(e) });
       Assert.fail("javascriptError", new String[] { ExceptionUtil.getMessageFromScriptExceptionCauseIfPossible(e) });
     } catch (FailingHttpStatusCodeException e) {
-      wetEngine.informListenersWarn("javascriptError", new String[] { ExceptionUtils.getStackTrace(e) });
+      wetEngine.informListenersWarn("openServerError", new String[] { ExceptionUtils.getStackTrace(e) });
       Assert.fail("openServerError", new String[] { aUrl.toString(), e.getMessage() });
     } catch (UnknownHostException e) {
-      wetEngine.informListenersWarn("javascriptError", new String[] { ExceptionUtils.getStackTrace(e) });
+      wetEngine.informListenersWarn("unknownHostError", new String[] { ExceptionUtils.getStackTrace(e) });
       Assert.fail("unknownHostError", new String[] { aUrl.toString(), e.getMessage() });
     } catch (Throwable e) {
       LOG.error("OpenUrl '" + aUrl.toExternalForm() + "'fails. " + e.getMessage());
-      wetEngine.informListenersWarn("javascriptError", new String[] { ExceptionUtils.getStackTrace(e) });
+      wetEngine.informListenersWarn("openServerError", new String[] { ExceptionUtils.getStackTrace(e) });
       Assert.fail("openServerError", new String[] { aUrl.toString(), e.getMessage() });
     }
 
