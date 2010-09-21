@@ -42,7 +42,7 @@ public class HttpHeaderServlet extends HttpServlet {
 
   @Override
   protected void doPost(HttpServletRequest aReq, HttpServletResponse aResp) throws ServletException, IOException {
-    super.doGet(aReq, aResp);
+    doGet(aReq, aResp);
   }
 
 }

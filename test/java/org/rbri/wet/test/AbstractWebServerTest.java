@@ -24,8 +24,10 @@ import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.DefaultHandler;
 import org.eclipse.jetty.server.handler.HandlerList;
 import org.eclipse.jetty.server.handler.ResourceHandler;
+import org.eclipse.jetty.servlet.FilterHolder;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
+import org.eclipse.jetty.servlets.MultiPartFilter;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -70,13 +72,17 @@ public abstract class AbstractWebServerTest {
     tmpResourceHandler.setWelcomeFiles(new String[] { "index.html" });
     tmpResourceHandler.setResourceBase(BASE_DIRECTORY);
 
-    ServletContextHandler tmpContextHandler = new ServletContextHandler(ServletContextHandler.SESSIONS);
+    ServletContextHandler tmpContextHandler = new ServletContextHandler();
     tmpContextHandler.setContextPath("/testcases");
     tmpContextHandler.addServlet(new ServletHolder(new HttpHeaderServlet()), "/http_header.php");
     tmpContextHandler.addServlet(new ServletHolder(new RedirectServlet()), "/redirect_header.php");
     tmpContextHandler.addServlet(new ServletHolder(new RedirectServlet()), "/redirect_js.php");
     tmpContextHandler.addServlet(new ServletHolder(new RedirectServlet()), "/redirect_meta.php");
     tmpContextHandler.addServlet(new ServletHolder(new SnoopyServlet()), "/snoopy.php");
+
+    FilterHolder tmpFilterHolder = new FilterHolder(new MultiPartFilter());
+    tmpFilterHolder.setInitParameter("deleteFiles", "true");
+    tmpContextHandler.addFilter(tmpFilterHolder, "/snoopy.php", 15);
 
     HandlerList tmpHandlers = new HandlerList();
     tmpHandlers.setHandlers(new Handler[] { tmpContextHandler, tmpResourceHandler, new DefaultHandler() });
