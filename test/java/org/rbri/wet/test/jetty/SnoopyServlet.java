@@ -16,6 +16,7 @@
 
 package org.rbri.wet.test.jetty;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.Enumeration;
@@ -64,6 +65,8 @@ public class SnoopyServlet extends HttpServlet {
     // a small hack to distinguish between get and post parameters
     Set<String> tmpGetParameterNames = determineGetParameterNames(aRequest);
 
+    Set<String> tmpFileParameterNames = determineFileParameterNames(aRequest);
+
     List<String> tmpParameterNames = Collections.list((Enumeration<String>) aRequest.getParameterNames());
     Collections.sort(tmpParameterNames);
     for (String tmpName : tmpParameterNames) {
@@ -99,7 +102,7 @@ public class SnoopyServlet extends HttpServlet {
     aResponse.getWriter().println("</tr>");
 
     for (String tmpName : tmpParameterNames) {
-      if (!tmpGetParameterNames.contains(tmpName)) {
+      if (!tmpGetParameterNames.contains(tmpName) && !tmpFileParameterNames.contains(tmpName)) {
         aResponse.getWriter().println("<tr>");
         aResponse.getWriter().println("<td>");
         aResponse.getWriter().println(tmpName);
@@ -118,10 +121,53 @@ public class SnoopyServlet extends HttpServlet {
         }
         aResponse.getWriter().println("");
         aResponse.getWriter().println("</td>");
+
+        if (aRequest.getAttribute(tmpName) != null) {
+          aResponse.getWriter().println("<td>");
+          aResponse.getWriter().println(aRequest.getAttribute(tmpName).getClass().getName());
+          aResponse.getWriter().println("</td>");
+        }
+
         aResponse.getWriter().println("</tr>");
       }
     }
     aResponse.getWriter().println("</table>");
+
+    if (!tmpFileParameterNames.isEmpty()) {
+      aResponse.getWriter().println("<h1>File Upload</h1>");
+      aResponse.getWriter().println("<table border='0' cellpadding='4' cellspacing='4'>");
+      aResponse.getWriter().println("<tr>");
+      aResponse.getWriter().println("<th>Upload Control</th>");
+      aResponse.getWriter().println("<th>Values</th>");
+      aResponse.getWriter().println("</tr>");
+
+      for (String tmpFileParameterName : tmpFileParameterNames) {
+        aResponse.getWriter().println("<tr>");
+        aResponse.getWriter().println("<td>");
+        aResponse.getWriter().println(tmpFileParameterName);
+        aResponse.getWriter().println("</td>");
+        aResponse.getWriter().println("<td>");
+        aResponse.getWriter().println("<table border='0' cellpadding='3' cellspacing='0'>");
+        aResponse.getWriter().println("<tr>");
+        aResponse.getWriter().println("<td>name</td>");
+        aResponse.getWriter().println("<td>");
+        aResponse.getWriter().println(tmpFileParameterName);
+        aResponse.getWriter().println("</td>");
+        aResponse.getWriter().println("</tr>");
+        File tmpFile = (File) aRequest.getAttribute(tmpFileParameterName);
+        aResponse.getWriter().println("<tr>");
+        aResponse.getWriter().println("<td>tmp_name</td>");
+        aResponse.getWriter().println("<td>");
+        aResponse.getWriter().println(tmpFile.getAbsolutePath());
+        aResponse.getWriter().println("</td>");
+        aResponse.getWriter().println("</tr>");
+        aResponse.getWriter().println("</table>");
+        aResponse.getWriter().println("</td>");
+        aResponse.getWriter().println("</tr>");
+      }
+
+      aResponse.getWriter().println("</table>");
+    }
 
     aResponse.getWriter().println("<h1>Headers</h1>");
     aResponse.getWriter().println("<table border='0' cellpadding='4' cellspacing='4'>");
@@ -187,6 +233,21 @@ public class SnoopyServlet extends HttpServlet {
     }
 
     return tmpParamNames;
+  }
+
+  @SuppressWarnings("unchecked")
+  private Set<String> determineFileParameterNames(HttpServletRequest aRequest) {
+    Set<String> tmpFileParameterNames = new HashSet<String>();
+
+    List<String> tmpParameterNames = Collections.list((Enumeration<String>) aRequest.getParameterNames());
+    for (String tmpName : tmpParameterNames) {
+      Object tmpAttribute = aRequest.getAttribute(tmpName);
+      if (tmpAttribute != null && tmpAttribute instanceof File) {
+        tmpFileParameterNames.add(tmpName);
+      }
+    }
+
+    return tmpFileParameterNames;
   }
 
   /**
