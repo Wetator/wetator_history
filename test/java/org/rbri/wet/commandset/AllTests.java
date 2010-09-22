@@ -30,11 +30,10 @@ import org.junit.runners.Suite.SuiteClasses;
  * @author frank.danek
  */
 @RunWith(Suite.class)
-@SuiteClasses( { // XlsDefaultCommandSetTest.class, //
-XlsSqlCommandSetTest.class, //
-// XmlDefaultCommandSetTest.class, //
-// XmlSqlCommandSetTest.class //
-})
+@SuiteClasses( { XlsDefaultCommandSetTest.class, //
+    XlsSqlCommandSetTest.class })
+// TODO add XmlDefaultCommandSetTest.class?
+// TODO add XmlSqlCommandSetTest.class?
 public class AllTests extends TestCase {
 
   /**
