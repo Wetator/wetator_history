@@ -17,6 +17,7 @@
 package org.rbri.wet.test.jetty;
 
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.Enumeration;
@@ -151,16 +152,55 @@ public class SnoopyServlet extends HttpServlet {
         aResponse.getWriter().println("<tr>");
         aResponse.getWriter().println("<td>name</td>");
         aResponse.getWriter().println("<td>");
-        aResponse.getWriter().println(tmpFileParameterName);
+        aResponse.getWriter().println(aRequest.getParameter(tmpFileParameterName));
         aResponse.getWriter().println("</td>");
         aResponse.getWriter().println("</tr>");
-        File tmpFile = (File) aRequest.getAttribute(tmpFileParameterName);
-        aResponse.getWriter().println("<tr>");
-        aResponse.getWriter().println("<td>tmp_name</td>");
-        aResponse.getWriter().println("<td>");
-        aResponse.getWriter().println(tmpFile.getAbsolutePath());
-        aResponse.getWriter().println("</td>");
-        aResponse.getWriter().println("</tr>");
+        Object tmpAttribute = aRequest.getAttribute(tmpFileParameterName);
+        if (tmpAttribute instanceof File) {
+          File tmpFile = (File) tmpAttribute;
+          aResponse.getWriter().println("<tr>");
+          aResponse.getWriter().println("<td>tmp_name</td>");
+          aResponse.getWriter().println("<td>");
+          aResponse.getWriter().println(tmpFile.getAbsolutePath());
+          aResponse.getWriter().println("</td>");
+          aResponse.getWriter().println("</tr>");
+          aResponse.getWriter().println("<tr>");
+          aResponse.getWriter().println("<td>size</td>");
+          aResponse.getWriter().println("<td>");
+          aResponse.getWriter().println(tmpFile.length());
+          aResponse.getWriter().println("</td>");
+          aResponse.getWriter().println("</tr>");
+          char[] tmpBuffer = new char[13];
+          FileReader tmpReader = new FileReader(tmpFile);
+          tmpReader.read(tmpBuffer);
+          String tmpValue = new String(tmpBuffer);
+          if (!tmpValue.isEmpty()) {
+            aResponse.getWriter().println("<tr>");
+            aResponse.getWriter().println("<td>SampleData</td>");
+            aResponse.getWriter().println("<td>");
+            aResponse.getWriter().println(tmpValue + "....");
+            aResponse.getWriter().println("</td>");
+            aResponse.getWriter().println("</tr>");
+          }
+        } else if (tmpAttribute instanceof byte[]) {
+          byte[] tmpBytes = (byte[]) tmpAttribute;
+          aResponse.getWriter().println("<tr>");
+          aResponse.getWriter().println("<td>size</td>");
+          aResponse.getWriter().println("<td>");
+          aResponse.getWriter().println(tmpBytes.length);
+          aResponse.getWriter().println("</td>");
+          aResponse.getWriter().println("</tr>");
+          String tmpValue = new String(tmpBytes);
+          tmpValue = tmpValue.substring(0, Math.min(13, tmpValue.length()));
+          if (!tmpValue.isEmpty()) {
+            aResponse.getWriter().println("<tr>");
+            aResponse.getWriter().println("<td>SampleData</td>");
+            aResponse.getWriter().println("<td>");
+            aResponse.getWriter().println(tmpValue + "....");
+            aResponse.getWriter().println("</td>");
+            aResponse.getWriter().println("</tr>");
+          }
+        }
         aResponse.getWriter().println("</table>");
         aResponse.getWriter().println("</td>");
         aResponse.getWriter().println("</tr>");
@@ -242,8 +282,10 @@ public class SnoopyServlet extends HttpServlet {
     List<String> tmpParameterNames = Collections.list((Enumeration<String>) aRequest.getParameterNames());
     for (String tmpName : tmpParameterNames) {
       Object tmpAttribute = aRequest.getAttribute(tmpName);
-      if (tmpAttribute != null && tmpAttribute instanceof File) {
-        tmpFileParameterNames.add(tmpName);
+      if (tmpAttribute != null) {
+        if (tmpAttribute instanceof File || tmpAttribute instanceof byte[]) {
+          tmpFileParameterNames.add(tmpName);
+        }
       }
     }
 
