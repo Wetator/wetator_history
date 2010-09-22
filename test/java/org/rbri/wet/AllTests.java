@@ -16,40 +16,41 @@
 
 package org.rbri.wet;
 
+import junit.framework.JUnit4TestAdapter;
 import junit.framework.Test;
 import junit.framework.TestCase;
-import junit.framework.TestSuite;
+
+import org.junit.runner.JUnitCore;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
 
 /**
  * @author rbri
+ * @author frank.danek
  */
+@RunWith(Suite.class)
+@SuiteClasses( { org.rbri.wet.backend.AllTests.class, //
+    org.rbri.wet.commandset.AllTests.class, //
+    org.rbri.wet.core.AllTests.class, //
+    org.rbri.wet.i18n.AllTests.class, //
+    org.rbri.wet.scripter.AllTests.class, //
+    org.rbri.wet.util.AllTests.class })
 public class AllTests extends TestCase {
+
+  /**
+   * @param anArgsArray ignored
+   */
   public static void main(String[] anArgsArray) {
     System.out.println(org.rbri.wet.Version.getFullProductName());
-
-    // System.out.println();
-    // System.out.println(" Classpath: " +
-    // System.getProperty("java.class.path"));
-    // System.out.println();
-
-    // Logger.setLogService(new PrintStreamLogService());
-    // Logger.setLevelInfo();
-
-    junit.textui.TestRunner.run(suite());
+    JUnitCore.main(AllTests.class.getName());
   }
 
+  /**
+   * @return the test suite
+   */
+  // TODO remove when migrated to junit4
   public static Test suite() {
-
-    TestSuite tmpSuite = new TestSuite("All Wetator tests");
-
-    tmpSuite.addTest(org.rbri.wet.backend.AllTests.suite());
-    tmpSuite.addTest(org.rbri.wet.core.AllTests.suite());
-    tmpSuite.addTest(org.rbri.wet.commandset.AllTests.suite());
-    tmpSuite.addTest(org.rbri.wet.i18n.AllTests.suite());
-    tmpSuite.addTest(org.rbri.wet.scripter.AllTests.suite());
-    tmpSuite.addTest(org.rbri.wet.core.searchpattern.AllTests.suite());
-    tmpSuite.addTest(org.rbri.wet.util.AllTests.suite());
-
-    return tmpSuite;
+    return new JUnit4TestAdapter(AllTests.class);
   }
 }
