@@ -33,6 +33,7 @@ public class AllTests extends TestCase {
     TestSuite tmpSuite = new TestSuite("All Wetator core tests");
 
     tmpSuite.addTest(org.rbri.wet.core.result.AllTests.suite());
+    tmpSuite.addTest(org.rbri.wet.core.searchpattern.AllTests.suite());
     tmpSuite.addTest(org.rbri.wet.core.variable.AllTests.suite());
 
     tmpSuite.addTest(WetCommandTest.suite());
