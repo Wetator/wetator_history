@@ -233,7 +233,7 @@ public final class WetConfiguration {
     tmpScripter = Scripter.XML.getWetScripter();
     scripters.add(tmpScripter);
     LOG.info("Config  scripter '" + tmpScripter.getClass().getName() + "' registered.");
-    tmpScripter = Scripter.XSL.getWetScripter();
+    tmpScripter = Scripter.XLS.getWetScripter();
     scripters.add(tmpScripter);
     LOG.info("Config  scripter '" + tmpScripter.getClass().getName() + "' registered.");
 

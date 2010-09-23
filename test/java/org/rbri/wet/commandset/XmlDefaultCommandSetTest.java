@@ -30,7 +30,7 @@ public class XmlDefaultCommandSetTest extends AbstractWebServerTest {
   private static final String BASE_FOLDER = "test/xml/";
 
   @Test
-  public void ajaxJquery() throws Exception {
+  public void ajaxJquery() {
     executeTestFile("ajax_jquery.xml");
 
     Assert.assertEquals(34, getSteps());
@@ -39,7 +39,7 @@ public class XmlDefaultCommandSetTest extends AbstractWebServerTest {
   }
 
   @Test
-  public void ajaxPrototype() throws Exception {
+  public void ajaxPrototype() {
     executeTestFile("ajax_prototype.xml");
 
     Assert.assertEquals(10, getSteps());
@@ -48,7 +48,7 @@ public class XmlDefaultCommandSetTest extends AbstractWebServerTest {
   }
 
   @Test
-  public void anchorInsidePage() throws Exception {
+  public void anchorInsidePage() {
     executeTestFile("anchor_inside_page.xml");
 
     Assert.assertEquals(14, getSteps());
@@ -57,16 +57,52 @@ public class XmlDefaultCommandSetTest extends AbstractWebServerTest {
   }
 
   @Test
-  public void assertContent() throws Exception {
+  public void assertContent() {
     executeTestFile("assert_content.xml");
 
-    Assert.assertEquals(41, getSteps());
+    Assert.assertEquals(52, getSteps());
     Assert.assertEquals(0, getFailures());
     Assert.assertEquals(0, getErrors());
   }
 
   @Test
-  public void assertDisabled() throws Exception {
+  public void assertDeselectedCheckbox() {
+    executeTestFile("assert_deselected_checkbox.xml");
+
+    Assert.assertEquals(27, getSteps());
+    Assert.assertEquals(0, getFailures());
+    Assert.assertEquals(0, getErrors());
+  }
+
+  @Test
+  public void assertDeselectedMultipleSelect() {
+    executeTestFile("assert_deselected_multipleSelect.xml");
+
+    Assert.assertEquals(35, getSteps());
+    Assert.assertEquals(0, getFailures());
+    Assert.assertEquals(0, getErrors());
+  }
+
+  @Test
+  public void assertDeselectedRadio() {
+    executeTestFile("assert_deselected_radio.xml");
+
+    Assert.assertEquals(20, getSteps());
+    Assert.assertEquals(0, getFailures());
+    Assert.assertEquals(0, getErrors());
+  }
+
+  @Test
+  public void assertDeselectedSingleSelect() {
+    executeTestFile("assert_deselected_singleSelect.xml");
+
+    Assert.assertEquals(29, getSteps());
+    Assert.assertEquals(0, getFailures());
+    Assert.assertEquals(0, getErrors());
+  }
+
+  @Test
+  public void assertDisabled() {
     executeTestFile("assert_disabled.xml");
 
     Assert.assertEquals(51, getSteps());
@@ -75,7 +111,7 @@ public class XmlDefaultCommandSetTest extends AbstractWebServerTest {
   }
 
   @Test
-  public void assertSelectedCheckbox() throws Exception {
+  public void assertSelectedCheckbox() {
     executeTestFile("assert_selected_checkbox.xml");
 
     Assert.assertEquals(27, getSteps());
@@ -84,7 +120,7 @@ public class XmlDefaultCommandSetTest extends AbstractWebServerTest {
   }
 
   @Test
-  public void assertSelectedMultipleSelect() throws Exception {
+  public void assertSelectedMultipleSelect() {
     executeTestFile("assert_selected_multipleSelect.xml");
 
     Assert.assertEquals(35, getSteps());
@@ -93,7 +129,7 @@ public class XmlDefaultCommandSetTest extends AbstractWebServerTest {
   }
 
   @Test
-  public void assertSelectedRadio() throws Exception {
+  public void assertSelectedRadio() {
     executeTestFile("assert_selected_radio.xml");
 
     Assert.assertEquals(20, getSteps());
@@ -102,7 +138,7 @@ public class XmlDefaultCommandSetTest extends AbstractWebServerTest {
   }
 
   @Test
-  public void assertSelectedSingleSelect() throws Exception {
+  public void assertSelectedSingleSelect() {
     executeTestFile("assert_selected_singleSelect.xml");
 
     Assert.assertEquals(29, getSteps());
@@ -111,7 +147,7 @@ public class XmlDefaultCommandSetTest extends AbstractWebServerTest {
   }
 
   @Test
-  public void assertSet() throws Exception {
+  public void assertSet() {
     executeTestFile("assert_set.xml");
 
     Assert.assertEquals(81, getSteps());
@@ -120,16 +156,16 @@ public class XmlDefaultCommandSetTest extends AbstractWebServerTest {
   }
 
   @Test
-  public void assertTitle() throws Exception {
+  public void assertTitle() {
     executeTestFile("assert_title.xml");
 
-    Assert.assertEquals(15, getSteps());
+    Assert.assertEquals(21, getSteps());
     Assert.assertEquals(0, getFailures());
     Assert.assertEquals(0, getErrors());
   }
 
   @Test
-  public void clickAfterText() throws Exception {
+  public void clickAfterText() {
     executeTestFile("click_after_text.xml");
 
     Assert.assertEquals(280, getSteps());
@@ -138,7 +174,7 @@ public class XmlDefaultCommandSetTest extends AbstractWebServerTest {
   }
 
   @Test
-  public void clickOn() throws Exception {
+  public void clickOn() {
     executeTestFile("click_on.xml");
 
     Assert.assertEquals(153, getSteps());
@@ -147,10 +183,37 @@ public class XmlDefaultCommandSetTest extends AbstractWebServerTest {
   }
 
   @Test
-  public void execJava() throws Exception {
+  public void deselectCheckbox() {
+    executeTestFile("deselect_checkbox.xml");
+
+    Assert.assertEquals(53, getSteps());
+    Assert.assertEquals(0, getFailures());
+    Assert.assertEquals(0, getErrors());
+  }
+
+  @Test
+  public void deselectMultipleSelect() {
+    executeTestFile("deselect_multipleSelect.xml");
+
+    Assert.assertEquals(73, getSteps());
+    Assert.assertEquals(0, getFailures());
+    Assert.assertEquals(0, getErrors());
+  }
+
+  @Test
+  public void eventHandler() {
+    executeTestFile("event_handler.xml");
+
+    Assert.assertEquals(72, getSteps());
+    Assert.assertEquals(0, getFailures());
+    Assert.assertEquals(0, getErrors());
+  }
+
+  @Test
+  public void execJava() {
     executeTestFile("exec_java.xml");
 
-    Assert.assertEquals(23, getSteps());
+    Assert.assertEquals(29, getSteps());
     Assert.assertEquals(0, getFailures());
     Assert.assertEquals(0, getErrors());
   }
@@ -273,10 +336,10 @@ public class XmlDefaultCommandSetTest extends AbstractWebServerTest {
   }
 
   @Test
-  public void openUrl() throws Exception {
+  public void openUrl() {
     executeTestFile("open_url.xml");
 
-    Assert.assertEquals(18, getSteps());
+    Assert.assertEquals(19, getSteps());
     Assert.assertEquals(0, getFailures());
     Assert.assertEquals(0, getErrors());
   }

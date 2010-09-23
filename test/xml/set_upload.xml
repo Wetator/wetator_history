@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE testcase SYSTEM "dtd/testcase.dtd">
 
-<testcase>
+<testcase
+    xmlns="http://www.wetator.org/xsd/defaultCommandSet"
+    xmlns:tst="http://www.wetator.org/xsd/testCommandSet"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.wetator.org/xsd/defaultCommandSet xsd/defaultCommandSet.xsd
+        http://www.wetator.org/xsd/testCommandSet xsd/testCommandSet.xsd">
     <step command="Open_Url">set_upload.html</step>
     <step command="Assert_Title">Wetator / Set Upload</step>
     <step command="Comment">FileInput with name</step>
@@ -101,4 +105,8 @@
     <step command="Assert_Content">File Upload, Upload Control, Values, inputFile_LayoutLeftFormated, name, test_file.txt, SampleData Content from ....</step>
     <step command="Comment"></step>
     <step command="Comment"></step>
+    <step command="Open_Url">set_upload.html</step>
+    <step command="Assert_Title">Wetator / Set Upload</step>
+    <step command="Comment">FileInput identified by layout at left formated</step>
+    <tst:step command="Assert_Fail">Set, The html element [HtmlFileInput (name='inputFile_Disabled')] is disabled. Setting a value is not possible.<tst:optionalParameter>Disabled FileInput</tst:optionalParameter></tst:step>
 </testcase>

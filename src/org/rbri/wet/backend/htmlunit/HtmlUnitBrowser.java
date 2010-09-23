@@ -388,6 +388,7 @@ public final class HtmlUnitBrowser implements WetBackend {
     return tmpPage;
   }
 
+  @SuppressWarnings("deprecation")
   private BrowserVersion determineBrowserVersionFor(WetBackend.Browser aWetBrowser) {
     if (WetBackend.Browser.FIREFOX_3 == aWetBrowser) {
       return BrowserVersion.FIREFOX_3;

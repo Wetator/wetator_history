@@ -65,6 +65,10 @@ public class XmlScriptCreator implements WetScriptCreator {
       }
       tmpWriter.writeCharacters("\n");
       tmpWriter.writeStartElement(R_TEST_CASE);
+      tmpWriter.writeDefaultNamespace("http://www.wetator.org/xsd/defaultCommandSet");
+      tmpWriter.writeNamespace("xsi", "http://www.w3.org/2001/XMLSchema-instance");
+      tmpWriter.writeAttribute("xsi", "http://www.w3.org/2001/XMLSchema-instance", "schemaLocation",
+          "http://www.wetator.org/xsd/defaultCommandSet http://www.wetator.org/xsd/defaultCommandSet.xsd");
       tmpWriter.writeCharacters("\n");
       for (WetCommand tmpCommand : commands) {
         tmpWriter.writeCharacters("    ");
@@ -90,6 +94,17 @@ public class XmlScriptCreator implements WetScriptCreator {
               tmpWriter.writeCharacters(tmpOptionalParameter);
             }
             tmpWriter.writeEndElement();
+
+            if (tmpCommand.getThirdParameter() != null) {
+              tmpWriter.writeStartElement(XmlScripter.E_OPTIONAL_PARAMETER2);
+              tmpOptionalParameter = tmpCommand.getThirdParameter().getValue();
+              if (tmpOptionalParameter.matches(tmpCharacterDataPattern)) {
+                tmpWriter.writeCData(tmpOptionalParameter);
+              } else {
+                tmpWriter.writeCharacters(tmpOptionalParameter);
+              }
+              tmpWriter.writeEndElement();
+            }
           }
         }
         tmpWriter.writeEndElement();

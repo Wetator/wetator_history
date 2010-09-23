@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE testcase SYSTEM "dtd/testcase.dtd">
 
-<testcase>
+<testcase
+    xmlns="http://www.wetator.org/xsd/defaultCommandSet"
+    xmlns:tst="http://www.wetator.org/xsd/testCommandSet"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.wetator.org/xsd/defaultCommandSet xsd/defaultCommandSet.xsd
+        http://www.wetator.org/xsd/testCommandSet xsd/testCommandSet.xsd">
     <step command="Open_Url">assert_selected.html</step>
     <step command="Assert_Title">Wetator / Assert Selected</step>
     <step command="Comment">SingleSelect with name</step>
@@ -60,5 +64,5 @@
     <step command="Comment"></step>
     <step command="Comment">test for unused parameter</step>
     <step command="Open_Url">assert_selected.html</step>
-    <step command="Assert_Fail">Assert Selected, The command 'Assert Selected' does not use the value 'unused' provided in column 2.<optionalParameter>SingleSelect LayoutLabel at left formated, option2</optionalParameter></step>
+    <tst:step command="Assert_Fail">Assert Selected, The command 'Assert Selected' does not use the value 'unused' provided in column 2.<tst:optionalParameter>SingleSelect LayoutLabel at left formated, option2</tst:optionalParameter><tst:optionalParameter2>unused</tst:optionalParameter2></tst:step>
 </testcase>

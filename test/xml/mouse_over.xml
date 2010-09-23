@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE testcase SYSTEM "dtd/testcase.dtd">
 
-<testcase>
+<testcase
+    xmlns="http://www.wetator.org/xsd/defaultCommandSet"
+    xmlns:tst="http://www.wetator.org/xsd/testCommandSet"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.wetator.org/xsd/defaultCommandSet xsd/defaultCommandSet.xsd
+        http://www.wetator.org/xsd/testCommandSet xsd/testCommandSet.xsd">
     <step command="Comment"></step>
     <step command="Open_Url">mouse_over.html</step>
     <step command="Assert_Title">Wetator / Mouse Over</step>
     <step command="Comment">button is not visible</step>
-    <step command="Assert_Fail">Click On, No html element found for 'Submit'.<optionalParameter>Submit</optionalParameter></step>
+    <tst:step command="Assert_Fail">Click On, No html element found for 'Submit'.<tst:optionalParameter>Submit</tst:optionalParameter></tst:step>
     <step command="Comment">move mouse over the button</step>
     <step command="Mouse_Over">Gurkensalat</step>
     <step command="Click_On">Submit</step>
@@ -16,7 +20,7 @@
     <step command="Open_Url">mouse_over.html</step>
     <step command="Assert_Title">Wetator / Mouse Over</step>
     <step command="Comment">button is not visible</step>
-    <step command="Assert_Fail">Click On, No html element found for 'Submit'.<optionalParameter>Submit</optionalParameter></step>
+    <tst:step command="Assert_Fail">Click On, No html element found for 'Submit'.<tst:optionalParameter>Submit</tst:optionalParameter></tst:step>
     <step command="Comment">move mouse over the button</step>
     <step command="Mouse_Over">xt is style</step>
     <step command="Click_On">Submit</step>
@@ -26,7 +30,7 @@
     <step command="Open_Url">mouse_over.html</step>
     <step command="Assert_Title">Wetator / Mouse Over</step>
     <step command="Comment">button is not visible</step>
-    <step command="Assert_Fail">Click On, No html element found for 'Submit'.<optionalParameter>Submit</optionalParameter></step>
+    <tst:step command="Assert_Fail">Click On, No html element found for 'Submit'.<tst:optionalParameter>Submit</tst:optionalParameter></tst:step>
     <step command="Comment">move mouse over the button</step>
     <step command="Mouse_Over">Button will go away</step>
     <step command="Click_On">Submit</step>

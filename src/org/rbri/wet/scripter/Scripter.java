@@ -29,7 +29,7 @@ public enum Scripter {
   /**
    * Excel
    */
-  XSL(new ExcelScripter());
+  XLS(new ExcelScripter());
 
   private WetScripter wetScripter;
 

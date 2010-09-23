@@ -52,6 +52,10 @@ public final class XmlScripter implements WetScripter {
    */
   public static final String E_OPTIONAL_PARAMETER = "optionalParameter";
   /**
+   * The element name for second optional parameter
+   */
+  public static final String E_OPTIONAL_PARAMETER2 = "optionalParameter2";
+  /**
    * The attribute name for command
    */
   public static final String A_COMMAND = "command";
@@ -144,11 +148,15 @@ public final class XmlScripter implements WetScripter {
             tmpWetCommand.setLineNo(tmpResult.size() + 1);
 
             // go to CHARACTER event (parameter) if there
-            if (reader.next() == XMLStreamConstants.CHARACTERS) {
-              String tmpParameters = reader.getText();
-              tmpWetCommand.setFirstParameter(new Parameter(tmpParameters));
+            StringBuilder tmpParameters = new StringBuilder("");
+            while (reader.next() == XMLStreamConstants.CHARACTERS) {
+              tmpParameters.append(reader.getText());
             }
-          } else if (E_OPTIONAL_PARAMETER.equals(reader.getLocalName())) {
+            if (!"".equals(tmpParameters)) {
+              tmpWetCommand.setFirstParameter(new Parameter(tmpParameters.toString()));
+            }
+          }
+          if (E_OPTIONAL_PARAMETER.equals(reader.getLocalName())) {
             String tmpOptionalParameter = reader.getElementText();
             if (null == tmpWetCommand) {
               throw new WetException("Error parsing file '" + getFile().getAbsolutePath()
@@ -156,6 +164,17 @@ public final class XmlScripter implements WetScripter {
             }
 
             tmpWetCommand.setSecondParameter(new Parameter(tmpOptionalParameter));
+            reader.next();
+          }
+          if (E_OPTIONAL_PARAMETER2.equals(reader.getLocalName())) {
+            String tmpOptionalParameter = reader.getElementText();
+            if (null == tmpWetCommand) {
+              throw new WetException("Error parsing file '" + getFile().getAbsolutePath()
+                  + "'. Unexpected optional parameter 2 '" + tmpOptionalParameter + "'.");
+            }
+
+            tmpWetCommand.setThirdParameter(new Parameter(tmpOptionalParameter));
+            reader.next();
           }
         }
         if (reader.getEventType() == XMLStreamConstants.END_ELEMENT && E_STEP.equals(reader.getLocalName())) {

@@ -203,6 +203,10 @@ test/xml/ajax_jquery.xml -text svneol=unset#text/plain
 test/xml/ajax_prototype.xml -text svneol=unset#text/plain
 test/xml/anchor_inside_page.xml -text svneol=unset#text/plain
 test/xml/assert_content.xml -text svneol=unset#text/plain
+test/xml/assert_deselected_checkbox.xml -text svneol=unset#text/plain
+test/xml/assert_deselected_multipleSelect.xml -text svneol=unset#text/plain
+test/xml/assert_deselected_radio.xml -text svneol=unset#text/plain
+test/xml/assert_deselected_singleSelect.xml -text svneol=unset#text/plain
 test/xml/assert_disabled.xml -text svneol=unset#text/plain
 test/xml/assert_selected_checkbox.xml -text svneol=unset#text/plain
 test/xml/assert_selected_multipleSelect.xml -text svneol=unset#text/plain
@@ -212,8 +216,10 @@ test/xml/assert_set.xml -text svneol=unset#text/plain
 test/xml/assert_title.xml -text svneol=unset#text/plain
 test/xml/click_after_text.xml -text svneol=unset#text/plain
 test/xml/click_on.xml -text svneol=unset#text/plain
+test/xml/deselect_checkbox.xml -text svneol=unset#text/plain
+test/xml/deselect_multipleSelect.xml -text svneol=unset#text/plain
 test/xml/dtd/testcase.dtd -text svneol=unset#text/plain
-test/xml/dtd/testcaseExtendedCommandSet.dtd -text svneol=unset#text/plain
+test/xml/event_handler.xml -text svneol=unset#text/plain
 test/xml/exec_java.xml -text svneol=unset#text/plain
 test/xml/flow_simple_login.xml -text svneol=unset#text/plain
 test/xml/flow_simple_search.xml -text svneol=unset#text/plain
@@ -244,6 +250,9 @@ test/xml/set_upload.xml -text svneol=unset#text/plain
 test/xml/sql.xml -text svneol=unset#text/plain
 test/xml/use_module.xml -text svneol=unset#text/plain
 test/xml/wait.xml -text svneol=unset#text/plain
+test/xml/xsd/defaultCommandSet.xsd -text svneol=unset#text/plain
+test/xml/xsd/sqlCommandSet.xsd -text svneol=unset#text/plain
+test/xml/xsd/testCommandSet.xsd -text svneol=unset#text/plain
 webpages/commands/assertcontent.html -text
 webpages/commands/assertdeselected.html -text
 webpages/commands/assertdisabled.html -text
@@ -676,6 +685,9 @@ webpages/testcases/testcases.html -text
 webpages/testcases/wait_for.html -text
 webpages/testcases/wait_for2.html -text
 webpages/wet.css -text
+webpages/xsd/defaultCommandSet.xsd -text svneol=unset#text/plain
+webpages/xsd/sqlCommandSet.xsd -text svneol=unset#text/plain
+webpages/xsd/testCommandSet.xsd -text svneol=unset#text/plain
 xsl/SimpleHtml.xsl -text
 xsl/images/collapseall.png -text
 xsl/images/collapselog.png -text
