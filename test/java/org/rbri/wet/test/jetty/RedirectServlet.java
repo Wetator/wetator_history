@@ -43,7 +43,7 @@ public class RedirectServlet extends HttpServlet {
       if (tmpTarget != null && !"".equals(tmpTarget)) {
         aResponse.setHeader("Location", tmpTarget);
       } else {
-        aResponse.setHeader("Location", "http://localhost:" + AbstractWebServerTest.PORT);
+        aResponse.setHeader("Location", "http://localhost:" + AbstractWebServerTest.DEFAULT_PORT);
       }
     } else if (tmpPath.endsWith("redirect_js.php")) {
       String tmpTarget = aRequest.getParameter("target");
@@ -57,7 +57,8 @@ public class RedirectServlet extends HttpServlet {
       if (tmpTarget != null && !"".equals(tmpTarget)) {
         aResponse.getWriter().println("window.location = '" + tmpTarget + "'");
       } else {
-        aResponse.getWriter().println("window.location = 'http://localhost:" + AbstractWebServerTest.PORT + "'");
+        aResponse.getWriter()
+            .println("window.location = 'http://localhost:" + AbstractWebServerTest.DEFAULT_PORT + "'");
       }
       aResponse.getWriter().println("}");
       aResponse.getWriter().println("function startRedirect() {");
@@ -81,8 +82,10 @@ public class RedirectServlet extends HttpServlet {
       if (tmpTarget != null && !"".equals(tmpTarget)) {
         aResponse.getWriter().println("<meta http-equiv='refresh' content='4; URL=" + tmpTarget + "'/>");
       } else {
-        aResponse.getWriter().println(
-            "<meta http-equiv='refresh' content='4; URL=http://localhost:" + AbstractWebServerTest.PORT + "'/>");
+        aResponse.getWriter()
+            .println(
+                "<meta http-equiv='refresh' content='4; URL=http://localhost:" + AbstractWebServerTest.DEFAULT_PORT
+                    + "'/>");
       }
       aResponse.getWriter().println("</head>");
       aResponse.getWriter().println("<body>");

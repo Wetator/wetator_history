@@ -185,12 +185,16 @@ test/java/org/rbri/wet/i18n/MessagesTest.java -text
 test/java/org/rbri/wet/scripter/AllTests.java -text
 test/java/org/rbri/wet/scripter/ExcelScripterTest.java -text
 test/java/org/rbri/wet/scripter/XmlScripterTest.java -text svneol=unset#text/plain
+test/java/org/rbri/wet/test/AbstractBrowserTest.java -text svneol=unset#text/plain
 test/java/org/rbri/wet/test/AbstractWebServerTest.java -text svneol=unset#text/plain
 test/java/org/rbri/wet/test/JUnitProgressListener.java -text svneol=unset#text/plain
 test/java/org/rbri/wet/test/jetty/HttpHeaderServlet.java -text svneol=unset#text/plain
 test/java/org/rbri/wet/test/jetty/MultiPartFilter.java -text svneol=unset#text/plain
 test/java/org/rbri/wet/test/jetty/RedirectServlet.java -text svneol=unset#text/plain
 test/java/org/rbri/wet/test/jetty/SnoopyServlet.java -text svneol=unset#text/plain
+test/java/org/rbri/wet/test/junit/BrowserFrameworkMethod.java -text svneol=unset#text/plain
+test/java/org/rbri/wet/test/junit/BrowserRunner.java -text svneol=unset#text/plain
+test/java/org/rbri/wet/test/junit/BrowserRunnerTest.java -text svneol=unset#text/plain
 test/java/org/rbri/wet/test/resource/junit.xml -text svneol=unset#text/plain
 test/java/org/rbri/wet/util/AllTests.java -text
 test/java/org/rbri/wet/util/AssertTest.java -text

@@ -39,13 +39,15 @@ import org.rbri.wet.test.jetty.SnoopyServlet;
 import org.rbri.wet.util.StdOutProgressListener;
 
 /**
+ * Base test class for all WetEngine tests that need a web server.
+ * 
  * @author frank.danek
  */
-public abstract class AbstractWebServerTest {
+public abstract class AbstractWebServerTest extends AbstractBrowserTest {
 
   /** The listener port for the web server. */
-  public static final int PORT = Integer.valueOf(System.getProperty("wetator.test.port", "4711"));
-  private static final String BASE_DIRECTORY = "webpages";
+  public static final int DEFAULT_PORT = Integer.valueOf(System.getProperty("wetator.test.port", "4711"));
+  protected static final String DEFAULT_DOCUMENT_ROOT = "webpages";
 
   private static Server server;
 
@@ -53,24 +55,23 @@ public abstract class AbstractWebServerTest {
   private JUnitProgressListener listener;
 
   /**
-   * Starts the web server on the default {@link #PORT}.
-   * The given resourceBase is used to be the ROOT directory that serves the default context.
-   * <p>
-   * <b>Don't forget to stop the returned HttpServer after the test</b>
+   * Starts the web server.<br/>
+   * The default port is {@link #DEFAULT_PORT}.
+   * The default document root is {@link #DEFAULT_DOCUMENT_ROOT}.<br/>
    * 
-   * @throws Exception if the test fails
+   * @throws Exception if an error occurs starting the web server
    */
   @BeforeClass
   public static void startWebServer() throws Exception {
     if (server != null) {
       throw new IllegalStateException("startWebServer() can not be called twice");
     }
-    server = new Server(PORT);
+    server = new Server(DEFAULT_PORT);
 
     ResourceHandler tmpResourceHandler = new ResourceHandler();
     tmpResourceHandler.setDirectoriesListed(true);
     tmpResourceHandler.setWelcomeFiles(new String[] { "index.html" });
-    tmpResourceHandler.setResourceBase(BASE_DIRECTORY);
+    tmpResourceHandler.setResourceBase(DEFAULT_DOCUMENT_ROOT);
 
     ServletContextHandler tmpContextHandler = new ServletContextHandler();
     tmpContextHandler.setContextPath("/testcases");
@@ -91,10 +92,16 @@ public abstract class AbstractWebServerTest {
     server.start();
   }
 
+  /**
+   * Creates a WetEngine and configures it.
+   */
   @Before
   public void createWetEngine() {
     Properties tmpProperties = new Properties();
-    tmpProperties.setProperty(WetConfiguration.PROPERTY_BASE_URL, "http://localhost:" + PORT + "/testcases");
+    tmpProperties.setProperty(WetConfiguration.PROPERTY_BASE_URL, "http://localhost:" + DEFAULT_PORT + "/testcases");
+    if (getBrowser() != null) {
+      tmpProperties.setProperty(WetConfiguration.PROPERTY_BROWSER, getBrowser().getSymbol());
+    }
     tmpProperties.setProperty(WetConfiguration.PROPERTY_XSL_TEMPLATES, "./xsl/SimpleHtml.xsl");
     tmpProperties.setProperty(WetConfiguration.PROPERTY_COMMAND_SETS,
         "org.rbri.wet.commandset.SqlCommandSet, org.rbri.wet.commandset.TestCommandSet");
@@ -127,12 +134,12 @@ public abstract class AbstractWebServerTest {
   }
 
   /**
-   * Performs post-test destruction.
+   * Stops the web server.
    * 
-   * @throws Exception if an error occurs
+   * @throws Exception if an error occurs stopping the web server
    */
   @AfterClass
-  public static void tearDown() throws Exception {
+  public static void stopWebServer() throws Exception {
     if (server != null) {
       server.stop();
     }

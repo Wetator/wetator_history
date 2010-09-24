@@ -31,7 +31,8 @@ import org.junit.runners.Suite.SuiteClasses;
     org.rbri.wet.core.AllTests.class, //
     org.rbri.wet.i18n.AllTests.class, //
     org.rbri.wet.scripter.AllTests.class, //
-    org.rbri.wet.util.AllTests.class })
+    org.rbri.wet.util.AllTests.class, //
+    org.rbri.wet.test.junit.BrowserRunnerTest.class })
 public final class AllTests {
 
   /**
