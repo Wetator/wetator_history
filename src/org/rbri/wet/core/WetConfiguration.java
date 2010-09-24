@@ -341,7 +341,7 @@ public final class WetConfiguration {
     List<String> tmpParts = StringUtil.extractStrings(tmpValue, ",", '\\');
     for (String tmpString : tmpParts) {
       if (StringUtils.isNotBlank(tmpString)) {
-        WetBackend.Browser tmpBrowser = parseBrowser(tmpString);
+        WetBackend.Browser tmpBrowser = Browser.getForSymbol(tmpString);
         if (null == tmpBrowser) {
           LOG.warn("Unsupported browser '" + tmpString + "'.");
         } else {
@@ -450,34 +450,6 @@ public final class WetConfiguration {
     }
 
     LOG.debug("Config  Reading of the configuration finished'");
-  }
-
-  private Browser parseBrowser(String aBrowser) {
-    if (null == aBrowser) {
-      return null;
-    }
-
-    String tmpBrowser = aBrowser.trim();
-    if ("IE_6".equalsIgnoreCase(tmpBrowser)) {
-      return Browser.INTERNET_EXPLORER_6;
-    }
-
-    if ("IE_7".equalsIgnoreCase(tmpBrowser)) {
-      return Browser.INTERNET_EXPLORER_7;
-    }
-
-    if ("IE_8".equalsIgnoreCase(tmpBrowser)) {
-      return Browser.INTERNET_EXPLORER_8;
-    }
-
-    if ("Firefox_3".equalsIgnoreCase(tmpBrowser)) {
-      return Browser.FIREFOX_3;
-    }
-
-    if ("Firefox_3_6".equalsIgnoreCase(tmpBrowser)) {
-      return Browser.FIREFOX_3_6;
-    }
-    return null;
   }
 
   /**

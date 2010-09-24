@@ -53,25 +53,28 @@ public interface WetBackend {
    */
   public enum Browser {
     /** firefox 3 */
-    FIREFOX_3("Firefox3"),
+    FIREFOX_3("Firefox3", "Firefox_3"),
     /** firefox 3.6 */
-    FIREFOX_3_6("Firefox3.6"),
+    FIREFOX_3_6("Firefox3.6", "Firefox_3_6"),
     /** the famous internet explorer 6 */
-    INTERNET_EXPLORER_6("IE6"),
+    INTERNET_EXPLORER_6("IE6", "IE_6"),
     /** internet explorer 7 */
-    INTERNET_EXPLORER_7("IE7"),
+    INTERNET_EXPLORER_7("IE7", "IE_7"),
     /** internet explorer 8 */
-    INTERNET_EXPLORER_8("IE8");
+    INTERNET_EXPLORER_8("IE8", "IE_8");
 
     private String label;
+    private String symbol;
 
     /**
      * Constructor
      * 
      * @param aLabel the label of the browser
+     * @param aSymbol the symbol for the browser (e.g. used by the {@link org.rbri.wet.core.WetConfiguration})
      */
-    Browser(String aLabel) {
+    Browser(String aLabel, String aSymbol) {
       label = aLabel;
+      symbol = aSymbol;
     }
 
     /**
@@ -81,6 +84,33 @@ public interface WetBackend {
      */
     public String getLabel() {
       return label;
+    }
+
+    /**
+     * @return the symbol
+     */
+    public String getSymbol() {
+      return symbol;
+    }
+
+    /**
+     * @param aSymbol the symbol to get the browser for
+     * @return the found browser or null if found none
+     */
+    public static Browser getForSymbol(String aSymbol) {
+      if (null == aSymbol) {
+        return null;
+      }
+
+      String tmpSymbol = aSymbol.trim();
+      Browser tmpFound = null;
+      for (Browser tmpBrowser : values()) {
+        if (tmpBrowser.getSymbol().equalsIgnoreCase(tmpSymbol)) {
+          tmpFound = tmpBrowser;
+          break;
+        }
+      }
+      return tmpFound;
     }
   };
 
