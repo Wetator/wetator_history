@@ -16,26 +16,32 @@
 
 package org.rbri.wet.scripter;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+import org.junit.runner.JUnitCore;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
 
 /**
- * @author rbri, tobwoerk
+ * @author rbri
+ * @author tobwoerk
+ * @author frank.danek
  */
-public class AllTests extends TestCase {
+@RunWith(Suite.class)
+@SuiteClasses( { ExcelScripterTest.class, //
+    XmlScripterTest.class })
+public final class AllTests {
 
+  /**
+   * @param anArgsArray ignored
+   */
   public static void main(String[] anArgsArray) {
-    junit.textui.TestRunner.run(suite());
+    JUnitCore.main(AllTests.class.getName());
   }
 
-  public static Test suite() {
-
-    TestSuite tmpSuite = new TestSuite("All Wetator scripter result tests");
-
-    tmpSuite.addTest(ExcelScripterTest.suite());
-    tmpSuite.addTest(XmlScripterTest.suite());
-
-    return tmpSuite;
+  /**
+   * The constructor.
+   */
+  private AllTests() {
+    // nothing
   }
 }

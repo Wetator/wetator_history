@@ -20,27 +20,14 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+import org.junit.Test;
 
 /**
  * @author rbri
  */
-public class ContentUtilTest extends TestCase {
+public class ContentUtilTest {
 
-  public ContentUtilTest(String aName) {
-    super(aName);
-  }
-
-  public static void main(String[] anArgsArray) {
-    junit.textui.TestRunner.run(suite());
-  }
-
-  public static Test suite() {
-    return new TestSuite(ContentUtilTest.class);
-  }
-
+  @Test
   public void testGetPdfContentAsString() throws FileNotFoundException, IOException {
     StringBuilder tmpExpected = new StringBuilder();
     tmpExpected.append("This is the content of a simple PDF file.");
@@ -49,9 +36,10 @@ public class ContentUtilTest extends TestCase {
 
     String tmpContent = ContentUtil.getPdfContentAsString(new FileInputStream(
         "webpages/testcases/download/wet_test.pdf"));
-    assertEquals(tmpExpected.toString(), tmpContent);
+    org.junit.Assert.assertEquals(tmpExpected.toString(), tmpContent);
   }
 
+  @Test
   public void testGetXlsContentAsString() throws FileNotFoundException, IOException {
     StringBuilder tmpExpected = new StringBuilder();
     tmpExpected.append("[Tab1] Wetator Page 1");
@@ -60,6 +48,6 @@ public class ContentUtilTest extends TestCase {
 
     String tmpContent = ContentUtil.getXlsContentAsString(new FileInputStream(
         "webpages/testcases/download/wet_test.xls"));
-    assertEquals(tmpExpected.toString(), tmpContent);
+    org.junit.Assert.assertEquals(tmpExpected.toString(), tmpContent);
   }
 }

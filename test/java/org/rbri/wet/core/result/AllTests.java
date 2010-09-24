@@ -16,25 +16,31 @@
 
 package org.rbri.wet.core.result;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+import org.junit.runner.JUnitCore;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
 
 /**
  * @author rbri
+ * @author frank.danek
  */
-public class AllTests extends TestCase {
+@RunWith(Suite.class)
+@SuiteClasses( { WetResultWriterTest.class, //
+    XslTransformerTest.class })
+public final class AllTests {
+
+  /**
+   * @param anArgsArray ignored
+   */
   public static void main(String[] anArgsArray) {
-    junit.textui.TestRunner.run(suite());
+    JUnitCore.main(AllTests.class.getName());
   }
 
-  public static Test suite() {
-
-    TestSuite tmpSuite = new TestSuite("All Wetator core result tests");
-
-    tmpSuite.addTest(WetResultWriterTest.suite());
-    tmpSuite.addTest(XslTransformerTest.suite());
-
-    return tmpSuite;
+  /**
+   * The constructor.
+   */
+  private AllTests() {
+    // nothing
   }
 }

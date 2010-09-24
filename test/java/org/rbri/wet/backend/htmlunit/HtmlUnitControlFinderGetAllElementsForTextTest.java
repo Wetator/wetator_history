@@ -20,10 +20,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
-
+import org.junit.Assert;
+import org.junit.Test;
 import org.rbri.wet.backend.WeightedControlList;
 import org.rbri.wet.backend.htmlunit.util.PageUtil;
 import org.rbri.wet.util.SecretString;
@@ -33,16 +31,9 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 /**
  * @author rbri
  */
-public class HtmlUnitControlFinderGetAllElementsForTextTest extends TestCase {
+public class HtmlUnitControlFinderGetAllElementsForTextTest {
 
-  public static void main(String[] anArgsArray) {
-    junit.textui.TestRunner.run(suite());
-  }
-
-  public static Test suite() {
-    return new TestSuite(HtmlUnitControlFinderGetAllElementsForTextTest.class);
-  }
-
+  @Test
   public void testGetAllControlsForText_NoHtml() throws IOException {
     String tmpHtmlCode = "";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
@@ -53,9 +44,10 @@ public class HtmlUnitControlFinderGetAllElementsForTextTest extends TestCase {
     HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
     WeightedControlList tmpFound = tmpFinder.getAllElementsForText(tmpSearch);
 
-    assertEquals(0, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(0, tmpFound.getElementsSorted().size());
   }
 
+  @Test
   public void testGetAllControlsForText_NoBody() throws IOException {
     String tmpHtmlCode = "<html>" + "<head><title>MyTitle</title></head>" + "</html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
@@ -66,9 +58,10 @@ public class HtmlUnitControlFinderGetAllElementsForTextTest extends TestCase {
     HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
     WeightedControlList tmpFound = tmpFinder.getAllElementsForText(tmpSearch);
 
-    assertEquals(0, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(0, tmpFound.getElementsSorted().size());
   }
 
+  @Test
   public void testGetAllControlsForText_Empty() throws IOException {
     String tmpHtmlCode = "<html><body>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
@@ -79,9 +72,10 @@ public class HtmlUnitControlFinderGetAllElementsForTextTest extends TestCase {
     HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
     WeightedControlList tmpFound = tmpFinder.getAllElementsForText(tmpSearch);
 
-    assertEquals(0, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(0, tmpFound.getElementsSorted().size());
   }
 
+  @Test
   public void testGetAllControlsForText_TextNotFound() throws IOException {
     String tmpHtmlCode = "<html><body>" + "MyText" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
@@ -92,9 +86,10 @@ public class HtmlUnitControlFinderGetAllElementsForTextTest extends TestCase {
     HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
     WeightedControlList tmpFound = tmpFinder.getAllElementsForText(tmpSearch);
 
-    assertEquals(0, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(0, tmpFound.getElementsSorted().size());
   }
 
+  @Test
   public void testGetAllControlsForText_TextExact() throws IOException {
     String tmpHtmlCode = "<html><body>" + "MyText" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
@@ -105,12 +100,14 @@ public class HtmlUnitControlFinderGetAllElementsForTextTest extends TestCase {
     HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
     WeightedControlList tmpFound = tmpFinder.getAllElementsForText(tmpSearch);
 
-    assertEquals(1, tmpFound.getElementsSorted().size());
-    assertEquals(
-        "[Unknown HtmlElement 'class com.gargoylesoftware.htmlunit.html.HtmlBody'] found by: BY_TEXT coverage: 0 distance: 0",
-        tmpFound.getElementsSorted().get(0).toString());
+    Assert.assertEquals(1, tmpFound.getElementsSorted().size());
+    Assert
+        .assertEquals(
+            "[Unknown HtmlElement 'class com.gargoylesoftware.htmlunit.html.HtmlBody'] found by: BY_TEXT coverage: 0 distance: 0",
+            tmpFound.getElementsSorted().get(0).toString());
   }
 
+  @Test
   public void testGetAllControlsForText_TextWildcard() throws IOException {
     String tmpHtmlCode = "<html><body>" + "MyText" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
@@ -121,12 +118,14 @@ public class HtmlUnitControlFinderGetAllElementsForTextTest extends TestCase {
     HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
     WeightedControlList tmpFound = tmpFinder.getAllElementsForText(tmpSearch);
 
-    assertEquals(1, tmpFound.getElementsSorted().size());
-    assertEquals(
-        "[Unknown HtmlElement 'class com.gargoylesoftware.htmlunit.html.HtmlBody'] found by: BY_TEXT coverage: 4 distance: 0",
-        tmpFound.getElementsSorted().get(0).toString());
+    Assert.assertEquals(1, tmpFound.getElementsSorted().size());
+    Assert
+        .assertEquals(
+            "[Unknown HtmlElement 'class com.gargoylesoftware.htmlunit.html.HtmlBody'] found by: BY_TEXT coverage: 4 distance: 0",
+            tmpFound.getElementsSorted().get(0).toString());
   }
 
+  @Test
   public void testGetAllControlsForText_ParagraphTextNotFound() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<p>MyText</p>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
@@ -137,9 +136,10 @@ public class HtmlUnitControlFinderGetAllElementsForTextTest extends TestCase {
     HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
     WeightedControlList tmpFound = tmpFinder.getAllElementsForText(tmpSearch);
 
-    assertEquals(0, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(0, tmpFound.getElementsSorted().size());
   }
 
+  @Test
   public void testGetAllControlsForText_ParagraphTextExact() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<p>MyText</p>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
@@ -150,11 +150,12 @@ public class HtmlUnitControlFinderGetAllElementsForTextTest extends TestCase {
     HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
     WeightedControlList tmpFound = tmpFinder.getAllElementsForText(tmpSearch);
 
-    assertEquals(1, tmpFound.getElementsSorted().size());
-    assertEquals("[HtmlParagraph 'MyText'] found by: BY_TEXT coverage: 0 distance: 0", tmpFound.getElementsSorted()
-        .get(0).toString());
+    Assert.assertEquals(1, tmpFound.getElementsSorted().size());
+    Assert.assertEquals("[HtmlParagraph 'MyText'] found by: BY_TEXT coverage: 0 distance: 0", tmpFound
+        .getElementsSorted().get(0).toString());
   }
 
+  @Test
   public void testGetAllControlsForText_ParagraphTextWildcard() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<p>MyText</p>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
@@ -165,11 +166,12 @@ public class HtmlUnitControlFinderGetAllElementsForTextTest extends TestCase {
     HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
     WeightedControlList tmpFound = tmpFinder.getAllElementsForText(tmpSearch);
 
-    assertEquals(1, tmpFound.getElementsSorted().size());
-    assertEquals("[HtmlParagraph 'MyText'] found by: BY_TEXT coverage: 4 distance: 0", tmpFound.getElementsSorted()
-        .get(0).toString());
+    Assert.assertEquals(1, tmpFound.getElementsSorted().size());
+    Assert.assertEquals("[HtmlParagraph 'MyText'] found by: BY_TEXT coverage: 4 distance: 0", tmpFound
+        .getElementsSorted().get(0).toString());
   }
 
+  @Test
   public void testGetAllControlsForText_AnchorTextExact() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<a>MyText</a>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
@@ -180,11 +182,12 @@ public class HtmlUnitControlFinderGetAllElementsForTextTest extends TestCase {
     HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
     WeightedControlList tmpFound = tmpFinder.getAllElementsForText(tmpSearch);
 
-    assertEquals(1, tmpFound.getElementsSorted().size());
-    assertEquals("[HtmlAnchor 'MyText'] found by: BY_TEXT coverage: 0 distance: 0", tmpFound.getElementsSorted().get(0)
-        .toString());
+    Assert.assertEquals(1, tmpFound.getElementsSorted().size());
+    Assert.assertEquals("[HtmlAnchor 'MyText'] found by: BY_TEXT coverage: 0 distance: 0", tmpFound.getElementsSorted()
+        .get(0).toString());
   }
 
+  @Test
   public void testGetAllControlsForText_AnchorAndParagraphTextExact() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<a>MyText</a><p>MyText</p>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
@@ -195,13 +198,14 @@ public class HtmlUnitControlFinderGetAllElementsForTextTest extends TestCase {
     HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
     WeightedControlList tmpFound = tmpFinder.getAllElementsForText(tmpSearch);
 
-    assertEquals(2, tmpFound.getElementsSorted().size());
-    assertEquals("[HtmlAnchor 'MyText'] found by: BY_TEXT coverage: 0 distance: 0", tmpFound.getElementsSorted().get(0)
-        .toString());
-    assertEquals("[HtmlParagraph 'MyText'] found by: BY_TEXT coverage: 0 distance: 7", tmpFound.getElementsSorted()
-        .get(1).toString());
+    Assert.assertEquals(2, tmpFound.getElementsSorted().size());
+    Assert.assertEquals("[HtmlAnchor 'MyText'] found by: BY_TEXT coverage: 0 distance: 0", tmpFound.getElementsSorted()
+        .get(0).toString());
+    Assert.assertEquals("[HtmlParagraph 'MyText'] found by: BY_TEXT coverage: 0 distance: 7", tmpFound
+        .getElementsSorted().get(1).toString());
   }
 
+  @Test
   public void testGetAllControlsForText_ParagraphFormatedTextExact() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<a>My<b>T</b>ext</a>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
@@ -212,11 +216,12 @@ public class HtmlUnitControlFinderGetAllElementsForTextTest extends TestCase {
     HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
     WeightedControlList tmpFound = tmpFinder.getAllElementsForText(tmpSearch);
 
-    assertEquals(1, tmpFound.getElementsSorted().size());
-    assertEquals("[HtmlAnchor 'MyText'] found by: BY_TEXT coverage: 0 distance: 0", tmpFound.getElementsSorted().get(0)
-        .toString());
+    Assert.assertEquals(1, tmpFound.getElementsSorted().size());
+    Assert.assertEquals("[HtmlAnchor 'MyText'] found by: BY_TEXT coverage: 0 distance: 0", tmpFound.getElementsSorted()
+        .get(0).toString());
   }
 
+  @Test
   public void testGetAllControlsForText_ManyParagraphs() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<p>My<b>T</b>ext</p>" + "<p>line2</p>" + "<p>line3</p>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
@@ -228,11 +233,12 @@ public class HtmlUnitControlFinderGetAllElementsForTextTest extends TestCase {
     HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
     WeightedControlList tmpFound = tmpFinder.getAllElementsForText(tmpSearch);
 
-    assertEquals(1, tmpFound.getElementsSorted().size());
-    assertEquals("[HtmlParagraph 'line3'] found by: BY_TEXT coverage: 0 distance: 8", tmpFound.getElementsSorted().get(
-        0).toString());
+    Assert.assertEquals(1, tmpFound.getElementsSorted().size());
+    Assert.assertEquals("[HtmlParagraph 'line3'] found by: BY_TEXT coverage: 0 distance: 8", tmpFound
+        .getElementsSorted().get(0).toString());
   }
 
+  @Test
   public void testGetAllControlsForText_ManyParagraphs_MatchInside() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<p>line2</p>" + "<p>line3</p>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
@@ -244,8 +250,8 @@ public class HtmlUnitControlFinderGetAllElementsForTextTest extends TestCase {
     HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
     WeightedControlList tmpFound = tmpFinder.getAllElementsForText(tmpSearch);
 
-    assertEquals(1, tmpFound.getElementsSorted().size());
-    assertEquals("[HtmlParagraph 'line3'] found by: BY_TEXT coverage: 0 distance: 0", tmpFound.getElementsSorted().get(
-        0).toString());
+    Assert.assertEquals(1, tmpFound.getElementsSorted().size());
+    Assert.assertEquals("[HtmlParagraph 'line3'] found by: BY_TEXT coverage: 0 distance: 0", tmpFound
+        .getElementsSorted().get(0).toString());
   }
 }

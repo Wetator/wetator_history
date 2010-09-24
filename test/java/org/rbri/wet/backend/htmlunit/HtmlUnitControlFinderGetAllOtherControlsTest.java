@@ -20,10 +20,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
-
+import org.junit.Assert;
+import org.junit.Test;
 import org.rbri.wet.backend.WeightedControlList;
 import org.rbri.wet.backend.htmlunit.util.PageUtil;
 import org.rbri.wet.util.SecretString;
@@ -33,16 +31,9 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 /**
  * @author rbri
  */
-public class HtmlUnitControlFinderGetAllOtherControlsTest extends TestCase {
+public class HtmlUnitControlFinderGetAllOtherControlsTest {
 
-  public static void main(String[] anArgsArray) {
-    junit.textui.TestRunner.run(suite());
-  }
-
-  public static Test suite() {
-    return new TestSuite(HtmlUnitControlFinderGetAllOtherControlsTest.class);
-  }
-
+  @Test
   public void testGetAllOtherControls_Empty() throws IOException {
     String tmpHtmlCode = "<html><body>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
@@ -53,9 +44,10 @@ public class HtmlUnitControlFinderGetAllOtherControlsTest extends TestCase {
     HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
     WeightedControlList tmpFound = tmpFinder.getAllOtherControls(tmpSearch);
 
-    assertEquals(0, tmpFound.getElementsSorted().size());
+    Assert.assertEquals(0, tmpFound.getElementsSorted().size());
   }
 
+  @Test
   public void testGetAllOtherControls_Select_ById() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<select id='MyId' name='MySelectName' size='2'>"
         + "<option id='MyOptionId' value='o_value1'>option1</option>" + "<option value='o_value2'>option2</option>"
@@ -68,11 +60,12 @@ public class HtmlUnitControlFinderGetAllOtherControlsTest extends TestCase {
     HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
     WeightedControlList tmpFound = tmpFinder.getAllOtherControls(tmpSearch);
 
-    assertEquals(1, tmpFound.getElementsSorted().size());
-    assertEquals("[HtmlSelect (id='MyId') (name='MySelectName')] found by: BY_ID coverage: 0 distance: 0", tmpFound
-        .getElementsSorted().get(0).toString());
+    Assert.assertEquals(1, tmpFound.getElementsSorted().size());
+    Assert.assertEquals("[HtmlSelect (id='MyId') (name='MySelectName')] found by: BY_ID coverage: 0 distance: 0",
+        tmpFound.getElementsSorted().get(0).toString());
   }
 
+  @Test
   public void testGetAllOtherControls_Select_ByTextBefore() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "FirstSelectLabelText"
         + "<select name='MyFirstSelectName' size='2'>" + "<option id='1_1' value='o_value1'>option1</option>"
@@ -88,11 +81,12 @@ public class HtmlUnitControlFinderGetAllOtherControlsTest extends TestCase {
     HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
     WeightedControlList tmpFound = tmpFinder.getAllOtherControls(tmpSearch);
 
-    assertEquals(1, tmpFound.getElementsSorted().size());
-    assertEquals("[HtmlSelect (name='MySecondSelectName')] found by: BY_LABEL coverage: 0 distance: 66", tmpFound
-        .getElementsSorted().get(0).toString());
+    Assert.assertEquals(1, tmpFound.getElementsSorted().size());
+    Assert.assertEquals("[HtmlSelect (name='MySecondSelectName')] found by: BY_LABEL coverage: 0 distance: 66",
+        tmpFound.getElementsSorted().get(0).toString());
   }
 
+  @Test
   public void testGetAllOtherControls_Select_ByTextBeforeWildcard() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "FirstSelectLabelText"
         + "<select name='MyFirstSelectName' size='2'>" + "<option id='1_1' value='o_value1'>option1</option>"
@@ -108,11 +102,12 @@ public class HtmlUnitControlFinderGetAllOtherControlsTest extends TestCase {
     HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
     WeightedControlList tmpFound = tmpFinder.getAllOtherControls(tmpSearch);
 
-    assertEquals(1, tmpFound.getElementsSorted().size());
-    assertEquals("[HtmlSelect (name='MySecondSelectName')] found by: BY_LABEL coverage: 2 distance: 66", tmpFound
-        .getElementsSorted().get(0).toString());
+    Assert.assertEquals(1, tmpFound.getElementsSorted().size());
+    Assert.assertEquals("[HtmlSelect (name='MySecondSelectName')] found by: BY_LABEL coverage: 2 distance: 66",
+        tmpFound.getElementsSorted().get(0).toString());
   }
 
+  @Test
   public void testGetAllOtherControls_Select_ByTextPathBefore() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "FirstSelectLabelText"
         + "<select name='MyFirstSelectName' size='2'>" + "<option id='1_1' value='o_value1'>option1</option>"
@@ -129,13 +124,14 @@ public class HtmlUnitControlFinderGetAllOtherControlsTest extends TestCase {
     HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
     WeightedControlList tmpFound = tmpFinder.getAllOtherControls(tmpSearch);
 
-    assertEquals(2, tmpFound.getElementsSorted().size());
-    assertEquals("[HtmlSelect (name='MyFirstSelectName')] found by: BY_LABEL coverage: 4 distance: 17", tmpFound
+    Assert.assertEquals(2, tmpFound.getElementsSorted().size());
+    Assert.assertEquals("[HtmlSelect (name='MyFirstSelectName')] found by: BY_LABEL coverage: 4 distance: 17", tmpFound
         .getElementsSorted().get(0).toString());
-    assertEquals("[HtmlSelect (name='MySecondSelectName')] found by: BY_TEXT coverage: 46 distance: 46", tmpFound
-        .getElementsSorted().get(1).toString());
+    Assert.assertEquals("[HtmlSelect (name='MySecondSelectName')] found by: BY_TEXT coverage: 46 distance: 46",
+        tmpFound.getElementsSorted().get(1).toString());
   }
 
+  @Test
   public void testGetAllOtherControls_Select_ByName() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "FirstSelectLabelText"
         + "<select name='MyFirstSelectName' size='2'>" + "<option id='1_1' value='o_value1'>option1</option>"
@@ -151,11 +147,12 @@ public class HtmlUnitControlFinderGetAllOtherControlsTest extends TestCase {
     HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
     WeightedControlList tmpFound = tmpFinder.getAllOtherControls(tmpSearch);
 
-    assertEquals(1, tmpFound.getElementsSorted().size());
-    assertEquals("[HtmlSelect (name='MyFirstSelectName')] found by: BY_NAME coverage: 0 distance: 20", tmpFound
+    Assert.assertEquals(1, tmpFound.getElementsSorted().size());
+    Assert.assertEquals("[HtmlSelect (name='MyFirstSelectName')] found by: BY_NAME coverage: 0 distance: 20", tmpFound
         .getElementsSorted().get(0).toString());
   }
 
+  @Test
   public void testGetAllOtherControls_Select_ByLabelText() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<label for='MyFirstSelectId'>FirstSelectLabelText</label>" + "<select id='MyFirstSelectId' size='2'>"
@@ -172,11 +169,12 @@ public class HtmlUnitControlFinderGetAllOtherControlsTest extends TestCase {
     HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
     WeightedControlList tmpFound = tmpFinder.getAllOtherControls(tmpSearch);
 
-    assertEquals(1, tmpFound.getElementsSorted().size());
-    assertEquals("[HtmlSelect (id='MySecondSelectId')] found by: BY_LABEL coverage: 0 distance: 44", tmpFound
+    Assert.assertEquals(1, tmpFound.getElementsSorted().size());
+    Assert.assertEquals("[HtmlSelect (id='MySecondSelectId')] found by: BY_LABEL coverage: 0 distance: 44", tmpFound
         .getElementsSorted().get(0).toString());
   }
 
+  @Test
   public void testGetAllOtherControls_Select_ByLabelTextChild() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<label>FirstSelectLabelText"
         + "<select id='MyFirstSelectId' size='2'>" + "<option id='1_1' value='o_value1'>option1</option>"
@@ -193,11 +191,12 @@ public class HtmlUnitControlFinderGetAllOtherControlsTest extends TestCase {
     HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
     WeightedControlList tmpFound = tmpFinder.getAllOtherControls(tmpSearch);
 
-    assertEquals(1, tmpFound.getElementsSorted().size());
-    assertEquals("[HtmlSelect (id='MySecondSelectId')] found by: BY_LABEL coverage: 0 distance: 66", tmpFound
+    Assert.assertEquals(1, tmpFound.getElementsSorted().size());
+    Assert.assertEquals("[HtmlSelect (id='MySecondSelectId')] found by: BY_LABEL coverage: 0 distance: 66", tmpFound
         .getElementsSorted().get(0).toString());
   }
 
+  @Test
   public void testGetAllOtherControls_OptionGroup_ByLabelText() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<select id='MyFirstSelectId' size='2'>"
         + "<optgroup label='colors' id='optgroup_colors'>" + "<option value='o_red'>red</option>"
@@ -211,12 +210,14 @@ public class HtmlUnitControlFinderGetAllOtherControlsTest extends TestCase {
     HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
     WeightedControlList tmpFound = tmpFinder.getAllOtherControls(tmpSearch);
 
-    assertEquals(1, tmpFound.getElementsSorted().size());
-    assertEquals(
-        "[HtmlOptionGroup 'colors' (id='optgroup_colors') part of [HtmlSelect (id='MyFirstSelectId')]] found by: BY_LABEL_TEXT coverage: 0 distance: 0",
-        tmpFound.getElementsSorted().get(0).toString());
+    Assert.assertEquals(1, tmpFound.getElementsSorted().size());
+    Assert
+        .assertEquals(
+            "[HtmlOptionGroup 'colors' (id='optgroup_colors') part of [HtmlSelect (id='MyFirstSelectId')]] found by: BY_LABEL_TEXT coverage: 0 distance: 0",
+            tmpFound.getElementsSorted().get(0).toString());
   }
 
+  @Test
   public void testGetAllOtherControls_OptionGroup_ById() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<select id='MyFirstSelectId' size='2'>"
         + "<optgroup label='colors' id='optgroup_colors'>" + "<option value='o_red'>red</option>"
@@ -230,9 +231,10 @@ public class HtmlUnitControlFinderGetAllOtherControlsTest extends TestCase {
     HtmlUnitControlFinder tmpFinder = new HtmlUnitControlFinder(tmpHtmlPage);
     WeightedControlList tmpFound = tmpFinder.getAllOtherControls(tmpSearch);
 
-    assertEquals(1, tmpFound.getElementsSorted().size());
-    assertEquals(
-        "[HtmlOptionGroup 'colors' (id='optgroup_colors') part of [HtmlSelect (id='MyFirstSelectId')]] found by: BY_ID coverage: 0 distance: 0",
-        tmpFound.getElementsSorted().get(0).toString());
+    Assert.assertEquals(1, tmpFound.getElementsSorted().size());
+    Assert
+        .assertEquals(
+            "[HtmlOptionGroup 'colors' (id='optgroup_colors') part of [HtmlSelect (id='MyFirstSelectId')]] found by: BY_ID coverage: 0 distance: 0",
+            tmpFound.getElementsSorted().get(0).toString());
   }
 }

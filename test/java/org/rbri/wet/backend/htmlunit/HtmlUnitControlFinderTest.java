@@ -16,29 +16,21 @@
 
 package org.rbri.wet.backend.htmlunit;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+import org.junit.Assert;
+import org.junit.Test;
 
 /**
  * @author rbri
  */
-public class HtmlUnitControlFinderTest extends TestCase {
+public class HtmlUnitControlFinderTest {
 
-  public static void main(String[] anArgsArray) {
-    junit.textui.TestRunner.run(suite());
-  }
-
-  public static Test suite() {
-    return new TestSuite(HtmlUnitControlFinderTest.class);
-  }
-
+  @Test
   public void testConstructorNullPage() {
     try {
       new HtmlUnitControlFinder(null);
-      fail("NullPointerException expected.");
+      Assert.fail("NullPointerException expected.");
     } catch (NullPointerException e) {
-      assertEquals("HtmlPage can't be null", e.getMessage());
+      Assert.assertEquals("HtmlPage can't be null", e.getMessage());
     }
   }
 }

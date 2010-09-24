@@ -16,24 +16,18 @@
 
 package org.rbri.wet.core.result;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+import org.junit.Assert;
+import org.junit.Ignore;
+import org.junit.Test;
 
 /**
  * @author rbri
  */
-public class XslTransformerTest extends TestCase {
+public class XslTransformerTest {
 
-  public static void main(String[] anArgsArray) {
-    junit.textui.TestRunner.run(suite());
-  }
-
-  public static Test suite() {
-    return new TestSuite(XslTransformerTest.class);
-  }
-
+  @Test
+  @Ignore
   public void test() {
-    fail("I am not a test.");
+    Assert.fail("I am not a test.");
   }
 }

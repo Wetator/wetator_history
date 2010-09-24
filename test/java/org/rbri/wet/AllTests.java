@@ -16,10 +16,6 @@
 
 package org.rbri.wet;
 
-import junit.framework.JUnit4TestAdapter;
-import junit.framework.Test;
-import junit.framework.TestCase;
-
 import org.junit.runner.JUnitCore;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
@@ -36,7 +32,7 @@ import org.junit.runners.Suite.SuiteClasses;
     org.rbri.wet.i18n.AllTests.class, //
     org.rbri.wet.scripter.AllTests.class, //
     org.rbri.wet.util.AllTests.class })
-public class AllTests extends TestCase {
+public final class AllTests {
 
   /**
    * @param anArgsArray ignored
@@ -47,10 +43,9 @@ public class AllTests extends TestCase {
   }
 
   /**
-   * @return the test suite
+   * The constructor.
    */
-  // TODO remove when migrated to junit4
-  public static Test suite() {
-    return new JUnit4TestAdapter(AllTests.class);
+  private AllTests() {
+    // nothing
   }
 }

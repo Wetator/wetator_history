@@ -20,10 +20,8 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
-
+import org.junit.Assert;
+import org.junit.Test;
 import org.rbri.wet.backend.WeightedControlList.Entry;
 import org.rbri.wet.backend.htmlunit.HtmlUnitControl;
 import org.rbri.wet.backend.htmlunit.util.PageUtil;
@@ -35,33 +33,28 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 /**
  * @author rbri
  */
-public class WeightedControlListTest extends TestCase {
+public class WeightedControlListTest {
 
-  public static void main(String[] anArgsArray) {
-    junit.textui.TestRunner.run(suite());
-  }
-
-  public static Test suite() {
-    return new TestSuite(WeightedControlListTest.class);
-  }
-
+  @Test
   public void testIsEmpty() {
     WeightedControlList tmpWeightedControlList = new WeightedControlList();
 
-    assertTrue(tmpWeightedControlList.isEmpty());
-    assertTrue(tmpWeightedControlList.getElementsSorted().isEmpty());
+    Assert.assertTrue(tmpWeightedControlList.isEmpty());
+    Assert.assertTrue(tmpWeightedControlList.getElementsSorted().isEmpty());
   }
 
+  @Test
   public void testOneEntry() throws IOException {
     HtmlUnitControl tmpControl = new HtmlUnitControl(constructHtmlAnchor());
     WeightedControlList tmpWeightedControlList = new WeightedControlList();
 
     tmpWeightedControlList.add(tmpControl, WeightedControlList.FoundType.BY_ID, 100, 11);
 
-    assertFalse(tmpWeightedControlList.isEmpty());
-    assertFalse(tmpWeightedControlList.getElementsSorted().isEmpty());
+    Assert.assertFalse(tmpWeightedControlList.isEmpty());
+    Assert.assertFalse(tmpWeightedControlList.getElementsSorted().isEmpty());
   }
 
+  @Test
   public void testTwoEntries() throws IOException {
     HtmlUnitControl tmpControl = new HtmlUnitControl(constructHtmlAnchor());
     WeightedControlList tmpWeightedControlList = new WeightedControlList();
@@ -69,11 +62,12 @@ public class WeightedControlListTest extends TestCase {
     tmpWeightedControlList.add(tmpControl, WeightedControlList.FoundType.BY_ID, 100, 11);
     tmpWeightedControlList.add(tmpControl, WeightedControlList.FoundType.BY_ID, 200, 11);
 
-    assertFalse(tmpWeightedControlList.isEmpty());
+    Assert.assertFalse(tmpWeightedControlList.isEmpty());
 
-    assertFalse(tmpWeightedControlList.getElementsSorted().isEmpty());
+    Assert.assertFalse(tmpWeightedControlList.getElementsSorted().isEmpty());
   }
 
+  @Test
   public void testGetElementsSorted_Distance() throws IOException {
     WeightedControlList tmpWeightedControlList = new WeightedControlList();
 
@@ -88,11 +82,15 @@ public class WeightedControlListTest extends TestCase {
 
     List<Entry> tmpSorted = tmpWeightedControlList.getElementsSorted();
 
-    assertEquals("[HtmlAnchor 'AnchorText'] found by: BY_ID coverage: 100 distance: 10", tmpSorted.get(0).toString());
-    assertEquals("[HtmlAnchor 'AnchorText'] found by: BY_ID coverage: 100 distance: 11", tmpSorted.get(1).toString());
-    assertEquals("[HtmlAnchor 'AnchorText'] found by: BY_ID coverage: 100 distance: 12", tmpSorted.get(2).toString());
+    Assert.assertEquals("[HtmlAnchor 'AnchorText'] found by: BY_ID coverage: 100 distance: 10", tmpSorted.get(0)
+        .toString());
+    Assert.assertEquals("[HtmlAnchor 'AnchorText'] found by: BY_ID coverage: 100 distance: 11", tmpSorted.get(1)
+        .toString());
+    Assert.assertEquals("[HtmlAnchor 'AnchorText'] found by: BY_ID coverage: 100 distance: 12", tmpSorted.get(2)
+        .toString());
   }
 
+  @Test
   public void testGetElementsSorted_Coverage() throws IOException {
     WeightedControlList tmpWeightedControlList = new WeightedControlList();
 
@@ -110,12 +108,17 @@ public class WeightedControlListTest extends TestCase {
 
     List<Entry> tmpSorted = tmpWeightedControlList.getElementsSorted();
 
-    assertEquals("[HtmlAnchor 'AnchorText'] found by: BY_ID coverage: 4 distance: 10", tmpSorted.get(0).toString());
-    assertEquals("[HtmlAnchor 'AnchorText'] found by: BY_ID coverage: 4 distance: 11", tmpSorted.get(1).toString());
-    assertEquals("[HtmlAnchor 'AnchorText'] found by: BY_ID coverage: 9 distance: 11", tmpSorted.get(2).toString());
-    assertEquals("[HtmlAnchor 'AnchorText'] found by: BY_ID coverage: 10 distance: 12", tmpSorted.get(3).toString());
+    Assert.assertEquals("[HtmlAnchor 'AnchorText'] found by: BY_ID coverage: 4 distance: 10", tmpSorted.get(0)
+        .toString());
+    Assert.assertEquals("[HtmlAnchor 'AnchorText'] found by: BY_ID coverage: 4 distance: 11", tmpSorted.get(1)
+        .toString());
+    Assert.assertEquals("[HtmlAnchor 'AnchorText'] found by: BY_ID coverage: 9 distance: 11", tmpSorted.get(2)
+        .toString());
+    Assert.assertEquals("[HtmlAnchor 'AnchorText'] found by: BY_ID coverage: 10 distance: 12", tmpSorted.get(3)
+        .toString());
   }
 
+  @Test
   public void testGetElementsSorted_FoundType() throws IOException {
     WeightedControlList tmpWeightedControlList = new WeightedControlList();
 
@@ -133,12 +136,17 @@ public class WeightedControlListTest extends TestCase {
 
     List<Entry> tmpSorted = tmpWeightedControlList.getElementsSorted();
 
-    assertEquals("[HtmlAnchor 'AnchorText'] found by: BY_ID coverage: 4 distance: 10", tmpSorted.get(0).toString());
-    assertEquals("[HtmlAnchor 'AnchorText'] found by: BY_ID coverage: 4 distance: 11", tmpSorted.get(1).toString());
-    assertEquals("[HtmlAnchor 'AnchorText'] found by: BY_ID coverage: 9 distance: 11", tmpSorted.get(2).toString());
-    assertEquals("[HtmlAnchor 'AnchorText'] found by: BY_LABEL coverage: 10 distance: 12", tmpSorted.get(3).toString());
+    Assert.assertEquals("[HtmlAnchor 'AnchorText'] found by: BY_ID coverage: 4 distance: 10", tmpSorted.get(0)
+        .toString());
+    Assert.assertEquals("[HtmlAnchor 'AnchorText'] found by: BY_ID coverage: 4 distance: 11", tmpSorted.get(1)
+        .toString());
+    Assert.assertEquals("[HtmlAnchor 'AnchorText'] found by: BY_ID coverage: 9 distance: 11", tmpSorted.get(2)
+        .toString());
+    Assert.assertEquals("[HtmlAnchor 'AnchorText'] found by: BY_LABEL coverage: 10 distance: 12", tmpSorted.get(3)
+        .toString());
   }
 
+  @Test
   public void testGetElementsSorted_SameControl() throws IOException {
     WeightedControlList tmpWeightedControlList = new WeightedControlList();
 
@@ -152,8 +160,10 @@ public class WeightedControlListTest extends TestCase {
 
     List<Entry> tmpSorted = tmpWeightedControlList.getElementsSorted();
 
-    assertEquals("[HtmlAnchor 'AnchorText'] found by: BY_ID coverage: 4 distance: 10", tmpSorted.get(0).toString());
-    assertEquals("[HtmlAnchor 'AnchorText'] found by: BY_ID coverage: 4 distance: 11", tmpSorted.get(1).toString());
+    Assert.assertEquals("[HtmlAnchor 'AnchorText'] found by: BY_ID coverage: 4 distance: 10", tmpSorted.get(0)
+        .toString());
+    Assert.assertEquals("[HtmlAnchor 'AnchorText'] found by: BY_ID coverage: 4 distance: 11", tmpSorted.get(1)
+        .toString());
   }
 
   private HtmlAnchor constructHtmlAnchor() throws IOException {

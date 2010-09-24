@@ -93,7 +93,6 @@ public final class TestCommandSet extends AbstractCommandSet {
    */
   @Override
   public void cleanup() {
-    // TODO Auto-generated method stub
-
+    // nothing
   }
 }

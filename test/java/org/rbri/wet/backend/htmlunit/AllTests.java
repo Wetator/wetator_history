@@ -16,36 +16,39 @@
 
 package org.rbri.wet.backend.htmlunit;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+import org.junit.runner.JUnitCore;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
 
 /**
  * @author rbri
+ * @author frank.danek
  */
-public class AllTests extends TestCase {
+@RunWith(Suite.class)
+@SuiteClasses( { org.rbri.wet.backend.htmlunit.util.AllTests.class, //
+    HtmlElementUtilTest.class, //
+    HtmlUnitControlFinderTest.class, //
+    HtmlUnitControlFinderGetAllClickablesTest.class, //
+    HtmlUnitControlFinderGetAllElementsForTextTest.class, //
+    HtmlUnitControlFinderGetAllOtherControlsTest.class, //
+    HtmlUnitControlFinderGetAllSetablesTest.class, //
+    HtmlUnitControlFinderGetAllSelectablesTest.class, //
+    HtmlUnitControlTest.class, //
+    XHtmlOutputterXHtmlPageTest.class })
+public final class AllTests {
+
+  /**
+   * @param anArgsArray ignored
+   */
   public static void main(String[] anArgsArray) {
-    junit.textui.TestRunner.run(suite());
+    JUnitCore.main(AllTests.class.getName());
   }
 
-  public static Test suite() {
-
-    TestSuite tmpSuite = new TestSuite("All Wetator backend htmlunit tests");
-
-    tmpSuite.addTest(org.rbri.wet.backend.htmlunit.util.AllTests.suite());
-
-    tmpSuite.addTest(HtmlElementUtilTest.suite());
-    // suite.addTest(HtmlUnitControlFinderAllBodyControlsForTextTest.suite());
-
-    tmpSuite.addTest(HtmlUnitControlFinderTest.suite());
-    tmpSuite.addTest(HtmlUnitControlFinderGetAllClickablesTest.suite());
-    tmpSuite.addTest(HtmlUnitControlFinderGetAllElementsForTextTest.suite());
-    tmpSuite.addTest(HtmlUnitControlFinderGetAllOtherControlsTest.suite());
-    tmpSuite.addTest(HtmlUnitControlFinderGetAllSetablesTest.suite());
-    tmpSuite.addTest(HtmlUnitControlFinderGetAllSelectablesTest.suite());
-    tmpSuite.addTest(HtmlUnitControlTest.suite());
-    tmpSuite.addTest(XHtmlOutputterXHtmlPageTest.suite());
-
-    return tmpSuite;
+  /**
+   * The constructor.
+   */
+  private AllTests() {
+    // nothing
   }
 }

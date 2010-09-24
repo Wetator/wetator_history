@@ -16,38 +16,31 @@
 
 package org.rbri.wet.core;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+import org.junit.Assert;
+import org.junit.Test;
 
 /**
  * @author rbri
  */
-public final class WetCommandTest extends TestCase {
+public class WetCommandTest {
 
-  public static void main(String[] anArgsArray) {
-    junit.textui.TestRunner.run(suite());
-  }
-
-  public static Test suite() {
-    return new TestSuite(WetCommandTest.class);
-  }
-
+  @Test
   public void testConstructor() {
     WetCommand tmpCommand = new WetCommand("TestCommand", false);
 
-    assertEquals("TestCommand", tmpCommand.getName());
-    assertFalse(tmpCommand.isComment());
-    assertEquals(-1, tmpCommand.getLineNo());
-    // TODO assertEquals("", tmpCommand.toPrintableString(aWetContext));
+    Assert.assertEquals("TestCommand", tmpCommand.getName());
+    Assert.assertFalse(tmpCommand.isComment());
+    Assert.assertEquals(-1, tmpCommand.getLineNo());
+    // TODO Assert.assertEquals("", tmpCommand.toPrintableString(aWetContext));
   }
 
+  @Test
   public void testConstructor_comment() {
     WetCommand tmpCommand = new WetCommand("TestCommand", true);
 
-    assertEquals("TestCommand", tmpCommand.getName());
-    assertTrue(tmpCommand.isComment());
-    assertEquals(-1, tmpCommand.getLineNo());
-    // TODO assertEquals("", tmpCommand.toPrintableString(aWetContext));
+    Assert.assertEquals("TestCommand", tmpCommand.getName());
+    Assert.assertTrue(tmpCommand.isComment());
+    Assert.assertEquals(-1, tmpCommand.getLineNo());
+    // TODO Assert.assertEquals("", tmpCommand.toPrintableString(aWetContext));
   }
 }

@@ -16,27 +16,21 @@
 
 package org.rbri.wet.core.result;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+import org.junit.Assert;
+import org.junit.Ignore;
+import org.junit.Test;
 
 /**
  * @author rbri
  */
-public class WetResultWriterTest extends TestCase {
+public class WetResultWriterTest {
 
-  public static void main(String[] anArgsArray) {
-    junit.textui.TestRunner.run(suite());
-  }
-
-  public static Test suite() {
-    return new TestSuite(WetResultWriterTest.class);
-  }
-
+  @Test
+  @Ignore
   public void test() {
     // StringWriter tmpStringWriter = new StringWriter();
     //
     // WetResultWriter tmpResultWriter;
-    fail("I am not a test.");
+    Assert.fail("I am not a test.");
   }
 }

@@ -19,25 +19,15 @@ package org.rbri.wet.util;
 import java.util.LinkedList;
 import java.util.List;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
-
+import org.junit.Test;
 import org.rbri.wet.exception.AssertionFailedException;
 
 /**
  * @author rbri
  */
-public class AssertTest extends TestCase {
+public class AssertTest {
 
-  public static void main(String[] anArgsArray) {
-    junit.textui.TestRunner.run(suite());
-  }
-
-  public static Test suite() {
-    return new TestSuite(AssertTest.class);
-  }
-
+  @Test
   public void testAssertListMatch_Dots() throws AssertionFailedException {
     List<SecretString> tmpExpected = new LinkedList<SecretString>();
     tmpExpected.add(new SecretString("def", "def"));
@@ -46,6 +36,7 @@ public class AssertTest extends TestCase {
     Assert.assertListMatch(tmpExpected, " abc def ghi ... xyz");
   }
 
+  @Test
   public void testAssertListMatch_1() throws AssertionFailedException {
     List<SecretString> tmpExpected = new LinkedList<SecretString>();
     tmpExpected.add(new SecretString("GET Parameters", "GET Parameters"));
@@ -61,6 +52,7 @@ public class AssertTest extends TestCase {
             "Request Snoopy @ rbri.de / rbri.org Home Projects NewView ProjectX jRipper WeT Links Imprint GET Parameters Key Value inputText_Name_Value InputTextNameValueTest OK POST Parameters Key Value Headers Key Value Host www.rbri.org User-Agent Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.9.0.1) Gecko/2008070208 Firefox/3.0.1 Accept-Language en-us,en;q=0.8,de-de;q=0.5,de;q=0.3 Referer http://wet.rbri.org/testcases/set.html Accept */* © rbri 2007, 2008");
   }
 
+  @Test
   public void testAssertListMatch_WrongOrder() {
     List<SecretString> tmpExpected = new LinkedList<SecretString>();
     tmpExpected.add(new SecretString("Pferde", "Pferde"));
@@ -70,14 +62,16 @@ public class AssertTest extends TestCase {
 
     try {
       Assert.assertListMatch(tmpExpected, "Pferde fressen keinen Gurkensalat");
-      fail("AssertionFailedException expected");
+      org.junit.Assert.fail("AssertionFailedException expected");
     } catch (AssertionFailedException e) {
-      assertEquals(
-          "Expected content(s) {not found} or [in wrong order]: 'Pferde, keinen, [fressen], Gurkensalat' (content: 'Pferde fressen keinen Gurkensalat').",
-          e.getMessage());
+      org.junit.Assert
+          .assertEquals(
+              "Expected content(s) {not found} or [in wrong order]: 'Pferde, keinen, [fressen], Gurkensalat' (content: 'Pferde fressen keinen Gurkensalat').",
+              e.getMessage());
     }
   }
 
+  @Test
   public void testAssertMatch() throws AssertionFailedException {
     Assert.assertMatch(null, null, "wrongErrorMessage", null);
     Assert.assertMatch("", "", "wrongErrorMessage", null);
@@ -86,30 +80,30 @@ public class AssertTest extends TestCase {
 
     try {
       Assert.assertMatch(null, "", "wrongErrorMessage", null);
-      fail("AssertionFailedException expected");
+      org.junit.Assert.fail("AssertionFailedException expected");
     } catch (AssertionFailedException e) {
-      assertEquals("Wrong error message: expected: <null> but was: <>", e.getMessage());
+      org.junit.Assert.assertEquals("Wrong error message: expected: <null> but was: <>", e.getMessage());
     }
 
     try {
       Assert.assertMatch("", null, "wrongErrorMessage", null);
-      fail("AssertionFailedException expected");
+      org.junit.Assert.fail("AssertionFailedException expected");
     } catch (AssertionFailedException e) {
-      assertEquals("Wrong error message: expected: <> but was: <null>", e.getMessage());
+      org.junit.Assert.assertEquals("Wrong error message: expected: <> but was: <null>", e.getMessage());
     }
 
     try {
       Assert.assertMatch("abc", "dxy", "wrongErrorMessage", null);
-      fail("AssertionFailedException expected");
+      org.junit.Assert.fail("AssertionFailedException expected");
     } catch (AssertionFailedException e) {
-      assertEquals("Wrong error message: expected: <abc> but was: <dxy>", e.getMessage());
+      org.junit.Assert.assertEquals("Wrong error message: expected: <abc> but was: <dxy>", e.getMessage());
     }
 
     try {
       Assert.assertMatch("a*c", "abx", "wrongErrorMessage", null);
-      fail("AssertionFailedException expected");
+      org.junit.Assert.fail("AssertionFailedException expected");
     } catch (AssertionFailedException e) {
-      assertEquals("Wrong error message: expected: <a*c> but was: <abx>", e.getMessage());
+      org.junit.Assert.assertEquals("Wrong error message: expected: <a*c> but was: <abx>", e.getMessage());
     }
   }
 }

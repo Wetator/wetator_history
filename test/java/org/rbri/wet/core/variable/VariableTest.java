@@ -16,51 +16,45 @@
 
 package org.rbri.wet.core.variable;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
-
+import org.junit.Assert;
+import org.junit.Test;
 import org.rbri.wet.util.SecretString;
 
 /**
  * @author rbri
  */
-public final class VariableTest extends TestCase {
+public class VariableTest {
 
-  public static void main(String[] anArgsArray) {
-    junit.textui.TestRunner.run(suite());
-  }
-
-  public static Test suite() {
-    return new TestSuite(VariableTest.class);
-  }
-
+  @Test
   public void testConstructor() {
     Variable tmpVariable = new Variable("TestName", "value");
 
-    assertEquals("TestName", tmpVariable.getName());
-    assertEquals("value", tmpVariable.getValue().toString());
+    Assert.assertEquals("TestName", tmpVariable.getName());
+    Assert.assertEquals("value", tmpVariable.getValue().toString());
   }
 
+  @Test
   public void testConstructor_WithoutName() {
     try {
       new Variable(null, "value");
     } catch (IllegalArgumentException e) {
-      assertEquals("Parameter aName can't be null.", e.getMessage());
+      Assert.assertEquals("Parameter aName can't be null.", e.getMessage());
     }
   }
 
+  @Test
   public void testConstructor_SecretFlag() {
     Variable tmpVariable = new Variable("TestName", "value", true);
 
-    assertEquals("TestName", tmpVariable.getName());
-    assertEquals("****", tmpVariable.getValue().toString());
+    Assert.assertEquals("TestName", tmpVariable.getName());
+    Assert.assertEquals("****", tmpVariable.getValue().toString());
   }
 
+  @Test
   public void testConstructor_SecretString() {
     Variable tmpVariable = new Variable("TestName", new SecretString("value", true));
 
-    assertEquals("TestName", tmpVariable.getName());
-    assertEquals("****", tmpVariable.getValue().toString());
+    Assert.assertEquals("TestName", tmpVariable.getName());
+    Assert.assertEquals("****", tmpVariable.getValue().toString());
   }
 }

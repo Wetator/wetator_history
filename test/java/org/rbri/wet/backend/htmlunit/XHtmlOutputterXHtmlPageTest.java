@@ -19,10 +19,8 @@ package org.rbri.wet.backend.htmlunit;
 import java.io.IOException;
 import java.io.StringWriter;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
-
+import org.junit.Assert;
+import org.junit.Test;
 import org.rbri.wet.backend.htmlunit.util.PageUtil;
 import org.rbri.wet.util.NormalizedString;
 
@@ -31,7 +29,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 /**
  * @author rbri
  */
-public class XHtmlOutputterXHtmlPageTest extends TestCase {
+public class XHtmlOutputterXHtmlPageTest {
 
   private static final String TRAILING = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       + "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\n"
@@ -44,14 +42,7 @@ public class XHtmlOutputterXHtmlPageTest extends TestCase {
       + "<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\" lang=\"en\"> <body> ";
   private static final String EXPECTED_LEADING = "</body> </html>";
 
-  public static void main(String[] anArgsArray) {
-    junit.textui.TestRunner.run(suite());
-  }
-
-  public static Test suite() {
-    return new TestSuite(XHtmlOutputterXHtmlPageTest.class);
-  }
-
+  @Test
   public void testSimple() throws IOException {
     String tmpXHtmlCode = TRAILING + LEADING;
     HtmlPage tmpXHtmlPage = PageUtil.constructXHtmlPage(tmpXHtmlCode);
@@ -62,10 +53,10 @@ public class XHtmlOutputterXHtmlPageTest extends TestCase {
     tmpXHtmlOutputter.writeTo(tmpWriter);
 
     String tmpExpected = EXPECTED_TRAILING + EXPECTED_LEADING;
-    assertEquals(tmpExpected, new NormalizedString(tmpWriter.toString()).toString());
+    Assert.assertEquals(tmpExpected, new NormalizedString(tmpWriter.toString()).toString());
   }
 
-  // public void testSimpleWithJavascript() throws IOException {
+  // @Test public void testSimpleWithJavascript() throws IOException {
   // String tmpXHtmlCode = TRAILING + "<body><h1>Test</h1>"
   // + "<script type=\"text/javascript\"><![CDATA[ ]]></script></body>" + LEADING;
   // System.out.println(tmpXHtmlCode);
@@ -75,6 +66,6 @@ public class XHtmlOutputterXHtmlPageTest extends TestCase {
   // tmpXHtmlOutputter.writeTo(tmpWriter);
   //
   // String tmpExpected = EXPECTED_TRAILING + EXPECTED_LEADING;
-  // assertEquals(tmpExpected, new NormalizedString(tmpWriter.toString()).toString());
+  // Assert.assertEquals(tmpExpected, new NormalizedString(tmpWriter.toString()).toString());
   // }
 }

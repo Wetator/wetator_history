@@ -16,26 +16,18 @@
 
 package org.rbri.wet.i18n;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+import org.junit.Assert;
+import org.junit.Test;
 
 /**
  * @author rbri
  */
-public class MessagesTest extends TestCase {
+public class MessagesTest {
 
-  public static void main(String[] anArgsArray) {
-    junit.textui.TestRunner.run(suite());
-  }
-
-  public static Test suite() {
-    return new TestSuite(MessagesTest.class);
-  }
-
+  @Test
   public void testGetMessage() {
     String tmpMessage = Messages.getMessage("emptyFirstParameter", new String[] { "param1" });
 
-    assertEquals("The command 'param1' requires a first parameter.", tmpMessage);
+    Assert.assertEquals("The command 'param1' requires a first parameter.", tmpMessage);
   }
 }

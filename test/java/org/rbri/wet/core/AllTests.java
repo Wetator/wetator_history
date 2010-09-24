@@ -16,28 +16,33 @@
 
 package org.rbri.wet.core;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+import org.junit.runner.JUnitCore;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
 
 /**
  * @author rbri
+ * @author frank.danek
  */
-public class AllTests extends TestCase {
+@RunWith(Suite.class)
+@SuiteClasses( { org.rbri.wet.core.result.AllTests.class, //
+    org.rbri.wet.core.searchpattern.AllTests.class, //
+    org.rbri.wet.core.variable.AllTests.class, //
+    WetCommandTest.class })
+public final class AllTests {
+
+  /**
+   * @param anArgsArray ignored
+   */
   public static void main(String[] anArgsArray) {
-    junit.textui.TestRunner.run(suite());
+    JUnitCore.main(AllTests.class.getName());
   }
 
-  public static Test suite() {
-
-    TestSuite tmpSuite = new TestSuite("All Wetator core tests");
-
-    tmpSuite.addTest(org.rbri.wet.core.result.AllTests.suite());
-    tmpSuite.addTest(org.rbri.wet.core.searchpattern.AllTests.suite());
-    tmpSuite.addTest(org.rbri.wet.core.variable.AllTests.suite());
-
-    tmpSuite.addTest(WetCommandTest.suite());
-
-    return tmpSuite;
+  /**
+   * The constructor.
+   */
+  private AllTests() {
+    // nothing
   }
 }

@@ -18,10 +18,8 @@ package org.rbri.wet.backend.htmlunit.util;
 
 import java.io.IOException;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
-
+import org.junit.Assert;
+import org.junit.Test;
 import org.rbri.wet.exception.AssertionFailedException;
 
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
@@ -29,28 +27,22 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 /**
  * @author rbri
  */
-public class PageUtilTest extends TestCase {
+public class PageUtilTest {
 
-  public static void main(String[] anArgsArray) {
-    junit.textui.TestRunner.run(suite());
-  }
-
-  public static Test suite() {
-    return new TestSuite(PageUtilTest.class);
-  }
-
+  @Test
   public void testCheckAnchor_EmptyPage() throws IOException {
     String tmpHtmlCode = "<html><body>" + "</body></html>";
     HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     try {
       PageUtil.checkAnchor("ref", tmpHtmlPage);
-      fail("AssertionFailedException expected");
+      Assert.fail("AssertionFailedException expected");
     } catch (AssertionFailedException e) {
-      assertEquals("No id/anchor found for ref 'ref'.", e.getMessage());
+      Assert.assertEquals("No id/anchor found for ref 'ref'.", e.getMessage());
     }
   }
 
+  @Test
   public void testCheckAnchor_NoAnchor() throws IOException {
     String tmpHtmlCode = "<html>" + "<head>" + "<title>Page Title</title>" + "</head>" + "<body>"
         + "<p>Paragraph 1</p>" + "</body></html>";
@@ -58,12 +50,13 @@ public class PageUtilTest extends TestCase {
 
     try {
       PageUtil.checkAnchor("ref", tmpHtmlPage);
-      fail("AssertionFailedException expected");
+      Assert.fail("AssertionFailedException expected");
     } catch (AssertionFailedException e) {
-      assertEquals("No id/anchor found for ref 'ref'.", e.getMessage());
+      Assert.assertEquals("No id/anchor found for ref 'ref'.", e.getMessage());
     }
   }
 
+  @Test
   public void testCheckAnchor_ById() throws IOException, AssertionFailedException {
     String tmpHtmlCode = "<html><head>" + "<title>Page Title</title></head>" + "<body>"
         + "<p>Paragraph 1 <a id='ref'>Anchor</a></p>" + "</body></html>";
@@ -72,6 +65,7 @@ public class PageUtilTest extends TestCase {
     PageUtil.checkAnchor("ref", tmpHtmlPage);
   }
 
+  @Test
   public void testCheckAnchor_ByName() throws IOException, AssertionFailedException {
     String tmpHtmlCode = "<html><head>" + "<title>Page Title</title></head>" + "<body>"
         + "<p>Paragraph 1 <a name='ref'>Anchor</a></p>" + "</body></html>";
