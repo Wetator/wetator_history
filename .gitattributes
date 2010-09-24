@@ -192,6 +192,7 @@ test/java/org/rbri/wet/test/jetty/HttpHeaderServlet.java -text svneol=unset#text
 test/java/org/rbri/wet/test/jetty/MultiPartFilter.java -text svneol=unset#text/plain
 test/java/org/rbri/wet/test/jetty/RedirectServlet.java -text svneol=unset#text/plain
 test/java/org/rbri/wet/test/jetty/SnoopyServlet.java -text svneol=unset#text/plain
+test/java/org/rbri/wet/test/resource/junit.xml -text svneol=unset#text/plain
 test/java/org/rbri/wet/util/AllTests.java -text
 test/java/org/rbri/wet/util/AssertTest.java -text
 test/java/org/rbri/wet/util/ContentUtilTest.java -text
