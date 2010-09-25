@@ -33,15 +33,32 @@ public class GradientPanel extends JPanel {
   private static final long serialVersionUID = -4051448566901726204L;
   private Direction gradientDirection;
 
+  /**
+   * Enum containing the available directions.
+   */
   public enum Direction {
+    /**
+     * The gradient runs from left to right.
+     */
     LEFT2RIGHT,
+    /**
+     * The gradient runs from bottom to top.
+     */
     BOTTOM2TOP
   };
 
+  /**
+   * The constructor.
+   */
   public GradientPanel() {
     super();
   }
 
+  /**
+   * {@inheritDoc}
+   * 
+   * @see javax.swing.JComponent#paintComponent(java.awt.Graphics)
+   */
   @Override
   public void paintComponent(Graphics aGraphics) {
     super.paintComponent(aGraphics);
@@ -76,10 +93,16 @@ public class GradientPanel extends JPanel {
     tmpGraphics2D.setPaint(tmpOrgPaint);
   }
 
+  /**
+   * @return the gradientDirection
+   */
   public Direction getGradientDirection() {
     return gradientDirection;
   }
 
+  /**
+   * @param aDirection the gradientDirection to set
+   */
   public void setGradientDirection(Direction aDirection) {
     gradientDirection = aDirection;
   }
