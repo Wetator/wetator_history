@@ -34,35 +34,35 @@ public final class WeightedControlList {
    * Smaller values are more important.
    */
   public enum FoundType {
-    /** fond by text match */
+    /** found by text match */
     BY_TEXT(9999),
 
-    /** fond by image source attribute match */
+    /** found by image source attribute match */
     BY_IMG_SRC_ATTRIBUTE(5000),
-    /** fond by image alt attribute match */
+    /** found by image alt attribute match */
     BY_IMG_ALT_ATTRIBUTE(5000),
-    /** fond by image title attribute match */
+    /** found by image title attribute match */
     BY_IMG_TITLE_ATTRIBUTE(5000),
 
-    /** fond by inner image source attribute match */
+    /** found by inner image source attribute match */
     BY_INNER_IMG_SRC_ATTRIBUTE(4000),
-    /** fond by inner image alt attribute match */
+    /** found by inner image alt attribute match */
     BY_INNER_IMG_ALT_ATTRIBUTE(4000),
-    /** fond by inner image title attribute match */
+    /** found by inner image title attribute match */
     BY_INNER_IMG_TITLE_ATTRIBUTE(4000),
 
-    /** fond by label text match */
+    /** found by label text match */
     BY_LABEL_TEXT(3000),
 
-    /** fond by label match */
+    /** found by label match */
     BY_LABEL(2000),
 
-    /** fond by name match */
+    /** found by name match */
     BY_NAME(1000),
-    /** fond by inner name match */
+    /** found by inner name match */
     BY_INNER_NAME(900),
 
-    /** fond by id match */
+    /** found by id match */
     BY_ID(400);
 
     private int value;
