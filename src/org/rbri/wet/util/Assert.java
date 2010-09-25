@@ -32,14 +32,6 @@ public final class Assert {
 
   /** the marker for more content */
   protected static final String MORE_MARKER = "...";
-  /** the fixed text 'expected: ' */
-  protected static final String TEXT_EXPECTED = "expected: "; // TODO i18n
-  /** the start marker for values */
-  protected static final String LEFT_VALUE_MARKER = "<";
-  /** the start marker for values */
-  protected static final String RIGHT_VALUE_MARKER = ">";
-  /** the fixed text ' but was: ' */
-  protected static final String TEXT_WAS = " but was: "; // TODO i18n
 
   /**
    * This class should not be instantiated.
@@ -173,13 +165,58 @@ public final class Assert {
   }
 
   /**
+   * Asserts that a SecretString and a String are equal.
+   * Otherwise throws an AssertionFailedException.
+   * 
+   * @param anExpectedString a SecretString to check
+   * @param aCurrentString a String to check
+   * @param aMessageKey the key for the message lookup
+   * @param aParameterArray the parameters as array
+   * @throws AssertionFailedException if the two strings are not the same
+   */
+  public static void assertEquals(SecretString anExpectedString, String aCurrentString, String aMessageKey,
+      Object[] aParameterArray) throws AssertionFailedException {
+    if ((anExpectedString == null || anExpectedString.getValue() == null) && aCurrentString == null) {
+      return;
+    }
+
+    if (anExpectedString != null && anExpectedString.getValue() != null
+        && anExpectedString.getValue().equals(aCurrentString)) {
+      return;
+    }
+
+    String tmpMessage = Messages.getMessage(aMessageKey, aParameterArray);
+    String tmpExpected;
+    String tmpCurrent = aCurrentString;
+    if (anExpectedString == null) {
+      tmpExpected = "null";
+    } else {
+      if (anExpectedString.getValue() == null) {
+        tmpExpected = "null";
+        if (tmpCurrent != null && anExpectedString.toString() != null) {
+          // secret
+          tmpCurrent = SecretString.SECRET_PRINT;
+        }
+      } else {
+        tmpExpected = anExpectedString.toString();
+        if (tmpCurrent != null && !anExpectedString.toString().equals(anExpectedString.getValue())) {
+          // secret
+          tmpCurrent = SecretString.SECRET_PRINT;
+        }
+      }
+    }
+    tmpMessage = tmpMessage + " " + constructComparisonMessage(tmpExpected, tmpCurrent);
+
+    throw new AssertionFailedException(tmpMessage);
+  }
+
+  /**
    * Returns "..." in place of common prefix and "..." in
    * place of common suffix between expected and actual.
    */
   private static String constructComparisonMessage(String anExpectedString, String aCurrentString) {
     if (anExpectedString == null || aCurrentString == null) {
-      return TEXT_EXPECTED + LEFT_VALUE_MARKER + anExpectedString + RIGHT_VALUE_MARKER + TEXT_WAS + LEFT_VALUE_MARKER
-          + aCurrentString + RIGHT_VALUE_MARKER;
+      return Messages.getMessage("assertExpectedActual", new String[] { anExpectedString, aCurrentString });
     }
 
     int tmpEnd = Math.min(anExpectedString.length(), aCurrentString.length());
@@ -221,8 +258,8 @@ public final class Assert {
         tmpCurrent = tmpCurrent + MORE_MARKER;
       }
     }
-    return TEXT_EXPECTED + LEFT_VALUE_MARKER + anExpectedString + RIGHT_VALUE_MARKER + TEXT_WAS + LEFT_VALUE_MARKER
-        + aCurrentString + RIGHT_VALUE_MARKER;
+    // TODO really use anExpectedString and aCurrentString instead of tmpExpected and tmpCurrent
+    return Messages.getMessage("assertExpectedActual", new String[] { anExpectedString, aCurrentString });
   }
 
   /**

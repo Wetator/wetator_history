@@ -25,9 +25,13 @@ import org.rbri.wet.core.searchpattern.SearchPattern;
  * An object that stores a variable.
  * 
  * @author rbri
+ * @author frank.danek
  */
 public final class SecretString {
-  private static final String SECRET_PRINT = "****";
+  /**
+   * The replacement for printing secret strings.
+   */
+  public static final String SECRET_PRINT = "****";
 
   private String value;
   private String valueForPrint;

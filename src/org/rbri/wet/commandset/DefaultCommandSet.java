@@ -474,8 +474,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
 
       String tmpValue = tmpControl.getValue(aWetContext);
 
-      // TODO improve secret handling
-      Assert.assertEquals(tmpValueParam.getValue(), tmpValue, "expectedValueNotFound", null);
+      Assert.assertEquals(tmpValueParam, tmpValue, "expectedValueNotFound", null);
     }
   }
 
