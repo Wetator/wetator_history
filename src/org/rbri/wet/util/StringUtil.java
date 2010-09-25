@@ -122,6 +122,10 @@ public final class StringUtil {
     return tmpResult;
   }
 
+  /**
+   * @param aDate the date to format
+   * @return the formatted date as string
+   */
   public static String formatDate(Date aDate) {
     if (null == aDate) {
       return null;
