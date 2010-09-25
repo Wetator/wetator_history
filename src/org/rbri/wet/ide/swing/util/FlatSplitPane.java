@@ -22,12 +22,21 @@ import javax.swing.plaf.SplitPaneUI;
 import javax.swing.plaf.basic.BasicSplitPaneUI;
 
 /**
+ * A {@link JSplitPane} with no border.
+ * 
  * @author rbri
  */
 public class FlatSplitPane extends JSplitPane {
 
   private static final long serialVersionUID = 5819956633477127079L;
 
+  /**
+   * The constructor.
+   * 
+   * @param anOrientation the orientation ({@link JSplitPane#HORIZONTAL_SPLIT} or {@link JSplitPane#VERTICAL_SPLIT})
+   * @param aContinuousLayoutFlag true for the components to redraw continuously as the divider changes position, false
+   *        to wait until the divider position stops changing to redraw
+   */
   public FlatSplitPane(int anOrientation, boolean aContinuousLayoutFlag) {
     super(anOrientation, aContinuousLayoutFlag);
 
