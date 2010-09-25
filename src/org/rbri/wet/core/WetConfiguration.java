@@ -86,7 +86,7 @@ public final class WetConfiguration {
   // proxy
   public static final String PROPERTY_PROXY_HOST = PROPERTY_PREFIX + "proxyHost";
   public static final String PROPERTY_PROXY_PORT = PROPERTY_PREFIX + "proxyPort";
-  private static final String PROPERTY_PROXY_HOSTS_TO_BYPASS = PROPERTY_PREFIX + "proxyHostsToBypass";
+  public static final String PROPERTY_PROXY_HOSTS_TO_BYPASS = PROPERTY_PREFIX + "proxyHostsToBypass";
   public static final String PROPERTY_PROXY_USER = PROPERTY_PREFIX + "proxyUser";
   private static final String PROPERTY_PROXY_PASSWORD = PROPERTY_PREFIX + "proxyPassword";
 
@@ -186,6 +186,7 @@ public final class WetConfiguration {
     initialize(aBaseDirectory, aConfigurationProperties, anExternalPropertiesMap);
   }
 
+  @SuppressWarnings("unchecked")
   private void initialize(File aBaseDirectory, Properties aConfigurationProperties,
       Map<String, String> anExternalPropertiesMap) {
     // lets do some validations first
