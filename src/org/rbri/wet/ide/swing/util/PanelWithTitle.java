@@ -36,6 +36,12 @@ public class PanelWithTitle extends JPanel {
   private GradientPanel titleGradientPanel;
   private JPanel headerPanel;
 
+  /**
+   * THe constructor.
+   * 
+   * @param aTitle the title to be displayed
+   * @param aToolBar
+   */
   public PanelWithTitle(String aTitle, JToolBar aToolBar) {
     super(new BorderLayout());
 
