@@ -4,3 +4,7 @@ Ich muss das Assert auf assertEquals("[HtmlParagraph 'First\nline'] found by: BY
 Die Eingabe in die Textarea erzeugt folgende URL http://wetator.rbri.org/testcases/snoopy.php?textArea_Name=something%0D%0Aanother+something&TextAreaNameTest=OK.
 Also %0D%0A als Umbruch.
 -> OK werde ich mir mal anschauen
+
+
+frank.danek 2010-09-25 12:52 : hallo ronald. wofür ist eigentlich das package "ide.swing.util"? ich finde keinerlei referenzen dahin. da darin allerdings einige javadoc-
+    probleme liegen (und weil toter code nie gut ist), sollten wir das zeug vielleicht einfach wegwerfen?
