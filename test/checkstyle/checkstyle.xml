@@ -92,9 +92,7 @@
     <module name="InterfaceIsType"/>
     <module name="UpperEll"/>
     <module name="MissingDeprecated"/>
-    <module name="MissingOverride">
-      <property name="javaFiveCompatibility" value="true"/>
-    </module>
+    <module name="MissingOverride"/>
     <module name="AnnotationUseStyle">
       <property name="elementStyle" value="compact"/>
     </module>

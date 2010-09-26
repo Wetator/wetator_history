@@ -51,6 +51,7 @@ public final class TestCommandSet extends AbstractCommandSet {
    * The assert fail command.
    */
   public final class CommandAssertFail implements WetCommandImplementation {
+    @Override
     public void execute(WetContext aWetContext, WetCommand aWetCommand) throws AssertionFailedException {
 
       List<Parameter.Part> tmpFirstParameters = aWetCommand.getFirstParameter().getParts();
@@ -82,6 +83,7 @@ public final class TestCommandSet extends AbstractCommandSet {
    * 
    * @see org.rbri.wet.commandset.WetCommandSet#initialize(java.util.Properties)
    */
+  @Override
   public void initialize(Properties aConfiguration) {
     // nothing to do at the moment
   }

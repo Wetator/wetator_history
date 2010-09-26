@@ -40,6 +40,7 @@ public abstract class AbstractBrowserTest implements BrowserTest {
    * 
    * @see org.rbri.wet.test.junit.BrowserRunner.BrowserTest#setBrowser(org.rbri.wet.backend.WetBackend.Browser)
    */
+  @Override
   public void setBrowser(Browser aBrowser) {
     browser = aBrowser;
   }
