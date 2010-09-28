@@ -177,6 +177,7 @@ test/java/org/rbri/wet/core/result/AllTests.java -text
 test/java/org/rbri/wet/core/result/WetResultWriterTest.java -text
 test/java/org/rbri/wet/core/result/XslTransformerTest.java -text
 test/java/org/rbri/wet/core/searchpattern/AllTests.java -text
+test/java/org/rbri/wet/core/searchpattern/SearchPatternFirstOccurrenceInTest.java -text
 test/java/org/rbri/wet/core/searchpattern/SearchPatternTest.java -text
 test/java/org/rbri/wet/core/variable/AllTests.java -text
 test/java/org/rbri/wet/core/variable/VariableTest.java -text

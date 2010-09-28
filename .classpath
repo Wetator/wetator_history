@@ -24,7 +24,6 @@
 	<classpathentry kind="lib" path="lib/httpclient-4.0.1.jar"/>
 	<classpathentry kind="lib" path="lib/httpcore-4.0.1.jar"/>
 	<classpathentry kind="lib" path="lib/httpmime-4.0.1.jar"/>
-	<classpathentry kind="lib" path="lib/htmlunit-core-js-2.8.jar"/>
 	<classpathentry kind="lib" path="lib/fontbox-1.2.1.jar"/>
 	<classpathentry kind="lib" path="lib/pdfbox-1.2.1.jar"/>
 	<classpathentry kind="lib" path="lib/automaton-1.11.3.jar"/>
@@ -40,5 +39,6 @@
 	<classpathentry kind="lib" path="lib/jetty-security-7.1.6.v20100715.jar"/>
 	<classpathentry kind="lib" path="lib/jetty-servlet-7.1.6.v20100715.jar" sourcepath="lib_src/jetty-servlet-7.1.6.v20100715-sources.jar"/>
 	<classpathentry kind="lib" path="lib/jetty-servlets-7.1.6.v20100715.jar" sourcepath="lib_src/jetty-servlets-7.1.6.v20100715-sources.jar"/>
+	<classpathentry kind="lib" path="lib/htmlunit-core-js-2.9-SNAPSHOT.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
