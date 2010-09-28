@@ -20,11 +20,16 @@ import java.io.File;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.rbri.wet.backend.WetBackend.Browser;
 import org.rbri.wet.test.AbstractWebServerTest;
+import org.rbri.wet.test.junit.BrowserRunner;
+import org.rbri.wet.test.junit.BrowserRunner.Browsers;
 
 /**
  * @author frank.danek
  */
+@RunWith(BrowserRunner.class)
 public class XlsDefaultCommandSetTest extends AbstractWebServerTest {
 
   private static final String BASE_FOLDER = "test/excel/";
@@ -205,6 +210,26 @@ public class XlsDefaultCommandSetTest extends AbstractWebServerTest {
     executeTestFile("event_handler.xls");
 
     Assert.assertEquals(72, getSteps());
+    Assert.assertEquals(0, getFailures());
+    Assert.assertEquals(0, getErrors());
+  }
+
+  @Test
+  @Browsers({ Browser.INTERNET_EXPLORER_6 })
+  public void eventHandlerIE6() {
+    executeTestFile("ie6/event_handler.xls");
+
+    Assert.assertEquals(81, getSteps());
+    Assert.assertEquals(0, getFailures());
+    Assert.assertEquals(0, getErrors());
+  }
+
+  @Test
+  @Browsers({ Browser.FIREFOX_3_6 })
+  public void eventHandlerFF36() {
+    executeTestFile("ff3/event_handler.xls");
+
+    Assert.assertEquals(81, getSteps());
     Assert.assertEquals(0, getFailures());
     Assert.assertEquals(0, getErrors());
   }
