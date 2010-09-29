@@ -62,12 +62,6 @@ src/org/rbri/wet/exception/AssertionFailedException.java -text
 src/org/rbri/wet/exception/WetException.java -text
 src/org/rbri/wet/gui/DialogUtil.java -text
 src/org/rbri/wet/i18n/Messages.java -text
-src/org/rbri/wet/ide/swing/util/BottomRightShadowBorder.java -text
-src/org/rbri/wet/ide/swing/util/FlatSplitPane.java -text
-src/org/rbri/wet/ide/swing/util/GradientPanel.java -text
-src/org/rbri/wet/ide/swing/util/LookAndFeelUtil.java -text
-src/org/rbri/wet/ide/swing/util/PanelWithTitle.java -text
-src/org/rbri/wet/ide/swing/util/TopLeftRaisedBorder.java -text
 src/org/rbri/wet/scriptconverter/WetScriptConverter.java -text svneol=unset#text/plain
 src/org/rbri/wet/scriptcreator/ScriptCreator.java -text svneol=unset#text/plain
 src/org/rbri/wet/scriptcreator/WetScriptCreator.java -text svneol=unset#text/plain
