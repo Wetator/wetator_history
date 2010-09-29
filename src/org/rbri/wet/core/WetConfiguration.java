@@ -26,9 +26,9 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Properties;
 import java.util.Set;
-import java.util.Map.Entry;
 
 import org.apache.commons.lang.ClassUtils;
 import org.apache.commons.lang.StringUtils;
@@ -48,13 +48,11 @@ import org.rbri.wet.util.StringUtil;
 
 /**
  * The configuration file for Wetator.
- * TODO we have to split this
- * into one common part and one
- * part for configuring the backend
  * 
  * @author rbri
  * @author frank.danek
  */
+// TODO we have to split this into one common part and one part for configuring the backend
 public final class WetConfiguration {
   private static final Log LOG = LogFactory.getLog(WetConfiguration.class);
 
@@ -64,29 +62,68 @@ public final class WetConfiguration {
   public static final String PROPERTY_PREFIX = "wetator.";
 
   // wetator
+  /**
+   * The property name to set the supported {@link WetCommandSet}s.
+   */
   public static final String PROPERTY_COMMAND_SETS = PROPERTY_PREFIX + "commandSets";
+  /**
+   * The property name to set the supported {@link WetScripter}s.
+   */
   public static final String PROPERTY_SCRIPTERS = PROPERTY_PREFIX + "scripters";
+  /**
+   * The property name to set the base URL.
+   */
   public static final String PROPERTY_BASE_URL = PROPERTY_PREFIX + "baseUrl";
 
+  // output
+  /**
+   * The property name to set the output directory.
+   */
+  public static final String PROPERTY_OUTPUT_DIR = PROPERTY_PREFIX + "outputDir";
+  private static final String DEFAULT_OUTPUT_DIR = "./logs";
+  /**
+   * The property name to set whether a distinct output directory should be used.
+   */
+  public static final String PROPERTY_DISTINCT_OUTPUT = PROPERTY_PREFIX + "distinctOutput";;
+  private static final String DEFAULT_DISTINCT_OUTPUT = "false";
+  /**
+   * The property name to set the XSL templates used to transform the output.
+   */
+  public static final String PROPERTY_XSL_TEMPLATES = PROPERTY_PREFIX + "xslTemplates";
+
   // browser
+  /**
+   * The property name to set the supported {@link Browser}s (by their {@link Browser#getSymbol()}).
+   */
   public static final String PROPERTY_BROWSER = PROPERTY_PREFIX + "browser";
   private static final Browser DEFAULT_BROWSER = Browser.FIREFOX_3_6;
+  /**
+   * The property name to set the 'Accept-Language' header of the browser.
+   */
   public static final String PROPERTY_ACCEPT_LANGUAGE = PROPERTY_PREFIX + "acceptLanguage";
   private static final String DEFAULT_ACCEPT_LANGUAGE = "en-us,en;q=0.8,de-de;q=0.5,de;q=0.3";
+  /**
+   * The property name to set the user the browser uses for basic authentication.
+   */
   public static final String PROPERTY_BASIC_AUTH_USER = PROPERTY_PREFIX + "basicAuthUser";
   private static final String PROPERTY_BASIC_AUTH_PASSWORD = PROPERTY_PREFIX + "basicAuthPassword";
 
-  // output
-  public static final String PROPERTY_OUTPUT_DIR = PROPERTY_PREFIX + "outputDir";
-  private static final String DEFAULT_OUTPUT_DIR = "./logs";
-  public static final String PROPERTY_DISTINCT_OUTPUT = PROPERTY_PREFIX + "distinctOutput";;
-  private static final String DEFAULT_DISTINCT_OUTPUT = "false";
-  public static final String PROPERTY_XSL_TEMPLATES = PROPERTY_PREFIX + "xslTemplates";
-
   // proxy
+  /**
+   * The property name to set the proxy host the browser uses.
+   */
   public static final String PROPERTY_PROXY_HOST = PROPERTY_PREFIX + "proxyHost";
+  /**
+   * The property name to set the proxy port the browser uses.
+   */
   public static final String PROPERTY_PROXY_PORT = PROPERTY_PREFIX + "proxyPort";
+  /**
+   * The property name to set the hosts the the browser bypasses the proxy for.
+   */
   public static final String PROPERTY_PROXY_HOSTS_TO_BYPASS = PROPERTY_PREFIX + "proxyHostsToBypass";
+  /**
+   * The property name to set the proxy user the browser uses.
+   */
   public static final String PROPERTY_PROXY_USER = PROPERTY_PREFIX + "proxyUser";
   private static final String PROPERTY_PROXY_PASSWORD = PROPERTY_PREFIX + "proxyPassword";
 

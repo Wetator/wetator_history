@@ -423,7 +423,7 @@ public class MultiPartFilter implements Filter {
     /**
      * @see javax.servlet.ServletRequest#getParameterMap()
      */
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({ "unchecked", "rawtypes" })
     @Override
     public Map getParameterMap() {
       return Collections.unmodifiableMap(parameters.toStringArrayMap());
@@ -433,7 +433,7 @@ public class MultiPartFilter implements Filter {
     /**
      * @see javax.servlet.ServletRequest#getParameterNames()
      */
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings("rawtypes")
     @Override
     public Enumeration getParameterNames() {
       return Collections.enumeration(parameters.keySet());

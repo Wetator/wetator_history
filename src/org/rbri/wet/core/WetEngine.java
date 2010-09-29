@@ -191,7 +191,11 @@ public final class WetEngine {
     throw new WetException("No scripter found for file '" + aFile.getAbsolutePath() + "'.");
   }
 
-  protected WetCommandImplementation getCommandImplementationFor(String aCommandName) throws WetException {
+  /**
+   * @param aCommandName the name of the {@link WetCommandImplementation}
+   * @return the {@link WetCommandImplementation} for the given name or null if none was found
+   */
+  protected WetCommandImplementation getCommandImplementationFor(String aCommandName) {
     for (WetCommandSet tmpCommandSet : commandSets) {
       WetCommandImplementation tmpCommandImplementation;
       tmpCommandImplementation = tmpCommandSet.getCommandImplementationFor(aCommandName);
@@ -202,6 +206,16 @@ public final class WetEngine {
     return null;
   }
 
+  /**
+   * Returns the configuration file. The configuration file name is searched in:
+   * <ol>
+   * <li>{@link #getConfigFileName()}</li>
+   * <li>the system property <code>wetator.config</code></li>
+   * <li>the default configuration file name 'wetator.config'</li>
+   * </ol>
+   * 
+   * @return the configuration file
+   */
   public File getConfigFile() {
     String tmpConfigName = getConfigFileName();
 

@@ -86,22 +86,37 @@ public class WetContext {
     return new WetContext(this, aFile);
   }
 
+  /**
+   * @return the file
+   */
   public File getFile() {
     return file;
   }
 
+  /**
+   * @return the wetBackend
+   */
   public WetBackend getWetBackend() {
     return engine.getWetBackend();
   }
 
+  /**
+   * @return the wetConfiguration
+   */
   public WetConfiguration getWetConfiguration() {
     return engine.getWetConfiguration();
   }
 
+  /**
+   * @param aVariable the {@link Variable} to add
+   */
   public void addVariable(Variable aVariable) {
     variables.add(aVariable);
   }
 
+  /**
+   * @return the list of known {@link Variable}s.
+   */
   public List<Variable> getVariables() {
     List<Variable> tmpResult = new LinkedList<Variable>();
 
@@ -118,6 +133,10 @@ public class WetContext {
     return tmpResult;
   }
 
+  /**
+   * @param aStringWithPlaceholders the string containing the variables to replace
+   * @return the {@link SecretString} (as the result of the replacement)
+   */
   public SecretString replaceVariables(String aStringWithPlaceholders) {
     String tmpResultValue = VariableReplaceUtil.replaceVariables(aStringWithPlaceholders, getVariables(), false);
     String tmpResultValueForPrint = VariableReplaceUtil.replaceVariables(aStringWithPlaceholders, getVariables(), true);
@@ -172,10 +191,22 @@ public class WetContext {
     }
   }
 
+  /**
+   * Informs all listeners about 'warn'.
+   * 
+   * @param aMessageKey the message key of the warning.
+   * @param aParameterArray the message parameters.
+   */
   public void informListenersWarn(String aMessageKey, String[] aParameterArray) {
     engine.informListenersWarn(aMessageKey, aParameterArray);
   }
 
+  /**
+   * Informs all listeners about 'info'.
+   * 
+   * @param aMessageKey the message key of the warning.
+   * @param aParameterArray the message parameters.
+   */
   public void informListenersInfo(String aMessageKey, String[] aParameterArray) {
     engine.informListenersInfo(aMessageKey, aParameterArray);
   }

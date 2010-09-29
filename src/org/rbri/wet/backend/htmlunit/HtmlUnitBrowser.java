@@ -105,6 +105,7 @@ public final class HtmlUnitBrowser implements WetBackend {
     immediateJobsTimeout = 1000L;
   }
 
+  // TODO @rbri: what is this method about?
   public void stop() {
   }
 
@@ -124,7 +125,7 @@ public final class HtmlUnitBrowser implements WetBackend {
       try {
         webClient.closeAllWindows();
       } catch (ScriptException e) {
-        // TODO: handle exception
+        // TODO handle exception
         e.printStackTrace();
       }
     }

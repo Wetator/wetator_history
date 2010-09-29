@@ -44,7 +44,8 @@ import org.rbri.wet.util.XmlUtil;
 /**
  * The class that generates the output.
  * 
- * @author rbri, frank.danek
+ * @author rbri
+ * @author frank.danek
  */
 public class WetResultWriter implements WetProgressListener {
   private static final Log LOG = LogFactory.getLog(WetResultWriter.class);

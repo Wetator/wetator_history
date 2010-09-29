@@ -40,9 +40,9 @@ import org.rbri.wet.backend.WetBackend.Browser;
  * public class SomeTest implements BrowserTest {
  * 
  *   &#064;Test
- *   &#064;Browsers( { Browser.FIREFOX_3_6 })
+ *   &#064;Browsers({ Browser.FIREFOX_3_6 })
  *   public void test() {
- *     //your test method that is run with Firefox 3.6
+ *     // your test method that is run with Firefox 3.6
  *   }
  * }
  * </pre>
@@ -134,9 +134,9 @@ public class BrowserRunner extends BlockJUnit4ClassRunner {
   public static @interface Browsers {
 
     /**
-     * The browsers the test should be run with. Default browser is {@link Browser#FIREFOX_3_6}.
+     * The browsers the test should be run with.
      */
-    Browser[] value() default { Browser.FIREFOX_3_6 };
+    Browser[] value() default { };
   }
 
   /**

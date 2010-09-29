@@ -25,13 +25,94 @@ import org.rbri.wet.util.SecretString;
 import org.rbri.wet.util.StringUtil;
 
 /**
- * An object that stores a list of parameters.
+ * An object that breaks a value into a list of parts and stores them.
  * 
  * @author rbri
+ * @author frank.danek
  */
 public final class Parameter {
+  /**
+   * The delimiter between two parts of a parameter.
+   */
   public static final String PARAMETER_DELIMITER = ",";
+  /**
+   * The character to escape the {@link #PARAMETER_DELIMITER}.
+   */
   public static final char PARAMETER_ESCAPE_CHAR = '\\';
+
+  private String value;
+  private List<Part> parts;
+
+  /**
+   * Constructor.
+   * 
+   * @param aValue the value of this parameter
+   */
+  public Parameter(String aValue) {
+    value = aValue;
+  }
+
+  /**
+   * Constructs a secret string from the value.
+   * 
+   * @param aWetContext the wet context needed to resolve the value (variables)
+   * @return the constructed secret string
+   */
+  public SecretString getValue(WetContext aWetContext) {
+    return aWetContext.replaceVariables(value);
+  }
+
+  /**
+   * @return the first part
+   */
+  public Part getFirstPart() {
+    parseIfNeeded();
+    return parts.get(0);
+  }
+
+  /**
+   * @return the number of parts
+   */
+  public int getNumberOfParts() {
+    parseIfNeeded();
+    return parts.size();
+  }
+
+  /**
+   * @return a list containing all parts. This is not the original list stored in this object.
+   */
+  public List<Part> getParts() {
+    parseIfNeeded();
+    return Collections.unmodifiableList(parts);
+  }
+
+  private void parseIfNeeded() {
+    if (null != parts) {
+      return;
+    }
+
+    parts = new LinkedList<Part>();
+    if (StringUtils.isEmpty(value)) {
+      return;
+    }
+
+    List<String> tmpParts = StringUtil.extractStrings(value, PARAMETER_DELIMITER, PARAMETER_ESCAPE_CHAR);
+    for (String tmpString : tmpParts) {
+      Part tmpPart = new Part(tmpString.trim());
+      parts.add(tmpPart);
+    }
+  }
+
+  /**
+   * Returns the <b>RAW</b> value. Secrets are not replaced and so are readable. Use this method with greatest
+   * care according security.
+   * 
+   * @return the raw value
+   */
+  // TODO how can we assure security here?
+  public String getValue() {
+    return value;
+  }
 
   /**
    * An object that stores a flat string parameter.
@@ -45,77 +126,18 @@ public final class Parameter {
      * 
      * @param aValue the value of this part
      */
-    public Part(String aValue) {
-      super();
-      // TODO null check
+    protected Part(String aValue) {
       value = aValue;
     }
 
     /**
-     * Constructs a secret string from the value
+     * Constructs a secret string from the value.
      * 
      * @param aWetContext the wet context needed to resolve the value (variables)
      * @return the constructed secret string
      */
     public SecretString getValue(WetContext aWetContext) {
-      // double dispatch to resolve the variables
-      SecretString tmpResult = aWetContext.replaceVariables(value);
-      return tmpResult;
+      return aWetContext.replaceVariables(value);
     }
-  }
-
-  private String value;
-  private List<Part> parameters;
-
-  /**
-   * Constructor.
-   * 
-   * @param aValue the value of this parameter
-   */
-  public Parameter(String aValue) {
-    super();
-
-    value = aValue;
-  }
-
-  public SecretString getValue(WetContext aWetContext) {
-    return aWetContext.replaceVariables(value);
-  }
-
-  public Part getFirstPart() {
-    parseIfNeeded();
-    return parameters.get(0);
-  }
-
-  public int getNumberOfParts() {
-    parseIfNeeded();
-    return parameters.size();
-  }
-
-  public List<Part> getParts() {
-    parseIfNeeded();
-    return Collections.unmodifiableList(parameters);
-  }
-
-  private void parseIfNeeded() {
-    if (null != parameters) {
-      return;
-    }
-
-    parameters = new LinkedList<Part>();
-    if (StringUtils.isEmpty(value)) {
-      return;
-    }
-
-    List<String> tmpParts = StringUtil.extractStrings(value, PARAMETER_DELIMITER, PARAMETER_ESCAPE_CHAR);
-    for (String tmpString : tmpParts) {
-      Part tmpPart = new Part(tmpString.trim());
-      parameters.add(tmpPart);
-    }
-  }
-
-  // TODO security
-  public String getValue() {
-    return value;
   }
 }
