@@ -16,6 +16,9 @@
 
 package org.rbri.wet;
 
+import java.net.URL;
+import java.util.jar.Manifest;
+
 /**
  * A small class to maintain the version information.
  * 
@@ -24,17 +27,9 @@ package org.rbri.wet;
 public final class Version {
 
   /**
-   * The product name.
-   */
-  public static final String PRODUCT_NAME = "Wetator";
-  /**
-   * The version.
-   */
-  public static final String VERSION = "0.9.3 beta4";
-  /**
    * The build.
    */
-  public static final String BUILD = "2010091503";
+  public static final String BUILD = "2010101003";
 
   /**
    * A simple main function to be able to ask for the version from a command line.
@@ -56,14 +51,15 @@ public final class Version {
    * @return the product name.
    */
   public static String getProductName() {
-    return PRODUCT_NAME;
+    return readFromManifest("Application-Name", "Wetator");
   }
 
   /**
    * @return the version.
    */
   public static String getVersion() {
-    return VERSION;
+    String tmpVersion = readFromManifest("Version", "local build");
+    return tmpVersion.replaceAll("_", ".");
   }
 
   /**
@@ -78,5 +74,24 @@ public final class Version {
    */
   private Version() {
     // nothing
+  }
+
+  private static String readFromManifest(String anAttributeName, String aDefault) {
+    Class<?> tmpClass = Version.class;
+    String tmpClassName = tmpClass.getSimpleName();
+    String tmpClassFileName = tmpClassName + ".class";
+    String tmpPathToThisClass = tmpClass.getResource(tmpClassFileName).toExternalForm();
+
+    int tmpPos = tmpPathToThisClass.indexOf("!");
+    String tmpPathToManifest = tmpPathToThisClass.substring(0, tmpPos + 1);
+    tmpPathToManifest = tmpPathToManifest + "/META-INF/MANIFEST.MF";
+    Manifest tmpManifest;
+    try {
+      tmpManifest = new Manifest(new URL(tmpPathToManifest).openStream());
+      String tmpValue = tmpManifest.getAttributes("Application").getValue(anAttributeName);
+      return tmpValue;
+    } catch (Exception e) {
+      return aDefault;
+    }
   }
 }

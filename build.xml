@@ -136,10 +136,10 @@
         </tstamp>
 
         <buildupdate
-      srcdir="${dir.src}"
-      classname="org.rbri.wet.Version"
-      variablename="BUILD"
-      propertyName="application.buildnumber" />
+            srcdir="${dir.src}"
+            classname="org.rbri.wet.Version"
+            variablename="BUILD"
+            propertyName="application.buildnumber" />
 
         <delete file="${dir.build}/${application.jar-basename}.jar"/>
         <jar destfile="${dir.build}/${application.jar-basename}.jar">
@@ -147,6 +147,7 @@
                 <include name="**/*.*"/>
             </fileset>
             <manifest>
+                <attribute name="Main-Class" value="org.rbri.wet.Wetator"/>
                 <section name="Application">
                     <attribute name="Application-Name" value="${application.name}"/>
                     <attribute name="Vendor" value="${application.vendor}"/>

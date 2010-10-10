@@ -3,10 +3,9 @@
 
   <application>
     <name>Wetator</name>
-    <version>0_9_3_beta</version>
+    <version>0_9_3_beta2</version>
     <jar-basename>wetator</jar-basename>
     <vendor>Ronald Brill</vendor>
-    <buildno>1</buildno>
   </application>
 
   <dir>
