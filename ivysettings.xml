@@ -6,8 +6,10 @@
         <ibiblio name="wetator-sh"
                  m2compatible="true"
                  usepoms="true"
-                 root="http://www.wetator.org/repo"/>
-        <url name="wetator">
+                 root="http://www.wetator.org/repo"
+                 checkmodified="true"
+                 changingPattern="^.+-SNAPSHOT$"/>
+        <url name="wetator" checkmodified="true" changingPattern="^.+-SNAPSHOT$">
             <artifact pattern="http://www.wetator.org/repo/[module]/[revision]/[artifact]-[revision].[ext]" />
             <artifact pattern="http://www.wetator.org/repo/[module]/[revision]/[artifact].[ext]" />
         </url>
