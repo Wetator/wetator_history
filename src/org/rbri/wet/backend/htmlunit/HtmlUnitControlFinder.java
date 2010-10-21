@@ -1167,7 +1167,7 @@ public class HtmlUnitControlFinder implements ControlFinder {
       // found a hit
 
       // find the first element that surrounds this
-      for (HtmlElement tmpHtmlElement : domNodeText.getAllVisibleHtmlElementsBottomUpBottomUp()) {
+      for (HtmlElement tmpHtmlElement : domNodeText.getAllVisibleHtmlElementsBottomUp()) {
         FindSpot tmpNodeSpot = domNodeText.getPosition(tmpHtmlElement);
         if ((tmpNodeSpot.startPos <= tmpHitSpot.startPos) && (tmpHitSpot.endPos <= tmpNodeSpot.endPos)) {
           // found one

@@ -120,7 +120,7 @@ public class DomNodeText {
    * 
    * @return the list of all html elements
    */
-  public List<HtmlElement> getAllVisibleHtmlElementsBottomUpBottomUp() {
+  public List<HtmlElement> getAllVisibleHtmlElementsBottomUp() {
     return visibleHtmlElementsBottomUp;
   }
 
