@@ -439,7 +439,7 @@ public final class HtmlUnitBrowser implements WetBackend {
         tmpJobManager.waitForJobsStartingBefore(tmpEndTime - System.currentTimeMillis());
 
         if (tmpPage == getCurrentPage()) {
-          break;
+          continue;
         }
 
         // current page is changed, we have to make at least one try
@@ -476,7 +476,7 @@ public final class HtmlUnitBrowser implements WetBackend {
         tmpJobManager.waitForJobsStartingBefore(tmpEndTime - System.currentTimeMillis());
 
         if (tmpPage == getCurrentPage()) {
-          break;
+          continue;
         }
 
         // current page is changed, we have to make at least one try
@@ -526,7 +526,7 @@ public final class HtmlUnitBrowser implements WetBackend {
         // reset the timeout
         tmpPage = getCurrentPage();
         if (!(tmpPage instanceof HtmlPage)) {
-          continue;
+          break;
         }
         tmpEndTime = System.currentTimeMillis() + tmpWaitTime;
       }
