@@ -164,9 +164,9 @@ public final class WeightedControlList {
   }
 
   /**
-   * TODO
+   * Returns a new list of Entries sorted by weight.
    * 
-   * @return
+   * @return a new list
    */
   public List<Entry> getElementsSorted() {
     Collections.sort(entries, new EntryComperator());
