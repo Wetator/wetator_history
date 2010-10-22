@@ -188,9 +188,12 @@ public final class SqlCommandSet extends AbstractCommandSet {
     public void execute(WetContext aWetContext, WetCommand aWetCommand) throws AssertionFailedException {
 
       SecretString tmpSqlParam = aWetCommand.getRequiredFirstParameterValue(aWetContext);
-      long tmpTimeout = aWetCommand.getSecondParameterLongValue(aWetContext);
+      Long tmpTimeout = aWetCommand.getSecondParameterLongValue(aWetContext);
+      if (null == tmpTimeout) {
+        tmpTimeout = Long.valueOf(0L);
+      }
 
-      tmpTimeout = Math.max(0, tmpTimeout);
+      tmpTimeout = Math.max(0, tmpTimeout.longValue());
 
       tmpSqlParam.trim();
       String tmpConnectionName = extractConnectionName(aWetContext, tmpSqlParam);

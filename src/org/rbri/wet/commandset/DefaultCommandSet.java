@@ -380,9 +380,12 @@ public final class DefaultCommandSet extends AbstractCommandSet {
     @Override
     public void execute(WetContext aWetContext, WetCommand aWetCommand) throws AssertionFailedException {
       List<SecretString> tmpExpected = aWetCommand.getRequiredFirstParameterValues(aWetContext);
-      long tmpTimeout = aWetCommand.getSecondParameterLongValue(aWetContext);
+      Long tmpTimeout = aWetCommand.getSecondParameterLongValue(aWetContext);
+      if (null == tmpTimeout) {
+        tmpTimeout = Long.valueOf(0L);
+      }
 
-      tmpTimeout = Math.max(0, tmpTimeout);
+      tmpTimeout = Math.max(0, tmpTimeout.longValue());
 
       WetBackend tmpBackend = getWetBackend(aWetContext);
       tmpBackend.waitForTitle(tmpExpected, tmpTimeout);
@@ -402,9 +405,12 @@ public final class DefaultCommandSet extends AbstractCommandSet {
     @Override
     public void execute(WetContext aWetContext, WetCommand aWetCommand) throws AssertionFailedException {
       List<SecretString> tmpExpected = aWetCommand.getRequiredFirstParameterValues(aWetContext);
-      long tmpTimeout = aWetCommand.getSecondParameterLongValue(aWetContext);
+      Long tmpTimeout = aWetCommand.getSecondParameterLongValue(aWetContext);
+      if (null == tmpTimeout) {
+        tmpTimeout = Long.valueOf(0L);
+      }
 
-      tmpTimeout = Math.max(0, tmpTimeout);
+      tmpTimeout = Math.max(0, tmpTimeout.longValue());
 
       WetBackend tmpBackend = getWetBackend(aWetContext);
       tmpBackend.waitForContent(tmpExpected, tmpTimeout);

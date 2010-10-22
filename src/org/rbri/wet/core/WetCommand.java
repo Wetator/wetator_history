@@ -169,6 +169,12 @@ public final class WetCommand {
     return tmpResult.toString();
   }
 
+  /**
+   * Returns the list of secret strings parsed from the first parameter
+   * 
+   * @param aWetContext the context
+   * @return the list of secret strings (never null)
+   */
   public List<SecretString> getFirstParameterValues(WetContext aWetContext) {
     Parameter tmpFirstParameter = getFirstParameter();
     List<SecretString> tmpResult = new LinkedList<SecretString>();
@@ -186,6 +192,13 @@ public final class WetCommand {
     return tmpResult;
   }
 
+  /**
+   * Returns the first parameter as secret string.
+   * The parameter is taken at whole, not parsed.
+   * 
+   * @param aWetContext the context
+   * @return a secret string or null if the first parameter was not set
+   */
   public SecretString getFirstParameterValue(WetContext aWetContext) {
     Parameter tmpFirstParameter = getFirstParameter();
 
@@ -197,6 +210,13 @@ public final class WetCommand {
     return tmpFirstValue;
   }
 
+  /**
+   * Returns the list of secret strings parsed from the first parameter
+   * 
+   * @param aWetContext the context
+   * @return the list of secret strings (never null)
+   * @throws AssertionFailedException if the first parameter was not set
+   */
   public List<SecretString> getRequiredFirstParameterValues(WetContext aWetContext) throws AssertionFailedException {
     Parameter tmpFirstParameter = getFirstParameter();
 
@@ -204,16 +224,17 @@ public final class WetCommand {
       Assert.fail("emptyFirstParameter", new String[] { getName() });
     }
 
-    List<Parameter.Part> tmpParts = tmpFirstParameter.getParts();
-
-    List<SecretString> tmpResult = new LinkedList<SecretString>();
-    for (Parameter.Part tmpPart : tmpParts) {
-      tmpResult.add(tmpPart.getValue(aWetContext));
-    }
-
-    return tmpResult;
+    return getFirstParameterValues(aWetContext);
   }
 
+  /**
+   * Returns the first parameter as secret string.
+   * The parameter is taken at whole, not parsed.
+   * 
+   * @param aWetContext the context
+   * @return a secret string
+   * @throws AssertionFailedException if the first parameter was not set
+   */
   public SecretString getRequiredFirstParameterValue(WetContext aWetContext) throws AssertionFailedException {
     Parameter tmpFirstParameter = getFirstParameter();
 
@@ -225,6 +246,13 @@ public final class WetCommand {
     return tmpFirstValue;
   }
 
+  /**
+   * Returns the list of secret strings parsed from the second parameter
+   * 
+   * @param aWetContext the context
+   * @return the list of secret strings (never null)
+   * @throws AssertionFailedException if the first parameter was not set
+   */
   public List<SecretString> getRequiredSecondParameterValues(WetContext aWetContext) throws AssertionFailedException {
     Parameter tmpSecondParameter = getSecondParameter();
 
@@ -232,16 +260,17 @@ public final class WetCommand {
       Assert.fail("emptySecondParameter", new String[] { getName() });
     }
 
-    List<Parameter.Part> tmpParts = tmpSecondParameter.getParts();
-
-    List<SecretString> tmpResult = new LinkedList<SecretString>();
-    for (Parameter.Part tmpPart : tmpParts) {
-      tmpResult.add(tmpPart.getValue(aWetContext));
-    }
-
-    return tmpResult;
+    return getSecondParameterValues(aWetContext);
   }
 
+  /**
+   * Returns the second parameter as secret string.
+   * The parameter is taken at whole, not parsed.
+   * 
+   * @param aWetContext the context
+   * @return a secret string
+   * @throws AssertionFailedException if the second parameter was not set
+   */
   public SecretString getRequiredSecondParameterValue(WetContext aWetContext) throws AssertionFailedException {
     Parameter tmpSecondParameter = getSecondParameter();
 
@@ -253,6 +282,12 @@ public final class WetCommand {
     return tmpSecondValue;
   }
 
+  /**
+   * Returns the list of secret strings parsed from the second parameter
+   * 
+   * @param aWetContext the context
+   * @return the list of secret strings (never null)
+   */
   public List<SecretString> getSecondParameterValues(WetContext aWetContext) {
     Parameter tmpSecondParameter = getSecondParameter();
 
@@ -270,6 +305,13 @@ public final class WetCommand {
     return tmpResult;
   }
 
+  /**
+   * Returns the second parameter as secret string.
+   * The parameter is taken at whole, not parsed.
+   * 
+   * @param aWetContext the context
+   * @return a secret string or null if the second parameter was not set
+   */
   public SecretString getSecondParameterValue(WetContext aWetContext) {
     Parameter tmpSecondParameter = getSecondParameter();
 
@@ -281,16 +323,23 @@ public final class WetCommand {
     return tmpSecondValue;
   }
 
-  public long getSecondParameterLongValue(WetContext aWetContext) throws AssertionFailedException {
+  /**
+   * Returns the second parameter as long.
+   * 
+   * @param aWetContext the context
+   * @return a Long (or null if not set)
+   * @throws AssertionFailedException if the second parameter is not convertable into a long
+   */
+  public Long getSecondParameterLongValue(WetContext aWetContext) throws AssertionFailedException {
     Parameter tmpSecondParameter = getSecondParameter();
 
     if (null == tmpSecondParameter) {
-      return -1;
+      return null;
     }
 
     SecretString tmpSecondValue = tmpSecondParameter.getValue(aWetContext);
     if (StringUtils.isEmpty(tmpSecondValue.getValue())) {
-      return -1;
+      return null;
     }
 
     try {
@@ -303,9 +352,15 @@ public final class WetCommand {
       Assert.fail("integerParameterExpected", new String[] { getName(),
           tmpSecondParameter.getValue(aWetContext).toString(), "2" });
     }
-    return -1;
+    return null;
   }
 
+  /**
+   * Asserts that the second parameter is not set.
+   * 
+   * @param aWetContext the context
+   * @throws AssertionFailedException if the second parameter is set.
+   */
   public void assertNoUnusedSecondParameter(WetContext aWetContext) throws AssertionFailedException {
     Parameter tmpParameter = getSecondParameter();
     if (null != tmpParameter) {
