@@ -519,14 +519,14 @@ public final class HtmlUnitBrowser implements WetBackend {
 
         // current page is changed, we have to make another try
         if (tmpPage == getCurrentPage()) {
-          break;
+          continue;
         }
 
         // current page is changed, we have to make at least one try
         // reset the timeout
         tmpPage = getCurrentPage();
         if (!(tmpPage instanceof HtmlPage)) {
-          break;
+          continue;
         }
         tmpEndTime = System.currentTimeMillis() + tmpWaitTime;
       }
