@@ -404,7 +404,8 @@ public class HtmlUnitControl implements Control {
             ScriptResult tmpKeyPressResult = tmpHtmlElement.fireEvent(tmpKeyPressEvent);
 
             if (!tmpKeyDownEvent.isAborted(tmpKeyDownResult) && !tmpKeyPressEvent.isAborted(tmpKeyPressResult)) {
-              tmpHtmlInput.setValueAttribute("");
+              // do it this way to not trigger the onChange handler
+              tmpHtmlInput.setAttribute("value", "");
             }
 
             Event tmpKeyUpEvent = new KeyboardEvent(tmpHtmlElement, Event.TYPE_KEY_UP, tmpDel, false, false, false);
