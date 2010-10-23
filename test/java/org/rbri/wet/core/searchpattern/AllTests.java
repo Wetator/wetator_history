@@ -26,7 +26,8 @@ import org.junit.runners.Suite.SuiteClasses;
  * @author frank.danek
  */
 @RunWith(Suite.class)
-@SuiteClasses( { SearchPatternTest.class, SearchPatternFirstOccurrenceInTest.class })
+@SuiteClasses( { SearchPatternTest.class, SearchPatternFirstOccurrenceInTest.class,
+    SearchPatternLastOccurrenceInTest.class })
 public final class AllTests {
 
   /**
