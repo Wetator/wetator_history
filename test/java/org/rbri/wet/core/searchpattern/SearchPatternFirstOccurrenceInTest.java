@@ -27,7 +27,7 @@ import org.rbri.wet.backend.htmlunit.util.FindSpot;
 public class SearchPatternFirstOccurrenceInTest {
 
   @Test
-  public void test_Null() {
+  public void nullPattern() {
     String tmpMatcher = null;
 
     // match all
@@ -46,7 +46,7 @@ public class SearchPatternFirstOccurrenceInTest {
   }
 
   @Test
-  public void test_Empty() {
+  public void empty() {
     String tmpMatcher = "";
 
     // match all
@@ -65,7 +65,7 @@ public class SearchPatternFirstOccurrenceInTest {
   }
 
   @Test
-  public void test_OneChar() {
+  public void oneChar() {
     String tmpMatcher = "X";
 
     // match all
@@ -92,7 +92,7 @@ public class SearchPatternFirstOccurrenceInTest {
   }
 
   @Test
-  public void test_Text() {
+  public void text() {
     String tmpMatcher = "Wetator";
 
     // match all
@@ -128,5 +128,111 @@ public class SearchPatternFirstOccurrenceInTest {
     Assert.assertEquals(new FindSpot(1, 6), tmpPattern.firstOccurenceIn(tmpMatcher));
     tmpPattern = new SearchPattern("W*t");
     Assert.assertEquals(new FindSpot(0, 3), tmpPattern.firstOccurenceIn(tmpMatcher));
+  }
+
+  // with start psos
+
+  @Test
+  public void startPosNull() {
+    String tmpMatcher = null;
+
+    // match all
+    SearchPattern tmpPattern = new SearchPattern((String) null);
+    Assert.assertEquals(FindSpot.NOT_FOUND, tmpPattern.firstOccurenceIn(tmpMatcher, 17));
+    tmpPattern = new SearchPattern("");
+    Assert.assertEquals(FindSpot.NOT_FOUND, tmpPattern.firstOccurenceIn(tmpMatcher, 17));
+
+    // static string
+    tmpPattern = new SearchPattern("f");
+    Assert.assertEquals(FindSpot.NOT_FOUND, tmpPattern.firstOccurenceIn(tmpMatcher, 17));
+
+    // regexp
+    tmpPattern = new SearchPattern("f*x");
+    Assert.assertEquals(FindSpot.NOT_FOUND, tmpPattern.firstOccurenceIn(tmpMatcher, 17));
+  }
+
+  @Test
+  public void startPosEmpty() {
+    String tmpMatcher = "";
+
+    // match all
+    SearchPattern tmpPattern = new SearchPattern((String) null);
+    Assert.assertEquals(FindSpot.NOT_FOUND, tmpPattern.firstOccurenceIn(tmpMatcher, 17));
+    tmpPattern = new SearchPattern("");
+    Assert.assertEquals(FindSpot.NOT_FOUND, tmpPattern.firstOccurenceIn(tmpMatcher, 17));
+
+    // static string
+    tmpPattern = new SearchPattern("f");
+    Assert.assertEquals(FindSpot.NOT_FOUND, tmpPattern.firstOccurenceIn(tmpMatcher, 17));
+
+    // regexp
+    tmpPattern = new SearchPattern("f*x");
+    Assert.assertEquals(FindSpot.NOT_FOUND, tmpPattern.firstOccurenceIn(tmpMatcher, 17));
+  }
+
+  @Test
+  public void startPosOneChar() {
+    String tmpMatcher = "X";
+
+    // match all
+    SearchPattern tmpPattern = new SearchPattern((String) null);
+    Assert.assertEquals(FindSpot.NOT_FOUND, tmpPattern.firstOccurenceIn(tmpMatcher, 0));
+    tmpPattern = new SearchPattern("");
+    Assert.assertEquals(FindSpot.NOT_FOUND, tmpPattern.firstOccurenceIn(tmpMatcher, 0));
+
+    // static string
+    tmpPattern = new SearchPattern("f");
+    Assert.assertEquals(null, tmpPattern.firstOccurenceIn(tmpMatcher, 0));
+    tmpPattern = new SearchPattern("X");
+    Assert.assertEquals(new FindSpot(0, 1), tmpPattern.firstOccurenceIn(tmpMatcher, 0));
+
+    // regexp
+    tmpPattern = new SearchPattern("f*x");
+    Assert.assertEquals(null, tmpPattern.firstOccurenceIn(tmpMatcher, 0));
+    tmpPattern = new SearchPattern("X*");
+    Assert.assertEquals(new FindSpot(0, 1), tmpPattern.firstOccurenceIn(tmpMatcher, 0));
+    tmpPattern = new SearchPattern("*X");
+    Assert.assertEquals(new FindSpot(0, 1), tmpPattern.firstOccurenceIn(tmpMatcher, 0));
+    tmpPattern = new SearchPattern("*X*");
+    Assert.assertEquals(new FindSpot(0, 1), tmpPattern.firstOccurenceIn(tmpMatcher, 0));
+  }
+
+  @Test
+  public void startPosText() {
+    String tmpMatcher = "myWetator";
+
+    // match all
+    SearchPattern tmpPattern = new SearchPattern((String) null);
+    Assert.assertEquals(FindSpot.NOT_FOUND, tmpPattern.firstOccurenceIn(tmpMatcher, 2));
+    tmpPattern = new SearchPattern("");
+    Assert.assertEquals(FindSpot.NOT_FOUND, tmpPattern.firstOccurenceIn(tmpMatcher, 2));
+
+    // static string
+    tmpPattern = new SearchPattern("Wetator");
+    Assert.assertEquals(new FindSpot(2, 9), tmpPattern.firstOccurenceIn(tmpMatcher, 2));
+    tmpPattern = new SearchPattern("X");
+    Assert.assertEquals(null, tmpPattern.firstOccurenceIn(tmpMatcher, 2));
+    tmpPattern = new SearchPattern("wetator");
+    Assert.assertEquals(null, tmpPattern.firstOccurenceIn(tmpMatcher, 2));
+    tmpPattern = new SearchPattern("Wet");
+    Assert.assertEquals(new FindSpot(2, 5), tmpPattern.firstOccurenceIn(tmpMatcher, 2));
+    tmpPattern = new SearchPattern("eta");
+    Assert.assertEquals(new FindSpot(3, 6), tmpPattern.firstOccurenceIn(tmpMatcher, 2));
+
+    // regexp
+    tmpPattern = new SearchPattern("f*x");
+    Assert.assertEquals(null, tmpPattern.firstOccurenceIn(tmpMatcher, 2));
+    tmpPattern = new SearchPattern("Wetator*");
+    Assert.assertEquals(new FindSpot(2, 9), tmpPattern.firstOccurenceIn(tmpMatcher, 2));
+    tmpPattern = new SearchPattern("*Wetator");
+    Assert.assertEquals(new FindSpot(2, 9), tmpPattern.firstOccurenceIn(tmpMatcher, 2));
+    tmpPattern = new SearchPattern("*Wetator*");
+    Assert.assertEquals(new FindSpot(2, 9), tmpPattern.firstOccurenceIn(tmpMatcher, 2));
+    tmpPattern = new SearchPattern("*et*or*");
+    Assert.assertEquals(new FindSpot(2, 9), tmpPattern.firstOccurenceIn(tmpMatcher, 2));
+    tmpPattern = new SearchPattern("et*o");
+    Assert.assertEquals(new FindSpot(3, 8), tmpPattern.firstOccurenceIn(tmpMatcher, 2));
+    tmpPattern = new SearchPattern("W*t");
+    Assert.assertEquals(new FindSpot(2, 5), tmpPattern.firstOccurenceIn(tmpMatcher, 2));
   }
 }
