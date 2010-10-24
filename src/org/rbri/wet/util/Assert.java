@@ -19,6 +19,7 @@ package org.rbri.wet.util;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
+import org.rbri.wet.backend.htmlunit.util.FindSpot;
 import org.rbri.wet.core.searchpattern.SearchPattern;
 import org.rbri.wet.exception.AssertionFailedException;
 import org.rbri.wet.i18n.Messages;
@@ -280,29 +281,29 @@ public final class Assert {
       String tmpExpectedString = tmpExpceted.getValue();
       SearchPattern tmpPattern = new SearchPattern(tmpExpectedString);
 
-      int tmpFoundPos = tmpPattern.noOfCharsBeforeFirstOccurenceInAfter(aContent, tmpStartPos);
+      FindSpot tmpFoundSpot = tmpPattern.firstOccurenceIn(aContent.substring(tmpStartPos));
 
       if (tmpResultMessage.length() > 0) {
         tmpResultMessage.append(", ");
       }
 
-      if (tmpFoundPos < 0) {
+      if (null == tmpFoundSpot || FindSpot.NOT_FOUND == tmpFoundSpot) {
         // pattern not found
         tmpAssertFailed = true;
 
-        if (tmpPattern.noOfMatchingCharsIn(aContent) > -1) {
+        if (null == tmpPattern.firstOccurenceIn(aContent)) {
+          // pattern is not in whole content too
+          tmpResultMessage.append("{" + tmpExpceted.toString() + "}");
+        } else {
           // pattern is somewhere before one of the previous tokens =>
           // wrong order
           tmpResultMessage.append("[" + tmpExpceted.toString() + "]");
-        } else {
-          // pattern is not in whole content too
-          tmpResultMessage.append("{" + tmpExpceted.toString() + "}");
         }
       } else {
         tmpResultMessage.append(tmpExpceted.toString());
 
         // continue search for other parts from here on
-        tmpStartPos = tmpFoundPos;
+        tmpStartPos = tmpStartPos + tmpFoundSpot.endPos;
       }
     }
 

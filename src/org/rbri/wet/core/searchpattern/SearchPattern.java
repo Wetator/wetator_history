@@ -216,39 +216,39 @@ public final class SearchPattern {
     return tmpResult;
   }
 
-  /**
-   * Calculates the number of chars before the
-   * first occurrence of this search pattern in
-   * the given string.<br>
-   * If this search pattern is left truncated (star at
-   * start), then this returns zero.
-   * 
-   * @param aString the string to search inside
-   * @return the number of chars or -1 if the pattern is
-   *         not found
-   */
-  public int noOfCharsBeforeFirstOccurenceIn(String aString) {
-    noOfCharsBeforeFirstOccurenceIn++;
-    int tmpResult = -1;
-
-    if (StringUtils.isEmpty(aString)) {
-      return tmpResult;
-    }
-
-    if (isStarPattern) {
-      return 0;
-    }
-
-    AutomatonShortMatcher tmpMatcher = new AutomatonShortMatcher(aString, automaton);
-
-    boolean tmpFound = tmpMatcher.find();
-    if (!tmpFound) {
-      return -1;
-    }
-
-    tmpResult = tmpMatcher.start();
-    return tmpResult;
-  }
+  // /**
+  // * Calculates the number of chars before the
+  // * first occurrence of this search pattern in
+  // * the given string.<br>
+  // * If this search pattern is left truncated (star at
+  // * start), then this returns zero.
+  // *
+  // * @param aString the string to search inside
+  // * @return the number of chars or -1 if the pattern is
+  // * not found
+  // */
+  // public int noOfCharsBeforeFirstOccurenceIn(String aString) {
+  // noOfCharsBeforeFirstOccurenceIn++;
+  // int tmpResult = -1;
+  //
+  // if (StringUtils.isEmpty(aString)) {
+  // return tmpResult;
+  // }
+  //
+  // if (isStarPattern) {
+  // return 0;
+  // }
+  //
+  // AutomatonShortMatcher tmpMatcher = new AutomatonShortMatcher(aString, automaton);
+  //
+  // boolean tmpFound = tmpMatcher.find();
+  // if (!tmpFound) {
+  // return -1;
+  // }
+  //
+  // tmpResult = tmpMatcher.start();
+  // return tmpResult;
+  // }
 
   /**
    * Calculates the number of chars before the
@@ -384,40 +384,40 @@ public final class SearchPattern {
     return tmpResult;
   }
 
-  /**
-   * Calculates the number of chars matching
-   * the given string.<br>
-   * 
-   * @param aString the string to search inside
-   * @return the number of chars or -1 if the pattern is
-   *         not found
-   */
-  public int noOfMatchingCharsIn(String aString) {
-    noOfMatchingCharsIn++;
-    if (isStarPattern) {
-      return aString.length();
-    }
-
-    if (null == aString) {
-      return -1;
-    }
-
-    AutomatonShortMatcher tmpMatcher = new AutomatonShortMatcher(aString, automaton);
-
-    boolean tmpFound = tmpMatcher.find();
-    if (!tmpFound) {
-      return -1;
-    }
-
-    int tmpResult = -1;
-    // we found something
-    while (tmpFound) {
-      tmpResult = Math.max(tmpResult, tmpMatcher.group().length());
-      tmpFound = tmpMatcher.find();
-    }
-
-    return tmpResult;
-  }
+  // /**
+  // * Calculates the number of chars matching
+  // * the given string.<br>
+  // *
+  // * @param aString the string to search inside
+  // * @return the number of chars or -1 if the pattern is
+  // * not found
+  // */
+  // public int noOfMatchingCharsIn(String aString) {
+  // noOfMatchingCharsIn++;
+  // if (isStarPattern) {
+  // return aString.length();
+  // }
+  //
+  // if (null == aString) {
+  // return -1;
+  // }
+  //
+  // AutomatonShortMatcher tmpMatcher = new AutomatonShortMatcher(aString, automaton);
+  //
+  // boolean tmpFound = tmpMatcher.find();
+  // if (!tmpFound) {
+  // return -1;
+  // }
+  //
+  // int tmpResult = -1;
+  // // we found something
+  // while (tmpFound) {
+  // tmpResult = Math.max(tmpResult, tmpMatcher.group().length());
+  // tmpFound = tmpMatcher.find();
+  // }
+  //
+  // return tmpResult;
+  // }
 
   public boolean matchesAtEnd(String aString) {
     matchesAtEnd++;
@@ -436,23 +436,6 @@ public final class SearchPattern {
       return false;
     }
     return aString.length() == tmpMatcher.end();
-  }
-
-  public int noOfCharsBeforeFirstOccurenceInAfter(String aString, int aStartPos) {
-    noOfCharsBeforeFirstOccurenceInAfter++;
-    if (null == aString) {
-      return -1;
-    }
-
-    if (aStartPos >= aString.length()) {
-      return -1;
-    }
-
-    int tmpResult = noOfCharsBeforeFirstOccurenceIn(aString.substring(aStartPos));
-    if (tmpResult > -1) {
-      return tmpResult + aStartPos;
-    }
-    return tmpResult;
   }
 
   /**

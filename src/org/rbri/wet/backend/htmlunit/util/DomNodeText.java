@@ -156,16 +156,6 @@ public class DomNodeText {
   }
 
   /**
-   * Returns the start and end position of the last occurrence of the string in the text
-   * 
-   * @param aSearchPattern the search pattern
-   * @return the position
-   */
-  public FindSpot lastOccurence(SearchPattern aSearchPattern) {
-    return aSearchPattern.lastOccurenceIn(text.toString());
-  }
-
-  /**
    * Returns the whole (trimmed) text before the given dom node
    * 
    * @param aDomNode the node to look at

@@ -173,6 +173,11 @@ test/java/org/rbri/wet/core/result/XslTransformerTest.java -text
 test/java/org/rbri/wet/core/searchpattern/AllTests.java -text
 test/java/org/rbri/wet/core/searchpattern/SearchPatternFirstOccurrenceInTest.java -text
 test/java/org/rbri/wet/core/searchpattern/SearchPatternLastOccurrenceInTest.java -text
+test/java/org/rbri/wet/core/searchpattern/SearchPatternMatchesAtEndTest.java -text
+test/java/org/rbri/wet/core/searchpattern/SearchPatternMatchesTest.java -text
+test/java/org/rbri/wet/core/searchpattern/SearchPatternNoOfCharsAfterLastOccurenceInTest.java -text
+test/java/org/rbri/wet/core/searchpattern/SearchPatternNoOfCharsBeforeLastOccurenceInTest.java -text
+test/java/org/rbri/wet/core/searchpattern/SearchPatternNoOfSurroundingCharsInTest.java -text
 test/java/org/rbri/wet/core/searchpattern/SearchPatternTest.java -text
 test/java/org/rbri/wet/core/variable/AllTests.java -text
 test/java/org/rbri/wet/core/variable/VariableTest.java -text
