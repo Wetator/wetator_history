@@ -276,18 +276,20 @@ public final class Assert {
     int tmpStartPos = 0;
     boolean tmpAssertFailed = false;
     StringBuilder tmpResultMessage = new StringBuilder();
+    String tmpContent = aContent;
 
     for (SecretString tmpExpceted : anExpected) {
       String tmpExpectedString = tmpExpceted.getValue();
       SearchPattern tmpPattern = new SearchPattern(tmpExpectedString);
 
-      FindSpot tmpFoundSpot = tmpPattern.firstOccurenceIn(aContent.substring(tmpStartPos));
+      tmpContent = tmpContent.substring(tmpStartPos);
+      FindSpot tmpFoundSpot = tmpPattern.firstOccurenceIn(tmpContent);
 
       if (tmpResultMessage.length() > 0) {
         tmpResultMessage.append(", ");
       }
 
-      if (null == tmpFoundSpot || FindSpot.NOT_FOUND == tmpFoundSpot) {
+      if (null == tmpFoundSpot || FindSpot.NOT_FOUND.equals(tmpFoundSpot)) {
         // pattern not found
         tmpAssertFailed = true;
 
@@ -299,11 +301,12 @@ public final class Assert {
           // wrong order
           tmpResultMessage.append("[" + tmpExpceted.toString() + "]");
         }
+        tmpStartPos = 0;
       } else {
         tmpResultMessage.append(tmpExpceted.toString());
 
         // continue search for other parts from here on
-        tmpStartPos = tmpStartPos + tmpFoundSpot.endPos;
+        tmpStartPos = tmpFoundSpot.endPos;
       }
     }
 
