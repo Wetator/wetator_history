@@ -26,14 +26,17 @@ import org.rbri.wet.backend.htmlunit.util.FindSpot;
  */
 public final class TextOnlySearchPattern extends SearchPattern {
 
+  private String patternString;
   private int patternLength;
 
   /**
    * Constructor
+   * 
+   * @param anOriginalString the string used to construct the pattern
+   * @param aPatternString the string to compare with
    */
   protected TextOnlySearchPattern(String anOriginalString, String aPatternString) {
-    super();
-    originalString = anOriginalString;
+    super(anOriginalString);
     patternString = aPatternString;
     patternLength = aPatternString.length();
   }
@@ -128,6 +131,6 @@ public final class TextOnlySearchPattern extends SearchPattern {
 
   @Override
   public String toString() {
-    return "SearchPattern '" + originalString + "' [text: '" + patternString + "']";
+    return "SearchPattern '" + getOriginalString() + "' [text: '" + patternString + "']";
   }
 }

@@ -31,8 +31,7 @@ public abstract class SearchPattern {
 
   private static final String SPECIAL_CHARS = "(){}[]|&~+^-.#@\"<>";
 
-  protected String originalString;
-  protected String patternString;
+  private String originalString;
 
   /**
    * Construct a new SearchPattern from a list of SecretString's.
@@ -69,8 +68,9 @@ public abstract class SearchPattern {
   /**
    * Construct a new SearchPattern from a string.
    * 
-   * @param aDosStyleWildcardString the string to construt the SearchPattern for.
+   * @param aDosStyleWildcardString the string to construct the SearchPattern for.
    *        This supports the wildcards '*' and '?'.
+   * @return the SearchPattern
    */
   public static SearchPattern compile(String aDosStyleWildcardString) {
     String tmpDosStyleWildcardString = "";
@@ -152,7 +152,17 @@ public abstract class SearchPattern {
       return new TextOnlySearchPattern(tmpOriginalString, tmpTextPattern.toString());
     }
 
-    return new RegExpSearchPattern(tmpOriginalString, tmpPattern.toString(), tmpIsStarPattern);
+    return new RegExpSearchPattern(tmpOriginalString, tmpPattern.toString());
+  }
+
+  /**
+   * Constructor
+   * 
+   * @param anOriginalString the string used to construct the pattern
+   */
+  protected SearchPattern(String anOriginalString) {
+    super();
+    originalString = anOriginalString;
   }
 
   public abstract FindSpot firstOccurenceIn(String aString);

@@ -54,16 +54,19 @@ final class RegExpSearchPattern extends SearchPattern {
     System.out.println("lastOccurenceIn: " + lastOccurenceIn);
   }
 
+  private String patternString;
   private RunAutomaton runAutomaton;
   private int minLength;
 
   /**
    * Constructor
+   * 
+   * @param anOriginalString the string used to construct the pattern
+   * @param aPatternString the compiled patter used by the automaton
    */
-  protected RegExpSearchPattern(String anOriginalString, String aPatternString, boolean anIsStarPattern) {
-    super();
+  protected RegExpSearchPattern(String anOriginalString, String aPatternString) {
+    super(anOriginalString);
 
-    originalString = anOriginalString;
     patternString = aPatternString;
 
     Automaton tmpAutomaton = new RegExp(patternString).toAutomaton();
@@ -243,6 +246,6 @@ final class RegExpSearchPattern extends SearchPattern {
 
   @Override
   public String toString() {
-    return "SearchPattern '" + originalString + "' [regexp: '" + patternString + "']";
+    return "SearchPattern '" + getOriginalString() + "' [regexp: '" + patternString + "']";
   }
 }

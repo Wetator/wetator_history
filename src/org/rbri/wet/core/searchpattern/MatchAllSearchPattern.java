@@ -30,9 +30,7 @@ public final class MatchAllSearchPattern extends SearchPattern {
    * Constructor
    */
   protected MatchAllSearchPattern() {
-    super();
-    originalString = "*";
-    patternString = "*";
+    super("*");
   }
 
   @Override
@@ -83,6 +81,6 @@ public final class MatchAllSearchPattern extends SearchPattern {
 
   @Override
   public String toString() {
-    return "SearchPattern '" + originalString + "' [matchAll]";
+    return "SearchPattern '" + getOriginalString() + "' [matchAll]";
   }
 }
