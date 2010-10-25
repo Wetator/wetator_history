@@ -30,17 +30,17 @@ public class SearchPatternMatchesAtEndTest {
     String tmpMatcher = null;
 
     // match all
-    SearchPattern tmpPattern = new SearchPattern((String) null);
+    SearchPattern tmpPattern = SearchPattern.compile((String) null);
     Assert.assertFalse(tmpPattern.matchesAtEnd(tmpMatcher));
-    tmpPattern = new SearchPattern("");
+    tmpPattern = SearchPattern.compile("");
     Assert.assertFalse(tmpPattern.matchesAtEnd(tmpMatcher));
 
     // static string
-    tmpPattern = new SearchPattern("f");
+    tmpPattern = SearchPattern.compile("f");
     Assert.assertFalse(tmpPattern.matchesAtEnd(tmpMatcher));
 
     // regexp
-    tmpPattern = new SearchPattern("f*x");
+    tmpPattern = SearchPattern.compile("f*x");
     Assert.assertFalse(tmpPattern.matchesAtEnd(tmpMatcher));
   }
 
@@ -49,17 +49,17 @@ public class SearchPatternMatchesAtEndTest {
     String tmpMatcher = "";
 
     // match all
-    SearchPattern tmpPattern = new SearchPattern((String) null);
+    SearchPattern tmpPattern = SearchPattern.compile((String) null);
     Assert.assertFalse(tmpPattern.matchesAtEnd(tmpMatcher));
-    tmpPattern = new SearchPattern("");
+    tmpPattern = SearchPattern.compile("");
     Assert.assertFalse(tmpPattern.matchesAtEnd(tmpMatcher));
 
     // static string
-    tmpPattern = new SearchPattern("f");
+    tmpPattern = SearchPattern.compile("f");
     Assert.assertFalse(tmpPattern.matchesAtEnd(tmpMatcher));
 
     // regexp
-    tmpPattern = new SearchPattern("f*x");
+    tmpPattern = SearchPattern.compile("f*x");
     Assert.assertFalse(tmpPattern.matchesAtEnd(tmpMatcher));
   }
 
@@ -68,25 +68,25 @@ public class SearchPatternMatchesAtEndTest {
     String tmpMatcher = "X";
 
     // match all
-    SearchPattern tmpPattern = new SearchPattern((String) null);
+    SearchPattern tmpPattern = SearchPattern.compile((String) null);
     Assert.assertFalse(tmpPattern.matchesAtEnd(tmpMatcher));
-    tmpPattern = new SearchPattern("");
+    tmpPattern = SearchPattern.compile("");
     Assert.assertFalse(tmpPattern.matchesAtEnd(tmpMatcher));
 
     // static string
-    tmpPattern = new SearchPattern("f");
+    tmpPattern = SearchPattern.compile("f");
     Assert.assertFalse(tmpPattern.matchesAtEnd(tmpMatcher));
-    tmpPattern = new SearchPattern("X");
+    tmpPattern = SearchPattern.compile("X");
     Assert.assertTrue(tmpPattern.matchesAtEnd(tmpMatcher));
 
     // regexp
-    tmpPattern = new SearchPattern("f*x");
+    tmpPattern = SearchPattern.compile("f*x");
     Assert.assertFalse(tmpPattern.matchesAtEnd(tmpMatcher));
-    tmpPattern = new SearchPattern("X*");
+    tmpPattern = SearchPattern.compile("X*");
     Assert.assertTrue(tmpPattern.matchesAtEnd(tmpMatcher));
-    tmpPattern = new SearchPattern("*X");
+    tmpPattern = SearchPattern.compile("*X");
     Assert.assertTrue(tmpPattern.matchesAtEnd(tmpMatcher));
-    tmpPattern = new SearchPattern("*X*");
+    tmpPattern = SearchPattern.compile("*X*");
     Assert.assertTrue(tmpPattern.matchesAtEnd(tmpMatcher));
   }
 
@@ -95,54 +95,54 @@ public class SearchPatternMatchesAtEndTest {
     String tmpMatcher = "Wetator";
 
     // match all
-    SearchPattern tmpPattern = new SearchPattern((String) null);
+    SearchPattern tmpPattern = SearchPattern.compile((String) null);
     Assert.assertFalse(tmpPattern.matchesAtEnd(tmpMatcher));
-    tmpPattern = new SearchPattern("");
+    tmpPattern = SearchPattern.compile("");
     Assert.assertFalse(tmpPattern.matchesAtEnd(tmpMatcher));
 
     // static string
-    tmpPattern = new SearchPattern("Wetator");
+    tmpPattern = SearchPattern.compile("Wetator");
     Assert.assertTrue(tmpPattern.matchesAtEnd(tmpMatcher));
-    tmpPattern = new SearchPattern("X");
+    tmpPattern = SearchPattern.compile("X");
     Assert.assertFalse(tmpPattern.matchesAtEnd(tmpMatcher));
-    tmpPattern = new SearchPattern("wetator");
+    tmpPattern = SearchPattern.compile("wetator");
     Assert.assertFalse(tmpPattern.matchesAtEnd(tmpMatcher));
-    tmpPattern = new SearchPattern("tor");
+    tmpPattern = SearchPattern.compile("tor");
     Assert.assertTrue(tmpPattern.matchesAtEnd(tmpMatcher));
-    tmpPattern = new SearchPattern("ato");
+    tmpPattern = SearchPattern.compile("ato");
     Assert.assertFalse(tmpPattern.matchesAtEnd(tmpMatcher));
 
     // regexp
-    tmpPattern = new SearchPattern("f*x");
+    tmpPattern = SearchPattern.compile("f*x");
     Assert.assertFalse(tmpPattern.matchesAtEnd(tmpMatcher));
-    tmpPattern = new SearchPattern("*Wetator");
+    tmpPattern = SearchPattern.compile("*Wetator");
     Assert.assertTrue(tmpPattern.matchesAtEnd(tmpMatcher));
-    tmpPattern = new SearchPattern("Wetator*");
+    tmpPattern = SearchPattern.compile("Wetator*");
     Assert.assertTrue(tmpPattern.matchesAtEnd(tmpMatcher));
-    tmpPattern = new SearchPattern("*Wetator*");
+    tmpPattern = SearchPattern.compile("*Wetator*");
     Assert.assertTrue(tmpPattern.matchesAtEnd(tmpMatcher));
-    tmpPattern = new SearchPattern("*We*or*");
+    tmpPattern = SearchPattern.compile("*We*or*");
     Assert.assertTrue(tmpPattern.matchesAtEnd(tmpMatcher));
-    tmpPattern = new SearchPattern("et*or");
+    tmpPattern = SearchPattern.compile("et*or");
     Assert.assertTrue(tmpPattern.matchesAtEnd(tmpMatcher));
-    tmpPattern = new SearchPattern("e*r");
+    tmpPattern = SearchPattern.compile("e*r");
     Assert.assertTrue(tmpPattern.matchesAtEnd(tmpMatcher));
 
-    tmpPattern = new SearchPattern("?etator");
+    tmpPattern = SearchPattern.compile("?etator");
     Assert.assertTrue(tmpPattern.matchesAtEnd(tmpMatcher));
-    tmpPattern = new SearchPattern("?Wetator");
+    tmpPattern = SearchPattern.compile("?Wetator");
     Assert.assertFalse(tmpPattern.matchesAtEnd(tmpMatcher));
-    tmpPattern = new SearchPattern("Wetato?");
+    tmpPattern = SearchPattern.compile("Wetato?");
     Assert.assertTrue(tmpPattern.matchesAtEnd(tmpMatcher));
-    tmpPattern = new SearchPattern("Wetator?");
+    tmpPattern = SearchPattern.compile("Wetator?");
     Assert.assertFalse(tmpPattern.matchesAtEnd(tmpMatcher));
-    tmpPattern = new SearchPattern("?etato?");
+    tmpPattern = SearchPattern.compile("?etato?");
     Assert.assertTrue(tmpPattern.matchesAtEnd(tmpMatcher));
-    tmpPattern = new SearchPattern("?e???o?");
+    tmpPattern = SearchPattern.compile("?e???o?");
     Assert.assertTrue(tmpPattern.matchesAtEnd(tmpMatcher));
-    tmpPattern = new SearchPattern("et??or");
+    tmpPattern = SearchPattern.compile("et??or");
     Assert.assertTrue(tmpPattern.matchesAtEnd(tmpMatcher));
-    tmpPattern = new SearchPattern("t?r");
+    tmpPattern = SearchPattern.compile("t?r");
     Assert.assertTrue(tmpPattern.matchesAtEnd(tmpMatcher));
   }
 }

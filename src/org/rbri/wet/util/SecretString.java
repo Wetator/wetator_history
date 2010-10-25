@@ -125,7 +125,7 @@ public final class SecretString {
    * @return the search pattern
    */
   public SearchPattern getSearchPattern() {
-    return new SearchPattern(getValue());
+    return SearchPattern.compile(getValue());
   }
 
   /**

@@ -56,7 +56,10 @@ src/org/rbri/wet/core/result/XslTransformer.java -text
 src/org/rbri/wet/core/searchpattern/AutomatonFromEndMatcher.java -text
 src/org/rbri/wet/core/searchpattern/AutomatonShortFromEndMatcher.java -text
 src/org/rbri/wet/core/searchpattern/AutomatonShortMatcher.java -text
+src/org/rbri/wet/core/searchpattern/MatchAllSearchPattern.java -text
+src/org/rbri/wet/core/searchpattern/RegExpSearchPattern.java -text
 src/org/rbri/wet/core/searchpattern/SearchPattern.java -text
+src/org/rbri/wet/core/searchpattern/TextOnlySearchPattern.java -text
 src/org/rbri/wet/core/variable/Variable.java -text
 src/org/rbri/wet/exception/AssertionFailedException.java -text
 src/org/rbri/wet/exception/WetException.java -text

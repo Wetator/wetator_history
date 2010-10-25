@@ -31,17 +31,17 @@ public class SearchPatternLastOccurrenceInTest {
     String tmpMatcher = null;
 
     // match all
-    SearchPattern tmpPattern = new SearchPattern((String) null);
+    SearchPattern tmpPattern = SearchPattern.compile((String) null);
     Assert.assertEquals(FindSpot.NOT_FOUND, tmpPattern.lastOccurenceIn(tmpMatcher));
-    tmpPattern = new SearchPattern("");
+    tmpPattern = SearchPattern.compile("");
     Assert.assertEquals(FindSpot.NOT_FOUND, tmpPattern.lastOccurenceIn(tmpMatcher));
 
     // static string
-    tmpPattern = new SearchPattern("f");
+    tmpPattern = SearchPattern.compile("f");
     Assert.assertEquals(FindSpot.NOT_FOUND, tmpPattern.lastOccurenceIn(tmpMatcher));
 
     // regexp
-    tmpPattern = new SearchPattern("f*x");
+    tmpPattern = SearchPattern.compile("f*x");
     Assert.assertEquals(FindSpot.NOT_FOUND, tmpPattern.lastOccurenceIn(tmpMatcher));
   }
 
@@ -50,17 +50,17 @@ public class SearchPatternLastOccurrenceInTest {
     String tmpMatcher = "";
 
     // match all
-    SearchPattern tmpPattern = new SearchPattern((String) null);
+    SearchPattern tmpPattern = SearchPattern.compile((String) null);
     Assert.assertEquals(FindSpot.NOT_FOUND, tmpPattern.lastOccurenceIn(tmpMatcher));
-    tmpPattern = new SearchPattern("");
+    tmpPattern = SearchPattern.compile("");
     Assert.assertEquals(FindSpot.NOT_FOUND, tmpPattern.lastOccurenceIn(tmpMatcher));
 
     // static string
-    tmpPattern = new SearchPattern("f");
+    tmpPattern = SearchPattern.compile("f");
     Assert.assertEquals(FindSpot.NOT_FOUND, tmpPattern.lastOccurenceIn(tmpMatcher));
 
     // regexp
-    tmpPattern = new SearchPattern("f*x");
+    tmpPattern = SearchPattern.compile("f*x");
     Assert.assertEquals(FindSpot.NOT_FOUND, tmpPattern.lastOccurenceIn(tmpMatcher));
   }
 
@@ -69,25 +69,25 @@ public class SearchPatternLastOccurrenceInTest {
     String tmpMatcher = "X";
 
     // match all
-    SearchPattern tmpPattern = new SearchPattern((String) null);
+    SearchPattern tmpPattern = SearchPattern.compile((String) null);
     Assert.assertEquals(FindSpot.NOT_FOUND, tmpPattern.lastOccurenceIn(tmpMatcher));
-    tmpPattern = new SearchPattern("");
+    tmpPattern = SearchPattern.compile("");
     Assert.assertEquals(FindSpot.NOT_FOUND, tmpPattern.lastOccurenceIn(tmpMatcher));
 
     // static string
-    tmpPattern = new SearchPattern("f");
+    tmpPattern = SearchPattern.compile("f");
     Assert.assertEquals(null, tmpPattern.lastOccurenceIn(tmpMatcher));
-    tmpPattern = new SearchPattern("X");
+    tmpPattern = SearchPattern.compile("X");
     Assert.assertEquals(new FindSpot(0, 1), tmpPattern.lastOccurenceIn(tmpMatcher));
 
     // regexp
-    tmpPattern = new SearchPattern("f*x");
+    tmpPattern = SearchPattern.compile("f*x");
     Assert.assertEquals(null, tmpPattern.lastOccurenceIn(tmpMatcher));
-    tmpPattern = new SearchPattern("X*");
+    tmpPattern = SearchPattern.compile("X*");
     Assert.assertEquals(new FindSpot(0, 1), tmpPattern.lastOccurenceIn(tmpMatcher));
-    tmpPattern = new SearchPattern("*X");
+    tmpPattern = SearchPattern.compile("*X");
     Assert.assertEquals(new FindSpot(0, 1), tmpPattern.lastOccurenceIn(tmpMatcher));
-    tmpPattern = new SearchPattern("*X*");
+    tmpPattern = SearchPattern.compile("*X*");
     Assert.assertEquals(new FindSpot(0, 1), tmpPattern.lastOccurenceIn(tmpMatcher));
   }
 
@@ -96,37 +96,37 @@ public class SearchPatternLastOccurrenceInTest {
     String tmpMatcher = "Wetator";
 
     // match all
-    SearchPattern tmpPattern = new SearchPattern((String) null);
+    SearchPattern tmpPattern = SearchPattern.compile((String) null);
     Assert.assertEquals(FindSpot.NOT_FOUND, tmpPattern.lastOccurenceIn(tmpMatcher));
-    tmpPattern = new SearchPattern("");
+    tmpPattern = SearchPattern.compile("");
     Assert.assertEquals(FindSpot.NOT_FOUND, tmpPattern.lastOccurenceIn(tmpMatcher));
 
     // static string
-    tmpPattern = new SearchPattern("Wetator");
+    tmpPattern = SearchPattern.compile("Wetator");
     Assert.assertEquals(new FindSpot(0, 7), tmpPattern.lastOccurenceIn(tmpMatcher));
-    tmpPattern = new SearchPattern("X");
+    tmpPattern = SearchPattern.compile("X");
     Assert.assertEquals(null, tmpPattern.lastOccurenceIn(tmpMatcher));
-    tmpPattern = new SearchPattern("wetator");
+    tmpPattern = SearchPattern.compile("wetator");
     Assert.assertEquals(null, tmpPattern.lastOccurenceIn(tmpMatcher));
-    tmpPattern = new SearchPattern("tor");
+    tmpPattern = SearchPattern.compile("tor");
     Assert.assertEquals(new FindSpot(4, 7), tmpPattern.lastOccurenceIn(tmpMatcher));
-    tmpPattern = new SearchPattern("ato");
+    tmpPattern = SearchPattern.compile("ato");
     Assert.assertEquals(new FindSpot(3, 6), tmpPattern.lastOccurenceIn(tmpMatcher));
 
     // regexp
-    tmpPattern = new SearchPattern("f*x");
+    tmpPattern = SearchPattern.compile("f*x");
     Assert.assertEquals(null, tmpPattern.lastOccurenceIn(tmpMatcher));
-    tmpPattern = new SearchPattern("*Wetator");
+    tmpPattern = SearchPattern.compile("*Wetator");
     Assert.assertEquals(new FindSpot(0, 7), tmpPattern.lastOccurenceIn(tmpMatcher));
-    tmpPattern = new SearchPattern("Wetator*");
+    tmpPattern = SearchPattern.compile("Wetator*");
     Assert.assertEquals(new FindSpot(0, 7), tmpPattern.lastOccurenceIn(tmpMatcher));
-    tmpPattern = new SearchPattern("*Wetator*");
+    tmpPattern = SearchPattern.compile("*Wetator*");
     Assert.assertEquals(new FindSpot(0, 7), tmpPattern.lastOccurenceIn(tmpMatcher));
-    tmpPattern = new SearchPattern("*We*or*");
+    tmpPattern = SearchPattern.compile("*We*or*");
     Assert.assertEquals(new FindSpot(0, 7), tmpPattern.lastOccurenceIn(tmpMatcher));
-    tmpPattern = new SearchPattern("et*o");
+    tmpPattern = SearchPattern.compile("et*o");
     Assert.assertEquals(new FindSpot(1, 6), tmpPattern.lastOccurenceIn(tmpMatcher));
-    tmpPattern = new SearchPattern("e*r");
+    tmpPattern = SearchPattern.compile("e*r");
     Assert.assertEquals(new FindSpot(1, 7), tmpPattern.lastOccurenceIn(tmpMatcher));
   }
 }

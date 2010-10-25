@@ -566,7 +566,7 @@ public class HtmlUnitControlFinder implements ControlFinder {
     SearchPattern tmpSearchPattern = aSearch.get(aSearch.size() - 1).getSearchPattern();
     SearchPattern tmpPathSearchPattern = SearchPattern.createFromList(aSearch, aSearch.size() - 1);
 
-    SearchPattern tmpSearchPatternSelect = new SearchPattern("");
+    SearchPattern tmpSearchPatternSelect = SearchPattern.compile("");
     if (aSearch.size() > 1) {
       tmpSearchPatternSelect = aSearch.get(aSearch.size() - 2).getSearchPattern();
     }
@@ -828,7 +828,7 @@ public class HtmlUnitControlFinder implements ControlFinder {
     SearchPattern tmpSearchPattern = aSearch.get(aSearch.size() - 1).getSearchPattern();
     SearchPattern tmpPathSearchPattern = SearchPattern.createFromList(aSearch, aSearch.size() - 1);
 
-    SearchPattern tmpSearchPatternSelect = new SearchPattern("");
+    SearchPattern tmpSearchPatternSelect = SearchPattern.compile("");
     if (aSearch.size() > 1) {
       tmpSearchPatternSelect = aSearch.get(aSearch.size() - 2).getSearchPattern();
     }

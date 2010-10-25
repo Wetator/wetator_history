@@ -280,7 +280,7 @@ public final class Assert {
 
     for (SecretString tmpExpceted : anExpected) {
       String tmpExpectedString = tmpExpceted.getValue();
-      SearchPattern tmpPattern = new SearchPattern(tmpExpectedString);
+      SearchPattern tmpPattern = SearchPattern.compile(tmpExpectedString);
 
       tmpContent = tmpContent.substring(tmpStartPos);
       FindSpot tmpFoundSpot = tmpPattern.firstOccurenceIn(tmpContent);
@@ -339,7 +339,7 @@ public final class Assert {
           return;
         }
       } else {
-        SearchPattern tmpSearchPattern = new SearchPattern(anExpectedPattern);
+        SearchPattern tmpSearchPattern = SearchPattern.compile(anExpectedPattern);
         if (tmpSearchPattern.matches(aCurrentString)) {
           return;
         }
