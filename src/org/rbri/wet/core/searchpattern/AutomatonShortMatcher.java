@@ -32,8 +32,21 @@ public final class AutomatonShortMatcher implements MatchResult {
    * @param anAutomaton the automaton to set
    */
   public AutomatonShortMatcher(final CharSequence aCharSequence, final RunAutomaton anAutomaton) {
+    this(aCharSequence, 0, anAutomaton);
+  }
+
+  /**
+   * Constructor.
+   * 
+   * @param aCharSequence the chars to set
+   * @param aStartPos the start pos for the search in aCharSequence
+   * @param anAutomaton the automaton to set
+   */
+  public AutomatonShortMatcher(final CharSequence aCharSequence, final int aStartPos, final RunAutomaton anAutomaton) {
+    super();
     chars = aCharSequence;
     automaton = anAutomaton;
+    matchStart = Math.max(0, aStartPos) - 1;
   }
 
   private final RunAutomaton automaton;
