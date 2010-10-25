@@ -22,6 +22,7 @@ import org.apache.commons.lang.StringUtils;
 import org.rbri.wet.backend.htmlunit.util.FindSpot;
 import org.rbri.wet.util.SecretString;
 
+import dk.brics.automaton.Automaton;
 import dk.brics.automaton.RegExp;
 import dk.brics.automaton.RunAutomaton;
 
@@ -62,7 +63,8 @@ public final class SearchPattern {
   private String originalString;
   private String patternString;
   private boolean isStarPattern;
-  private RunAutomaton automaton;
+  private RunAutomaton runAutomaton;
+  private int minLength;
 
   @Override
   public String toString() {
@@ -171,7 +173,9 @@ public final class SearchPattern {
     }
 
     patternString = tmpPattern.toString();
-    automaton = new RunAutomaton(new RegExp(patternString).toAutomaton());
+    Automaton tmpAutomaton = new RegExp(patternString).toAutomaton();
+    minLength = tmpAutomaton.getShortestExample(true).length();
+    runAutomaton = new RunAutomaton(tmpAutomaton);
   }
 
   public FindSpot firstOccurenceIn(String aString) {
@@ -190,7 +194,11 @@ public final class SearchPattern {
       return tmpResult;
     }
 
-    AutomatonShortMatcher tmpMatcher = new AutomatonShortMatcher(aString, aStartPos, automaton);
+    if (aString.length() < minLength) {
+      return null;
+    }
+
+    AutomatonShortMatcher tmpMatcher = new AutomatonShortMatcher(aString, aStartPos, runAutomaton);
 
     boolean tmpFound = tmpMatcher.find();
     if (!tmpFound) {
@@ -215,7 +223,11 @@ public final class SearchPattern {
       return tmpResult;
     }
 
-    AutomatonShortFromEndMatcher tmpMatcher = new AutomatonShortFromEndMatcher(aString, automaton);
+    if (aString.length() < minLength) {
+      return null;
+    }
+
+    AutomatonShortFromEndMatcher tmpMatcher = new AutomatonShortFromEndMatcher(aString, runAutomaton);
 
     boolean tmpFound = tmpMatcher.find();
     if (!tmpFound) {
@@ -251,7 +263,11 @@ public final class SearchPattern {
       return 0;
     }
 
-    AutomatonShortMatcher tmpMatcher = new AutomatonShortMatcher(aString, automaton);
+    if (aString.length() < minLength) {
+      return -1;
+    }
+
+    AutomatonShortMatcher tmpMatcher = new AutomatonShortMatcher(aString, runAutomaton);
 
     boolean tmpFound = tmpMatcher.find();
     if (!tmpFound) {
@@ -293,7 +309,11 @@ public final class SearchPattern {
       return tmpResult;
     }
 
-    AutomatonShortFromEndMatcher tmpMatcher = new AutomatonShortFromEndMatcher(aString, automaton);
+    if (aString.length() < minLength) {
+      return -1;
+    }
+
+    AutomatonShortFromEndMatcher tmpMatcher = new AutomatonShortFromEndMatcher(aString, runAutomaton);
 
     boolean tmpFound = tmpMatcher.find();
     if (!tmpFound) {
@@ -321,9 +341,19 @@ public final class SearchPattern {
       return false;
     }
 
-    return automaton.run(aString);
+    if (aString.length() < minLength) {
+      return false;
+    }
+
+    return runAutomaton.run(aString);
   }
 
+  /**
+   * Returns true, if the Strings ends with this pattern.
+   * 
+   * @param aString the string to match
+   * @return true or false
+   */
   public boolean matchesAtEnd(String aString) {
     matchesAtEnd++;
     if (StringUtils.isEmpty(aString)) {
@@ -334,7 +364,11 @@ public final class SearchPattern {
       return false;
     }
 
-    AutomatonFromEndMatcher tmpMatcher = new AutomatonFromEndMatcher(aString, automaton);
+    if (aString.length() < minLength) {
+      return false;
+    }
+
+    AutomatonFromEndMatcher tmpMatcher = new AutomatonFromEndMatcher(aString, minLength, runAutomaton);
 
     boolean tmpFound = tmpMatcher.find();
     if (!tmpFound) {
@@ -362,7 +396,7 @@ public final class SearchPattern {
       return -1;
     }
 
-    AutomatonShortMatcher tmpMatcher = new AutomatonShortMatcher(aString, automaton);
+    AutomatonShortMatcher tmpMatcher = new AutomatonShortMatcher(aString, runAutomaton);
 
     boolean tmpFound = tmpMatcher.find();
     if (!tmpFound) {

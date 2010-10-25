@@ -41,8 +41,20 @@ public final class AutomatonFromEndMatcher implements MatchResult {
    * @param anAutomaton the regex automaton
    */
   public AutomatonFromEndMatcher(final CharSequence aCharSequence, final RunAutomaton anAutomaton) {
+    this(aCharSequence, 0, anAutomaton);
+  }
+
+  /**
+   * Constructor.
+   * 
+   * @param aCharSequence the string to search inside
+   * @param anOffset the offset from end to start from
+   * @param anAutomaton the regex automaton
+   */
+  public AutomatonFromEndMatcher(final CharSequence aCharSequence, final int anOffset, final RunAutomaton anAutomaton) {
     chars = aCharSequence;
     automaton = anAutomaton;
+    matchEnd = Math.max(chars.length(), chars.length() - anOffset);
   }
 
   /**

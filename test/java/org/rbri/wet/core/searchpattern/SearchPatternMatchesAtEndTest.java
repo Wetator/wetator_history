@@ -127,5 +127,22 @@ public class SearchPatternMatchesAtEndTest {
     Assert.assertTrue(tmpPattern.matchesAtEnd(tmpMatcher));
     tmpPattern = new SearchPattern("e*r");
     Assert.assertTrue(tmpPattern.matchesAtEnd(tmpMatcher));
+
+    tmpPattern = new SearchPattern("?etator");
+    Assert.assertTrue(tmpPattern.matchesAtEnd(tmpMatcher));
+    tmpPattern = new SearchPattern("?Wetator");
+    Assert.assertFalse(tmpPattern.matchesAtEnd(tmpMatcher));
+    tmpPattern = new SearchPattern("Wetato?");
+    Assert.assertTrue(tmpPattern.matchesAtEnd(tmpMatcher));
+    tmpPattern = new SearchPattern("Wetator?");
+    Assert.assertFalse(tmpPattern.matchesAtEnd(tmpMatcher));
+    tmpPattern = new SearchPattern("?etato?");
+    Assert.assertTrue(tmpPattern.matchesAtEnd(tmpMatcher));
+    tmpPattern = new SearchPattern("?e???o?");
+    Assert.assertTrue(tmpPattern.matchesAtEnd(tmpMatcher));
+    tmpPattern = new SearchPattern("et??or");
+    Assert.assertTrue(tmpPattern.matchesAtEnd(tmpMatcher));
+    tmpPattern = new SearchPattern("t?r");
+    Assert.assertTrue(tmpPattern.matchesAtEnd(tmpMatcher));
   }
 }
