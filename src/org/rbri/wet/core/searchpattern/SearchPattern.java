@@ -26,34 +26,32 @@ import dk.brics.automaton.RegExp;
 import dk.brics.automaton.RunAutomaton;
 
 /**
- * The central wildcard handling
+ * The central wildcard handling.
+ * This supports the dos wildcards '*' and '?'.
  * 
  * @author rbri
  */
 public final class SearchPattern {
   private static long constructor;
-  private static long noOfCharsBeforeFirstOccurenceIn;
   private static long noOfCharsBeforeLastOccurenceIn;
   private static long noOfCharsAfterLastOccurenceIn;
   private static long matches;
   private static long noOfSurroundingCharsIn;
-  private static long noOfMatchingCharsIn;
   private static long matchesAtEnd;
-  private static long noOfCharsBeforeFirstOccurenceInAfter;
 
   private static long firstOccurenceIn;
   private static long lastOccurenceIn;
 
+  /**
+   * Helper to print the number of calls for the methods to stdout.
+   */
   public static void dumpStatistics() {
     System.out.println("constructor: " + constructor);
-    System.out.println("noOfCharsBeforeFirstOccurenceIn: " + noOfCharsBeforeFirstOccurenceIn);
     System.out.println("noOfCharsBeforeLastOccurenceIn: " + noOfCharsBeforeLastOccurenceIn);
     System.out.println("noOfCharsAfterLastOccurenceIn: " + noOfCharsAfterLastOccurenceIn);
     System.out.println("matches: " + matches);
-    System.out.println("noOfSurroundingCharsIn: " + noOfSurroundingCharsIn);
-    System.out.println("noOfMatchingCharsIn: " + noOfMatchingCharsIn);
     System.out.println("matchesAtEnd: " + matchesAtEnd);
-    System.out.println("noOfCharsBeforeFirstOccurenceInAfter: " + noOfCharsBeforeFirstOccurenceInAfter);
+    System.out.println("noOfSurroundingCharsIn: " + noOfSurroundingCharsIn);
     System.out.println();
     System.out.println("firstOccurenceIn: " + firstOccurenceIn);
     System.out.println("lastOccurenceIn: " + lastOccurenceIn);
@@ -71,6 +69,13 @@ public final class SearchPattern {
     return "SearchPattern '" + originalString + "' [" + patternString + "]";
   }
 
+  /**
+   * Construct a new SearchPattern from a list of SecretString's.
+   * 
+   * @param aSearch the list of SecretString's
+   * @param aNumberOfElements the number of elements of the list to be used (from the start of the list)
+   * @return the SearchPattern
+   */
   public static SearchPattern createFromList(List<SecretString> aSearch, int aNumberOfElements) {
     StringBuilder tmpPattern = new StringBuilder();
 
@@ -86,10 +91,22 @@ public final class SearchPattern {
     return tmpSearchPattern;
   }
 
+  /**
+   * Construct a new SearchPattern from a list of SecretString's.
+   * 
+   * @param aSearch the list of SecretString's
+   * @return the SearchPattern
+   */
   public static SearchPattern createFromList(List<SecretString> aSearch) {
     return createFromList(aSearch, aSearch.size());
   }
 
+  /**
+   * Construct a new SearchPattern from a string.
+   * 
+   * @param aDosStyleWildcardString the string to construt the SearchPattern for.
+   *        This supports the wildcards '*' and '?'.
+   */
   public SearchPattern(String aDosStyleWildcardString) {
     super();
     constructor++;
@@ -159,7 +176,6 @@ public final class SearchPattern {
 
   public FindSpot firstOccurenceIn(String aString) {
     return firstOccurenceIn(aString, 0);
-
   }
 
   public FindSpot firstOccurenceIn(String aString, int aStartPos) {
@@ -174,19 +190,15 @@ public final class SearchPattern {
       return tmpResult;
     }
 
-    String tmpString = aString;
-    if (aStartPos > 0) {
-      tmpString = tmpString.substring(aStartPos);
-    }
-    AutomatonShortMatcher tmpMatcher = new AutomatonShortMatcher(tmpString, automaton);
+    AutomatonShortMatcher tmpMatcher = new AutomatonShortMatcher(aString, aStartPos, automaton);
 
     boolean tmpFound = tmpMatcher.find();
     if (!tmpFound) {
       return null;
     }
 
-    tmpResult.startPos = tmpMatcher.start() + aStartPos;
-    tmpResult.endPos = tmpMatcher.end() + aStartPos;
+    tmpResult.startPos = tmpMatcher.start();
+    tmpResult.endPos = tmpMatcher.end();
 
     return tmpResult;
   }
@@ -215,40 +227,6 @@ public final class SearchPattern {
 
     return tmpResult;
   }
-
-  // /**
-  // * Calculates the number of chars before the
-  // * first occurrence of this search pattern in
-  // * the given string.<br>
-  // * If this search pattern is left truncated (star at
-  // * start), then this returns zero.
-  // *
-  // * @param aString the string to search inside
-  // * @return the number of chars or -1 if the pattern is
-  // * not found
-  // */
-  // public int noOfCharsBeforeFirstOccurenceIn(String aString) {
-  // noOfCharsBeforeFirstOccurenceIn++;
-  // int tmpResult = -1;
-  //
-  // if (StringUtils.isEmpty(aString)) {
-  // return tmpResult;
-  // }
-  //
-  // if (isStarPattern) {
-  // return 0;
-  // }
-  //
-  // AutomatonShortMatcher tmpMatcher = new AutomatonShortMatcher(aString, automaton);
-  //
-  // boolean tmpFound = tmpMatcher.find();
-  // if (!tmpFound) {
-  // return -1;
-  // }
-  //
-  // tmpResult = tmpMatcher.start();
-  // return tmpResult;
-  // }
 
   /**
    * Calculates the number of chars before the
@@ -344,7 +322,25 @@ public final class SearchPattern {
     }
 
     return automaton.run(aString);
+  }
 
+  public boolean matchesAtEnd(String aString) {
+    matchesAtEnd++;
+    if (StringUtils.isEmpty(aString)) {
+      return false;
+    }
+
+    if (isStarPattern) {
+      return false;
+    }
+
+    AutomatonFromEndMatcher tmpMatcher = new AutomatonFromEndMatcher(aString, automaton);
+
+    boolean tmpFound = tmpMatcher.find();
+    if (!tmpFound) {
+      return false;
+    }
+    return aString.length() == tmpMatcher.end();
   }
 
   /**
@@ -382,60 +378,6 @@ public final class SearchPattern {
     }
 
     return tmpResult;
-  }
-
-  // /**
-  // * Calculates the number of chars matching
-  // * the given string.<br>
-  // *
-  // * @param aString the string to search inside
-  // * @return the number of chars or -1 if the pattern is
-  // * not found
-  // */
-  // public int noOfMatchingCharsIn(String aString) {
-  // noOfMatchingCharsIn++;
-  // if (isStarPattern) {
-  // return aString.length();
-  // }
-  //
-  // if (null == aString) {
-  // return -1;
-  // }
-  //
-  // AutomatonShortMatcher tmpMatcher = new AutomatonShortMatcher(aString, automaton);
-  //
-  // boolean tmpFound = tmpMatcher.find();
-  // if (!tmpFound) {
-  // return -1;
-  // }
-  //
-  // int tmpResult = -1;
-  // // we found something
-  // while (tmpFound) {
-  // tmpResult = Math.max(tmpResult, tmpMatcher.group().length());
-  // tmpFound = tmpMatcher.find();
-  // }
-  //
-  // return tmpResult;
-  // }
-
-  public boolean matchesAtEnd(String aString) {
-    matchesAtEnd++;
-    if (StringUtils.isEmpty(aString)) {
-      return false;
-    }
-
-    if (isStarPattern) {
-      return false;
-    }
-
-    AutomatonFromEndMatcher tmpMatcher = new AutomatonFromEndMatcher(aString, automaton);
-
-    boolean tmpFound = tmpMatcher.find();
-    if (!tmpFound) {
-      return false;
-    }
-    return aString.length() == tmpMatcher.end();
   }
 
   /**
