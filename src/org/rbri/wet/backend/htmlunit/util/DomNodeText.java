@@ -287,6 +287,9 @@ public class DomNodeText {
   }
 
   private void parseDomNode(final DomNode aDomNode) {
+    if (null == aDomNode) {
+      return;
+    }
     nodes.add(aDomNode);
 
     // mark pos before
