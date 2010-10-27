@@ -38,9 +38,13 @@ public class SearchPatternMatchesTest {
     // static string
     tmpPattern = SearchPattern.compile("f");
     Assert.assertFalse(tmpPattern.matches(tmpMatcher));
+    tmpPattern = SearchPattern.compile("find");
+    Assert.assertFalse(tmpPattern.matches(tmpMatcher));
 
     // regexp
     tmpPattern = SearchPattern.compile("f*x");
+    Assert.assertFalse(tmpPattern.matches(tmpMatcher));
+    tmpPattern = SearchPattern.compile("f?x");
     Assert.assertFalse(tmpPattern.matches(tmpMatcher));
   }
 
@@ -57,9 +61,13 @@ public class SearchPatternMatchesTest {
     // static string
     tmpPattern = SearchPattern.compile("f");
     Assert.assertFalse(tmpPattern.matches(tmpMatcher));
+    tmpPattern = SearchPattern.compile("find");
+    Assert.assertFalse(tmpPattern.matches(tmpMatcher));
 
     // regexp
     tmpPattern = SearchPattern.compile("f*x");
+    Assert.assertFalse(tmpPattern.matches(tmpMatcher));
+    tmpPattern = SearchPattern.compile("f?x");
     Assert.assertFalse(tmpPattern.matches(tmpMatcher));
   }
 
@@ -76,6 +84,8 @@ public class SearchPatternMatchesTest {
     // static string
     tmpPattern = SearchPattern.compile("f");
     Assert.assertFalse(tmpPattern.matches(tmpMatcher));
+    tmpPattern = SearchPattern.compile("find");
+    Assert.assertFalse(tmpPattern.matches(tmpMatcher));
     tmpPattern = SearchPattern.compile("X");
     Assert.assertTrue(tmpPattern.matches(tmpMatcher));
 
@@ -88,6 +98,21 @@ public class SearchPatternMatchesTest {
     Assert.assertTrue(tmpPattern.matches(tmpMatcher));
     tmpPattern = SearchPattern.compile("*X*");
     Assert.assertTrue(tmpPattern.matches(tmpMatcher));
+
+    tmpPattern = SearchPattern.compile("?");
+    Assert.assertTrue(tmpPattern.matches(tmpMatcher));
+    tmpPattern = SearchPattern.compile("?*");
+    Assert.assertTrue(tmpPattern.matches(tmpMatcher));
+    tmpPattern = SearchPattern.compile("*?*");
+    Assert.assertTrue(tmpPattern.matches(tmpMatcher));
+    tmpPattern = SearchPattern.compile("f?x");
+    Assert.assertFalse(tmpPattern.matches(tmpMatcher));
+    tmpPattern = SearchPattern.compile("X?");
+    Assert.assertFalse(tmpPattern.matches(tmpMatcher));
+    tmpPattern = SearchPattern.compile("?X");
+    Assert.assertFalse(tmpPattern.matches(tmpMatcher));
+    tmpPattern = SearchPattern.compile("?X?");
+    Assert.assertFalse(tmpPattern.matches(tmpMatcher));
   }
 
   @Test
@@ -127,5 +152,44 @@ public class SearchPatternMatchesTest {
     Assert.assertFalse(tmpPattern.matches(tmpMatcher));
     tmpPattern = SearchPattern.compile("e*r");
     Assert.assertFalse(tmpPattern.matches(tmpMatcher));
+
+    tmpPattern = SearchPattern.compile("f?x");
+    Assert.assertFalse(tmpPattern.matches(tmpMatcher));
+    tmpPattern = SearchPattern.compile("?etator");
+    Assert.assertTrue(tmpPattern.matches(tmpMatcher));
+    tmpPattern = SearchPattern.compile("Wetato?");
+    Assert.assertTrue(tmpPattern.matches(tmpMatcher));
+    tmpPattern = SearchPattern.compile("?etato?");
+    Assert.assertTrue(tmpPattern.matches(tmpMatcher));
+    tmpPattern = SearchPattern.compile("?e???o?");
+    Assert.assertTrue(tmpPattern.matches(tmpMatcher));
+    tmpPattern = SearchPattern.compile("et?t");
+    Assert.assertFalse(tmpPattern.matches(tmpMatcher));
+    tmpPattern = SearchPattern.compile("e?r");
+    Assert.assertFalse(tmpPattern.matches(tmpMatcher));
+
+    tmpPattern = SearchPattern.compile("Wet\\*r");
+    Assert.assertFalse(tmpPattern.matches(tmpMatcher));
+    Assert.assertTrue(tmpPattern.matches("Wet*r"));
+    tmpPattern = SearchPattern.compile("Wet\\?tor");
+    Assert.assertFalse(tmpPattern.matches(tmpMatcher));
+    Assert.assertTrue(tmpPattern.matches("Wet?tor"));
+    tmpPattern = SearchPattern.compile("Wet\\ator");
+    Assert.assertFalse(tmpPattern.matches(tmpMatcher));
+    Assert.assertTrue(tmpPattern.matches("Wet\\ator"));
+    tmpPattern = SearchPattern.compile("\\Wetator");
+    Assert.assertFalse(tmpPattern.matches(tmpMatcher));
+    tmpPattern = SearchPattern.compile("Wetator\\");
+    Assert.assertFalse(tmpPattern.matches(tmpMatcher));
+    Assert.assertTrue(tmpPattern.matches("Wetator\\"));
+    tmpPattern = SearchPattern.compile("W+e(t)a[t]o{r}");
+    Assert.assertFalse(tmpPattern.matches(tmpMatcher));
+    Assert.assertTrue(tmpPattern.matches("W+e(t)a[t]o{r}"));
+    tmpPattern = SearchPattern.compile("Weta\tor");
+    Assert.assertFalse(tmpPattern.matches(tmpMatcher));
+    Assert.assertTrue(tmpPattern.matches("Weta\tor"));
+    tmpPattern = SearchPattern.compile("Weta\nor");
+    Assert.assertFalse(tmpPattern.matches(tmpMatcher));
+    Assert.assertTrue(tmpPattern.matches("Weta\nor"));
   }
 }
