@@ -26,9 +26,9 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Properties;
 import java.util.Set;
+import java.util.Map.Entry;
 
 import org.apache.commons.lang.ClassUtils;
 import org.apache.commons.lang.StringUtils;
@@ -195,6 +195,9 @@ public final class WetConfiguration {
       tmpProperties.load(tmpFileInputStream);
 
       tmpBaseDirectory = aConfigurationPropertyFile.getParentFile();
+      if (null == tmpBaseDirectory) {
+        tmpBaseDirectory = new File(System.getProperty("user.dir"));
+      }
     } catch (IOException e) {
       throw new WetException("An error occured during read of the configuration file '"
           + aConfigurationPropertyFile.getAbsolutePath() + "'.", e);
