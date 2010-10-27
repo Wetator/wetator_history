@@ -179,6 +179,7 @@ public class SearchPatternMatchesTest {
     Assert.assertTrue(tmpPattern.matches("Wet\\ator"));
     tmpPattern = SearchPattern.compile("\\Wetator");
     Assert.assertFalse(tmpPattern.matches(tmpMatcher));
+    Assert.assertTrue(tmpPattern.matches("\\Wetator"));
     tmpPattern = SearchPattern.compile("Wetator\\");
     Assert.assertFalse(tmpPattern.matches(tmpMatcher));
     Assert.assertTrue(tmpPattern.matches("Wetator\\"));
