@@ -210,27 +210,27 @@ public class XlsDefaultCommandSetTest extends AbstractWebServerTest {
     executeTestFile("event_handler.xls");
 
     Assert.assertEquals(72, getSteps());
-    Assert.assertEquals(0, getFailures());
+    Assert.assertEquals(14, getFailures());
     Assert.assertEquals(0, getErrors());
   }
 
   @Test
-  @Browsers({ Browser.INTERNET_EXPLORER_6 })
+  @Browsers( { Browser.INTERNET_EXPLORER_6 })
   public void eventHandlerIE6() {
     executeTestFile("ie6/event_handler.xls");
 
     Assert.assertEquals(81, getSteps());
-    Assert.assertEquals(0, getFailures());
+    Assert.assertEquals(16, getFailures());
     Assert.assertEquals(0, getErrors());
   }
 
   @Test
-  @Browsers({ Browser.FIREFOX_3_6 })
+  @Browsers( { Browser.FIREFOX_3_6 })
   public void eventHandlerFF36() {
     executeTestFile("ff3/event_handler.xls");
 
     Assert.assertEquals(81, getSteps());
-    Assert.assertEquals(0, getFailures());
+    Assert.assertEquals(19, getFailures());
     Assert.assertEquals(0, getErrors());
   }
 
@@ -302,7 +302,7 @@ public class XlsDefaultCommandSetTest extends AbstractWebServerTest {
     executeTestFile("js_error.xls");
 
     Assert.assertEquals(34, getSteps());
-    Assert.assertEquals(0, getFailures());
+    Assert.assertEquals(6, getFailures());
     Assert.assertEquals(0, getErrors());
   }
 
@@ -347,7 +347,7 @@ public class XlsDefaultCommandSetTest extends AbstractWebServerTest {
     executeTestFile("onfocus_onblur.xls");
 
     Assert.assertEquals(56, getSteps());
-    Assert.assertEquals(0, getFailures());
+    Assert.assertEquals(11, getFailures());
     Assert.assertEquals(0, getErrors());
   }
 
@@ -356,7 +356,7 @@ public class XlsDefaultCommandSetTest extends AbstractWebServerTest {
     executeTestFile("onkey.xls");
 
     Assert.assertEquals(65, getSteps());
-    Assert.assertEquals(0, getFailures());
+    Assert.assertEquals(13, getFailures());
     Assert.assertEquals(0, getErrors());
   }
 
