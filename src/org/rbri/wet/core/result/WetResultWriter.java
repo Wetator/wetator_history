@@ -310,6 +310,7 @@ public class WetResultWriter implements WetProgressListener {
         executeCommandError(tmpThrowable);
       }
       printErrorEnd();
+      flush();
     } catch (IOException e) {
       LOG.error(e.getMessage(), e);
     }
@@ -330,6 +331,7 @@ public class WetResultWriter implements WetProgressListener {
         executeCommandError(tmpThrowable);
       }
       printErrorEnd();
+      flush();
     } catch (IOException e) {
       LOG.error(e.getMessage(), e);
     }
@@ -358,6 +360,7 @@ public class WetResultWriter implements WetProgressListener {
   public void testRunEnd() {
     try {
       printlnEndTag(TAG_TESTRUN);
+      flush();
     } catch (IOException e) {
       LOG.error(e.getMessage(), e);
     }
@@ -372,6 +375,7 @@ public class WetResultWriter implements WetProgressListener {
   public void testCaseEnd() {
     try {
       printlnEndTag(TAG_TESTCASE);
+      flush();
     } catch (IOException e) {
       LOG.error(e.getMessage(), e);
     }
@@ -520,5 +524,9 @@ public class WetResultWriter implements WetProgressListener {
 
   private void printStartTagOpener(String aName) throws IOException {
     output.print("<").print(aName).print(" id=\"" + tagId++).print("\" ");
+  }
+
+  private void flush() throws IOException {
+    output.flush();
   }
 }
