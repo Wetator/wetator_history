@@ -2,7 +2,39 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:fn="http://www.w3.org/2005/xpath-functions" version="1.0">
     <xsl:output method="html" encoding="UTF-8" doctype-public="-//Wf3C//DTD HTML 4.01 Transitional//EN" omit-xml-declaration="yes"/>
 
+    <xsl:variable name="browserPicture.Firefox">images/firefox.png</xsl:variable>
+    <xsl:variable name="browserPicture.IE6">images/ie6.png</xsl:variable>
+    <xsl:variable name="browserPicture.IE7">images/ie7.png</xsl:variable>
+    <xsl:variable name="browserPicture.IE8">images/ie8.png</xsl:variable>
+    
+    <xsl:variable name="overview.okColor">#339F00</xsl:variable>
+    <xsl:variable name="overview.failedColor">#F14F12</xsl:variable>
+    <xsl:variable name="overview.vacantOkColor">#E4FFEE</xsl:variable>
+    <xsl:variable name="overview.vacantFailedColor">#FFEBEB</xsl:variable>
+
     <xsl:variable name="noOfStepsInLine" select="150"/>
+
+    <xsl:variable name="testcase.total" select="count(/wet/testcase)"/>
+    <xsl:variable name="testcase.stepsTotal" select="count(/wet/testcase/testrun/testfile/command[not(@isComment)])"/>
+    
+    <xsl:variable name="testcase.noOfBrowsers" select="count(/wet/testcase/testrun) div $testcase.total"/>
+
+    <xsl:variable name="testcase.failed" select="count(/wet/testcase[boolean(descendant-or-self::error)])"/>
+
+    <xsl:variable name="testcase.stepsOk" select="count(/wet/testcase/testrun/testfile/command[not(@isComment) and not(error) and not(preceding-sibling::*/error)])"/>
+    <xsl:variable name="testcase.stepsGreen" select="count(/wet/testcase/testrun/testfile/command[not(@isComment) and not(error)])"/>
+    <xsl:variable name="testcase.stepsVacantFailed" select="$testcase.stepsTotal - $testcase.failed - $testcase.stepsGreen"/>
+    <xsl:variable name="testcase.stepsVacantOk" select="$testcase.stepsTotal - $testcase.failed - $testcase.stepsVacantFailed - $testcase.stepsOk"/>
+
+    <xsl:variable name="testcase.failedPercent" select="ceiling($testcase.failed * 100 div $testcase.total)"/>
+    <xsl:variable name="testcase.okPercent" select="100 - $testcase.failedPercent"/>
+
+    <xsl:variable name="testcase.stepsGreenPercent" select="format-number($testcase.stepsGreen * 100 div $testcase.stepsTotal, '#')"/>
+    <xsl:variable name="testcase.stepsRedPercent" select="format-number(100 - $testcase.stepsGreenPercent, '#')"/>
+    <xsl:variable name="testcase.stepsOkPercent" select="format-number($testcase.stepsOk * 100 div $testcase.stepsTotal, '#')"/>
+    <xsl:variable name="testcase.stepsVacantOkPercent" select="format-number($testcase.stepsGreenPercent - $testcase.stepsOkPercent, '#')"/>
+    <xsl:variable name="testcase.stepsFailedPercent" select="format-number($testcase.failed * 100 div $testcase.stepsTotal, '#')"/>
+    <xsl:variable name="testcase.stepsVacantFailedPercent" select="format-number($testcase.stepsRedPercent - $testcase.stepsFailedPercent, '#')"/>
 
     <xsl:template match="/">
         <html>
@@ -75,30 +107,6 @@
                 <!-- Overview -->
                 <a name="overview"/>
                 <h1>Overview</h1>
-
-              <xsl:variable name="overview.okColor">#339F00</xsl:variable>
-              <xsl:variable name="overview.failedColor">#F14F12</xsl:variable>
-              <xsl:variable name="overview.vacantOkColor">#E4FFEE</xsl:variable>
-              <xsl:variable name="overview.vacantFailedColor">#FFEBEB</xsl:variable>
-
-                <xsl:variable name="testcase.total" select="count(/wet/testcase)"/>
-                <xsl:variable name="testcase.failed" select="count(wet/testcase[boolean(descendant-or-self::error)])"/>
-
-                <xsl:variable name="testcase.stepsTotal" select="count(/wet/testcase/testrun/testfile/command[not(@isComment)])"/>
-                <xsl:variable name="testcase.stepsOk" select="count(/wet/testcase/testrun/testfile/command[not(@isComment) and not(error) and not(preceding-sibling::*/error)])"/>
-                <xsl:variable name="testcase.stepsGreen" select="count(/wet/testcase/testrun/testfile/command[not(@isComment) and not(error)])"/>
-                <xsl:variable name="testcase.stepsVacantFailed" select="$testcase.stepsTotal - $testcase.failed - $testcase.stepsGreen"/>
-                <xsl:variable name="testcase.stepsVacantOk" select="$testcase.stepsTotal - $testcase.failed - $testcase.stepsVacantFailed - $testcase.stepsOk"/>
-
-                <xsl:variable name="testcase.failedPercent" select="ceiling($testcase.failed * 100 div $testcase.total)"/>
-                <xsl:variable name="testcase.okPercent" select="100 - $testcase.failedPercent"/>
-
-                <xsl:variable name="testcase.stepsGreenPercent" select="format-number($testcase.stepsGreen * 100 div $testcase.stepsTotal, '#')"/>
-                <xsl:variable name="testcase.stepsRedPercent" select="format-number(100 - $testcase.stepsGreenPercent, '#')"/>
-                <xsl:variable name="testcase.stepsOkPercent" select="format-number($testcase.stepsOk * 100 div $testcase.stepsTotal, '#')"/>
-                <xsl:variable name="testcase.stepsVacantOkPercent" select="format-number($testcase.stepsGreenPercent - $testcase.stepsOkPercent, '#')"/>
-                <xsl:variable name="testcase.stepsFailedPercent" select="format-number($testcase.failed * 100 div $testcase.stepsTotal, '#')"/>
-                <xsl:variable name="testcase.stepsVacantFailedPercent" select="format-number($testcase.stepsRedPercent - $testcase.stepsFailedPercent, '#')"/>
 
                 <table cellpadding="4" cellspacing="0" class="smallBorder" border="0" width="100%">
                     <tr>
@@ -186,7 +194,6 @@
                                 <xsl:value-of select="$testcase.stepsTotal - $testcase.failed - $testcase.stepsOk"/>
                             </span>
                         </td>
-
                         <td>
                             <table cellpadding="0" cellspacing="0" width="100%">
                               <tr>
@@ -302,6 +309,73 @@
                             </table>
                         </td>
                     </tr>
+                    <xsl:if test="$testcase.noOfBrowsers > 0">
+                        <tr>
+                            <td colspan="5">
+                                <hr style="height:3px;" />
+                            </td>
+                        </tr>
+                    </xsl:if>
+                    <xsl:if test="/wet/testcase/testrun/@browser='Firefox3'">
+                        <xsl:variable name="testcase.failedFirefox3" select="count(/wet/testcase/testrun[@browser='Firefox3']/testfile[boolean(descendant-or-self::error)])"/>
+                        <xsl:variable name="testcase.stepsOkFirefox3" select="count(/wet/testcase/testrun[@browser='Firefox3']/testfile/command[not(@isComment) and not(error) and not(preceding-sibling::*/error)])"/>
+                        <xsl:variable name="testcase.stepsGreenFirefox3" select="count(/wet/testcase/testrun[@browser='Firefox3']/testfile/command[not(@isComment) and not(error)])"/>
+                        <xsl:call-template name="testOverview">
+                            <xsl:with-param name="browserPicture" select="$browserPicture.Firefox"/>
+                            <xsl:with-param name="browserName">Firefox 3</xsl:with-param>
+                            <xsl:with-param name="failed" select="$testcase.failedFirefox3"/>
+                            <xsl:with-param name="stepsOk" select="$testcase.stepsOkFirefox3"/>
+                            <xsl:with-param name="stepsGreen" select="$testcase.stepsGreenFirefox3"/>
+                        </xsl:call-template>
+                    </xsl:if>
+                    <xsl:if test="/wet/testcase/testrun/@browser='Firefox3.6'">
+	                    <xsl:variable name="testcase.failedFirefox3_6" select="count(/wet/testcase/testrun[@browser='Firefox3.6']/testfile[boolean(descendant-or-self::error)])"/>
+	                    <xsl:variable name="testcase.stepsOkFirefox3_6" select="count(/wet/testcase/testrun[@browser='Firefox3.6']/testfile/command[not(@isComment) and not(error) and not(preceding-sibling::*/error)])"/>
+	                    <xsl:variable name="testcase.stepsGreenFirefox3_6" select="count(/wet/testcase/testrun[@browser='Firefox3.6']/testfile/command[not(@isComment) and not(error)])"/>
+	                    <xsl:call-template name="testOverview">
+	                        <xsl:with-param name="browserPicture" select="$browserPicture.Firefox"/>
+	                        <xsl:with-param name="browserName">Firefox 3.6</xsl:with-param>
+		                    <xsl:with-param name="failed" select="$testcase.failedFirefox3_6"/>
+		                    <xsl:with-param name="stepsOk" select="$testcase.stepsOkFirefox3_6"/>
+		                    <xsl:with-param name="stepsGreen" select="$testcase.stepsGreenFirefox3_6"/>
+		                </xsl:call-template>
+                    </xsl:if>
+                    <xsl:if test="/wet/testcase/testrun/@browser='IE6'">
+                        <xsl:variable name="testcase.failedIE6" select="count(/wet/testcase/testrun[@browser='IE6']/testfile[boolean(descendant-or-self::error)])"/>
+                        <xsl:variable name="testcase.stepsOkIE6" select="count(/wet/testcase/testrun[@browser='IE6']/testfile/command[not(@isComment) and not(error) and not(preceding-sibling::*/error)])"/>
+                        <xsl:variable name="testcase.stepsGreenIE6" select="count(/wet/testcase/testrun[@browser='IE6']/testfile/command[not(@isComment) and not(error)])"/>
+                        <xsl:call-template name="testOverview">
+                            <xsl:with-param name="browserPicture" select="$browserPicture.IE6"/>
+                            <xsl:with-param name="browserName">Internet Explorer 6</xsl:with-param>
+                            <xsl:with-param name="failed" select="$testcase.failedIE6"/>
+                            <xsl:with-param name="stepsOk" select="$testcase.stepsOkIE6"/>
+                            <xsl:with-param name="stepsGreen" select="$testcase.stepsGreenIE6"/>
+                        </xsl:call-template>
+                    </xsl:if>
+                    <xsl:if test="/wet/testcase/testrun/@browser='IE7'">
+                        <xsl:variable name="testcase.failedIE7" select="count(/wet/testcase/testrun[@browser='IE7']/testfile[boolean(descendant-or-self::error)])"/>
+                        <xsl:variable name="testcase.stepsOkIE7" select="count(/wet/testcase/testrun[@browser='IE7']/testfile/command[not(@isComment) and not(error) and not(preceding-sibling::*/error)])"/>
+                        <xsl:variable name="testcase.stepsGreenIE7" select="count(/wet/testcase/testrun[@browser='IE7']/testfile/command[not(@isComment) and not(error)])"/>
+                        <xsl:call-template name="testOverview">
+                            <xsl:with-param name="browserPicture" select="$browserPicture.IE7"/>
+                            <xsl:with-param name="browserName">Internet Explorer 7</xsl:with-param>
+                            <xsl:with-param name="failed" select="$testcase.failedIE7"/>
+                            <xsl:with-param name="stepsOk" select="$testcase.stepsOkIE7"/>
+                            <xsl:with-param name="stepsGreen" select="$testcase.stepsGreenIE7"/>
+                        </xsl:call-template>
+                    </xsl:if>
+                    <xsl:if test="/wet/testcase/testrun/@browser='IE8'">
+                        <xsl:variable name="testcase.failedIE8" select="count(/wet/testcase/testrun[@browser='IE8']/testfile[boolean(descendant-or-self::error)])"/>
+                        <xsl:variable name="testcase.stepsOkIE8" select="count(/wet/testcase/testrun[@browser='IE8']/testfile/command[not(@isComment) and not(error) and not(preceding-sibling::*/error)])"/>
+                        <xsl:variable name="testcase.stepsGreenIE8" select="count(/wet/testcase/testrun[@browser='IE8']/testfile/command[not(@isComment) and not(error)])"/>
+                        <xsl:call-template name="testOverview">
+                            <xsl:with-param name="browserPicture" select="$browserPicture.IE8"/>
+                            <xsl:with-param name="browserName">Internet Explorer 8</xsl:with-param>
+                            <xsl:with-param name="failed" select="$testcase.failedIE8"/>
+                            <xsl:with-param name="stepsOk" select="$testcase.stepsOkIE8"/>
+                            <xsl:with-param name="stepsGreen" select="$testcase.stepsGreenIE8"/>
+                        </xsl:call-template>
+                    </xsl:if>
             </table>
 
             <table cellpadding="4" cellspacing="0" class="smallBorder" border="0">
@@ -362,6 +436,238 @@
                 <xsl:text>.</xsl:text>
             </body>
         </html>
+    </xsl:template>
+
+    <xsl:template name="testOverview">
+        <xsl:param name="browserPicture" />
+        <xsl:param name="browserName" />
+        <xsl:param name="failed" />
+        <xsl:param name="stepsOk" />
+        <xsl:param name="stepsGreen" />
+        <xsl:variable name="stepsVacantFailed" select="$testcase.stepsTotal div $testcase.noOfBrowsers - $failed - $stepsGreen"/>
+        <xsl:variable name="stepsVacantOk" select="$testcase.stepsTotal div $testcase.noOfBrowsers - $failed - $stepsVacantFailed - $stepsOk"/>
+        
+        <xsl:variable name="failedPercent" select="ceiling($failed * 100 div $testcase.total)"/>
+        <xsl:variable name="okPercent" select="100 - $failedPercent"/>
+
+        <xsl:variable name="stepsGreenPercent" select="format-number($stepsGreen * 100 div ($testcase.stepsTotal div $testcase.noOfBrowsers), '#')"/>
+        <xsl:variable name="stepsRedPercent" select="format-number(100 - $stepsGreenPercent, '#')"/>
+        <xsl:variable name="stepsOkPercent" select="format-number($stepsOk * 100 div ($testcase.stepsTotal div $testcase.noOfBrowsers), '#')"/>
+        <xsl:variable name="stepsVacantOkPercent" select="format-number($stepsGreenPercent - $stepsOkPercent, '#')"/>
+        <xsl:variable name="stepsFailedPercent" select="format-number($failed * 100 div ($testcase.stepsTotal div $testcase.noOfBrowsers), '#')"/>
+        <xsl:variable name="stepsVacantFailedPercent" select="format-number($stepsRedPercent - $stepsFailedPercent, '#')"/>
+        
+        <tr>
+            <td class="bold">Distribution TestCase Level for <xsl:value-of select="$browserName"/>
+                <img style="padding-left: 4px;">
+                    <xsl:attribute name="src">
+                        <xsl:value-of select="$browserPicture"/>
+                    </xsl:attribute>
+	                <xsl:attribute name="alt">
+	                    <xsl:value-of select="$browserName"/>
+	                </xsl:attribute>
+	                <xsl:attribute name="title">
+	                    <xsl:value-of select="$browserName"/>
+	                </xsl:attribute>
+                </img>
+            </td>
+            <td style="text-align: center;">
+                <span style="color: #F14F12; font-weight: bold;">
+                    <xsl:value-of select="$failed"/>
+                </span>
+            </td>
+            <td style="text-align: center;">
+                <span style="color: green; font-weight: bold;">
+                    <xsl:value-of select="$testcase.total - $failed"/>
+                </span>
+            </td>
+            <td/>
+            <td width="70%">
+                <table cellpadding="0" cellspacing="0" width="100%">
+                <tr>
+                    <xsl:if test="$failedPercent > 0">
+                        <td class="smallBorder"  style="text-align: center;">
+                            <xsl:attribute name="width">
+                                <xsl:value-of select="$failedPercent"/>%
+                            </xsl:attribute>
+                            <xsl:attribute name="bgcolor">
+                                <xsl:value-of select="$overview.failedColor"/>
+                            </xsl:attribute>
+                            <xsl:attribute name="title">
+                                <xsl:value-of select="'Failed test cases'"/>
+                            </xsl:attribute>
+                            <xsl:value-of select="$failedPercent"/>%
+                        </td>
+                    </xsl:if>
+                    <xsl:if test="$okPercent > 0">
+                        <td class="smallBorder" style="text-align: center;">
+                            <xsl:attribute name="width">
+                                <xsl:value-of select="$okPercent"/>%
+                            </xsl:attribute>
+                            <xsl:attribute name="bgcolor">
+                                <xsl:value-of select="$overview.okColor"/>
+                            </xsl:attribute>
+                            <xsl:attribute name="title">
+                                <xsl:value-of select="'Successful test cases'"/>
+                            </xsl:attribute>
+                            <xsl:value-of select="$okPercent"/>%
+                        </td>
+                    </xsl:if>
+                    <td></td>
+                </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td class="bold">Distribution TestStep Level for <xsl:value-of select="$browserName"/>
+                <img style="padding-left: 4px;">
+                    <xsl:attribute name="src">
+                        <xsl:value-of select="$browserPicture"/>
+                    </xsl:attribute>
+                    <xsl:attribute name="alt">
+                        <xsl:value-of select="$browserName"/>
+                    </xsl:attribute>
+                    <xsl:attribute name="title">
+                        <xsl:value-of select="$browserName"/>
+                    </xsl:attribute>
+                </img>
+            </td>
+            <td style="text-align: center;">
+                <span style="color: #F14F12; font-weight: bold;">
+                    <xsl:value-of select="$testcase.stepsTotal div $testcase.noOfBrowsers - $stepsGreen"/>
+                </span>
+            </td>
+            <td style="text-align: center;">
+                <span style="color: green; font-weight: bold;">
+                    <xsl:value-of select="$stepsGreen"/>
+                </span>
+            </td>
+            <td style="text-align: center;">
+                <span style="color: grey; font-weight: bold;">
+                    <xsl:value-of select="$testcase.stepsTotal div $testcase.noOfBrowsers - $failed - $stepsOk"/>
+                </span>
+            </td>
+            <td>
+                <table cellpadding="0" cellspacing="0" width="100%">
+                    <tr>
+                      <!-- failed steps -->
+                      <xsl:if test="$stepsFailedPercent > 0">
+                          <td class="smallBorder"  style="text-align: center;">
+                              <xsl:attribute name="width">
+                                  <xsl:value-of select="$stepsFailedPercent"/>%
+                              </xsl:attribute>
+                              <xsl:attribute name="bgcolor">
+                                  <xsl:value-of select="$overview.failedColor"/>
+                              </xsl:attribute>
+                              <xsl:attribute name="title">
+                                  <xsl:value-of select="'Failed steps'"/>
+                              </xsl:attribute>
+                              <xsl:value-of select="$stepsFailedPercent"/>%
+                          </td>
+                      </xsl:if>
+                      <xsl:if test="$stepsFailedPercent = 0 and $failed > 0">
+                          <td class="smallBorder"  style="text-align: center;">
+                              <xsl:attribute name="width">1%</xsl:attribute>
+                              <xsl:attribute name="bgcolor">
+                                  <xsl:value-of select="$overview.failedColor"/>
+                              </xsl:attribute>
+                              <xsl:attribute name="title">
+                                  <xsl:value-of select="'Failed steps'"/>
+                              </xsl:attribute>
+                          </td>
+                      </xsl:if>
+
+                      <!-- vacant failed steps -->
+                      <xsl:if test="$stepsVacantFailedPercent > 0">
+                          <td class="smallBorder" style="text-align: center;">
+                              <xsl:attribute name="width">
+                                  <xsl:value-of select="$stepsVacantFailedPercent"/>%
+                              </xsl:attribute>
+                              <xsl:attribute name="bgcolor">
+                                  <xsl:value-of select="$overview.vacantFailedColor"/>
+                              </xsl:attribute>
+                              <xsl:attribute name="title">
+                                  <xsl:value-of select="'Vacant failed steps'"/>
+                              </xsl:attribute>
+                              <xsl:value-of select="$stepsVacantFailedPercent"/>%
+                          </td>
+                      </xsl:if>
+                      <xsl:if test="$stepsVacantFailedPercent = 0 and $stepsVacantFailed > 0">
+                          <td class="smallBorder"  style="text-align: center;">
+                              <xsl:attribute name="width">1%</xsl:attribute>
+                              <xsl:attribute name="bgcolor">
+                                  <xsl:value-of select="$overview.vacantFailedColor"/>
+                              </xsl:attribute>
+                              <xsl:attribute name="title">
+                                  <xsl:value-of select="'Vacant failed steps'"/>
+                              </xsl:attribute>
+                          </td>
+                      </xsl:if>
+
+                      <!-- successful steps -->
+                      <xsl:if test="$stepsOkPercent > 0">
+                          <td class="smallBorder" style="text-align: center;">
+                              <xsl:attribute name="width">
+                                  <xsl:value-of select="$stepsOkPercent"/>%
+                              </xsl:attribute>
+                              <xsl:attribute name="bgcolor">
+                                  <xsl:value-of select="$overview.okColor"/>
+                              </xsl:attribute>
+                              <xsl:attribute name="title">
+                                  <xsl:value-of select="'Successful steps'"/>
+                              </xsl:attribute>
+                              <xsl:value-of select="$stepsOkPercent"/>%
+                          </td>
+                      </xsl:if>
+                      <xsl:if test="$stepsOkPercent = 0 and $stepsOk > 0">
+                          <td class="smallBorder"  style="text-align: center;">
+                              <xsl:attribute name="width">1%</xsl:attribute>
+                              <xsl:attribute name="bgcolor">
+                                  <xsl:value-of select="$overview.okColor"/>
+                              </xsl:attribute>
+                              <xsl:attribute name="title">
+                                  <xsl:value-of select="'Successful steps'"/>
+                              </xsl:attribute>
+                          </td>
+                      </xsl:if>
+
+                      <!-- vacant successful steps -->
+                      <xsl:if test="$stepsVacantOkPercent > 0">
+                          <td class="smallBorder" style="text-align: center;">
+                              <xsl:attribute name="width">
+                                  <xsl:value-of select="$stepsVacantOkPercent"/>%
+                              </xsl:attribute>
+                              <xsl:attribute name="bgcolor">
+                                  <xsl:value-of select="$overview.vacantOkColor"/>
+                              </xsl:attribute>
+                              <xsl:attribute name="title">
+                                  <xsl:value-of select="'Vacant successful steps'"/>
+                              </xsl:attribute>
+                              <xsl:value-of select="$stepsVacantOkPercent"/>%
+                          </td>
+                      </xsl:if>
+                      <xsl:if test="$stepsVacantOkPercent = 0 and $stepsVacantOk > 0">
+                          <td class="smallBorder"  style="text-align: center;">
+                              <xsl:attribute name="width">1%</xsl:attribute>
+                              <xsl:attribute name="bgcolor">
+                                  <xsl:value-of select="$overview.vacantOkColor"/>
+                              </xsl:attribute>
+                              <xsl:attribute name="title">
+                                  <xsl:value-of select="'Vacant successful steps'"/>
+                              </xsl:attribute>
+                          </td>
+                      </xsl:if>
+                      <td/>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <hr/>
+            </td>
+            <td/><td/><td/><td/>
+        </tr>
     </xsl:template>
 
     <xsl:template name="configuration">
