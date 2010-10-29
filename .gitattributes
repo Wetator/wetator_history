@@ -696,7 +696,7 @@ webpages/wet.css -text
 webpages/xsd/defaultCommandSet.xsd -text svneol=unset#text/plain
 webpages/xsd/sqlCommandSet.xsd -text svneol=unset#text/plain
 webpages/xsd/testCommandSet.xsd -text svneol=unset#text/plain
-xsl/SimpleHtml.xsl -text
+xsl/SimpleHtml.xsl -text svneol=unset#text/plain
 xsl/images/collapseall.png -text
 xsl/images/collapselog.png -text
 xsl/images/expandall.png -text
