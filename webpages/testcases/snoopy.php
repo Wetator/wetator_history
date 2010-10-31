@@ -34,11 +34,10 @@ ksort($_GET, SORT_STRING);
 foreach($_GET as $key=>$value)
 {
     echo "      <tr>\n";
-    echo "        <td>".$key."</td>\n";
     if (is_array($value)) {
+      echo "        <td>".$key."[]</td>\n";
       echo "        <td>";
       $isNotFirst = False;
-      sort($value);
       foreach($value as $mul_key=>$mul_value) {
         if ($isNotFirst) {
           echo ", ";
@@ -48,6 +47,7 @@ foreach($_GET as $key=>$value)
       }
       echo "</td>\n";
     } else {
+      echo "        <td>".$key."</td>\n";
       echo "        <td>".$value."</td>\n";
     }
     echo "      </tr>\n";
@@ -71,8 +71,22 @@ ksort($_POST, SORT_STRING);
 foreach($_POST as $key=>$value)
 {
     echo "      <tr>\n";
-    echo "        <td>".$key."</td>\n";
-    echo "        <td>".$value."</td>\n";
+    if (is_array($value)) {
+      echo "        <td>".$key."[]</td>\n";
+      echo "        <td>";
+      $isNotFirst = False;
+      foreach($value as $mul_key=>$mul_value) {
+        if ($isNotFirst) {
+          echo ", ";
+        }
+        $isNotFirst = True;
+        echo $mul_value;
+      }
+      echo "</td>\n";
+    } else {
+      echo "        <td>".$key."</td>\n";
+      echo "        <td>".$value."</td>\n";
+    }
     echo "      </tr>\n";
 }
 ?>
