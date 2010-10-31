@@ -17,9 +17,11 @@
 package org.rbri.wet.backend.htmlunit;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.UnknownHostException;
 import java.security.GeneralSecurityException;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
@@ -40,6 +42,7 @@ import org.rbri.wet.core.WetEngine;
 import org.rbri.wet.core.searchpattern.SearchPattern;
 import org.rbri.wet.exception.AssertionFailedException;
 import org.rbri.wet.exception.WetException;
+import org.rbri.wet.i18n.Messages;
 import org.rbri.wet.util.Assert;
 import org.rbri.wet.util.ContentUtil;
 import org.rbri.wet.util.NormalizedString;
@@ -79,7 +82,7 @@ public final class HtmlUnitBrowser implements WetBackend {
   /** WetEngine */
   protected WetEngine wetEngine;
   /** AssertionFailedException */
-  protected AssertionFailedException failure;
+  protected List<AssertionFailedException> failures;
   /** immediateJobsTimeout */
   protected long immediateJobsTimeout;
 
@@ -95,6 +98,7 @@ public final class HtmlUnitBrowser implements WetBackend {
     // httpclient should accept all cookies
     System.getProperties().put("apache.commons.httpclient.cookiespec", "COMPATIBILITY");
 
+    failures = new LinkedList<AssertionFailedException>();
     wetEngine = aWetEngine;
 
     // response store
@@ -103,10 +107,6 @@ public final class HtmlUnitBrowser implements WetBackend {
 
     // TODO read from config
     immediateJobsTimeout = 1000L;
-  }
-
-  // TODO @rbri: what is this method about?
-  public void stop() {
   }
 
   /**
@@ -170,6 +170,10 @@ public final class HtmlUnitBrowser implements WetBackend {
     // setup our listener
     webClient.addWebWindowListener(new WebWindowListener(this));
     webClient.setAlertHandler(new AlertHandler(wetEngine));
+    // javascript
+    webClient.setJavaScriptEnabled(true);
+    webClient.setThrowExceptionOnScriptError(false);
+    webClient.setJavaScriptErrorListener(new JavaScriptErrorListener(this));
 
     // set Accept-Language header
     webClient.addRequestHeader("Accept-Language", tmpConfiguration.getAcceptLanaguage());
@@ -194,21 +198,17 @@ public final class HtmlUnitBrowser implements WetBackend {
       webClient.getPage(aUrl);
       waitForImmediateJobs();
     } catch (ScriptException e) {
-      wetEngine.informListenersWarn("javascriptError", new String[] { ExceptionUtils.getStackTrace(e) });
-      Assert.fail("javascriptError", new String[] { e.getMessage() });
+      addFailure("javascriptError", new String[] { e.getMessage() }, e);
     } catch (WrappedException e) {
-      wetEngine.informListenersWarn("javascriptError", new String[] { ExceptionUtils.getStackTrace(e) });
-      Assert.fail("javascriptError", new String[] { ExceptionUtil.getMessageFromScriptExceptionCauseIfPossible(e) });
+      Exception tmpScriptException = ExceptionUtil.getScriptExceptionCauseIfPossible(e);
+      addFailure("javascriptError", new String[] { tmpScriptException.getMessage() }, tmpScriptException);
     } catch (FailingHttpStatusCodeException e) {
-      wetEngine.informListenersWarn("openServerError", new String[] { ExceptionUtils.getStackTrace(e) });
-      Assert.fail("openServerError", new String[] { aUrl.toString(), e.getMessage() });
+      addFailure("openServerError", new String[] { aUrl.toString(), e.getMessage() }, e);
     } catch (UnknownHostException e) {
-      wetEngine.informListenersWarn("unknownHostError", new String[] { ExceptionUtils.getStackTrace(e) });
-      Assert.fail("unknownHostError", new String[] { aUrl.toString(), e.getMessage() });
+      addFailure("unknownHostError", new String[] { aUrl.toString(), e.getMessage() }, e);
     } catch (Throwable e) {
       LOG.error("OpenUrl '" + aUrl.toExternalForm() + "'fails. " + e.getMessage());
-      wetEngine.informListenersWarn("openServerError", new String[] { ExceptionUtils.getStackTrace(e) });
-      Assert.fail("openServerError", new String[] { aUrl.toString(), e.getMessage() });
+      addFailure("openServerError", new String[] { aUrl.toString(), e.getMessage() }, e);
     }
 
     String tmpRef = aUrl.getRef();
@@ -217,9 +217,17 @@ public final class HtmlUnitBrowser implements WetBackend {
     }
   }
 
+  /**
+   * Our own alert handler.
+   */
   public static final class AlertHandler implements com.gargoylesoftware.htmlunit.AlertHandler {
     private WetEngine wetEngine;
 
+    /**
+     * Constructor.
+     * 
+     * @param aWetEngine the engine to inform about the alert texts.
+     */
     public AlertHandler(WetEngine aWetEngine) {
       wetEngine = aWetEngine;
     }
@@ -240,6 +248,71 @@ public final class HtmlUnitBrowser implements WetBackend {
       }
 
       wetEngine.informListenersInfo("javascriptAlert", new String[] { tmpMessage, tmpUrl });
+    }
+  }
+
+  /**
+   * Our own listener. We like to inform about javascript errors without
+   * stopping the processing.
+   */
+  public static final class JavaScriptErrorListener implements
+      com.gargoylesoftware.htmlunit.javascript.JavaScriptErrorListener {
+    private HtmlUnitBrowser htmlUnitBrowser;
+
+    /**
+     * Constructor.
+     * 
+     * @param aHtmlUnitBrowser the browser this listener informs
+     */
+    public JavaScriptErrorListener(HtmlUnitBrowser aHtmlUnitBrowser) {
+      htmlUnitBrowser = aHtmlUnitBrowser;
+    }
+
+    /**
+     * {@inheritDoc}
+     * 
+     * @see com.gargoylesoftware.htmlunit.javascript.JavaScriptErrorListener#loadScriptError(com.gargoylesoftware.htmlunit.html.HtmlPage,
+     *      java.net.URL, java.lang.Exception)
+     */
+    @Override
+    public void loadScriptError(HtmlPage aHtmlPage, URL aScriptUrl, Exception anException) {
+      htmlUnitBrowser.addFailure("javascriptLoadError", new String[] { aScriptUrl.toExternalForm(),
+          aHtmlPage.getUrl().toExternalForm(), anException.getMessage() }, anException);
+    }
+
+    /**
+     * {@inheritDoc}
+     * 
+     * @see com.gargoylesoftware.htmlunit.javascript.JavaScriptErrorListener#malformedScriptURL(com.gargoylesoftware.htmlunit.html.HtmlPage,
+     *      java.lang.String, java.net.MalformedURLException)
+     */
+    @Override
+    public void malformedScriptURL(HtmlPage aHtmlPage, String aUrl, MalformedURLException aMalformedURLException) {
+      htmlUnitBrowser.addFailure("javascriptLoadError", new String[] { aUrl, aHtmlPage.getUrl().toExternalForm(),
+          aMalformedURLException.getMessage() }, aMalformedURLException);
+    }
+
+    /**
+     * {@inheritDoc}
+     * 
+     * @see com.gargoylesoftware.htmlunit.javascript.JavaScriptErrorListener#scriptException(com.gargoylesoftware.htmlunit.html.HtmlPage,
+     *      com.gargoylesoftware.htmlunit.ScriptException)
+     */
+    @Override
+    public void scriptException(HtmlPage aHtmlPage, ScriptException aScriptException) {
+      htmlUnitBrowser.addFailure("javascriptError", new String[] { aScriptException.getMessage() }, aScriptException);
+    }
+
+    /**
+     * {@inheritDoc}
+     * 
+     * @see com.gargoylesoftware.htmlunit.javascript.JavaScriptErrorListener#timeoutError(com.gargoylesoftware.htmlunit.html.HtmlPage,
+     *      long, long)
+     */
+    @Override
+    public void timeoutError(HtmlPage aHtmlPage, long aAllowedTime, long aExecutionTime) {
+      htmlUnitBrowser.addFailure("javascriptTimeoutError", new String[] { "" + aAllowedTime, "" + aExecutionTime,
+          aHtmlPage.getUrl().toExternalForm() }, null);
     }
   }
 
@@ -326,15 +399,29 @@ public final class HtmlUnitBrowser implements WetBackend {
     }
   }
 
+  /**
+   * Check if the url contains a hash, that the matching anchor is on the page
+   * 
+   * @param aRef the hash from the url
+   * @throws AssertionFailedException if no matisching anchor found
+   */
   protected void checkAnchor(String aRef) throws AssertionFailedException {
     // check the anchor part of the url
     final Page tmpPage = getCurrentPage();
     PageUtil.checkAnchor(aRef, tmpPage);
   }
 
+  /**
+   * Our own listener for window content changes.
+   */
   public static final class WebWindowListener implements com.gargoylesoftware.htmlunit.WebWindowListener {
     private HtmlUnitBrowser htmlUnitBrowser;
 
+    /**
+     * Constructor
+     * 
+     * @param anHtmlUnitBrowser the browser to inform
+     */
     public WebWindowListener(HtmlUnitBrowser anHtmlUnitBrowser) {
       super();
       htmlUnitBrowser = anHtmlUnitBrowser;
@@ -368,7 +455,7 @@ public final class HtmlUnitBrowser implements WetBackend {
           try {
             PageUtil.checkAnchor(tmpRef, tmpNewPage);
           } catch (AssertionFailedException e) {
-            htmlUnitBrowser.failure = e;
+            htmlUnitBrowser.addFailure(e);
           }
         }
       }
@@ -409,6 +496,12 @@ public final class HtmlUnitBrowser implements WetBackend {
     return BrowserVersion.INTERNET_EXPLORER_6;
   }
 
+  /**
+   * Returns the current HtmlPage.
+   * 
+   * @return the current HtmlPage
+   * @throws AssertionFailedException if the current page is not a HtmlPage
+   */
   public HtmlPage getCurrentHtmlPage() throws AssertionFailedException {
     Page tmpPage = getCurrentPage();
     if (tmpPage instanceof HtmlPage) {
@@ -583,13 +676,48 @@ public final class HtmlUnitBrowser implements WetBackend {
     return null;
   }
 
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.rbri.wet.backend.WetBackend#addFailure(java.lang.String, java.lang.Object[], java.lang.Throwable)
+   */
   @Override
-  public void checkFailure() throws AssertionFailedException {
-    if (null == failure) {
-      return;
+  public void addFailure(String aMessageKey, Object[] aParameterArray, Throwable aCause) {
+    String tmpMessage = Messages.getMessage(aMessageKey, aParameterArray);
+    AssertionFailedException tmpFailure = new AssertionFailedException(tmpMessage, aCause);
+    addFailure(tmpFailure);
+  }
+
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.rbri.wet.backend.WetBackend#addFailure(java.lang.String, java.lang.Object[], java.lang.Throwable)
+   */
+  @Override
+  public void addFailure(AssertionFailedException aFailure) {
+    failures.add(aFailure);
+  }
+
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.rbri.wet.backend.WetBackend#checkAndResetFailures()
+   */
+  @Override
+  public AssertionFailedException checkAndResetFailures() {
+    if (failures.isEmpty()) {
+      return null;
     }
-    AssertionFailedException tmpFailure = failure;
-    failure = null;
-    throw tmpFailure;
+
+    AssertionFailedException tmpResult = failures.get(0);
+    for (AssertionFailedException tmpException : failures) {
+      Throwable tmpCause = tmpException.getCause();
+      if (null != tmpCause) {
+        wetEngine.informListenersWarn("error", new String[] { tmpException.getMessage(),
+            ExceptionUtils.getStackTrace(tmpCause) });
+      }
+    }
+    failures = new LinkedList<AssertionFailedException>();
+    return tmpResult;
   }
 }

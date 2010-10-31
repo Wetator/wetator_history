@@ -33,4 +33,14 @@ public class AssertionFailedException extends Exception {
   public AssertionFailedException(String aMessage) {
     super(aMessage);
   }
+
+  /**
+   * Constructor
+   * 
+   * @param aMessage the message text
+   * @param aCause the cause
+   */
+  public AssertionFailedException(String aMessage, Throwable aCause) {
+    super(aMessage, aCause);
+  }
 }

@@ -302,7 +302,7 @@ public class XlsDefaultCommandSetTest extends AbstractWebServerTest {
     executeTestFile("js_error.xls");
 
     Assert.assertEquals(34, getSteps());
-    Assert.assertEquals(6, getFailures());
+    Assert.assertEquals(0, getFailures());
     Assert.assertEquals(0, getErrors());
   }
 

@@ -37,21 +37,21 @@ public final class ExceptionUtil {
   // private static final Log LOG = WetLogger.getWetLogger();
 
   /**
-   * Try to get the message text from a script exception.
+   * Try to get the included script exception.
    * 
    * @param aWrappedException the exception to analyze
-   * @return the message text
+   * @return the ScriptException
    */
-  public static String getMessageFromScriptExceptionCauseIfPossible(WrappedException aWrappedException) {
+  public static Exception getScriptExceptionCauseIfPossible(WrappedException aWrappedException) {
     Throwable tmpThrowable = aWrappedException.getCause();
 
     while (null != tmpThrowable) {
       if (tmpThrowable instanceof ScriptException) {
-        return tmpThrowable.getMessage();
+        return (Exception) tmpThrowable;
       }
       tmpThrowable = tmpThrowable.getCause();
     }
-    return aWrappedException.getMessage();
+    return aWrappedException;
   }
 
 }

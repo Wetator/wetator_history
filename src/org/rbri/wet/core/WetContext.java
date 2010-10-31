@@ -172,8 +172,18 @@ public class WetContext {
       Assert.fail("unsupportedCommand", new String[] { aWetCommand.getName() });
     }
 
+    WetBackend tmpBackend = getWetBackend();
     LOG.debug("Executing '" + aWetCommand.toPrintableString(this) + "'");
-    tmpImpl.execute(this, aWetCommand);
+    try {
+      tmpImpl.execute(this, aWetCommand);
+    } catch (AssertionFailedException e) {
+      tmpBackend.checkAndResetFailures();
+      throw e;
+    }
+    AssertionFailedException tmpFailed = tmpBackend.checkAndResetFailures();
+    if (null != tmpFailed) {
+      throw tmpFailed;
+    }
   }
 
   public void execute() {

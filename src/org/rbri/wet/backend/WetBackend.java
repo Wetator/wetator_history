@@ -134,6 +134,28 @@ public interface WetBackend {
 
   public void startNewSession(WetBackend.Browser aBrowser);
 
-  public void checkFailure() throws AssertionFailedException;
+  /**
+   * The backend manages a list of exceptions detected during the execution
+   * of an action. This exceptions are collected. Normally such an exception doesn't stop
+   * the processing of the action.<br>
+   * 
+   * @param aFailure the original problem
+   */
+  public void addFailure(AssertionFailedException aFailure);
 
+  /**
+   * Helper.
+   * 
+   * @param aMessageKey the key for the message lookup
+   * @param aParameterArray the parameters as array
+   * @param aCause the original problem
+   */
+  public void addFailure(String aMessageKey, Object[] aParameterArray, Throwable aCause);
+
+  /**
+   * This logs all collected exceptions and resets the list.
+   * 
+   * @return the first {@link AssertionFailedException} in the list or null if the list is empty
+   */
+  public AssertionFailedException checkAndResetFailures();
 }

@@ -189,7 +189,6 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       }
       tmpControl.setValue(aWetContext, tmpValueParam, aWetContext.getFile().getParentFile());
       tmpBackend.saveCurrentWindowToLog();
-      tmpBackend.checkFailure();
     }
   }
 
@@ -222,7 +221,6 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       Control tmpControl = getRequiredFirstHtmlElementFrom(aWetContext, tmpFoundElements, tmpSearchParam);
       tmpControl.click(aWetContext);
       tmpBackend.saveCurrentWindowToLog();
-      tmpBackend.checkFailure();
     }
   }
 
@@ -251,7 +249,6 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       Control tmpControl = getRequiredFirstHtmlElementFrom(aWetContext, tmpFoundElements, tmpSearchParam);
       tmpControl.select(aWetContext);
       tmpBackend.saveCurrentWindowToLog();
-      tmpBackend.checkFailure();
     }
   }
 
@@ -280,7 +277,6 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       Control tmpControl = getRequiredFirstHtmlElementFrom(aWetContext, tmpFoundElements, tmpSearchParam);
       tmpControl.deselect(aWetContext);
       tmpBackend.saveCurrentWindowToLog();
-      tmpBackend.checkFailure();
     }
   }
 
@@ -308,7 +304,6 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       Control tmpControl = getRequiredFirstHtmlElementFrom(aWetContext, tmpFoundElements, tmpSearchParam);
       tmpControl.mouseOver(aWetContext);
       tmpBackend.saveCurrentWindowToLog();
-      tmpBackend.checkFailure();
     }
   }
 
@@ -331,7 +326,6 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       WetBackend tmpBackend = getWetBackend(aWetContext);
       tmpBackend.closeWindow(tmpWindowNameParam);
       tmpBackend.saveCurrentWindowToLog();
-      tmpBackend.checkFailure();
     }
   }
 
@@ -363,7 +357,6 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       WetBackend tmpBackend = getWetBackend(aWetContext);
       tmpBackend.goBackInCurrentWindow(tmpSteps);
       tmpBackend.saveCurrentWindowToLog();
-      tmpBackend.checkFailure();
     }
   }
 
