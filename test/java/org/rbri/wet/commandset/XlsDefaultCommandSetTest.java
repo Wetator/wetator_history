@@ -364,7 +364,7 @@ public class XlsDefaultCommandSetTest extends AbstractWebServerTest {
   public void openUrl() {
     executeTestFile("open_url.xls");
 
-    Assert.assertEquals(19, getSteps());
+    Assert.assertEquals(21, getSteps());
     Assert.assertEquals(0, getFailures());
     Assert.assertEquals(0, getErrors());
   }
