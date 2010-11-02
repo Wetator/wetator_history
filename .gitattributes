@@ -207,7 +207,7 @@ test/java/org/rbri/wet/util/NormalizedStringTest.java -text svneol=unset#text/pl
 test/java/org/rbri/wet/util/StringUtilTest.java -text
 test/java/org/rbri/wet/util/VariableReplaceUtilUtilTest.java -text
 test/java/org/rbri/wet/util/XmlUtilTest.java -text
-test/org.wetator.testeditor.editors.WetatorTestEditor_1.0.0.alpha.jar -text
+test/org.wetator.testeditor.editors.WetatorTestEditor_1.0.0.alpha2.jar -text
 test/xml/ajax_jquery.xml -text svneol=unset#text/plain
 test/xml/ajax_prototype.xml -text svneol=unset#text/plain
 test/xml/anchor_inside_page.xml -text svneol=unset#text/plain
