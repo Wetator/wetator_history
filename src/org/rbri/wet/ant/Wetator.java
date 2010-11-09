@@ -73,7 +73,8 @@ public class Wetator extends Task {
         }
 
         // AntClassLoader
-        AntClassLoader tmpClassLoader = getProject().createClassLoader(getProject().getCoreLoader(), classpath);
+        AntClassLoader tmpClassLoader = new AntClassLoader(ClassLoader.getSystemClassLoader(), getProject(), classpath,
+            false);
         tmpClassLoader.setThreadContextLoader();
       }
 
