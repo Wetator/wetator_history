@@ -9,3 +9,5 @@ frank.danek 2010-09-28 23:40: hallo ronald. ich habe das projekt jetzt mit einig
 	wirklich, wie sich das ganze verhält, wenn man es in galileo öffnet. wirst du dann aber ja sehen. ;-)
 
 rbri 2010-10-22: hi frank, snapshots sind aktualisiert, bei mir hat der refresh geklappt.
+
+frank.danek 2010-11-23 00:25: hallo ronald. ich habe den neuen controlfinder jetzt in den trunk gemerged. bei mir laufen alle tests in 91,5 sec durch.
