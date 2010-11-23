@@ -23,7 +23,8 @@ import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
 import org.rbri.wet.backend.WeightedControlList.Entry;
-import org.rbri.wet.backend.htmlunit.HtmlUnitControl;
+import org.rbri.wet.backend.htmlunit.control.HtmlUnitAnchor;
+import org.rbri.wet.backend.htmlunit.control.HtmlUnitBaseControl;
 import org.rbri.wet.backend.htmlunit.util.PageUtil;
 
 import com.gargoylesoftware.htmlunit.html.HtmlAnchor;
@@ -40,23 +41,23 @@ public class WeightedControlListTest {
     WeightedControlList tmpWeightedControlList = new WeightedControlList();
 
     Assert.assertTrue(tmpWeightedControlList.isEmpty());
-    Assert.assertTrue(tmpWeightedControlList.getElementsSorted().isEmpty());
+    Assert.assertTrue(tmpWeightedControlList.getEntriesSorted().isEmpty());
   }
 
   @Test
   public void testOneEntry() throws IOException {
-    HtmlUnitControl tmpControl = new HtmlUnitControl(constructHtmlAnchor());
+    HtmlUnitBaseControl<?> tmpControl = new HtmlUnitAnchor(constructHtmlAnchor());
     WeightedControlList tmpWeightedControlList = new WeightedControlList();
 
     tmpWeightedControlList.add(tmpControl, WeightedControlList.FoundType.BY_ID, 100, 11);
 
     Assert.assertFalse(tmpWeightedControlList.isEmpty());
-    Assert.assertFalse(tmpWeightedControlList.getElementsSorted().isEmpty());
+    Assert.assertFalse(tmpWeightedControlList.getEntriesSorted().isEmpty());
   }
 
   @Test
   public void testTwoEntries() throws IOException {
-    HtmlUnitControl tmpControl = new HtmlUnitControl(constructHtmlAnchor());
+    HtmlUnitBaseControl<?> tmpControl = new HtmlUnitAnchor(constructHtmlAnchor());
     WeightedControlList tmpWeightedControlList = new WeightedControlList();
 
     tmpWeightedControlList.add(tmpControl, WeightedControlList.FoundType.BY_ID, 100, 11);
@@ -64,23 +65,23 @@ public class WeightedControlListTest {
 
     Assert.assertFalse(tmpWeightedControlList.isEmpty());
 
-    Assert.assertFalse(tmpWeightedControlList.getElementsSorted().isEmpty());
+    Assert.assertFalse(tmpWeightedControlList.getEntriesSorted().isEmpty());
   }
 
   @Test
   public void testGetElementsSorted_Distance() throws IOException {
     WeightedControlList tmpWeightedControlList = new WeightedControlList();
 
-    HtmlUnitControl tmpControl = new HtmlUnitControl(constructHtmlAnchor());
+    HtmlUnitBaseControl<?> tmpControl = new HtmlUnitAnchor(constructHtmlAnchor());
     tmpWeightedControlList.add(tmpControl, WeightedControlList.FoundType.BY_ID, 100, 11);
 
-    tmpControl = new HtmlUnitControl(constructHtmlAnchor());
+    tmpControl = new HtmlUnitAnchor(constructHtmlAnchor());
     tmpWeightedControlList.add(tmpControl, WeightedControlList.FoundType.BY_ID, 100, 12);
 
-    tmpControl = new HtmlUnitControl(constructHtmlAnchor());
+    tmpControl = new HtmlUnitAnchor(constructHtmlAnchor());
     tmpWeightedControlList.add(tmpControl, WeightedControlList.FoundType.BY_ID, 100, 10);
 
-    List<Entry> tmpSorted = tmpWeightedControlList.getElementsSorted();
+    List<Entry> tmpSorted = tmpWeightedControlList.getEntriesSorted();
 
     Assert.assertEquals("[HtmlAnchor 'AnchorText'] found by: BY_ID coverage: 100 distance: 10", tmpSorted.get(0)
         .toString());
@@ -94,19 +95,19 @@ public class WeightedControlListTest {
   public void testGetElementsSorted_Coverage() throws IOException {
     WeightedControlList tmpWeightedControlList = new WeightedControlList();
 
-    HtmlUnitControl tmpControl = new HtmlUnitControl(constructHtmlAnchor());
+    HtmlUnitBaseControl<?> tmpControl = new HtmlUnitAnchor(constructHtmlAnchor());
     tmpWeightedControlList.add(tmpControl, WeightedControlList.FoundType.BY_ID, 9, 11);
 
-    tmpControl = new HtmlUnitControl(constructHtmlAnchor());
+    tmpControl = new HtmlUnitAnchor(constructHtmlAnchor());
     tmpWeightedControlList.add(tmpControl, WeightedControlList.FoundType.BY_ID, 10, 12);
 
-    tmpControl = new HtmlUnitControl(constructHtmlAnchor());
+    tmpControl = new HtmlUnitAnchor(constructHtmlAnchor());
     tmpWeightedControlList.add(tmpControl, WeightedControlList.FoundType.BY_ID, 4, 10);
 
-    tmpControl = new HtmlUnitControl(constructHtmlAnchor());
+    tmpControl = new HtmlUnitAnchor(constructHtmlAnchor());
     tmpWeightedControlList.add(tmpControl, WeightedControlList.FoundType.BY_ID, 4, 11);
 
-    List<Entry> tmpSorted = tmpWeightedControlList.getElementsSorted();
+    List<Entry> tmpSorted = tmpWeightedControlList.getEntriesSorted();
 
     Assert.assertEquals("[HtmlAnchor 'AnchorText'] found by: BY_ID coverage: 4 distance: 10", tmpSorted.get(0)
         .toString());
@@ -122,19 +123,19 @@ public class WeightedControlListTest {
   public void testGetElementsSorted_FoundType() throws IOException {
     WeightedControlList tmpWeightedControlList = new WeightedControlList();
 
-    HtmlUnitControl tmpControl = new HtmlUnitControl(constructHtmlAnchor());
+    HtmlUnitBaseControl<?> tmpControl = new HtmlUnitAnchor(constructHtmlAnchor());
     tmpWeightedControlList.add(tmpControl, WeightedControlList.FoundType.BY_ID, 9, 11);
 
-    tmpControl = new HtmlUnitControl(constructHtmlAnchor());
+    tmpControl = new HtmlUnitAnchor(constructHtmlAnchor());
     tmpWeightedControlList.add(tmpControl, WeightedControlList.FoundType.BY_LABEL, 10, 12);
 
-    tmpControl = new HtmlUnitControl(constructHtmlAnchor());
+    tmpControl = new HtmlUnitAnchor(constructHtmlAnchor());
     tmpWeightedControlList.add(tmpControl, WeightedControlList.FoundType.BY_ID, 4, 10);
 
-    tmpControl = new HtmlUnitControl(constructHtmlAnchor());
+    tmpControl = new HtmlUnitAnchor(constructHtmlAnchor());
     tmpWeightedControlList.add(tmpControl, WeightedControlList.FoundType.BY_ID, 4, 11);
 
-    List<Entry> tmpSorted = tmpWeightedControlList.getElementsSorted();
+    List<Entry> tmpSorted = tmpWeightedControlList.getEntriesSorted();
 
     Assert.assertEquals("[HtmlAnchor 'AnchorText'] found by: BY_ID coverage: 4 distance: 10", tmpSorted.get(0)
         .toString());
@@ -150,15 +151,15 @@ public class WeightedControlListTest {
   public void testGetElementsSorted_SameControl() throws IOException {
     WeightedControlList tmpWeightedControlList = new WeightedControlList();
 
-    HtmlUnitControl tmpControl = new HtmlUnitControl(constructHtmlAnchor());
+    HtmlUnitBaseControl<?> tmpControl = new HtmlUnitAnchor(constructHtmlAnchor());
     tmpWeightedControlList.add(tmpControl, WeightedControlList.FoundType.BY_ID, 9, 11);
     tmpWeightedControlList.add(tmpControl, WeightedControlList.FoundType.BY_LABEL, 10, 12);
     tmpWeightedControlList.add(tmpControl, WeightedControlList.FoundType.BY_ID, 4, 10);
 
-    tmpControl = new HtmlUnitControl(constructHtmlAnchor());
+    tmpControl = new HtmlUnitAnchor(constructHtmlAnchor());
     tmpWeightedControlList.add(tmpControl, WeightedControlList.FoundType.BY_ID, 4, 11);
 
-    List<Entry> tmpSorted = tmpWeightedControlList.getElementsSorted();
+    List<Entry> tmpSorted = tmpWeightedControlList.getEntriesSorted();
 
     Assert.assertEquals("[HtmlAnchor 'AnchorText'] found by: BY_ID coverage: 4 distance: 10", tmpSorted.get(0)
         .toString());

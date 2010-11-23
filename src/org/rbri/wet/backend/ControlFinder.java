@@ -16,63 +16,59 @@
 
 package org.rbri.wet.backend;
 
-import java.util.List;
-
-import org.rbri.wet.util.SecretString;
-
 /**
- * The common interface for the
- * backend.
+ * The common interface for the backend.
  * 
  * @author rbri
+ * @author frank.danek
  */
 public interface ControlFinder {
 
   /**
-   * Return a list of all clickables for the given search
+   * Return a list of all clickable controls for the given wpath.
    * 
-   * @param aSearch the list of secret strings describing the search
+   * @param aWPath the wpath describing the controls
    * @return a WeightedControlList
    */
-  public WeightedControlList getAllClickables(List<SecretString> aSearch);
+  public WeightedControlList getAllClickables(WPath aWPath);
 
   /**
-   * Return a list of all selectables for the given search
+   * Return a list of all selectable controls for the given wpath.
    * 
-   * @param aSearch the list of secret strings describing the search
+   * @param aWPath the wpath describing the controls
    * @return a WeightedControlList
    */
-  public WeightedControlList getAllDeselectables(final List<SecretString> aSearch);
+  public WeightedControlList getAllDeselectables(WPath aWPath);
 
   /**
-   * Return a list of all deselectables for the given search
+   * Return a list of all deselectable controls for the given wpath.
    * 
-   * @param aSearch the list of secret strings describing the search
+   * @param aWPath the wpath describing the controls
    * @return a WeightedControlList
    */
-  public WeightedControlList getAllSelectables(final List<SecretString> aSearch);
+  public WeightedControlList getAllSelectables(WPath aWPath);
 
   /**
-   * Return a list of all setables for the given search
+   * Return a list of all settable controls for the given wpath.
    * 
-   * @param aSearch the list of secret strings describing the search
+   * @param aWPath the wpath describing the controls
    * @return a WeightedControlList
    */
-  public WeightedControlList getAllSetables(List<SecretString> aSearch);
+  public WeightedControlList getAllSettables(WPath aWPath);
 
   /**
-   * Return a list of all other controls for the given search
+   * Return a list of all other controls (not clickable, deselectable, selectable or settable) for the given wpath.
    * 
-   * @param aSearch the list of secret strings describing the search
+   * @param aWPath the wpath describing the controls
    * @return a WeightedControlList
    */
-  public WeightedControlList getAllOtherControls(List<SecretString> aSearch);
+  public WeightedControlList getAllOtherControls(WPath aWPath);
 
   /**
-   * Return a list of all elements for the given search
+   * Return a list of all controls for the given wpath.
    * 
-   * @param aSearch the list of secret strings describing the search
+   * @param aWPath the wpath describing the controls
    * @return a WeightedControlList
    */
-  public WeightedControlList getAllElementsForText(List<SecretString> aSearch);
+  public WeightedControlList getAllControlsForText(WPath aWPath);
 }

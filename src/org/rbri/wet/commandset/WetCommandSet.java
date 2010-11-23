@@ -24,6 +24,7 @@ import java.util.Properties;
  * The implementation of this interface also holds the implementation of the commands.
  * 
  * @author rbri
+ * @author frank.danek
  */
 public interface WetCommandSet {
 

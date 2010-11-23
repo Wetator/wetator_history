@@ -26,15 +26,11 @@ import org.junit.runners.Suite.SuiteClasses;
  * @author frank.danek
  */
 @RunWith(Suite.class)
-@SuiteClasses( { org.rbri.wet.backend.htmlunit.util.AllTests.class, //
-    HtmlElementUtilTest.class, //
-    HtmlUnitControlFinderTest.class, //
-    HtmlUnitControlFinderGetAllClickablesTest.class, //
-    HtmlUnitControlFinderGetAllElementsForTextTest.class, //
-    HtmlUnitControlFinderGetAllOtherControlsTest.class, //
-    HtmlUnitControlFinderGetAllSetablesTest.class, //
-    HtmlUnitControlFinderGetAllSelectablesTest.class, //
-    HtmlUnitControlTest.class, //
+@SuiteClasses({ org.rbri.wet.backend.htmlunit.control.AllTests.class, //
+    org.rbri.wet.backend.htmlunit.finder.AllTests.class, //
+    org.rbri.wet.backend.htmlunit.util.AllTests.class, //
+    HtmlUnitControlRepositoryTest.class, //
+    HtmlUnitFinderDelegatorTest.class, //
     XHtmlOutputterXHtmlPageTest.class })
 public final class AllTests {
 

@@ -33,9 +33,25 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.rbri.wet.backend.ControlFinder;
 import org.rbri.wet.backend.WetBackend;
+import org.rbri.wet.backend.htmlunit.control.HtmlUnitAnchor;
+import org.rbri.wet.backend.htmlunit.control.HtmlUnitButton;
+import org.rbri.wet.backend.htmlunit.control.HtmlUnitImage;
+import org.rbri.wet.backend.htmlunit.control.HtmlUnitInputButton;
+import org.rbri.wet.backend.htmlunit.control.HtmlUnitInputCheckBox;
+import org.rbri.wet.backend.htmlunit.control.HtmlUnitInputFile;
+import org.rbri.wet.backend.htmlunit.control.HtmlUnitInputImage;
+import org.rbri.wet.backend.htmlunit.control.HtmlUnitInputPassword;
+import org.rbri.wet.backend.htmlunit.control.HtmlUnitInputRadioButton;
+import org.rbri.wet.backend.htmlunit.control.HtmlUnitInputReset;
+import org.rbri.wet.backend.htmlunit.control.HtmlUnitInputSubmit;
+import org.rbri.wet.backend.htmlunit.control.HtmlUnitInputText;
+import org.rbri.wet.backend.htmlunit.control.HtmlUnitOption;
+import org.rbri.wet.backend.htmlunit.control.HtmlUnitOptionGroup;
+import org.rbri.wet.backend.htmlunit.control.HtmlUnitSelect;
+import org.rbri.wet.backend.htmlunit.control.HtmlUnitTextArea;
 import org.rbri.wet.backend.htmlunit.util.ContentTypeUtil;
-import org.rbri.wet.backend.htmlunit.util.DomNodeText;
 import org.rbri.wet.backend.htmlunit.util.ExceptionUtil;
+import org.rbri.wet.backend.htmlunit.util.HtmlPageIndex;
 import org.rbri.wet.backend.htmlunit.util.PageUtil;
 import org.rbri.wet.core.WetConfiguration;
 import org.rbri.wet.core.WetEngine;
@@ -68,6 +84,7 @@ import com.gargoylesoftware.htmlunit.xml.XmlPage;
  * The HtmlUnit backend.
  * 
  * @author rbri
+ * @author frank.danek
  */
 public final class HtmlUnitBrowser implements WetBackend {
   private static final Log LOG = LogFactory.getLog(HtmlUnitBrowser.class);;
@@ -85,6 +102,11 @@ public final class HtmlUnitBrowser implements WetBackend {
   protected List<AssertionFailedException> failures;
   /** immediateJobsTimeout */
   protected long immediateJobsTimeout;
+
+  /**
+   * This repository contains all additional controls supported by the backend (e.g. added by a command set).
+   */
+  protected HtmlUnitControlRepository controlRepository = new HtmlUnitControlRepository();
 
   /**
    * Constructor.
@@ -107,6 +129,27 @@ public final class HtmlUnitBrowser implements WetBackend {
 
     // TODO read from config
     immediateJobsTimeout = 1000L;
+
+    // add the default controls
+    controlRepository.add(HtmlUnitAnchor.class);
+    controlRepository.add(HtmlUnitButton.class);
+    controlRepository.add(HtmlUnitImage.class);
+    controlRepository.add(HtmlUnitInputButton.class);
+    controlRepository.add(HtmlUnitInputCheckBox.class);
+    controlRepository.add(HtmlUnitInputFile.class);
+    controlRepository.add(HtmlUnitInputImage.class);
+    controlRepository.add(HtmlUnitInputPassword.class);
+    controlRepository.add(HtmlUnitInputRadioButton.class);
+    controlRepository.add(HtmlUnitInputReset.class);
+    controlRepository.add(HtmlUnitInputSubmit.class);
+    controlRepository.add(HtmlUnitInputText.class);
+    controlRepository.add(HtmlUnitOption.class);
+    controlRepository.add(HtmlUnitOptionGroup.class);
+    controlRepository.add(HtmlUnitSelect.class);
+    controlRepository.add(HtmlUnitTextArea.class);
+
+    // add the controls from the configuration
+    controlRepository.addAll(tmpConfiguration.getControls());
   }
 
   /**
@@ -516,7 +559,7 @@ public final class HtmlUnitBrowser implements WetBackend {
   public ControlFinder getControlFinder() throws AssertionFailedException {
     HtmlPage tmpHtmlPage = getCurrentHtmlPage();
 
-    return new HtmlUnitControlFinder(tmpHtmlPage);
+    return new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
   }
 
   @Override
@@ -529,10 +572,12 @@ public final class HtmlUnitBrowser implements WetBackend {
         HtmlPage tmpHtmlPage = (HtmlPage) tmpPage;
         JavaScriptJobManager tmpJobManager = tmpHtmlPage.getEnclosingWindow().getJobManager();
 
-        tmpJobManager.waitForJobsStartingBefore(tmpEndTime - System.currentTimeMillis());
+        if (tmpJobManager.waitForJobsStartingBefore(tmpEndTime - System.currentTimeMillis()) > 0) {
+          continue;
+        }
 
         if (tmpPage == getCurrentPage()) {
-          continue;
+          break;
         }
 
         // current page is changed, we have to make at least one try
@@ -566,10 +611,12 @@ public final class HtmlUnitBrowser implements WetBackend {
         }
 
         JavaScriptJobManager tmpJobManager = tmpHtmlPage.getEnclosingWindow().getJobManager();
-        tmpJobManager.waitForJobsStartingBefore(tmpEndTime - System.currentTimeMillis());
+        if (tmpJobManager.waitForJobsStartingBefore(tmpEndTime - System.currentTimeMillis()) > 0) {
+          continue;
+        }
 
         if (tmpPage == getCurrentPage()) {
-          continue;
+          break;
         }
 
         // current page is changed, we have to make at least one try
@@ -599,7 +646,7 @@ public final class HtmlUnitBrowser implements WetBackend {
       long tmpEndTime = System.currentTimeMillis() + tmpWaitTime;
       while (System.currentTimeMillis() < tmpEndTime) {
         HtmlPage tmpHtmlPage = (HtmlPage) tmpPage;
-        String tmpContentAsText = new DomNodeText(tmpHtmlPage).getText();
+        String tmpContentAsText = new HtmlPageIndex(tmpHtmlPage).getText();
         try {
           Assert.assertListMatch(aContentToWaitFor, tmpContentAsText);
           return tmpContentAsText;
@@ -608,11 +655,13 @@ public final class HtmlUnitBrowser implements WetBackend {
         }
 
         JavaScriptJobManager tmpJobManager = tmpHtmlPage.getEnclosingWindow().getJobManager();
-        tmpJobManager.waitForJobsStartingBefore(tmpEndTime - System.currentTimeMillis());
+        if (tmpJobManager.waitForJobsStartingBefore(tmpEndTime - System.currentTimeMillis()) > 0) {
+          continue;
+        }
 
         // current page is changed, we have to make another try
         if (tmpPage == getCurrentPage()) {
-          continue;
+          break;
         }
 
         // current page is changed, we have to make at least one try
@@ -629,7 +678,7 @@ public final class HtmlUnitBrowser implements WetBackend {
 
     if (tmpPage instanceof HtmlPage) {
       HtmlPage tmpHtmlPage = (HtmlPage) tmpPage;
-      String tmpContentAsText = new DomNodeText(tmpHtmlPage).getText();
+      String tmpContentAsText = new HtmlPageIndex(tmpHtmlPage).getText();
       Assert.assertListMatch(aContentToWaitFor, tmpContentAsText);
       return tmpContentAsText;
     }
@@ -713,8 +762,8 @@ public final class HtmlUnitBrowser implements WetBackend {
     for (AssertionFailedException tmpException : failures) {
       Throwable tmpCause = tmpException.getCause();
       if (null != tmpCause) {
-        wetEngine.informListenersWarn("error", new String[] { tmpException.getMessage(),
-            ExceptionUtils.getStackTrace(tmpCause) });
+        wetEngine.informListenersWarn("error",
+            new String[] { tmpException.getMessage(), ExceptionUtils.getStackTrace(tmpCause) });
       }
     }
     failures = new LinkedList<AssertionFailedException>();
