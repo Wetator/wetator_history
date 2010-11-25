@@ -46,7 +46,7 @@ import org.rbri.wet.util.Assert;
 import org.rbri.wet.util.SecretString;
 
 /**
- * The implementation of all build in command that WeT
+ * The implementation of all build in command that Wetator
  * supports at the moment.
  * 
  * @author rbri
