@@ -102,6 +102,7 @@ src/org/rbri/wet/backend/htmlunit/util/HtmlPageIndex.java -text svneol=unset#tex
 src/org/rbri/wet/backend/htmlunit/util/PageUtil.java -text
 src/org/rbri/wet/commandset/AbstractCommandSet.java -text
 src/org/rbri/wet/commandset/DefaultCommandSet.java -text
+src/org/rbri/wet/commandset/IncubatorCommandSet.java -text
 src/org/rbri/wet/commandset/SqlCommandSet.java -text
 src/org/rbri/wet/commandset/WetCommandImplementation.java -text
 src/org/rbri/wet/commandset/WetCommandSet.java -text
@@ -315,6 +316,7 @@ test/xml/flow_simple_search.xml -text svneol=unset#text/plain
 test/xml/go_back.xml -text svneol=unset#text/plain
 test/xml/header.xml -text svneol=unset#text/plain
 test/xml/htmlunit_javascript.xml -text svneol=unset#text/plain
+test/xml/incubator/assert_focus.xml -text
 test/xml/jquery.xml -text svneol=unset#text/plain
 test/xml/jquery/modal_confirmation.xml -text svneol=unset#text/plain
 test/xml/js_error.xml -text svneol=unset#text/plain

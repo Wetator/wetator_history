@@ -42,6 +42,13 @@ public interface Control {
   public boolean isDisabled(WetContext aWetContext) throws AssertionFailedException;
 
   /**
+   * @param aWetContext the wet context
+   * @return true, if the control has the focus
+   * @throws AssertionFailedException if the check is not supported by the control
+   */
+  public boolean hasFocus(final WetContext aWetContext) throws AssertionFailedException;
+
+  /**
    * Simulates moving the mouse over the control.
    * 
    * @param aWetContext the wet context

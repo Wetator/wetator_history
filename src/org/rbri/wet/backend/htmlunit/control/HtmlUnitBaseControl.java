@@ -34,6 +34,7 @@ import org.rbri.wet.util.Assert;
 import com.gargoylesoftware.htmlunit.ScriptException;
 import com.gargoylesoftware.htmlunit.html.DisabledElement;
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlParagraph;
 import com.gargoylesoftware.htmlunit.html.HtmlSpan;
 import com.gargoylesoftware.htmlunit.html.HtmlTableDataCell;
@@ -165,6 +166,23 @@ public class HtmlUnitBaseControl<T extends HtmlElement> implements Control {
       return true;
     }
     Assert.fail("disabledCheckNotSupported", new String[] { getDescribingText() });
+
+    return false;
+  }
+
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.rbri.wet.backend.control.Control#isDisabled(org.rbri.wet.core.WetContext)
+   */
+  @Override
+  public boolean hasFocus(final WetContext aWetContext) throws AssertionFailedException {
+    HtmlElement tmpHtmlElement = getHtmlElement();
+
+    HtmlPage tmpHtmlPage = (HtmlPage) tmpHtmlElement.getPage();
+    if (tmpHtmlElement.equals(tmpHtmlPage.getFocusedElement())) {
+      return true;
+    }
 
     return false;
   }
