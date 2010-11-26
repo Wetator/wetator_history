@@ -39,6 +39,7 @@ import org.rbri.wet.backend.htmlunit.control.HtmlUnitImage;
 import org.rbri.wet.backend.htmlunit.control.HtmlUnitInputButton;
 import org.rbri.wet.backend.htmlunit.control.HtmlUnitInputCheckBox;
 import org.rbri.wet.backend.htmlunit.control.HtmlUnitInputFile;
+import org.rbri.wet.backend.htmlunit.control.HtmlUnitInputHidden;
 import org.rbri.wet.backend.htmlunit.control.HtmlUnitInputImage;
 import org.rbri.wet.backend.htmlunit.control.HtmlUnitInputPassword;
 import org.rbri.wet.backend.htmlunit.control.HtmlUnitInputRadioButton;
@@ -137,6 +138,7 @@ public final class HtmlUnitBrowser implements WetBackend {
     controlRepository.add(HtmlUnitInputButton.class);
     controlRepository.add(HtmlUnitInputCheckBox.class);
     controlRepository.add(HtmlUnitInputFile.class);
+    controlRepository.add(HtmlUnitInputHidden.class);
     controlRepository.add(HtmlUnitInputImage.class);
     controlRepository.add(HtmlUnitInputPassword.class);
     controlRepository.add(HtmlUnitInputRadioButton.class);

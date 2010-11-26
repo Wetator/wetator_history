@@ -24,6 +24,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlButtonInput;
 import com.gargoylesoftware.htmlunit.html.HtmlCheckBoxInput;
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlFileInput;
+import com.gargoylesoftware.htmlunit.html.HtmlHiddenInput;
 import com.gargoylesoftware.htmlunit.html.HtmlImage;
 import com.gargoylesoftware.htmlunit.html.HtmlImageInput;
 import com.gargoylesoftware.htmlunit.html.HtmlOption;
@@ -171,6 +172,24 @@ public final class HtmlElementUtil {
 
     addId(tmpResult, anHtmlFileInput);
     addName(tmpResult, anHtmlFileInput);
+
+    tmpResult.append("]");
+    return tmpResult.toString();
+  }
+
+  /**
+   * Generates a describing text for the HtmlHiddenInput.
+   * 
+   * @param anHtmlHiddenInput the control
+   * @return the describing text
+   */
+  public static String getDescribingTextForHtmlHiddenInput(HtmlHiddenInput anHtmlHiddenInput) {
+    StringBuilder tmpResult = new StringBuilder();
+
+    tmpResult.append("[HtmlHiddenInput");
+
+    addId(tmpResult, anHtmlHiddenInput);
+    addName(tmpResult, anHtmlHiddenInput);
 
     tmpResult.append("]");
     return tmpResult.toString();

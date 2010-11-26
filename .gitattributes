@@ -46,6 +46,7 @@ src/org/rbri/wet/backend/htmlunit/control/HtmlUnitImage.java -text svneol=unset#
 src/org/rbri/wet/backend/htmlunit/control/HtmlUnitInputButton.java -text svneol=unset#text/plain
 src/org/rbri/wet/backend/htmlunit/control/HtmlUnitInputCheckBox.java -text svneol=unset#text/plain
 src/org/rbri/wet/backend/htmlunit/control/HtmlUnitInputFile.java -text svneol=unset#text/plain
+src/org/rbri/wet/backend/htmlunit/control/HtmlUnitInputHidden.java -text svneol=unset#text/plain
 src/org/rbri/wet/backend/htmlunit/control/HtmlUnitInputImage.java -text svneol=unset#text/plain
 src/org/rbri/wet/backend/htmlunit/control/HtmlUnitInputPassword.java -text svneol=unset#text/plain
 src/org/rbri/wet/backend/htmlunit/control/HtmlUnitInputRadioButton.java -text svneol=unset#text/plain
@@ -63,6 +64,7 @@ src/org/rbri/wet/backend/htmlunit/control/identifier/HtmlUnitImageIdentifier.jav
 src/org/rbri/wet/backend/htmlunit/control/identifier/HtmlUnitInputButtonIdentifier.java -text svneol=unset#text/plain
 src/org/rbri/wet/backend/htmlunit/control/identifier/HtmlUnitInputCheckBoxIdentifier.java -text svneol=unset#text/plain
 src/org/rbri/wet/backend/htmlunit/control/identifier/HtmlUnitInputFileIdentifier.java -text svneol=unset#text/plain
+src/org/rbri/wet/backend/htmlunit/control/identifier/HtmlUnitInputHiddenIdentifier.java -text svneol=unset#text/plain
 src/org/rbri/wet/backend/htmlunit/control/identifier/HtmlUnitInputImageIdentifier.java -text svneol=unset#text/plain
 src/org/rbri/wet/backend/htmlunit/control/identifier/HtmlUnitInputPasswordIdentifier.java -text svneol=unset#text/plain
 src/org/rbri/wet/backend/htmlunit/control/identifier/HtmlUnitInputRadioButtonIdentifier.java -text svneol=unset#text/plain
