@@ -26,6 +26,7 @@ import org.apache.commons.io.output.FileWriterWithEncoding;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.rbri.wet.Version;
+import org.rbri.wet.backend.control.Control;
 import org.rbri.wet.commandset.WetCommandSet;
 import org.rbri.wet.core.Parameter;
 import org.rbri.wet.core.WetCommand;
@@ -74,6 +75,7 @@ public class WetResultWriter implements WetProgressListener {
   private static final String TAG_VARIABLE = "variable";
   private static final String TAG_PROPERTY = "property";
   private static final String TAG_COMMAND_SET = "commandSet";
+  private static final String TAG_CONTROL = "control";
 
   private Writer writer;
   private Output output;
@@ -158,6 +160,14 @@ public class WetResultWriter implements WetProgressListener {
         printStartTagOpener(TAG_COMMAND_SET);
         output.print("class=\"");
         output.print(xmlUtil.normalizeAttributeValue(tmpCommandSet.getClass().toString()));
+        output.println("\" />");
+      }
+
+      List<Class<? extends Control>> tmpControls = tmpWetConfiguration.getControls();
+      for (Class<? extends Control> tmpControl : tmpControls) {
+        printStartTagOpener(TAG_CONTROL);
+        output.print("class=\"");
+        output.print(xmlUtil.normalizeAttributeValue(tmpControl.getClass().toString()));
         output.println("\" />");
       }
 
