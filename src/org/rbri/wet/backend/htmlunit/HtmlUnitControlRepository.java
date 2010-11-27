@@ -21,7 +21,9 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
+import org.apache.commons.lang.StringUtils;
 import org.rbri.wet.backend.control.Clickable;
 import org.rbri.wet.backend.control.Control;
 import org.rbri.wet.backend.control.Deselectable;
@@ -42,6 +44,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlElement;
 public class HtmlUnitControlRepository {
 
   private Map<String, Class<HtmlUnitBaseControl<?>>> forElementMap = new HashMap<String, Class<HtmlUnitBaseControl<?>>>();
+  private Map<String, Map<String, Class<HtmlUnitBaseControl<?>>>> forElementAndAttributeMap = new HashMap<String, Map<String, Class<HtmlUnitBaseControl<?>>>>();
 
   private List<Class<? extends AbstractHtmlUnitControlIdentifier>> settableIdentifiers = new LinkedList<Class<? extends AbstractHtmlUnitControlIdentifier>>();
   private List<Class<? extends AbstractHtmlUnitControlIdentifier>> clickableIdentifiers = new LinkedList<Class<? extends AbstractHtmlUnitControlIdentifier>>();
@@ -72,8 +75,22 @@ public class HtmlUnitControlRepository {
       ForHtmlElement tmpForHtmlElement = aControlClass.getAnnotation(ForHtmlElement.class);
       if (tmpForHtmlElement != null) {
         Class<? extends HtmlElement> tmpHtmlElementClass = tmpForHtmlElement.value();
+        String tmpAttributeName = tmpForHtmlElement.attributeName();
+        String[] tmpAttributeValues = tmpForHtmlElement.attributeValues();
 
-        forElementMap.put(tmpHtmlElementClass.getSimpleName(), (Class<HtmlUnitBaseControl<?>>) aControlClass);
+        if (StringUtils.isEmpty(tmpAttributeName) || tmpAttributeValues == null || tmpAttributeValues.length == 0) {
+          forElementMap.put(tmpHtmlElementClass.getName(), (Class<HtmlUnitBaseControl<?>>) aControlClass);
+        } else {
+          Map<String, Class<HtmlUnitBaseControl<?>>> tmpAttributeMap = forElementAndAttributeMap
+              .get(tmpHtmlElementClass.getName());
+          if (tmpAttributeMap == null) {
+            tmpAttributeMap = new HashMap<String, Class<HtmlUnitBaseControl<?>>>();
+            forElementAndAttributeMap.put(tmpHtmlElementClass.getName(), tmpAttributeMap);
+          }
+          for (String tmpValue : tmpAttributeValues) {
+            tmpAttributeMap.put(tmpAttributeName + "||" + tmpValue, (Class<HtmlUnitBaseControl<?>>) aControlClass);
+          }
+        }
       }
 
       IdentifiedBy tmpIdentifiers = aControlClass.getAnnotation(IdentifiedBy.class);
@@ -113,7 +130,17 @@ public class HtmlUnitControlRepository {
     if (anHtmlElement == null) {
       return null;
     }
-    return forElementMap.get(anHtmlElement.getClass().getSimpleName());
+    Map<String, Class<HtmlUnitBaseControl<?>>> tmpAttributeMap = forElementAndAttributeMap.get(anHtmlElement.getClass()
+        .getName());
+    if (tmpAttributeMap != null) {
+      for (Entry<String, Class<HtmlUnitBaseControl<?>>> tmpEntry : tmpAttributeMap.entrySet()) {
+        String[] tmpParts = tmpEntry.getKey().split("\\|\\|");
+        if (tmpParts[1].equals(anHtmlElement.getAttribute(tmpParts[0]))) {
+          return tmpEntry.getValue();
+        }
+      }
+    }
+    return forElementMap.get(anHtmlElement.getClass().getName());
   }
 
   /**

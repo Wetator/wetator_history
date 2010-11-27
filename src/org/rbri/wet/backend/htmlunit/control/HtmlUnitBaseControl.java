@@ -247,6 +247,16 @@ public class HtmlUnitBaseControl<T extends HtmlElement> implements Control {
      * The {@link HtmlElement}.
      */
     Class<? extends HtmlElement> value();
+
+    /**
+     * The name of the discriminating attribute.
+     */
+    String attributeName() default "";
+
+    /**
+     * The possible values of the discriminating attribute.
+     */
+    String[] attributeValues() default { };
   }
 
   /**
