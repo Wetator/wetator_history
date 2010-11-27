@@ -22,8 +22,6 @@ import net.sourceforge.htmlunit.corejs.javascript.WrappedException;
 
 import org.rbri.wet.backend.control.Settable;
 import org.rbri.wet.backend.htmlunit.control.HtmlUnitBaseControl.ForHtmlElement;
-import org.rbri.wet.backend.htmlunit.control.HtmlUnitBaseControl.IdentifiedBy;
-import org.rbri.wet.backend.htmlunit.control.identifier.HtmlUnitInputHiddenIdentifier;
 import org.rbri.wet.backend.htmlunit.util.ExceptionUtil;
 import org.rbri.wet.backend.htmlunit.util.HtmlElementUtil;
 import org.rbri.wet.core.WetContext;
@@ -36,13 +34,12 @@ import com.gargoylesoftware.htmlunit.html.HtmlHiddenInput;
 
 /**
  * This is the implementation of the HTML element 'input hidden' (&lt;input type="hidden"&gt;) using HtmlUnit as
- * backend.
+ * backend. There is no identifier for this control as it may not be set via wetator.
  * 
  * @author rbri
  * @author frank.danek
  */
 @ForHtmlElement(HtmlHiddenInput.class)
-@IdentifiedBy(HtmlUnitInputHiddenIdentifier.class)
 public class HtmlUnitInputHidden extends HtmlUnitBaseControl<HtmlHiddenInput> implements Settable {
 
   /**
