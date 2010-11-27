@@ -75,18 +75,6 @@ public class HtmlUnitInputHidden extends HtmlUnitBaseControl<HtmlHiddenInput> im
 
     try {
       String tmpValue = aValue.getValue();
-
-      int tmpMaxLength = -1;
-      try {
-        String tmpMaxLengthString = tmpHtmlHiddenInput.getMaxLengthAttribute();
-        tmpMaxLength = Integer.parseInt(tmpMaxLengthString);
-      } catch (NumberFormatException e) {
-        // TODO warn
-      }
-
-      if (tmpMaxLength > -1) {
-        tmpValue = tmpValue.substring(0, Math.min(tmpMaxLength, tmpValue.length()));
-      }
       tmpHtmlHiddenInput.setAttribute("value", tmpValue);
 
       // wait for silence
