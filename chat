@@ -11,3 +11,17 @@ frank.danek 2010-09-28 23:40: hallo ronald. ich habe das projekt jetzt mit einig
 rbri 2010-10-22: hi frank, snapshots sind aktualisiert, bei mir hat der refresh geklappt.
 
 frank.danek 2010-11-23 00:25: hallo ronald. ich habe den neuen controlfinder jetzt in den trunk gemerged. bei mir laufen alle tests in 91,5 sec durch.
+
+frank.danek 2010-11-17 16:15: hallo ronald. hier die ergebnisse meine analyse des tooltip-problems:
+
+	rich:toolTip initialisiert erst beim ersten document.onmousemove 
+	-> weder Open Url noch Mouse Over machen ein mousemove 
+	-> rich:toolTip wird nie initialisiert
+	=> was machen wir da? wenn ich Mouse Over um das entsprechende mousemove ergänze, funtionieren die rich:toolTip
+
+	dann noch zwei andere sachen:
+		Mouse Over macht ein focus() => warum? nur weil die maus irgendwo drüber fährt, bekommt das element doch nicht den focus.
+
+		wenn ich einen tooltip zu einem <span> mache, wird das im code <span>Text</span><span>ToolTip<span> 
+		-> daraus macht der HtmlPageIndex dann TextToolTip
+		=> das ist irgendwie unschön, aber eine lösung ist mir bisher noch nicht eingefallen.
