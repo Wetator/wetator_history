@@ -82,10 +82,6 @@ public final class DialogUtil {
     tmpFileChooser.setDialogTitle(Messages.getMessage("fileChooserTitle", null));
     tmpFileChooser.setCurrentDirectory(tmpLastDir);
 
-    // TODO File[] tmpSelFiles = new File[1];
-    // tmpSelFiles[0] = new File("open_url.xls");
-    // tmpFileChooser.setSelectedFiles(tmpSelFiles);
-
     int tmpChooserAction = tmpFileChooser.showOpenDialog(null);
 
     switch (tmpChooserAction) {

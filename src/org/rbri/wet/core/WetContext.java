@@ -168,8 +168,8 @@ public class WetContext {
   public void determineAndExecuteCommandImpl(WetCommand aWetCommand) throws AssertionFailedException {
     WetCommandImplementation tmpImpl = engine.getCommandImplementationFor(aWetCommand.getName());
     if (null == tmpImpl) {
-      // TODO better error description
-      Assert.fail("unsupportedCommand", new String[] { aWetCommand.getName() });
+      Assert.fail("unsupportedCommand", new String[] { aWetCommand.getName(), getFile().getAbsolutePath(),
+          "" + aWetCommand.getLineNo() });
     }
 
     WetBackend tmpBackend = getWetBackend();

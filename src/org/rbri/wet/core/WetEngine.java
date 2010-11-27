@@ -146,7 +146,7 @@ public final class WetEngine {
             }
           }
         } catch (Throwable e) {
-          // TODO
+          // TODO what to do with exceptions?
           // informListenersWarn("testCaseError", new String[] {e.getMessage()});
           e.printStackTrace();
         } finally {
