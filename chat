@@ -12,7 +12,7 @@ rbri 2010-10-22: hi frank, snapshots sind aktualisiert, bei mir hat der refresh 
 
 frank.danek 2010-11-23 00:25: hallo ronald. ich habe den neuen controlfinder jetzt in den trunk gemerged. bei mir laufen alle tests in 91,5 sec durch.
 
-frank.danek 2010-11-17 16:15: hallo ronald. hier die ergebnisse meine analyse des tooltip-problems:
+frank.danek 2010-11-27 16:15: hallo ronald. hier die ergebnisse meine analyse des tooltip-problems:
 
 	rich:toolTip initialisiert erst beim ersten document.onmousemove 
 	-> weder Open Url noch Mouse Over machen ein mousemove 
@@ -26,7 +26,7 @@ frank.danek 2010-11-17 16:15: hallo ronald. hier die ergebnisse meine analyse de
 		-> daraus macht der HtmlPageIndex dann TextToolTip
 		=> das ist irgendwie unschön, aber eine lösung ist mir bisher noch nicht eingefallen.
 
-rbri 2010-11-17 22:20: hi frank; wahnsinn, wie hast du das rausgefunden?
+rbri 2010-11-27 22:20: hi frank; wahnsinn, wie hast du das rausgefunden?
     ich denke, der mouseover sollte auf jeden fall auch einen mousemove triggern.
     Bei OpenUrl könnten wir das ja auch machen, einfach so zur Sicherheit. Sich an den mousemove zu hängen ist aber schon schräg.
     
@@ -37,4 +37,16 @@ rbri 2010-11-17 22:20: hi frank; wahnsinn, wie hast du das rausgefunden?
     
     Wenn es gut läuft, dann kriege ich das mit den Images im CSS hin.
      
-		
+frank.danek 2010-11-27 01:40: die suche nach dem problem ging vom aufstehen bis zu meiner nachricht, also ca. 4h. javascript debuggen und besonders
+	den javascript-teil von htmlunit debuggen macht keinen spaß...
+	ich könnte mir auch vorstellen, dass das in richfaces ein bug ist. wenn du jetzt nämlich deine maus an die richtige stelle bewegst,
+	die seite neu lädst und deine maus nicht bewegst, erscheint der tooltip nicht, obwohl deine maus über dem element ist.
+	aber davon mal abgesehen, erschließt sich mir der sinn auch nicht so ganz. wenn man das ganze ans onload gehangen hätte, hätte alles ohne
+	probleme funktioniert. das hab ich ausprobiert (weil ich den ganzen müll eh für nen test nachgebaut habe).
+	
+	ist denn das aktuelle fenster nicht immer aktiv? das mit den mehreren fenstern habe ich noch nie gemacht... ich habs grad aber auch mal im
+	richtigen browser ausprobiert: das fenster muss noch nicht mal aktiv sein, damit der mouseover da funktioniert.
+	
+	genau, da steht kein leerzeichen. ich hab mir das aber nochmal etwas weiter angeschaut. im normalfall ist das vollkommen korrekt, dass da kein
+	leerzeichen steht. zwei <span> hintereinander werden auch im browser ohne leerzeichen dargestellt. ist halt beim tooltip blöd, weil niemand
+	darauf kommt, das ohne leerzeichen im test aufzuschreiben. reden wir montag drüber.
