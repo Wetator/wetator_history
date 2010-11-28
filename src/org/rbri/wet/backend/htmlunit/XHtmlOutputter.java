@@ -20,7 +20,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.Writer;
 import java.lang.reflect.Field;
-import java.net.URL;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -285,9 +284,6 @@ public final class XHtmlOutputter {
    * @throws IOException in case of error
    */
   protected void writeAttributes(DomNode aDomNode) throws IOException {
-    URL tmpPageUrl = htmlPage.getWebResponse().getWebRequest().getUrl();
-    String tmpPageHost = tmpPageUrl.getHost();
-
     if (aDomNode instanceof HtmlElement) {
       HtmlElement tmpHtmlElement = (HtmlElement) aDomNode;
 
@@ -309,25 +305,16 @@ public final class XHtmlOutputter {
         String tmpAttributeValue = tmpAttribute.getNodeValue();
 
         if (tmpIsCssLink && ("href".equals(tmpAttributeName))) {
-          URL tmpCssUrl = htmlPage.getFullyQualifiedUrl(tmpAttributeValue);
-          String tmpHost = tmpCssUrl.getHost();
-          if ((null != tmpHost) && tmpHost.equals(tmpPageHost)) {
-
-            String tmpStoredFileName = responseStore.storeContentFromUrl(tmpCssUrl, ".css");
-            if (null != tmpStoredFileName) {
-              tmpAttributeValue = tmpStoredFileName;
-            }
+          String tmpStoredFileName = responseStore.storeContentFromUrl(htmlPage, tmpAttributeValue, ".css");
+          if (null != tmpStoredFileName) {
+            tmpAttributeValue = tmpStoredFileName;
           }
         }
 
         if (tmpIsHtmlImage && ("src".equals(tmpAttributeName))) {
-          URL tmpImageUrl = htmlPage.getFullyQualifiedUrl(tmpAttributeValue);
-          String tmpHost = tmpImageUrl.getHost();
-          if ((null != tmpHost) && tmpHost.equals(tmpPageHost)) {
-            String tmpStoredFileName = responseStore.storeContentFromUrl(tmpImageUrl, null);
-            if (null != tmpStoredFileName) {
-              tmpAttributeValue = tmpStoredFileName;
-            }
+          String tmpStoredFileName = responseStore.storeContentFromUrl(htmlPage, tmpAttributeValue, null);
+          if (null != tmpStoredFileName) {
+            tmpAttributeValue = tmpStoredFileName;
           }
         }
 

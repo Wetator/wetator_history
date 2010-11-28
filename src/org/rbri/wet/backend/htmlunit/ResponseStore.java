@@ -27,9 +27,12 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.rbri.wet.backend.htmlunit.util.ContentTypeUtil;
@@ -49,6 +52,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
  */
 public final class ResponseStore {
   private static final Log LOG = LogFactory.getLog(ResponseStore.class);;
+  private static final Pattern CSS_URL_PATTERN = Pattern.compile("url\\(([\"']?)(.*?)([\"']?)\\)");
   private static final int MAX_FILE_NAME_LENGTH = 200;
 
   private static long counter = 99999;
@@ -149,15 +153,26 @@ public final class ResponseStore {
   /**
    * This method writes the page to a file with a unique name.
    * 
-   * @param aUrl the url of the file to save
+   * @param aContaingPage the page that contains the reference pointing to this file
+   * @param aUrlString the url of the file to save
    * @param aSuffix to force a specific suffix for the file name
    * @return the file name used for this page
    */
-  public String storeContentFromUrl(URL aUrl, String aSuffix) {
+  public String storeContentFromUrl(HtmlPage aContaingPage, String aUrlString, String aSuffix) {
     try {
-      WebResponse tmpWebResponse = webClient.loadWebResponse(new WebRequest(aUrl));
-      String tmpFileName = aUrl.getPath();
-      String tmpQuery = aUrl.getQuery();
+      URL tmpPageUrl = aContaingPage.getWebResponse().getWebRequest().getUrl();
+      String tmpPageHost = tmpPageUrl.getHost();
+
+      URL tmpUrl = aContaingPage.getFullyQualifiedUrl(aUrlString);
+      String tmpHost = tmpUrl.getHost();
+      if ((null == tmpHost) || !tmpHost.equals(tmpPageHost)) {
+        LOG.info("Ignoring url '" + aUrlString + "' (wrong host).");
+        return null;
+      }
+
+      WebResponse tmpWebResponse = webClient.loadWebResponse(new WebRequest(tmpUrl));
+      String tmpFileName = tmpUrl.getPath();
+      String tmpQuery = tmpUrl.getQuery();
       if (null != tmpQuery) {
         tmpQuery = URLDecoder.decode(tmpQuery, "UTF-8");
         tmpFileName = tmpFileName + "?" + tmpQuery;
@@ -192,20 +207,26 @@ public final class ResponseStore {
       }
 
       if (!tmpResourceFile.exists()) {
-        InputStream tmpInStream = tmpWebResponse.getContentAsStream();
-        FileUtils.forceMkdir(tmpResourceFile.getParentFile());
-        FileOutputStream tmpOutStream = new FileOutputStream(tmpResourceFile);
-        try {
-          IOUtils.copy(tmpInStream, tmpOutStream);
-        } finally {
-          tmpOutStream.close();
+        String tmpProcessed = null;
+        if ("text/css".equalsIgnoreCase(tmpWebResponse.getContentType())) {
+          String tmpResponse = tmpWebResponse.getContentAsString();
+          FileUtils.forceMkdir(tmpResourceFile.getParentFile());
+
+          // process all url(....) inside
+          tmpProcessed = processCSS(tmpResponse, aContaingPage);
+          FileUtils.writeStringToFile(tmpResourceFile, tmpProcessed);
         }
 
-        // System.out.println("" + aUrl + "  " + tmpWebResponse.getContentType());
-        // if ("text/css".equalsIgnoreCase(tmpWebResponse.getContentType())) {
-        // tmpInStream = tmpWebResponse.getContentAsStream();
-        // parseCSS(new InputSource(new InputStreamReader(tmpInStream)));
-        // }
+        if (tmpProcessed == null) {
+          InputStream tmpInStream = tmpWebResponse.getContentAsStream();
+          FileUtils.forceMkdir(tmpResourceFile.getParentFile());
+          FileOutputStream tmpOutStream = new FileOutputStream(tmpResourceFile);
+          try {
+            IOUtils.copy(tmpInStream, tmpOutStream);
+          } finally {
+            tmpOutStream.close();
+          }
+        }
       }
       // write our path
       String tmpResult;
@@ -221,63 +242,25 @@ public final class ResponseStore {
     }
     return null;
   }
-  // TODO handle background-image in css
 
-  // static class ErrorHandler implements org.w3c.css.sac.ErrorHandler {
-  // private boolean parsingSuccess = true;
-  //
-  // public boolean wasParsingSuccessful() {
-  // return parsingSuccess;
-  // }
-  //
-  // @Override
-  // public void warning(CSSParseException aCSSParseException) throws CSSException {
-  // // ignore
-  // }
-  //
-  // @Override
-  // public void fatalError(CSSParseException aArg0) throws CSSException {
-  // parsingSuccess = false;
-  // }
-  //
-  // @Override
-  // public void error(CSSParseException aArg0) throws CSSException {
-  // parsingSuccess = false;
-  // }
-  // };
-  //
-  // private void parseCSS(InputSource anInputSource) {
-  // try {
-  // final ErrorHandler tmpErrorHandler = new ErrorHandler();
-  // final CSSOMParser tmpCSSOMParser = new CSSOMParser(new SACParserCSS21());
-  // tmpCSSOMParser.setErrorHandler(tmpErrorHandler);
-  // org.w3c.dom.css.CSSStyleSheet tmpCSSStyleSheet;
-  // tmpCSSStyleSheet = tmpCSSOMParser.parseStyleSheet(anInputSource, null, null);
-  //
-  // if (tmpErrorHandler.wasParsingSuccessful()) {
-  // CSSRuleList tmpRuleList = tmpCSSStyleSheet.getCssRules();
-  // System.out.println("Number of rules: " + tmpRuleList.getLength());
-  //
-  // for (int i = 0; i < tmpRuleList.getLength(); i++) {
-  // CSSRule rule = tmpRuleList.item(i);
-  // if (rule instanceof CSSStyleRule) {
-  // CSSStyleRule styleRule = (CSSStyleRule) rule;
-  // System.out.println("selector:" + i + ": " + styleRule.getSelectorText());
-  // CSSStyleDeclaration styleDeclaration = styleRule.getStyle();
-  //
-  // for (int j = 0; j < styleDeclaration.getLength(); j++) {
-  // String property = styleDeclaration.item(j);
-  // System.out.println("property: " + property);
-  // System.out.println("value: " + styleDeclaration.getPropertyCSSValue(property).getCssText());
-  // System.out.println("priority: " + styleDeclaration.getPropertyPriority(property));
-  // }
-  // }
-  // }
-  // }
-  // } catch (final Exception e) {
-  // // ignore
-  // } catch (final Error e) {
-  // // ignore
-  // }
-  // }
+  private String processCSS(String aCssContent, HtmlPage aContaingPage) {
+    String tmpContent = aCssContent;
+    int tmpStart = 0;
+    Matcher tmpMatcher = CSS_URL_PATTERN.matcher(aCssContent);
+
+    while (tmpMatcher.find(tmpStart)) {
+      String tmpNewUrl = storeContentFromUrl(aContaingPage, tmpMatcher.group(2), null);
+      if (null == tmpNewUrl) {
+        tmpStart = tmpMatcher.end();
+      } else {
+        String tmpReplacement = "url(" + tmpMatcher.group(1) + tmpNewUrl + tmpMatcher.group(3) + ")";
+        tmpContent = StringUtils.replace(tmpContent, tmpMatcher.group(0), tmpReplacement);
+        tmpStart = tmpMatcher.start() + tmpReplacement.length();
+
+        tmpMatcher = CSS_URL_PATTERN.matcher(aCssContent);
+      }
+    }
+
+    return tmpContent;
+  }
 }
