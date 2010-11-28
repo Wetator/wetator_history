@@ -16,32 +16,29 @@
 
 package org.rbri.wet.commandset;
 
-import org.junit.runner.JUnitCore;
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
-import org.junit.runners.Suite.SuiteClasses;
+import java.io.File;
+
+import org.junit.Assert;
+import org.junit.Test;
+import org.rbri.wet.test.AbstractWebServerTest;
 
 /**
- * @author rbri
  * @author frank.danek
  */
-@RunWith(Suite.class)
-@SuiteClasses({ XlsDefaultCommandSetTest.class, XlsSqlCommandSetTest.class, XmlIncubatorCommandSetTest.class })
-// TODO add XmlDefaultCommandSetTest.class?
-// TODO add XmlSqlCommandSetTest.class?
-public final class AllTests {
+public class XmlIncubatorCommandSetTest extends AbstractWebServerTest {
 
-  /**
-   * @param anArgsArray ignored
-   */
-  public static void main(String[] anArgsArray) {
-    JUnitCore.main(AllTests.class.getName());
+  private static final String BASE_FOLDER = "test/xml/incubator/";
+
+  @Test
+  public void bookmark() {
+    executeTestFile("bookmark.xml");
+
+    Assert.assertEquals(11, getSteps());
+    Assert.assertEquals(0, getFailures());
+    Assert.assertEquals(0, getErrors());
   }
 
-  /**
-   * The constructor.
-   */
-  private AllTests() {
-    // nothing
+  private void executeTestFile(String aTestFileName) {
+    executeTestFile(new File(BASE_FOLDER + aTestFileName));
   }
 }

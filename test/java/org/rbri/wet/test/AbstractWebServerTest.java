@@ -103,8 +103,8 @@ public abstract class AbstractWebServerTest extends AbstractBrowserTest {
       tmpProperties.setProperty(WetConfiguration.PROPERTY_BROWSER, getBrowser().getSymbol());
     }
     tmpProperties.setProperty(WetConfiguration.PROPERTY_XSL_TEMPLATES, "./xsl/SimpleHtml.xsl");
-    tmpProperties.setProperty(WetConfiguration.PROPERTY_COMMAND_SETS,
-        "org.rbri.wet.commandset.SqlCommandSet, org.rbri.wet.commandset.TestCommandSet");
+    tmpProperties.setProperty(WetConfiguration.PROPERTY_COMMAND_SETS, "org.rbri.wet.commandset.IncubatorCommandSet, "
+        + "org.rbri.wet.commandset.SqlCommandSet, " + "org.rbri.wet.commandset.TestCommandSet");
     tmpProperties.setProperty("wetator.db.connections", "wetdb, secondDb");
 
     tmpProperties.setProperty("wetator.db.wetdb.driver", "org.hsqldb.jdbcDriver");

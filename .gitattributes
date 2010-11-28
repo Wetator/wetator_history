@@ -250,6 +250,7 @@ test/java/org/rbri/wet/commandset/TestCommandSet.java -text
 test/java/org/rbri/wet/commandset/XlsDefaultCommandSetTest.java -text svneol=unset#text/plain
 test/java/org/rbri/wet/commandset/XlsSqlCommandSetTest.java -text svneol=unset#text/plain
 test/java/org/rbri/wet/commandset/XmlDefaultCommandSetTest.java -text svneol=unset#text/plain
+test/java/org/rbri/wet/commandset/XmlIncubatorCommandSetTest.java -text
 test/java/org/rbri/wet/commandset/XmlSqlCommandSetTest.java -text svneol=unset#text/plain
 test/java/org/rbri/wet/core/AllTests.java -text
 test/java/org/rbri/wet/core/WetCommandTest.java -text
@@ -318,6 +319,7 @@ test/xml/go_back.xml -text svneol=unset#text/plain
 test/xml/header.xml -text svneol=unset#text/plain
 test/xml/htmlunit_javascript.xml -text svneol=unset#text/plain
 test/xml/incubator/assert_focus.xml -text
+test/xml/incubator/bookmark.xml -text
 test/xml/jquery.xml -text svneol=unset#text/plain
 test/xml/jquery/modal_confirmation.xml -text svneol=unset#text/plain
 test/xml/js_error.xml -text svneol=unset#text/plain

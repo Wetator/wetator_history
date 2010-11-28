@@ -135,6 +135,30 @@ public interface WetBackend {
   public void startNewSession(WetBackend.Browser aBrowser);
 
   /**
+   * Returns the url for the bookmark with the given name
+   * 
+   * @param aBookmarkName the name of the bookmark
+   * @return the url (including get parameters)
+   */
+  public URL getBookmark(String aBookmarkName);
+
+  /**
+   * Stores the given bookmark.
+   * 
+   * @param aBookmarkName the name of the bookmark
+   * @param aBookmarkUrl the url (including get parameters)
+   */
+  public void saveBookmark(String aBookmarkName, URL aBookmarkUrl);
+
+  /**
+   * Stores the current page as a bookmark with the given name.
+   * 
+   * @param aBookmarkName the name of the bookmark
+   * @throws AssertionFailedException in case of problems
+   */
+  public void bookmarkPage(String aBookmarkName) throws AssertionFailedException;
+
+  /**
    * The backend manages a list of exceptions detected during the execution
    * of an action. This exceptions are collected. Normally such an exception doesn't stop
    * the processing of the action.<br>

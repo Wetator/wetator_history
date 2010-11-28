@@ -21,8 +21,10 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.UnknownHostException;
 import java.security.GeneralSecurityException;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import net.sourceforge.htmlunit.corejs.javascript.WrappedException;
@@ -103,6 +105,8 @@ public final class HtmlUnitBrowser implements WetBackend {
   protected List<AssertionFailedException> failures;
   /** immediateJobsTimeout */
   protected long immediateJobsTimeout;
+  /** bookmarks */
+  protected Map<String, URL> bookmarks;
 
   /**
    * This repository contains all additional controls supported by the backend (e.g. added by a command set).
@@ -162,6 +166,9 @@ public final class HtmlUnitBrowser implements WetBackend {
   @Override
   public void startNewSession(WetBackend.Browser aBrowser) {
     WetConfiguration tmpConfiguration = wetEngine.getWetConfiguration();
+
+    // reset the bookmarks
+    bookmarks = new HashMap<String, URL>();
 
     BrowserVersion tmpBrowserVersion = determineBrowserVersionFor(aBrowser);
 
@@ -770,5 +777,37 @@ public final class HtmlUnitBrowser implements WetBackend {
     }
     failures = new LinkedList<AssertionFailedException>();
     return tmpResult;
+  }
+
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.rbri.wet.backend.WetBackend#getBookmark(java.lang.String)
+   */
+  @Override
+  public URL getBookmark(String aBookmarkName) {
+    return bookmarks.get(aBookmarkName);
+  }
+
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.rbri.wet.backend.WetBackend#saveBookmark(java.lang.String, java.lang.String)
+   */
+  @Override
+  public void saveBookmark(String aBookmarkName, URL aBookmarkUrl) {
+    bookmarks.put(aBookmarkName, aBookmarkUrl);
+  }
+
+  /**
+   * {@inheritDoc}
+   * 
+   * @throws AssertionFailedException
+   * @see org.rbri.wet.backend.WetBackend#bookmarkPage(String)
+   */
+  @Override
+  public void bookmarkPage(String aBookmarkName) throws AssertionFailedException {
+    URL tmpUrl = getCurrentHtmlPage().getWebResponse().getWebRequest().getUrl();
+    saveBookmark(aBookmarkName, tmpUrl);
   }
 }

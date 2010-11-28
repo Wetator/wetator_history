@@ -16,6 +16,7 @@
 
 package org.rbri.wet.commandset;
 
+import java.net.URL;
 import java.util.Properties;
 
 import org.rbri.wet.backend.ControlFinder;
@@ -27,6 +28,7 @@ import org.rbri.wet.core.WetCommand;
 import org.rbri.wet.core.WetContext;
 import org.rbri.wet.exception.AssertionFailedException;
 import org.rbri.wet.util.Assert;
+import org.rbri.wet.util.SecretString;
 
 /**
  * The implementation of all experimental commands that Wetator
@@ -48,6 +50,8 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
   @Override
   protected void registerCommands() {
     registerCommand("Assert Focus", new CommandAssertFocus());
+    registerCommand("Save Bookmark", new CommandSaveBookmark());
+    registerCommand("Open Bookmark", new CommandOpenBookmark());
   }
 
   /**
@@ -84,6 +88,52 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
 
       boolean tmpIsDisabled = tmpControl.hasFocus(aWetContext);
       Assert.assertTrue(tmpIsDisabled, "elementNotFocused", new String[] { tmpControl.getDescribingText() });
+    }
+  }
+
+  /**
+   * Command 'Open Bookmark'
+   */
+  public final class CommandOpenBookmark implements WetCommandImplementation {
+    /**
+     * {@inheritDoc}
+     * 
+     * @see org.rbri.wet.commandset.WetCommandImplementation#execute(org.rbri.wet.core.WetContext,
+     *      org.rbri.wet.core.WetCommand)
+     */
+    @Override
+    public void execute(WetContext aWetContext, WetCommand aWetCommand) throws AssertionFailedException {
+      SecretString tmpBookmarkName = aWetCommand.getRequiredFirstParameterValue(aWetContext);
+      aWetCommand.assertNoUnusedSecondParameter(aWetContext);
+
+      WetBackend tmpBackend = getWetBackend(aWetContext);
+      URL tmpUrl = tmpBackend.getBookmark(tmpBookmarkName.getValue());
+      Assert.assertNotNull(tmpUrl, "unknownBookmark", new String[] { tmpBookmarkName.getValue() });
+
+      aWetContext.informListenersInfo("openUrl", new String[] { tmpUrl.toString() });
+      tmpBackend.openUrl(tmpUrl);
+
+      tmpBackend.saveCurrentWindowToLog();
+    }
+  }
+
+  /**
+   * Command 'Save Bookmark'
+   */
+  public final class CommandSaveBookmark implements WetCommandImplementation {
+    /**
+     * {@inheritDoc}
+     * 
+     * @see org.rbri.wet.commandset.WetCommandImplementation#execute(org.rbri.wet.core.WetContext,
+     *      org.rbri.wet.core.WetCommand)
+     */
+    @Override
+    public void execute(WetContext aWetContext, WetCommand aWetCommand) throws AssertionFailedException {
+      SecretString tmpBookmarkName = aWetCommand.getRequiredFirstParameterValue(aWetContext);
+      aWetCommand.assertNoUnusedSecondParameter(aWetContext);
+
+      WetBackend tmpBackend = getWetBackend(aWetContext);
+      tmpBackend.bookmarkPage(tmpBookmarkName.getValue());
     }
   }
 
