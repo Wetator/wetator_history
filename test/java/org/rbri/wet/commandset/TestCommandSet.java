@@ -24,6 +24,7 @@ import org.rbri.wet.core.WetCommand;
 import org.rbri.wet.core.WetContext;
 import org.rbri.wet.exception.AssertionFailedException;
 import org.rbri.wet.util.Assert;
+import org.rbri.wet.util.NormalizedString;
 import org.rbri.wet.util.SecretString;
 
 /**
@@ -69,8 +70,9 @@ public final class TestCommandSet extends AbstractCommandSet {
       try {
         aWetContext.determineAndExecuteCommandImpl(tmpCommand);
       } catch (AssertionFailedException e) {
-        String tmpResult = e.getMessage();
-        Assert.assertMatch(tmpExpected.toString(), tmpResult, "wrongErrorMessage", null);
+        NormalizedString tmpResult = new NormalizedString(e.getMessage());
+        Assert.assertMatch(new NormalizedString(tmpExpected.toString()).toString(), tmpResult.toString(),
+            "wrongErrorMessage", null);
         return;
       }
 

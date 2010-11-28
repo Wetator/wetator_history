@@ -333,24 +333,21 @@ public final class Assert {
       return;
     }
 
-    String tmpCurrentString = new NormalizedString(aCurrentString).toString();
-    String tmpExpectedPattern = new NormalizedString(anExpectedPattern).toString();
-
     if (anExpectedPattern != null) {
       if (anExpectedPattern.isEmpty()) {
         if (null != aCurrentString && aCurrentString.isEmpty()) {
           return;
         }
       } else {
-        SearchPattern tmpSearchPattern = SearchPattern.compile(tmpExpectedPattern);
-        if (tmpSearchPattern.matches(tmpCurrentString)) {
+        SearchPattern tmpSearchPattern = SearchPattern.compile(anExpectedPattern);
+        if (tmpSearchPattern.matches(aCurrentString)) {
           return;
         }
       }
     }
 
     String tmpMessage = Messages.getMessage(aMessageKey, aParameterArray);
-    tmpMessage = tmpMessage + " " + constructComparisonMessage(tmpCurrentString, tmpCurrentString);
+    tmpMessage = tmpMessage + " " + constructComparisonMessage(anExpectedPattern, aCurrentString);
     throw new AssertionFailedException(tmpMessage);
   }
 }
