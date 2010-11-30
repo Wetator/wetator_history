@@ -146,6 +146,7 @@ src/org/rbri/wet/util/StringUtil.java -text
 src/org/rbri/wet/util/VariableReplaceUtil.java -text
 src/org/rbri/wet/util/XmlUtil.java -text
 src/wetator.config -text
+test/MouseEvents.xls -text
 test/ant/ant_task_classpath_test.xls -text
 test/ant/build.xml -text
 test/ant/commons-exec-1.1.jar -text
