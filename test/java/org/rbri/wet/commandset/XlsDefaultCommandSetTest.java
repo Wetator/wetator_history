@@ -206,6 +206,16 @@ public class XlsDefaultCommandSetTest extends AbstractWebServerTest {
   }
 
   @Test
+  @Browsers({ Browser.FIREFOX_3_6 })
+  public void eventMouseOverFF36() {
+    executeTestFile("ff3/event_mouseOver.xls");
+
+    Assert.assertEquals(74, getSteps());
+    Assert.assertEquals(5, getFailures());
+    Assert.assertEquals(0, getErrors());
+  }
+
+  @Test
   public void eventHandler() {
     executeTestFile("event_handler.xls");
 
@@ -215,7 +225,7 @@ public class XlsDefaultCommandSetTest extends AbstractWebServerTest {
   }
 
   @Test
-  @Browsers( { Browser.INTERNET_EXPLORER_6 })
+  @Browsers({ Browser.INTERNET_EXPLORER_6 })
   public void eventHandlerIE6() {
     executeTestFile("ie6/event_handler.xls");
 
@@ -225,7 +235,7 @@ public class XlsDefaultCommandSetTest extends AbstractWebServerTest {
   }
 
   @Test
-  @Browsers( { Browser.FIREFOX_3_6 })
+  @Browsers({ Browser.FIREFOX_3_6 })
   public void eventHandlerFF36() {
     executeTestFile("ff3/event_handler.xls");
 

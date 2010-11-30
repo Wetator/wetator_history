@@ -126,7 +126,8 @@ public class HtmlUnitBaseControl<T extends HtmlElement> implements Control {
     HtmlElement tmpHtmlElement = getHtmlElement();
 
     try {
-      tmpHtmlElement.focus();
+      // simulate mouse move on the document (outside the element)
+      ((HtmlPage) tmpHtmlElement.getPage()).getBody().mouseMove();
     } catch (ScriptException e) {
       aWetContext.getWetBackend().addFailure("javascriptError", new String[] { e.getMessage() }, e);
     } catch (WrappedException e) {
@@ -136,7 +137,10 @@ public class HtmlUnitBaseControl<T extends HtmlElement> implements Control {
     }
 
     try {
+      // simulate mouse over on the element
       tmpHtmlElement.mouseOver();
+      // simulate mouse move on the element
+      tmpHtmlElement.mouseMove();
       aWetContext.getWetBackend().waitForImmediateJobs();
     } catch (ScriptException e) {
       aWetContext.getWetBackend().addFailure("javascriptError", new String[] { e.getMessage() }, e);
