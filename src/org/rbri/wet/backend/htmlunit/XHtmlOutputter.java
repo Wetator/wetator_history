@@ -229,7 +229,11 @@ public final class XHtmlOutputter {
       if (StringUtils.isEmpty(tmpText)) {
         output.print(tmpText);
       } else {
-        if ((aDomNode.getParentNode() instanceof HtmlScript) || (aDomNode.getParentNode() instanceof HtmlStyle)) {
+        if (aDomNode.getParentNode() instanceof HtmlStyle) {
+          output.indent();
+          output.println(((DomText) aDomNode).getData());
+          output.unindent();
+        } else if (aDomNode.getParentNode() instanceof HtmlScript) {
           output.println("<![CDATA[");
           output.indent();
           output.println(tmpText);
