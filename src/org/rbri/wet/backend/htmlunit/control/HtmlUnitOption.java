@@ -40,7 +40,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlSelect;
  * @author frank.danek
  */
 @ForHtmlElement(HtmlOption.class)
-@IdentifiedBy( { HtmlUnitOptionInSelectIdentifier.class, HtmlUnitOptionIdentifier.class })
+@IdentifiedBy({ HtmlUnitOptionInSelectIdentifier.class, HtmlUnitOptionIdentifier.class })
 public class HtmlUnitOption extends HtmlUnitBaseControl<HtmlOption> implements Deselectable {
 
   /**
