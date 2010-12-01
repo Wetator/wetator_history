@@ -37,8 +37,11 @@ import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlInput;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlParagraph;
+import com.gargoylesoftware.htmlunit.html.HtmlPasswordInput;
 import com.gargoylesoftware.htmlunit.html.HtmlSpan;
 import com.gargoylesoftware.htmlunit.html.HtmlTableDataCell;
+import com.gargoylesoftware.htmlunit.html.HtmlTextArea;
+import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
 
 /**
  * This is the base implementation of a {@link Control} using HtmlUnit as backend.
@@ -172,11 +175,21 @@ public class HtmlUnitBaseControl<T extends HtmlElement> implements Control {
         return true;
       }
     }
-    if (tmpHtmlElement instanceof HtmlInput) {
+
+    // check for text and password because setting readonly for the other inputs is nonsens
+    if ((tmpHtmlElement instanceof HtmlTextInput) || (tmpHtmlElement instanceof HtmlPasswordInput)) {
       HtmlInput tmpHtmlInputElement = (HtmlInput) tmpHtmlElement;
       tmpSupported = true;
 
       if (tmpHtmlInputElement.isReadOnly()) {
+        return true;
+      }
+    }
+    if (tmpHtmlElement instanceof HtmlTextArea) {
+      HtmlTextArea tmpHtmlHtmlTextArea = (HtmlTextArea) tmpHtmlElement;
+      tmpSupported = true;
+
+      if (tmpHtmlHtmlTextArea.isReadOnly()) {
         return true;
       }
     }

@@ -71,7 +71,6 @@ public class HtmlUnitInputCheckBox extends HtmlUnitBaseControl<HtmlCheckBoxInput
     HtmlCheckBoxInput tmpHtmlCheckBoxInput = getHtmlElement();
 
     Assert.assertTrue(!tmpHtmlCheckBoxInput.isDisabled(), "elementDisabled", new String[] { getDescribingText() });
-    Assert.assertTrue(!tmpHtmlCheckBoxInput.isReadOnly(), "elementReadOnly", new String[] { getDescribingText() });
 
     try {
       tmpHtmlCheckBoxInput.focus();

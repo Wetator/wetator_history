@@ -71,7 +71,6 @@ public class HtmlUnitInputRadioButton extends HtmlUnitBaseControl<HtmlRadioButto
     HtmlRadioButtonInput tmpHtmlRadioButtonInput = getHtmlElement();
 
     Assert.assertTrue(!tmpHtmlRadioButtonInput.isDisabled(), "elementDisabled", new String[] { getDescribingText() });
-    Assert.assertTrue(!tmpHtmlRadioButtonInput.isReadOnly(), "elementReadOnly", new String[] { getDescribingText() });
 
     try {
       if (!tmpHtmlRadioButtonInput.isChecked()) {

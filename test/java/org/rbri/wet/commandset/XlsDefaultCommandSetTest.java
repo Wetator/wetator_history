@@ -110,7 +110,7 @@ public class XlsDefaultCommandSetTest extends AbstractWebServerTest {
   public void assertDisabled() {
     executeTestFile("assert_disabled.xls");
 
-    Assert.assertEquals(51, getSteps());
+    Assert.assertEquals(54, getSteps());
     Assert.assertEquals(0, getFailures());
     Assert.assertEquals(0, getErrors());
   }
