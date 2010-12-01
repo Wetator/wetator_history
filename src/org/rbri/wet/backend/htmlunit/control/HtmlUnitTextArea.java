@@ -76,6 +76,7 @@ public class HtmlUnitTextArea extends HtmlUnitBaseControl<HtmlTextArea> implemen
     HtmlTextArea tmpHtmlTextArea = getHtmlElement();
 
     Assert.assertTrue(!tmpHtmlTextArea.isDisabled(), "elementDisabled", new String[] { getDescribingText() });
+    Assert.assertTrue(!tmpHtmlTextArea.isReadOnly(), "elementReadOnly", new String[] { getDescribingText() });
 
     try {
       tmpHtmlTextArea.click();

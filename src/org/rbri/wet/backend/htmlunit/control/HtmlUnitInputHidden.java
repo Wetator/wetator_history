@@ -72,6 +72,7 @@ public class HtmlUnitInputHidden extends HtmlUnitBaseControl<HtmlHiddenInput> im
     HtmlHiddenInput tmpHtmlHiddenInput = getHtmlElement();
 
     Assert.assertTrue(!tmpHtmlHiddenInput.isDisabled(), "elementDisabled", new String[] { getDescribingText() });
+    Assert.assertTrue(!tmpHtmlHiddenInput.isReadOnly(), "elementReadOnly", new String[] { getDescribingText() });
 
     try {
       String tmpValue = aValue.getValue();

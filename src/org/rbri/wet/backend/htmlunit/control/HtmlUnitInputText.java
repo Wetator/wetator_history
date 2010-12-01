@@ -79,6 +79,7 @@ public class HtmlUnitInputText extends HtmlUnitBaseControl<HtmlTextInput> implem
     HtmlTextInput tmpHtmlTextInput = getHtmlElement();
 
     Assert.assertTrue(!tmpHtmlTextInput.isDisabled(), "elementDisabled", new String[] { getDescribingText() });
+    Assert.assertTrue(!tmpHtmlTextInput.isReadOnly(), "elementReadOnly", new String[] { getDescribingText() });
 
     try {
       tmpHtmlTextInput.click();

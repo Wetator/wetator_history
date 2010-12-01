@@ -34,6 +34,7 @@ import org.rbri.wet.util.Assert;
 import com.gargoylesoftware.htmlunit.ScriptException;
 import com.gargoylesoftware.htmlunit.html.DisabledElement;
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
+import com.gargoylesoftware.htmlunit.html.HtmlInput;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlParagraph;
 import com.gargoylesoftware.htmlunit.html.HtmlSpan;
@@ -161,15 +162,32 @@ public class HtmlUnitBaseControl<T extends HtmlElement> implements Control {
   @Override
   public boolean isDisabled(final WetContext aWetContext) throws AssertionFailedException {
     HtmlElement tmpHtmlElement = getHtmlElement();
+    boolean tmpSupported = false;
 
     if (tmpHtmlElement instanceof DisabledElement) {
       DisabledElement tmpDisabledElement = (DisabledElement) tmpHtmlElement;
+      tmpSupported = true;
 
-      return tmpDisabledElement.isDisabled();
-    } else if (tmpHtmlElement instanceof HtmlTableDataCell) {
+      if (tmpDisabledElement.isDisabled()) {
+        return true;
+      }
+    }
+    if (tmpHtmlElement instanceof HtmlInput) {
+      HtmlInput tmpHtmlInputElement = (HtmlInput) tmpHtmlElement;
+      tmpSupported = true;
+
+      if (tmpHtmlInputElement.isReadOnly()) {
+        return true;
+      }
+    }
+
+    if (tmpHtmlElement instanceof HtmlTableDataCell) {
       return true;
     }
-    Assert.fail("disabledCheckNotSupported", new String[] { getDescribingText() });
+
+    if (!tmpSupported) {
+      Assert.fail("disabledCheckNotSupported", new String[] { getDescribingText() });
+    }
 
     return false;
   }

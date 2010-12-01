@@ -79,6 +79,7 @@ public class HtmlUnitInputPassword extends HtmlUnitBaseControl<HtmlPasswordInput
     HtmlPasswordInput tmpHtmlPasswordInput = getHtmlElement();
 
     Assert.assertTrue(!tmpHtmlPasswordInput.isDisabled(), "elementDisabled", new String[] { getDescribingText() });
+    Assert.assertTrue(!tmpHtmlPasswordInput.isReadOnly(), "elementReadOnly", new String[] { getDescribingText() });
 
     try {
       tmpHtmlPasswordInput.click();

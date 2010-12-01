@@ -66,4 +66,28 @@ public class HtmlUnitBaseControlTest {
 
     Assert.assertFalse(tmpControl.isDisabled(null));
   }
+
+  @Test
+  public void isDisabled_ReadOnlyAndDisabled() throws IOException, AssertionFailedException {
+    String tmpHtmlCode = "<html><body>" + "<form action='test'>"
+        + "<input type='text' id='myId' name='MyName' value='value' readonly='readonly' disabled='disabled'/>"
+        + "</form>" + "</body></html>";
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+
+    HtmlUnitBaseControl<?> tmpControl = new HtmlUnitBaseControl<HtmlElement>(tmpHtmlPage.getElementById("myId"));
+
+    Assert.assertTrue(tmpControl.isDisabled(null));
+  }
+
+  @Test
+  public void isDisabled_ReadOnly() throws IOException, AssertionFailedException {
+    String tmpHtmlCode = "<html><body>" + "<form action='test'>"
+        + "<input type='text' id='myId' name='MyName' value='value' readonly='readonly'/>" + "</form>"
+        + "</body></html>";
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+
+    HtmlUnitBaseControl<?> tmpControl = new HtmlUnitBaseControl<HtmlElement>(tmpHtmlPage.getElementById("myId"));
+
+    Assert.assertTrue(tmpControl.isDisabled(null));
+  }
 }

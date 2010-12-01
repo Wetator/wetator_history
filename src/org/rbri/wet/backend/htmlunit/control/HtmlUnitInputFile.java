@@ -78,6 +78,7 @@ public class HtmlUnitInputFile extends HtmlUnitBaseControl<HtmlFileInput> implem
     HtmlFileInput tmpHtmlFileInput = getHtmlElement();
 
     Assert.assertTrue(!tmpHtmlFileInput.isDisabled(), "elementDisabled", new String[] { getDescribingText() });
+    Assert.assertTrue(!tmpHtmlFileInput.isReadOnly(), "elementReadOnly", new String[] { getDescribingText() });
 
     try {
       tmpHtmlFileInput.click();
