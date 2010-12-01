@@ -446,7 +446,7 @@ public class XlsDefaultCommandSetTest extends AbstractWebServerTest {
   public void set() {
     executeTestFile("set.xls");
 
-    Assert.assertEquals(214, getSteps());
+    Assert.assertEquals(217, getSteps());
     Assert.assertEquals(0, getFailures());
     Assert.assertEquals(0, getErrors());
   }
