@@ -50,3 +50,7 @@ frank.danek 2010-11-27 01:40: die suche nach dem problem ging vom aufstehen bis 
 	genau, da steht kein leerzeichen. ich hab mir das aber nochmal etwas weiter angeschaut. im normalfall ist das vollkommen korrekt, dass da kein
 	leerzeichen steht. zwei <span> hintereinander werden auch im browser ohne leerzeichen dargestellt. ist halt beim tooltip blöd, weil niemand
 	darauf kommt, das ohne leerzeichen im test aufzuschreiben. reden wir montag drüber.
+	
+frank.danek 2010-12-02 23:00: hallo ronald. für diese ganze event-geschichte wäre es, glaube ich, ziemlich nützlich, wenn wir mal definieren, was
+	die actionen bei den verschiedenen controls eigentlich bedeuten (sollen). ich schreib da mal was zusammen, wenn ich wieder zeit habe. aber
+	heute nicht mehr...
