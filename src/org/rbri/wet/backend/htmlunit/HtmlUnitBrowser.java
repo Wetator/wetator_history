@@ -792,7 +792,7 @@ public final class HtmlUnitBrowser implements WetBackend {
   /**
    * {@inheritDoc}
    * 
-   * @see org.rbri.wet.backend.WetBackend#saveBookmark(java.lang.String, java.lang.String)
+   * @see org.rbri.wet.backend.WetBackend#saveBookmark(java.lang.String, java.net.URL)
    */
   @Override
   public void saveBookmark(String aBookmarkName, URL aBookmarkUrl) {
