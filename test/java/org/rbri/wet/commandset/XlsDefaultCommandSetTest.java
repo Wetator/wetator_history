@@ -207,16 +207,66 @@ public class XlsDefaultCommandSetTest extends AbstractWebServerTest {
 
   @Test
   @Browsers({ Browser.FIREFOX_3_6 })
-  public void eventMouseOverFF36() {
-    executeTestFile("ff3/event_mouseOver.xls");
+  public void eventClickFF36() {
+    executeTestFile("ff3/event_click.xls");
 
-    Assert.assertEquals(74, getSteps());
-    Assert.assertEquals(5, getFailures());
+    Assert.assertEquals(63, getSteps());
+    Assert.assertEquals(16, getFailures());
     Assert.assertEquals(0, getErrors());
   }
 
   @Test
-  public void eventHandler() {
+  @Browsers({ Browser.INTERNET_EXPLORER_6 })
+  public void eventClickIE6() {
+    executeTestFile("ie6/event_click.xls");
+
+    Assert.assertEquals(63, getSteps());
+    Assert.assertEquals(16, getFailures());
+    Assert.assertEquals(0, getErrors());
+  }
+
+  @Test
+  @Browsers({ Browser.INTERNET_EXPLORER_8 })
+  public void eventClickIE8() {
+    executeTestFile("ie8/event_click.xls");
+
+    Assert.assertEquals(63, getSteps());
+    Assert.assertEquals(16, getFailures());
+    Assert.assertEquals(0, getErrors());
+  }
+
+  @Test
+  @Browsers({ Browser.FIREFOX_3_6 })
+  public void eventDeselectFF36() {
+    executeTestFile("ff3/event_deselect.xls");
+
+    Assert.assertEquals(20, getSteps());
+    Assert.assertEquals(2, getFailures());
+    Assert.assertEquals(0, getErrors());
+  }
+
+  @Test
+  @Browsers({ Browser.INTERNET_EXPLORER_6 })
+  public void eventDeselectIE6() {
+    executeTestFile("ie6/event_deselect.xls");
+
+    Assert.assertEquals(20, getSteps());
+    Assert.assertEquals(2, getFailures());
+    Assert.assertEquals(0, getErrors());
+  }
+
+  @Test
+  @Browsers({ Browser.INTERNET_EXPLORER_8 })
+  public void eventDeselectIE8() {
+    executeTestFile("ie8/event_deselect.xls");
+
+    Assert.assertEquals(20, getSteps());
+    Assert.assertEquals(2, getFailures());
+    Assert.assertEquals(0, getErrors());
+  }
+
+  @Test
+  public void eventHandlerOLD() {
     executeTestFile("event_handler.xls");
 
     Assert.assertEquals(72, getSteps());
@@ -226,7 +276,7 @@ public class XlsDefaultCommandSetTest extends AbstractWebServerTest {
 
   @Test
   @Browsers({ Browser.INTERNET_EXPLORER_6 })
-  public void eventHandlerIE6() {
+  public void eventHandlerOLDIE6() {
     executeTestFile("ie6/event_handler.xls");
 
     Assert.assertEquals(81, getSteps());
@@ -236,11 +286,71 @@ public class XlsDefaultCommandSetTest extends AbstractWebServerTest {
 
   @Test
   @Browsers({ Browser.FIREFOX_3_6 })
-  public void eventHandlerFF36() {
+  public void eventHandlerOLDFF36() {
     executeTestFile("ff3/event_handler.xls");
 
     Assert.assertEquals(81, getSteps());
     Assert.assertEquals(19, getFailures());
+    Assert.assertEquals(0, getErrors());
+  }
+
+  @Test
+  @Browsers({ Browser.FIREFOX_3_6 })
+  public void eventMouseOverFF36() {
+    executeTestFile("ff3/event_mouseOver.xls");
+
+    Assert.assertEquals(74, getSteps());
+    Assert.assertEquals(5, getFailures());
+    Assert.assertEquals(0, getErrors());
+  }
+
+  @Test
+  @Browsers({ Browser.INTERNET_EXPLORER_6 })
+  public void eventMouseOverIE6() {
+    executeTestFile("ie6/event_mouseOver.xls");
+
+    Assert.assertEquals(74, getSteps());
+    Assert.assertEquals(16, getFailures());
+    Assert.assertEquals(0, getErrors());
+  }
+
+  @Test
+  @Browsers({ Browser.INTERNET_EXPLORER_8 })
+  public void eventMouseOverIE8() {
+    executeTestFile("ie8/event_mouseOver.xls");
+
+    Assert.assertEquals(74, getSteps());
+    Assert.assertEquals(16, getFailures());
+    Assert.assertEquals(0, getErrors());
+  }
+
+  @Test
+  @Browsers({ Browser.FIREFOX_3_6 })
+  public void eventSelectFF36() {
+    executeTestFile("ff3/event_select.xls");
+
+    Assert.assertEquals(30, getSteps());
+    Assert.assertEquals(4, getFailures());
+    Assert.assertEquals(0, getErrors());
+  }
+
+  @Test
+  @Browsers({ Browser.INTERNET_EXPLORER_6 })
+  public void eventSelectIE6() {
+    executeTestFile("ie6/event_select.xls");
+
+    Assert.assertEquals(30, getSteps());
+    Assert.assertEquals(4, getFailures());
+    Assert.assertEquals(0, getErrors());
+  }
+
+  @Test
+  @Browsers({ Browser.INTERNET_EXPLORER_8 })
+  public void eventSelectIE8() {
+    executeTestFile("ie8/event_select.xls");
+
+    Assert.assertEquals(30, getSteps());
+    Assert.assertEquals(4, getFailures());
     Assert.assertEquals(0, getErrors());
   }
 

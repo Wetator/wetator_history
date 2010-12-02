@@ -175,14 +175,25 @@ test/excel/deselect_checkbox.xls -text
 test/excel/deselect_multipleSelect.xls -text
 test/excel/event_handler.xls -text
 test/excel/exec_java.xls -text
+test/excel/ff3/event_click.xls -text
+test/excel/ff3/event_deselect.xls -text
 test/excel/ff3/event_handler.xls -text
 test/excel/ff3/event_mouseOver.xls -text
+test/excel/ff3/event_select.xls -text
 test/excel/flow_simple_login.xls -text
 test/excel/flow_simple_search.xls -text
 test/excel/go_back.xls -text
 test/excel/header.xls -text
 test/excel/htmlunit_javascript.xls -text
+test/excel/ie6/event_click.xls -text
+test/excel/ie6/event_deselect.xls -text
 test/excel/ie6/event_handler.xls -text
+test/excel/ie6/event_mouseOver.xls -text
+test/excel/ie6/event_select.xls -text
+test/excel/ie8/event_click.xls -text
+test/excel/ie8/event_deselect.xls -text
+test/excel/ie8/event_mouseOver.xls -text
+test/excel/ie8/event_select.xls -text
 test/excel/jquery.xls -text
 test/excel/jquery/modal_confirmation.xls -text
 test/excel/js_error.xls -text
@@ -400,7 +411,7 @@ webpages/testcases/download/unknown_content_type.bin -text
 webpages/testcases/download/wet_test.pdf -text
 webpages/testcases/download/wet_test.xls -text
 webpages/testcases/event_handler.html -text svneol=unset#text/plain
-webpages/testcases/event_handler_mouse.html -text svneol=unset#text/plain
+webpages/testcases/event_handler_old.html -text svneol=unset#text/plain
 webpages/testcases/favicon.ico -text
 webpages/testcases/htmlunit_javascript.html -text
 webpages/testcases/http_header.php -text

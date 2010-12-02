@@ -28,11 +28,6 @@
         </td>
       </tr>
       <tr valign='top' bgcolor='eeeeee'>
-        <td onmouseover="document.getElementById('onFocusError').focus()" >
-          Sample text for mouse over.
-        </td>
-      </tr>
-      <tr valign='top' bgcolor='eeeeee'>
         <td>
           <label for="onFocusText">OnFocus</label>
           <input type="text" id="onFocusText" name="onFocusText" onfocus="document.getElementById('onFocusError').focus()">
@@ -71,8 +66,13 @@
           <input type="submit" name="JavaScriptErrorTest" value="OK">
         </td>
       </tr>
-    </table>
 
+      <tr valign='top' bgcolor='eeeeee'>
+        <td onmouseover="document.getElementById('onFocusError').focus()" >
+          Sample text for mouse over.
+        </td>
+      </tr>
+    </table>
     </form>
   </div>
 
