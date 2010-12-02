@@ -175,7 +175,7 @@ test/excel/deselect_checkbox.xls -text
 test/excel/deselect_multipleSelect.xls -text
 test/excel/event_handler.xls -text
 test/excel/exec_java.xls -text
-test/excel/ff3/event_click.xls -text
+test/excel/ff3/event_clickOn.xls -text
 test/excel/ff3/event_deselect.xls -text
 test/excel/ff3/event_handler.xls -text
 test/excel/ff3/event_mouseOver.xls -text
@@ -185,12 +185,12 @@ test/excel/flow_simple_search.xls -text
 test/excel/go_back.xls -text
 test/excel/header.xls -text
 test/excel/htmlunit_javascript.xls -text
-test/excel/ie6/event_click.xls -text
+test/excel/ie6/event_clickOn.xls -text
 test/excel/ie6/event_deselect.xls -text
 test/excel/ie6/event_handler.xls -text
 test/excel/ie6/event_mouseOver.xls -text
 test/excel/ie6/event_select.xls -text
-test/excel/ie8/event_click.xls -text
+test/excel/ie8/event_clickOn.xls -text
 test/excel/ie8/event_deselect.xls -text
 test/excel/ie8/event_mouseOver.xls -text
 test/excel/ie8/event_select.xls -text

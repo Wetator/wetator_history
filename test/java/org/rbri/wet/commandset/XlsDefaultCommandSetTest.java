@@ -207,8 +207,8 @@ public class XlsDefaultCommandSetTest extends AbstractWebServerTest {
 
   @Test
   @Browsers({ Browser.FIREFOX_3_6 })
-  public void eventClickFF36() {
-    executeTestFile("ff3/event_click.xls");
+  public void eventClickOnFF36() {
+    executeTestFile("ff3/event_clickOn.xls");
 
     Assert.assertEquals(63, getSteps());
     Assert.assertEquals(16, getFailures());
@@ -217,8 +217,8 @@ public class XlsDefaultCommandSetTest extends AbstractWebServerTest {
 
   @Test
   @Browsers({ Browser.INTERNET_EXPLORER_6 })
-  public void eventClickIE6() {
-    executeTestFile("ie6/event_click.xls");
+  public void eventClickOnIE6() {
+    executeTestFile("ie6/event_clickOn.xls");
 
     Assert.assertEquals(63, getSteps());
     Assert.assertEquals(16, getFailures());
@@ -227,8 +227,8 @@ public class XlsDefaultCommandSetTest extends AbstractWebServerTest {
 
   @Test
   @Browsers({ Browser.INTERNET_EXPLORER_8 })
-  public void eventClickIE8() {
-    executeTestFile("ie8/event_click.xls");
+  public void eventClickOnIE8() {
+    executeTestFile("ie8/event_clickOn.xls");
 
     Assert.assertEquals(63, getSteps());
     Assert.assertEquals(16, getFailures());
