@@ -250,6 +250,7 @@ test/java/org/rbri/wet/commandset/TestCommandSet.java -text
 test/java/org/rbri/wet/commandset/XlsDefaultCommandSetTest.java -text svneol=unset#text/plain
 test/java/org/rbri/wet/commandset/XlsSqlCommandSetTest.java -text svneol=unset#text/plain
 test/java/org/rbri/wet/commandset/XmlDefaultCommandSetTest.java -text svneol=unset#text/plain
+test/java/org/rbri/wet/commandset/XmlEventHandlingTest.java -text svneol=unset#text/plain
 test/java/org/rbri/wet/commandset/XmlIncubatorCommandSetTest.java -text
 test/java/org/rbri/wet/commandset/XmlSqlCommandSetTest.java -text svneol=unset#text/plain
 test/java/org/rbri/wet/core/AllTests.java -text
@@ -313,11 +314,25 @@ test/xml/deselect_multipleSelect.xml -text svneol=unset#text/plain
 test/xml/dtd/testcase.dtd -text svneol=unset#text/plain
 test/xml/event_handler.xml -text svneol=unset#text/plain
 test/xml/exec_java.xml -text svneol=unset#text/plain
+test/xml/ff36/event_clickOn.wet -text
+test/xml/ff36/event_deselect.wet -text
+test/xml/ff36/event_handler.wet -text
+test/xml/ff36/event_mouseOver.wet -text
+test/xml/ff36/event_select.wet -text
 test/xml/flow_simple_login.xml -text svneol=unset#text/plain
 test/xml/flow_simple_search.xml -text svneol=unset#text/plain
 test/xml/go_back.xml -text svneol=unset#text/plain
 test/xml/header.xml -text svneol=unset#text/plain
 test/xml/htmlunit_javascript.xml -text svneol=unset#text/plain
+test/xml/ie6/event_clickOn.wet -text
+test/xml/ie6/event_deselect.wet -text
+test/xml/ie6/event_handler.wet -text
+test/xml/ie6/event_mouseOver.wet -text
+test/xml/ie6/event_select.wet -text
+test/xml/ie8/event_clickOn.wet -text
+test/xml/ie8/event_deselect.wet -text
+test/xml/ie8/event_mouseOver.wet -text
+test/xml/ie8/event_select.wet -text
 test/xml/incubator/assert_focus.xml -text
 test/xml/incubator/bookmark.xml -text
 test/xml/jquery.xml -text svneol=unset#text/plain
