@@ -32,12 +32,12 @@ import org.rbri.wet.test.junit.BrowserRunner.Browsers;
 @RunWith(BrowserRunner.class)
 public class XmlSqlCommandSetTest extends AbstractWebServerTest {
 
-  private static final String BASE_FOLDER = "test/xml/";
+  private static final String BASE_FOLDER = "test/xml/sql/";
 
   @Test
-  @Browsers( { Browser.FIREFOX_3_6, Browser.INTERNET_EXPLORER_6, Browser.INTERNET_EXPLORER_8 })
+  @Browsers({ Browser.FIREFOX_3_6, Browser.INTERNET_EXPLORER_6, Browser.INTERNET_EXPLORER_8 })
   public void sql() {
-    executeTestFile("sql.xml");
+    executeTestFile("sql.wet");
 
     Assert.assertEquals(40, getSteps());
     Assert.assertEquals(0, getFailures());
