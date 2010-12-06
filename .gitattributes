@@ -292,38 +292,37 @@ test/java/org/rbri/wet/util/NormalizedStringTest.java -text svneol=unset#text/pl
 test/java/org/rbri/wet/util/StringUtilTest.java -text
 test/java/org/rbri/wet/util/VariableReplaceUtilUtilTest.java -text
 test/java/org/rbri/wet/util/XmlUtilTest.java -text
-test/xml/ajax_jquery.xml -text svneol=unset#text/plain
-test/xml/ajax_prototype.xml -text svneol=unset#text/plain
-test/xml/anchor_inside_page.xml -text svneol=unset#text/plain
-test/xml/assert_content.xml -text svneol=unset#text/plain
-test/xml/assert_deselected_checkbox.xml -text svneol=unset#text/plain
-test/xml/assert_deselected_multipleSelect.xml -text svneol=unset#text/plain
-test/xml/assert_deselected_radio.xml -text svneol=unset#text/plain
-test/xml/assert_deselected_singleSelect.xml -text svneol=unset#text/plain
-test/xml/assert_disabled.xml -text svneol=unset#text/plain
-test/xml/assert_selected_checkbox.xml -text svneol=unset#text/plain
-test/xml/assert_selected_multipleSelect.xml -text svneol=unset#text/plain
-test/xml/assert_selected_radio.xml -text svneol=unset#text/plain
-test/xml/assert_selected_singleSelect.xml -text svneol=unset#text/plain
-test/xml/assert_set.xml -text svneol=unset#text/plain
-test/xml/assert_title.xml -text svneol=unset#text/plain
-test/xml/click_after_text.xml -text svneol=unset#text/plain
-test/xml/click_on.xml -text svneol=unset#text/plain
-test/xml/deselect_checkbox.xml -text svneol=unset#text/plain
-test/xml/deselect_multipleSelect.xml -text svneol=unset#text/plain
+test/xml/ajax_jquery.wet -text svneol=unset#text/plain
+test/xml/ajax_prototype.wet -text svneol=unset#text/plain
+test/xml/assert_content.wet -text svneol=unset#text/plain
+test/xml/assert_deselected_checkbox.wet -text svneol=unset#text/plain
+test/xml/assert_deselected_multipleSelect.wet -text svneol=unset#text/plain
+test/xml/assert_deselected_radio.wet -text svneol=unset#text/plain
+test/xml/assert_deselected_singleSelect.wet -text svneol=unset#text/plain
+test/xml/assert_disabled.wet -text svneol=unset#text/plain
+test/xml/assert_selected_checkbox.wet -text svneol=unset#text/plain
+test/xml/assert_selected_multipleSelect.wet -text svneol=unset#text/plain
+test/xml/assert_selected_radio.wet -text svneol=unset#text/plain
+test/xml/assert_selected_singleSelect.wet -text svneol=unset#text/plain
+test/xml/assert_set.wet -text svneol=unset#text/plain
+test/xml/assert_title.wet -text svneol=unset#text/plain
+test/xml/click_on.wet -text svneol=unset#text/plain
+test/xml/click_on_after_text.wet -text svneol=unset#text/plain
+test/xml/click_on_anchor_inside_page.wet -text
+test/xml/deselect_checkbox.wet -text svneol=unset#text/plain
+test/xml/deselect_multipleSelect.wet -text svneol=unset#text/plain
 test/xml/dtd/testcase.dtd -text svneol=unset#text/plain
-test/xml/event_handler.xml -text svneol=unset#text/plain
-test/xml/exec_java.xml -text svneol=unset#text/plain
+test/xml/event_handler.wet -text svneol=unset#text/plain
+test/xml/exec_java.wet -text svneol=unset#text/plain
 test/xml/ff36/event_clickOn.wet -text
 test/xml/ff36/event_deselect.wet -text
 test/xml/ff36/event_handler.wet -text
 test/xml/ff36/event_mouseOver.wet -text
 test/xml/ff36/event_select.wet -text
-test/xml/flow_simple_login.xml -text svneol=unset#text/plain
-test/xml/flow_simple_search.xml -text svneol=unset#text/plain
-test/xml/go_back.xml -text svneol=unset#text/plain
-test/xml/header.xml -text svneol=unset#text/plain
-test/xml/htmlunit_javascript.xml -text svneol=unset#text/plain
+test/xml/flow_simple_login.wet -text svneol=unset#text/plain
+test/xml/flow_simple_search.wet -text svneol=unset#text/plain
+test/xml/go_back.wet -text svneol=unset#text/plain
+test/xml/htmlunit_javascript.wet -text svneol=unset#text/plain
 test/xml/ie6/event_clickOn.wet -text
 test/xml/ie6/event_deselect.wet -text
 test/xml/ie6/event_handler.wet -text
@@ -335,30 +334,33 @@ test/xml/ie8/event_mouseOver.wet -text
 test/xml/ie8/event_select.wet -text
 test/xml/incubator/assert_focus.xml -text
 test/xml/incubator/bookmark.xml -text
-test/xml/jquery.xml -text svneol=unset#text/plain
+test/xml/jquery.wet -text svneol=unset#text/plain
 test/xml/jquery/modal_confirmation.xml -text svneol=unset#text/plain
-test/xml/js_error.xml -text svneol=unset#text/plain
-test/xml/js_libs.xml -text svneol=unset#text/plain
+test/xml/js_anchor_inside_page.wet -text svneol=unset#text/plain
+test/xml/js_error.wet -text svneol=unset#text/plain
+test/xml/js_libs.wet -text svneol=unset#text/plain
 test/xml/misc_files/test_file.txt -text svneol=unset#text/plain
 test/xml/modules/module.xml -text svneol=unset#text/plain
 test/xml/modules/module_with_parameters.xml -text svneol=unset#text/plain
-test/xml/mouse_over.xml -text svneol=unset#text/plain
-test/xml/mouse_over_after.xml -text svneol=unset#text/plain
-test/xml/normalize_command.xml -text svneol=unset#text/plain
-test/xml/onfocus_onblur.xml -text svneol=unset#text/plain
-test/xml/onkey.xml -text svneol=unset#text/plain
-test/xml/open_url.xml -text svneol=unset#text/plain
-test/xml/redirect.xml -text svneol=unset#text/plain
-test/xml/select_checkbox.xml -text svneol=unset#text/plain
-test/xml/select_checkbox_after.xml -text svneol=unset#text/plain
-test/xml/select_multipleSelect.xml -text svneol=unset#text/plain
-test/xml/select_radio.xml -text svneol=unset#text/plain
-test/xml/select_singleSelect.xml -text svneol=unset#text/plain
-test/xml/set.xml -text svneol=unset#text/plain
-test/xml/set_upload.xml -text svneol=unset#text/plain
+test/xml/mouse_over.wet -text svneol=unset#text/plain
+test/xml/mouse_over_after.wet -text svneol=unset#text/plain
+test/xml/normalize_command.wet -text svneol=unset#text/plain
+test/xml/onfocus_onblur.wet -text svneol=unset#text/plain
+test/xml/onkey.wet -text svneol=unset#text/plain
+test/xml/open_url.wet -text svneol=unset#text/plain
+test/xml/open_url_anchor_inside_page.wet -text
+test/xml/open_url_header.wet -text svneol=unset#text/plain
+test/xml/open_url_redirect.wet -text svneol=unset#text/plain
+test/xml/select_checkbox.wet -text svneol=unset#text/plain
+test/xml/select_checkbox_after.wet -text svneol=unset#text/plain
+test/xml/select_multipleSelect.wet -text svneol=unset#text/plain
+test/xml/select_radio.wet -text svneol=unset#text/plain
+test/xml/select_singleSelect.wet -text svneol=unset#text/plain
+test/xml/set.wet -text svneol=unset#text/plain
+test/xml/set_upload.wet -text svneol=unset#text/plain
 test/xml/sql/sql.wet -text svneol=unset#text/plain
-test/xml/use_module.xml -text svneol=unset#text/plain
-test/xml/wait.xml -text svneol=unset#text/plain
+test/xml/use_module.wet -text svneol=unset#text/plain
+test/xml/wait.wet -text svneol=unset#text/plain
 test/xml/xsd/defaultCommandSet.xsd -text svneol=unset#text/plain
 test/xml/xsd/sqlCommandSet.xsd -text svneol=unset#text/plain
 test/xml/xsd/testCommandSet.xsd -text svneol=unset#text/plain
