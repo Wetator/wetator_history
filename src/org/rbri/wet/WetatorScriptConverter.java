@@ -51,8 +51,8 @@ public final class WetatorScriptConverter {
 
     if (null == anArgsArray || anArgsArray.length < 3) {
       System.err.println("Parameters: <scripter> <script creator> <outputDir> (<dtd type> <dtd>)");
-      System.err.println("example1: xsl xml /Users/me/tests");
-      System.err.println("example2: xsl xml /Users/me/tests SYSTEM testcase.dtd");
+      System.err.println("example1: xls xml /Users/me/tests");
+      System.err.println("example2: xls xml /Users/me/tests SYSTEM testcase.dtd");
       System.exit(1);
       return;
     }
