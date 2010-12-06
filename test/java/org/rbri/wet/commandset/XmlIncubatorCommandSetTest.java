@@ -20,16 +20,22 @@ import java.io.File;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.rbri.wet.backend.WetBackend.Browser;
 import org.rbri.wet.test.AbstractWebServerTest;
+import org.rbri.wet.test.junit.BrowserRunner;
+import org.rbri.wet.test.junit.BrowserRunner.Browsers;
 
 /**
  * @author frank.danek
  */
+@RunWith(BrowserRunner.class)
 public class XmlIncubatorCommandSetTest extends AbstractWebServerTest {
 
   private static final String BASE_FOLDER = "test/xml/incubator/";
 
   @Test
+  @Browsers({ Browser.FIREFOX_3_6, Browser.INTERNET_EXPLORER_6, Browser.INTERNET_EXPLORER_8 })
   public void bookmark() {
     executeTestFile("bookmark.xml");
 

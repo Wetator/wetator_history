@@ -252,6 +252,7 @@ test/java/org/rbri/wet/commandset/XlsSqlCommandSetTest.java -text svneol=unset#t
 test/java/org/rbri/wet/commandset/XmlDefaultCommandSetTest.java -text svneol=unset#text/plain
 test/java/org/rbri/wet/commandset/XmlEventHandlingTest.java -text svneol=unset#text/plain
 test/java/org/rbri/wet/commandset/XmlIncubatorCommandSetTest.java -text
+test/java/org/rbri/wet/commandset/XmlOtherTest.java -text svneol=unset#text/plain
 test/java/org/rbri/wet/commandset/XmlSqlCommandSetTest.java -text svneol=unset#text/plain
 test/java/org/rbri/wet/core/AllTests.java -text
 test/java/org/rbri/wet/core/WetCommandTest.java -text
