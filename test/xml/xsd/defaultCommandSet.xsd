@@ -31,7 +31,6 @@
       <xs:enumeration value="Assert_Selected" />
       <xs:enumeration value="Assert_Set" />
       <xs:enumeration value="Assert_Title" />
-      <xs:enumeration value="Click_After_Text" />
       <xs:enumeration value="Click_On" />
       <xs:enumeration value="Close_Window" />
       <xs:enumeration value="Comment" />
