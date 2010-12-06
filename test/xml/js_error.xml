@@ -23,7 +23,7 @@
     <tst:step command='Assert_Fail'>Set, Executing javascript on page failed (reason: 'TypeError: Cannot call method "focus" of null').<tst:optionalParameter>OnFocus</tst:optionalParameter><tst:optionalParameter2>value1</tst:optionalParameter2></tst:step>
     <step command='Click_On'>OK</step>
     <step command='Assert_Title'>Wetator / Request Snoopy</step>
-    <step command='Assert_Content'>Key, Value, onFocusText, value1, onBlurText, onBlurSecondText</step>
+    <step command='Assert_Content'>Key Value JavaScriptErrorTest OK onBlurSecondText onBlurText onChangeText onFocusText value1</step>
     <step command='Comment'>OnBlur</step>
     <tst:step command='Assert_Fail'>Open Url, Executing javascript on page failed (reason: 'TypeError: Cannot call method "focus" of null').<tst:optionalParameter>javascript_error.html</tst:optionalParameter></tst:step>
     <step command='Assert_Title'>Wetator / JavaScript Error</step>
@@ -31,7 +31,7 @@
     <tst:step command='Assert_Fail'>Set, Executing javascript on page failed (reason: 'TypeError: Cannot call method "focus" of null').<tst:optionalParameter>Second</tst:optionalParameter><tst:optionalParameter2>value2</tst:optionalParameter2></tst:step>
     <step command='Click_On'>OK</step>
     <step command='Assert_Title'>Wetator / Request Snoopy</step>
-    <step command='Assert_Content'>Key, Value, onFocusText, onBlurText, value1, onBlurSecondText, value2</step>
+    <step command='Assert_Content'>Key Value JavaScriptErrorTest OK onBlurSecondText value2 onBlurText value1 onChangeText onFocusText</step>
     <step command='Comment'>Set / onChange</step>
     <tst:step command='Assert_Fail'>Open Url, Executing javascript on page failed (reason: 'TypeError: Cannot call method "focus" of null').<tst:optionalParameter>javascript_error.html</tst:optionalParameter></tst:step>
     <step command='Assert_Title'>Wetator / JavaScript Error</step>
@@ -39,13 +39,13 @@
     <tst:step command='Assert_Fail'>Set, Executing javascript on page failed (reason: 'TypeError: Cannot call method "focus" of null').<tst:optionalParameter>Second</tst:optionalParameter><tst:optionalParameter2>value2</tst:optionalParameter2></tst:step>
     <step command='Click_On'>OK</step>
     <step command='Assert_Title'>Wetator / Request Snoopy</step>
-    <step command='Assert_Content'>Key, Value, onFocusText, onBlurText, onBlurSecondText, onChangeText, value1</step>
+    <step command='Assert_Content'>Key Value JavaScriptErrorTest OK onBlurSecondText value2 onBlurText onChangeText value1 onFocusText</step>
     <step command='Comment'>Select / onChange</step>
     <tst:step command='Assert_Fail'>Open Url, Executing javascript on page failed (reason: 'TypeError: Cannot call method "focus" of null').<tst:optionalParameter>javascript_error.html</tst:optionalParameter></tst:step>
     <step command='Assert_Title'>Wetator / JavaScript Error</step>
     <step command='Comment'>Bug in HtmlUnit; value not updated if onChange script fails</step>
     <tst:step command='Assert_Fail'>Select, Executing javascript on page failed (reason: 'TypeError: Cannot call method "focus" of null').<tst:optionalParameter>OnChange (Select), option2</tst:optionalParameter></tst:step>
     <step command='Click_On'>OK</step>
-    <step command='Assert_Title'>WeT / Request Snoopy</step>
-    <step command='Assert_Content'>Key, Value, onFocusText, onBlurText, onBlurSecondText, onChangeSelect, o_value2</step>
+    <step command='Assert_Title'>Wetator / Request Snoopy</step>
+    <step command='Assert_Content'>Key Value JavaScriptErrorTest OK onBlurSecondText onBlurText onChangeSelect o_value2 onChangeText onFocusText</step>
 </testcase>
