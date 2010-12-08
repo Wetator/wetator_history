@@ -114,10 +114,22 @@ public interface WetBackend {
     }
   };
 
+  /**
+   * Returns the {@link ControlFinder} for this backend.
+   * Every supported backend has his own ControlFinder.
+   * 
+   * @return the ControlFinder for this backend.
+   * @throws AssertionFailedException in case of error
+   */
   public ControlFinder getControlFinder() throws AssertionFailedException;
 
   public void openUrl(URL aUrl) throws AssertionFailedException;
 
+  /**
+   * Wait until the 'immediate' javascript jobs are finished.
+   * 
+   * @throws AssertionFailedException in case of error
+   */
   public void waitForImmediateJobs() throws AssertionFailedException;
 
   public String waitForTitle(List<SecretString> aTitleToWaitFor, long aTimeoutInSeconds)

@@ -123,6 +123,9 @@ public final class WetEngine {
     files.add(aFile);
   }
 
+  /**
+   * Executes the tests.
+   */
   public void executeTests() {
     addProgressListener(new WetResultWriter());
 

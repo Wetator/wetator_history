@@ -186,6 +186,11 @@ public class WetContext {
     }
   }
 
+  /**
+   * Processes the associated test file by<br>
+   * reading all the command from the file and <br>
+   * executing every single command.
+   */
   public void execute() {
     File tmpFile = getFile();
 
