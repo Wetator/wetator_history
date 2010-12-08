@@ -420,6 +420,7 @@ webpages/testcases/event_handler_old.html -text svneol=unset#text/plain
 webpages/testcases/favicon.ico -text
 webpages/testcases/htmlunit_javascript.html -text
 webpages/testcases/http_header.php -text
+webpages/testcases/javascript_boxover.html -text
 webpages/testcases/javascript_error.html -text
 webpages/testcases/javascript_jquery.html -text
 webpages/testcases/javascript_sarissa.html -text
@@ -427,6 +428,12 @@ webpages/testcases/js/SARISSA/SARISSA.JS -text
 webpages/testcases/js/SARISSA/sarissa-compressed.js -text
 webpages/testcases/js/SARISSA/sarissa-ieemu-xpath-compressed.js -text
 webpages/testcases/js/SARISSA/sarissa-ieemu-xpath.js -text
+webpages/testcases/js/boxover/boxover.js -text
+webpages/testcases/js/boxover/doghat1.jpg -text
+webpages/testcases/js/boxover/doghat2.jpg -text
+webpages/testcases/js/boxover/example.html -text
+webpages/testcases/js/boxover/info.gif -text
+webpages/testcases/js/boxover/readme.txt -text
 webpages/testcases/js/jquery/demos/accordion/collapsible.html -text
 webpages/testcases/js/jquery/demos/accordion/custom-icons.html -text
 webpages/testcases/js/jquery/demos/accordion/default.html -text
