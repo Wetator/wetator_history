@@ -12,4 +12,13 @@
     <step command='Open_Url'>javascript_jquery.html</step>
     <step command='Assert_Title'>Wetator / JavaScript jQuery</step>
     <step command='Assert_Content'>jQuery version: 1.2.1</step>
+    <step command='Comment'>boxover test</step>
+    <step command='Open_Url'>javascript_boxover.html</step>
+    <step command='Assert_Content' comment='true'>Wetator / JavaScript boxover</step>
+    <step command='Mouse_Over'>Tootip</step>
+    <step command='Assert_Content'>Some sort of explanation would go here</step>
+    <step command='Mouse_Over'>tooltip with a delay added</step>
+    <step command='Assert_Content'>Delayed tooltip</step>
+    <step command='Mouse_Over'>Move over this for a delay and a fade</step>
+    <step command='Assert_Content'><![CDATA[Tooltip with fade & delay ]]></step>
 </testcase>
