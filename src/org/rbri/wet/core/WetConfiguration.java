@@ -26,9 +26,9 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Properties;
 import java.util.Set;
+import java.util.Map.Entry;
 
 import org.apache.commons.lang.ClassUtils;
 import org.apache.commons.lang.StringUtils;
@@ -383,9 +383,11 @@ public final class WetConfiguration {
 
     // outputDir
     tmpValue = tmpProperties.getProperty(PROPERTY_OUTPUT_DIR, DEFAULT_OUTPUT_DIR);
-    // output dir is relative to the base directory
-    outputDir = new File(aBaseDirectory, tmpValue);
-    FileUtil.createOutputDir(outputDir);
+    outputDir = new File(tmpValue);
+    if (!outputDir.isAbsolute()) {
+      // output dir is relative to the base directory
+      outputDir = new File(aBaseDirectory, tmpValue);
+    }
 
     tmpValue = tmpProperties.getProperty(PROPERTY_DISTINCT_OUTPUT, DEFAULT_DISTINCT_OUTPUT);
     boolean tmpDistinctOutput = Boolean.parseBoolean(tmpValue);
@@ -394,6 +396,8 @@ public final class WetConfiguration {
       SimpleDateFormat tmpFormater = new SimpleDateFormat("yyyy.MM.dd_HH.mm.ss");
       outputDir = new File(outputDir, tmpFormater.format(new Date()));
     }
+
+    FileUtil.createOutputDir(outputDir);
     LOG.info("Config  OutputDir is '" + outputDir.getAbsolutePath() + "'");
 
     // baseUrl
@@ -494,8 +498,12 @@ public final class WetConfiguration {
     tmpParts = StringUtil.extractStrings(tmpValue, ",", '\\');
     for (String tmpString : tmpParts) {
       if (StringUtils.isNotBlank(tmpString)) {
-        // template file is relative to the base directory
-        File tmpTemplateFile = new File(aBaseDirectory, tmpString);
+        File tmpTemplateFile = new File(tmpString);
+
+        if (!tmpTemplateFile.isAbsolute()) {
+          // template file is relative to the base directory
+          tmpTemplateFile = new File(aBaseDirectory, tmpString);
+        }
         if (tmpTemplateFile.exists()) {
           xslTemplates.add(tmpTemplateFile.getAbsolutePath());
         } else {
