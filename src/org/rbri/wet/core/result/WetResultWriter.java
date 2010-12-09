@@ -26,6 +26,7 @@ import org.apache.commons.io.output.FileWriterWithEncoding;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.rbri.wet.Version;
+import org.rbri.wet.backend.WetBackend.Browser;
 import org.rbri.wet.backend.control.Control;
 import org.rbri.wet.commandset.WetCommandSet;
 import org.rbri.wet.core.Parameter;
@@ -37,6 +38,7 @@ import org.rbri.wet.core.WetProgressListener;
 import org.rbri.wet.core.variable.Variable;
 import org.rbri.wet.exception.AssertionFailedException;
 import org.rbri.wet.i18n.Messages;
+import org.rbri.wet.scripter.WetScripter;
 import org.rbri.wet.util.Output;
 import org.rbri.wet.util.SecretString;
 import org.rbri.wet.util.StringUtil;
@@ -131,9 +133,25 @@ public class WetResultWriter implements WetProgressListener {
       printlnStartTag(TAG_CONFIGURATION);
 
       printConfigurationProperty(WetConfiguration.PROPERTY_BASE_URL, tmpWetConfiguration.getBaseUrl());
+      for (Browser tmpBrowser : tmpWetConfiguration.getBrowsers()) {
+        printConfigurationProperty(WetConfiguration.PROPERTY_BROWSER, tmpBrowser.getLabel());
+      }
       printConfigurationProperty(WetConfiguration.PROPERTY_ACCEPT_LANGUAGE, tmpWetConfiguration.getAcceptLanaguage());
       printConfigurationProperty(WetConfiguration.PROPERTY_OUTPUT_DIR, tmpWetConfiguration.getOutputDir()
           .getAbsolutePath());
+      for (String tmpTemplate : tmpWetConfiguration.getXslTemplates()) {
+        printConfigurationProperty(WetConfiguration.PROPERTY_XSL_TEMPLATES, tmpTemplate);
+      }
+      for (WetCommandSet tmpCommandSet : tmpWetConfiguration.getCommandSets()) {
+        printConfigurationProperty(WetConfiguration.PROPERTY_COMMAND_SETS, tmpCommandSet.getClass().getName());
+      }
+      for (Class<? extends Control> tmpControl : tmpWetConfiguration.getControls()) {
+        printConfigurationProperty(WetConfiguration.PROPERTY_CONTROLS, tmpControl.getName());
+      }
+      for (WetScripter tmpScripter : tmpWetConfiguration.getScripters()) {
+        printConfigurationProperty(WetConfiguration.PROPERTY_SCRIPTERS, tmpScripter.getClass().getName());
+      }
+
       printConfigurationProperty(WetConfiguration.PROPERTY_PROXY_HOST, tmpWetConfiguration.getProxyHost());
       printConfigurationProperty(WetConfiguration.PROPERTY_PROXY_PORT, "" + tmpWetConfiguration.getProxyPort());
       // writeConfigurationProperty(WetConfiguration.PROPERTY_PROXY_HOSTS_TO_BYPASS,
