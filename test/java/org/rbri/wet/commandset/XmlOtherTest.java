@@ -119,7 +119,7 @@ public class XmlOtherTest extends AbstractWebServerTest {
   public void jsLibs() {
     executeTestFile("js_libs.wet");
 
-    Assert.assertEquals(6, getSteps());
+    Assert.assertEquals(13, getSteps());
     Assert.assertEquals(0, getFailures());
     Assert.assertEquals(0, getErrors());
   }
