@@ -443,8 +443,10 @@ public final class HtmlUnitBrowser implements WetBackend {
     if (null != tmpCurrentWindow) {
       try {
         Page tmpPage = tmpCurrentWindow.getEnclosedPage();
-        String tmpPageFile = responseStore.storePage(webClient, tmpPage);
-        wetEngine.informListenersResponseStored(tmpPageFile);
+        if (null != tmpPage) {
+          String tmpPageFile = responseStore.storePage(webClient, tmpPage);
+          wetEngine.informListenersResponseStored(tmpPageFile);
+        }
       } catch (WetException e) {
         LOG.fatal("Problem with window handling. Saving page failed!", e);
       }
@@ -771,8 +773,8 @@ public final class HtmlUnitBrowser implements WetBackend {
     for (AssertionFailedException tmpException : failures) {
       Throwable tmpCause = tmpException.getCause();
       if (null != tmpCause) {
-        wetEngine.informListenersWarn("error",
-            new String[] { tmpException.getMessage(), ExceptionUtils.getStackTrace(tmpCause) });
+        wetEngine.informListenersWarn("error", new String[] { tmpException.getMessage(),
+            ExceptionUtils.getStackTrace(tmpCause) });
       }
     }
     failures = new LinkedList<AssertionFailedException>();
