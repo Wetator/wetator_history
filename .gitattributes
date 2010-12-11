@@ -319,7 +319,6 @@ test/xml/click_on_after_text.wet -text svneol=unset#text/plain
 test/xml/click_on_anchor_inside_page.wet -text
 test/xml/deselect_checkbox.wet -text svneol=unset#text/plain
 test/xml/deselect_multipleSelect.wet -text svneol=unset#text/plain
-test/xml/dtd/testcase.dtd -text svneol=unset#text/plain
 test/xml/event_handler.wet -text svneol=unset#text/plain
 test/xml/exec_java.wet -text svneol=unset#text/plain
 test/xml/ff36/event_clickOn.wet -text
@@ -369,9 +368,6 @@ test/xml/set_upload.wet -text svneol=unset#text/plain
 test/xml/sql/sql.wet -text svneol=unset#text/plain
 test/xml/use_module.wet -text svneol=unset#text/plain
 test/xml/wait.wet -text svneol=unset#text/plain
-test/xml/xsd/defaultCommandSet.xsd -text svneol=unset#text/plain
-test/xml/xsd/sqlCommandSet.xsd -text svneol=unset#text/plain
-test/xml/xsd/testCommandSet.xsd -text svneol=unset#text/plain
 webpages/commands/assertcontent.html -text
 webpages/commands/assertdeselected.html -text
 webpages/commands/assertdisabled.html -text
@@ -388,6 +384,7 @@ webpages/commands/select.html -text
 webpages/commands/set.html -text
 webpages/commands/usemodule.html -text
 webpages/contact.png -text
+webpages/dtd/testcase.dtd -text svneol=unset#text/plain
 webpages/images/wetator.png -text
 webpages/images/wetator_banner_small.png -text
 webpages/images/xls_file.jpg -text
@@ -813,8 +810,11 @@ webpages/testcases/testcases.html -text
 webpages/testcases/wait_for.html -text
 webpages/testcases/wait_for2.html -text
 webpages/wet.css -text
+webpages/xsd/defaultCommandSet-1.0.xsd -text svneol=unset#text/plain
 webpages/xsd/defaultCommandSet.xsd -text svneol=unset#text/plain
+webpages/xsd/sqlCommandSet-1.0.xsd -text svneol=unset#text/plain
 webpages/xsd/sqlCommandSet.xsd -text svneol=unset#text/plain
+webpages/xsd/testCommandSet-1.0.xsd -text svneol=unset#text/plain
 webpages/xsd/testCommandSet.xsd -text svneol=unset#text/plain
 xsl/SimpleHtml.xsl -text svneol=unset#text/plain
 xsl/images/collapseall.png -text
