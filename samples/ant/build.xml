@@ -18,7 +18,7 @@
     </path>
 
     <!-- You have to declare the task first -->
-    <taskdef name="wetator" classname="org.rbri.wet.ant.Wetator" classpathref="wetator-classpath" />
+    <taskdef name="wetator" classname="org.wetator.ant.Wetator" classpathref="wetator-classpath" />
 
     <target name="run_wetator" description="Sample target that runs Wetator">
         <!-- Attributes:

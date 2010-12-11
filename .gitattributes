@@ -24,128 +24,137 @@ src/org/rbri/wet/Messages.properties -text
 src/org/rbri/wet/Version.java -text
 src/org/rbri/wet/Wetator.java -text
 src/org/rbri/wet/WetatorScriptConverter.java -text svneol=unset#text/plain
-src/org/rbri/wet/ant/AntOutProgressListener.java -text
-src/org/rbri/wet/ant/Wetator.java -text
-src/org/rbri/wet/backend/ControlFinder.java -text
-src/org/rbri/wet/backend/WPath.java -text svneol=unset#text/plain
-src/org/rbri/wet/backend/WeightedControlList.java -text
-src/org/rbri/wet/backend/WetBackend.java -text
-src/org/rbri/wet/backend/control/Clickable.java -text svneol=unset#text/plain
-src/org/rbri/wet/backend/control/Control.java -text
-src/org/rbri/wet/backend/control/Deselectable.java -text svneol=unset#text/plain
-src/org/rbri/wet/backend/control/Selectable.java -text svneol=unset#text/plain
-src/org/rbri/wet/backend/control/Settable.java -text svneol=unset#text/plain
 src/org/rbri/wet/backend/htmlunit/HtmlUnitBrowser.java -text
 src/org/rbri/wet/backend/htmlunit/HtmlUnitControlRepository.java -text svneol=unset#text/plain
 src/org/rbri/wet/backend/htmlunit/HtmlUnitFinderDelegator.java -text svneol=unset#text/plain
 src/org/rbri/wet/backend/htmlunit/ResponseStore.java -text
 src/org/rbri/wet/backend/htmlunit/XHtmlOutputter.java -text
-src/org/rbri/wet/backend/htmlunit/control/HtmlUnitAnchor.java -text svneol=unset#text/plain
-src/org/rbri/wet/backend/htmlunit/control/HtmlUnitBaseControl.java -text svneol=unset#text/plain
-src/org/rbri/wet/backend/htmlunit/control/HtmlUnitButton.java -text svneol=unset#text/plain
-src/org/rbri/wet/backend/htmlunit/control/HtmlUnitImage.java -text svneol=unset#text/plain
-src/org/rbri/wet/backend/htmlunit/control/HtmlUnitInputButton.java -text svneol=unset#text/plain
-src/org/rbri/wet/backend/htmlunit/control/HtmlUnitInputCheckBox.java -text svneol=unset#text/plain
-src/org/rbri/wet/backend/htmlunit/control/HtmlUnitInputFile.java -text svneol=unset#text/plain
-src/org/rbri/wet/backend/htmlunit/control/HtmlUnitInputHidden.java -text svneol=unset#text/plain
-src/org/rbri/wet/backend/htmlunit/control/HtmlUnitInputImage.java -text svneol=unset#text/plain
-src/org/rbri/wet/backend/htmlunit/control/HtmlUnitInputPassword.java -text svneol=unset#text/plain
-src/org/rbri/wet/backend/htmlunit/control/HtmlUnitInputRadioButton.java -text svneol=unset#text/plain
-src/org/rbri/wet/backend/htmlunit/control/HtmlUnitInputReset.java -text svneol=unset#text/plain
-src/org/rbri/wet/backend/htmlunit/control/HtmlUnitInputSubmit.java -text svneol=unset#text/plain
-src/org/rbri/wet/backend/htmlunit/control/HtmlUnitInputText.java -text svneol=unset#text/plain
-src/org/rbri/wet/backend/htmlunit/control/HtmlUnitOption.java -text svneol=unset#text/plain
-src/org/rbri/wet/backend/htmlunit/control/HtmlUnitOptionGroup.java -text svneol=unset#text/plain
-src/org/rbri/wet/backend/htmlunit/control/HtmlUnitSelect.java -text svneol=unset#text/plain
-src/org/rbri/wet/backend/htmlunit/control/HtmlUnitTextArea.java -text svneol=unset#text/plain
-src/org/rbri/wet/backend/htmlunit/control/identifier/AbstractHtmlUnitControlIdentifier.java -text svneol=unset#text/plain
-src/org/rbri/wet/backend/htmlunit/control/identifier/HtmlUnitAnchorIdentifier.java -text svneol=unset#text/plain
-src/org/rbri/wet/backend/htmlunit/control/identifier/HtmlUnitButtonIdentifier.java -text svneol=unset#text/plain
-src/org/rbri/wet/backend/htmlunit/control/identifier/HtmlUnitImageIdentifier.java -text svneol=unset#text/plain
-src/org/rbri/wet/backend/htmlunit/control/identifier/HtmlUnitInputButtonIdentifier.java -text svneol=unset#text/plain
-src/org/rbri/wet/backend/htmlunit/control/identifier/HtmlUnitInputCheckBoxIdentifier.java -text svneol=unset#text/plain
-src/org/rbri/wet/backend/htmlunit/control/identifier/HtmlUnitInputFileIdentifier.java -text svneol=unset#text/plain
-src/org/rbri/wet/backend/htmlunit/control/identifier/HtmlUnitInputImageIdentifier.java -text svneol=unset#text/plain
-src/org/rbri/wet/backend/htmlunit/control/identifier/HtmlUnitInputPasswordIdentifier.java -text svneol=unset#text/plain
-src/org/rbri/wet/backend/htmlunit/control/identifier/HtmlUnitInputRadioButtonIdentifier.java -text svneol=unset#text/plain
-src/org/rbri/wet/backend/htmlunit/control/identifier/HtmlUnitInputResetIdentifier.java -text svneol=unset#text/plain
-src/org/rbri/wet/backend/htmlunit/control/identifier/HtmlUnitInputSubmitIdentifier.java -text svneol=unset#text/plain
-src/org/rbri/wet/backend/htmlunit/control/identifier/HtmlUnitInputTextIdentifier.java -text svneol=unset#text/plain
-src/org/rbri/wet/backend/htmlunit/control/identifier/HtmlUnitOptionGroupIdentifier.java -text svneol=unset#text/plain
-src/org/rbri/wet/backend/htmlunit/control/identifier/HtmlUnitOptionIdentifier.java -text svneol=unset#text/plain
-src/org/rbri/wet/backend/htmlunit/control/identifier/HtmlUnitOptionInSelectIdentifier.java -text svneol=unset#text/plain
-src/org/rbri/wet/backend/htmlunit/control/identifier/HtmlUnitSelectIdentifier.java -text svneol=unset#text/plain
-src/org/rbri/wet/backend/htmlunit/control/identifier/HtmlUnitTextAreaIdentifier.java -text svneol=unset#text/plain
-src/org/rbri/wet/backend/htmlunit/finder/AbstractHtmlUnitControlsFinder.java -text svneol=unset#text/plain
-src/org/rbri/wet/backend/htmlunit/finder/AllHtmlUnitControlsForTextFinder.java -text svneol=unset#text/plain
-src/org/rbri/wet/backend/htmlunit/finder/IdentifierBasedHtmlUnitControlsFinder.java -text svneol=unset#text/plain
-src/org/rbri/wet/backend/htmlunit/finder/SettableHtmlUnitControlsFinder.java -text svneol=unset#text/plain
-src/org/rbri/wet/backend/htmlunit/finder/UnknownHtmlUnitControlsFinder.java -text svneol=unset#text/plain
-src/org/rbri/wet/backend/htmlunit/matcher/AbstractByAttributeMatcher.java -text svneol=unset#text/plain
-src/org/rbri/wet/backend/htmlunit/matcher/AbstractHtmlUnitElementMatcher.java -text svneol=unset#text/plain
-src/org/rbri/wet/backend/htmlunit/matcher/ByHtmlLabelMatcher.java -text svneol=unset#text/plain
-src/org/rbri/wet/backend/htmlunit/matcher/ByIdMatcher.java -text svneol=unset#text/plain
-src/org/rbri/wet/backend/htmlunit/matcher/ByImageAltAttributeMatcher.java -text svneol=unset#text/plain
-src/org/rbri/wet/backend/htmlunit/matcher/ByImageSrcAttributeMatcher.java -text svneol=unset#text/plain
-src/org/rbri/wet/backend/htmlunit/matcher/ByImageTitleAttributeMatcher.java -text svneol=unset#text/plain
-src/org/rbri/wet/backend/htmlunit/matcher/ByInnerImageMatcher.java -text svneol=unset#text/plain
-src/org/rbri/wet/backend/htmlunit/matcher/ByLabelAttributeMatcher.java -text svneol=unset#text/plain
-src/org/rbri/wet/backend/htmlunit/matcher/ByLabelTextAfterMatcher.java -text svneol=unset#text/plain
-src/org/rbri/wet/backend/htmlunit/matcher/ByLabelTextBeforeMatcher.java -text svneol=unset#text/plain
-src/org/rbri/wet/backend/htmlunit/matcher/ByNameAttributeMatcher.java -text svneol=unset#text/plain
-src/org/rbri/wet/backend/htmlunit/matcher/ByTextMatcher.java -text svneol=unset#text/plain
-src/org/rbri/wet/backend/htmlunit/matcher/ByValueAttributeMatcher.java -text svneol=unset#text/plain
-src/org/rbri/wet/backend/htmlunit/matcher/ByWholeTextBeforeMatcher.java -text svneol=unset#text/plain
-src/org/rbri/wet/backend/htmlunit/util/ContentTypeUtil.java -text
-src/org/rbri/wet/backend/htmlunit/util/ExceptionUtil.java -text
-src/org/rbri/wet/backend/htmlunit/util/FindSpot.java -text
-src/org/rbri/wet/backend/htmlunit/util/HtmlElementUtil.java -text
-src/org/rbri/wet/backend/htmlunit/util/HtmlPageIndex.java -text svneol=unset#text/plain
-src/org/rbri/wet/backend/htmlunit/util/PageUtil.java -text
-src/org/rbri/wet/commandset/AbstractCommandSet.java -text
-src/org/rbri/wet/commandset/DefaultCommandSet.java -text
-src/org/rbri/wet/commandset/IncubatorCommandSet.java -text
-src/org/rbri/wet/commandset/SqlCommandSet.java -text
-src/org/rbri/wet/commandset/WetCommandImplementation.java -text
-src/org/rbri/wet/commandset/WetCommandSet.java -text
-src/org/rbri/wet/core/Parameter.java -text
-src/org/rbri/wet/core/WetCommand.java -text
-src/org/rbri/wet/core/WetConfiguration.java -text
-src/org/rbri/wet/core/WetContext.java -text
-src/org/rbri/wet/core/WetEngine.java -text
-src/org/rbri/wet/core/WetProgressListener.java -text
-src/org/rbri/wet/core/result/WetResultWriter.java -text
-src/org/rbri/wet/core/result/XslTransformer.java -text
-src/org/rbri/wet/core/searchpattern/AutomatonFromEndMatcher.java -text
-src/org/rbri/wet/core/searchpattern/AutomatonShortFromEndMatcher.java -text
-src/org/rbri/wet/core/searchpattern/AutomatonShortMatcher.java -text
-src/org/rbri/wet/core/searchpattern/MatchAllSearchPattern.java -text
-src/org/rbri/wet/core/searchpattern/RegExpSearchPattern.java -text
-src/org/rbri/wet/core/searchpattern/SearchPattern.java -text
-src/org/rbri/wet/core/searchpattern/TextOnlySearchPattern.java -text
-src/org/rbri/wet/core/variable/Variable.java -text
-src/org/rbri/wet/exception/AssertionFailedException.java -text
-src/org/rbri/wet/exception/WetException.java -text
-src/org/rbri/wet/gui/DialogUtil.java -text
-src/org/rbri/wet/i18n/Messages.java -text
-src/org/rbri/wet/scriptconverter/WetScriptConverter.java -text svneol=unset#text/plain
-src/org/rbri/wet/scriptcreator/ScriptCreator.java -text svneol=unset#text/plain
-src/org/rbri/wet/scriptcreator/WetScriptCreator.java -text svneol=unset#text/plain
-src/org/rbri/wet/scriptcreator/XmlScriptCreator.java -text svneol=unset#text/plain
-src/org/rbri/wet/scripter/ExcelScripter.java -text
-src/org/rbri/wet/scripter/Scripter.java -text svneol=unset#text/plain
-src/org/rbri/wet/scripter/WetScripter.java -text
-src/org/rbri/wet/scripter/XmlScripter.java -text svneol=unset#text/plain
-src/org/rbri/wet/util/Assert.java -text
-src/org/rbri/wet/util/ContentUtil.java -text
-src/org/rbri/wet/util/FileUtil.java -text
-src/org/rbri/wet/util/NormalizedString.java -text
-src/org/rbri/wet/util/Output.java -text
-src/org/rbri/wet/util/SecretString.java -text
-src/org/rbri/wet/util/StdOutProgressListener.java -text
-src/org/rbri/wet/util/StringUtil.java -text
-src/org/rbri/wet/util/VariableReplaceUtil.java -text
-src/org/rbri/wet/util/XmlUtil.java -text
+src/org/wetator/Messages.properties -text
+src/org/wetator/Version.java -text
+src/org/wetator/Wetator.java -text
+src/org/wetator/WetatorScriptConverter.java -text svneol=unset#text/plain
+src/org/wetator/ant/AntOutProgressListener.java -text
+src/org/wetator/ant/Wetator.java -text
+src/org/wetator/backend/ControlFinder.java -text
+src/org/wetator/backend/WPath.java -text svneol=unset#text/plain
+src/org/wetator/backend/WeightedControlList.java -text
+src/org/wetator/backend/WetBackend.java -text
+src/org/wetator/backend/control/Clickable.java -text svneol=unset#text/plain
+src/org/wetator/backend/control/Control.java -text
+src/org/wetator/backend/control/Deselectable.java -text svneol=unset#text/plain
+src/org/wetator/backend/control/Selectable.java -text svneol=unset#text/plain
+src/org/wetator/backend/control/Settable.java -text svneol=unset#text/plain
+src/org/wetator/backend/htmlunit/HtmlUnitBrowser.java -text
+src/org/wetator/backend/htmlunit/HtmlUnitControlRepository.java -text svneol=unset#text/plain
+src/org/wetator/backend/htmlunit/HtmlUnitFinderDelegator.java -text svneol=unset#text/plain
+src/org/wetator/backend/htmlunit/ResponseStore.java -text
+src/org/wetator/backend/htmlunit/XHtmlOutputter.java -text
+src/org/wetator/backend/htmlunit/control/HtmlUnitAnchor.java -text svneol=unset#text/plain
+src/org/wetator/backend/htmlunit/control/HtmlUnitBaseControl.java -text svneol=unset#text/plain
+src/org/wetator/backend/htmlunit/control/HtmlUnitButton.java -text svneol=unset#text/plain
+src/org/wetator/backend/htmlunit/control/HtmlUnitImage.java -text svneol=unset#text/plain
+src/org/wetator/backend/htmlunit/control/HtmlUnitInputButton.java -text svneol=unset#text/plain
+src/org/wetator/backend/htmlunit/control/HtmlUnitInputCheckBox.java -text svneol=unset#text/plain
+src/org/wetator/backend/htmlunit/control/HtmlUnitInputFile.java -text svneol=unset#text/plain
+src/org/wetator/backend/htmlunit/control/HtmlUnitInputHidden.java -text svneol=unset#text/plain
+src/org/wetator/backend/htmlunit/control/HtmlUnitInputImage.java -text svneol=unset#text/plain
+src/org/wetator/backend/htmlunit/control/HtmlUnitInputPassword.java -text svneol=unset#text/plain
+src/org/wetator/backend/htmlunit/control/HtmlUnitInputRadioButton.java -text svneol=unset#text/plain
+src/org/wetator/backend/htmlunit/control/HtmlUnitInputReset.java -text svneol=unset#text/plain
+src/org/wetator/backend/htmlunit/control/HtmlUnitInputSubmit.java -text svneol=unset#text/plain
+src/org/wetator/backend/htmlunit/control/HtmlUnitInputText.java -text svneol=unset#text/plain
+src/org/wetator/backend/htmlunit/control/HtmlUnitOption.java -text svneol=unset#text/plain
+src/org/wetator/backend/htmlunit/control/HtmlUnitOptionGroup.java -text svneol=unset#text/plain
+src/org/wetator/backend/htmlunit/control/HtmlUnitSelect.java -text svneol=unset#text/plain
+src/org/wetator/backend/htmlunit/control/HtmlUnitTextArea.java -text svneol=unset#text/plain
+src/org/wetator/backend/htmlunit/control/identifier/AbstractHtmlUnitControlIdentifier.java -text svneol=unset#text/plain
+src/org/wetator/backend/htmlunit/control/identifier/HtmlUnitAnchorIdentifier.java -text svneol=unset#text/plain
+src/org/wetator/backend/htmlunit/control/identifier/HtmlUnitButtonIdentifier.java -text svneol=unset#text/plain
+src/org/wetator/backend/htmlunit/control/identifier/HtmlUnitImageIdentifier.java -text svneol=unset#text/plain
+src/org/wetator/backend/htmlunit/control/identifier/HtmlUnitInputButtonIdentifier.java -text svneol=unset#text/plain
+src/org/wetator/backend/htmlunit/control/identifier/HtmlUnitInputCheckBoxIdentifier.java -text svneol=unset#text/plain
+src/org/wetator/backend/htmlunit/control/identifier/HtmlUnitInputFileIdentifier.java -text svneol=unset#text/plain
+src/org/wetator/backend/htmlunit/control/identifier/HtmlUnitInputImageIdentifier.java -text svneol=unset#text/plain
+src/org/wetator/backend/htmlunit/control/identifier/HtmlUnitInputPasswordIdentifier.java -text svneol=unset#text/plain
+src/org/wetator/backend/htmlunit/control/identifier/HtmlUnitInputRadioButtonIdentifier.java -text svneol=unset#text/plain
+src/org/wetator/backend/htmlunit/control/identifier/HtmlUnitInputResetIdentifier.java -text svneol=unset#text/plain
+src/org/wetator/backend/htmlunit/control/identifier/HtmlUnitInputSubmitIdentifier.java -text svneol=unset#text/plain
+src/org/wetator/backend/htmlunit/control/identifier/HtmlUnitInputTextIdentifier.java -text svneol=unset#text/plain
+src/org/wetator/backend/htmlunit/control/identifier/HtmlUnitOptionGroupIdentifier.java -text svneol=unset#text/plain
+src/org/wetator/backend/htmlunit/control/identifier/HtmlUnitOptionIdentifier.java -text svneol=unset#text/plain
+src/org/wetator/backend/htmlunit/control/identifier/HtmlUnitOptionInSelectIdentifier.java -text svneol=unset#text/plain
+src/org/wetator/backend/htmlunit/control/identifier/HtmlUnitSelectIdentifier.java -text svneol=unset#text/plain
+src/org/wetator/backend/htmlunit/control/identifier/HtmlUnitTextAreaIdentifier.java -text svneol=unset#text/plain
+src/org/wetator/backend/htmlunit/finder/AbstractHtmlUnitControlsFinder.java -text svneol=unset#text/plain
+src/org/wetator/backend/htmlunit/finder/AllHtmlUnitControlsForTextFinder.java -text svneol=unset#text/plain
+src/org/wetator/backend/htmlunit/finder/IdentifierBasedHtmlUnitControlsFinder.java -text svneol=unset#text/plain
+src/org/wetator/backend/htmlunit/finder/SettableHtmlUnitControlsFinder.java -text svneol=unset#text/plain
+src/org/wetator/backend/htmlunit/finder/UnknownHtmlUnitControlsFinder.java -text svneol=unset#text/plain
+src/org/wetator/backend/htmlunit/matcher/AbstractByAttributeMatcher.java -text svneol=unset#text/plain
+src/org/wetator/backend/htmlunit/matcher/AbstractHtmlUnitElementMatcher.java -text svneol=unset#text/plain
+src/org/wetator/backend/htmlunit/matcher/ByHtmlLabelMatcher.java -text svneol=unset#text/plain
+src/org/wetator/backend/htmlunit/matcher/ByIdMatcher.java -text svneol=unset#text/plain
+src/org/wetator/backend/htmlunit/matcher/ByImageAltAttributeMatcher.java -text svneol=unset#text/plain
+src/org/wetator/backend/htmlunit/matcher/ByImageSrcAttributeMatcher.java -text svneol=unset#text/plain
+src/org/wetator/backend/htmlunit/matcher/ByImageTitleAttributeMatcher.java -text svneol=unset#text/plain
+src/org/wetator/backend/htmlunit/matcher/ByInnerImageMatcher.java -text svneol=unset#text/plain
+src/org/wetator/backend/htmlunit/matcher/ByLabelAttributeMatcher.java -text svneol=unset#text/plain
+src/org/wetator/backend/htmlunit/matcher/ByLabelTextAfterMatcher.java -text svneol=unset#text/plain
+src/org/wetator/backend/htmlunit/matcher/ByLabelTextBeforeMatcher.java -text svneol=unset#text/plain
+src/org/wetator/backend/htmlunit/matcher/ByNameAttributeMatcher.java -text svneol=unset#text/plain
+src/org/wetator/backend/htmlunit/matcher/ByTextMatcher.java -text svneol=unset#text/plain
+src/org/wetator/backend/htmlunit/matcher/ByValueAttributeMatcher.java -text svneol=unset#text/plain
+src/org/wetator/backend/htmlunit/matcher/ByWholeTextBeforeMatcher.java -text svneol=unset#text/plain
+src/org/wetator/backend/htmlunit/util/ContentTypeUtil.java -text
+src/org/wetator/backend/htmlunit/util/ExceptionUtil.java -text
+src/org/wetator/backend/htmlunit/util/FindSpot.java -text
+src/org/wetator/backend/htmlunit/util/HtmlElementUtil.java -text
+src/org/wetator/backend/htmlunit/util/HtmlPageIndex.java -text svneol=unset#text/plain
+src/org/wetator/backend/htmlunit/util/PageUtil.java -text
+src/org/wetator/commandset/AbstractCommandSet.java -text
+src/org/wetator/commandset/DefaultCommandSet.java -text
+src/org/wetator/commandset/IncubatorCommandSet.java -text
+src/org/wetator/commandset/SqlCommandSet.java -text
+src/org/wetator/commandset/WetCommandImplementation.java -text
+src/org/wetator/commandset/WetCommandSet.java -text
+src/org/wetator/core/Parameter.java -text
+src/org/wetator/core/WetCommand.java -text
+src/org/wetator/core/WetConfiguration.java -text
+src/org/wetator/core/WetContext.java -text
+src/org/wetator/core/WetEngine.java -text
+src/org/wetator/core/WetProgressListener.java -text
+src/org/wetator/core/result/WetResultWriter.java -text
+src/org/wetator/core/result/XslTransformer.java -text
+src/org/wetator/core/searchpattern/AutomatonFromEndMatcher.java -text
+src/org/wetator/core/searchpattern/AutomatonShortFromEndMatcher.java -text
+src/org/wetator/core/searchpattern/AutomatonShortMatcher.java -text
+src/org/wetator/core/searchpattern/MatchAllSearchPattern.java -text
+src/org/wetator/core/searchpattern/RegExpSearchPattern.java -text
+src/org/wetator/core/searchpattern/SearchPattern.java -text
+src/org/wetator/core/searchpattern/TextOnlySearchPattern.java -text
+src/org/wetator/core/variable/Variable.java -text
+src/org/wetator/exception/AssertionFailedException.java -text
+src/org/wetator/exception/WetException.java -text
+src/org/wetator/gui/DialogUtil.java -text
+src/org/wetator/i18n/Messages.java -text
+src/org/wetator/scriptconverter/WetScriptConverter.java -text svneol=unset#text/plain
+src/org/wetator/scriptcreator/ScriptCreator.java -text svneol=unset#text/plain
+src/org/wetator/scriptcreator/WetScriptCreator.java -text svneol=unset#text/plain
+src/org/wetator/scriptcreator/XmlScriptCreator.java -text svneol=unset#text/plain
+src/org/wetator/scripter/ExcelScripter.java -text
+src/org/wetator/scripter/Scripter.java -text svneol=unset#text/plain
+src/org/wetator/scripter/WetScripter.java -text
+src/org/wetator/scripter/XmlScripter.java -text svneol=unset#text/plain
+src/org/wetator/util/Assert.java -text
+src/org/wetator/util/ContentUtil.java -text
+src/org/wetator/util/FileUtil.java -text
+src/org/wetator/util/NormalizedString.java -text
+src/org/wetator/util/Output.java -text
+src/org/wetator/util/SecretString.java -text
+src/org/wetator/util/StdOutProgressListener.java -text
+src/org/wetator/util/StringUtil.java -text
+src/org/wetator/util/VariableReplaceUtil.java -text
+src/org/wetator/util/XmlUtil.java -text
 src/wetator.config -text
 test/MouseEvents.xls -text
 test/ant/ant_task_classpath_test.xls -text
@@ -205,94 +214,101 @@ test/excel/set_upload.xls -text
 test/excel/sql.xls -text
 test/excel/use_module.xls -text
 test/excel/wait.xls -text
-test/java/org/rbri/wet/AllTests.java -text
-test/java/org/rbri/wet/automatonTest.jpage -text
-test/java/org/rbri/wet/backend/AllTests.java -text
-test/java/org/rbri/wet/backend/WeightedControlListTest.java -text
-test/java/org/rbri/wet/backend/htmlunit/AllTests.java -text
-test/java/org/rbri/wet/backend/htmlunit/HtmlUnitControlRepositoryTest.java -text svneol=unset#text/plain
-test/java/org/rbri/wet/backend/htmlunit/HtmlUnitFinderDelegatorTest.java -text
-test/java/org/rbri/wet/backend/htmlunit/HtmlUnitTest.html -text
-test/java/org/rbri/wet/backend/htmlunit/XHtmlOutputterXHtmlPageTest.java -text
-test/java/org/rbri/wet/backend/htmlunit/control/AllTests.java -text svneol=unset#text/plain
-test/java/org/rbri/wet/backend/htmlunit/control/HtmlUnitBaseControlTest.java -text
-test/java/org/rbri/wet/backend/htmlunit/control/identifier/AbstractHtmlUnitControlIdentifierTest.java -text svneol=unset#text/plain
-test/java/org/rbri/wet/backend/htmlunit/control/identifier/AllTests.java -text svneol=unset#text/plain
-test/java/org/rbri/wet/backend/htmlunit/control/identifier/HtmlUnitAnchorIdentifierTest.java -text svneol=unset#text/plain
-test/java/org/rbri/wet/backend/htmlunit/control/identifier/HtmlUnitButtonIdentifierTest.java -text svneol=unset#text/plain
-test/java/org/rbri/wet/backend/htmlunit/control/identifier/HtmlUnitImageIdentifierTest.java -text svneol=unset#text/plain
-test/java/org/rbri/wet/backend/htmlunit/control/identifier/HtmlUnitInputButtonIdentifierTest.java -text svneol=unset#text/plain
-test/java/org/rbri/wet/backend/htmlunit/control/identifier/HtmlUnitInputCheckBoxIdentifierTest.java -text svneol=unset#text/plain
-test/java/org/rbri/wet/backend/htmlunit/control/identifier/HtmlUnitInputFileIdentifierTest.java -text svneol=unset#text/plain
-test/java/org/rbri/wet/backend/htmlunit/control/identifier/HtmlUnitInputImageIdentifierTest.java -text svneol=unset#text/plain
-test/java/org/rbri/wet/backend/htmlunit/control/identifier/HtmlUnitInputPasswordIdentifierTest.java -text svneol=unset#text/plain
-test/java/org/rbri/wet/backend/htmlunit/control/identifier/HtmlUnitInputRadioButtonIdentifierTest.java -text svneol=unset#text/plain
-test/java/org/rbri/wet/backend/htmlunit/control/identifier/HtmlUnitInputResetIdentifierTest.java -text svneol=unset#text/plain
-test/java/org/rbri/wet/backend/htmlunit/control/identifier/HtmlUnitInputSubmitIdentifierTest.java -text svneol=unset#text/plain
-test/java/org/rbri/wet/backend/htmlunit/control/identifier/HtmlUnitInputTextIdentifierTest.java -text svneol=unset#text/plain
-test/java/org/rbri/wet/backend/htmlunit/control/identifier/HtmlUnitOptionGroupIdentifierTest.java -text svneol=unset#text/plain
-test/java/org/rbri/wet/backend/htmlunit/control/identifier/HtmlUnitOptionIdentifierTest.java -text svneol=unset#text/plain
-test/java/org/rbri/wet/backend/htmlunit/control/identifier/HtmlUnitOptionInSelectIdentifierTest.java -text svneol=unset#text/plain
-test/java/org/rbri/wet/backend/htmlunit/control/identifier/HtmlUnitSelectIdentifierTest.java -text svneol=unset#text/plain
-test/java/org/rbri/wet/backend/htmlunit/control/identifier/HtmlUnitTextAreaIdentifierTest.java -text svneol=unset#text/plain
-test/java/org/rbri/wet/backend/htmlunit/finder/AllTests.java -text svneol=unset#text/plain
-test/java/org/rbri/wet/backend/htmlunit/finder/IdentifierBasedHtmlUnitControlsFinderTest.java -text svneol=unset#text/plain
-test/java/org/rbri/wet/backend/htmlunit/finder/SettableHtmlUnitControlsFinderTest.java -text svneol=unset#text/plain
-test/java/org/rbri/wet/backend/htmlunit/finder/UnknownHtmlUnitControlsFinderTest.java -text svneol=unset#text/plain
-test/java/org/rbri/wet/backend/htmlunit/util/AllTests.java -text
-test/java/org/rbri/wet/backend/htmlunit/util/HtmlElementUtilTest.java -text
-test/java/org/rbri/wet/backend/htmlunit/util/HtmlPageIndexTest.java -text
-test/java/org/rbri/wet/backend/htmlunit/util/PageUtilTest.java -text
-test/java/org/rbri/wet/commandset/AllTests.java -text
-test/java/org/rbri/wet/commandset/ExecTester.java -text
-test/java/org/rbri/wet/commandset/ExecTesterWithoutDefaultConstructor.java -text svneol=unset#text/plain
-test/java/org/rbri/wet/commandset/TestCommandSet.java -text
-test/java/org/rbri/wet/commandset/XlsDefaultCommandSetTest.java -text svneol=unset#text/plain
-test/java/org/rbri/wet/commandset/XlsSqlCommandSetTest.java -text svneol=unset#text/plain
-test/java/org/rbri/wet/commandset/XmlDefaultCommandSetTest.java -text svneol=unset#text/plain
-test/java/org/rbri/wet/commandset/XmlEventHandlingTest.java -text svneol=unset#text/plain
-test/java/org/rbri/wet/commandset/XmlIncubatorCommandSetTest.java -text
-test/java/org/rbri/wet/commandset/XmlOtherTest.java -text svneol=unset#text/plain
-test/java/org/rbri/wet/commandset/XmlSqlCommandSetTest.java -text svneol=unset#text/plain
-test/java/org/rbri/wet/core/AllTests.java -text
-test/java/org/rbri/wet/core/WetCommandTest.java -text
-test/java/org/rbri/wet/core/result/AllTests.java -text
-test/java/org/rbri/wet/core/result/WetResultWriterTest.java -text
-test/java/org/rbri/wet/core/result/XslTransformerTest.java -text
-test/java/org/rbri/wet/core/searchpattern/AllTests.java -text
-test/java/org/rbri/wet/core/searchpattern/SearchPatternFirstOccurrenceInTest.java -text
-test/java/org/rbri/wet/core/searchpattern/SearchPatternLastOccurrenceInTest.java -text
-test/java/org/rbri/wet/core/searchpattern/SearchPatternMatchesAtEndTest.java -text
-test/java/org/rbri/wet/core/searchpattern/SearchPatternMatchesTest.java -text
-test/java/org/rbri/wet/core/searchpattern/SearchPatternNoOfCharsAfterLastOccurenceInTest.java -text
-test/java/org/rbri/wet/core/searchpattern/SearchPatternNoOfCharsBeforeLastOccurenceInTest.java -text
-test/java/org/rbri/wet/core/searchpattern/SearchPatternNoOfSurroundingCharsInTest.java -text
-test/java/org/rbri/wet/core/searchpattern/SearchPatternTest.java -text
-test/java/org/rbri/wet/core/variable/AllTests.java -text
-test/java/org/rbri/wet/core/variable/VariableTest.java -text
-test/java/org/rbri/wet/i18n/AllTests.java -text
-test/java/org/rbri/wet/i18n/MessagesTest.java -text
-test/java/org/rbri/wet/scripter/AllTests.java -text
-test/java/org/rbri/wet/scripter/ExcelScripterTest.java -text
-test/java/org/rbri/wet/scripter/XmlScripterTest.java -text svneol=unset#text/plain
-test/java/org/rbri/wet/test/AbstractBrowserTest.java -text svneol=unset#text/plain
-test/java/org/rbri/wet/test/AbstractWebServerTest.java -text svneol=unset#text/plain
-test/java/org/rbri/wet/test/JUnitProgressListener.java -text svneol=unset#text/plain
-test/java/org/rbri/wet/test/jetty/HttpHeaderServlet.java -text svneol=unset#text/plain
-test/java/org/rbri/wet/test/jetty/MultiPartFilter.java -text svneol=unset#text/plain
-test/java/org/rbri/wet/test/jetty/RedirectServlet.java -text svneol=unset#text/plain
-test/java/org/rbri/wet/test/jetty/SnoopyServlet.java -text svneol=unset#text/plain
-test/java/org/rbri/wet/test/junit/BrowserFrameworkMethod.java -text svneol=unset#text/plain
-test/java/org/rbri/wet/test/junit/BrowserRunner.java -text svneol=unset#text/plain
-test/java/org/rbri/wet/test/junit/BrowserRunnerTest.java -text svneol=unset#text/plain
-test/java/org/rbri/wet/test/resource/junit.xml -text svneol=unset#text/plain
-test/java/org/rbri/wet/util/AllTests.java -text
-test/java/org/rbri/wet/util/AssertTest.java -text
-test/java/org/rbri/wet/util/ContentUtilTest.java -text
-test/java/org/rbri/wet/util/NormalizedStringTest.java -text svneol=unset#text/plain
-test/java/org/rbri/wet/util/StringUtilTest.java -text
-test/java/org/rbri/wet/util/VariableReplaceUtilUtilTest.java -text
-test/java/org/rbri/wet/util/XmlUtilTest.java -text
+test/java/org/wetator/AllTests.java -text
+test/java/org/wetator/automatonTest.jpage -text
+test/java/org/wetator/backend/AllTests.java -text
+test/java/org/wetator/backend/WeightedControlListTest.java -text
+test/java/org/wetator/backend/htmlunit/AllTests.java -text
+test/java/org/wetator/backend/htmlunit/HtmlUnitControlRepositoryTest.java -text svneol=unset#text/plain
+test/java/org/wetator/backend/htmlunit/HtmlUnitFinderDelegatorTest.java -text
+test/java/org/wetator/backend/htmlunit/HtmlUnitTest.html -text
+test/java/org/wetator/backend/htmlunit/XHtmlOutputterXHtmlPageTest.java -text
+test/java/org/wetator/backend/htmlunit/control/AllTests.java -text svneol=unset#text/plain
+test/java/org/wetator/backend/htmlunit/control/HtmlUnitBaseControlTest.java -text
+test/java/org/wetator/backend/htmlunit/control/identifier/AbstractHtmlUnitControlIdentifierTest.java -text svneol=unset#text/plain
+test/java/org/wetator/backend/htmlunit/control/identifier/AllTests.java -text svneol=unset#text/plain
+test/java/org/wetator/backend/htmlunit/control/identifier/HtmlUnitAnchorIdentifierTest.java -text svneol=unset#text/plain
+test/java/org/wetator/backend/htmlunit/control/identifier/HtmlUnitButtonIdentifierTest.java -text svneol=unset#text/plain
+test/java/org/wetator/backend/htmlunit/control/identifier/HtmlUnitImageIdentifierTest.java -text svneol=unset#text/plain
+test/java/org/wetator/backend/htmlunit/control/identifier/HtmlUnitInputButtonIdentifierTest.java -text svneol=unset#text/plain
+test/java/org/wetator/backend/htmlunit/control/identifier/HtmlUnitInputCheckBoxIdentifierTest.java -text svneol=unset#text/plain
+test/java/org/wetator/backend/htmlunit/control/identifier/HtmlUnitInputFileIdentifierTest.java -text svneol=unset#text/plain
+test/java/org/wetator/backend/htmlunit/control/identifier/HtmlUnitInputImageIdentifierTest.java -text svneol=unset#text/plain
+test/java/org/wetator/backend/htmlunit/control/identifier/HtmlUnitInputPasswordIdentifierTest.java -text svneol=unset#text/plain
+test/java/org/wetator/backend/htmlunit/control/identifier/HtmlUnitInputRadioButtonIdentifierTest.java -text svneol=unset#text/plain
+test/java/org/wetator/backend/htmlunit/control/identifier/HtmlUnitInputResetIdentifierTest.java -text svneol=unset#text/plain
+test/java/org/wetator/backend/htmlunit/control/identifier/HtmlUnitInputSubmitIdentifierTest.java -text svneol=unset#text/plain
+test/java/org/wetator/backend/htmlunit/control/identifier/HtmlUnitInputTextIdentifierTest.java -text svneol=unset#text/plain
+test/java/org/wetator/backend/htmlunit/control/identifier/HtmlUnitOptionGroupIdentifierTest.java -text svneol=unset#text/plain
+test/java/org/wetator/backend/htmlunit/control/identifier/HtmlUnitOptionIdentifierTest.java -text svneol=unset#text/plain
+test/java/org/wetator/backend/htmlunit/control/identifier/HtmlUnitOptionInSelectIdentifierTest.java -text svneol=unset#text/plain
+test/java/org/wetator/backend/htmlunit/control/identifier/HtmlUnitSelectIdentifierTest.java -text svneol=unset#text/plain
+test/java/org/wetator/backend/htmlunit/control/identifier/HtmlUnitTextAreaIdentifierTest.java -text svneol=unset#text/plain
+test/java/org/wetator/backend/htmlunit/finder/AllTests.java -text svneol=unset#text/plain
+test/java/org/wetator/backend/htmlunit/finder/IdentifierBasedHtmlUnitControlsFinderTest.java -text svneol=unset#text/plain
+test/java/org/wetator/backend/htmlunit/finder/SettableHtmlUnitControlsFinderTest.java -text svneol=unset#text/plain
+test/java/org/wetator/backend/htmlunit/finder/UnknownHtmlUnitControlsFinderTest.java -text svneol=unset#text/plain
+test/java/org/wetator/backend/htmlunit/util/AllTests.java -text
+test/java/org/wetator/backend/htmlunit/util/ByTableCoordinatesMatcherTest.java -text svneol=unset#text/plain
+test/java/org/wetator/backend/htmlunit/util/HtmlElementUtilTest.java -text
+test/java/org/wetator/backend/htmlunit/util/HtmlPageIndexTest.java -text
+test/java/org/wetator/backend/htmlunit/util/PageUtilTest.java -text
+test/java/org/wetator/backend/htmlunit/util/TableCoordinatesWPathFinderTest.java -text svneol=unset#text/plain
+test/java/org/wetator/backend/htmlunit/util/TableFinder.java -text svneol=unset#text/plain
+test/java/org/wetator/backend/htmlunit/util/TableFinder2.java -text svneol=unset#text/plain
+test/java/org/wetator/backend/htmlunit/util/TableMatcherTest.java -text svneol=unset#text/plain
+test/java/org/wetator/backend/htmlunit/util/TableMatcherTest2.java -text svneol=unset#text/plain
+test/java/org/wetator/backend/htmlunit/util/TableMatcherTest3.java -text svneol=unset#text/plain
+test/java/org/wetator/commandset/AllTests.java -text
+test/java/org/wetator/commandset/ExecTester.java -text
+test/java/org/wetator/commandset/ExecTesterWithoutDefaultConstructor.java -text svneol=unset#text/plain
+test/java/org/wetator/commandset/TestCommandSet.java -text
+test/java/org/wetator/commandset/XlsDefaultCommandSetTest.java -text svneol=unset#text/plain
+test/java/org/wetator/commandset/XlsSqlCommandSetTest.java -text svneol=unset#text/plain
+test/java/org/wetator/commandset/XmlDefaultCommandSetTest.java -text svneol=unset#text/plain
+test/java/org/wetator/commandset/XmlEventHandlingTest.java -text svneol=unset#text/plain
+test/java/org/wetator/commandset/XmlIncubatorCommandSetTest.java -text
+test/java/org/wetator/commandset/XmlOtherTest.java -text svneol=unset#text/plain
+test/java/org/wetator/commandset/XmlSqlCommandSetTest.java -text svneol=unset#text/plain
+test/java/org/wetator/core/AllTests.java -text
+test/java/org/wetator/core/WetCommandTest.java -text
+test/java/org/wetator/core/result/AllTests.java -text
+test/java/org/wetator/core/result/WetResultWriterTest.java -text
+test/java/org/wetator/core/result/XslTransformerTest.java -text
+test/java/org/wetator/core/searchpattern/AllTests.java -text
+test/java/org/wetator/core/searchpattern/SearchPatternFirstOccurrenceInTest.java -text
+test/java/org/wetator/core/searchpattern/SearchPatternLastOccurrenceInTest.java -text
+test/java/org/wetator/core/searchpattern/SearchPatternMatchesAtEndTest.java -text
+test/java/org/wetator/core/searchpattern/SearchPatternMatchesTest.java -text
+test/java/org/wetator/core/searchpattern/SearchPatternNoOfCharsAfterLastOccurenceInTest.java -text
+test/java/org/wetator/core/searchpattern/SearchPatternNoOfCharsBeforeLastOccurenceInTest.java -text
+test/java/org/wetator/core/searchpattern/SearchPatternNoOfSurroundingCharsInTest.java -text
+test/java/org/wetator/core/searchpattern/SearchPatternTest.java -text
+test/java/org/wetator/core/variable/AllTests.java -text
+test/java/org/wetator/core/variable/VariableTest.java -text
+test/java/org/wetator/i18n/AllTests.java -text
+test/java/org/wetator/i18n/MessagesTest.java -text
+test/java/org/wetator/scripter/AllTests.java -text
+test/java/org/wetator/scripter/ExcelScripterTest.java -text
+test/java/org/wetator/scripter/XmlScripterTest.java -text svneol=unset#text/plain
+test/java/org/wetator/test/AbstractBrowserTest.java -text svneol=unset#text/plain
+test/java/org/wetator/test/AbstractWebServerTest.java -text svneol=unset#text/plain
+test/java/org/wetator/test/JUnitProgressListener.java -text svneol=unset#text/plain
+test/java/org/wetator/test/jetty/HttpHeaderServlet.java -text svneol=unset#text/plain
+test/java/org/wetator/test/jetty/MultiPartFilter.java -text svneol=unset#text/plain
+test/java/org/wetator/test/jetty/RedirectServlet.java -text svneol=unset#text/plain
+test/java/org/wetator/test/jetty/SnoopyServlet.java -text svneol=unset#text/plain
+test/java/org/wetator/test/junit/BrowserFrameworkMethod.java -text svneol=unset#text/plain
+test/java/org/wetator/test/junit/BrowserRunner.java -text svneol=unset#text/plain
+test/java/org/wetator/test/junit/BrowserRunnerTest.java -text svneol=unset#text/plain
+test/java/org/wetator/test/resource/junit.wet -text svneol=unset#text/plain
+test/java/org/wetator/util/AllTests.java -text
+test/java/org/wetator/util/AssertTest.java -text
+test/java/org/wetator/util/ContentUtilTest.java -text
+test/java/org/wetator/util/NormalizedStringTest.java -text svneol=unset#text/plain
+test/java/org/wetator/util/StringUtilTest.java -text
+test/java/org/wetator/util/VariableReplaceUtilUtilTest.java -text
+test/java/org/wetator/util/XmlUtilTest.java -text
 test/xml/ajax_jquery.wet -text svneol=unset#text/plain
 test/xml/ajax_prototype.wet -text svneol=unset#text/plain
 test/xml/assert_content.wet -text svneol=unset#text/plain

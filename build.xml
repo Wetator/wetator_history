@@ -137,7 +137,7 @@
 
         <buildupdate
             srcdir="${dir.src}"
-            classname="org.rbri.wet.Version"
+            classname="org.wetator.Version"
             variablename="BUILD"
             propertyName="application.buildnumber" />
 
@@ -147,7 +147,7 @@
                 <include name="**/*.*"/>
             </fileset>
             <manifest>
-                <attribute name="Main-Class" value="org.rbri.wet.Wetator"/>
+                <attribute name="Main-Class" value="org.wetator.Wetator"/>
                 <section name="Application">
                     <attribute name="Application-Name" value="${application.name}"/>
                     <attribute name="Vendor" value="${application.vendor}"/>
@@ -168,7 +168,7 @@
         <delete file="${dir.build}/MANIFEST.MF"/>
         <manifest file="${dir.build}/MANIFEST.MF">
             <attribute name="Main-Class" value="com.simontuffs.onejar.Boot"/>
-            <attribute name="One-Jar-Main-Class" value="org.rbri.wet.Wetator"/>
+            <attribute name="One-Jar-Main-Class" value="org.wetator.Wetator"/>
         </manifest>
 
         <!-- Construct the One-JAR file -->
