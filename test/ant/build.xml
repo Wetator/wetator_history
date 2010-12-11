@@ -2,7 +2,7 @@
 
 <project name="Wetator Ant Task test" basedir="." default="run_wetator_with_properties">
 
-    <property name="wetator.baseUrl" value="http://wetator.rbri.org"/>
+    <property name="wetator.baseUrl" value="http://www.wetator.org"/>
 
     <propertyset id="wetator-properties">
         <propertyref prefix="wetator"/>
@@ -10,7 +10,7 @@
 
 
     <!-- You have to declare the task first -->
-    <taskdef name="wetator" classname="org.rbri.wet.ant.Wetator">
+    <taskdef name="wetator" classname="org.wetator.ant.Wetator">
         <classpath>
             <path path="../../bin"/>
             <fileset dir="../../lib" includes="**/**.jar"/>
