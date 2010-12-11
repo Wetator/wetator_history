@@ -20,15 +20,6 @@ samples/ant/build.xml -text
 samples/google_search/google.xls -text
 samples/google_search/wetator.config -text
 src/log4j.properties -text
-src/org/rbri/wet/Messages.properties -text
-src/org/rbri/wet/Version.java -text
-src/org/rbri/wet/Wetator.java -text
-src/org/rbri/wet/WetatorScriptConverter.java -text svneol=unset#text/plain
-src/org/rbri/wet/backend/htmlunit/HtmlUnitBrowser.java -text
-src/org/rbri/wet/backend/htmlunit/HtmlUnitControlRepository.java -text svneol=unset#text/plain
-src/org/rbri/wet/backend/htmlunit/HtmlUnitFinderDelegator.java -text svneol=unset#text/plain
-src/org/rbri/wet/backend/htmlunit/ResponseStore.java -text
-src/org/rbri/wet/backend/htmlunit/XHtmlOutputter.java -text
 src/org/wetator/Messages.properties -text
 src/org/wetator/Version.java -text
 src/org/wetator/Wetator.java -text
