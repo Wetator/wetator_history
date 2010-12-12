@@ -385,6 +385,7 @@ webpages/commands/set.html -text
 webpages/commands/usemodule.html -text
 webpages/contact.png -text
 webpages/dtd/testcase.dtd -text svneol=unset#text/plain
+webpages/images/bullet_orange.gif -text
 webpages/images/wetator.png -text
 webpages/images/wetator_banner_small.png -text
 webpages/images/xls_file.jpg -text
