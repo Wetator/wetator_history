@@ -3,7 +3,7 @@
 <testcase
     xmlns='http://www.wetator.org/xsd/defaultCommandSet'
     xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
-    xsi:schemaLocation='http://www.wetator.org/xsd/defaultCommandSet xsd/defaultCommandSet.xsd'>
+    xsi:schemaLocation='http://www.wetator.org/xsd/defaultCommandSet http://www.wetator.org/xsd/defaultCommandSet.xsd'>
     <step command='Open_Url'>htmlunit_javascript.html</step>
     <step command='Assert_Title'>Wetator / HtmlUnit Javascript Tests</step>
     <step command='Comment'>click on button to exec javascript</step>

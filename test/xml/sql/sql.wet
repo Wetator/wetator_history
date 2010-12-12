@@ -4,7 +4,7 @@
     xmlns='http://www.wetator.org/xsd/defaultCommandSet'
     xmlns:sql='http://www.wetator.org/xsd/sqlCommandSet'
     xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
-    xsi:schemaLocation='http://www.wetator.org/xsd/defaultCommandSet xsd/defaultCommandSet.xsd http://www.wetator.org/xsd/sqlCommandSet xsd/sqlCommandSet.xsd'>
+    xsi:schemaLocation='http://www.wetator.org/xsd/defaultCommandSet http://www.wetator.org/xsd/defaultCommandSet.xsd http://www.wetator.org/xsd/sqlCommandSet http://www.wetator.org/xsd/sqlCommandSet.xsd'>
     <step command='Comment'>cleanup</step>
     <sql:step command='Exec_SQL'>DROP TABLE IF EXISTS test_tbl</sql:step>
     <sql:step command='Exec_SQL'>@secondDb DROP TABLE IF EXISTS second_tbl</sql:step>

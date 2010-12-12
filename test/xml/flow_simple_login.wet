@@ -3,7 +3,7 @@
 <testcase
     xmlns='http://www.wetator.org/xsd/defaultCommandSet'
     xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
-    xsi:schemaLocation='http://www.wetator.org/xsd/defaultCommandSet xsd/defaultCommandSet.xsd'>
+    xsi:schemaLocation='http://www.wetator.org/xsd/defaultCommandSet http://www.wetator.org/xsd/defaultCommandSet.xsd'>
     <step command='Open_Url'>simple_login.html</step>
     <step command='Assert_Title'>Wetator / Simple Login</step>
     <step command='Comment'>set fields by label and press the button</step>
