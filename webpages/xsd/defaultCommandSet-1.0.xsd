@@ -46,6 +46,7 @@
 
   <xs:simpleType name="commandsEnum">
     <xs:restriction base="xs:string">
+      <xs:enumeration value="" />
       <xs:enumeration value="Assert_Content" />
       <xs:enumeration value="Assert_Deselected" />
       <xs:enumeration value="Assert_Disabled" />
