@@ -90,6 +90,12 @@
     }
 
 
+  div.content img {
+    padding: 10px;
+    padding-left: 0px;
+    padding-right: 15px;
+  }
+
   div.content h1 {
     background-color: transparent;
     font-family: Arial,Helvetica,sans-serif;
@@ -150,6 +156,10 @@
     font-family: Arial,Helvetica,sans-serif;
     font-weight: normal;
     font-size: 14px;
+    list-style-position: outside;
+    list-style-image: url("images/bullet_orange.gif");
+    list-style-type: none;
+
     padding-top: 2px;
     padding-left: 4px;
     margin-top: 0px;
@@ -214,6 +224,10 @@
     margin-top: 12px;
   }
 
+  div.content div.example {
+    margin-bottom: 34px;
+  }
+
   table.exampletable {
     margin-left: 20px;
     border-collapse: collapse;
@@ -251,4 +265,3 @@
   div.test_content {
     margin-left: 23px;
   }
-

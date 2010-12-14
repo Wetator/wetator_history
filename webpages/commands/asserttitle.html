@@ -40,7 +40,7 @@
 
   <!-- commands -->
   <p class="navi_header">
-    Commands
+    <a class="navi_header" href="../commands/commands.html">Commands</a>
   </p>
   <p class="navi_link">
     <a class="navi_header" href="../commands/openurl.html">Open Url</a>
@@ -130,65 +130,57 @@
 </div>
 
 <div class="content">
-  <h1>Examples</h1>
+  <div class="example">                                                     
+    <h1>Example: Check the whole title</h1>
 
-  <p>Config</p>
-  <p class="config">
-    ...
-    <br>
-    web.baseUrl=http://www.wetator.org
-    <br>
-    ...
-  </p>
+    <p class="sample">Check for the whole title</p>
+    <table class="exampletable">
+      <tr>
+        <td class="col_comment, comment">#</td>
+        <td class="col_commmand, comment">Command</td>
+        <td class="col_param1, comment">First Param</td>
+        <td class="col_param2, comment">Second Param</td>
+      </tr>
+      <tr>
+        <td class="col_comment"></td>
+        <td class="col_commmand">Open Url</td>
+        <td class="col_param1">testcases/assert_selected.html</td>
+        <td class="col_param2"></td>
+      </tr>
+      <tr>
+        <td class="col_comment"></td>
+        <td class="col_commmand">Assert Title</td>
+        <td class="col_param1">WeT / Assert Selected</td>
+        <td class="col_param2"></td>
+      </tr>
+    </table>
+  </div>
 
-  <p class="sample">Check for the whole title</p>
-  <table class="exampletable">
-    <tr>
-      <td class="col_comment, comment">#</td>
-      <td class="col_commmand, comment">Command</td>
-      <td class="col_param1, comment">First Param</td>
-      <td class="col_param2, comment">Second Param</td>
-    </tr>
-    <tr>
-      <td class="col_comment"></td>
-      <td class="col_commmand">Open Url</td>
-      <td class="col_param1">testcases/assert_selected.html</td>
-      <td class="col_param2"></td>
-    </tr>
-    <tr>
-      <td class="col_comment"></td>
-      <td class="col_commmand">Assert Title</td>
-      <td class="col_param1">WeT / Assert Selected</td>
-      <td class="col_param2"></td>
-    </tr>
-  </table>
+  <div class="example">                                                     
+    <h1>Example: Check for title using wildcards</h1>
 
-  <p class="sample">Check for title using wildcards</p>
-  <table class="exampletable">
-    <tr>
-      <td class="col_comment, comment">#</td>
-      <td class="col_commmand, comment">Command</td>
-      <td class="col_param1, comment">First Param</td>
-      <td class="col_param2, comment">Second Param</td>
-    </tr>
-    <tr>
-      <td class="col_comment"></td>
-      <td class="col_commmand">Open Url</td>
-      <td class="col_param1">testcases/assert_selected.html</td>
-      <td class="col_param2"></td>
-    </tr>
-    <tr>
-      <td class="col_comment"></td>
-      <td class="col_commmand">Assert Content</td>
-      <td class="col_param1">WeT / Assert Sel*</td>
-      <td class="col_param2"></td>
-    </tr>
-  </table>
-
-  <p class="sample">Complete 'Assert Title' tests.
-  <br><a href="../exceltests/assert_title.xls"><img src="../images/xls_file.jpg" alt="Download file"></a>
-  </p>
-
+    <p class="sample">Check for title using wildcards</p>
+    <table class="exampletable">
+      <tr>
+        <td class="col_comment, comment">#</td>
+        <td class="col_commmand, comment">Command</td>
+        <td class="col_param1, comment">First Param</td>
+        <td class="col_param2, comment">Second Param</td>
+      </tr>
+      <tr>
+        <td class="col_comment"></td>
+        <td class="col_commmand">Open Url</td>
+        <td class="col_param1">testcases/assert_selected.html</td>
+        <td class="col_param2"></td>
+      </tr>
+      <tr>
+        <td class="col_comment"></td>
+        <td class="col_commmand">Assert Content</td>
+        <td class="col_param1">WeT / Assert Sel*</td>
+        <td class="col_param2"></td>
+      </tr>
+    </table>
+  </div>
 </div>
 
 </body>

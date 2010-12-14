@@ -40,7 +40,7 @@
 
   <!-- commands -->
   <p class="navi_header">
-    Commands
+    <a class="navi_header" href="../commands/commands.html">Commands</a>
   </p>
   <p class="navi_link">
     <a class="navi_header" href="../commands/openurl.html">Open Url</a>
@@ -133,43 +133,33 @@
 </div>
 
 <div class="content">
-  <h1>Examples</h1>
+  <div class="example">                                                     
+    <h1>Example: Place the mouse over a menu entry</h1>
 
 
-  <p>Config</p>
-  <p class="config">
-    ...
-    <br>
-    web.baseUrl=http://www.wetator.org
-    <br>
-    ...
-  </p>
+    <p>Place the mouse over a pull down menu entry named 'File'</p>
+    <table class="exampletable">
+      <tr>
+        <td class="col_comment, comment">#</td>
+        <td class="col_commmand, comment">Command</td>
+        <td class="col_param1, comment">First Param</td>
+        <td class="col_param2, comment">Second Param</td>
+      </tr>
+      <tr>
+        <td class="col_comment"></td>
+        <td class="col_commmand">Mouse Over</td>
+        <td class="col_param1">File</td>
+        <td class="col_param2"></td>
+      </tr>
+      <tr>
+        <td class="col_comment"></td>
+        <td class="col_commmand">Assert Content</td>
+        <td class="col_param1">File, Save, Save As, Exit</td>
+        <td class="col_param2"></td>
+      </tr>
+    </table>
 
-  <p>Select the color named 'red' from a select box labled 'Choose color'</p>
-  <table class="exampletable">
-    <tr>
-      <td class="col_comment, comment">#</td>
-      <td class="col_commmand, comment">Command</td>
-      <td class="col_param1, comment">First Param</td>
-      <td class="col_param2, comment">Second Param</td>
-    </tr>
-    <tr>
-      <td class="col_comment"></td>
-      <td class="col_commmand">Open Url</td>
-      <td class="col_param1">testcases/select.html</td>
-      <td class="col_param2"></td>
-    </tr>
-    <tr>
-      <td class="col_comment"></td>
-      <td class="col_commmand">Select</td>
-      <td class="col_param1">Choose color:, red</td>
-      <td class="col_param2"></td>
-    </tr>
-  </table>
-
-  <p class="sample">Complete 'Select' tests.
-  <br><a href="../exceltests/select.xls"><img src="../images/xls_file.jpg" alt="Download file"></a>
-  </p>
+  </div>
 
 </div>
 

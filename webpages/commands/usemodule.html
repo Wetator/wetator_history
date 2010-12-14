@@ -40,7 +40,7 @@
 
   <!-- commands -->
   <p class="navi_header">
-    Commands
+    <a class="navi_header" href="../commands/commands.html">Commands</a>
   </p>
   <p class="navi_link">
     <a class="navi_header" href="../commands/openurl.html">Open Url</a>
@@ -129,68 +129,69 @@
 
 
 <div class="content">
-  <h1>Examples</h1>
+  <div class="example">                                                     
+    <h1>Example: Use a module that performs the login</h1>
 
-  <p>The caller; call a module that performs the login.<br>
-  The first login is done with user/secret, the second login with admin,master.</p>
-  <table class="exampletable">
-    <tr>
-      <td class="col_comment, comment">#</td>
-      <td class="col_commmand, comment">Command</td>
-      <td class="col_param1, comment">First Param</td>
-      <td class="col_param2, comment">Second Param</td>
-    </tr>
-    <tr>
-      <td class="col_comment"></td>
-      <td class="col_commmand">Use Module</td>
-      <td class="col_param1">modules/login.xls</td>
-      <td class="col_param2">user, secret</td>
-    </tr>
-    <tr>
-      <td class="col_comment"></td>
-      <td class="col_commmand">Use Module</td>
-      <td class="col_param1">modules/login.xls</td>
-      <td class="col_param2">admin, master</td>
-    </tr>
-  </table>
+    <h2>The caller</h2>
+    <p>Call a module that performs the login.<br>
+    The first login is done with user/secret, the second login with admin,master.</p>
+    <table class="exampletable">
+      <tr>
+        <td class="col_comment, comment">#</td>
+        <td class="col_commmand, comment">Command</td>
+        <td class="col_param1, comment">First Param</td>
+        <td class="col_param2, comment">Second Param</td>
+      </tr>
+      <tr>
+        <td class="col_comment"></td>
+        <td class="col_commmand">Use Module</td>
+        <td class="col_param1">modules/login.xls</td>
+        <td class="col_param2">user, secret</td>
+      </tr>
+      <tr>
+        <td class="col_comment"></td>
+        <td class="col_commmand">Use Module</td>
+        <td class="col_param1">modules/login.xls</td>
+        <td class="col_param2">admin, master</td>
+      </tr>
+    </table>
 
-  <p>The called module. The userid and the password are provided by the caller.</p>
-  <table class="exampletable">
-    <tr>
-      <td class="col_comment, comment">#</td>
-      <td class="col_commmand, comment">Command</td>
-      <td class="col_param1, comment">First Param</td>
-      <td class="col_param2, comment">Second Param</td>
-    </tr>
-    <tr>
-      <td class="col_comment"></td>
-      <td class="col_commmand">Open Url</td>
-      <td class="col_param1">myapp.html</td>
-      <td class="col_param2"></td>
-    </tr>
-    <tr>
-      <td class="col_comment"></td>
-      <td class="col_commmand">Set</td>
-      <td class="col_param1">Userid</td>
-      <td class="col_param2">${1}</td>
-    </tr>
-    <tr>
-      <td class="col_comment"></td>
-      <td class="col_commmand">Set</td>
-      <td class="col_param1">Password</td>
-      <td class="col_param2">${2}</td>
-    </tr>
-    <tr>
-      <td class="col_comment"></td>
-      <td class="col_commmand">Click On</td>
-      <td class="col_param1">Login</td>
-      <td class="col_param2"></td>
-    </tr>
-  </table>
+    <h2>The called module</h2>
+    <p>The userid and the password are provided by the caller.</p>
+    <table class="exampletable">
+      <tr>
+        <td class="col_comment, comment">#</td>
+        <td class="col_commmand, comment">Command</td>
+        <td class="col_param1, comment">First Param</td>
+        <td class="col_param2, comment">Second Param</td>
+      </tr>
+      <tr>
+        <td class="col_comment"></td>
+        <td class="col_commmand">Open Url</td>
+        <td class="col_param1">myapp.html</td>
+        <td class="col_param2"></td>
+      </tr>
+      <tr>
+        <td class="col_comment"></td>
+        <td class="col_commmand">Set</td>
+        <td class="col_param1">Userid</td>
+        <td class="col_param2">${1}</td>
+      </tr>
+      <tr>
+        <td class="col_comment"></td>
+        <td class="col_commmand">Set</td>
+        <td class="col_param1">Password</td>
+        <td class="col_param2">${2}</td>
+      </tr>
+      <tr>
+        <td class="col_comment"></td>
+        <td class="col_commmand">Click On</td>
+        <td class="col_param1">Login</td>
+        <td class="col_param2"></td>
+      </tr>
+    </table>
 
-  <p class="sample">Complete 'Use Module' tests.
-  <br><a href="../exceltests/use_module.xls"><img src="../images/xls_file.jpg" alt="Download file"></a>
-  </p>
+  </div>
 
 </div>
 
