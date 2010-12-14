@@ -178,7 +178,15 @@ public class WetResultWriter implements WetProgressListener {
         printStartTagOpener(TAG_COMMAND_SET);
         output.print("class=\"");
         output.print(xmlUtil.normalizeAttributeValue(tmpCommandSet.getClass().toString()));
-        output.println("\" />");
+        output.println("\" >");
+
+        output.indent();
+        for (String tmpMessage : tmpCommandSet.getInitializationMessages()) {
+          printLogMessage("INFO", tmpMessage);
+        }
+        output.unindent();
+
+        printEndTag(TAG_COMMAND_SET);
       }
 
       List<Class<? extends Control>> tmpControls = tmpWetConfiguration.getControls();

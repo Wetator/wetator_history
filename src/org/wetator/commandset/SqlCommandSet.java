@@ -96,7 +96,6 @@ public final class SqlCommandSet extends AbstractCommandSet {
       aWetCommand.assertNoUnusedSecondParameter(aWetContext);
 
       tmpSqlParam.trim();
-
       String tmpConnectionName = extractConnectionName(aWetContext, tmpSqlParam);
 
       String tmpSql = tmpSqlParam.getValue();
@@ -134,7 +133,6 @@ public final class SqlCommandSet extends AbstractCommandSet {
       List<SecretString> tmpExpected = aWetCommand.getRequiredSecondParameterValues(aWetContext);
 
       tmpSqlParam.trim();
-
       String tmpConnectionName = extractConnectionName(aWetContext, tmpSqlParam);
 
       String tmpSql = tmpSqlParam.getValue();
@@ -256,9 +254,6 @@ public final class SqlCommandSet extends AbstractCommandSet {
       if (StringUtils.isEmpty(tmpConnectionName)) {
         continue;
       }
-      if (null == defaultConnectionName) {
-        defaultConnectionName = tmpConnectionName;
-      }
 
       String tmpDriver = aConfiguration.getProperty(PROPERTY_PREFIX + tmpConnectionName + PROPERTY_PART_DRIVER);
       String tmpUrl = aConfiguration.getProperty(PROPERTY_PREFIX + tmpConnectionName + PROPERTY_PART_URL);
@@ -266,11 +261,14 @@ public final class SqlCommandSet extends AbstractCommandSet {
       String tmpPassword = aConfiguration.getProperty(PROPERTY_PREFIX + tmpConnectionName + PROPERTY_PART_PASSWORD);
 
       if (StringUtils.isEmpty(tmpDriver)) {
+        addInitializationMessage("No database driver class specified for connection named '" + tmpConnectionName + "'.");
         log.warn("No database driver class specified for connection named '" + tmpConnectionName + "'.");
       } else {
         try {
           Class.forName(tmpDriver);
         } catch (Exception e) {
+          addInitializationMessage("Error during load of database driver class '" + tmpDriver
+              + "' for connection named '" + tmpConnectionName + "' (reason: " + e.toString() + ").");
           log.warn("Error during load of database driver class '" + tmpDriver + "' for connection named '"
               + tmpConnectionName + "'.", e);
         }
@@ -283,6 +281,9 @@ public final class SqlCommandSet extends AbstractCommandSet {
 
         // ok register the connection
         connections.put(tmpConnectionName, tmpConnection);
+        if (null == defaultConnectionName) {
+          defaultConnectionName = tmpConnectionName;
+        }
 
         // leave some info
         if (tmpConnectionName == defaultConnectionName) {
@@ -291,6 +292,8 @@ public final class SqlCommandSet extends AbstractCommandSet {
           addInitializationMessage("DB " + tmpConnectionName + ": " + tmpUrl);
         }
       } catch (Exception e) {
+        addInitializationMessage("Error connection to database '" + tmpUrl + "' for connection named '"
+            + tmpConnectionName + "' (reason: " + e.toString() + ").");
         log.warn("Error connection to database '" + tmpUrl + "' for connection named '" + tmpConnectionName + "'.", e);
       }
     }
@@ -302,8 +305,10 @@ public final class SqlCommandSet extends AbstractCommandSet {
    * @param aWetContext the wet context
    * @param aParameter the parameter
    * @return the connection name
+   * @throws AssertionFailedException if no default connection defined
    */
-  protected String extractConnectionName(WetContext aWetContext, SecretString aParameter) {
+  protected String extractConnectionName(WetContext aWetContext, SecretString aParameter)
+      throws AssertionFailedException {
     // check for '@' at start for handling connections
     if (aParameter.startsWith(DB_NAME_PREFIX)) {
       for (Map.Entry<String, Connection> tmpEntry : connections.entrySet()) {
@@ -314,6 +319,8 @@ public final class SqlCommandSet extends AbstractCommandSet {
       }
       aWetContext.informListenersWarn("undefinedConnectionName", new String[] { aParameter.toString() });
     }
+
+    Assert.assertNotNull(defaultConnectionName, "noDefaultConnection", null);
     return defaultConnectionName;
   }
 
