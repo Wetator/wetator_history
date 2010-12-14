@@ -16,8 +16,11 @@
 
 package org.wetator.backend;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
+import org.wetator.exception.WetException;
 import org.wetator.util.SecretString;
 
 /**
@@ -27,7 +30,11 @@ import org.wetator.util.SecretString;
  */
 public class WPath {
 
-  private List<SecretString> pathNodes;
+  private List<SecretString> rawPath;
+  private List<SecretString> pathNodes = new ArrayList<SecretString>();
+  private List<TableCoordinate> tableCoordinates = new ArrayList<TableCoordinate>();
+  private List<TableCoordinate> tableCoordinatesReversed;
+  private SecretString lastNode;
 
   /**
    * The constructor.
@@ -35,7 +42,15 @@ public class WPath {
    * @param aPathNodes the nodes of the path
    */
   public WPath(List<SecretString> aPathNodes) {
-    pathNodes = aPathNodes;
+    rawPath = aPathNodes;
+    parseNodes();
+  }
+
+  /**
+   * @return the rawPath
+   */
+  public List<SecretString> getRawPath() {
+    return rawPath;
   }
 
   /**
@@ -46,25 +61,31 @@ public class WPath {
   }
 
   /**
-   * @param anIndex the index of the path node to return
-   * @return the path node
+   * @return the tableCoordinates
    */
-  public SecretString getNode(int anIndex) {
-    return pathNodes.get(anIndex);
+  public List<TableCoordinate> getTableCoordinates() {
+    return tableCoordinates;
+  }
+
+  /**
+   * @return the tableCoordinatesReversed
+   */
+  public List<TableCoordinate> getTableCoordinatesReversed() {
+    return tableCoordinatesReversed;
+  }
+
+  /**
+   * @return the lastNode
+   */
+  public SecretString getLastNode() {
+    return lastNode;
   }
 
   /**
    * @return true if the path contains no nodes
    */
   public boolean isEmpty() {
-    return pathNodes.isEmpty();
-  }
-
-  /**
-   * @return the number of path nodes
-   */
-  public int size() {
-    return pathNodes.size();
+    return rawPath.isEmpty();
   }
 
   /**
@@ -74,6 +95,104 @@ public class WPath {
    */
   @Override
   public String toString() {
-    return SecretString.toString(pathNodes);
+    return SecretString.toString(rawPath);
+  }
+
+  private void parseNodes() {
+    boolean tmpTableCoordinatesFinished = false;
+    if (!rawPath.isEmpty()) {
+      for (SecretString tmpNode : rawPath.subList(0, rawPath.size() - 1)) {
+        if (tmpNode.startsWith("[") && tmpNode.endsWith("]") && !tmpNode.endsWith("\\]")) {
+          if (tmpTableCoordinatesFinished) {
+            throw new WetException("Invalid WPath. Only one group of table coordinates allowed.");
+          }
+          tableCoordinates.add(new TableCoordinate(tmpNode));
+        } else {
+          if (!tmpTableCoordinatesFinished && !tableCoordinates.isEmpty()) {
+            tmpTableCoordinatesFinished = true;
+          }
+          pathNodes.add(tmpNode);
+        }
+      }
+      lastNode = rawPath.get(rawPath.size() - 1);
+      if (lastNode.startsWith("[") && lastNode.endsWith("]") && !lastNode.endsWith("\\]")) {
+        tableCoordinates.add(new TableCoordinate(lastNode));
+        lastNode = null;
+      }
+    }
+    tableCoordinatesReversed = new ArrayList<TableCoordinate>(tableCoordinates);
+    Collections.reverse(tableCoordinatesReversed);
+  }
+
+  /**
+   * A parser and container for a table coordinate.<br/>
+   * A valid table coordinate
+   * <ul>
+   * <li>starts with '['</li>
+   * <li>may contain an x coordinate</li>
+   * <li>may contain a y coordinate prefixed by ';'</li>
+   * <li>contains at least one of x coordinate and y coordinate</li>
+   * <li>ends with ']'</li>
+   * </ul>
+   * 
+   * @author frank.danek
+   */
+  public static class TableCoordinate {
+
+    private SecretString coordinateX;
+    private SecretString coordinateY;
+
+    /**
+     * The constructor.
+     * 
+     * @param aTableCoordinates the {@link SecretString} containing the table coordinates
+     */
+    public TableCoordinate(SecretString aTableCoordinates) {
+      String tmpTableCoordinates = aTableCoordinates.getValue();
+      String tmpTableCoordinatesString = aTableCoordinates.toString();
+      if (!tmpTableCoordinates.startsWith("[") || !tmpTableCoordinates.endsWith("]")) {
+        throw new WetException(aTableCoordinates.toString() + " is not a valid table coordinate.");
+      }
+      // cut away [ and ]
+      tmpTableCoordinates = tmpTableCoordinates.substring(1, tmpTableCoordinates.length() - 1);
+      tmpTableCoordinatesString = tmpTableCoordinatesString.substring(1, tmpTableCoordinatesString.length() - 1);
+      if (tmpTableCoordinates.contains(";")) {
+        String[] tmpCoordinates = tmpTableCoordinates.split(";");
+        String[] tmpCoordinatesString = tmpTableCoordinatesString.split(";");
+        if (tmpCoordinates.length > 2) {
+          throw new WetException(aTableCoordinates.toString() + " is not a valid table coordinate.");
+        }
+        if (!"".equals(tmpCoordinates[0].trim())) {
+          coordinateX = new SecretString(tmpCoordinates[0].trim(), tmpCoordinatesString[0].trim());
+        }
+        coordinateY = new SecretString(tmpCoordinates[1].trim(), tmpCoordinatesString[1].trim());
+      } else {
+        coordinateX = new SecretString(tmpTableCoordinates.trim(), tmpTableCoordinatesString.trim());
+      }
+    }
+
+    /**
+     * @return the coordinateX
+     */
+    public SecretString getCoordinateX() {
+      return coordinateX;
+    }
+
+    /**
+     * @return the coordinateY
+     */
+    public SecretString getCoordinateY() {
+      return coordinateY;
+    }
+
+    /**
+     * {@inheritDoc}
+     * 
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+      return "[" + coordinateX + ";" + coordinateY + "]";
+    }
   }
 }

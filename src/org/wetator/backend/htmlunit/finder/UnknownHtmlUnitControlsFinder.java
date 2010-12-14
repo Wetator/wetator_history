@@ -22,8 +22,8 @@ import org.wetator.backend.WPath;
 import org.wetator.backend.WeightedControlList;
 import org.wetator.backend.htmlunit.HtmlUnitControlRepository;
 import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl;
-import org.wetator.backend.htmlunit.matcher.ByIdMatcher;
 import org.wetator.backend.htmlunit.matcher.AbstractHtmlUnitElementMatcher.MatchResult;
+import org.wetator.backend.htmlunit.matcher.ByIdMatcher;
 import org.wetator.backend.htmlunit.util.FindSpot;
 import org.wetator.backend.htmlunit.util.HtmlPageIndex;
 import org.wetator.core.searchpattern.SearchPattern;
@@ -67,13 +67,19 @@ public class UnknownHtmlUnitControlsFinder extends AbstractHtmlUnitControlsFinde
   public WeightedControlList find(WPath aWPath) {
     WeightedControlList tmpFoundControls = new WeightedControlList();
 
-    SearchPattern tmpSearchPattern = aWPath.getNode(aWPath.size() - 1).getSearchPattern();
-    SearchPattern tmpPathSearchPattern = SearchPattern.createFromWPath(aWPath, aWPath.size() - 1);
-
+    SearchPattern tmpPathSearchPattern = SearchPattern.createFromList(aWPath.getPathNodes());
     FindSpot tmpPathSpot = htmlPageIndex.firstOccurence(tmpPathSearchPattern);
+
     if (null == tmpPathSpot) {
       return tmpFoundControls;
     }
+
+    if (aWPath.getLastNode() == null) {
+      // no table coordinates supported so far
+      // TODO implement table coordinate support for unknown controls
+      return tmpFoundControls;
+    }
+    SearchPattern tmpSearchPattern = aWPath.getLastNode().getSearchPattern();
 
     // search with id
     for (HtmlElement tmpHtmlElement : htmlPageIndex.getAllVisibleHtmlElements()) {
@@ -82,7 +88,7 @@ public class UnknownHtmlUnitControlsFinder extends AbstractHtmlUnitControlsFinde
             tmpSearchPattern).matches(tmpHtmlElement);
         for (MatchResult tmpMatch : tmpMatches) {
           tmpFoundControls.add(new HtmlUnitBaseControl<HtmlElement>(tmpMatch.getHtmlElement()),
-              tmpMatch.getFoundType(), tmpMatch.getCoverage(), tmpMatch.getDistance());
+              tmpMatch.getFoundType(), tmpMatch.getCoverage(), tmpMatch.getDistance(), tmpMatch.getStart());
         }
       }
     }
@@ -105,7 +111,7 @@ public class UnknownHtmlUnitControlsFinder extends AbstractHtmlUnitControlsFinde
 
           if (controlRepository == null || controlRepository.getForHtmlElement(tmpHtmlElement) == null) {
             tmpFoundControls.add(new HtmlUnitBaseControl<HtmlElement>(tmpHtmlElement),
-                WeightedControlList.FoundType.BY_TEXT, tmpCoverage, tmpDistance);
+                WeightedControlList.FoundType.BY_TEXT, tmpCoverage, tmpDistance, tmpNodeSpot.startPos);
           }
           break;
         }

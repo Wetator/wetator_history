@@ -51,8 +51,8 @@ public class HtmlUnitTextAreaIdentifierTest extends AbstractHtmlUnitControlIdent
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
     Assert.assertEquals(
-        "[HtmlTextArea (id='inputId') (name='TextAreaName')] found by: BY_LABEL coverage: 0 distance: 0", tmpFound
-            .getEntriesSorted().get(0).toString());
+        "[HtmlTextArea (id='inputId') (name='TextAreaName')] found by: BY_LABEL coverage: 0 distance: 0 start: 5",
+        tmpFound.getEntriesSorted().get(0).toString());
   }
 
   @Test
@@ -69,8 +69,8 @@ public class HtmlUnitTextAreaIdentifierTest extends AbstractHtmlUnitControlIdent
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
     Assert.assertEquals(
-        "[HtmlTextArea (id='inputId') (name='TextAreaName')] found by: BY_LABEL coverage: 0 distance: 0", tmpFound
-            .getEntriesSorted().get(0).toString());
+        "[HtmlTextArea (id='inputId') (name='TextAreaName')] found by: BY_LABEL coverage: 0 distance: 0 start: 5",
+        tmpFound.getEntriesSorted().get(0).toString());
   }
 
 }

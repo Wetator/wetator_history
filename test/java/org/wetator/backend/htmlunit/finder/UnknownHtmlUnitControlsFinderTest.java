@@ -113,7 +113,7 @@ public class UnknownHtmlUnitControlsFinderTest {
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert
         .assertEquals(
-            "[Unknown HtmlElement 'class com.gargoylesoftware.htmlunit.html.HtmlBody'] found by: BY_TEXT coverage: 0 distance: 0",
+            "[Unknown HtmlElement 'class com.gargoylesoftware.htmlunit.html.HtmlBody'] found by: BY_TEXT coverage: 0 distance: 0 start: 0",
             tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -132,7 +132,7 @@ public class UnknownHtmlUnitControlsFinderTest {
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert
         .assertEquals(
-            "[Unknown HtmlElement 'class com.gargoylesoftware.htmlunit.html.HtmlBody'] found by: BY_TEXT coverage: 4 distance: 0",
+            "[Unknown HtmlElement 'class com.gargoylesoftware.htmlunit.html.HtmlBody'] found by: BY_TEXT coverage: 4 distance: 0 start: 0",
             tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -164,7 +164,7 @@ public class UnknownHtmlUnitControlsFinderTest {
     WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals("[HtmlParagraph 'MyText'] found by: BY_TEXT coverage: 0 distance: 0", tmpFound
+    Assert.assertEquals("[HtmlParagraph 'MyText'] found by: BY_TEXT coverage: 0 distance: 0 start: 0", tmpFound
         .getEntriesSorted().get(0).toString());
   }
 
@@ -181,7 +181,7 @@ public class UnknownHtmlUnitControlsFinderTest {
     WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals("[HtmlParagraph 'MyText'] found by: BY_TEXT coverage: 4 distance: 0", tmpFound
+    Assert.assertEquals("[HtmlParagraph 'MyText'] found by: BY_TEXT coverage: 4 distance: 0 start: 0", tmpFound
         .getEntriesSorted().get(0).toString());
   }
 
@@ -198,7 +198,7 @@ public class UnknownHtmlUnitControlsFinderTest {
     WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals("[HtmlParagraph 'MyText'] found by: BY_TEXT coverage: 0 distance: 0", tmpFound
+    Assert.assertEquals("[HtmlParagraph 'MyText'] found by: BY_TEXT coverage: 0 distance: 0 start: 0", tmpFound
         .getEntriesSorted().get(0).toString());
   }
 
@@ -216,7 +216,7 @@ public class UnknownHtmlUnitControlsFinderTest {
     WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals("[HtmlParagraph 'line3'] found by: BY_TEXT coverage: 0 distance: 8", tmpFound
+    Assert.assertEquals("[HtmlParagraph 'line3'] found by: BY_TEXT coverage: 0 distance: 8 start: 12", tmpFound
         .getEntriesSorted().get(0).toString());
   }
 
@@ -234,7 +234,7 @@ public class UnknownHtmlUnitControlsFinderTest {
     WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch));
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals("[HtmlParagraph 'line3'] found by: BY_TEXT coverage: 0 distance: 0", tmpFound
+    Assert.assertEquals("[HtmlParagraph 'line3'] found by: BY_TEXT coverage: 0 distance: 0 start: 5", tmpFound
         .getEntriesSorted().get(0).toString());
   }
 

@@ -16,20 +16,22 @@
 
 package org.wetator.backend.htmlunit.control.identifier;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.wetator.backend.WPath;
-import org.wetator.backend.WeightedControlList;
+import org.wetator.backend.control.Control;
 import org.wetator.backend.htmlunit.control.HtmlUnitInputPassword;
+import org.wetator.backend.htmlunit.matcher.AbstractHtmlUnitElementMatcher;
 import org.wetator.backend.htmlunit.matcher.ByHtmlLabelMatcher;
 import org.wetator.backend.htmlunit.matcher.ByIdMatcher;
 import org.wetator.backend.htmlunit.matcher.ByLabelTextBeforeMatcher;
 import org.wetator.backend.htmlunit.matcher.ByNameAttributeMatcher;
+import org.wetator.backend.htmlunit.matcher.ByTableCoordinatesMatcher;
 import org.wetator.backend.htmlunit.matcher.ByWholeTextBeforeMatcher;
-import org.wetator.backend.htmlunit.matcher.AbstractHtmlUnitElementMatcher.MatchResult;
 import org.wetator.backend.htmlunit.util.FindSpot;
 import org.wetator.core.searchpattern.SearchPattern;
+import org.wetator.util.SecretString;
 
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlLabel;
@@ -44,11 +46,12 @@ import com.gargoylesoftware.htmlunit.html.HtmlPasswordInput;
  * <li>it's name</li>
  * <li>it's id</li>
  * <li>a label</li>
+ * <li>table coordinates</li>
  * </ul>
  * 
  * @author frank.danek
  */
-public class HtmlUnitInputPasswordIdentifier extends AbstractHtmlUnitControlIdentifier {
+public class HtmlUnitInputPasswordIdentifier extends AbstractMatcherBasedIdentifier {
 
   /**
    * {@inheritDoc}
@@ -63,44 +66,52 @@ public class HtmlUnitInputPasswordIdentifier extends AbstractHtmlUnitControlIden
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.backend.htmlunit.control.identifier.AbstractHtmlUnitControlIdentifier#identify(WPath,
-   *      com.gargoylesoftware.htmlunit.html.HtmlElement)
+   * @see org.wetator.backend.htmlunit.control.identifier.AbstractMatcherBasedIdentifier#addMatchers(org.wetator.backend.WPath,
+   *      com.gargoylesoftware.htmlunit.html.HtmlElement, java.util.List)
    */
   @Override
-  public WeightedControlList identify(WPath aWPath, HtmlElement aHtmlElement) {
-    SearchPattern tmpSearchPattern = aWPath.getNode(aWPath.size() - 1).getSearchPattern();
-    SearchPattern tmpPathSearchPattern = SearchPattern.createFromWPath(aWPath, aWPath.size() - 1);
+  protected void addMatchers(WPath aWPath, HtmlElement aHtmlElement, List<AbstractHtmlUnitElementMatcher> aMatchers) {
+    SearchPattern tmpPathSearchPattern = SearchPattern.createFromList(aWPath.getPathNodes());
     FindSpot tmpPathSpot = htmlPageIndex.firstOccurence(tmpPathSearchPattern);
-    SearchPattern tmpWholePathSearchPattern = SearchPattern.createFromWPath(aWPath);
 
     if (null == tmpPathSpot) {
-      return new WeightedControlList();
+      return;
     }
 
-    List<MatchResult> tmpMatches = new LinkedList<MatchResult>();
-    if (aHtmlElement instanceof HtmlPasswordInput) {
-      // whole text before
-      tmpMatches.addAll(new ByWholeTextBeforeMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot,
-          tmpWholePathSearchPattern).matches(aHtmlElement));
+    if (aWPath.getLastNode() != null) {
+      // normal matchers
+      SearchPattern tmpSearchPattern = aWPath.getLastNode().getSearchPattern();
+      List<SecretString> tmpWholePath = new ArrayList<SecretString>(aWPath.getPathNodes());
+      tmpWholePath.add(aWPath.getLastNode());
+      SearchPattern tmpWholePathSearchPattern = SearchPattern.createFromList(tmpWholePath);
+      if (aHtmlElement instanceof HtmlPasswordInput) {
+        // whole text before
+        aMatchers.add(new ByWholeTextBeforeMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot,
+            tmpWholePathSearchPattern));
 
-      tmpMatches
-          .addAll(new ByLabelTextBeforeMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern)
-              .matches(aHtmlElement));
-      tmpMatches.addAll(new ByNameAttributeMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern)
-          .matches(aHtmlElement));
-      tmpMatches.addAll(new ByIdMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern)
-          .matches(aHtmlElement));
+        aMatchers.add(new ByLabelTextBeforeMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern));
+        aMatchers.add(new ByNameAttributeMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern));
+        aMatchers.add(new ByIdMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern));
 
-    } else if (aHtmlElement instanceof HtmlLabel) {
-      tmpMatches.addAll(new ByHtmlLabelMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern,
-          HtmlPasswordInput.class).matches(aHtmlElement));
+      } else if (aHtmlElement instanceof HtmlLabel) {
+        aMatchers.add(new ByHtmlLabelMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern,
+            HtmlPasswordInput.class));
+      }
+    } else if (!aWPath.getTableCoordinates().isEmpty()) {
+      // table matcher
+      // we have to use the reversed table coordinates to work from the inner most (last) to the outer most (first)
+      aMatchers.add(new ByTableCoordinatesMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, aWPath
+          .getTableCoordinatesReversed(), HtmlPasswordInput.class));
     }
-    WeightedControlList tmpResult = new WeightedControlList();
-    for (MatchResult tmpMatch : tmpMatches) {
-      tmpResult.add(new HtmlUnitInputPassword((HtmlPasswordInput) tmpMatch.getHtmlElement()), tmpMatch.getFoundType(),
-          tmpMatch.getCoverage(), tmpMatch.getDistance());
-    }
-    return tmpResult;
   }
 
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.wetator.backend.htmlunit.control.identifier.AbstractMatcherBasedIdentifier#createControl(com.gargoylesoftware.htmlunit.html.HtmlElement)
+   */
+  @Override
+  protected Control createControl(HtmlElement aHtmlElement) {
+    return new HtmlUnitInputPassword((HtmlPasswordInput) aHtmlElement);
+  }
 }

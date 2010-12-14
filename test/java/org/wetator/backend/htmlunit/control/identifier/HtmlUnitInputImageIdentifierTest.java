@@ -46,13 +46,45 @@ public class HtmlUnitInputImageIdentifierTest extends AbstractHtmlUnitControlIde
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("myId", false));
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, "myId", new WPath(tmpSearch));
+    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "myId");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
-    Assert.assertEquals(
-        "[HtmlImageInput '' (src='picture.png') (id='myId') (name='MyName')] found by: BY_ID coverage: 0 distance: 0",
-        tmpFound.getEntriesSorted().get(0).toString());
+    Assert
+        .assertEquals(
+            "[HtmlImageInput '' (src='picture.png') (id='myId') (name='MyName')] found by: BY_ID coverage: 0 distance: 0 start: 0",
+            tmpFound.getEntriesSorted().get(0).toString());
+  }
+
+  @Test
+  public void byIdWildcard() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<form action='test'>"
+        + "<input id='myId' type='image' name='MyName' src='picture.png'>" + "</form>" + "</body></html>";
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("my*", false));
+
+    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "myId");
+
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
+
+    Assert
+        .assertEquals(
+            "[HtmlImageInput '' (src='picture.png') (id='myId') (name='MyName')] found by: BY_ID coverage: 2 distance: 0 start: 0",
+            tmpFound.getEntriesSorted().get(0).toString());
+  }
+
+  @Test
+  public void byIdPart() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<form action='test'>"
+        + "<input id='myId' type='image' name='MyName' src='picture.png'>" + "</form>" + "</body></html>";
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("yI", false));
+
+    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "myId");
+
+    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
   }
 
   @Test
@@ -64,13 +96,14 @@ public class HtmlUnitInputImageIdentifierTest extends AbstractHtmlUnitControlIde
     tmpSearch.add(new SecretString("Some text", false));
     tmpSearch.add(new SecretString("myId", false));
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, "myId", new WPath(tmpSearch));
+    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "myId");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
-    Assert.assertEquals(
-        "[HtmlImageInput '' (src='picture.png') (id='myId') (name='MyName')] found by: BY_ID coverage: 0 distance: 5",
-        tmpFound.getEntriesSorted().get(0).toString());
+    Assert
+        .assertEquals(
+            "[HtmlImageInput '' (src='picture.png') (id='myId') (name='MyName')] found by: BY_ID coverage: 0 distance: 5 start: 14",
+            tmpFound.getEntriesSorted().get(0).toString());
   }
 
   @Test
@@ -82,20 +115,7 @@ public class HtmlUnitInputImageIdentifierTest extends AbstractHtmlUnitControlIde
     tmpSearch.add(new SecretString("wrong text", false));
     tmpSearch.add(new SecretString("myId", false));
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, "myId", new WPath(tmpSearch));
-
-    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
-  }
-
-  @Test
-  public void byIdPart() throws IOException {
-    String tmpHtmlCode = "<html><body>" + "<form action='test'>"
-        + "<input id='myId' type='image' name='MyName' src='picture.png'>" + "</form>" + "</body></html>";
-
-    List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("yI", false));
-
-    WeightedControlList tmpFound = identify(tmpHtmlCode, "myId", new WPath(tmpSearch));
+    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "myId");
 
     Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
   }
@@ -108,14 +128,45 @@ public class HtmlUnitInputImageIdentifierTest extends AbstractHtmlUnitControlIde
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("MyName", false));
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, "myId", new WPath(tmpSearch));
+    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "myId");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
     Assert
         .assertEquals(
-            "[HtmlImageInput '' (src='picture.png') (id='myId') (name='MyName')] found by: BY_NAME coverage: 0 distance: 0",
+            "[HtmlImageInput '' (src='picture.png') (id='myId') (name='MyName')] found by: BY_NAME coverage: 0 distance: 0 start: 0",
             tmpFound.getEntriesSorted().get(0).toString());
+  }
+
+  @Test
+  public void byNameWildcard() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<form action='test'>"
+        + "<input id='myId' type='image' name='MyName' src='picture.png'>" + "</form>" + "</body></html>";
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("MyNa*", false));
+
+    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "myId");
+
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
+
+    Assert
+        .assertEquals(
+            "[HtmlImageInput '' (src='picture.png') (id='myId') (name='MyName')] found by: BY_NAME coverage: 2 distance: 0 start: 0",
+            tmpFound.getEntriesSorted().get(0).toString());
+  }
+
+  @Test
+  public void byNamePart() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<form action='test'>"
+        + "<input id='myId' type='image' name='MyName' src='picture.png'>" + "</form>" + "</body></html>";
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("yNam", false));
+
+    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "myId");
+
+    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
   }
 
   @Test
@@ -127,13 +178,13 @@ public class HtmlUnitInputImageIdentifierTest extends AbstractHtmlUnitControlIde
     tmpSearch.add(new SecretString("Some text", false));
     tmpSearch.add(new SecretString("MyName", false));
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, "myId", new WPath(tmpSearch));
+    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "myId");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
     Assert
         .assertEquals(
-            "[HtmlImageInput '' (src='picture.png') (id='myId') (name='MyName')] found by: BY_NAME coverage: 0 distance: 5",
+            "[HtmlImageInput '' (src='picture.png') (id='myId') (name='MyName')] found by: BY_NAME coverage: 0 distance: 5 start: 14",
             tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -146,20 +197,7 @@ public class HtmlUnitInputImageIdentifierTest extends AbstractHtmlUnitControlIde
     tmpSearch.add(new SecretString("wrong text", false));
     tmpSearch.add(new SecretString("MyName", false));
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, "myId", new WPath(tmpSearch));
-
-    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
-  }
-
-  @Test
-  public void byNamePart() throws IOException {
-    String tmpHtmlCode = "<html><body>" + "<form action='test'>"
-        + "<input id='myId' type='image' name='MyName' src='picture.png'>" + "</form>" + "</body></html>";
-
-    List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("yNam", false));
-
-    WeightedControlList tmpFound = identify(tmpHtmlCode, "myId", new WPath(tmpSearch));
+    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "myId");
 
     Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
   }
@@ -172,13 +210,49 @@ public class HtmlUnitInputImageIdentifierTest extends AbstractHtmlUnitControlIde
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("MyAlt", false));
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, "myId", new WPath(tmpSearch));
+    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "myId");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
     Assert
         .assertEquals(
-            "[HtmlImageInput '' (src='picture.png') (id='myId') (name='MyName')] found by: BY_IMG_ALT_ATTRIBUTE coverage: 0 distance: 0",
+            "[HtmlImageInput '' (src='picture.png') (id='myId') (name='MyName')] found by: BY_IMG_ALT_ATTRIBUTE coverage: 0 distance: 0 start: 0",
+            tmpFound.getEntriesSorted().get(0).toString());
+  }
+
+  @Test
+  public void byAltWildcard() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<form action='test'>"
+        + "<input id='myId' type='image' name='MyName' src='picture.png' alt='MyAlt'>" + "</form>" + "</body></html>";
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("MyA*", false));
+
+    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "myId");
+
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
+
+    Assert
+        .assertEquals(
+            "[HtmlImageInput '' (src='picture.png') (id='myId') (name='MyName')] found by: BY_IMG_ALT_ATTRIBUTE coverage: 2 distance: 0 start: 0",
+            tmpFound.getEntriesSorted().get(0).toString());
+  }
+
+  @Test
+  public void byAltPart() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<form action='test'>"
+        + "<input id='myId' type='image' name='MyName' src='picture.png'  alt='MyAlt'>" + "</form>" + "</body></html>";
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("yAl", false));
+
+    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "myId");
+
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
+
+    Assert
+        .assertEquals(
+            "[HtmlImageInput '' (src='picture.png') (id='myId') (name='MyName')] found by: BY_IMG_ALT_ATTRIBUTE coverage: 2 distance: 0 start: 0",
             tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -191,13 +265,13 @@ public class HtmlUnitInputImageIdentifierTest extends AbstractHtmlUnitControlIde
     tmpSearch.add(new SecretString("Some text", false));
     tmpSearch.add(new SecretString("MyAlt", false));
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, "myId", new WPath(tmpSearch));
+    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "myId");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
     Assert
         .assertEquals(
-            "[HtmlImageInput '' (src='picture.png') (id='myId') (name='MyName')] found by: BY_IMG_ALT_ATTRIBUTE coverage: 0 distance: 5",
+            "[HtmlImageInput '' (src='picture.png') (id='myId') (name='MyName')] found by: BY_IMG_ALT_ATTRIBUTE coverage: 0 distance: 5 start: 14",
             tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -210,27 +284,9 @@ public class HtmlUnitInputImageIdentifierTest extends AbstractHtmlUnitControlIde
     tmpSearch.add(new SecretString("wrong text", false));
     tmpSearch.add(new SecretString("MyAlt", false));
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, "myId", new WPath(tmpSearch));
+    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "myId");
 
     Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
-  }
-
-  @Test
-  public void byAltPart() throws IOException {
-    String tmpHtmlCode = "<html><body>" + "<form action='test'>"
-        + "<input id='myId' type='image' name='MyName' src='picture.png'  alt='MyAlt'>" + "</form>" + "</body></html>";
-
-    List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("yAl", false));
-
-    WeightedControlList tmpFound = identify(tmpHtmlCode, "myId", new WPath(tmpSearch));
-
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-
-    Assert
-        .assertEquals(
-            "[HtmlImageInput '' (src='picture.png') (id='myId') (name='MyName')] found by: BY_IMG_ALT_ATTRIBUTE coverage: 2 distance: 0",
-            tmpFound.getEntriesSorted().get(0).toString());
   }
 
   @Test
@@ -242,13 +298,51 @@ public class HtmlUnitInputImageIdentifierTest extends AbstractHtmlUnitControlIde
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("MyTitle", false));
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, "myId", new WPath(tmpSearch));
+    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "myId");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
     Assert
         .assertEquals(
-            "[HtmlImageInput '' (src='picture.png') (id='myId') (name='MyName')] found by: BY_IMG_TITLE_ATTRIBUTE coverage: 0 distance: 0",
+            "[HtmlImageInput '' (src='picture.png') (id='myId') (name='MyName')] found by: BY_IMG_TITLE_ATTRIBUTE coverage: 0 distance: 0 start: 0",
+            tmpFound.getEntriesSorted().get(0).toString());
+  }
+
+  @Test
+  public void byTitleWildcard() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<form action='test'>"
+        + "<input id='myId' type='image' name='MyName' src='picture.png' title='MyTitle'>" + "</form>"
+        + "</body></html>";
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("MyTit*", false));
+
+    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "myId");
+
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
+
+    Assert
+        .assertEquals(
+            "[HtmlImageInput '' (src='picture.png') (id='myId') (name='MyName')] found by: BY_IMG_TITLE_ATTRIBUTE coverage: 2 distance: 0 start: 0",
+            tmpFound.getEntriesSorted().get(0).toString());
+  }
+
+  @Test
+  public void byTitlePart() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<form action='test'>"
+        + "<input id='myId' type='image' name='MyName' src='picture.png'  title='MyTitle'>" + "</form>"
+        + "</body></html>";
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("yTitl", false));
+
+    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "myId");
+
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
+
+    Assert
+        .assertEquals(
+            "[HtmlImageInput '' (src='picture.png') (id='myId') (name='MyName')] found by: BY_IMG_TITLE_ATTRIBUTE coverage: 2 distance: 0 start: 0",
             tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -262,13 +356,13 @@ public class HtmlUnitInputImageIdentifierTest extends AbstractHtmlUnitControlIde
     tmpSearch.add(new SecretString("Some text", false));
     tmpSearch.add(new SecretString("MyTitle", false));
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, "myId", new WPath(tmpSearch));
+    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "myId");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
     Assert
         .assertEquals(
-            "[HtmlImageInput '' (src='picture.png') (id='myId') (name='MyName')] found by: BY_IMG_TITLE_ATTRIBUTE coverage: 0 distance: 5",
+            "[HtmlImageInput '' (src='picture.png') (id='myId') (name='MyName')] found by: BY_IMG_TITLE_ATTRIBUTE coverage: 0 distance: 5 start: 14",
             tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -282,28 +376,9 @@ public class HtmlUnitInputImageIdentifierTest extends AbstractHtmlUnitControlIde
     tmpSearch.add(new SecretString("wrong text", false));
     tmpSearch.add(new SecretString("MyTitle", false));
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, "myId", new WPath(tmpSearch));
+    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "myId");
 
     Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
-  }
-
-  @Test
-  public void byTitlePart() throws IOException {
-    String tmpHtmlCode = "<html><body>" + "<form action='test'>"
-        + "<input id='myId' type='image' name='MyName' src='picture.png'  title='MyTitle'>" + "</form>"
-        + "</body></html>";
-
-    List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("yTitl", false));
-
-    WeightedControlList tmpFound = identify(tmpHtmlCode, "myId", new WPath(tmpSearch));
-
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-
-    Assert
-        .assertEquals(
-            "[HtmlImageInput '' (src='picture.png') (id='myId') (name='MyName')] found by: BY_IMG_TITLE_ATTRIBUTE coverage: 2 distance: 0",
-            tmpFound.getEntriesSorted().get(0).toString());
   }
 
   @Test
@@ -314,14 +389,45 @@ public class HtmlUnitInputImageIdentifierTest extends AbstractHtmlUnitControlIde
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("picture.png", false));
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, "myId", new WPath(tmpSearch));
+    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "myId");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
     Assert
         .assertEquals(
-            "[HtmlImageInput '' (src='picture.png') (id='myId') (name='MyName')] found by: BY_IMG_SRC_ATTRIBUTE coverage: 0 distance: 0",
+            "[HtmlImageInput '' (src='picture.png') (id='myId') (name='MyName')] found by: BY_IMG_SRC_ATTRIBUTE coverage: 0 distance: 0 start: 0",
             tmpFound.getEntriesSorted().get(0).toString());
+  }
+
+  @Test
+  public void byFileNameWildcard() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<form action='test'>"
+        + "<input id='myId' type='image' name='MyName' src='picture.png'>" + "</form>" + "</body></html>";
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("picture.p*", false));
+
+    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "myId");
+
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
+
+    Assert
+        .assertEquals(
+            "[HtmlImageInput '' (src='picture.png') (id='myId') (name='MyName')] found by: BY_IMG_SRC_ATTRIBUTE coverage: 0 distance: 0 start: 0",
+            tmpFound.getEntriesSorted().get(0).toString());
+  }
+
+  @Test
+  public void byFileNamePart() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<form action='test'>"
+        + "<input id='myId' type='image' name='MyName' src='picture.png'>" + "</form>" + "</body></html>";
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("icture.pn", false));
+
+    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "myId");
+
+    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
   }
 
   @Test
@@ -332,13 +438,13 @@ public class HtmlUnitInputImageIdentifierTest extends AbstractHtmlUnitControlIde
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("picture.png", false));
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, "myId", new WPath(tmpSearch));
+    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "myId");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
     Assert
         .assertEquals(
-            "[HtmlImageInput '' (src='web/picture.png') (id='myId') (name='MyName')] found by: BY_IMG_SRC_ATTRIBUTE coverage: 4 distance: 0",
+            "[HtmlImageInput '' (src='web/picture.png') (id='myId') (name='MyName')] found by: BY_IMG_SRC_ATTRIBUTE coverage: 4 distance: 0 start: 0",
             tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -351,13 +457,13 @@ public class HtmlUnitInputImageIdentifierTest extends AbstractHtmlUnitControlIde
     tmpSearch.add(new SecretString("Some text", false));
     tmpSearch.add(new SecretString("picture.png", false));
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, "myId", new WPath(tmpSearch));
+    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "myId");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
     Assert
         .assertEquals(
-            "[HtmlImageInput '' (src='picture.png') (id='myId') (name='MyName')] found by: BY_IMG_SRC_ATTRIBUTE coverage: 0 distance: 5",
+            "[HtmlImageInput '' (src='picture.png') (id='myId') (name='MyName')] found by: BY_IMG_SRC_ATTRIBUTE coverage: 0 distance: 5 start: 14",
             tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -370,20 +476,7 @@ public class HtmlUnitInputImageIdentifierTest extends AbstractHtmlUnitControlIde
     tmpSearch.add(new SecretString("wrong text", false));
     tmpSearch.add(new SecretString("picture.png", false));
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, "myId", new WPath(tmpSearch));
-
-    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
-  }
-
-  @Test
-  public void byFileNamePart() throws IOException {
-    String tmpHtmlCode = "<html><body>" + "<form action='test'>"
-        + "<input id='myId' type='image' name='MyName' src='picture.png'>" + "</form>" + "</body></html>";
-
-    List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("icture.pn", false));
-
-    WeightedControlList tmpFound = identify(tmpHtmlCode, "myId", new WPath(tmpSearch));
+    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "myId");
 
     Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
   }
@@ -397,13 +490,14 @@ public class HtmlUnitInputImageIdentifierTest extends AbstractHtmlUnitControlIde
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("MyName", false));
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, "MyName", new WPath(tmpSearch));
+    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "MyName");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
-    Assert.assertEquals(
-        "[HtmlImageInput '' (src='MyName') (id='MyName') (name='MyName')] found by: BY_ID coverage: 0 distance: 0",
-        tmpFound.getEntriesSorted().get(0).toString());
+    Assert
+        .assertEquals(
+            "[HtmlImageInput '' (src='MyName') (id='MyName') (name='MyName')] found by: BY_ID coverage: 0 distance: 0 start: 0",
+            tmpFound.getEntriesSorted().get(0).toString());
   }
 
 }

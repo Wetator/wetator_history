@@ -59,6 +59,7 @@ src/org/wetator/backend/htmlunit/control/HtmlUnitOptionGroup.java -text svneol=u
 src/org/wetator/backend/htmlunit/control/HtmlUnitSelect.java -text svneol=unset#text/plain
 src/org/wetator/backend/htmlunit/control/HtmlUnitTextArea.java -text svneol=unset#text/plain
 src/org/wetator/backend/htmlunit/control/identifier/AbstractHtmlUnitControlIdentifier.java -text svneol=unset#text/plain
+src/org/wetator/backend/htmlunit/control/identifier/AbstractMatcherBasedIdentifier.java -text svneol=unset#text/plain
 src/org/wetator/backend/htmlunit/control/identifier/HtmlUnitAnchorIdentifier.java -text svneol=unset#text/plain
 src/org/wetator/backend/htmlunit/control/identifier/HtmlUnitButtonIdentifier.java -text svneol=unset#text/plain
 src/org/wetator/backend/htmlunit/control/identifier/HtmlUnitImageIdentifier.java -text svneol=unset#text/plain
@@ -77,7 +78,6 @@ src/org/wetator/backend/htmlunit/control/identifier/HtmlUnitOptionInSelectIdenti
 src/org/wetator/backend/htmlunit/control/identifier/HtmlUnitSelectIdentifier.java -text svneol=unset#text/plain
 src/org/wetator/backend/htmlunit/control/identifier/HtmlUnitTextAreaIdentifier.java -text svneol=unset#text/plain
 src/org/wetator/backend/htmlunit/finder/AbstractHtmlUnitControlsFinder.java -text svneol=unset#text/plain
-src/org/wetator/backend/htmlunit/finder/AllHtmlUnitControlsForTextFinder.java -text svneol=unset#text/plain
 src/org/wetator/backend/htmlunit/finder/IdentifierBasedHtmlUnitControlsFinder.java -text svneol=unset#text/plain
 src/org/wetator/backend/htmlunit/finder/SettableHtmlUnitControlsFinder.java -text svneol=unset#text/plain
 src/org/wetator/backend/htmlunit/finder/UnknownHtmlUnitControlsFinder.java -text svneol=unset#text/plain
@@ -93,6 +93,7 @@ src/org/wetator/backend/htmlunit/matcher/ByLabelAttributeMatcher.java -text svne
 src/org/wetator/backend/htmlunit/matcher/ByLabelTextAfterMatcher.java -text svneol=unset#text/plain
 src/org/wetator/backend/htmlunit/matcher/ByLabelTextBeforeMatcher.java -text svneol=unset#text/plain
 src/org/wetator/backend/htmlunit/matcher/ByNameAttributeMatcher.java -text svneol=unset#text/plain
+src/org/wetator/backend/htmlunit/matcher/ByTableCoordinatesMatcher.java -text svneol=unset#text/plain
 src/org/wetator/backend/htmlunit/matcher/ByTextMatcher.java -text svneol=unset#text/plain
 src/org/wetator/backend/htmlunit/matcher/ByValueAttributeMatcher.java -text svneol=unset#text/plain
 src/org/wetator/backend/htmlunit/matcher/ByWholeTextBeforeMatcher.java -text svneol=unset#text/plain
@@ -239,17 +240,12 @@ test/java/org/wetator/backend/htmlunit/finder/AllTests.java -text svneol=unset#t
 test/java/org/wetator/backend/htmlunit/finder/IdentifierBasedHtmlUnitControlsFinderTest.java -text svneol=unset#text/plain
 test/java/org/wetator/backend/htmlunit/finder/SettableHtmlUnitControlsFinderTest.java -text svneol=unset#text/plain
 test/java/org/wetator/backend/htmlunit/finder/UnknownHtmlUnitControlsFinderTest.java -text svneol=unset#text/plain
+test/java/org/wetator/backend/htmlunit/matcher/AllTests.java -text svneol=unset#text/plain
+test/java/org/wetator/backend/htmlunit/matcher/ByTableCoordinatesMatcherTest.java -text svneol=unset#text/plain
 test/java/org/wetator/backend/htmlunit/util/AllTests.java -text
-test/java/org/wetator/backend/htmlunit/util/ByTableCoordinatesMatcherTest.java -text svneol=unset#text/plain
 test/java/org/wetator/backend/htmlunit/util/HtmlElementUtilTest.java -text
 test/java/org/wetator/backend/htmlunit/util/HtmlPageIndexTest.java -text
 test/java/org/wetator/backend/htmlunit/util/PageUtilTest.java -text
-test/java/org/wetator/backend/htmlunit/util/TableCoordinatesWPathFinderTest.java -text svneol=unset#text/plain
-test/java/org/wetator/backend/htmlunit/util/TableFinder.java -text svneol=unset#text/plain
-test/java/org/wetator/backend/htmlunit/util/TableFinder2.java -text svneol=unset#text/plain
-test/java/org/wetator/backend/htmlunit/util/TableMatcherTest.java -text svneol=unset#text/plain
-test/java/org/wetator/backend/htmlunit/util/TableMatcherTest2.java -text svneol=unset#text/plain
-test/java/org/wetator/backend/htmlunit/util/TableMatcherTest3.java -text svneol=unset#text/plain
 test/java/org/wetator/commandset/AllTests.java -text
 test/java/org/wetator/commandset/ExecTester.java -text
 test/java/org/wetator/commandset/ExecTesterWithoutDefaultConstructor.java -text svneol=unset#text/plain

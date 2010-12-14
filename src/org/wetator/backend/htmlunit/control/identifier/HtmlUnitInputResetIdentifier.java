@@ -16,16 +16,16 @@
 
 package org.wetator.backend.htmlunit.control.identifier;
 
-import java.util.LinkedList;
 import java.util.List;
 
 import org.wetator.backend.WPath;
-import org.wetator.backend.WeightedControlList;
+import org.wetator.backend.control.Control;
 import org.wetator.backend.htmlunit.control.HtmlUnitInputReset;
+import org.wetator.backend.htmlunit.matcher.AbstractHtmlUnitElementMatcher;
 import org.wetator.backend.htmlunit.matcher.ByIdMatcher;
 import org.wetator.backend.htmlunit.matcher.ByNameAttributeMatcher;
+import org.wetator.backend.htmlunit.matcher.ByTableCoordinatesMatcher;
 import org.wetator.backend.htmlunit.matcher.ByValueAttributeMatcher;
-import org.wetator.backend.htmlunit.matcher.AbstractHtmlUnitElementMatcher.MatchResult;
 import org.wetator.backend.htmlunit.util.FindSpot;
 import org.wetator.core.searchpattern.SearchPattern;
 
@@ -39,11 +39,12 @@ import com.gargoylesoftware.htmlunit.html.HtmlResetInput;
  * <li>it's value</li>
  * <li>it's name</li>
  * <li>it's id</li>
+ * <li>table coordinates</li>
  * </ul>
  * 
  * @author frank.danek
  */
-public class HtmlUnitInputResetIdentifier extends AbstractHtmlUnitControlIdentifier {
+public class HtmlUnitInputResetIdentifier extends AbstractMatcherBasedIdentifier {
 
   /**
    * {@inheritDoc}
@@ -58,32 +59,39 @@ public class HtmlUnitInputResetIdentifier extends AbstractHtmlUnitControlIdentif
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.backend.htmlunit.control.identifier.AbstractHtmlUnitControlIdentifier#identify(WPath,
-   *      com.gargoylesoftware.htmlunit.html.HtmlElement)
+   * @see org.wetator.backend.htmlunit.control.identifier.AbstractMatcherBasedIdentifier#addMatchers(org.wetator.backend.WPath,
+   *      com.gargoylesoftware.htmlunit.html.HtmlElement, java.util.List)
    */
   @Override
-  public WeightedControlList identify(WPath aWPath, HtmlElement aHtmlElement) {
-    SearchPattern tmpSearchPattern = aWPath.getNode(aWPath.size() - 1).getSearchPattern();
-    SearchPattern tmpPathSearchPattern = SearchPattern.createFromWPath(aWPath, aWPath.size() - 1);
+  protected void addMatchers(WPath aWPath, HtmlElement aHtmlElement, List<AbstractHtmlUnitElementMatcher> aMatchers) {
+    SearchPattern tmpPathSearchPattern = SearchPattern.createFromList(aWPath.getPathNodes());
     FindSpot tmpPathSpot = htmlPageIndex.firstOccurence(tmpPathSearchPattern);
 
     if (null == tmpPathSpot) {
-      return new WeightedControlList();
+      return;
     }
 
-    List<MatchResult> tmpMatches = new LinkedList<MatchResult>();
-    tmpMatches.addAll(new ByValueAttributeMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern)
-        .matches(aHtmlElement));
-    tmpMatches.addAll(new ByNameAttributeMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern)
-        .matches(aHtmlElement));
-    tmpMatches.addAll(new ByIdMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern)
-        .matches(aHtmlElement));
-    WeightedControlList tmpResult = new WeightedControlList();
-    for (MatchResult tmpMatch : tmpMatches) {
-      tmpResult.add(new HtmlUnitInputReset((HtmlResetInput) tmpMatch.getHtmlElement()), tmpMatch.getFoundType(),
-          tmpMatch.getCoverage(), tmpMatch.getDistance());
+    if (aWPath.getLastNode() != null) {
+      // normal matchers
+      SearchPattern tmpSearchPattern = aWPath.getLastNode().getSearchPattern();
+      aMatchers.add(new ByValueAttributeMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern));
+      aMatchers.add(new ByNameAttributeMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern));
+      aMatchers.add(new ByIdMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern));
+    } else if (!aWPath.getTableCoordinates().isEmpty()) {
+      // table matcher
+      // we have to use the reversed table coordinates to work from the inner most (last) to the outer most (first)
+      aMatchers.add(new ByTableCoordinatesMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, aWPath
+          .getTableCoordinatesReversed(), HtmlResetInput.class));
     }
-    return tmpResult;
   }
 
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.wetator.backend.htmlunit.control.identifier.AbstractMatcherBasedIdentifier#createControl(com.gargoylesoftware.htmlunit.html.HtmlElement)
+   */
+  @Override
+  protected Control createControl(HtmlElement aHtmlElement) {
+    return new HtmlUnitInputReset((HtmlResetInput) aHtmlElement);
+  }
 }

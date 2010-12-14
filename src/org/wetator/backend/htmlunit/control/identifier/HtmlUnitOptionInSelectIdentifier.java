@@ -36,6 +36,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlSelect;
  * <li>it's text</li>
  * <li>it's label attribute</li>
  * <li>it's value attribute</li>
+ * <li>table coordinates</li>
  * </ul>
  * The surrounding select can be identified by:
  * <ul>
@@ -67,16 +68,21 @@ public class HtmlUnitOptionInSelectIdentifier extends AbstractHtmlUnitControlIde
    */
   @Override
   public WeightedControlList identify(WPath aWPath, HtmlElement aHtmlElement) {
-    SearchPattern tmpSearchPattern = aWPath.getNode(aWPath.size() - 1).getSearchPattern();
+    if (aWPath.getLastNode() == null) {
+      return new WeightedControlList();
+    }
+
+    SearchPattern tmpSearchPattern = aWPath.getLastNode().getSearchPattern();
 
     SearchPattern tmpSearchPatternSelect;
     SearchPattern tmpPathSearchPatternSelect;
-    if (aWPath.size() <= 1) {
+    if (aWPath.getPathNodes().isEmpty()) {
       tmpSearchPatternSelect = SearchPattern.compile("");
       tmpPathSearchPatternSelect = SearchPattern.compile("");
     } else {
-      tmpSearchPatternSelect = aWPath.getNode(aWPath.size() - 2).getSearchPattern();
-      tmpPathSearchPatternSelect = SearchPattern.createFromWPath(aWPath, aWPath.size() - 2);
+      tmpSearchPatternSelect = aWPath.getPathNodes().get(aWPath.getPathNodes().size() - 1).getSearchPattern();
+      tmpPathSearchPatternSelect = SearchPattern
+          .createFromList(aWPath.getPathNodes(), aWPath.getPathNodes().size() - 1);
     }
     FindSpot tmpPathSpotSelect = htmlPageIndex.firstOccurence(tmpPathSearchPatternSelect);
 
@@ -186,11 +192,12 @@ public class HtmlUnitOptionInSelectIdentifier extends AbstractHtmlUnitControlIde
     Iterable<HtmlOption> tmpOptions = aSelect.getOptions();
     for (HtmlOption tmpOption : tmpOptions) {
       String tmpText = htmlPageIndex.getAsText(tmpOption);
+      int tmpStart = htmlPageIndex.getPosition(tmpOption).startPos;
       if (StringUtils.isNotEmpty(tmpText)) {
         int tmpCoverage = aSearchPattern.noOfSurroundingCharsIn(tmpText);
         if (tmpCoverage > -1) {
           aWeightedControlList.add(new HtmlUnitOption(tmpOption), WeightedControlList.FoundType.BY_LABEL, tmpCoverage,
-              aDistance);
+              aDistance, tmpStart);
           tmpFound = true;
         }
       }
@@ -200,7 +207,7 @@ public class HtmlUnitOptionInSelectIdentifier extends AbstractHtmlUnitControlIde
         int tmpCoverage = aSearchPattern.noOfSurroundingCharsIn(tmpText);
         if (tmpCoverage > -1) {
           aWeightedControlList.add(new HtmlUnitOption(tmpOption), WeightedControlList.FoundType.BY_LABEL, tmpCoverage,
-              aDistance);
+              aDistance, tmpStart);
           tmpFound = true;
         }
       }
@@ -210,7 +217,7 @@ public class HtmlUnitOptionInSelectIdentifier extends AbstractHtmlUnitControlIde
         int tmpCoverage = aSearchPattern.noOfSurroundingCharsIn(tmpText);
         if (tmpCoverage > -1) {
           aWeightedControlList.add(new HtmlUnitOption(tmpOption), WeightedControlList.FoundType.BY_LABEL, tmpCoverage,
-              aDistance);
+              aDistance, tmpStart);
           tmpFound = true;
         }
       }

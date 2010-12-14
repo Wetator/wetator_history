@@ -16,17 +16,17 @@
 
 package org.wetator.backend.htmlunit.control.identifier;
 
-import java.util.LinkedList;
 import java.util.List;
 
 import org.wetator.backend.WPath;
-import org.wetator.backend.WeightedControlList;
+import org.wetator.backend.control.Control;
 import org.wetator.backend.htmlunit.control.HtmlUnitInputCheckBox;
+import org.wetator.backend.htmlunit.matcher.AbstractHtmlUnitElementMatcher;
 import org.wetator.backend.htmlunit.matcher.ByHtmlLabelMatcher;
 import org.wetator.backend.htmlunit.matcher.ByIdMatcher;
 import org.wetator.backend.htmlunit.matcher.ByLabelTextAfterMatcher;
 import org.wetator.backend.htmlunit.matcher.ByNameAttributeMatcher;
-import org.wetator.backend.htmlunit.matcher.AbstractHtmlUnitElementMatcher.MatchResult;
+import org.wetator.backend.htmlunit.matcher.ByTableCoordinatesMatcher;
 import org.wetator.backend.htmlunit.util.FindSpot;
 import org.wetator.core.searchpattern.SearchPattern;
 
@@ -42,11 +42,12 @@ import com.gargoylesoftware.htmlunit.html.HtmlLabel;
  * <li>it's name</li>
  * <li>it's id</li>
  * <li>a label</li>
+ * <li>table coordinates</li>
  * </ul>
  * 
  * @author frank.danek
  */
-public class HtmlUnitInputCheckBoxIdentifier extends AbstractHtmlUnitControlIdentifier {
+public class HtmlUnitInputCheckBoxIdentifier extends AbstractMatcherBasedIdentifier {
 
   /**
    * {@inheritDoc}
@@ -61,38 +62,45 @@ public class HtmlUnitInputCheckBoxIdentifier extends AbstractHtmlUnitControlIden
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.backend.htmlunit.control.identifier.AbstractHtmlUnitControlIdentifier#identify(WPath,
-   *      com.gargoylesoftware.htmlunit.html.HtmlElement)
+   * @see org.wetator.backend.htmlunit.control.identifier.AbstractMatcherBasedIdentifier#addMatchers(org.wetator.backend.WPath,
+   *      com.gargoylesoftware.htmlunit.html.HtmlElement, java.util.List)
    */
   @Override
-  public WeightedControlList identify(WPath aWPath, HtmlElement aHtmlElement) {
-    SearchPattern tmpSearchPattern = aWPath.getNode(aWPath.size() - 1).getSearchPattern();
-    SearchPattern tmpPathSearchPattern = SearchPattern.createFromWPath(aWPath, aWPath.size() - 1);
+  protected void addMatchers(WPath aWPath, HtmlElement aHtmlElement, List<AbstractHtmlUnitElementMatcher> aMatchers) {
+    SearchPattern tmpPathSearchPattern = SearchPattern.createFromList(aWPath.getPathNodes());
     FindSpot tmpPathSpot = htmlPageIndex.firstOccurence(tmpPathSearchPattern);
 
     if (null == tmpPathSpot) {
-      return new WeightedControlList();
+      return;
     }
 
-    List<MatchResult> tmpMatches = new LinkedList<MatchResult>();
-    if (aHtmlElement instanceof HtmlCheckBoxInput) {
-      tmpMatches.addAll(new ByLabelTextAfterMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern)
-          .matches(aHtmlElement));
-      tmpMatches.addAll(new ByNameAttributeMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern)
-          .matches(aHtmlElement));
-      tmpMatches.addAll(new ByIdMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern)
-          .matches(aHtmlElement));
+    if (aWPath.getLastNode() != null) {
+      // normal matchers
+      SearchPattern tmpSearchPattern = aWPath.getLastNode().getSearchPattern();
+      if (aHtmlElement instanceof HtmlCheckBoxInput) {
+        aMatchers.add(new ByLabelTextAfterMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern));
+        aMatchers.add(new ByNameAttributeMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern));
+        aMatchers.add(new ByIdMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern));
 
-    } else if (aHtmlElement instanceof HtmlLabel) {
-      tmpMatches.addAll(new ByHtmlLabelMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern,
-          HtmlCheckBoxInput.class).matches(aHtmlElement));
+      } else if (aHtmlElement instanceof HtmlLabel) {
+        aMatchers.add(new ByHtmlLabelMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern,
+            HtmlCheckBoxInput.class));
+      }
+    } else if (!aWPath.getTableCoordinates().isEmpty()) {
+      // table matcher
+      // we have to use the reversed table coordinates to work from the inner most (last) to the outer most (first)
+      aMatchers.add(new ByTableCoordinatesMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, aWPath
+          .getTableCoordinatesReversed(), HtmlCheckBoxInput.class));
     }
-    WeightedControlList tmpResult = new WeightedControlList();
-    for (MatchResult tmpMatch : tmpMatches) {
-      tmpResult.add(new HtmlUnitInputCheckBox((HtmlCheckBoxInput) tmpMatch.getHtmlElement()), tmpMatch.getFoundType(),
-          tmpMatch.getCoverage(), tmpMatch.getDistance());
-    }
-    return tmpResult;
   }
 
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.wetator.backend.htmlunit.control.identifier.AbstractMatcherBasedIdentifier#createControl(com.gargoylesoftware.htmlunit.html.HtmlElement)
+   */
+  @Override
+  protected Control createControl(HtmlElement aHtmlElement) {
+    return new HtmlUnitInputCheckBox((HtmlCheckBoxInput) aHtmlElement);
+  }
 }

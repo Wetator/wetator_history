@@ -16,14 +16,13 @@
 
 package org.wetator.backend.htmlunit.control.identifier;
 
-import java.util.LinkedList;
 import java.util.List;
 
 import org.wetator.backend.WPath;
-import org.wetator.backend.WeightedControlList;
+import org.wetator.backend.control.Control;
 import org.wetator.backend.htmlunit.control.HtmlUnitOption;
+import org.wetator.backend.htmlunit.matcher.AbstractHtmlUnitElementMatcher;
 import org.wetator.backend.htmlunit.matcher.ByIdMatcher;
-import org.wetator.backend.htmlunit.matcher.AbstractHtmlUnitElementMatcher.MatchResult;
 import org.wetator.backend.htmlunit.util.FindSpot;
 import org.wetator.core.searchpattern.SearchPattern;
 
@@ -39,7 +38,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlOption;
  * 
  * @author frank.danek
  */
-public class HtmlUnitOptionIdentifier extends AbstractHtmlUnitControlIdentifier {
+public class HtmlUnitOptionIdentifier extends AbstractMatcherBasedIdentifier {
 
   /**
    * {@inheritDoc}
@@ -54,35 +53,40 @@ public class HtmlUnitOptionIdentifier extends AbstractHtmlUnitControlIdentifier 
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.backend.htmlunit.control.identifier.AbstractHtmlUnitControlIdentifier#identify(WPath,
-   *      com.gargoylesoftware.htmlunit.html.HtmlElement)
+   * @see org.wetator.backend.htmlunit.control.identifier.AbstractMatcherBasedIdentifier#addMatchers(org.wetator.backend.WPath,
+   *      com.gargoylesoftware.htmlunit.html.HtmlElement, java.util.List)
    */
   @Override
-  public WeightedControlList identify(WPath aWPath, HtmlElement aHtmlElement) {
-    SearchPattern tmpSearchPattern = aWPath.getNode(aWPath.size() - 1).getSearchPattern();
-    SearchPattern tmpPathSearchPattern = SearchPattern.createFromWPath(aWPath, aWPath.size() - 1);
+  protected void addMatchers(WPath aWPath, HtmlElement aHtmlElement, List<AbstractHtmlUnitElementMatcher> aMatchers) {
+    SearchPattern tmpPathSearchPattern = SearchPattern.createFromList(aWPath.getPathNodes());
 
     SearchPattern tmpPathSearchPatternSelect;
-    if (aWPath.size() <= 1) {
+    if (aWPath.getPathNodes().isEmpty()) {
       tmpPathSearchPatternSelect = SearchPattern.compile("");
     } else {
-      tmpPathSearchPatternSelect = SearchPattern.createFromWPath(aWPath, aWPath.size() - 2);
+      tmpPathSearchPatternSelect = SearchPattern
+          .createFromList(aWPath.getPathNodes(), aWPath.getPathNodes().size() - 1);
     }
     FindSpot tmpPathSpotSelect = htmlPageIndex.firstOccurence(tmpPathSearchPatternSelect);
 
     if (null == tmpPathSpotSelect) {
-      return new WeightedControlList();
+      return;
     }
 
-    List<MatchResult> tmpMatches = new LinkedList<MatchResult>();
-    tmpMatches.addAll(new ByIdMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpotSelect, tmpSearchPattern)
-        .matches(aHtmlElement));
-    WeightedControlList tmpResult = new WeightedControlList();
-    for (MatchResult tmpMatch : tmpMatches) {
-      tmpResult.add(new HtmlUnitOption((HtmlOption) tmpMatch.getHtmlElement()), tmpMatch.getFoundType(),
-          tmpMatch.getCoverage(), tmpMatch.getDistance());
+    if (aWPath.getLastNode() != null) {
+      // normal matchers
+      SearchPattern tmpSearchPattern = aWPath.getLastNode().getSearchPattern();
+      aMatchers.add(new ByIdMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpotSelect, tmpSearchPattern));
     }
-    return tmpResult;
   }
 
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.wetator.backend.htmlunit.control.identifier.AbstractMatcherBasedIdentifier#createControl(com.gargoylesoftware.htmlunit.html.HtmlElement)
+   */
+  @Override
+  protected Control createControl(HtmlElement aHtmlElement) {
+    return new HtmlUnitOption((HtmlOption) aHtmlElement);
+  }
 }

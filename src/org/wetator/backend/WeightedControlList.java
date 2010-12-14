@@ -39,6 +39,9 @@ public final class WeightedControlList {
     /** found by text match */
     BY_TEXT(9999),
 
+    /** found by table coordindates match */
+    BY_TABLE_COORDINATE(6000),
+
     /** found by image source attribute match */
     BY_IMG_SRC_ATTRIBUTE(5000),
     /** found by image alt attribute match */
@@ -99,6 +102,7 @@ public final class WeightedControlList {
     private FoundType foundType;
     private int coverage;
     private int distance;
+    private int start;
 
     /**
      * @return the encapsulated control
@@ -119,6 +123,7 @@ public final class WeightedControlList {
       tmpResult.append(" found by: " + foundType.toString());
       tmpResult.append(" coverage: " + coverage);
       tmpResult.append(" distance: " + distance);
+      tmpResult.append(" start: " + start);
       return tmpResult.toString();
     }
   }
@@ -143,7 +148,13 @@ public final class WeightedControlList {
           int tmpDistanceComp = anEntry1.distance - anEntry2.distance;
 
           if (0 == tmpDistanceComp) {
-            return anEntry1.control.getDescribingText().compareTo(anEntry2.control.getDescribingText());
+            int tmpStartComp = anEntry1.start - anEntry2.start;
+
+            if (0 == tmpStartComp) {
+              return anEntry1.control.getDescribingText().compareTo(anEntry2.control.getDescribingText());
+            }
+
+            return tmpStartComp;
           }
 
           return tmpDistanceComp;
@@ -172,13 +183,15 @@ public final class WeightedControlList {
    * @param aFoundType the found type
    * @param aCoverage the coverage
    * @param aDistance the distance
+   * @param aStart the start
    */
-  public void add(Control aControl, FoundType aFoundType, int aCoverage, int aDistance) {
+  public void add(Control aControl, FoundType aFoundType, int aCoverage, int aDistance, int aStart) {
     Entry tmpEntry = new Entry();
     tmpEntry.control = aControl;
     tmpEntry.foundType = aFoundType;
     tmpEntry.coverage = aCoverage;
     tmpEntry.distance = aDistance;
+    tmpEntry.start = aStart;
 
     entries.add(tmpEntry);
   }

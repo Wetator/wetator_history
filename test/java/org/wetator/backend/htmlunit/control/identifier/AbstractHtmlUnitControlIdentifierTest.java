@@ -56,4 +56,33 @@ public abstract class AbstractHtmlUnitControlIdentifierTest {
     return identifier.identify(aWPath, tmpHtmlElement);
   }
 
+  protected WeightedControlList identify(String aHtmlCode, WPath aWPath, String... anHtmlElementIds) throws IOException {
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(aHtmlCode);
+    HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+
+    WeightedControlList tmpControls = new WeightedControlList();
+    for (String tmpHtmlElementId : anHtmlElementIds) {
+      HtmlElement tmpHtmlElement = tmpHtmlPage.getElementById(tmpHtmlElementId);
+
+      identifier.initialize(tmpHtmlPageIndex);
+      tmpControls.addAll(identifier.identify(aWPath, tmpHtmlElement));
+    }
+    return tmpControls;
+  }
+
+  protected WeightedControlList identify(String aHtmlCode, WPath aWPath, int anIndex, String... anHtmlElementIdOrNames)
+      throws IOException {
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(aHtmlCode);
+    HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+
+    WeightedControlList tmpControls = new WeightedControlList();
+    for (String tmpHtmlElementIdOrName : anHtmlElementIdOrNames) {
+      List<HtmlElement> tmpHtmlElements = tmpHtmlPage.getElementsByIdAndOrName(tmpHtmlElementIdOrName);
+      HtmlElement tmpHtmlElement = tmpHtmlElements.get(anIndex);
+
+      identifier.initialize(tmpHtmlPageIndex);
+      tmpControls.addAll(identifier.identify(aWPath, tmpHtmlElement));
+    }
+    return tmpControls;
+  }
 }

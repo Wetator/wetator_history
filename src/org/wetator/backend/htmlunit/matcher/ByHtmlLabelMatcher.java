@@ -83,10 +83,12 @@ public class ByHtmlLabelMatcher extends AbstractHtmlUnitElementMatcher {
             HtmlElement tmpElementForLabel = htmlPageIndex.getHtmlElementById(tmpForAttribute);
             if (clazz.isAssignableFrom(tmpElementForLabel.getClass())) {
               if (tmpElementForLabel.isDisplayed()) {
+                tmpNodeSpot = htmlPageIndex.getPosition(aHtmlElement);
                 String tmpTextBefore = htmlPageIndex.getTextBefore(tmpLabel);
                 int tmpDistance = pathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
 
-                tmpMatches.add(new MatchResult(tmpElementForLabel, FoundType.BY_LABEL, tmpCoverage, tmpDistance));
+                tmpMatches.add(new MatchResult(tmpElementForLabel, FoundType.BY_LABEL, tmpCoverage, tmpDistance,
+                    tmpNodeSpot.startPos));
               }
             }
           } catch (ElementNotFoundException e) {
@@ -99,10 +101,12 @@ public class ByHtmlLabelMatcher extends AbstractHtmlUnitElementMatcher {
         for (HtmlElement tmpChildElement : tmpChilds) {
           if (clazz.isAssignableFrom(tmpChildElement.getClass())) {
             if (tmpChildElement.isDisplayed()) {
+              tmpNodeSpot = htmlPageIndex.getPosition(aHtmlElement);
               String tmpTextBefore = htmlPageIndex.getTextBefore(tmpLabel);
               int tmpDistance = pathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
 
-              tmpMatches.add(new MatchResult(tmpChildElement, FoundType.BY_LABEL, tmpCoverage, tmpDistance));
+              tmpMatches.add(new MatchResult(tmpChildElement, FoundType.BY_LABEL, tmpCoverage, tmpDistance,
+                  tmpNodeSpot.startPos));
             }
           }
         }

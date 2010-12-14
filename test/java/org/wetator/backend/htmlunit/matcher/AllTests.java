@@ -14,7 +14,7 @@
  */
 
 
-package org.wetator.backend.htmlunit;
+package org.wetator.backend.htmlunit.matcher;
 
 import org.junit.runner.JUnitCore;
 import org.junit.runner.RunWith;
@@ -26,13 +26,7 @@ import org.junit.runners.Suite.SuiteClasses;
  * @author frank.danek
  */
 @RunWith(Suite.class)
-@SuiteClasses({ org.wetator.backend.htmlunit.control.AllTests.class, //
-    org.wetator.backend.htmlunit.finder.AllTests.class, //
-    org.wetator.backend.htmlunit.matcher.AllTests.class, //
-    org.wetator.backend.htmlunit.util.AllTests.class, //
-    HtmlUnitControlRepositoryTest.class, //
-    HtmlUnitFinderDelegatorTest.class, //
-    XHtmlOutputterXHtmlPageTest.class })
+@SuiteClasses({ ByTableCoordinatesMatcherTest.class })
 public final class AllTests {
 
   /**

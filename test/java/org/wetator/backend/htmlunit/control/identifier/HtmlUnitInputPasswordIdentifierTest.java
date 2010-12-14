@@ -50,9 +50,10 @@ public class HtmlUnitInputPasswordIdentifierTest extends AbstractHtmlUnitControl
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
-    Assert.assertEquals(
-        "[HtmlPasswordInput (id='inputId') (name='PasswordInput')] found by: BY_LABEL coverage: 0 distance: 0",
-        tmpFound.getEntriesSorted().get(0).toString());
+    Assert
+        .assertEquals(
+            "[HtmlPasswordInput (id='inputId') (name='PasswordInput')] found by: BY_LABEL coverage: 0 distance: 0 start: 5",
+            tmpFound.getEntriesSorted().get(0).toString());
   }
 
   @Test
@@ -67,9 +68,10 @@ public class HtmlUnitInputPasswordIdentifierTest extends AbstractHtmlUnitControl
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
-    Assert.assertEquals(
-        "[HtmlPasswordInput (id='inputId') (name='PasswordInput')] found by: BY_LABEL coverage: 0 distance: 0",
-        tmpFound.getEntriesSorted().get(0).toString());
+    Assert
+        .assertEquals(
+            "[HtmlPasswordInput (id='inputId') (name='PasswordInput')] found by: BY_LABEL coverage: 0 distance: 0 start: 5",
+            tmpFound.getEntriesSorted().get(0).toString());
   }
 
   @Test
@@ -88,7 +90,7 @@ public class HtmlUnitInputPasswordIdentifierTest extends AbstractHtmlUnitControl
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert
         .assertEquals(
-            "[HtmlPasswordInput (id='userForm:passwordTxt') (name='userForm:passwordTxt')] found by: BY_LABEL_TEXT coverage: 0 distance: 5",
+            "[HtmlPasswordInput (id='userForm:passwordTxt') (name='userForm:passwordTxt')] found by: BY_LABEL_TEXT coverage: 0 distance: 5 start: 13",
             tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -108,7 +110,7 @@ public class HtmlUnitInputPasswordIdentifierTest extends AbstractHtmlUnitControl
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert
         .assertEquals(
-            "[HtmlPasswordInput (id='userForm:passwordTxt') (name='userForm:passwordTxt')] found by: BY_LABEL_TEXT coverage: 4 distance: 5",
+            "[HtmlPasswordInput (id='userForm:passwordTxt') (name='userForm:passwordTxt')] found by: BY_LABEL_TEXT coverage: 4 distance: 5 start: 13",
             tmpFound.getEntriesSorted().get(0).toString());
   }
 }

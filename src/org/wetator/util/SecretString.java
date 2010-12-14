@@ -150,6 +150,16 @@ public final class SecretString {
   }
 
   /**
+   * Returns true if a value ends with the given suffix
+   * 
+   * @param aSuffix the suffix
+   * @return true or false
+   */
+  public boolean endsWith(String aSuffix) {
+    return value.endsWith(aSuffix);
+  }
+
+  /**
    * Returns the lower case form of the string
    * 
    * @param aLocale the locale for the conversion

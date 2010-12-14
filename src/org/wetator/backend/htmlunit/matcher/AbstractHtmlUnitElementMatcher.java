@@ -63,9 +63,9 @@ public abstract class AbstractHtmlUnitElementMatcher {
   public AbstractHtmlUnitElementMatcher(HtmlPageIndex aHtmlPageIndex, SearchPattern aPathSearchPattern,
       FindSpot aPathSpot, SearchPattern aSearchPattern) {
     htmlPageIndex = aHtmlPageIndex;
+    pathSearchPattern = aPathSearchPattern;
     pathSpot = aPathSpot;
     searchPattern = aSearchPattern;
-    pathSearchPattern = aPathSearchPattern;
   }
 
   /**
@@ -85,19 +85,22 @@ public abstract class AbstractHtmlUnitElementMatcher {
     private FoundType foundType;
     private int coverage;
     private int distance;
+    private int start;
 
     /**
      * @param aHtmlElement the matching {@link HtmlElement}
      * @param aFoundType the {@link FoundType}
      * @param aCoverage the coverage
      * @param aDistance the distance
+     * @param aStart the start
      */
-    public MatchResult(HtmlElement aHtmlElement, FoundType aFoundType, int aCoverage, int aDistance) {
+    public MatchResult(HtmlElement aHtmlElement, FoundType aFoundType, int aCoverage, int aDistance, int aStart) {
       super();
       htmlElement = aHtmlElement;
       foundType = aFoundType;
       coverage = aCoverage;
       distance = aDistance;
+      start = aStart;
     }
 
     /**
@@ -126,6 +129,13 @@ public abstract class AbstractHtmlUnitElementMatcher {
      */
     public int getDistance() {
       return distance;
+    }
+
+    /**
+     * @return the start
+     */
+    public int getStart() {
+      return start;
     }
   }
 }

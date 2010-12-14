@@ -86,7 +86,7 @@ public abstract class AbstractByAttributeMatcher extends AbstractHtmlUnitElement
             String tmpTextBefore = htmlPageIndex.getTextBefore(aHtmlElement);
             tmpTextBefore = processTextForDistance(tmpTextBefore);
             int tmpDistance = pathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
-            tmpMatches.add(new MatchResult(aHtmlElement, foundType, tmpCoverage, tmpDistance));
+            tmpMatches.add(new MatchResult(aHtmlElement, foundType, tmpCoverage, tmpDistance, tmpNodeSpot.startPos));
           }
         }
       }
