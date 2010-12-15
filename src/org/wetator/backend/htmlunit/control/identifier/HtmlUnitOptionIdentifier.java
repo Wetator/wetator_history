@@ -59,24 +59,16 @@ public class HtmlUnitOptionIdentifier extends AbstractMatcherBasedIdentifier {
   @Override
   protected void addMatchers(WPath aWPath, HtmlElement aHtmlElement, List<AbstractHtmlUnitElementMatcher> aMatchers) {
     SearchPattern tmpPathSearchPattern = SearchPattern.createFromList(aWPath.getPathNodes());
+    FindSpot tmpPathSpot = htmlPageIndex.firstOccurence(tmpPathSearchPattern);
 
-    SearchPattern tmpPathSearchPatternSelect;
-    if (aWPath.getPathNodes().isEmpty()) {
-      tmpPathSearchPatternSelect = SearchPattern.compile("");
-    } else {
-      tmpPathSearchPatternSelect = SearchPattern
-          .createFromList(aWPath.getPathNodes(), aWPath.getPathNodes().size() - 1);
-    }
-    FindSpot tmpPathSpotSelect = htmlPageIndex.firstOccurence(tmpPathSearchPatternSelect);
-
-    if (null == tmpPathSpotSelect) {
+    if (null == tmpPathSpot) {
       return;
     }
 
     if (aWPath.getLastNode() != null) {
       // normal matchers
       SearchPattern tmpSearchPattern = aWPath.getLastNode().getSearchPattern();
-      aMatchers.add(new ByIdMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpotSelect, tmpSearchPattern));
+      aMatchers.add(new ByIdMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern));
     }
   }
 

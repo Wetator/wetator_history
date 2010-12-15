@@ -128,7 +128,7 @@ public class HtmlUnitInputRadioButtonIdentifierTest extends AbstractHtmlUnitCont
   }
 
   @Test
-  public void byText() throws IOException {
+  public void byTextAfter() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<input id='MyRadioButtonId1' name='MyRadioButtonName' value='value1' type='radio'>RadioButton1"
         + "<input id='MyRadioButtonId2' name='MyRadioButtonName' value='value2' type='radio'>RadioButton2" + "</form>"
@@ -147,7 +147,7 @@ public class HtmlUnitInputRadioButtonIdentifierTest extends AbstractHtmlUnitCont
   }
 
   @Test
-  public void byTextWildcard() throws IOException {
+  public void byTextAfterWildcard() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<input id='MyRadioButtonId1' name='MyRadioButtonName' value='value1' type='radio'>RadioButton1"
         + "<input id='MyRadioButtonId2' name='MyRadioButtonName' value='value2' type='radio'>RadioButton2" + "</form>"
@@ -166,7 +166,7 @@ public class HtmlUnitInputRadioButtonIdentifierTest extends AbstractHtmlUnitCont
   }
 
   @Test
-  public void byTextPart() throws IOException {
+  public void byTextAfterPart() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<input id='MyRadioButtonId1' name='MyRadioButtonName' value='value1' type='radio'>RadioButton1"
         + "<input id='MyRadioButtonId2' name='MyRadioButtonName' value='value2' type='radio'>RadioButton2" + "</form>"
@@ -185,7 +185,7 @@ public class HtmlUnitInputRadioButtonIdentifierTest extends AbstractHtmlUnitCont
   }
 
   @Test
-  public void byText_TextBefore() throws IOException {
+  public void byTextAfter_TextBefore() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
         + "<input id='MyRadioButtonId1' name='MyRadioButtonName' value='value1' type='radio'>RadioButton1"
         + "<input id='MyRadioButtonId2' name='MyRadioButtonName' value='value2' type='radio'>RadioButton2" + "</form>"
@@ -205,7 +205,7 @@ public class HtmlUnitInputRadioButtonIdentifierTest extends AbstractHtmlUnitCont
   }
 
   @Test
-  public void byText_WrongTextBefore() throws IOException {
+  public void byTextAfter_WrongTextBefore() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
         + "<input id='MyRadioButtonId1' name='MyRadioButtonName' value='value1' type='radio'>RadioButton1"
         + "<input id='MyRadioButtonId2' name='MyRadioButtonName' value='value2' type='radio'>RadioButton2" + "</form>"

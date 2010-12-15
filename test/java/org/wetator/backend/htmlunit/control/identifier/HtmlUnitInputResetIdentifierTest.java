@@ -195,7 +195,7 @@ public class HtmlUnitInputResetIdentifierTest extends AbstractHtmlUnitControlIde
   }
 
   @Test
-  public void byLabel() throws IOException {
+  public void byText() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<input id='myId' type='reset' value='ClickMe'>"
         + "</form>" + "</body></html>";
 
@@ -212,7 +212,7 @@ public class HtmlUnitInputResetIdentifierTest extends AbstractHtmlUnitControlIde
   }
 
   @Test
-  public void byLabelWildcard() throws IOException {
+  public void byTextWildcard() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<input id='myId' type='reset' value='ClickMe'>"
         + "</form>" + "</body></html>";
 
@@ -229,7 +229,7 @@ public class HtmlUnitInputResetIdentifierTest extends AbstractHtmlUnitControlIde
   }
 
   @Test
-  public void byLabelPart() throws IOException {
+  public void byTextPart() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<input id='myId' type='reset' value='ClickMe'>"
         + "</form>" + "</body></html>";
 
@@ -246,7 +246,7 @@ public class HtmlUnitInputResetIdentifierTest extends AbstractHtmlUnitControlIde
   }
 
   @Test
-  public void byLabel_TextBefore() throws IOException {
+  public void byText_TextBefore() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
         + "<input id='myId' type='reset' value='ClickMe'>" + "</form>" + "</body></html>";
 
@@ -264,7 +264,7 @@ public class HtmlUnitInputResetIdentifierTest extends AbstractHtmlUnitControlIde
   }
 
   @Test
-  public void byLabel_WrongTextBefore() throws IOException {
+  public void byText_WrongTextBefore() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
         + "<input id='myId' type='reset' value='ClickMe'>" + "</form>" + "</body></html>";
 
@@ -278,7 +278,7 @@ public class HtmlUnitInputResetIdentifierTest extends AbstractHtmlUnitControlIde
   }
 
   @Test
-  public void byIdNameLabel() throws IOException {
+  public void byIdNameText() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<input id='MyName' type='reset' name='MyName' value='MyName'>" + "</form>" + "</body></html>";
 

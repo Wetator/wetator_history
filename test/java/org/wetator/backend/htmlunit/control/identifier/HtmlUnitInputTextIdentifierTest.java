@@ -39,345 +39,412 @@ public class HtmlUnitInputTextIdentifierTest extends AbstractHtmlUnitControlIden
   }
 
   @Test
-  public void byIdExact() throws IOException {
-    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<input id='ti' name='TextInput' type='text'>"
+  public void byId() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<input id='myId' name='myName' type='text'>"
         + "</form>" + "</body></html>";
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("ti", false));
+    tmpSearch.add(new SecretString("myId", false));
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, "ti", new WPath(tmpSearch));
+    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "myId");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals(
-        "[HtmlTextInput (id='ti') (name='TextInput')] found by: BY_ID coverage: 0 distance: 0 start: 0", tmpFound
-            .getEntriesSorted().get(0).toString());
+    Assert.assertEquals("[HtmlTextInput (id='myId') (name='myName')] found by: BY_ID coverage: 0 distance: 0 start: 0",
+        tmpFound.getEntriesSorted().get(0).toString());
   }
 
   @Test
   public void byIdWildcard() throws IOException {
-    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<input id='ti' name='TextInput' type='text'>"
+    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<input id='myId' name='myName' type='text'>"
         + "</form>" + "</body></html>";
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("t*", false));
+    tmpSearch.add(new SecretString("my*", false));
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, "ti", new WPath(tmpSearch));
+    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "myId");
+
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
+    Assert.assertEquals("[HtmlTextInput (id='myId') (name='myName')] found by: BY_ID coverage: 2 distance: 0 start: 0",
+        tmpFound.getEntriesSorted().get(0).toString());
+  }
+
+  @Test
+  public void byIdPart() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<input id='myId' name='myName' type='text'>"
+        + "</form>" + "</body></html>";
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("yI", false));
+
+    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "myId");
+
+    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
+  }
+
+  @Test
+  public void byId_TextBefore() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
+        + "<input id='myId' name='myName' type='text'>" + "</form>" + "</body></html>";
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("Some text", false));
+    tmpSearch.add(new SecretString("myId", false));
+
+    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "myId");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
-        "[HtmlTextInput (id='ti') (name='TextInput')] found by: BY_ID coverage: 1 distance: 0 start: 0", tmpFound
+        "[HtmlTextInput (id='myId') (name='myName')] found by: BY_ID coverage: 0 distance: 5 start: 14", tmpFound
             .getEntriesSorted().get(0).toString());
   }
 
   @Test
-  public void byIdExactMany() throws IOException {
-    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<input id='ti' name='TextInput' type='text'>"
-        + "</form>" + "<form action='test2'>" + "<input id='ti' name='TextInput2' type='text'>" + "</form>"
-        + "</body></html>";
+  public void byId_WrongTextBefore() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
+        + "<input id='myId' name='myName' type='text'>" + "</form>" + "</body></html>";
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("ti", false));
+    tmpSearch.add(new SecretString("wrong text", false));
+    tmpSearch.add(new SecretString("myId", false));
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, "ti", 0, new WPath(tmpSearch));
+    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "myId");
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals(
-        "[HtmlTextInput (id='ti') (name='TextInput')] found by: BY_ID coverage: 0 distance: 0 start: 0", tmpFound
-            .getEntriesSorted().get(0).toString());
-
-    tmpFound = identify(tmpHtmlCode, "ti", 1, new WPath(tmpSearch));
-
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals(
-        "[HtmlTextInput (id='ti') (name='TextInput2')] found by: BY_ID coverage: 0 distance: 0 start: 0", tmpFound
-            .getEntriesSorted().get(0).toString());
+    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
   }
 
   @Test
-  public void byNameExact() throws IOException {
-    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<input id='ti' name='TextInput' type='text'>"
+  public void byName() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<input id='myId' name='myName' type='text'>"
         + "</form>" + "</body></html>";
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("TextInput", false));
+    tmpSearch.add(new SecretString("myName", false));
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, "ti", new WPath(tmpSearch));
+    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "myId");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
-        "[HtmlTextInput (id='ti') (name='TextInput')] found by: BY_NAME coverage: 0 distance: 0 start: 0", tmpFound
+        "[HtmlTextInput (id='myId') (name='myName')] found by: BY_NAME coverage: 0 distance: 0 start: 0", tmpFound
             .getEntriesSorted().get(0).toString());
   }
 
   @Test
   public void byNameWildcard() throws IOException {
-    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<input id='ti' name='TextInput' type='text'>"
+    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<input id='myId' name='myName' type='text'>"
         + "</form>" + "</body></html>";
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("TextI*", false));
+    tmpSearch.add(new SecretString("myNa*", false));
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, "ti", new WPath(tmpSearch));
+    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "myId");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
-        "[HtmlTextInput (id='ti') (name='TextInput')] found by: BY_NAME coverage: 4 distance: 0 start: 0", tmpFound
+        "[HtmlTextInput (id='myId') (name='myName')] found by: BY_NAME coverage: 2 distance: 0 start: 0", tmpFound
             .getEntriesSorted().get(0).toString());
   }
 
   @Test
-  public void byNameExact_AndPath() throws IOException {
-    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>abc def</p>"
-        + "<input id='id1' name='TextInput1' type='text'>" + "<p>abcdef</p>"
-        + "<input id='id2' name='TextInput2' type='text'>" + "</form>" + "</body></html>";
+  public void byNamePart() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<input id='myId' name='myName' type='text'>"
+        + "</form>" + "</body></html>";
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("abc*def", false));
-    tmpSearch.add(new SecretString("TextInput1", false));
+    tmpSearch.add(new SecretString("yNam", false));
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, "id1", new WPath(tmpSearch));
-
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals(
-        "[HtmlTextInput (id='id1') (name='TextInput1')] found by: BY_NAME coverage: 0 distance: 0 start: 7", tmpFound
-            .getEntriesSorted().get(0).toString());
-
-    tmpFound = identify(tmpHtmlCode, "id2", new WPath(tmpSearch));
-    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
-
-    // not found
-    tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("abcdef", false));
-    tmpSearch.add(new SecretString("TextInput1", false));
-
-    tmpFound = identify(tmpHtmlCode, "id1", new WPath(tmpSearch));
+    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "myId");
 
     Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
   }
 
   @Test
-  public void byLabelWrongId() throws IOException {
-    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<label id='labelId' for='inputId'>Label</label>"
-        + "</form>" + "</body></html>";
+  public void byName_TextBefore() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
+        + "<input id='myId' name='myName' type='text'>" + "</form>" + "</body></html>";
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("Label", false));
+    tmpSearch.add(new SecretString("Some text", false));
+    tmpSearch.add(new SecretString("myName", false));
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, "labelId", new WPath(tmpSearch));
+    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "myId");
+
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
+    Assert.assertEquals(
+        "[HtmlTextInput (id='myId') (name='myName')] found by: BY_NAME coverage: 0 distance: 5 start: 14", tmpFound
+            .getEntriesSorted().get(0).toString());
+  }
+
+  @Test
+  public void byName_WrongTextBefore() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
+        + "<input id='myId' name='myName' type='text'>" + "</form>" + "</body></html>";
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("wrong text", false));
+    tmpSearch.add(new SecretString("myName", false));
+
+    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "myId");
+
+    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
+  }
+
+  @Test
+  public void byTextBefore() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<input id='otherId' name='otherName' type='text'>"
+        + "<p>Marker</p>" + "<input id='myId' name='myName' type='text'>" + "</form>" + "</body></html>";
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("Marker", false));
+
+    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "otherId", "myId");
+
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
+
+    Assert.assertEquals(
+        "[HtmlTextInput (id='myId') (name='myName')] found by: BY_LABEL_TEXT coverage: 0 distance: 0 start: 6",
+        tmpFound.getEntriesSorted().get(0).toString());
+  }
+
+  @Test
+  public void byTextBeforeWildcard() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<input id='otherId' name='otherName' type='text'>"
+        + "<p>Marker</p>" + "<input id='myId' name='myName' type='text'>" + "</form>" + "</body></html>";
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("Mark*", false));
+
+    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "otherId", "myId");
+
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
+
+    Assert.assertEquals(
+        "[HtmlTextInput (id='myId') (name='myName')] found by: BY_LABEL_TEXT coverage: 2 distance: 0 start: 6",
+        tmpFound.getEntriesSorted().get(0).toString());
+  }
+
+  @Test
+  public void byTextBeforePart() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<input id='otherId' name='otherName' type='text'>"
+        + "<p>Marker</p>" + "<input id='myId' name='myName' type='text'>" + "</form>" + "</body></html>";
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("arke", false));
+
+    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "otherId", "myId");
+
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
+
+    Assert.assertEquals(
+        "[HtmlTextInput (id='myId') (name='myName')] found by: BY_LABEL_TEXT coverage: 2 distance: 1 start: 6",
+        tmpFound.getEntriesSorted().get(0).toString());
+  }
+
+  @Test
+  public void byTextBefore_TextBefore() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
+        + "<input id='otherId' name='otherName' type='text'>" + "<p>Marker</p>"
+        + "<input id='myId' name='myName' type='text'>" + "</form>" + "</body></html>";
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("Some text", false));
+    tmpSearch.add(new SecretString("Marker", false));
+
+    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "otherId", "myId");
+
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
+
+    Assert.assertEquals(
+        "[HtmlTextInput (id='myId') (name='myName')] found by: BY_LABEL_TEXT coverage: 0 distance: 6 start: 21",
+        tmpFound.getEntriesSorted().get(0).toString());
+  }
+
+  @Test
+  public void byTextBefore_WrongTextBefore() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
+        + "<input id='otherId' name='otherName' type='text'>" + "<p>Marker</p>"
+        + "<input id='myId' name='myName' type='text'>" + "</form>" + "</body></html>";
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("wrong text", false));
+    tmpSearch.add(new SecretString("Marker", false));
+
+    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "otherId", "myId");
 
     Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
   }
 
   @Test
   public void byLabel() throws IOException {
-    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<label id='labelId' for='inputId'>Label</label>"
-        + "<input id='inputId' name='TextInput' type='text'>" + "</form>" + "</body></html>";
+    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<label id='labelId' for='myId'>Label</label>"
+        + "<input id='myId' name='myName' type='text'>" + "</form>" + "</body></html>";
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("Label", false));
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, "labelId", new WPath(tmpSearch));
+    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "labelId");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
     Assert.assertEquals(
-        "[HtmlTextInput (id='inputId') (name='TextInput')] found by: BY_LABEL coverage: 0 distance: 0 start: 5",
-        tmpFound.getEntriesSorted().get(0).toString());
+        "[HtmlTextInput (id='myId') (name='myName')] found by: BY_LABEL coverage: 0 distance: 0 start: 5", tmpFound
+            .getEntriesSorted().get(0).toString());
+  }
+
+  @Test
+  public void byLabelWildcard() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<label id='labelId' for='myId'>Label</label>"
+        + "<input id='myId' name='myName' type='text'>" + "</form>" + "</body></html>";
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("Lab*", false));
+
+    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "labelId");
+
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
+
+    Assert.assertEquals(
+        "[HtmlTextInput (id='myId') (name='myName')] found by: BY_LABEL coverage: 2 distance: 0 start: 5", tmpFound
+            .getEntriesSorted().get(0).toString());
+  }
+
+  @Test
+  public void byLabelPart() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<label id='labelId' for='myId'>Label</label>"
+        + "<input id='myId' name='myName' type='text'>" + "</form>" + "</body></html>";
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("abe", false));
+
+    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "labelId");
+
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
+
+    Assert.assertEquals(
+        "[HtmlTextInput (id='myId') (name='myName')] found by: BY_LABEL coverage: 2 distance: 0 start: 5", tmpFound
+            .getEntriesSorted().get(0).toString());
+  }
+
+  @Test
+  public void byLabel_TextBefore() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
+        + "<label id='labelId' for='myId'>Label</label>" + "<input id='myId' name='myName' type='text'>" + "</form>"
+        + "</body></html>";
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("Some text", false));
+    tmpSearch.add(new SecretString("Label", false));
+
+    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "labelId");
+
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
+
+    Assert.assertEquals(
+        "[HtmlTextInput (id='myId') (name='myName')] found by: BY_LABEL coverage: 0 distance: 5 start: 20", tmpFound
+            .getEntriesSorted().get(0).toString());
+  }
+
+  @Test
+  public void byLabel_WrongTextBefore() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
+        + "<label id='labelId' for='myId'>Label</label>" + "<input id='myId' name='myName' type='text'>" + "</form>"
+        + "</body></html>";
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("wrong text", false));
+    tmpSearch.add(new SecretString("Label", false));
+
+    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "labelId");
+
+    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
   }
 
   @Test
   public void byLabelChild() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<label id='labelId'>Label"
-        + "<input id='inputId' name='TextInput' type='text'>" + "</label>"
-        + "abc<input id='another' name='AnotherTextInput' type='text'>" + "</form>" + "</body></html>";
+        + "<input id='myId' name='myName' type='text'>" + "</label>" + "</form>" + "</body></html>";
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
     tmpSearch.add(new SecretString("Label", false));
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, "labelId", new WPath(tmpSearch));
+    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "labelId");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
+
     Assert.assertEquals(
-        "[HtmlTextInput (id='inputId') (name='TextInput')] found by: BY_LABEL coverage: 0 distance: 0 start: 5",
-        tmpFound.getEntriesSorted().get(0).toString());
-
-    tmpFound = identify(tmpHtmlCode, "another", new WPath(tmpSearch));
-
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals(
-        "[HtmlTextInput (id='another') (name='AnotherTextInput')] found by: BY_TEXT coverage: 3 distance: 8 start: 8",
-        tmpFound.getEntriesSorted().get(0).toString());
-  }
-
-  @Test
-  public void byLabelExact() throws IOException {
-    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<label id='labelId' for='inputId'>Label</label>"
-        + "<input id='inputId' name='TextInput' type='text'>"
-        + "<input id='another' name='AnotherTextInput' type='text'>" + "</form>" + "</body></html>";
-
-    List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("Label", false));
-
-    WeightedControlList tmpFound = identify(tmpHtmlCode, "labelId", new WPath(tmpSearch));
-
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals(
-        "[HtmlTextInput (id='inputId') (name='TextInput')] found by: BY_LABEL coverage: 0 distance: 0 start: 5",
-        tmpFound.getEntriesSorted().get(0).toString());
-
-    tmpFound = identify(tmpHtmlCode, "another", new WPath(tmpSearch));
-
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert
-        .assertEquals(
-            "[HtmlTextInput (id='another') (name='AnotherTextInput')] found by: BY_LABEL_TEXT coverage: 0 distance: 0 start: 5",
-            tmpFound.getEntriesSorted().get(0).toString());
-  }
-
-  @Test
-  public void byLabelWildcard() throws IOException {
-    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<label id='labelId' for='inputId'>Label</label>"
-        + "<input id='inputId' name='TextInput' type='text'>"
-        + "<input id='another' name='AnotherTextInput' type='text'>" + "</form>" + "</body></html>";
-
-    List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("La*l", false));
-
-    WeightedControlList tmpFound = identify(tmpHtmlCode, "labelId", new WPath(tmpSearch));
-
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals(
-        "[HtmlTextInput (id='inputId') (name='TextInput')] found by: BY_LABEL coverage: 0 distance: 0 start: 5",
-        tmpFound.getEntriesSorted().get(0).toString());
-
-    tmpFound = identify(tmpHtmlCode, "another", new WPath(tmpSearch));
-
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert
-        .assertEquals(
-            "[HtmlTextInput (id='another') (name='AnotherTextInput')] found by: BY_LABEL_TEXT coverage: 0 distance: 0 start: 5",
-            tmpFound.getEntriesSorted().get(0).toString());
+        "[HtmlTextInput (id='myId') (name='myName')] found by: BY_LABEL coverage: 0 distance: 0 start: 5", tmpFound
+            .getEntriesSorted().get(0).toString());
   }
 
   @Test
   public void byLabelChildWildcard() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<label id='labelId'>Label"
-        + "<input id='inputId' name='TextInput' type='text'>" + "</label>"
-        + "<input id='another' name='AnotherTextInput' type='text'>" + "</form>" + "</body></html>";
+        + "<input id='myId' name='myName' type='text'>" + "</label>" + "</form>" + "</body></html>";
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("La*l", false));
+    tmpSearch.add(new SecretString("Lab*", false));
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, "labelId", new WPath(tmpSearch));
+    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "labelId");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
+
     Assert.assertEquals(
-        "[HtmlTextInput (id='inputId') (name='TextInput')] found by: BY_LABEL coverage: 0 distance: 0 start: 5",
-        tmpFound.getEntriesSorted().get(0).toString());
-
-    tmpFound = identify(tmpHtmlCode, "another", new WPath(tmpSearch));
-
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert
-        .assertEquals(
-            "[HtmlTextInput (id='another') (name='AnotherTextInput')] found by: BY_LABEL_TEXT coverage: 0 distance: 0 start: 5",
-            tmpFound.getEntriesSorted().get(0).toString());
+        "[HtmlTextInput (id='myId') (name='myName')] found by: BY_LABEL coverage: 2 distance: 0 start: 5", tmpFound
+            .getEntriesSorted().get(0).toString());
   }
 
   @Test
-  public void byTextBeforeExact() throws IOException {
-    String tmpHtmlCode = "<html><body>" + "<table>" + "<tr>" + "<td>Line1</td>" + "<td>Input1</td>" + "<td>"
-        + "<input id='l1Txt1' name='l1Txt1' type='text' value='l1t1'/>" + "</td>" + "<td>Input2</td>" + "<td>"
-        + "<input id='l1Txt2' name='l1Txt2' type='text' value='l1t2'/>" + "</td>" + "</tr>" + "<tr>" + "<td>Line2</td>"
-        + "<td>Input1</td>" + "<td>" + "<input id='l2Txt1' name='l2Txt1' type='text' value='l2t1'/>" + "</td>"
-        + "<td>Input2</td>" + "<td>" + "<input id='l2Txt2' name='l2Txt2' type='text' value='l2t2'/>" + "</td>"
-        + "</tr>" + "</table>" + "</body></html>";
+  public void byLabelChildPart() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<label id='labelId'>Label"
+        + "<input id='myId' name='myName' type='text'>" + "</label>" + "</form>" + "</body></html>";
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("Line1", false));
-    tmpSearch.add(new SecretString("Input2", false));
+    tmpSearch.add(new SecretString("abe", false));
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, "l1Txt2", new WPath(tmpSearch));
-
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals(
-        "[HtmlTextInput (id='l1Txt2') (name='l1Txt2')] found by: BY_LABEL_TEXT coverage: 0 distance: 13 start: 24",
-        tmpFound.getEntriesSorted().get(0).toString());
-
-    tmpFound = identify(tmpHtmlCode, "l2Txt2", new WPath(tmpSearch));
+    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "labelId");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals(
-        "[HtmlTextInput (id='l2Txt2') (name='l2Txt2')] found by: BY_LABEL_TEXT coverage: 0 distance: 43 start: 54",
-        tmpFound.getEntriesSorted().get(0).toString());
 
-    tmpFound = identify(tmpHtmlCode, "l2Txt1", new WPath(tmpSearch));
-
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
-        "[HtmlTextInput (id='l2Txt1') (name='l2Txt1')] found by: BY_TEXT coverage: 18 distance: 37 start: 42", tmpFound
+        "[HtmlTextInput (id='myId') (name='myName')] found by: BY_LABEL coverage: 2 distance: 0 start: 5", tmpFound
             .getEntriesSorted().get(0).toString());
-
-    // ----
-    tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("Line2", false));
-    tmpSearch.add(new SecretString("Input1", false));
-
-    tmpFound = identify(tmpHtmlCode, "l2Txt1", new WPath(tmpSearch));
-
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals(
-        "[HtmlTextInput (id='l2Txt1') (name='l2Txt1')] found by: BY_LABEL_TEXT coverage: 0 distance: 1 start: 42",
-        tmpFound.getEntriesSorted().get(0).toString());
-
-    tmpFound = identify(tmpHtmlCode, "l2Txt2", new WPath(tmpSearch));
-
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals(
-        "[HtmlTextInput (id='l2Txt2') (name='l2Txt2')] found by: BY_TEXT coverage: 12 distance: 19 start: 54", tmpFound
-            .getEntriesSorted().get(0).toString());
-
-    // ----
-    tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("Line2", false));
-    tmpSearch.add(new SecretString("Input2", false));
-
-    tmpFound = identify(tmpHtmlCode, "l2Txt2", new WPath(tmpSearch));
-
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals(
-        "[HtmlTextInput (id='l2Txt2') (name='l2Txt2')] found by: BY_LABEL_TEXT coverage: 0 distance: 13 start: 54",
-        tmpFound.getEntriesSorted().get(0).toString());
   }
 
   @Test
-  public void byTextBefore() throws IOException {
-    String tmpHtmlCode = "<html><body>" + "LongTextBefore Label"
-        + "<input id='l1Txt1' name='l1Txt1' type='text' value='l1t1'/>" + "SecondLabel"
-        + "<input id='l1Txt2' name='l1Txt2' type='text' value='l1t2'/>" + "</body></html>";
+  public void byLabelChild_TextBefore() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
+        + "<label id='labelId'>Label" + "<input id='myId' name='myName' type='text'>" + "</label>" + "</form>"
+        + "</body></html>";
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("LongTextBefore", false));
+    tmpSearch.add(new SecretString("Some text", false));
     tmpSearch.add(new SecretString("Label", false));
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, "l1Txt1", new WPath(tmpSearch));
+    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "labelId");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals(
-        "[HtmlTextInput (id='l1Txt1') (name='l1Txt1')] found by: BY_LABEL_TEXT coverage: 0 distance: 1 start: 20",
-        tmpFound.getEntriesSorted().get(0).toString());
 
-    tmpFound = identify(tmpHtmlCode, "l1Txt2", new WPath(tmpSearch));
-
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
-        "[HtmlTextInput (id='l1Txt2') (name='l1Txt2')] found by: BY_LABEL_TEXT coverage: 6 distance: 16 start: 35",
-        tmpFound.getEntriesSorted().get(0).toString());
+        "[HtmlTextInput (id='myId') (name='myName')] found by: BY_LABEL coverage: 0 distance: 5 start: 20", tmpFound
+            .getEntriesSorted().get(0).toString());
   }
 
   @Test
-  public void bySameNameAndId() throws IOException {
+  public void byLabelChild_WrongTextBefore() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
+        + "<label id='labelId'>Label" + "<input id='myId' name='myName' type='text'>" + "</label>" + "</form>"
+        + "</body></html>";
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("wrong text", false));
+    tmpSearch.add(new SecretString("Label", false));
+
+    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "labelId");
+
+    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
+  }
+
+  @Test
+  public void byIdName() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<input id='TextInput' name='TextInput' type='text'>" + "</form>" + "</body></html>";
 

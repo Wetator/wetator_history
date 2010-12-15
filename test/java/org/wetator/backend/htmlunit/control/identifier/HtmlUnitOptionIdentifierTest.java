@@ -39,23 +39,96 @@ public class HtmlUnitOptionIdentifierTest extends AbstractHtmlUnitControlIdentif
   }
 
   @Test
-  public void byIdExact() throws IOException {
-    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<select id='MyId' name='MySelectName' size='2'>"
-        + "<option id='MyOptionId1' value='o_value1'>option1</option>"
-        + "<option id='MyOptionId2' value='o_value2'>option2</option>"
-        + "<option id='MyOptionId3' value='o_value3'>option3</option>" + "</select>" + "</form>" + "</body></html>";
+  public void byId() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<select id='myId' name='myName' size='2'>"
+        + "<option id='myOptionId1' value='o_value1'>option1</option>"
+        + "<option id='myOptionId2' value='o_value2'>option2</option>"
+        + "<option id='myOptionId3' value='o_value3'>option3</option>" + "</select>" + "</form>" + "</body></html>";
 
     List<SecretString> tmpSearch = new ArrayList<SecretString>();
-    tmpSearch.add(new SecretString("MyOptionId1", false));
+    tmpSearch.add(new SecretString("myOptionId1", false));
 
-    WeightedControlList tmpFound = identify(tmpHtmlCode, "MyOptionId1", new WPath(tmpSearch));
-    tmpFound.addAll(identify(tmpHtmlCode, "MyOptionId2", new WPath(tmpSearch)));
-    tmpFound.addAll(identify(tmpHtmlCode, "MyOptionId3", new WPath(tmpSearch)));
+    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "myOptionId1", "myOptionId2",
+        "myOptionId3");
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert
         .assertEquals(
-            "[HtmlOption 'option1' (id='MyOptionId1') part of [HtmlSelect (id='MyId') (name='MySelectName')]] found by: BY_ID coverage: 0 distance: 0 start: 0",
+            "[HtmlOption 'option1' (id='myOptionId1') part of [HtmlSelect (id='myId') (name='myName')]] found by: BY_ID coverage: 0 distance: 0 start: 0",
             tmpFound.getEntriesSorted().get(0).toString());
+  }
+
+  @Test
+  public void byIdWildcard() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<select id='myId' name='myName' size='2'>"
+        + "<option id='myOptionId1' value='o_value1'>option1</option>"
+        + "<option id='myOptionId2' value='o_value2'>option2</option>"
+        + "<option id='myOptionId3' value='o_value3'>option3</option>" + "</select>" + "</form>" + "</body></html>";
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("*OptionId1", false));
+
+    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "myOptionId1", "myOptionId2",
+        "myOptionId3");
+
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
+    Assert
+        .assertEquals(
+            "[HtmlOption 'option1' (id='myOptionId1') part of [HtmlSelect (id='myId') (name='myName')]] found by: BY_ID coverage: 0 distance: 0 start: 0",
+            tmpFound.getEntriesSorted().get(0).toString());
+  }
+
+  @Test
+  public void byIdPart() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<select id='myId' name='myName' size='2'>"
+        + "<option id='myOptionId1' value='o_value1'>option1</option>"
+        + "<option id='myOptionId2' value='o_value2'>option2</option>"
+        + "<option id='myOptionId3' value='o_value3'>option3</option>" + "</select>" + "</form>" + "</body></html>";
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("OptionId1", false));
+
+    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "myOptionId1", "myOptionId2",
+        "myOptionId3");
+
+    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
+  }
+
+  @Test
+  public void byId_TextBefore() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
+        + "<select id='myId' name='myName' size='2'>" + "<option id='myOptionId1' value='o_value1'>option1</option>"
+        + "<option id='myOptionId2' value='o_value2'>option2</option>"
+        + "<option id='myOptionId3' value='o_value3'>option3</option>" + "</select>" + "</form>" + "</body></html>";
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("Some text", false));
+    tmpSearch.add(new SecretString("myOptionId1", false));
+
+    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "myOptionId1", "myOptionId2",
+        "myOptionId3");
+
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
+    Assert
+        .assertEquals(
+            "[HtmlOption 'option1' (id='myOptionId1') part of [HtmlSelect (id='myId') (name='myName')]] found by: BY_ID coverage: 0 distance: 5 start: 14",
+            tmpFound.getEntriesSorted().get(0).toString());
+  }
+
+  @Test
+  public void byId_WrongTextBefore() throws IOException {
+    String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
+        + "<select id='myId' name='myName' size='2'>" + "<option id='myOptionId1' value='o_value1'>option1</option>"
+        + "<option id='myOptionId2' value='o_value2'>option2</option>"
+        + "<option id='myOptionId3' value='o_value3'>option3</option>" + "</select>" + "</form>" + "</body></html>";
+
+    List<SecretString> tmpSearch = new ArrayList<SecretString>();
+    tmpSearch.add(new SecretString("wrong text", false));
+    tmpSearch.add(new SecretString("myOptionId1", false));
+
+    WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch), "myOptionId1", "myOptionId2",
+        "myOptionId3");
+
+    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
   }
 }

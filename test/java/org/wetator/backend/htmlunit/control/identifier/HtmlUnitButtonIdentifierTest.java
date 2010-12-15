@@ -203,7 +203,7 @@ public class HtmlUnitButtonIdentifierTest extends AbstractHtmlUnitControlIdentif
   }
 
   @Test
-  public void byLabel() throws IOException {
+  public void byText() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<button id='myId' type='button' name='MyName'>"
         + "<p>ButtonWithText</p>" + "</button>" + "</form>" + "</body></html>";
 
@@ -221,7 +221,7 @@ public class HtmlUnitButtonIdentifierTest extends AbstractHtmlUnitControlIdentif
   }
 
   @Test
-  public void byLabelWildcard() throws IOException {
+  public void byTextWildcard() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<button id='myId' type='button' name='MyName'>"
         + "<p>ButtonWithText</p>" + "</button>" + "</form>" + "</body></html>";
 
@@ -239,7 +239,7 @@ public class HtmlUnitButtonIdentifierTest extends AbstractHtmlUnitControlIdentif
   }
 
   @Test
-  public void byLabelPart() throws IOException {
+  public void byTextPart() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<button id='myId' type='button' name='MyName'>"
         + "<p>ButtonWithText</p>" + "</button>" + "</form>" + "</body></html>";
 
@@ -257,7 +257,7 @@ public class HtmlUnitButtonIdentifierTest extends AbstractHtmlUnitControlIdentif
   }
 
   @Test
-  public void byLabel_TextBefore() throws IOException {
+  public void byText_TextBefore() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
         + "<button id='myId' type='button' name='MyName'>" + "<p>ButtonWithText</p>" + "</button>" + "</form>"
         + "</body></html>";
@@ -277,7 +277,7 @@ public class HtmlUnitButtonIdentifierTest extends AbstractHtmlUnitControlIdentif
   }
 
   @Test
-  public void byLabel_WrongTextBefore() throws IOException {
+  public void byText_WrongTextBefore() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
         + "<button id='myId' type='button' name='MyName'>" + "<p>ButtonWithText</p>" + "</button>" + "</form>"
         + "</body></html>";
@@ -292,7 +292,7 @@ public class HtmlUnitButtonIdentifierTest extends AbstractHtmlUnitControlIdentif
   }
 
   @Test
-  public void byIdNameLabel() throws IOException {
+  public void byIdNameText() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<button id='MyName' type='button' name='MyName'>"
         + "<p>MyName</p>" + "</button>" + "</form>" + "</body></html>";
 

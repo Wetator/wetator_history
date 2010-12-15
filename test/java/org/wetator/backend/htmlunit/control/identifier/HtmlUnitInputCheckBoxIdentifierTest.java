@@ -207,7 +207,7 @@ public class HtmlUnitInputCheckBoxIdentifierTest extends AbstractHtmlUnitControl
   }
 
   @Test
-  public void byText() throws IOException {
+  public void byTextAfter() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<input id='MyCheckboxId' name='MyCheckboxName' value='value1' type='checkbox'>CheckBox" + "</form>"
         + "</body></html>";
@@ -225,7 +225,7 @@ public class HtmlUnitInputCheckBoxIdentifierTest extends AbstractHtmlUnitControl
   }
 
   @Test
-  public void byTextWildcard() throws IOException {
+  public void byTextAfterWildcard() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<input id='MyCheckboxId' name='MyCheckboxName' value='value1' type='checkbox'>CheckBox" + "</form>"
         + "</body></html>";
@@ -243,7 +243,7 @@ public class HtmlUnitInputCheckBoxIdentifierTest extends AbstractHtmlUnitControl
   }
 
   @Test
-  public void byTextPart() throws IOException {
+  public void byTextAfterPart() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>"
         + "<input id='MyCheckboxId' name='MyCheckboxName' value='value1' type='checkbox'>CheckBox" + "</form>"
         + "</body></html>";
@@ -261,7 +261,7 @@ public class HtmlUnitInputCheckBoxIdentifierTest extends AbstractHtmlUnitControl
   }
 
   @Test
-  public void byText_TextBefore() throws IOException {
+  public void byTextAfter_TextBefore() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
         + "<input id='MyCheckboxId' name='MyCheckboxName' value='value1' type='checkbox'>CheckBox" + "</form>"
         + "</body></html>";
@@ -280,7 +280,7 @@ public class HtmlUnitInputCheckBoxIdentifierTest extends AbstractHtmlUnitControl
   }
 
   @Test
-  public void byText_WrongTextBefore() throws IOException {
+  public void byTextAfter_WrongTextBefore() throws IOException {
     String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<p>Some text .... </p>"
         + "<input id='MyCheckboxId' name='MyCheckboxName' value='value1' type='checkbox'>CheckBox" + "</form>"
         + "</body></html>";
