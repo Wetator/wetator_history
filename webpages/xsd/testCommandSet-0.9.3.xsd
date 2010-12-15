@@ -5,7 +5,7 @@
   xmlns="http://www.wetator.org/xsd/testCommandSet"
   elementFormDefault="qualified" 
   attributeFormDefault="unqualified"
-  version="1.0">
+  version="0.9.3">
 
   <xs:annotation>
     <xs:documentation>

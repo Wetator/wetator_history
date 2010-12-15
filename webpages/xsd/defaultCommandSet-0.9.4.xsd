@@ -5,7 +5,7 @@
   xmlns="http://www.wetator.org/xsd/defaultCommandSet"
   elementFormDefault="qualified" 
   attributeFormDefault="unqualified"
-  version="1.0">
+  version="0.9.4">
   
   <xs:annotation>
     <xs:documentation>
@@ -40,12 +40,12 @@
       <xs:element name="optionalParameter" type="xs:string"
         minOccurs="0" maxOccurs="1" />
     </xs:sequence>
-    <xs:attribute name="command" type="commandsEnum" use="required" />
+    <xs:attribute name="command" type="commandEnum" use="required" />
     <xs:attribute name="comment" type="xs:boolean" default="false" />
   </xs:complexType>
 
-  <xs:simpleType name="commandsEnum">
-    <xs:restriction base="xs:string">
+  <xs:simpleType name="commandEnum">
+    <xs:restriction base="xs:token">
       <xs:enumeration value="" />
       <xs:enumeration value="Assert_Content" />
       <xs:enumeration value="Assert_Deselected" />
@@ -65,5 +65,4 @@
       <xs:enumeration value="Use_Module" />
     </xs:restriction>
   </xs:simpleType>
-
 </xs:schema>
