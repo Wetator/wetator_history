@@ -8,7 +8,7 @@
     <step command='Assert_Content'>Empty the recycle bin?</step>
     <step command='Click_On'>Cancel</step>
     <step command='Assert_Content'>Button: Cancel</step>
-    <step command='Comment'></step>
+    <step command='' comment='true'></step>
     <step command='Open_Url'>js/jquery/modal-confirmation.html</step>
     <step command='Assert_Content'>Empty the recycle bin?</step>
     <step command='Click_On'>Delete all items</step>

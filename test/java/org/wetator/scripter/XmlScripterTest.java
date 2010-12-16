@@ -42,7 +42,7 @@ public class XmlScripterTest {
 
     WetCommand tmpCommand = tmpCommands.get(0);
     Assert.assertTrue(tmpCommand.isComment());
-    Assert.assertEquals("Comment", tmpCommand.getName());
+    Assert.assertEquals("", tmpCommand.getName());
 
     tmpCommand = tmpCommands.get(1);
     Assert.assertFalse(tmpCommand.isComment());
@@ -71,10 +71,10 @@ public class XmlScripterTest {
 
     tmpCommand = tmpCommands.get(7);
     Assert.assertTrue(tmpCommand.isComment());
-    Assert.assertEquals("Comment", tmpCommand.getName());
+    Assert.assertEquals("", tmpCommand.getName());
 
     tmpCommand = tmpCommands.get(8);
     Assert.assertTrue(tmpCommand.isComment());
-    Assert.assertEquals("Comment", tmpCommand.getName());
+    Assert.assertEquals("", tmpCommand.getName());
   }
 }

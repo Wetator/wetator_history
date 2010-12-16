@@ -6,7 +6,7 @@
     xsi:schemaLocation='http://www.wetator.org/xsd/defaultCommandSet http://www.wetator.org/xsd/defaultCommandSet.xsd'>
     <step command='Open_Url'>event_handler.html</step>
     <step command='Assert_Title'>Wetator / Event Handler</step>
-    <step command='Comment'>Click for enabled elements</step>
+    <step command='' comment='true'>Click for enabled elements</step>
     <step command='Click_On'>Clear</step>
     <step command='Click_On'>submitTest</step>
     <step command='Click_On'>submitTest</step>
@@ -47,7 +47,7 @@
     <step command='Click_On'>SpanWithTabIndex</step>
     <step command='Click_On'>SpanWithTabIndex</step>
     <step command='Assert_Content'>Handler mousedown [spanWithTabIndex] [1] focus [spanWithTabIndex] [-] mouseup [spanWithTabIndex] [1] click [spanWithTabIndex] [1] mousedown [spanWithTabIndex] [1] mouseup [spanWithTabIndex] [1] click [spanWithTabIndex] [1] OK</step>
-    <step command='Comment'>Click on disabled elements</step>
+    <step command='' comment='true'>Click on disabled elements</step>
     <step command='Click_On'>Clear</step>
     <step command='Click_On'>submitTestDisabled</step>
     <step command='Assert_Content'>Handler OK</step>

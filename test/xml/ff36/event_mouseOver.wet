@@ -6,7 +6,7 @@
     xsi:schemaLocation='http://www.wetator.org/xsd/defaultCommandSet http://www.wetator.org/xsd/defaultCommandSet.xsd'>
     <step command='Open_Url'>event_handler.html</step>
     <step command='Assert_Title'>Wetator / Event Handler</step>
-    <step command='Comment'>MouseOver for enabled elements</step>
+    <step command='' comment='true'>MouseOver for enabled elements</step>
     <step command='Click_On'>Clear</step>
     <step command='Mouse_Over'>submitTest</step>
     <step command='Assert_Content'>Handler mouseover [submitTest] [1] mousemove [submitTest] [1] OK</step>
@@ -46,7 +46,7 @@
     <step command='Click_On'>Clear</step>
     <step command='Mouse_Over'>Span</step>
     <step command='Assert_Content'>Handler mouseover [span] [1] mousemove [span] [1] OK</step>
-    <step command='Comment'>MouseOver for disabled elements</step>
+    <step command='' comment='true'>MouseOver for disabled elements</step>
     <step command='Click_On'>Clear</step>
     <step command='Mouse_Over'>submitTestDisabled</step>
     <step command='Assert_Content'>Handler OK</step>
