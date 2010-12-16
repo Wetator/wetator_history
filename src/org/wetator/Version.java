@@ -29,7 +29,7 @@ public final class Version {
   /**
    * The build.
    */
-  public static final String BUILD = "2010120101";
+  public static final String BUILD = "2010121601";
 
   /**
    * A simple main function to be able to ask for the version from a command line.
