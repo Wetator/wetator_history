@@ -123,7 +123,7 @@ public class XmlDefaultCommandSetTest extends AbstractWebServerTest {
   public void assertSet() {
     executeTestFile("assert_set.wet");
 
-    Assert.assertEquals(90, getSteps());
+    Assert.assertEquals(99, getSteps());
     Assert.assertEquals(0, getFailures());
     Assert.assertEquals(0, getErrors());
   }

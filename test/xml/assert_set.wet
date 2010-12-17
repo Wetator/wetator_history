@@ -64,6 +64,12 @@
     <step command='Assert_Set'>emptyInputText_Name</step>
     <step command='' comment='true'></step>
     <step command='' comment='true'></step>
+    <step command='Open_Url'>assert_set.html</step>
+    <step command='Assert_Title'>Wetator / Assert Set</step>
+    <step command='' comment='true'></step>
+    <step command='Assert_Fail'>Assert Set, Wrong value: expected: &lt;&gt; but was: &lt;inputTextNameValue&gt;<optionalParameter>inputText_Name</optionalParameter></step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
     <step command='' comment='true'></step>
     <step command='' comment='true'></step>
     <step command='Open_Url'>assert_set.html</step>
@@ -126,6 +132,12 @@
     <step command='Assert_Set'>emptyInputPassword_Name</step>
     <step command='' comment='true'></step>
     <step command='' comment='true'></step>
+    <step command='Open_Url'>assert_set.html</step>
+    <step command='Assert_Title'>Wetator / Assert Set</step>
+    <step command='' comment='true'></step>
+    <step command='Assert_Fail'>Assert Set, Wrong value: expected: &lt;&gt; but was: &lt;inputPasswordNameValue&gt;<optionalParameter>inputPassword_Name</optionalParameter></step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
     <step command='' comment='true'></step>
     <step command='' comment='true'></step>
     <step command='Open_Url'>assert_set.html</step>
@@ -186,6 +198,12 @@
     <step command='Assert_Title'>Wetator / Assert Set</step>
     <step command='' comment='true'></step>
     <step command='Assert_Set'>emptyTextArea_Name</step>
+    <step command='' comment='true'></step>
+    <step command='' comment='true'></step>
+    <step command='Open_Url'>assert_set.html</step>
+    <step command='Assert_Title'>Wetator / Assert Set</step>
+    <step command='' comment='true'></step>
+    <step command='Assert_Fail'>Assert Set, Wrong value: expected: &lt;&gt; but was: &lt;textAreaNameValue&gt;<optionalParameter>textArea_Name</optionalParameter></step>
     <step command='' comment='true'></step>
     <step command='' comment='true'></step>
 </testcase>
