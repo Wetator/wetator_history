@@ -97,17 +97,6 @@ public class HtmlUnitInputText extends HtmlUnitBaseControl<HtmlTextInput> implem
       String tmpValue = aValue.getValue();
       tmpHtmlTextInput.select();
 
-      int tmpMaxLength = -1;
-      try {
-        String tmpMaxLengthString = tmpHtmlTextInput.getMaxLengthAttribute();
-        tmpMaxLength = Integer.parseInt(tmpMaxLengthString);
-      } catch (NumberFormatException e) {
-        // TODO warn
-      }
-
-      if (tmpMaxLength > -1) {
-        tmpValue = tmpValue.substring(0, Math.min(tmpMaxLength, tmpValue.length()));
-      }
       if (tmpValue.length() > 0) {
         tmpHtmlTextInput.type(tmpValue);
       } else {
@@ -147,8 +136,7 @@ public class HtmlUnitInputText extends HtmlUnitBaseControl<HtmlTextInput> implem
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.backend.control.Settable#assertValue(org.wetator.core.WetContext,
-   *      org.wetator.util.SecretString)
+   * @see org.wetator.backend.control.Settable#assertValue(org.wetator.core.WetContext, org.wetator.util.SecretString)
    */
   @Override
   public void assertValue(WetContext aWetContext, SecretString anExpectedValue) throws AssertionFailedException {

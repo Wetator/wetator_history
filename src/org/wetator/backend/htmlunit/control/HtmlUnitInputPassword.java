@@ -97,17 +97,6 @@ public class HtmlUnitInputPassword extends HtmlUnitBaseControl<HtmlPasswordInput
       String tmpValue = aValue.getValue();
       tmpHtmlPasswordInput.select();
 
-      int tmpMaxLength = -1;
-      try {
-        String tmpMaxLengthString = tmpHtmlPasswordInput.getMaxLengthAttribute();
-        tmpMaxLength = Integer.parseInt(tmpMaxLengthString);
-      } catch (NumberFormatException e) {
-        // TODO warn
-      }
-
-      if (tmpMaxLength > -1) {
-        tmpValue = tmpValue.substring(0, Math.min(tmpMaxLength, tmpValue.length()));
-      }
       if (tmpValue.length() > 0) {
         tmpHtmlPasswordInput.type(tmpValue);
       } else {
@@ -149,8 +138,7 @@ public class HtmlUnitInputPassword extends HtmlUnitBaseControl<HtmlPasswordInput
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.backend.control.Settable#assertValue(org.wetator.core.WetContext,
-   *      org.wetator.util.SecretString)
+   * @see org.wetator.backend.control.Settable#assertValue(org.wetator.core.WetContext, org.wetator.util.SecretString)
    */
   @Override
   public void assertValue(WetContext aWetContext, SecretString anExpectedValue) throws AssertionFailedException {
