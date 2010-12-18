@@ -383,6 +383,10 @@ webpages/contact.png -text
 webpages/dtd/testcase.dtd -text svneol=unset#text/plain
 webpages/images/bullet_orange.gif -text
 webpages/images/command_overview.png -text
+webpages/images/sample_app1.png -text
+webpages/images/sample_app2.png -text
+webpages/images/sample_app3.png -text
+webpages/images/sample_app4.png -text
 webpages/images/wetator.png -text
 webpages/images/wetator_banner_small.png -text
 webpages/images/xls_file.jpg -text
