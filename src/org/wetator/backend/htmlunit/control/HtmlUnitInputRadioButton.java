@@ -103,4 +103,16 @@ public class HtmlUnitInputRadioButton extends HtmlUnitBaseControl<HtmlRadioButto
 
     return tmpHtmlRadioButtonInput.isChecked();
   }
+
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.wetator.backend.control.Control#isDisabled(org.wetator.core.WetContext)
+   */
+  @Override
+  public boolean isDisabled(final WetContext aWetContext) throws AssertionFailedException {
+    HtmlRadioButtonInput tmpHtmlRadioButtonInput = getHtmlElement();
+
+    return tmpHtmlRadioButtonInput.isDisabled();
+  }
 }

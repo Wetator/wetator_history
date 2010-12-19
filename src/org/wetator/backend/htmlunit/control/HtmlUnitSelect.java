@@ -20,6 +20,8 @@ import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl.ForHtmlElement;
 import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl.IdentifiedBy;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitSelectIdentifier;
 import org.wetator.backend.htmlunit.util.HtmlElementUtil;
+import org.wetator.core.WetContext;
+import org.wetator.exception.AssertionFailedException;
 
 import com.gargoylesoftware.htmlunit.html.HtmlSelect;
 
@@ -50,5 +52,17 @@ public class HtmlUnitSelect extends HtmlUnitBaseControl<HtmlSelect> {
   @Override
   public String getDescribingText() {
     return HtmlElementUtil.getDescribingTextForHtmlSelect(getHtmlElement());
+  }
+
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.wetator.backend.control.Control#isDisabled(org.wetator.core.WetContext)
+   */
+  @Override
+  public boolean isDisabled(final WetContext aWetContext) throws AssertionFailedException {
+    HtmlSelect tmpHtmlSelect = getHtmlElement();
+
+    return tmpHtmlSelect.isDisabled();
   }
 }

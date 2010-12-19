@@ -142,4 +142,16 @@ public class HtmlUnitInputText extends HtmlUnitBaseControl<HtmlTextInput> implem
   public void assertValue(WetContext aWetContext, SecretString anExpectedValue) throws AssertionFailedException {
     Assert.assertEquals(anExpectedValue, getHtmlElement().getValueAttribute(), "expectedValueNotFound", null);
   }
+
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.wetator.backend.control.Control#isDisabled(org.wetator.core.WetContext)
+   */
+  @Override
+  public boolean isDisabled(final WetContext aWetContext) throws AssertionFailedException {
+    HtmlTextInput tmpHtmlTextInput = getHtmlElement();
+
+    return tmpHtmlTextInput.isDisabled() || tmpHtmlTextInput.isReadOnly();
+  }
 }

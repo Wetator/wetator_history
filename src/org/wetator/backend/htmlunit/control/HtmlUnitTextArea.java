@@ -118,11 +118,22 @@ public class HtmlUnitTextArea extends HtmlUnitBaseControl<HtmlTextArea> implemen
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.backend.control.Settable#assertValue(org.wetator.core.WetContext,
-   *      org.wetator.util.SecretString)
+   * @see org.wetator.backend.control.Settable#assertValue(org.wetator.core.WetContext, org.wetator.util.SecretString)
    */
   @Override
   public void assertValue(WetContext aWetContext, SecretString anExpectedValue) throws AssertionFailedException {
     Assert.assertEquals(anExpectedValue, getHtmlElement().getText(), "expectedValueNotFound", null);
+  }
+
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.wetator.backend.control.Control#isDisabled(org.wetator.core.WetContext)
+   */
+  @Override
+  public boolean isDisabled(final WetContext aWetContext) throws AssertionFailedException {
+    HtmlTextArea tmpHtmlTextArea = getHtmlElement();
+
+    return tmpHtmlTextArea.isDisabled() || tmpHtmlTextArea.isReadOnly();
   }
 }

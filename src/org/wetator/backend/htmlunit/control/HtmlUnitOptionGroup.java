@@ -20,6 +20,8 @@ import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl.ForHtmlElement;
 import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl.IdentifiedBy;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitOptionGroupIdentifier;
 import org.wetator.backend.htmlunit.util.HtmlElementUtil;
+import org.wetator.core.WetContext;
+import org.wetator.exception.AssertionFailedException;
 
 import com.gargoylesoftware.htmlunit.html.HtmlOptionGroup;
 
@@ -50,5 +52,17 @@ public class HtmlUnitOptionGroup extends HtmlUnitBaseControl<HtmlOptionGroup> {
   @Override
   public String getDescribingText() {
     return HtmlElementUtil.getDescribingTextForHtmlOptionGroup(getHtmlElement());
+  }
+
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.wetator.backend.control.Control#isDisabled(org.wetator.core.WetContext)
+   */
+  @Override
+  public boolean isDisabled(final WetContext aWetContext) throws AssertionFailedException {
+    HtmlOptionGroup tmpHtmlOptionGroup = getHtmlElement();
+
+    return tmpHtmlOptionGroup.isDisabled();
   }
 }

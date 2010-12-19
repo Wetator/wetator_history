@@ -21,6 +21,8 @@ import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl.ForHtmlElement;
 import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl.IdentifiedBy;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputSubmitIdentifier;
 import org.wetator.backend.htmlunit.util.HtmlElementUtil;
+import org.wetator.core.WetContext;
+import org.wetator.exception.AssertionFailedException;
 
 import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
 
@@ -52,5 +54,17 @@ public class HtmlUnitInputSubmit extends HtmlUnitBaseControl<HtmlSubmitInput> im
   @Override
   public String getDescribingText() {
     return HtmlElementUtil.getDescribingTextForHtmlSubmitInput(getHtmlElement());
+  }
+
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.wetator.backend.control.Control#isDisabled(org.wetator.core.WetContext)
+   */
+  @Override
+  public boolean isDisabled(final WetContext aWetContext) throws AssertionFailedException {
+    HtmlSubmitInput tmpHtmlSubmitInput = getHtmlElement();
+
+    return tmpHtmlSubmitInput.isDisabled();
   }
 }

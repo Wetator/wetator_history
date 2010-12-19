@@ -21,6 +21,8 @@ import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl.ForHtmlElement;
 import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl.IdentifiedBy;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputImageIdentifier;
 import org.wetator.backend.htmlunit.util.HtmlElementUtil;
+import org.wetator.core.WetContext;
+import org.wetator.exception.AssertionFailedException;
 
 import com.gargoylesoftware.htmlunit.html.HtmlImageInput;
 
@@ -52,5 +54,17 @@ public class HtmlUnitInputImage extends HtmlUnitBaseControl<HtmlImageInput> impl
   @Override
   public String getDescribingText() {
     return HtmlElementUtil.getDescribingTextForHtmlImageInput(getHtmlElement());
+  }
+
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.wetator.backend.control.Control#isDisabled(org.wetator.core.WetContext)
+   */
+  @Override
+  public boolean isDisabled(final WetContext aWetContext) throws AssertionFailedException {
+    HtmlImageInput tmpHtmlImageInput = getHtmlElement();
+
+    return tmpHtmlImageInput.isDisabled();
   }
 }

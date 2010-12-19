@@ -144,4 +144,16 @@ public class HtmlUnitInputPassword extends HtmlUnitBaseControl<HtmlPasswordInput
   public void assertValue(WetContext aWetContext, SecretString anExpectedValue) throws AssertionFailedException {
     Assert.assertEquals(anExpectedValue, getHtmlElement().getValueAttribute(), "expectedValueNotFound", null);
   }
+
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.wetator.backend.control.Control#isDisabled(org.wetator.core.WetContext)
+   */
+  @Override
+  public boolean isDisabled(final WetContext aWetContext) throws AssertionFailedException {
+    HtmlPasswordInput tmpHtmlPasswordInput = getHtmlElement();
+
+    return tmpHtmlPasswordInput.isDisabled() || tmpHtmlPasswordInput.isReadOnly();
+  }
 }
