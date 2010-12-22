@@ -45,6 +45,8 @@ public class Wetator extends Task {
   private Path classpath;
   private FileSet fileset;
   private List<Property> properties = new ArrayList<Property>();
+  private boolean haltOnFailure;
+  private String failureProperty;
 
   /**
    * The main method called by Ant.
@@ -100,6 +102,19 @@ public class Wetator extends Task {
       }
 
       tmpWetEngine.executeTests();
+
+      // failures
+      if (tmpListener.getFailureCount() + tmpListener.getErrorCount() > 0) {
+        if (null != getFailureProperty()) {
+          getProject().setNewProperty(getFailureProperty(), "true");
+        }
+
+        if (isHaltOnFailure()) {
+          throw new BuildException(Version.getProductName() + ": AntTask failed. (" + tmpListener.getFailureCount()
+              + " failures " + tmpListener.getErrorCount() + " errors)");
+        }
+      }
+
     } catch (Throwable e) {
       throw new BuildException(Version.getProductName() + ": AntTask failed. (" + e.getMessage() + ")", e);
     }
@@ -200,5 +215,33 @@ public class Wetator extends Task {
    */
   public void addProperty(Property aProperty) {
     properties.add(aProperty);
+  }
+
+  /**
+   * @return the haltOnFailure
+   */
+  public boolean isHaltOnFailure() {
+    return haltOnFailure;
+  }
+
+  /**
+   * @param aHaltOnFailure the haltOnFailure to set
+   */
+  public void setHaltOnFailure(boolean aHaltOnFailure) {
+    haltOnFailure = aHaltOnFailure;
+  }
+
+  /**
+   * @return the failureProperty
+   */
+  public String getFailureProperty() {
+    return failureProperty;
+  }
+
+  /**
+   * @param aFailureProperty the failureProperty to set
+   */
+  public void setFailureProperty(String aFailureProperty) {
+    failureProperty = aFailureProperty;
   }
 }

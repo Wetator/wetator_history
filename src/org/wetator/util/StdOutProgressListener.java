@@ -308,4 +308,18 @@ public class StdOutProgressListener implements WetProgressListener {
     print(aProgressSign);
     dotCount++;
   }
+
+  /**
+   * @return the errorCount
+   */
+  public long getErrorCount() {
+    return errorCount;
+  }
+
+  /**
+   * @return the failureCount
+   */
+  public long getFailureCount() {
+    return failureCount;
+  }
 }
