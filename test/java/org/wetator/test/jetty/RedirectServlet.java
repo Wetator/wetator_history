@@ -23,6 +23,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringUtils;
 import org.eclipse.jetty.http.HttpStatus.Code;
 import org.wetator.test.AbstractWebServerTest;
 
@@ -40,11 +41,10 @@ public class RedirectServlet extends HttpServlet {
     if (tmpPath.endsWith("redirect_header.php")) {
       aResponse.setStatus(Code.MOVED_TEMPORARILY.getCode());
       String tmpTarget = aRequest.getParameter("target");
-      if (tmpTarget != null && !"".equals(tmpTarget)) {
-        aResponse.setHeader("Location", tmpTarget);
-      } else {
-        aResponse.setHeader("Location", "http://localhost:" + AbstractWebServerTest.DEFAULT_PORT);
+      if (StringUtils.isEmpty(tmpTarget)) {
+        tmpTarget = "http://localhost:" + AbstractWebServerTest.DEFAULT_PORT;
       }
+      aResponse.setHeader("Location", tmpTarget);
     } else if (tmpPath.endsWith("redirect_js.php")) {
       String tmpTarget = aRequest.getParameter("target");
       String tmpWait = aRequest.getParameter("wait");
@@ -54,23 +54,22 @@ public class RedirectServlet extends HttpServlet {
       aResponse.getWriter().println("<head>");
       aResponse.getWriter().println("<script type=\"text/javascript\">");
       aResponse.getWriter().println("function redirect(){");
-      if (tmpTarget != null && !"".equals(tmpTarget)) {
-        aResponse.getWriter().println("window.location = '" + tmpTarget + "'");
-      } else {
-        aResponse.getWriter()
-            .println("window.location = 'http://localhost:" + AbstractWebServerTest.DEFAULT_PORT + "'");
+      if (StringUtils.isEmpty(tmpTarget)) {
+        tmpTarget = "http://localhost:" + AbstractWebServerTest.DEFAULT_PORT;
       }
+      aResponse.getWriter().println("  window.location = '" + tmpTarget + "'");
       aResponse.getWriter().println("}");
       aResponse.getWriter().println("function startRedirect() {");
-      if (tmpTarget != null && !"".equals(tmpTarget)) {
-        aResponse.getWriter().println("setTimeout('redirect()', " + tmpWait + ");");
-      } else {
-        aResponse.getWriter().println("setTimeout('redirect()', 444);");
+      if (StringUtils.isEmpty(tmpWait)) {
+        tmpWait = "444";
       }
+      aResponse.getWriter().println("  setTimeout('redirect()', " + tmpWait + ");");
       aResponse.getWriter().println("}");
       aResponse.getWriter().println("</script>");
       aResponse.getWriter().println("</head>");
       aResponse.getWriter().println("<body onLoad=\"startRedirect();\">");
+      aResponse.getWriter().println("<h1 class=\"command_test\">Wetator / Redirect via JavaScript</h1>");
+      aResponse.getWriter().println("  <p>Redirection to '" + tmpTarget + "' in " + tmpWait + "ms</p>");
       aResponse.getWriter().println("</body>");
       aResponse.getWriter().println("</html>");
     } else if (tmpPath.endsWith("redirect_meta.php")) {
@@ -79,14 +78,10 @@ public class RedirectServlet extends HttpServlet {
           "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"DTD/xhtml1-transitional.dtd\">");
       aResponse.getWriter().println("<html>");
       aResponse.getWriter().println("<head>");
-      if (tmpTarget != null && !"".equals(tmpTarget)) {
-        aResponse.getWriter().println("<meta http-equiv='refresh' content='4; URL=" + tmpTarget + "'/>");
-      } else {
-        aResponse.getWriter()
-            .println(
-                "<meta http-equiv='refresh' content='4; URL=http://localhost:" + AbstractWebServerTest.DEFAULT_PORT
-                    + "'/>");
+      if (StringUtils.isEmpty(tmpTarget)) {
+        tmpTarget = "http://localhost:" + AbstractWebServerTest.DEFAULT_PORT;
       }
+      aResponse.getWriter().println("<meta http-equiv='refresh' content='4; URL=" + tmpTarget + "'/>");
       aResponse.getWriter().println("</head>");
       aResponse.getWriter().println("<body>");
       aResponse.getWriter().println("</body>");

@@ -393,7 +393,10 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       tmpTimeout = Math.max(0, tmpTimeout.longValue());
 
       WetBackend tmpBackend = getWetBackend(aWetContext);
-      tmpBackend.waitForTitle(tmpExpected, tmpTimeout);
+      boolean tmpContentChanged = tmpBackend.assertTitleInTimeFrame(tmpExpected, tmpTimeout);
+      if (tmpContentChanged) {
+        tmpBackend.saveCurrentWindowToLog();
+      }
     }
   }
 
@@ -418,7 +421,10 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       tmpTimeout = Math.max(0, tmpTimeout.longValue());
 
       WetBackend tmpBackend = getWetBackend(aWetContext);
-      tmpBackend.waitForContent(tmpExpected, tmpTimeout);
+      boolean tmpContentChanged = tmpBackend.assertContentInTimeFrame(tmpExpected, tmpTimeout);
+      if (tmpContentChanged) {
+        tmpBackend.saveCurrentWindowToLog();
+      }
     }
   }
 

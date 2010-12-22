@@ -603,9 +603,12 @@ public final class HtmlUnitBrowser implements WetBackend {
   }
 
   @Override
-  public String waitForTitle(List<SecretString> aTitleToWaitFor, long aTimeoutInSeconds)
+  public boolean assertTitleInTimeFrame(List<SecretString> aTitleToWaitFor, long aTimeoutInSeconds)
       throws AssertionFailedException {
     long tmpWaitTime = Math.max(immediateJobsTimeout, aTimeoutInSeconds * 1000L);
+
+    // remember the page at start to be able to detect page changes
+    Page tmpStartPage = getCurrentPage();
 
     Page tmpPage = getCurrentPage();
     if (tmpPage instanceof HtmlPage) {
@@ -616,7 +619,7 @@ public final class HtmlUnitBrowser implements WetBackend {
         String tmpCurrentTitle = tmpHtmlPage.getTitleText();
         try {
           Assert.assertListMatch(aTitleToWaitFor, tmpCurrentTitle);
-          return tmpCurrentTitle;
+          return tmpStartPage != tmpPage;
         } catch (AssertionFailedException e) {
           // ok, not found, maybe we have to be more patient
         }
@@ -643,13 +646,16 @@ public final class HtmlUnitBrowser implements WetBackend {
     HtmlPage tmpHtmlPage = getCurrentHtmlPage();
     String tmpCurrentTitle = tmpHtmlPage.getTitleText();
     Assert.assertListMatch(aTitleToWaitFor, tmpCurrentTitle);
-    return tmpCurrentTitle;
+    return tmpStartPage != tmpPage;
   }
 
   @Override
-  public String waitForContent(List<SecretString> aContentToWaitFor, long aTimeoutInSeconds)
+  public boolean assertContentInTimeFrame(List<SecretString> aContentToWaitFor, long aTimeoutInSeconds)
       throws AssertionFailedException {
     long tmpWaitTime = Math.max(immediateJobsTimeout, aTimeoutInSeconds * 1000L);
+
+    // remember the page at start to be able to detect page changes
+    Page tmpStartPage = getCurrentPage();
 
     Page tmpPage = getCurrentPage();
     if (tmpPage instanceof HtmlPage) {
@@ -660,7 +666,7 @@ public final class HtmlUnitBrowser implements WetBackend {
         String tmpContentAsText = new HtmlPageIndex(tmpHtmlPage).getText();
         try {
           Assert.assertListMatch(aContentToWaitFor, tmpContentAsText);
-          return tmpContentAsText;
+          return tmpStartPage != tmpPage;
         } catch (AssertionFailedException e) {
           // ok, not found, maybe we have to be more patient
         }
@@ -691,21 +697,21 @@ public final class HtmlUnitBrowser implements WetBackend {
       HtmlPage tmpHtmlPage = (HtmlPage) tmpPage;
       String tmpContentAsText = new HtmlPageIndex(tmpHtmlPage).getText();
       Assert.assertListMatch(aContentToWaitFor, tmpContentAsText);
-      return tmpContentAsText;
+      return tmpStartPage != tmpPage;
     }
 
     if (tmpPage instanceof XmlPage) {
       XmlPage tmpXmlPage = (XmlPage) tmpPage;
       String tmpContentAsText = new NormalizedString(tmpXmlPage.getContent()).toString();
       Assert.assertListMatch(aContentToWaitFor, tmpContentAsText);
-      return tmpContentAsText;
+      return tmpStartPage != tmpPage;
     }
 
     if (tmpPage instanceof TextPage) {
       TextPage tmpTextPage = (TextPage) tmpPage;
       String tmpContentAsText = tmpTextPage.getContent();
       Assert.assertListMatch(aContentToWaitFor, tmpContentAsText);
-      return tmpContentAsText;
+      return tmpStartPage != tmpPage;
     }
 
     ContentType tmpContentType = ContentTypeUtil.getContentType(tmpPage);
@@ -714,10 +720,10 @@ public final class HtmlUnitBrowser implements WetBackend {
       try {
         String tmpContentAsText = ContentUtil.getPdfContentAsString(tmpPage.getWebResponse().getContentAsStream());
         Assert.assertListMatch(aContentToWaitFor, tmpContentAsText);
-        return tmpContentAsText;
+        return tmpStartPage != tmpPage;
       } catch (IOException e) {
         Assert.fail("pdfConversionToTextFailed", new String[] { e.getMessage() });
-        return null;
+        return tmpStartPage != tmpPage;
       }
     }
 
@@ -725,15 +731,15 @@ public final class HtmlUnitBrowser implements WetBackend {
       try {
         String tmpContentAsText = ContentUtil.getXlsContentAsString(tmpPage.getWebResponse().getContentAsStream());
         Assert.assertListMatch(aContentToWaitFor, tmpContentAsText);
-        return tmpContentAsText;
+        return tmpStartPage != tmpPage;
       } catch (IOException e) {
         Assert.fail("xlsConversionToTextFailed", new String[] { e.getMessage() });
-        return null;
+        return tmpStartPage != tmpPage;
       }
     }
 
     Assert.fail("unsupportedPageType", new String[] { tmpPage.getWebResponse().getContentType() });
-    return null;
+    return tmpStartPage != tmpPage;
   }
 
   /**
@@ -773,7 +779,7 @@ public final class HtmlUnitBrowser implements WetBackend {
     for (AssertionFailedException tmpException : failures) {
       Throwable tmpCause = tmpException.getCause();
       if (null != tmpCause) {
-        wetEngine.informListenersWarn("error", new String[] { tmpException.getMessage(),
+        wetEngine.informListenersWarn("pageError", new String[] { tmpException.getMessage(),
             ExceptionUtils.getStackTrace(tmpCause) });
       }
     }

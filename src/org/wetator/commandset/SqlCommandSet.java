@@ -230,7 +230,10 @@ public final class SqlCommandSet extends AbstractCommandSet {
       }
 
       WetBackend tmpBackend = getWetBackend(aWetContext);
-      tmpBackend.waitForContent(tmpExpected, tmpTimeout);
+      boolean tmpContentChanged = tmpBackend.assertContentInTimeFrame(tmpExpected, tmpTimeout);
+      if (tmpContentChanged) {
+        tmpBackend.saveCurrentWindowToLog();
+      }
     }
   }
 

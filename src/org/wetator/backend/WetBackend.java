@@ -132,10 +132,32 @@ public interface WetBackend {
    */
   public void waitForImmediateJobs() throws AssertionFailedException;
 
-  public String waitForTitle(List<SecretString> aTitleToWaitFor, long aTimeoutInSeconds)
+  /**
+   * Checks, if the page title contains the given list of strings.<br>
+   * If the text is not found, than this method waits at aTimeoutInSeconds
+   * and checks the title again. If the text is still not found than an
+   * AssertionFailedException is thrown.
+   * 
+   * @param aTitleToWaitFor the expected text (parts)
+   * @param aTimeoutInSeconds the timeout in seconds, if less than 1s than 1s is used
+   * @return true, if there was a page change during the wait
+   * @throws AssertionFailedException if the content was not available
+   */
+  public boolean assertTitleInTimeFrame(List<SecretString> aTitleToWaitFor, long aTimeoutInSeconds)
       throws AssertionFailedException;
 
-  public String waitForContent(List<SecretString> aContentToWaitFor, long aTimeoutInSeconds)
+  /**
+   * Checks, if the page content contains the given list of strings.<br>
+   * If the content is not found, than this method waits at aTimeoutInSeconds
+   * and checks the content again. If the content is still not found than an
+   * AssertionFailedException is thrown.
+   * 
+   * @param aContentToWaitFor the expected content (parts)
+   * @param aTimeoutInSeconds the timeout in seconds, if less than 1s than 1s is used
+   * @return true, if there was a page change during the wait
+   * @throws AssertionFailedException if the content was not available
+   */
+  public boolean assertContentInTimeFrame(List<SecretString> aContentToWaitFor, long aTimeoutInSeconds)
       throws AssertionFailedException;
 
   public void saveCurrentWindowToLog();
