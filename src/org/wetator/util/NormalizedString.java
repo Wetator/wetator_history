@@ -41,7 +41,7 @@ public final class NormalizedString {
    * 
    * @param aString the initial value
    */
-  public NormalizedString(String aString) {
+  public NormalizedString(final String aString) {
     this();
     append(aString);
   }
@@ -63,7 +63,7 @@ public final class NormalizedString {
     boolean tmpBlank = (content.length() == 0) || isWhitespace(content.charAt(content.length() - 1));
 
     for (int i = 0; i < aString.length(); i++) {
-      char tmpChar = aString.charAt(i);
+      final char tmpChar = aString.charAt(i);
       if (isWhitespace(tmpChar)) {
         if (!tmpBlank) {
           tmpBlank = true;
@@ -94,8 +94,8 @@ public final class NormalizedString {
    *         <code>length()</code>, or <code>start</code> is
    *         greater than <code>end</code>.
    */
-  public String substring(int aStartPos, int anEndPos) {
-    int tmpLength = length();
+  public String substring(final int aStartPos, final int anEndPos) {
+    final int tmpLength = length();
 
     if (anEndPos > tmpLength) {
       throw new StringIndexOutOfBoundsException("NormalizedString index out of range: " + anEndPos + " lenght: "
@@ -154,7 +154,7 @@ public final class NormalizedString {
     return substring(0, length());
   }
 
-  private boolean isWhitespace(char aChar) {
+  private boolean isWhitespace(final char aChar) {
     // char 160 not detected as whitespace by java
     return Character.isWhitespace(aChar) || (char) 160 == aChar;
   }

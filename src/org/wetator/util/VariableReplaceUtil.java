@@ -37,7 +37,8 @@ public final class VariableReplaceUtil {
    * @param aForPrintFlag indicated, if the replacement is done for any kind of output; if yes secrets are not visible
    * @return the string after the replacement
    */
-  public static String replaceVariables(String aStringWithPlaceholders, List<Variable> aVariables, boolean aForPrintFlag) {
+  public static String replaceVariables(final String aStringWithPlaceholders, final List<Variable> aVariables,
+      final boolean aForPrintFlag) {
     if (null == aStringWithPlaceholders) {
       return aStringWithPlaceholders;
     }
@@ -45,7 +46,7 @@ public final class VariableReplaceUtil {
       return aStringWithPlaceholders;
     }
 
-    StringBuilder tmpResult = new StringBuilder(aStringWithPlaceholders);
+    final StringBuilder tmpResult = new StringBuilder(aStringWithPlaceholders);
 
     int tmpStartPos = 0;
     int tmpVarStartPos = tmpResult.indexOf(VAR_START_SEQ, tmpStartPos);
@@ -57,7 +58,7 @@ public final class VariableReplaceUtil {
         return tmpResult.toString();
       }
 
-      String tmpVarName = tmpResult.substring(tmpVarStartPos + VAR_START_SEQ.length(), tmpVarEndPos);
+      final String tmpVarName = tmpResult.substring(tmpVarStartPos + VAR_START_SEQ.length(), tmpVarEndPos);
 
       for (Variable tmpVariable : aVariables) {
         if (tmpVarName.equals(tmpVariable.getName())) {

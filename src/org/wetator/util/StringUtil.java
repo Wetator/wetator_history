@@ -64,8 +64,8 @@ public final class StringUtil {
    *        Specify -1 here to not use escape characters.
    * @return a list, if there are no parts alway an empty list is returned
    */
-  public static List<String> extractStrings(String aReceiver, String aDelimiter, int anEscapeChar) {
-    List<String> tmpResult = new LinkedList<String>();
+  public static List<String> extractStrings(final String aReceiver, final String aDelimiter, final int anEscapeChar) {
+    final List<String> tmpResult = new LinkedList<String>();
     StringBuffer tmpCurrentToken;
     int tmpIndex;
     int tmpSize;
@@ -126,7 +126,7 @@ public final class StringUtil {
    * @param aDate the date to format
    * @return the formatted date as string
    */
-  public static String formatDate(Date aDate) {
+  public static String formatDate(final Date aDate) {
     if (null == aDate) {
       return null;
     }

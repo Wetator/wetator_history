@@ -49,8 +49,8 @@ public final class Assert {
    * @param aParameterArray the parameters as array
    * @throws AssertionFailedException always
    */
-  public static void fail(String aMessageKey, Object[] aParameterArray) throws AssertionFailedException {
-    String tmpMessage = Messages.getMessage(aMessageKey, aParameterArray);
+  public static void fail(final String aMessageKey, final Object[] aParameterArray) throws AssertionFailedException {
+    final String tmpMessage = Messages.getMessage(aMessageKey, aParameterArray);
     throw new AssertionFailedException(tmpMessage);
   }
 
@@ -63,7 +63,7 @@ public final class Assert {
    * @param aParameterArray the parameters as array
    * @throws AssertionFailedException always
    */
-  public static void assertNotNull(Object anObject, String aMessageKey, Object[] aParameterArray)
+  public static void assertNotNull(final Object anObject, final String aMessageKey, final Object[] aParameterArray)
       throws AssertionFailedException {
     if (null != anObject) {
       return;
@@ -80,7 +80,7 @@ public final class Assert {
    * @param aParameterArray the parameters as array
    * @throws AssertionFailedException if the value is null or empty
    */
-  public static void assertNotEmptyOrNull(String aValue, String aMessageKey, Object[] aParameterArray)
+  public static void assertNotEmptyOrNull(final String aValue, final String aMessageKey, final Object[] aParameterArray)
       throws AssertionFailedException {
     if (StringUtils.isNotEmpty(aValue)) {
       return;
@@ -97,7 +97,7 @@ public final class Assert {
    * @param aParameterArray the parameters as array
    * @throws AssertionFailedException if the condition is NOT true
    */
-  public static void assertTrue(boolean aCondition, String aMessageKey, Object[] aParameterArray)
+  public static void assertTrue(final boolean aCondition, final String aMessageKey, final Object[] aParameterArray)
       throws AssertionFailedException {
     if (aCondition) {
       return;
@@ -114,7 +114,7 @@ public final class Assert {
    * @param aParameterArray the parameters as array
    * @throws AssertionFailedException if the condition is NOT false
    */
-  public static void assertFalse(boolean aCondition, String aMessageKey, Object[] aParameterArray)
+  public static void assertFalse(final boolean aCondition, final String aMessageKey, final Object[] aParameterArray)
       throws AssertionFailedException {
     if (!aCondition) {
       return;
@@ -132,8 +132,8 @@ public final class Assert {
    * @param aParameterArray the parameters as array
    * @throws AssertionFailedException if the to booleans are not the same
    */
-  public static void assertEquals(boolean anExpectedBoolean, boolean aCurrentBoolean, String aMessageKey,
-      Object[] aParameterArray) throws AssertionFailedException {
+  public static void assertEquals(final boolean anExpectedBoolean, final boolean aCurrentBoolean,
+      final String aMessageKey, final Object[] aParameterArray) throws AssertionFailedException {
     if (anExpectedBoolean == aCurrentBoolean) {
       return;
     }
@@ -150,8 +150,8 @@ public final class Assert {
    * @param aParameterArray the parameters as array
    * @throws AssertionFailedException if the two strings are not the same
    */
-  public static void assertEquals(String anExpectedString, String aCurrentString, String aMessageKey,
-      Object[] aParameterArray) throws AssertionFailedException {
+  public static void assertEquals(final String anExpectedString, final String aCurrentString, final String aMessageKey,
+      final Object[] aParameterArray) throws AssertionFailedException {
     if (anExpectedString == null && aCurrentString == null) {
       return;
     }
@@ -175,8 +175,8 @@ public final class Assert {
    * @param aParameterArray the parameters as array
    * @throws AssertionFailedException if the two strings are not the same
    */
-  public static void assertEquals(SecretString anExpectedString, String aCurrentString, String aMessageKey,
-      Object[] aParameterArray) throws AssertionFailedException {
+  public static void assertEquals(final SecretString anExpectedString, final String aCurrentString,
+      final String aMessageKey, final Object[] aParameterArray) throws AssertionFailedException {
     if ((anExpectedString == null || anExpectedString.getValue() == null) && aCurrentString == null) {
       return;
     }
@@ -215,12 +215,12 @@ public final class Assert {
    * Returns "..." in place of common prefix and "..." in
    * place of common suffix between expected and actual.
    */
-  private static String constructComparisonMessage(String anExpectedString, String aCurrentString) {
+  private static String constructComparisonMessage(final String anExpectedString, final String aCurrentString) {
     if (anExpectedString == null || aCurrentString == null) {
       return Messages.getMessage("assertExpectedActual", new String[] { anExpectedString, aCurrentString });
     }
 
-    int tmpEnd = Math.min(anExpectedString.length(), aCurrentString.length());
+    final int tmpEnd = Math.min(anExpectedString.length(), aCurrentString.length());
 
     int i = 0;
     for (; i < tmpEnd; i++) {
@@ -271,19 +271,20 @@ public final class Assert {
    * @param aContent a String to check
    * @throws AssertionFailedException if the two strings are not the same
    */
-  public static void assertListMatch(List<SecretString> anExpected, String aContent) throws AssertionFailedException {
+  public static void assertListMatch(final List<SecretString> anExpected, final String aContent)
+      throws AssertionFailedException {
     // TODO i18n
     int tmpStartPos = 0;
     boolean tmpAssertFailed = false;
-    StringBuilder tmpResultMessage = new StringBuilder();
+    final StringBuilder tmpResultMessage = new StringBuilder();
     String tmpContent = aContent;
 
     for (SecretString tmpExpceted : anExpected) {
-      String tmpExpectedString = tmpExpceted.getValue();
-      SearchPattern tmpPattern = SearchPattern.compile(tmpExpectedString);
+      final String tmpExpectedString = tmpExpceted.getValue();
+      final SearchPattern tmpPattern = SearchPattern.compile(tmpExpectedString);
 
       tmpContent = tmpContent.substring(tmpStartPos);
-      FindSpot tmpFoundSpot = tmpPattern.firstOccurenceIn(tmpContent);
+      final FindSpot tmpFoundSpot = tmpPattern.firstOccurenceIn(tmpContent);
 
       if (tmpResultMessage.length() > 0) {
         tmpResultMessage.append(", ");
@@ -327,8 +328,8 @@ public final class Assert {
    * @param aParameterArray the parameters as array
    * @throws AssertionFailedException if the two strings are not the same
    */
-  public static void assertMatch(String anExpectedPattern, String aCurrentString, String aMessageKey,
-      Object[] aParameterArray) throws AssertionFailedException {
+  public static void assertMatch(final String anExpectedPattern, final String aCurrentString, final String aMessageKey,
+      final Object[] aParameterArray) throws AssertionFailedException {
     if (anExpectedPattern == null && aCurrentString == null) {
       return;
     }
@@ -339,7 +340,7 @@ public final class Assert {
           return;
         }
       } else {
-        SearchPattern tmpSearchPattern = SearchPattern.compile(anExpectedPattern);
+        final SearchPattern tmpSearchPattern = SearchPattern.compile(anExpectedPattern);
         if (tmpSearchPattern.matches(aCurrentString)) {
           return;
         }

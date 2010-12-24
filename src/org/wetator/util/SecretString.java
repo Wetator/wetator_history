@@ -42,8 +42,8 @@ public final class SecretString {
    * @param aSecretStringList the input
    * @return the constucted string
    */
-  public static String toString(List<SecretString> aSecretStringList) {
-    StringBuilder tmpResult = new StringBuilder();
+  public static String toString(final List<SecretString> aSecretStringList) {
+    final StringBuilder tmpResult = new StringBuilder();
 
     boolean tmpIsNotFirst = false;
     for (SecretString tmpSecretString : aSecretStringList) {
@@ -64,7 +64,7 @@ public final class SecretString {
    * @param aValue the value of the string
    * @param aSecretFlag true of the value is visible in any kind of output
    */
-  public SecretString(String aValue, boolean aSecretFlag) {
+  public SecretString(final String aValue, final boolean aSecretFlag) {
     this(aValue, SECRET_PRINT);
 
     if (!aSecretFlag) {
@@ -78,7 +78,7 @@ public final class SecretString {
    * @param aValue the value of the string
    * @param aValueForPrint the string that is visible in any kind of output
    */
-  public SecretString(String aValue, String aValueForPrint) {
+  public SecretString(final String aValue, final String aValueForPrint) {
     super();
 
     value = aValue;
@@ -99,7 +99,7 @@ public final class SecretString {
    * 
    * @param aValuePrefix the prefix
    */
-  public void prefixWith(String aValuePrefix) {
+  public void prefixWith(final String aValuePrefix) {
     prefixWith(aValuePrefix, aValuePrefix);
   }
 
@@ -109,7 +109,7 @@ public final class SecretString {
    * @param aValuePrefix the prefix for the value
    * @param aValueForPrintPrefix the prefix for the printout
    */
-  public void prefixWith(String aValuePrefix, String aValueForPrintPrefix) {
+  public void prefixWith(final String aValuePrefix, final String aValueForPrintPrefix) {
     value = aValuePrefix + value;
     valueForPrint = aValueForPrintPrefix + valueForPrint;
   }
@@ -134,7 +134,7 @@ public final class SecretString {
    * @param aPrefix the prefix
    * @return true or false
    */
-  public boolean startsWith(String aPrefix) {
+  public boolean startsWith(final String aPrefix) {
     return value.startsWith(aPrefix);
   }
 
@@ -145,7 +145,7 @@ public final class SecretString {
    * @param anOffset the start position
    * @return true or false
    */
-  public boolean startsWith(String aPrefix, int anOffset) {
+  public boolean startsWith(final String aPrefix, final int anOffset) {
     return value.startsWith(aPrefix, anOffset);
   }
 
@@ -155,7 +155,7 @@ public final class SecretString {
    * @param aSuffix the suffix
    * @return true or false
    */
-  public boolean endsWith(String aSuffix) {
+  public boolean endsWith(final String aSuffix) {
     return value.endsWith(aSuffix);
   }
 
@@ -165,7 +165,7 @@ public final class SecretString {
    * @param aLocale the locale for the conversion
    * @return the lower case form of the string
    */
-  public String toLowerCase(Locale aLocale) {
+  public String toLowerCase(final Locale aLocale) {
     return value.toLowerCase(aLocale);
   }
 

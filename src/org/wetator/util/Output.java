@@ -39,7 +39,7 @@ public final class Output {
    * @param aWriter the writer to write to
    * @param anIndent String to be used for indenting (e.g. "", " ", " ", "\t")
    */
-  public Output(Writer aWriter, String anIndent) {
+  public Output(final Writer aWriter, final String anIndent) {
     writer = new BufferedWriter(aWriter);
     indent = anIndent;
     currentIndent = new StringBuffer();
@@ -52,7 +52,7 @@ public final class Output {
    * @return this (for convenience)
    * @throws IOException in case of problems
    */
-  public Output print(char aChar) throws IOException {
+  public Output print(final char aChar) throws IOException {
     writeIndentIfNeeded();
     writer.write(aChar);
 
@@ -66,7 +66,7 @@ public final class Output {
    * @return this (for convenience)
    * @throws IOException in case of problems
    */
-  public Output print(String aString) throws IOException {
+  public Output print(final String aString) throws IOException {
     if (null != aString) {
       writeIndentIfNeeded();
       writer.write(aString);
@@ -82,7 +82,7 @@ public final class Output {
    * @return this (for convenience)
    * @throws IOException in case of problems
    */
-  public Output println(String aString) throws IOException {
+  public Output println(final String aString) throws IOException {
     writeIndentIfNeeded();
     writer.write(aString);
     writer.write(NEW_LINE);

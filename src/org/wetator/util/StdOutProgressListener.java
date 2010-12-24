@@ -59,7 +59,7 @@ public class StdOutProgressListener implements WetProgressListener {
    * @see org.wetator.core.WetProgressListener#start(WetEngine)
    */
   @Override
-  public void start(WetEngine aWetEngine) {
+  public void start(final WetEngine aWetEngine) {
     println(Version.getProductName() + " " + Version.getVersion());
     output.indent();
     println("using " + com.gargoylesoftware.htmlunit.Version.getProductName() + " version "
@@ -70,12 +70,12 @@ public class StdOutProgressListener implements WetProgressListener {
     failureCount = 0;
     contextDeep = 0;
 
-    File tmpConfigFile = aWetEngine.getConfigFile();
+    final File tmpConfigFile = aWetEngine.getConfigFile();
     if (null != tmpConfigFile) {
       println("Config:     '" + tmpConfigFile.getAbsolutePath() + "'");
     }
 
-    WetConfiguration tmpConfiguration = aWetEngine.getWetConfiguration();
+    final WetConfiguration tmpConfiguration = aWetEngine.getWetConfiguration();
     if (tmpConfiguration != null) {
       println("OutputDir:  '" + tmpConfiguration.getOutputDir().getAbsolutePath() + "'");
 
@@ -116,7 +116,7 @@ public class StdOutProgressListener implements WetProgressListener {
    * @see org.wetator.core.WetProgressListener#testCaseStart(String)
    */
   @Override
-  public void testCaseStart(String aTestName) {
+  public void testCaseStart(final String aTestName) {
     println("Test: '" + aTestName + "'");
   }
 
@@ -126,7 +126,7 @@ public class StdOutProgressListener implements WetProgressListener {
    * @see org.wetator.core.WetProgressListener#testRunStart(String)
    */
   @Override
-  public void testRunStart(String aBrowserName) {
+  public void testRunStart(final String aBrowserName) {
     output.indent();
     println(aBrowserName);
     dotCount = 1;
@@ -139,7 +139,7 @@ public class StdOutProgressListener implements WetProgressListener {
    * @see org.wetator.core.WetProgressListener#testFileStart(String)
    */
   @Override
-  public void testFileStart(String aFileName) {
+  public void testFileStart(final String aFileName) {
     contextDeep++;
   }
 
@@ -150,7 +150,7 @@ public class StdOutProgressListener implements WetProgressListener {
    *      org.wetator.core.WetCommand)
    */
   @Override
-  public void executeCommandStart(WetContext aWetContext, WetCommand aWommand) {
+  public void executeCommandStart(final WetContext aWetContext, final WetCommand aWommand) {
   }
 
   /**
@@ -168,7 +168,7 @@ public class StdOutProgressListener implements WetProgressListener {
    * @see org.wetator.core.WetProgressListener#executeCommandError(java.lang.Throwable)
    */
   @Override
-  public void executeCommandError(Throwable aThrowable) {
+  public void executeCommandError(final Throwable aThrowable) {
     stepsCount++;
     errorCount++;
     printProgressSign("E");
@@ -180,7 +180,7 @@ public class StdOutProgressListener implements WetProgressListener {
    * @see org.wetator.core.WetProgressListener#executeCommandFailure(org.wetator.exception.AssertionFailedException)
    */
   @Override
-  public void executeCommandFailure(AssertionFailedException anAssertionFailedException) {
+  public void executeCommandFailure(final AssertionFailedException anAssertionFailedException) {
     stepsCount++;
     failureCount++;
     printProgressSign("F");
@@ -233,7 +233,7 @@ public class StdOutProgressListener implements WetProgressListener {
    * @see org.wetator.core.WetProgressListener#end(WetEngine)
    */
   @Override
-  public void end(WetEngine aWetEngine) {
+  public void end(final WetEngine aWetEngine) {
     // print summary
     println("");
     println("Steps: " + stepsCount + ",  Failures: " + failureCount + ",  Errors: " + errorCount);
@@ -245,7 +245,7 @@ public class StdOutProgressListener implements WetProgressListener {
    * @see org.wetator.core.WetProgressListener#responseStored(java.lang.String)
    */
   @Override
-  public void responseStored(String aResponseFileName) {
+  public void responseStored(final String aResponseFileName) {
   }
 
   /**
@@ -254,7 +254,7 @@ public class StdOutProgressListener implements WetProgressListener {
    * @see org.wetator.core.WetProgressListener#warn(java.lang.String, java.lang.String[])
    */
   @Override
-  public void warn(String aMessageKey, String[] aParameterArray) {
+  public void warn(final String aMessageKey, final String[] aParameterArray) {
   }
 
   /**
@@ -263,7 +263,7 @@ public class StdOutProgressListener implements WetProgressListener {
    * @see org.wetator.core.WetProgressListener#info(java.lang.String, java.lang.String[])
    */
   @Override
-  public void info(String aMessageKey, String[] aParameterArray) {
+  public void info(final String aMessageKey, final String[] aParameterArray) {
   }
 
   /**
@@ -271,11 +271,11 @@ public class StdOutProgressListener implements WetProgressListener {
    * 
    * @param aString the output
    */
-  protected void println(String aString) {
+  protected void println(final String aString) {
     try {
       output.println(aString);
       output.flush();
-    } catch (IOException e) {
+    } catch (final IOException e) {
       e.printStackTrace();
     }
   }
@@ -285,11 +285,11 @@ public class StdOutProgressListener implements WetProgressListener {
    * 
    * @param aString the output
    */
-  protected void print(String aString) {
+  protected void print(final String aString) {
     try {
       output.print(aString);
       output.flush();
-    } catch (IOException e) {
+    } catch (final IOException e) {
       e.printStackTrace();
     }
   }
@@ -299,7 +299,7 @@ public class StdOutProgressListener implements WetProgressListener {
    * 
    * @param aProgressSign the output
    */
-  protected void printProgressSign(String aProgressSign) {
+  protected void printProgressSign(final String aProgressSign) {
     if (dotCount == DOTS_PER_LINE) {
       println(aProgressSign);
       dotCount = 1;

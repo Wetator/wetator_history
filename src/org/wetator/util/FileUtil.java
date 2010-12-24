@@ -33,7 +33,7 @@ public final class FileUtil {
    * @param anOutputDir the name of the directory
    * @throws WetException in case of problems
    */
-  public static void createOutputDir(File anOutputDir) throws WetException {
+  public static void createOutputDir(final File anOutputDir) throws WetException {
     if (null == anOutputDir) {
       // I18n
       throw new WetException("No output dir specified");

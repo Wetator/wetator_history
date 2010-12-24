@@ -41,13 +41,13 @@ public final class ContentUtil {
    * @return the normalizes content string
    * @throws IOException in case of io errors
    */
-  public static String getPdfContentAsString(InputStream anInputStream) throws IOException {
+  public static String getPdfContentAsString(final InputStream anInputStream) throws IOException {
     PDDocument tmpDocument;
     tmpDocument = PDDocument.load(anInputStream);
     try {
-      PDFTextStripper tmpStripper = new PDFTextStripper();
-      String tmpContentAsText = tmpStripper.getText(tmpDocument);
-      NormalizedString tmpResult = new NormalizedString(tmpContentAsText);
+      final PDFTextStripper tmpStripper = new PDFTextStripper();
+      final String tmpContentAsText = tmpStripper.getText(tmpDocument);
+      final NormalizedString tmpResult = new NormalizedString(tmpContentAsText);
       return tmpResult.toString();
     } finally {
       tmpDocument.close();
@@ -61,21 +61,21 @@ public final class ContentUtil {
    * @return the normalizes content string
    * @throws IOException in case of io errors
    */
-  public static String getXlsContentAsString(InputStream anInputStream) throws IOException {
-    NormalizedString tmpResult = new NormalizedString();
-    HSSFWorkbook tmpWorkbook = new HSSFWorkbook(anInputStream);
+  public static String getXlsContentAsString(final InputStream anInputStream) throws IOException {
+    final NormalizedString tmpResult = new NormalizedString();
+    final HSSFWorkbook tmpWorkbook = new HSSFWorkbook(anInputStream);
 
     for (int i = 0; i < tmpWorkbook.getNumberOfSheets(); i++) {
-      HSSFSheet tmpSheet = tmpWorkbook.getSheetAt(i);
+      final HSSFSheet tmpSheet = tmpWorkbook.getSheetAt(i);
       tmpResult.append("[");
       tmpResult.append(tmpSheet.getSheetName());
       tmpResult.append("] ");
 
       for (int tmpRowNum = 0; tmpRowNum <= tmpSheet.getLastRowNum(); tmpRowNum++) {
-        HSSFRow tmpRow = tmpSheet.getRow(tmpRowNum);
+        final HSSFRow tmpRow = tmpSheet.getRow(tmpRowNum);
         if (null != tmpRow) {
           for (int tmpCellNum = 0; tmpCellNum <= tmpRow.getLastCellNum(); tmpCellNum++) {
-            String tmpCellValue = readCellContentAsString(tmpRow, tmpCellNum);
+            final String tmpCellValue = readCellContentAsString(tmpRow, tmpCellNum);
             if (null != tmpCellValue) {
               tmpResult.append(tmpCellValue);
               tmpResult.append(" ");
@@ -89,7 +89,7 @@ public final class ContentUtil {
     return tmpResult.toString();
   }
 
-  private static String readCellContentAsString(HSSFRow aRow, int aColumnsNo) {
+  private static String readCellContentAsString(final HSSFRow aRow, final int aColumnsNo) {
     String tmpResult = null;
     HSSFCell tmpCell;
     int tmpCellType;

@@ -33,7 +33,7 @@ public class XmlUtil {
    * 
    * @param anEncoding the encoding used for the file
    */
-  public XmlUtil(String anEncoding) {
+  public XmlUtil(final String anEncoding) {
     charsetEncoder = Charset.forName(anEncoding).newEncoder();
   }
 
@@ -44,7 +44,7 @@ public class XmlUtil {
    * @param aString the String to be normalized or null
    * @return a new String
    */
-  public String normalizeBodyValue(String aString) {
+  public String normalizeBodyValue(final String aString) {
     StringBuffer tmpResult = null;
     int tmpLength;
     char tmpChar;
@@ -139,7 +139,7 @@ public class XmlUtil {
    *        the String to be normalized or null
    * @return a new String
    */
-  public String normalizeAttributeValue(String aString) {
+  public String normalizeAttributeValue(final String aString) {
     StringBuffer tmpResult = null;
     int tmpLength;
     char tmpChar;
