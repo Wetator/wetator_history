@@ -55,7 +55,7 @@ public class HtmlUnitInputCheckBoxIdentifier extends AbstractMatcherBasedIdentif
    * @see org.wetator.backend.htmlunit.control.identifier.AbstractHtmlUnitControlIdentifier#isHtmlElementSupported(com.gargoylesoftware.htmlunit.html.HtmlElement)
    */
   @Override
-  public boolean isHtmlElementSupported(HtmlElement aHtmlElement) {
+  public boolean isHtmlElementSupported(final HtmlElement aHtmlElement) {
     return (aHtmlElement instanceof HtmlCheckBoxInput) || (aHtmlElement instanceof HtmlLabel);
   }
 
@@ -66,9 +66,10 @@ public class HtmlUnitInputCheckBoxIdentifier extends AbstractMatcherBasedIdentif
    *      com.gargoylesoftware.htmlunit.html.HtmlElement, java.util.List)
    */
   @Override
-  protected void addMatchers(WPath aWPath, HtmlElement aHtmlElement, List<AbstractHtmlUnitElementMatcher> aMatchers) {
-    SearchPattern tmpPathSearchPattern = SearchPattern.createFromList(aWPath.getPathNodes());
-    FindSpot tmpPathSpot = htmlPageIndex.firstOccurence(tmpPathSearchPattern);
+  protected void addMatchers(final WPath aWPath, final HtmlElement aHtmlElement,
+      final List<AbstractHtmlUnitElementMatcher> aMatchers) {
+    final SearchPattern tmpPathSearchPattern = SearchPattern.createFromList(aWPath.getPathNodes());
+    final FindSpot tmpPathSpot = htmlPageIndex.firstOccurence(tmpPathSearchPattern);
 
     if (null == tmpPathSpot) {
       return;
@@ -76,7 +77,7 @@ public class HtmlUnitInputCheckBoxIdentifier extends AbstractMatcherBasedIdentif
 
     if (aWPath.getLastNode() != null) {
       // normal matchers
-      SearchPattern tmpSearchPattern = aWPath.getLastNode().getSearchPattern();
+      final SearchPattern tmpSearchPattern = aWPath.getLastNode().getSearchPattern();
       if (aHtmlElement instanceof HtmlCheckBoxInput) {
         aMatchers.add(new ByLabelTextAfterMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern));
         aMatchers.add(new ByNameAttributeMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern));
@@ -100,7 +101,7 @@ public class HtmlUnitInputCheckBoxIdentifier extends AbstractMatcherBasedIdentif
    * @see org.wetator.backend.htmlunit.control.identifier.AbstractMatcherBasedIdentifier#createControl(com.gargoylesoftware.htmlunit.html.HtmlElement)
    */
   @Override
-  protected Control createControl(HtmlElement aHtmlElement) {
+  protected Control createControl(final HtmlElement aHtmlElement) {
     return new HtmlUnitInputCheckBox((HtmlCheckBoxInput) aHtmlElement);
   }
 }

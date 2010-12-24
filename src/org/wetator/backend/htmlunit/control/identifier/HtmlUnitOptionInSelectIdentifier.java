@@ -56,7 +56,7 @@ public class HtmlUnitOptionInSelectIdentifier extends AbstractHtmlUnitControlIde
    * @see org.wetator.backend.htmlunit.control.identifier.AbstractHtmlUnitControlIdentifier#isHtmlElementSupported(com.gargoylesoftware.htmlunit.html.HtmlElement)
    */
   @Override
-  public boolean isHtmlElementSupported(HtmlElement aHtmlElement) {
+  public boolean isHtmlElementSupported(final HtmlElement aHtmlElement) {
     return (aHtmlElement instanceof HtmlSelect) || (aHtmlElement instanceof HtmlLabel);
   }
 
@@ -67,12 +67,12 @@ public class HtmlUnitOptionInSelectIdentifier extends AbstractHtmlUnitControlIde
    *      com.gargoylesoftware.htmlunit.html.HtmlElement)
    */
   @Override
-  public WeightedControlList identify(WPath aWPath, HtmlElement aHtmlElement) {
+  public WeightedControlList identify(final WPath aWPath, final HtmlElement aHtmlElement) {
     if (aWPath.getLastNode() == null) {
       return new WeightedControlList();
     }
 
-    SearchPattern tmpSearchPattern = aWPath.getLastNode().getSearchPattern();
+    final SearchPattern tmpSearchPattern = aWPath.getLastNode().getSearchPattern();
 
     SearchPattern tmpSearchPatternSelect;
     SearchPattern tmpPathSearchPatternSelect;
@@ -84,47 +84,47 @@ public class HtmlUnitOptionInSelectIdentifier extends AbstractHtmlUnitControlIde
       tmpPathSearchPatternSelect = SearchPattern
           .createFromList(aWPath.getPathNodes(), aWPath.getPathNodes().size() - 1);
     }
-    FindSpot tmpPathSpotSelect = htmlPageIndex.firstOccurence(tmpPathSearchPatternSelect);
+    final FindSpot tmpPathSpotSelect = htmlPageIndex.firstOccurence(tmpPathSearchPatternSelect);
 
     if (null == tmpPathSpotSelect) {
       return new WeightedControlList();
     }
 
-    WeightedControlList tmpResult = new WeightedControlList();
+    final WeightedControlList tmpResult = new WeightedControlList();
     if (aHtmlElement instanceof HtmlSelect) {
       // has the node the text before
-      FindSpot tmpNodeSpot = htmlPageIndex.getPosition(aHtmlElement);
+      final FindSpot tmpNodeSpot = htmlPageIndex.getPosition(aHtmlElement);
       if (tmpPathSpotSelect.endPos <= tmpNodeSpot.startPos) {
 
         // if the select follows text directly and text matches => choose it
-        String tmpText = htmlPageIndex.getLabelTextBefore(aHtmlElement, tmpPathSpotSelect.endPos);
+        final String tmpText = htmlPageIndex.getLabelTextBefore(aHtmlElement, tmpPathSpotSelect.endPos);
         if (StringUtils.isNotEmpty(tmpText)) {
-          int tmpCoverage = tmpSearchPatternSelect.noOfSurroundingCharsIn(tmpText);
+          final int tmpCoverage = tmpSearchPatternSelect.noOfSurroundingCharsIn(tmpText);
           if (tmpCoverage > -1) {
-            String tmpTextBefore = htmlPageIndex.getTextBefore(aHtmlElement);
-            int tmpDistance = tmpPathSearchPatternSelect.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
+            final String tmpTextBefore = htmlPageIndex.getTextBefore(aHtmlElement);
+            final int tmpDistance = tmpPathSearchPatternSelect.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
             getOption((HtmlSelect) aHtmlElement, tmpSearchPattern, tmpDistance, tmpResult);
           }
         }
 
         // name
-        String tmpName = aHtmlElement.getAttribute("name");
+        final String tmpName = aHtmlElement.getAttribute("name");
         if (StringUtils.isNotEmpty(tmpName) && tmpSearchPatternSelect.matches(tmpName)) {
-          int tmpCoverage = tmpSearchPatternSelect.noOfSurroundingCharsIn(tmpName);
+          final int tmpCoverage = tmpSearchPatternSelect.noOfSurroundingCharsIn(tmpName);
           if (tmpCoverage > -1) {
-            String tmpTextBefore = htmlPageIndex.getTextBefore(aHtmlElement);
-            int tmpDistance = tmpPathSearchPatternSelect.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
+            final String tmpTextBefore = htmlPageIndex.getTextBefore(aHtmlElement);
+            final int tmpDistance = tmpPathSearchPatternSelect.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
             getOption((HtmlSelect) aHtmlElement, tmpSearchPattern, tmpDistance, tmpResult);
           }
         }
 
         // id
-        String tmpId = aHtmlElement.getId();
+        final String tmpId = aHtmlElement.getId();
         if (StringUtils.isNotEmpty(tmpId) && tmpSearchPatternSelect.matches(tmpId)) {
-          int tmpCoverage = tmpSearchPatternSelect.noOfSurroundingCharsIn(tmpId);
+          final int tmpCoverage = tmpSearchPatternSelect.noOfSurroundingCharsIn(tmpId);
           if (tmpCoverage > -1) {
-            String tmpTextBefore = htmlPageIndex.getTextBefore(aHtmlElement);
-            int tmpDistance = tmpPathSearchPatternSelect.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
+            final String tmpTextBefore = htmlPageIndex.getTextBefore(aHtmlElement);
+            final int tmpDistance = tmpPathSearchPatternSelect.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
             getOption((HtmlSelect) aHtmlElement, tmpSearchPattern, tmpDistance, tmpResult);
           }
         }
@@ -132,41 +132,41 @@ public class HtmlUnitOptionInSelectIdentifier extends AbstractHtmlUnitControlIde
 
     } else if (aHtmlElement instanceof HtmlLabel) {
       // has the node the text before
-      FindSpot tmpNodeSpot = htmlPageIndex.getPosition(aHtmlElement);
-      HtmlLabel tmpLabel = (HtmlLabel) aHtmlElement;
+      final FindSpot tmpNodeSpot = htmlPageIndex.getPosition(aHtmlElement);
+      final HtmlLabel tmpLabel = (HtmlLabel) aHtmlElement;
 
       // found a label with this text
-      String tmpText = htmlPageIndex.getAsText(tmpLabel);
+      final String tmpText = htmlPageIndex.getAsText(tmpLabel);
 
       // select
       if (tmpPathSpotSelect.endPos <= tmpNodeSpot.startPos) {
 
-        int tmpCoverage = tmpSearchPatternSelect.noOfCharsAfterLastOccurenceIn(tmpText);
+        final int tmpCoverage = tmpSearchPatternSelect.noOfCharsAfterLastOccurenceIn(tmpText);
         if (tmpCoverage > -1) {
-          String tmpForAttribute = tmpLabel.getForAttribute();
+          final String tmpForAttribute = tmpLabel.getForAttribute();
           // label contains a for-attribute => find corresponding element
           if (StringUtils.isNotEmpty(tmpForAttribute)) {
             try {
-              HtmlElement tmpElementForLabel = htmlPageIndex.getHtmlElementById(tmpForAttribute);
+              final HtmlElement tmpElementForLabel = htmlPageIndex.getHtmlElementById(tmpForAttribute);
               if (tmpElementForLabel instanceof HtmlSelect) {
                 if (tmpElementForLabel.isDisplayed()) {
-                  String tmpTextBefore = htmlPageIndex.getTextBefore(tmpLabel);
-                  int tmpDistance = tmpPathSearchPatternSelect.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
+                  final String tmpTextBefore = htmlPageIndex.getTextBefore(tmpLabel);
+                  final int tmpDistance = tmpPathSearchPatternSelect.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
                   getOption((HtmlSelect) tmpElementForLabel, tmpSearchPattern, tmpDistance, tmpResult);
                 }
               }
-            } catch (ElementNotFoundException e) {
+            } catch (final ElementNotFoundException e) {
               // not found
             }
           }
 
           // Element must be a nested element of label
-          Iterable<HtmlElement> tmpChilds = tmpLabel.getHtmlElementDescendants();
+          final Iterable<HtmlElement> tmpChilds = tmpLabel.getHtmlElementDescendants();
           for (HtmlElement tmpChildElement : tmpChilds) {
             if (tmpChildElement instanceof HtmlSelect) {
               if (tmpChildElement.isDisplayed()) {
-                String tmpTextBefore = htmlPageIndex.getTextBefore(tmpLabel);
-                int tmpDistance = tmpPathSearchPatternSelect.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
+                final String tmpTextBefore = htmlPageIndex.getTextBefore(tmpLabel);
+                final int tmpDistance = tmpPathSearchPatternSelect.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
                 getOption((HtmlSelect) tmpChildElement, tmpSearchPattern, tmpDistance, tmpResult);
               }
             }
@@ -186,15 +186,15 @@ public class HtmlUnitOptionInSelectIdentifier extends AbstractHtmlUnitControlIde
    * @param aWeightedControlList the list to add the control to
    * @return found
    */
-  protected boolean getOption(HtmlSelect aSelect, SearchPattern aSearchPattern, int aDistance,
-      WeightedControlList aWeightedControlList) {
+  protected boolean getOption(final HtmlSelect aSelect, final SearchPattern aSearchPattern, final int aDistance,
+      final WeightedControlList aWeightedControlList) {
     boolean tmpFound = false;
-    Iterable<HtmlOption> tmpOptions = aSelect.getOptions();
+    final Iterable<HtmlOption> tmpOptions = aSelect.getOptions();
     for (HtmlOption tmpOption : tmpOptions) {
       String tmpText = htmlPageIndex.getAsText(tmpOption);
-      int tmpStart = htmlPageIndex.getPosition(tmpOption).startPos;
+      final int tmpStart = htmlPageIndex.getPosition(tmpOption).startPos;
       if (StringUtils.isNotEmpty(tmpText)) {
-        int tmpCoverage = aSearchPattern.noOfSurroundingCharsIn(tmpText);
+        final int tmpCoverage = aSearchPattern.noOfSurroundingCharsIn(tmpText);
         if (tmpCoverage > -1) {
           aWeightedControlList.add(new HtmlUnitOption(tmpOption), WeightedControlList.FoundType.BY_LABEL, tmpCoverage,
               aDistance, tmpStart);
@@ -204,7 +204,7 @@ public class HtmlUnitOptionInSelectIdentifier extends AbstractHtmlUnitControlIde
 
       tmpText = tmpOption.getLabelAttribute();
       if (StringUtils.isNotEmpty(tmpText)) {
-        int tmpCoverage = aSearchPattern.noOfSurroundingCharsIn(tmpText);
+        final int tmpCoverage = aSearchPattern.noOfSurroundingCharsIn(tmpText);
         if (tmpCoverage > -1) {
           aWeightedControlList.add(new HtmlUnitOption(tmpOption), WeightedControlList.FoundType.BY_LABEL, tmpCoverage,
               aDistance, tmpStart);
@@ -214,7 +214,7 @@ public class HtmlUnitOptionInSelectIdentifier extends AbstractHtmlUnitControlIde
 
       tmpText = tmpOption.getValueAttribute();
       if (StringUtils.isNotEmpty(tmpText)) {
-        int tmpCoverage = aSearchPattern.noOfSurroundingCharsIn(tmpText);
+        final int tmpCoverage = aSearchPattern.noOfSurroundingCharsIn(tmpText);
         if (tmpCoverage > -1) {
           aWeightedControlList.add(new HtmlUnitOption(tmpOption), WeightedControlList.FoundType.BY_LABEL, tmpCoverage,
               aDistance, tmpStart);

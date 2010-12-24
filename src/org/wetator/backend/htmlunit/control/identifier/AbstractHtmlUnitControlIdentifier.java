@@ -25,8 +25,8 @@ import com.gargoylesoftware.htmlunit.html.HtmlElement;
 
 /**
  * The base class for all identifiers.<br />
- * An identifier can be used to identify a {@link HtmlElement} as a {@link org.wetator.backend.control.Control}
- * matching a specific wpath. To check, if a {@link HtmlElement} is supported by an identifier at all, use
+ * An identifier can be used to identify a {@link HtmlElement} as a {@link org.wetator.backend.control.Control} matching
+ * a specific wpath. To check, if a {@link HtmlElement} is supported by an identifier at all, use
  * {@link #isHtmlElementSupported(HtmlElement)}.
  * 
  * @author frank.danek
@@ -52,7 +52,7 @@ public abstract class AbstractHtmlUnitControlIdentifier implements Runnable {
    * 
    * @param aHtmlPageIndex the {@link HtmlPageIndex} of the page
    */
-  public void initialize(HtmlPageIndex aHtmlPageIndex) {
+  public void initialize(final HtmlPageIndex aHtmlPageIndex) {
     htmlPageIndex = aHtmlPageIndex;
   }
 
@@ -64,8 +64,8 @@ public abstract class AbstractHtmlUnitControlIdentifier implements Runnable {
    * @param aWPath the wpath used to identify the controls
    * @param aFoundControls the list the found controls should be added to
    */
-  public void initializeForAsynch(HtmlPageIndex aHtmlPageIndex, HtmlElement aHtmlElement, WPath aWPath,
-      WeightedControlList aFoundControls) {
+  public void initializeForAsynch(final HtmlPageIndex aHtmlPageIndex, final HtmlElement aHtmlElement,
+      final WPath aWPath, final WeightedControlList aFoundControls) {
     initialize(aHtmlPageIndex);
     htmlElement = aHtmlElement;
     wPath = aWPath;
@@ -90,7 +90,7 @@ public abstract class AbstractHtmlUnitControlIdentifier implements Runnable {
       throw new WetException(getClass().getName()
           + " is not initialized to work asynchronously. Use initializeForAsynch().");
     }
-    WeightedControlList tmpResult = identify(wPath, htmlElement);
+    final WeightedControlList tmpResult = identify(wPath, htmlElement);
     if (tmpResult != null) {
       foundControls.addAll(tmpResult);
     }

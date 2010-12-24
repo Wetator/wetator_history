@@ -48,7 +48,7 @@ public class HtmlUnitOptionGroupIdentifier extends AbstractMatcherBasedIdentifie
    * @see org.wetator.backend.htmlunit.control.identifier.AbstractHtmlUnitControlIdentifier#isHtmlElementSupported(com.gargoylesoftware.htmlunit.html.HtmlElement)
    */
   @Override
-  public boolean isHtmlElementSupported(HtmlElement aHtmlElement) {
+  public boolean isHtmlElementSupported(final HtmlElement aHtmlElement) {
     return aHtmlElement instanceof HtmlOptionGroup;
   }
 
@@ -59,8 +59,9 @@ public class HtmlUnitOptionGroupIdentifier extends AbstractMatcherBasedIdentifie
    *      com.gargoylesoftware.htmlunit.html.HtmlElement, java.util.List)
    */
   @Override
-  protected void addMatchers(WPath aWPath, HtmlElement aHtmlElement, List<AbstractHtmlUnitElementMatcher> aMatchers) {
-    SearchPattern tmpPathSearchPattern = SearchPattern.createFromList(aWPath.getPathNodes());
+  protected void addMatchers(final WPath aWPath, final HtmlElement aHtmlElement,
+      final List<AbstractHtmlUnitElementMatcher> aMatchers) {
+    final SearchPattern tmpPathSearchPattern = SearchPattern.createFromList(aWPath.getPathNodes());
 
     SearchPattern tmpPathSearchPatternSelect;
     if (aWPath.getPathNodes().isEmpty()) {
@@ -69,7 +70,7 @@ public class HtmlUnitOptionGroupIdentifier extends AbstractMatcherBasedIdentifie
       tmpPathSearchPatternSelect = SearchPattern
           .createFromList(aWPath.getPathNodes(), aWPath.getPathNodes().size() - 1);
     }
-    FindSpot tmpPathSpotSelect = htmlPageIndex.firstOccurence(tmpPathSearchPatternSelect);
+    final FindSpot tmpPathSpotSelect = htmlPageIndex.firstOccurence(tmpPathSearchPatternSelect);
 
     if (null == tmpPathSpotSelect) {
       return;
@@ -77,7 +78,7 @@ public class HtmlUnitOptionGroupIdentifier extends AbstractMatcherBasedIdentifie
 
     if (aWPath.getLastNode() != null) {
       // normal matchers
-      SearchPattern tmpSearchPattern = aWPath.getLastNode().getSearchPattern();
+      final SearchPattern tmpSearchPattern = aWPath.getLastNode().getSearchPattern();
       aMatchers.add(new ByLabelAttributeMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpotSelect,
           tmpSearchPattern));
       aMatchers.add(new ByIdMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpotSelect, tmpSearchPattern));
@@ -90,7 +91,7 @@ public class HtmlUnitOptionGroupIdentifier extends AbstractMatcherBasedIdentifie
    * @see org.wetator.backend.htmlunit.control.identifier.AbstractMatcherBasedIdentifier#createControl(com.gargoylesoftware.htmlunit.html.HtmlElement)
    */
   @Override
-  protected Control createControl(HtmlElement aHtmlElement) {
+  protected Control createControl(final HtmlElement aHtmlElement) {
     return new HtmlUnitOptionGroup((HtmlOptionGroup) aHtmlElement);
   }
 }
