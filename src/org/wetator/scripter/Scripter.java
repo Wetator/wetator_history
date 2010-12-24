@@ -33,7 +33,7 @@ public enum Scripter {
 
   private WetScripter wetScripter;
 
-  private Scripter(WetScripter aWetScripter) {
+  private Scripter(final WetScripter aWetScripter) {
     wetScripter = aWetScripter;
   }
 

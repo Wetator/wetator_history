@@ -84,7 +84,7 @@ public final class XmlScripter implements WetScripter {
    * @see org.wetator.scripter.WetScripter#setFile(java.io.File)
    */
   @Override
-  public void setFile(File aFile) throws WetException {
+  public void setFile(final File aFile) throws WetException {
     file = aFile;
 
     commands = readCommands();
@@ -103,7 +103,7 @@ public final class XmlScripter implements WetScripter {
    * @see org.wetator.scripter.WetScripter#isSupported(java.io.File)
    */
   @Override
-  public boolean isSupported(File aFile) {
+  public boolean isSupported(final File aFile) {
     String tmpFileName;
     boolean tmpResult;
 
@@ -114,17 +114,17 @@ public final class XmlScripter implements WetScripter {
   }
 
   private List<WetCommand> readCommands() throws WetException {
-    List<WetCommand> tmpResult = new LinkedList<WetCommand>();
+    final List<WetCommand> tmpResult = new LinkedList<WetCommand>();
 
     try {
       inputStream = new FileInputStream(file);
-    } catch (FileNotFoundException e) {
+    } catch (final FileNotFoundException e) {
       throw new WetException("File '" + getFile().getAbsolutePath() + "' not available.", e);
     }
-    XMLInputFactory tmpFactory = XMLInputFactory.newInstance();
+    final XMLInputFactory tmpFactory = XMLInputFactory.newInstance();
     try {
       reader = tmpFactory.createXMLStreamReader(inputStream);
-    } catch (XMLStreamException e) {
+    } catch (final XMLStreamException e) {
       throw new WetException("Error creating reader for file '" + getFile().getAbsolutePath() + "'.", e);
     }
 
@@ -133,12 +133,12 @@ public final class XmlScripter implements WetScripter {
       while (reader.hasNext()) {
         if (reader.next() == XMLStreamConstants.START_ELEMENT) {
           if (E_STEP.equals(reader.getLocalName())) {
-            String tmpCommandName = reader.getAttributeValue(null, A_COMMAND).replace('_', ' ');
+            final String tmpCommandName = reader.getAttributeValue(null, A_COMMAND).replace('_', ' ');
 
             // comment handling
             boolean tmpIsComment = A_COMMENT.equals(tmpCommandName.toLowerCase());
             if (!tmpIsComment) {
-              String tmpIsCommentAsString = reader.getAttributeValue(null, A_COMMENT);
+              final String tmpIsCommentAsString = reader.getAttributeValue(null, A_COMMENT);
               if (StringUtils.isNotEmpty(tmpIsCommentAsString)) {
                 tmpIsComment = Boolean.valueOf(tmpIsCommentAsString).booleanValue();
               }
@@ -149,7 +149,7 @@ public final class XmlScripter implements WetScripter {
             tmpWetCommand.setLineNo(tmpResult.size() + 1);
 
             // go to CHARACTER event (parameter) if there
-            StringBuilder tmpParameters = new StringBuilder("");
+            final StringBuilder tmpParameters = new StringBuilder("");
             while (reader.next() == XMLStreamConstants.CHARACTERS) {
               tmpParameters.append(reader.getText());
             }
@@ -158,7 +158,7 @@ public final class XmlScripter implements WetScripter {
             }
           }
           if (E_OPTIONAL_PARAMETER.equals(reader.getLocalName())) {
-            String tmpOptionalParameter = reader.getElementText();
+            final String tmpOptionalParameter = reader.getElementText();
             if (null == tmpWetCommand) {
               throw new WetException("Error parsing file '" + getFile().getAbsolutePath()
                   + "'. Unexpected optional parameter '" + tmpOptionalParameter + "'.");
@@ -168,7 +168,7 @@ public final class XmlScripter implements WetScripter {
             reader.next();
           }
           if (E_OPTIONAL_PARAMETER2.equals(reader.getLocalName())) {
-            String tmpOptionalParameter = reader.getElementText();
+            final String tmpOptionalParameter = reader.getElementText();
             if (null == tmpWetCommand) {
               throw new WetException("Error parsing file '" + getFile().getAbsolutePath()
                   + "'. Unexpected optional parameter 2 '" + tmpOptionalParameter + "'.");
@@ -184,13 +184,13 @@ public final class XmlScripter implements WetScripter {
       }
 
       return tmpResult;
-    } catch (XMLStreamException e) {
+    } catch (final XMLStreamException e) {
       throw new WetException("Error parsing file '" + getFile().getAbsolutePath() + "' (" + e.getMessage() + ").", e);
     } finally {
       try {
         reader.close();
         inputStream.close();
-      } catch (Exception e) {
+      } catch (final Exception e) {
         throw new WetException("Problem closing resources for file '" + getFile().getAbsolutePath() + "'.", e);
       }
     }
@@ -212,7 +212,7 @@ public final class XmlScripter implements WetScripter {
    * @see org.wetator.scripter.WetScripter#initialize(java.util.Properties)
    */
   @Override
-  public void initialize(Properties aConfiguration) {
+  public void initialize(final Properties aConfiguration) {
     // nothing to do
   }
 }

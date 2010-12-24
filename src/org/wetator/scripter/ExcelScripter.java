@@ -69,7 +69,7 @@ public final class ExcelScripter implements WetScripter {
    * @see org.wetator.scripter.WetScripter#setFile(java.io.File)
    */
   @Override
-  public void setFile(File aFile) throws WetException {
+  public void setFile(final File aFile) throws WetException {
     file = aFile;
 
     commands = readCommands();
@@ -88,7 +88,7 @@ public final class ExcelScripter implements WetScripter {
    * @see org.wetator.scripter.WetScripter#isSupported(java.io.File)
    */
   @Override
-  public boolean isSupported(File aFile) {
+  public boolean isSupported(final File aFile) {
     String tmpFileName;
     boolean tmpResult;
 
@@ -99,11 +99,11 @@ public final class ExcelScripter implements WetScripter {
   }
 
   private List<WetCommand> readCommands() throws WetException {
-    List<WetCommand> tmpResult = new LinkedList<WetCommand>();
+    final List<WetCommand> tmpResult = new LinkedList<WetCommand>();
 
     try {
       inputStream = new FileInputStream(getFile().getAbsoluteFile());
-    } catch (FileNotFoundException e) {
+    } catch (final FileNotFoundException e) {
       throw new WetException("File '" + getFile().getAbsolutePath() + "' not available.", e);
     }
     try {
@@ -111,7 +111,7 @@ public final class ExcelScripter implements WetScripter {
 
       int tmpSheetNo = -1;
       for (int i = 0; i < workbook.getNumberOfSheets(); i++) {
-        String tmpSheetName = workbook.getSheetName(i);
+        final String tmpSheetName = workbook.getSheetName(i);
         if (!StringUtils.isEmpty(tmpSheetName)) {
           if (tmpSheetName.toLowerCase().contains("test")) {
             tmpSheetNo = i;
@@ -147,7 +147,7 @@ public final class ExcelScripter implements WetScripter {
         }
 
         if (!StringUtils.isEmpty(tmpCommandName)) {
-          WetCommand tmpCommand = new WetCommand(tmpCommandName, tmpCommentFlag);
+          final WetCommand tmpCommand = new WetCommand(tmpCommandName, tmpCommentFlag);
 
           tmpParameter = readCellContentAsParameter(tmpRow, FIRST_PARAM_COLUMN_NO);
           if (null != tmpParameter) {
@@ -171,12 +171,12 @@ public final class ExcelScripter implements WetScripter {
       }
 
       return tmpResult;
-    } catch (IOException e) {
+    } catch (final IOException e) {
       throw new WetException("IO Problem reading file '" + getFile().getAbsolutePath() + "'.", e);
     } finally {
       try {
         inputStream.close();
-      } catch (IOException e) {
+      } catch (final IOException e) {
         throw new WetException("IO Problem closing file '" + getFile().getAbsolutePath() + "'.", e);
       }
     }
@@ -198,11 +198,11 @@ public final class ExcelScripter implements WetScripter {
    * @see org.wetator.scripter.WetScripter#initialize(java.util.Properties)
    */
   @Override
-  public void initialize(Properties aConfiguration) {
+  public void initialize(final Properties aConfiguration) {
     // nothing to do
   }
 
-  private String readCellContentAsString(HSSFRow aRow, int aColumnsNo) throws WetException {
+  private String readCellContentAsString(final HSSFRow aRow, final int aColumnsNo) throws WetException {
     String tmpResult = null;
     HSSFCell tmpCell;
     int tmpCellType;
@@ -243,7 +243,7 @@ public final class ExcelScripter implements WetScripter {
     return tmpResult;
   }
 
-  private Parameter readCellContentAsParameter(HSSFRow aRow, int aColumnsNo) throws WetException {
+  private Parameter readCellContentAsParameter(final HSSFRow aRow, final int aColumnsNo) throws WetException {
     String tmpContent;
 
     tmpContent = readCellContentAsString(aRow, aColumnsNo);
