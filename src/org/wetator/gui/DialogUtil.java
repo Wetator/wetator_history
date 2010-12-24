@@ -67,27 +67,27 @@ public final class DialogUtil {
    * @param aMultiSelectionFlag if true multiple files can be selected.
    * @return the selected files.
    */
-  protected static File[] chooseFilesSwing(boolean aMultiSelectionFlag) {
-    Preferences tmpPreferences = Preferences.userNodeForPackage(Wetator.class);
-    String tmpLastDirName = tmpPreferences.get(LAST_DIR, "");
+  protected static File[] chooseFilesSwing(final boolean aMultiSelectionFlag) {
+    final Preferences tmpPreferences = Preferences.userNodeForPackage(Wetator.class);
+    final String tmpLastDirName = tmpPreferences.get(LAST_DIR, "");
 
     File tmpLastDir = new File(tmpLastDirName);
     if (!tmpLastDir.exists() || !tmpLastDir.isDirectory()) {
       tmpLastDir = null;
     }
 
-    JFileChooser tmpFileChooser = new JFileChooser();
+    final JFileChooser tmpFileChooser = new JFileChooser();
     tmpFileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
     tmpFileChooser.setMultiSelectionEnabled(aMultiSelectionFlag);
     tmpFileChooser.setDialogTitle(Messages.getMessage("fileChooserTitle", null));
     tmpFileChooser.setCurrentDirectory(tmpLastDir);
 
-    int tmpChooserAction = tmpFileChooser.showOpenDialog(null);
+    final int tmpChooserAction = tmpFileChooser.showOpenDialog(null);
 
     switch (tmpChooserAction) {
       case JFileChooser.APPROVE_OPTION:
         if (aMultiSelectionFlag) {
-          File[] tmpSelectedFiles = tmpFileChooser.getSelectedFiles();
+          final File[] tmpSelectedFiles = tmpFileChooser.getSelectedFiles();
 
           if (tmpSelectedFiles.length > 0) {
             tmpPreferences.put(LAST_DIR, tmpSelectedFiles[0].getParentFile().getAbsolutePath());
@@ -95,7 +95,7 @@ public final class DialogUtil {
 
           return tmpSelectedFiles;
         }
-        File tmpSelectedFile = tmpFileChooser.getSelectedFile();
+        final File tmpSelectedFile = tmpFileChooser.getSelectedFile();
         if (null == tmpSelectedFile) {
           return null;
         }

@@ -37,7 +37,7 @@ public final class Variable {
    * @param aName the name of the variable (required)
    * @param aValue the value of the variable
    */
-  public Variable(String aName, String aValue) {
+  public Variable(final String aName, final String aValue) {
     this(aName, aValue, false);
   }
 
@@ -48,7 +48,7 @@ public final class Variable {
    * @param aValue the value of the variable
    * @param anSecretFlag true if the value is a secret
    */
-  public Variable(String aName, String aValue, boolean anSecretFlag) {
+  public Variable(final String aName, final String aValue, final boolean anSecretFlag) {
     this(aName, new SecretString(aValue, anSecretFlag));
   }
 
@@ -58,7 +58,7 @@ public final class Variable {
    * @param aName the name of the variable
    * @param aValue the value as SecretString
    */
-  public Variable(String aName, SecretString aValue) {
+  public Variable(final String aName, final SecretString aValue) {
     super();
 
     if (StringUtils.isEmpty(aName)) {

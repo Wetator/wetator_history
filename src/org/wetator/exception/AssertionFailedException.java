@@ -30,7 +30,7 @@ public class AssertionFailedException extends Exception {
    * 
    * @param aMessage the message text
    */
-  public AssertionFailedException(String aMessage) {
+  public AssertionFailedException(final String aMessage) {
     super(aMessage);
   }
 
@@ -40,7 +40,7 @@ public class AssertionFailedException extends Exception {
    * @param aMessage the message text
    * @param aCause the cause
    */
-  public AssertionFailedException(String aMessage, Throwable aCause) {
+  public AssertionFailedException(final String aMessage, final Throwable aCause) {
     super(aMessage, aCause);
   }
 }

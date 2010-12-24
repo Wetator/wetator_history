@@ -30,7 +30,7 @@ public class WetException extends RuntimeException {
    * 
    * @param aMessage the message text
    */
-  public WetException(String aMessage) {
+  public WetException(final String aMessage) {
     super(aMessage);
   }
 
@@ -40,7 +40,7 @@ public class WetException extends RuntimeException {
    * @param aMessage the message text
    * @param aThrowable the reason of this exception
    */
-  public WetException(String aMessage, Throwable aThrowable) {
+  public WetException(final String aMessage, final Throwable aThrowable) {
     super(aMessage, aThrowable);
   }
 }
