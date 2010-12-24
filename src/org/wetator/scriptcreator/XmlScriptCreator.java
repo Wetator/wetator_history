@@ -52,10 +52,10 @@ public class XmlScriptCreator implements WetScriptCreator {
    */
   @Override
   public void createScript() throws WetException {
-    XMLOutputFactory tmpFactory = XMLOutputFactory.newInstance();
+    final XMLOutputFactory tmpFactory = XMLOutputFactory.newInstance();
     try {
-      File tmpFile = new File(outputDir, fileName + ".xml");
-      XMLStreamWriter tmpWriter = tmpFactory.createXMLStreamWriter(new FileOutputStream(tmpFile), ENCODING);
+      final File tmpFile = new File(outputDir, fileName + ".xml");
+      final XMLStreamWriter tmpWriter = tmpFactory.createXMLStreamWriter(new FileOutputStream(tmpFile), ENCODING);
 
       tmpWriter.writeStartDocument(ENCODING, VERSION);
       tmpWriter.writeCharacters("\n");
@@ -79,7 +79,7 @@ public class XmlScriptCreator implements WetScriptCreator {
         }
         if (tmpCommand.getFirstParameter() != null) {
           final String tmpCharacterDataPattern = ".*[<>&]";
-          String tmpParameter = tmpCommand.getFirstParameter().getValue();
+          final String tmpParameter = tmpCommand.getFirstParameter().getValue();
           if (tmpParameter.matches(tmpCharacterDataPattern)) {
             tmpWriter.writeCData(tmpParameter);
           } else {
@@ -113,7 +113,7 @@ public class XmlScriptCreator implements WetScriptCreator {
       tmpWriter.writeEndElement();
       tmpWriter.writeEndDocument();
       tmpWriter.close();
-    } catch (Exception e) {
+    } catch (final Exception e) {
       e.printStackTrace();
     }
   }
@@ -124,7 +124,7 @@ public class XmlScriptCreator implements WetScriptCreator {
    * @see org.wetator.scriptcreator.WetScriptCreator#setCommands(java.util.List)
    */
   @Override
-  public void setCommands(List<WetCommand> aCommandList) throws WetException {
+  public void setCommands(final List<WetCommand> aCommandList) throws WetException {
     commands = aCommandList;
   }
 
@@ -134,7 +134,7 @@ public class XmlScriptCreator implements WetScriptCreator {
    * @see org.wetator.scriptcreator.WetScriptCreator#setFileName(java.lang.String)
    */
   @Override
-  public void setFileName(String aFileName) {
+  public void setFileName(final String aFileName) {
     fileName = aFileName;
   }
 
@@ -144,7 +144,7 @@ public class XmlScriptCreator implements WetScriptCreator {
    * @see org.wetator.scriptcreator.WetScriptCreator#setOutputDir(java.lang.String)
    */
   @Override
-  public void setOutputDir(String anOutputDir) {
+  public void setOutputDir(final String anOutputDir) {
     outputDir = new File(anOutputDir);
   }
 
@@ -152,7 +152,7 @@ public class XmlScriptCreator implements WetScriptCreator {
    * @param aDtd
    *        the DTD to set (name only expected, including keyword)
    */
-  public void setDtd(String aDtd) {
+  public void setDtd(final String aDtd) {
     dtd = aDtd;
   }
 }

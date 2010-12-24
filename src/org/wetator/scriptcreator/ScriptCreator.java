@@ -29,7 +29,7 @@ public enum ScriptCreator {
 
   private WetScriptCreator wetScriptCreator;
 
-  private ScriptCreator(WetScriptCreator aWetScriptCreator) {
+  private ScriptCreator(final WetScriptCreator aWetScriptCreator) {
     wetScriptCreator = aWetScriptCreator;
   }
 
