@@ -87,12 +87,12 @@ public final class PageUtil {
       try {
         // check first with id
         tmpHtmlPage.getHtmlElementById(aRef);
-      } catch (ElementNotFoundException e) {
+      } catch (final ElementNotFoundException e) {
         // maybe there is an anchor with this name
         // the browser jumps to the first one
         try {
           tmpHtmlPage.getAnchorByName(aRef);
-        } catch (ElementNotFoundException eNF) {
+        } catch (final ElementNotFoundException eNF) {
           Assert.fail("noAnchor", new String[] { aRef });
         }
       }
