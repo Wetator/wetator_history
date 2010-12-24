@@ -57,7 +57,7 @@ public class HtmlUnitFinderDelegator implements ControlFinder {
    * 
    * @param anHtmlPage the page to search in
    */
-  public HtmlUnitFinderDelegator(HtmlPage anHtmlPage) {
+  public HtmlUnitFinderDelegator(final HtmlPage anHtmlPage) {
     this(anHtmlPage, null);
   }
 
@@ -67,7 +67,7 @@ public class HtmlUnitFinderDelegator implements ControlFinder {
    * @param anHtmlPage the page to search in
    * @param aControlRepository the repository of controls this delegator supports
    */
-  public HtmlUnitFinderDelegator(HtmlPage anHtmlPage, HtmlUnitControlRepository aControlRepository) {
+  public HtmlUnitFinderDelegator(final HtmlPage anHtmlPage, final HtmlUnitControlRepository aControlRepository) {
     if (null == anHtmlPage) {
       throw new NullPointerException("HtmlPage can't be null");
     }
@@ -100,7 +100,7 @@ public class HtmlUnitFinderDelegator implements ControlFinder {
    * @see org.wetator.backend.ControlFinder#getAllSettables(WPath)
    */
   @Override
-  public WeightedControlList getAllSettables(WPath aWPath) {
+  public WeightedControlList getAllSettables(final WPath aWPath) {
     return settablesFinder.find(aWPath);
   }
 
@@ -110,7 +110,7 @@ public class HtmlUnitFinderDelegator implements ControlFinder {
    * @see org.wetator.backend.ControlFinder#getAllClickables(WPath)
    */
   @Override
-  public WeightedControlList getAllClickables(WPath aWPath) {
+  public WeightedControlList getAllClickables(final WPath aWPath) {
     return clickablesFinder.find(aWPath);
   }
 
@@ -150,7 +150,7 @@ public class HtmlUnitFinderDelegator implements ControlFinder {
    * @see org.wetator.backend.ControlFinder#getAllControlsForText(WPath)
    */
   @Override
-  public WeightedControlList getAllControlsForText(WPath aWPath) {
+  public WeightedControlList getAllControlsForText(final WPath aWPath) {
     return forTextFinder.find(aWPath);
   }
 }

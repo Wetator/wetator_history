@@ -40,7 +40,7 @@ public final class AntOutProgressListener extends StdOutProgressListener {
   private static class AntWriter extends Writer {
     private Task task;
 
-    public AntWriter(Task aTask) {
+    public AntWriter(final Task aTask) {
       task = aTask;
     }
 
@@ -70,7 +70,7 @@ public final class AntOutProgressListener extends StdOutProgressListener {
      * @see java.io.Writer#write(char[], int, int)
      */
     @Override
-    public void write(char[] aCbuf, int aOff, int aLen) throws IOException {
+    public void write(final char[] aCbuf, final int aOff, final int aLen) throws IOException {
       // remove the trailing line feeds
       String tmpOutput = String.valueOf(aCbuf, aOff, aLen);
       tmpOutput = tmpOutput.replaceAll("\\s+$", "");
@@ -88,7 +88,7 @@ public final class AntOutProgressListener extends StdOutProgressListener {
    * 
    * @param aWetator the wetator this executes
    */
-  public AntOutProgressListener(Wetator aWetator) {
+  public AntOutProgressListener(final Wetator aWetator) {
     super();
     output = new Output(new AntWriter(aWetator), "  ");
     printBuffer = new StringBuilder();
@@ -96,7 +96,7 @@ public final class AntOutProgressListener extends StdOutProgressListener {
   }
 
   @Override
-  protected void print(String aString) {
+  protected void print(final String aString) {
     if (System.currentTimeMillis() - lastPrint > 1000 * PRINT_AFTER_SECONDS) {
       println(aString);
     } else {
@@ -105,7 +105,7 @@ public final class AntOutProgressListener extends StdOutProgressListener {
   }
 
   @Override
-  protected void println(String aString) {
+  protected void println(final String aString) {
     printBuffer.append(aString);
     super.println(printBuffer.toString());
     lastPrint = System.currentTimeMillis();

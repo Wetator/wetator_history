@@ -72,7 +72,7 @@ public interface WetBackend {
      * @param aLabel the label of the browser
      * @param aSymbol the symbol for the browser (e.g. used by the {@link org.wetator.core.WetConfiguration})
      */
-    Browser(String aLabel, String aSymbol) {
+    Browser(final String aLabel, final String aSymbol) {
       label = aLabel;
       symbol = aSymbol;
     }
@@ -97,12 +97,12 @@ public interface WetBackend {
      * @param aSymbol the symbol to get the browser for
      * @return the found browser or null if found none
      */
-    public static Browser getForSymbol(String aSymbol) {
+    public static Browser getForSymbol(final String aSymbol) {
       if (null == aSymbol) {
         return null;
       }
 
-      String tmpSymbol = aSymbol.trim();
+      final String tmpSymbol = aSymbol.trim();
       Browser tmpFound = null;
       for (Browser tmpBrowser : values()) {
         if (tmpBrowser.getSymbol().equalsIgnoreCase(tmpSymbol)) {

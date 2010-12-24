@@ -118,7 +118,7 @@ public final class HtmlUnitBrowser implements WetBackend {
    * 
    * @param aWetEngine the engine to work with
    */
-  public HtmlUnitBrowser(WetEngine aWetEngine) {
+  public HtmlUnitBrowser(final WetEngine aWetEngine) {
     super();
 
     // setup the backend
@@ -129,7 +129,7 @@ public final class HtmlUnitBrowser implements WetBackend {
     wetEngine = aWetEngine;
 
     // response store
-    WetConfiguration tmpConfiguration = wetEngine.getWetConfiguration();
+    final WetConfiguration tmpConfiguration = wetEngine.getWetConfiguration();
     responseStore = new ResponseStore(tmpConfiguration.getOutputDir(), true);
 
     // TODO read from config
@@ -164,35 +164,35 @@ public final class HtmlUnitBrowser implements WetBackend {
    * @see org.wetator.backend.WetBackend#startNewSession(org.wetator.backend.WetBackend.Browser)
    */
   @Override
-  public void startNewSession(WetBackend.Browser aBrowser) {
-    WetConfiguration tmpConfiguration = wetEngine.getWetConfiguration();
+  public void startNewSession(final WetBackend.Browser aBrowser) {
+    final WetConfiguration tmpConfiguration = wetEngine.getWetConfiguration();
 
     // reset the bookmarks
     bookmarks = new HashMap<String, URL>();
 
-    BrowserVersion tmpBrowserVersion = determineBrowserVersionFor(aBrowser);
+    final BrowserVersion tmpBrowserVersion = determineBrowserVersionFor(aBrowser);
 
     // TODO maybe we have to do more here
     if (null != webClient) {
       try {
         webClient.closeAllWindows();
-      } catch (ScriptException e) {
+      } catch (final ScriptException e) {
         // TODO handle exception
         e.printStackTrace();
       }
     }
 
     if (StringUtils.isNotEmpty(tmpConfiguration.getProxyHost())) {
-      String tmpHost = tmpConfiguration.getProxyHost();
-      int tmpPort = tmpConfiguration.getProxyPort();
+      final String tmpHost = tmpConfiguration.getProxyHost();
+      final int tmpPort = tmpConfiguration.getProxyPort();
 
       webClient = new WebClient(tmpBrowserVersion, tmpHost, tmpPort);
 
       if ((null != tmpConfiguration.getBasicAuthUser())
           && StringUtils.isNotEmpty(tmpConfiguration.getBasicAuthUser().getValue())) {
-        String tmpUser = tmpConfiguration.getBasicAuthUser().getValue();
-        String tmpPassword = tmpConfiguration.getBasicAuthPassword().getValue();
-        DefaultCredentialsProvider tmpCredentialProvider = new DefaultCredentialsProvider();
+        final String tmpUser = tmpConfiguration.getBasicAuthUser().getValue();
+        final String tmpPassword = tmpConfiguration.getBasicAuthPassword().getValue();
+        final DefaultCredentialsProvider tmpCredentialProvider = new DefaultCredentialsProvider();
         tmpCredentialProvider.addCredentials(tmpUser, tmpPassword);
         webClient.setCredentialsProvider(tmpCredentialProvider);
         // TODO logging
@@ -200,15 +200,15 @@ public final class HtmlUnitBrowser implements WetBackend {
 
       if ((null != tmpConfiguration.getProxyUser())
           && StringUtils.isNotEmpty(tmpConfiguration.getProxyUser().getValue())) {
-        String tmpUser = tmpConfiguration.getProxyUser().getValue();
-        String tmpPassword = tmpConfiguration.getProxyPassword().getValue();
-        DefaultCredentialsProvider tmpCredentialProvider = new DefaultCredentialsProvider();
+        final String tmpUser = tmpConfiguration.getProxyUser().getValue();
+        final String tmpPassword = tmpConfiguration.getProxyPassword().getValue();
+        final DefaultCredentialsProvider tmpCredentialProvider = new DefaultCredentialsProvider();
         tmpCredentialProvider.addCredentials(tmpUser, tmpPassword);
         webClient.setCredentialsProvider(tmpCredentialProvider);
         // TODO logging
       }
 
-      Set<String> tmpNonProxyHosts = tmpConfiguration.getProxyHostsToBypass();
+      final Set<String> tmpNonProxyHosts = tmpConfiguration.getProxyHostsToBypass();
 
       for (String tmpString : tmpNonProxyHosts) {
         if (StringUtils.isNotEmpty(tmpString)) {
@@ -233,7 +233,7 @@ public final class HtmlUnitBrowser implements WetBackend {
     // trust all SSL-certificates
     try {
       webClient.setUseInsecureSSL(true);
-    } catch (GeneralSecurityException e) {
+    } catch (final GeneralSecurityException e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
     }
@@ -245,25 +245,25 @@ public final class HtmlUnitBrowser implements WetBackend {
    * @see org.wetator.backend.WetBackend#openUrl(java.net.URL)
    */
   @Override
-  public void openUrl(URL aUrl) throws AssertionFailedException {
+  public void openUrl(final URL aUrl) throws AssertionFailedException {
     try {
       webClient.getPage(aUrl);
       waitForImmediateJobs();
-    } catch (ScriptException e) {
+    } catch (final ScriptException e) {
       addFailure("javascriptError", new String[] { e.getMessage() }, e);
-    } catch (WrappedException e) {
-      Exception tmpScriptException = ExceptionUtil.getScriptExceptionCauseIfPossible(e);
+    } catch (final WrappedException e) {
+      final Exception tmpScriptException = ExceptionUtil.getScriptExceptionCauseIfPossible(e);
       addFailure("javascriptError", new String[] { tmpScriptException.getMessage() }, tmpScriptException);
-    } catch (FailingHttpStatusCodeException e) {
+    } catch (final FailingHttpStatusCodeException e) {
       addFailure("openServerError", new String[] { aUrl.toString(), e.getMessage() }, e);
-    } catch (UnknownHostException e) {
+    } catch (final UnknownHostException e) {
       addFailure("unknownHostError", new String[] { aUrl.toString(), e.getMessage() }, e);
-    } catch (Throwable e) {
+    } catch (final Throwable e) {
       LOG.error("OpenUrl '" + aUrl.toExternalForm() + "'fails. " + e.getMessage());
       addFailure("openServerError", new String[] { aUrl.toString(), e.getMessage() }, e);
     }
 
-    String tmpRef = aUrl.getRef();
+    final String tmpRef = aUrl.getRef();
     if (StringUtils.isNotEmpty(tmpRef)) {
       checkAnchor(tmpRef);
     }
@@ -280,12 +280,12 @@ public final class HtmlUnitBrowser implements WetBackend {
      * 
      * @param aWetEngine the engine to inform about the alert texts.
      */
-    public AlertHandler(WetEngine aWetEngine) {
+    public AlertHandler(final WetEngine aWetEngine) {
       wetEngine = aWetEngine;
     }
 
     @Override
-    public void handleAlert(Page aPage, String aMessage) {
+    public void handleAlert(final Page aPage, final String aMessage) {
       LOG.debug("handleAlert " + aMessage);
 
       String tmpMessage = "";
@@ -295,7 +295,7 @@ public final class HtmlUnitBrowser implements WetBackend {
       String tmpUrl = "";
       try {
         tmpUrl = aPage.getWebResponse().getWebRequest().getUrl().toExternalForm();
-      } catch (NullPointerException e) {
+      } catch (final NullPointerException e) {
         // ignore
       }
 
@@ -316,7 +316,7 @@ public final class HtmlUnitBrowser implements WetBackend {
      * 
      * @param aHtmlUnitBrowser the browser this listener informs
      */
-    public JavaScriptErrorListener(HtmlUnitBrowser aHtmlUnitBrowser) {
+    public JavaScriptErrorListener(final HtmlUnitBrowser aHtmlUnitBrowser) {
       htmlUnitBrowser = aHtmlUnitBrowser;
     }
 
@@ -327,7 +327,7 @@ public final class HtmlUnitBrowser implements WetBackend {
      *      java.net.URL, java.lang.Exception)
      */
     @Override
-    public void loadScriptError(HtmlPage aHtmlPage, URL aScriptUrl, Exception anException) {
+    public void loadScriptError(final HtmlPage aHtmlPage, final URL aScriptUrl, final Exception anException) {
       htmlUnitBrowser.addFailure("javascriptLoadError", new String[] { aScriptUrl.toExternalForm(),
           aHtmlPage.getUrl().toExternalForm(), anException.getMessage() }, anException);
     }
@@ -339,7 +339,8 @@ public final class HtmlUnitBrowser implements WetBackend {
      *      java.lang.String, java.net.MalformedURLException)
      */
     @Override
-    public void malformedScriptURL(HtmlPage aHtmlPage, String aUrl, MalformedURLException aMalformedURLException) {
+    public void malformedScriptURL(final HtmlPage aHtmlPage, final String aUrl,
+        final MalformedURLException aMalformedURLException) {
       htmlUnitBrowser.addFailure("javascriptLoadError", new String[] { aUrl, aHtmlPage.getUrl().toExternalForm(),
           aMalformedURLException.getMessage() }, aMalformedURLException);
     }
@@ -351,7 +352,7 @@ public final class HtmlUnitBrowser implements WetBackend {
      *      com.gargoylesoftware.htmlunit.ScriptException)
      */
     @Override
-    public void scriptException(HtmlPage aHtmlPage, ScriptException aScriptException) {
+    public void scriptException(final HtmlPage aHtmlPage, final ScriptException aScriptException) {
       htmlUnitBrowser.addFailure("javascriptError", new String[] { aScriptException.getMessage() }, aScriptException);
     }
 
@@ -362,22 +363,22 @@ public final class HtmlUnitBrowser implements WetBackend {
      *      long, long)
      */
     @Override
-    public void timeoutError(HtmlPage aHtmlPage, long aAllowedTime, long aExecutionTime) {
+    public void timeoutError(final HtmlPage aHtmlPage, final long aAllowedTime, final long aExecutionTime) {
       htmlUnitBrowser.addFailure("javascriptTimeoutError", new String[] { "" + aAllowedTime, "" + aExecutionTime,
           aHtmlPage.getUrl().toExternalForm() }, null);
     }
   }
 
   @Override
-  public void closeWindow(SecretString aWindowName) throws AssertionFailedException {
-    List<WebWindow> tmpWebWindows = webClient.getWebWindows();
+  public void closeWindow(final SecretString aWindowName) throws AssertionFailedException {
+    final List<WebWindow> tmpWebWindows = webClient.getWebWindows();
     if (tmpWebWindows.isEmpty()) {
       Assert.fail("noWindowToClose", null);
     }
 
     if (null == aWindowName || StringUtils.isEmpty(aWindowName.getValue())) {
       for (int i = tmpWebWindows.size() - 1; i > 0; i--) {
-        WebWindow tmpWebWindow = tmpWebWindows.get(i);
+        final WebWindow tmpWebWindow = tmpWebWindows.get(i);
 
         if (tmpWebWindow instanceof TopLevelWindow) {
           wetEngine.informListenersInfo("closeWindow", new String[] { tmpWebWindow.getName() });
@@ -393,11 +394,11 @@ public final class HtmlUnitBrowser implements WetBackend {
       Assert.fail("noWindowToClose", null);
     }
 
-    SearchPattern tmpWindowNamePattern = aWindowName.getSearchPattern();
+    final SearchPattern tmpWindowNamePattern = aWindowName.getSearchPattern();
     for (int i = tmpWebWindows.size() - 1; i > 0; i--) {
-      WebWindow tmpWebWindow = tmpWebWindows.get(i);
+      final WebWindow tmpWebWindow = tmpWebWindows.get(i);
 
-      String tmpWindowName = tmpWebWindow.getName();
+      final String tmpWindowName = tmpWebWindow.getName();
       if (tmpWindowNamePattern.matches(tmpWindowName)) {
         if (tmpWebWindow instanceof TopLevelWindow) {
           wetEngine.informListenersInfo("closeWindow", new String[] { tmpWebWindow.getName() });
@@ -415,14 +416,14 @@ public final class HtmlUnitBrowser implements WetBackend {
   }
 
   @Override
-  public void goBackInCurrentWindow(int aSteps) throws AssertionFailedException {
-    WebWindow tmpCurrentWindow = webClient.getCurrentWindow();
+  public void goBackInCurrentWindow(final int aSteps) throws AssertionFailedException {
+    final WebWindow tmpCurrentWindow = webClient.getCurrentWindow();
 
     if (null == tmpCurrentWindow) {
       Assert.fail("noWebWindow", null);
     }
 
-    History tmpHistory = tmpCurrentWindow.getHistory();
+    final History tmpHistory = tmpCurrentWindow.getHistory();
 
     final int tmpIndexPos = tmpHistory.getIndex() - aSteps;
     if (tmpIndexPos >= tmpHistory.getLength() || tmpIndexPos < 0) {
@@ -431,23 +432,23 @@ public final class HtmlUnitBrowser implements WetBackend {
 
     try {
       tmpHistory.go(-1 * aSteps);
-    } catch (IOException e) {
+    } catch (final IOException e) {
       Assert.fail("historyFailed", new String[] { e.getMessage() });
     }
   }
 
   @Override
   public void saveCurrentWindowToLog() {
-    WebWindow tmpCurrentWindow = webClient.getCurrentWindow();
+    final WebWindow tmpCurrentWindow = webClient.getCurrentWindow();
 
     if (null != tmpCurrentWindow) {
       try {
-        Page tmpPage = tmpCurrentWindow.getEnclosedPage();
+        final Page tmpPage = tmpCurrentWindow.getEnclosedPage();
         if (null != tmpPage) {
-          String tmpPageFile = responseStore.storePage(webClient, tmpPage);
+          final String tmpPageFile = responseStore.storePage(webClient, tmpPage);
           wetEngine.informListenersResponseStored(tmpPageFile);
         }
-      } catch (WetException e) {
+      } catch (final WetException e) {
         LOG.fatal("Problem with window handling. Saving page failed!", e);
       }
     }
@@ -459,7 +460,7 @@ public final class HtmlUnitBrowser implements WetBackend {
    * @param aRef the hash from the url
    * @throws AssertionFailedException if no matisching anchor found
    */
-  protected void checkAnchor(String aRef) throws AssertionFailedException {
+  protected void checkAnchor(final String aRef) throws AssertionFailedException {
     // check the anchor part of the url
     final Page tmpPage = getCurrentPage();
     PageUtil.checkAnchor(aRef, tmpPage);
@@ -476,19 +477,19 @@ public final class HtmlUnitBrowser implements WetBackend {
      * 
      * @param anHtmlUnitBrowser the browser to inform
      */
-    public WebWindowListener(HtmlUnitBrowser anHtmlUnitBrowser) {
+    public WebWindowListener(final HtmlUnitBrowser anHtmlUnitBrowser) {
       super();
       htmlUnitBrowser = anHtmlUnitBrowser;
     }
 
     @Override
-    public void webWindowOpened(WebWindowEvent anEvent) {
+    public void webWindowOpened(final WebWindowEvent anEvent) {
       LOG.debug("webWindowOpened");
     }
 
     @Override
-    public void webWindowClosed(WebWindowEvent anEvent) {
-      Page tmpPage = anEvent.getWebWindow().getEnclosedPage();
+    public void webWindowClosed(final WebWindowEvent anEvent) {
+      final Page tmpPage = anEvent.getWebWindow().getEnclosedPage();
       if (null == tmpPage) {
         LOG.debug("webWindowClosed: (page null)");
       } else {
@@ -498,17 +499,17 @@ public final class HtmlUnitBrowser implements WetBackend {
     }
 
     @Override
-    public void webWindowContentChanged(WebWindowEvent anEvent) {
+    public void webWindowContentChanged(final WebWindowEvent anEvent) {
       LOG.debug("webWindowContentChanged");
-      Page tmpNewPage = anEvent.getNewPage();
+      final Page tmpNewPage = anEvent.getNewPage();
       // first load into a new window
       if (null != tmpNewPage && null == anEvent.getOldPage()) {
-        URL tmpUrl = tmpNewPage.getWebResponse().getWebRequest().getUrl();
-        String tmpRef = tmpUrl.getRef();
+        final URL tmpUrl = tmpNewPage.getWebResponse().getWebRequest().getUrl();
+        final String tmpRef = tmpUrl.getRef();
         if (StringUtils.isNotEmpty(tmpRef)) {
           try {
             PageUtil.checkAnchor(tmpRef, tmpNewPage);
-          } catch (AssertionFailedException e) {
+          } catch (final AssertionFailedException e) {
             htmlUnitBrowser.addFailure(e);
           }
         }
@@ -518,11 +519,11 @@ public final class HtmlUnitBrowser implements WetBackend {
   }
 
   private Page getCurrentPage() throws AssertionFailedException {
-    WebWindow tmpWebWindow = webClient.getCurrentWindow();
+    final WebWindow tmpWebWindow = webClient.getCurrentWindow();
     if (null == tmpWebWindow) {
       Assert.fail("noWebWindow", null);
     }
-    Page tmpPage = tmpWebWindow.getEnclosedPage();
+    final Page tmpPage = tmpWebWindow.getEnclosedPage();
     if (null == tmpPage) {
       Assert.fail("noPageInWebWindow", null);
     }
@@ -531,7 +532,7 @@ public final class HtmlUnitBrowser implements WetBackend {
   }
 
   @SuppressWarnings("deprecation")
-  private BrowserVersion determineBrowserVersionFor(WetBackend.Browser aWetBrowser) {
+  private BrowserVersion determineBrowserVersionFor(final WetBackend.Browser aWetBrowser) {
     if (WetBackend.Browser.FIREFOX_3 == aWetBrowser) {
       return BrowserVersion.FIREFOX_3;
     }
@@ -557,7 +558,7 @@ public final class HtmlUnitBrowser implements WetBackend {
    * @throws AssertionFailedException if the current page is not a HtmlPage
    */
   public HtmlPage getCurrentHtmlPage() throws AssertionFailedException {
-    Page tmpPage = getCurrentPage();
+    final Page tmpPage = getCurrentPage();
     if (tmpPage instanceof HtmlPage) {
       return (HtmlPage) tmpPage;
     }
@@ -568,7 +569,7 @@ public final class HtmlUnitBrowser implements WetBackend {
 
   @Override
   public ControlFinder getControlFinder() throws AssertionFailedException {
-    HtmlPage tmpHtmlPage = getCurrentHtmlPage();
+    final HtmlPage tmpHtmlPage = getCurrentHtmlPage();
 
     return new HtmlUnitFinderDelegator(tmpHtmlPage, controlRepository);
   }
@@ -580,8 +581,8 @@ public final class HtmlUnitBrowser implements WetBackend {
       // try with wait
       long tmpEndTime = System.currentTimeMillis() + immediateJobsTimeout;
       while (System.currentTimeMillis() < tmpEndTime) {
-        HtmlPage tmpHtmlPage = (HtmlPage) tmpPage;
-        JavaScriptJobManager tmpJobManager = tmpHtmlPage.getEnclosingWindow().getJobManager();
+        final HtmlPage tmpHtmlPage = (HtmlPage) tmpPage;
+        final JavaScriptJobManager tmpJobManager = tmpHtmlPage.getEnclosingWindow().getJobManager();
 
         if (tmpJobManager.waitForJobsStartingBefore(tmpEndTime - System.currentTimeMillis()) > 0) {
           continue;
@@ -603,28 +604,28 @@ public final class HtmlUnitBrowser implements WetBackend {
   }
 
   @Override
-  public boolean assertTitleInTimeFrame(List<SecretString> aTitleToWaitFor, long aTimeoutInSeconds)
+  public boolean assertTitleInTimeFrame(final List<SecretString> aTitleToWaitFor, final long aTimeoutInSeconds)
       throws AssertionFailedException {
-    long tmpWaitTime = Math.max(immediateJobsTimeout, aTimeoutInSeconds * 1000L);
+    final long tmpWaitTime = Math.max(immediateJobsTimeout, aTimeoutInSeconds * 1000L);
 
     // remember the page at start to be able to detect page changes
-    Page tmpStartPage = getCurrentPage();
+    final Page tmpStartPage = getCurrentPage();
 
     Page tmpPage = getCurrentPage();
     if (tmpPage instanceof HtmlPage) {
       // try with wait
       long tmpEndTime = System.currentTimeMillis() + tmpWaitTime;
       while (System.currentTimeMillis() < tmpEndTime) {
-        HtmlPage tmpHtmlPage = (HtmlPage) tmpPage;
-        String tmpCurrentTitle = tmpHtmlPage.getTitleText();
+        final HtmlPage tmpHtmlPage = (HtmlPage) tmpPage;
+        final String tmpCurrentTitle = tmpHtmlPage.getTitleText();
         try {
           Assert.assertListMatch(aTitleToWaitFor, tmpCurrentTitle);
           return tmpStartPage != tmpPage;
-        } catch (AssertionFailedException e) {
+        } catch (final AssertionFailedException e) {
           // ok, not found, maybe we have to be more patient
         }
 
-        JavaScriptJobManager tmpJobManager = tmpHtmlPage.getEnclosingWindow().getJobManager();
+        final JavaScriptJobManager tmpJobManager = tmpHtmlPage.getEnclosingWindow().getJobManager();
         if (tmpJobManager.waitForJobsStartingBefore(tmpEndTime - System.currentTimeMillis()) > 0) {
           continue;
         }
@@ -643,35 +644,35 @@ public final class HtmlUnitBrowser implements WetBackend {
       }
     }
 
-    HtmlPage tmpHtmlPage = getCurrentHtmlPage();
-    String tmpCurrentTitle = tmpHtmlPage.getTitleText();
+    final HtmlPage tmpHtmlPage = getCurrentHtmlPage();
+    final String tmpCurrentTitle = tmpHtmlPage.getTitleText();
     Assert.assertListMatch(aTitleToWaitFor, tmpCurrentTitle);
     return tmpStartPage != tmpPage;
   }
 
   @Override
-  public boolean assertContentInTimeFrame(List<SecretString> aContentToWaitFor, long aTimeoutInSeconds)
+  public boolean assertContentInTimeFrame(final List<SecretString> aContentToWaitFor, final long aTimeoutInSeconds)
       throws AssertionFailedException {
-    long tmpWaitTime = Math.max(immediateJobsTimeout, aTimeoutInSeconds * 1000L);
+    final long tmpWaitTime = Math.max(immediateJobsTimeout, aTimeoutInSeconds * 1000L);
 
     // remember the page at start to be able to detect page changes
-    Page tmpStartPage = getCurrentPage();
+    final Page tmpStartPage = getCurrentPage();
 
     Page tmpPage = getCurrentPage();
     if (tmpPage instanceof HtmlPage) {
       // try with wait
       long tmpEndTime = System.currentTimeMillis() + tmpWaitTime;
       while (System.currentTimeMillis() < tmpEndTime) {
-        HtmlPage tmpHtmlPage = (HtmlPage) tmpPage;
-        String tmpContentAsText = new HtmlPageIndex(tmpHtmlPage).getText();
+        final HtmlPage tmpHtmlPage = (HtmlPage) tmpPage;
+        final String tmpContentAsText = new HtmlPageIndex(tmpHtmlPage).getText();
         try {
           Assert.assertListMatch(aContentToWaitFor, tmpContentAsText);
           return tmpStartPage != tmpPage;
-        } catch (AssertionFailedException e) {
+        } catch (final AssertionFailedException e) {
           // ok, not found, maybe we have to be more patient
         }
 
-        JavaScriptJobManager tmpJobManager = tmpHtmlPage.getEnclosingWindow().getJobManager();
+        final JavaScriptJobManager tmpJobManager = tmpHtmlPage.getEnclosingWindow().getJobManager();
         if (tmpJobManager.waitForJobsStartingBefore(tmpEndTime - System.currentTimeMillis()) > 0) {
           continue;
         }
@@ -694,34 +695,35 @@ public final class HtmlUnitBrowser implements WetBackend {
     tmpPage = getCurrentPage();
 
     if (tmpPage instanceof HtmlPage) {
-      HtmlPage tmpHtmlPage = (HtmlPage) tmpPage;
-      String tmpContentAsText = new HtmlPageIndex(tmpHtmlPage).getText();
+      final HtmlPage tmpHtmlPage = (HtmlPage) tmpPage;
+      final String tmpContentAsText = new HtmlPageIndex(tmpHtmlPage).getText();
       Assert.assertListMatch(aContentToWaitFor, tmpContentAsText);
       return tmpStartPage != tmpPage;
     }
 
     if (tmpPage instanceof XmlPage) {
-      XmlPage tmpXmlPage = (XmlPage) tmpPage;
-      String tmpContentAsText = new NormalizedString(tmpXmlPage.getContent()).toString();
+      final XmlPage tmpXmlPage = (XmlPage) tmpPage;
+      final String tmpContentAsText = new NormalizedString(tmpXmlPage.getContent()).toString();
       Assert.assertListMatch(aContentToWaitFor, tmpContentAsText);
       return tmpStartPage != tmpPage;
     }
 
     if (tmpPage instanceof TextPage) {
-      TextPage tmpTextPage = (TextPage) tmpPage;
-      String tmpContentAsText = tmpTextPage.getContent();
+      final TextPage tmpTextPage = (TextPage) tmpPage;
+      final String tmpContentAsText = tmpTextPage.getContent();
       Assert.assertListMatch(aContentToWaitFor, tmpContentAsText);
       return tmpStartPage != tmpPage;
     }
 
-    ContentType tmpContentType = ContentTypeUtil.getContentType(tmpPage);
+    final ContentType tmpContentType = ContentTypeUtil.getContentType(tmpPage);
 
     if (ContentType.PDF == tmpContentType) {
       try {
-        String tmpContentAsText = ContentUtil.getPdfContentAsString(tmpPage.getWebResponse().getContentAsStream());
+        final String tmpContentAsText = ContentUtil
+            .getPdfContentAsString(tmpPage.getWebResponse().getContentAsStream());
         Assert.assertListMatch(aContentToWaitFor, tmpContentAsText);
         return tmpStartPage != tmpPage;
-      } catch (IOException e) {
+      } catch (final IOException e) {
         Assert.fail("pdfConversionToTextFailed", new String[] { e.getMessage() });
         return tmpStartPage != tmpPage;
       }
@@ -729,10 +731,11 @@ public final class HtmlUnitBrowser implements WetBackend {
 
     if (ContentType.XLS == tmpContentType) {
       try {
-        String tmpContentAsText = ContentUtil.getXlsContentAsString(tmpPage.getWebResponse().getContentAsStream());
+        final String tmpContentAsText = ContentUtil
+            .getXlsContentAsString(tmpPage.getWebResponse().getContentAsStream());
         Assert.assertListMatch(aContentToWaitFor, tmpContentAsText);
         return tmpStartPage != tmpPage;
-      } catch (IOException e) {
+      } catch (final IOException e) {
         Assert.fail("xlsConversionToTextFailed", new String[] { e.getMessage() });
         return tmpStartPage != tmpPage;
       }
@@ -748,9 +751,9 @@ public final class HtmlUnitBrowser implements WetBackend {
    * @see org.wetator.backend.WetBackend#addFailure(java.lang.String, java.lang.Object[], java.lang.Throwable)
    */
   @Override
-  public void addFailure(String aMessageKey, Object[] aParameterArray, Throwable aCause) {
-    String tmpMessage = Messages.getMessage(aMessageKey, aParameterArray);
-    AssertionFailedException tmpFailure = new AssertionFailedException(tmpMessage, aCause);
+  public void addFailure(final String aMessageKey, final Object[] aParameterArray, final Throwable aCause) {
+    final String tmpMessage = Messages.getMessage(aMessageKey, aParameterArray);
+    final AssertionFailedException tmpFailure = new AssertionFailedException(tmpMessage, aCause);
     addFailure(tmpFailure);
   }
 
@@ -760,7 +763,7 @@ public final class HtmlUnitBrowser implements WetBackend {
    * @see org.wetator.backend.WetBackend#addFailure(java.lang.String, java.lang.Object[], java.lang.Throwable)
    */
   @Override
-  public void addFailure(AssertionFailedException aFailure) {
+  public void addFailure(final AssertionFailedException aFailure) {
     failures.add(aFailure);
   }
 
@@ -775,12 +778,12 @@ public final class HtmlUnitBrowser implements WetBackend {
       return null;
     }
 
-    AssertionFailedException tmpResult = failures.get(0);
+    final AssertionFailedException tmpResult = failures.get(0);
     for (AssertionFailedException tmpException : failures) {
-      Throwable tmpCause = tmpException.getCause();
+      final Throwable tmpCause = tmpException.getCause();
       if (null != tmpCause) {
-        wetEngine.informListenersWarn("pageError", new String[] { tmpException.getMessage(),
-            ExceptionUtils.getStackTrace(tmpCause) });
+        wetEngine.informListenersWarn("pageError",
+            new String[] { tmpException.getMessage(), ExceptionUtils.getStackTrace(tmpCause) });
       }
     }
     failures = new LinkedList<AssertionFailedException>();
@@ -793,7 +796,7 @@ public final class HtmlUnitBrowser implements WetBackend {
    * @see org.wetator.backend.WetBackend#getBookmark(java.lang.String)
    */
   @Override
-  public URL getBookmark(String aBookmarkName) {
+  public URL getBookmark(final String aBookmarkName) {
     return bookmarks.get(aBookmarkName);
   }
 
@@ -803,7 +806,7 @@ public final class HtmlUnitBrowser implements WetBackend {
    * @see org.wetator.backend.WetBackend#saveBookmark(java.lang.String, java.net.URL)
    */
   @Override
-  public void saveBookmark(String aBookmarkName, URL aBookmarkUrl) {
+  public void saveBookmark(final String aBookmarkName, final URL aBookmarkUrl) {
     bookmarks.put(aBookmarkName, aBookmarkUrl);
   }
 
@@ -814,8 +817,8 @@ public final class HtmlUnitBrowser implements WetBackend {
    * @see org.wetator.backend.WetBackend#bookmarkPage(String)
    */
   @Override
-  public void bookmarkPage(String aBookmarkName) throws AssertionFailedException {
-    URL tmpUrl = getCurrentHtmlPage().getWebResponse().getWebRequest().getUrl();
+  public void bookmarkPage(final String aBookmarkName) throws AssertionFailedException {
+    final URL tmpUrl = getCurrentHtmlPage().getWebResponse().getWebRequest().getUrl();
     saveBookmark(aBookmarkName, tmpUrl);
   }
 }

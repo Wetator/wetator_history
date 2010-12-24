@@ -74,7 +74,7 @@ public final class ResponseStore {
    * @param anOutputDir the outputDir to set
    * @param anOverwriteFlag the overwrite to set
    */
-  public ResponseStore(File anOutputDir, boolean anOverwriteFlag) {
+  public ResponseStore(final File anOutputDir, final boolean anOverwriteFlag) {
     super();
     outputDir = anOutputDir;
     overwrite = anOverwriteFlag;
@@ -91,7 +91,7 @@ public final class ResponseStore {
     if (overwrite) {
       tmpDirectoryName = "current";
     } else {
-      SimpleDateFormat tmpFormater = new SimpleDateFormat("yyyy.MM.dd_HH.mm.ss");
+      final SimpleDateFormat tmpFormater = new SimpleDateFormat("yyyy.MM.dd_HH.mm.ss");
       tmpDirectoryName = tmpFormater.format(new Date());
     }
 
@@ -101,7 +101,7 @@ public final class ResponseStore {
     try {
       FileUtils.forceMkdir(storeDir);
       FileUtils.cleanDirectory(storeDir);
-    } catch (IOException e) {
+    } catch (final IOException e) {
       LOG.error("IO exception for dir: " + storeDir.getAbsolutePath(), e);
     }
   }
@@ -113,25 +113,25 @@ public final class ResponseStore {
    * @param aPage the page to save
    * @return the file name used for this page
    */
-  public String storePage(WebClient aWebClient, Page aPage) {
+  public String storePage(final WebClient aWebClient, final Page aPage) {
     webClient = aWebClient;
 
     try {
       String tmpFileName = "response_" + getUniqueId();
-      String tmpSuffix = ContentTypeUtil.getFileSuffix(aPage);
+      final String tmpSuffix = ContentTypeUtil.getFileSuffix(aPage);
 
       tmpFileName = tmpFileName + "." + tmpSuffix;
-      File tmpFile = new File(storeDir, tmpFileName);
+      final File tmpFile = new File(storeDir, tmpFileName);
 
       if (aPage instanceof HtmlPage) {
-        XHtmlOutputter tmpHtmlOutputter = new XHtmlOutputter((HtmlPage) aPage, this);
+        final XHtmlOutputter tmpHtmlOutputter = new XHtmlOutputter((HtmlPage) aPage, this);
         tmpHtmlOutputter.writeTo(tmpFile);
       } else {
-        WebResponse tmpWebResponse = aPage.getWebResponse();
-        InputStream tmpIn = tmpWebResponse.getContentAsStream();
-        OutputStream tmpOutputStream = new FileOutputStream(tmpFile);
+        final WebResponse tmpWebResponse = aPage.getWebResponse();
+        final InputStream tmpIn = tmpWebResponse.getContentAsStream();
+        final OutputStream tmpOutputStream = new FileOutputStream(tmpFile);
 
-        byte[] tmpBuffer = new byte[1024];
+        final byte[] tmpBuffer = new byte[1024];
         int tmpBytes;
         while ((tmpBytes = tmpIn.read(tmpBuffer)) > 0) {
           tmpOutputStream.write(tmpBuffer, 0, tmpBytes);
@@ -144,7 +144,7 @@ public final class ResponseStore {
       tmpLogDir = tmpLogDir.replaceAll("\\\\", "/");
 
       return tmpLogDir + "/" + tmpFileName;
-    } catch (IOException e) {
+    } catch (final IOException e) {
       // TODO
       throw new WetException("xxx");
     }
@@ -158,19 +158,19 @@ public final class ResponseStore {
    * @param aSuffix to force a specific suffix for the file name
    * @return the file name used for this page
    */
-  public String storeContentFromUrl(HtmlPage aContaingPage, String aUrlString, String aSuffix) {
+  public String storeContentFromUrl(final HtmlPage aContaingPage, final String aUrlString, final String aSuffix) {
     try {
-      URL tmpPageUrl = aContaingPage.getWebResponse().getWebRequest().getUrl();
-      String tmpPageHost = tmpPageUrl.getHost();
+      final URL tmpPageUrl = aContaingPage.getWebResponse().getWebRequest().getUrl();
+      final String tmpPageHost = tmpPageUrl.getHost();
 
-      URL tmpUrl = aContaingPage.getFullyQualifiedUrl(aUrlString);
-      String tmpHost = tmpUrl.getHost();
+      final URL tmpUrl = aContaingPage.getFullyQualifiedUrl(aUrlString);
+      final String tmpHost = tmpUrl.getHost();
       if ((null == tmpHost) || !tmpHost.equals(tmpPageHost)) {
         LOG.info("Ignoring url '" + aUrlString + "' (wrong host).");
         return null;
       }
 
-      WebResponse tmpWebResponse = webClient.loadWebResponse(new WebRequest(tmpUrl));
+      final WebResponse tmpWebResponse = webClient.loadWebResponse(new WebRequest(tmpUrl));
       String tmpFileName = tmpUrl.getPath();
       String tmpQuery = tmpUrl.getQuery();
       if (null != tmpQuery) {
@@ -209,7 +209,7 @@ public final class ResponseStore {
       if (!tmpResourceFile.exists()) {
         String tmpProcessed = null;
         if ("text/css".equalsIgnoreCase(tmpWebResponse.getContentType())) {
-          String tmpResponse = tmpWebResponse.getContentAsString();
+          final String tmpResponse = tmpWebResponse.getContentAsString();
           FileUtils.forceMkdir(tmpResourceFile.getParentFile());
 
           // process all url(....) inside
@@ -218,9 +218,9 @@ public final class ResponseStore {
         }
 
         if (tmpProcessed == null) {
-          InputStream tmpInStream = tmpWebResponse.getContentAsStream();
+          final InputStream tmpInStream = tmpWebResponse.getContentAsStream();
           FileUtils.forceMkdir(tmpResourceFile.getParentFile());
-          FileOutputStream tmpOutStream = new FileOutputStream(tmpResourceFile);
+          final FileOutputStream tmpOutStream = new FileOutputStream(tmpResourceFile);
           try {
             IOUtils.copy(tmpInStream, tmpOutStream);
           } finally {
@@ -237,23 +237,23 @@ public final class ResponseStore {
 
       tmpResult = "." + tmpFileName;
       return tmpResult;
-    } catch (IOException e) {
+    } catch (final IOException e) {
       LOG.error(e.getMessage(), e);
     }
     return null;
   }
 
-  private String processCSS(String aCssContent, HtmlPage aContaingPage) {
+  private String processCSS(final String aCssContent, final HtmlPage aContaingPage) {
     String tmpContent = aCssContent;
     int tmpStart = 0;
     Matcher tmpMatcher = CSS_URL_PATTERN.matcher(aCssContent);
 
     while (tmpMatcher.find(tmpStart)) {
-      String tmpNewUrl = storeContentFromUrl(aContaingPage, tmpMatcher.group(2), null);
+      final String tmpNewUrl = storeContentFromUrl(aContaingPage, tmpMatcher.group(2), null);
       if (null == tmpNewUrl) {
         tmpStart = tmpMatcher.end();
       } else {
-        String tmpReplacement = "url(" + tmpMatcher.group(1) + tmpNewUrl + tmpMatcher.group(3) + ")";
+        final String tmpReplacement = "url(" + tmpMatcher.group(1) + tmpNewUrl + tmpMatcher.group(3) + ")";
         tmpContent = StringUtils.replace(tmpContent, tmpMatcher.group(0), tmpReplacement);
         tmpStart = tmpMatcher.start() + tmpReplacement.length();
 

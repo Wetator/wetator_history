@@ -66,10 +66,10 @@ public class Wetator extends Task {
             + " Ant: Fileset is required (define a fileset for all your test files).");
       }
 
-      WetEngine tmpWetEngine = new WetEngine();
+      final WetEngine tmpWetEngine = new WetEngine();
       if (classpath != null) {
         log("Classpath:", Project.MSG_INFO);
-        String[] tmpPaths = classpath.list();
+        final String[] tmpPaths = classpath.list();
         for (int i = 0; i < tmpPaths.length; i++) {
           log("    '" + tmpPaths[i] + "'", Project.MSG_INFO);
         }
@@ -78,24 +78,24 @@ public class Wetator extends Task {
         // We are using the system classloader, because this is only needed
         // for 'Exec Java' command. And this command needs nothing from ant;
         // normally ant only disturbs.
-        AntClassLoader tmpClassLoader = new AntClassLoader(ClassLoader.getSystemClassLoader(), getProject(), classpath,
-            false);
+        final AntClassLoader tmpClassLoader = new AntClassLoader(ClassLoader.getSystemClassLoader(), getProject(),
+            classpath, false);
         tmpClassLoader.setThreadContextLoader();
       }
 
       // configuration is relative to the base dir of the project
-      File tmpConfigFile = new File(getProject().getBaseDir(), getConfig());
+      final File tmpConfigFile = new File(getProject().getBaseDir(), getConfig());
       tmpWetEngine.setConfigFileName(tmpConfigFile.getAbsolutePath());
 
-      Map<String, String> tmpOurProperties = getPropertiesFromAnt();
+      final Map<String, String> tmpOurProperties = getPropertiesFromAnt();
       tmpWetEngine.setExternalProperties(tmpOurProperties);
-      AntOutProgressListener tmpListener = new AntOutProgressListener(this);
+      final AntOutProgressListener tmpListener = new AntOutProgressListener(this);
       tmpWetEngine.addProgressListener(tmpListener);
       tmpWetEngine.init();
 
       // add all files
-      DirectoryScanner tmpDirScanner = getFileset().getDirectoryScanner(getProject());
-      String[] tmpListOfFiles = tmpDirScanner.getIncludedFiles();
+      final DirectoryScanner tmpDirScanner = getFileset().getDirectoryScanner(getProject());
+      final String[] tmpListOfFiles = tmpDirScanner.getIncludedFiles();
 
       for (int i = 0; i < tmpListOfFiles.length; i++) {
         tmpWetEngine.addTestFile(new File(tmpDirScanner.getBasedir(), tmpListOfFiles[i]));
@@ -115,7 +115,7 @@ public class Wetator extends Task {
         }
       }
 
-    } catch (Throwable e) {
+    } catch (final Throwable e) {
       throw new BuildException(Version.getProductName() + ": AntTask failed. (" + e.getMessage() + ")", e);
     }
   }
@@ -128,9 +128,9 @@ public class Wetator extends Task {
   @SuppressWarnings("unchecked")
   protected Map<String, String> getPropertiesFromAnt() {
     // read the properties from project
-    Map<String, String> tmpProjectProperties = getProject().getProperties();
-    Map<String, String> tmpOurProperties = new HashMap<String, String>();
-    Set<String> tmpKeys = tmpProjectProperties.keySet();
+    final Map<String, String> tmpProjectProperties = getProject().getProperties();
+    final Map<String, String> tmpOurProperties = new HashMap<String, String>();
+    final Set<String> tmpKeys = tmpProjectProperties.keySet();
     for (String tmpKey : tmpKeys) {
       if (tmpKey.startsWith(WetConfiguration.VARIABLE_PREFIX + WetConfiguration.SECRET_PREFIX)) {
         tmpOurProperties.put(tmpKey, tmpProjectProperties.get(tmpKey));
@@ -145,7 +145,7 @@ public class Wetator extends Task {
 
     // read the properties from property sets
     for (Property tmpProperty : properties) {
-      String tmpName = tmpProperty.getName();
+      final String tmpName = tmpProperty.getName();
       if (tmpName.startsWith(WetConfiguration.VARIABLE_PREFIX + WetConfiguration.SECRET_PREFIX)) {
         log("set property '" + tmpName + "' to '****'", Project.MSG_INFO);
         tmpOurProperties.put(tmpName, tmpProperty.getValue());
@@ -173,7 +173,7 @@ public class Wetator extends Task {
    * 
    * @param aConfig the new config
    */
-  public void setConfig(String aConfig) {
+  public void setConfig(final String aConfig) {
     config = aConfig;
   }
 
@@ -213,7 +213,7 @@ public class Wetator extends Task {
    * 
    * @param aProperty the new proptery
    */
-  public void addProperty(Property aProperty) {
+  public void addProperty(final Property aProperty) {
     properties.add(aProperty);
   }
 
@@ -227,7 +227,7 @@ public class Wetator extends Task {
   /**
    * @param aHaltOnFailure the haltOnFailure to set
    */
-  public void setHaltOnFailure(boolean aHaltOnFailure) {
+  public void setHaltOnFailure(final boolean aHaltOnFailure) {
     haltOnFailure = aHaltOnFailure;
   }
 
@@ -241,7 +241,7 @@ public class Wetator extends Task {
   /**
    * @param aFailureProperty the failureProperty to set
    */
-  public void setFailureProperty(String aFailureProperty) {
+  public void setFailureProperty(final String aFailureProperty) {
     failureProperty = aFailureProperty;
   }
 }

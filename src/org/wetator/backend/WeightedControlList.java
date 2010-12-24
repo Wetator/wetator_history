@@ -72,7 +72,7 @@ public final class WeightedControlList {
 
     private int value;
 
-    private FoundType(int aValue) {
+    private FoundType(final int aValue) {
       value = aValue;
     }
 
@@ -118,7 +118,7 @@ public final class WeightedControlList {
      */
     @Override
     public String toString() {
-      StringBuilder tmpResult = new StringBuilder();
+      final StringBuilder tmpResult = new StringBuilder();
       tmpResult.append(control.getDescribingText());
       tmpResult.append(" found by: " + foundType.toString());
       tmpResult.append(" coverage: " + coverage);
@@ -139,16 +139,16 @@ public final class WeightedControlList {
      */
     @Override
     public int compare(final Entry anEntry1, final Entry anEntry2) {
-      int tmpWeightComp = anEntry1.foundType.getValue() - anEntry2.foundType.getValue();
+      final int tmpWeightComp = anEntry1.foundType.getValue() - anEntry2.foundType.getValue();
 
       if (0 == tmpWeightComp) {
-        int tmpCoverageComp = anEntry1.coverage - anEntry2.coverage;
+        final int tmpCoverageComp = anEntry1.coverage - anEntry2.coverage;
 
         if (0 == tmpCoverageComp) {
-          int tmpDistanceComp = anEntry1.distance - anEntry2.distance;
+          final int tmpDistanceComp = anEntry1.distance - anEntry2.distance;
 
           if (0 == tmpDistanceComp) {
-            int tmpStartComp = anEntry1.start - anEntry2.start;
+            final int tmpStartComp = anEntry1.start - anEntry2.start;
 
             if (0 == tmpStartComp) {
               return anEntry1.control.getDescribingText().compareTo(anEntry2.control.getDescribingText());
@@ -185,8 +185,9 @@ public final class WeightedControlList {
    * @param aDistance the distance
    * @param aStart the start
    */
-  public void add(Control aControl, FoundType aFoundType, int aCoverage, int aDistance, int aStart) {
-    Entry tmpEntry = new Entry();
+  public void add(final Control aControl, final FoundType aFoundType, final int aCoverage, final int aDistance,
+      final int aStart) {
+    final Entry tmpEntry = new Entry();
     tmpEntry.control = aControl;
     tmpEntry.foundType = aFoundType;
     tmpEntry.coverage = aCoverage;
@@ -204,13 +205,13 @@ public final class WeightedControlList {
   public List<Entry> getEntriesSorted() {
     Collections.sort(entries, new EntryComperator());
 
-    List<Entry> tmpResult = new LinkedList<Entry>();
+    final List<Entry> tmpResult = new LinkedList<Entry>();
     for (Entry tmpEntry : entries) {
-      Control tmpControl = tmpEntry.getControl();
+      final Control tmpControl = tmpEntry.getControl();
 
       boolean tmpNotPresent = true;
       for (Entry tmpResultEntry : tmpResult) {
-        Control tmpResultControl = tmpResultEntry.getControl();
+        final Control tmpResultControl = tmpResultEntry.getControl();
         if (tmpResultControl.hasSameBackendControl(tmpControl)) {
           tmpNotPresent = false;
           break;
@@ -229,7 +230,7 @@ public final class WeightedControlList {
    * 
    * @param anOtherWeightedControlList the list of entries to add
    */
-  public void addAll(WeightedControlList anOtherWeightedControlList) {
+  public void addAll(final WeightedControlList anOtherWeightedControlList) {
     entries.addAll(anOtherWeightedControlList.entries);
   }
 

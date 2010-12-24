@@ -36,7 +36,7 @@ public final class Version {
    * 
    * @param anArgsArray ignored
    */
-  public static void main(String[] anArgsArray) {
+  public static void main(final String[] anArgsArray) {
     System.out.println(getFullProductName());
   }
 
@@ -58,7 +58,7 @@ public final class Version {
    * @return the version.
    */
   public static String getVersion() {
-    String tmpVersion = readFromManifest("Version", "local build");
+    final String tmpVersion = readFromManifest("Version", "local build");
     return tmpVersion.replaceAll("_", ".");
   }
 
@@ -76,21 +76,21 @@ public final class Version {
     // nothing
   }
 
-  private static String readFromManifest(String anAttributeName, String aDefault) {
-    Class<?> tmpClass = Version.class;
-    String tmpClassName = tmpClass.getSimpleName();
-    String tmpClassFileName = tmpClassName + ".class";
-    String tmpPathToThisClass = tmpClass.getResource(tmpClassFileName).toExternalForm();
+  private static String readFromManifest(final String anAttributeName, final String aDefault) {
+    final Class<?> tmpClass = Version.class;
+    final String tmpClassName = tmpClass.getSimpleName();
+    final String tmpClassFileName = tmpClassName + ".class";
+    final String tmpPathToThisClass = tmpClass.getResource(tmpClassFileName).toExternalForm();
 
-    int tmpPos = tmpPathToThisClass.indexOf("!");
+    final int tmpPos = tmpPathToThisClass.indexOf("!");
     String tmpPathToManifest = tmpPathToThisClass.substring(0, tmpPos + 1);
     tmpPathToManifest = tmpPathToManifest + "/META-INF/MANIFEST.MF";
     Manifest tmpManifest;
     try {
       tmpManifest = new Manifest(new URL(tmpPathToManifest).openStream());
-      String tmpValue = tmpManifest.getAttributes("Application").getValue(anAttributeName);
+      final String tmpValue = tmpManifest.getAttributes("Application").getValue(anAttributeName);
       return tmpValue;
-    } catch (Exception e) {
+    } catch (final Exception e) {
       return aDefault;
     }
   }

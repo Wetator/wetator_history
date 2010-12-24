@@ -44,7 +44,7 @@ public final class WetatorScriptConverter {
    * @param anArgsArray
    *        the command line arguments
    */
-  public static void main(String[] anArgsArray) {
+  public static void main(final String[] anArgsArray) {
     LOG.info(Version.getFullProductName());
     LOG.info("    " + com.gargoylesoftware.htmlunit.Version.getProductName() + " "
         + com.gargoylesoftware.htmlunit.Version.getProductVersion());
@@ -56,27 +56,27 @@ public final class WetatorScriptConverter {
       System.exit(1);
       return;
     }
-    String tmpScripterType = anArgsArray[0];
-    String tmpScriptCreatorType = anArgsArray[1];
-    String tmpOutputDir = anArgsArray[2];
+    final String tmpScripterType = anArgsArray[0];
+    final String tmpScriptCreatorType = anArgsArray[1];
+    final String tmpOutputDir = anArgsArray[2];
     LOG.info("Starting converter using scripter '" + tmpScripterType + "', script creator '" + tmpScriptCreatorType
         + " and output directory '" + tmpOutputDir + "'.");
 
-    WetScriptConverter tmpConverter = new WetScriptConverter();
+    final WetScriptConverter tmpConverter = new WetScriptConverter();
     try {
-      Scripter tmpScripter = Scripter.valueOf(tmpScripterType.toUpperCase());
-      WetScripter tmpWetScripter = tmpScripter.getWetScripter();
-      ScriptCreator tmpScriptCreator = ScriptCreator.valueOf(tmpScriptCreatorType.toUpperCase());
-      WetScriptCreator tmpCreator = tmpScriptCreator.getWetScriptCreator();
+      final Scripter tmpScripter = Scripter.valueOf(tmpScripterType.toUpperCase());
+      final WetScripter tmpWetScripter = tmpScripter.getWetScripter();
+      final ScriptCreator tmpScriptCreator = ScriptCreator.valueOf(tmpScriptCreatorType.toUpperCase());
+      final WetScriptCreator tmpCreator = tmpScriptCreator.getWetScriptCreator();
       tmpCreator.setOutputDir(tmpOutputDir);
       if (tmpCreator instanceof XmlScriptCreator && anArgsArray.length == 5) {
-        String tmpDtd = anArgsArray[3] + " \"" + anArgsArray[4] + "\"";
+        final String tmpDtd = anArgsArray[3] + " \"" + anArgsArray[4] + "\"";
         LOG.info("Using DTD '" + tmpDtd + "'.");
         ((XmlScriptCreator) tmpCreator).setDtd(tmpDtd);
       }
       tmpConverter.setScripter(tmpWetScripter);
       tmpConverter.setCreator(tmpCreator);
-      File[] tmpFiles = DialogUtil.chooseFiles();
+      final File[] tmpFiles = DialogUtil.chooseFiles();
       if (null == tmpFiles || (tmpFiles.length < 1)) {
         return;
       }
@@ -88,7 +88,7 @@ public final class WetatorScriptConverter {
       LOG.info("Begin converting...");
       tmpConverter.convert();
       LOG.info("Converting successfully completed.");
-    } catch (WetException e) {
+    } catch (final WetException e) {
       e.printStackTrace();
       System.exit(1);
     }

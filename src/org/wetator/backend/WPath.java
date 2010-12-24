@@ -41,7 +41,7 @@ public class WPath {
    * 
    * @param aPathNodes the nodes of the path
    */
-  public WPath(List<SecretString> aPathNodes) {
+  public WPath(final List<SecretString> aPathNodes) {
     rawPath = aPathNodes;
     parseNodes();
   }
@@ -147,7 +147,7 @@ public class WPath {
      * 
      * @param aTableCoordinates the {@link SecretString} containing the table coordinates
      */
-    public TableCoordinate(SecretString aTableCoordinates) {
+    public TableCoordinate(final SecretString aTableCoordinates) {
       String tmpTableCoordinates = aTableCoordinates.getValue();
       String tmpTableCoordinatesString = aTableCoordinates.toString();
       if (!tmpTableCoordinates.startsWith("[") || !tmpTableCoordinates.endsWith("]")) {
@@ -157,8 +157,8 @@ public class WPath {
       tmpTableCoordinates = tmpTableCoordinates.substring(1, tmpTableCoordinates.length() - 1);
       tmpTableCoordinatesString = tmpTableCoordinatesString.substring(1, tmpTableCoordinatesString.length() - 1);
       if (tmpTableCoordinates.contains(";")) {
-        String[] tmpCoordinates = tmpTableCoordinates.split(";");
-        String[] tmpCoordinatesString = tmpTableCoordinatesString.split(";");
+        final String[] tmpCoordinates = tmpTableCoordinates.split(";");
+        final String[] tmpCoordinatesString = tmpTableCoordinatesString.split(";");
         if (tmpCoordinates.length > 2) {
           throw new WetException(aTableCoordinates.toString() + " is not a valid table coordinate.");
         }

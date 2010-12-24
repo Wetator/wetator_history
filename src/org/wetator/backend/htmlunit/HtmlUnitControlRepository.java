@@ -55,7 +55,7 @@ public class HtmlUnitControlRepository {
   /**
    * @param aControlClassList the classes of the controls to add
    */
-  public void addAll(List<Class<? extends Control>> aControlClassList) {
+  public void addAll(final List<Class<? extends Control>> aControlClassList) {
     if (aControlClassList != null) {
       for (Class<? extends Control> tmpControlClass : aControlClassList) {
         add(tmpControlClass);
@@ -67,16 +67,16 @@ public class HtmlUnitControlRepository {
    * @param aControlClass the class of the control to add
    */
   @SuppressWarnings("unchecked")
-  public void add(Class<? extends Control> aControlClass) {
+  public void add(final Class<? extends Control> aControlClass) {
     if (aControlClass == null) {
       return;
     }
     if (HtmlUnitBaseControl.class.isAssignableFrom(aControlClass)) {
-      ForHtmlElement tmpForHtmlElement = aControlClass.getAnnotation(ForHtmlElement.class);
+      final ForHtmlElement tmpForHtmlElement = aControlClass.getAnnotation(ForHtmlElement.class);
       if (tmpForHtmlElement != null) {
-        Class<? extends HtmlElement> tmpHtmlElementClass = tmpForHtmlElement.value();
-        String tmpAttributeName = tmpForHtmlElement.attributeName();
-        String[] tmpAttributeValues = tmpForHtmlElement.attributeValues();
+        final Class<? extends HtmlElement> tmpHtmlElementClass = tmpForHtmlElement.value();
+        final String tmpAttributeName = tmpForHtmlElement.attributeName();
+        final String[] tmpAttributeValues = tmpForHtmlElement.attributeValues();
 
         if (StringUtils.isEmpty(tmpAttributeName) || tmpAttributeValues == null || tmpAttributeValues.length == 0) {
           forElementMap.put(tmpHtmlElementClass.getName(), (Class<HtmlUnitBaseControl<?>>) aControlClass);
@@ -93,10 +93,10 @@ public class HtmlUnitControlRepository {
         }
       }
 
-      IdentifiedBy tmpIdentifiers = aControlClass.getAnnotation(IdentifiedBy.class);
+      final IdentifiedBy tmpIdentifiers = aControlClass.getAnnotation(IdentifiedBy.class);
       if (tmpIdentifiers != null) {
-        List<Class<? extends AbstractHtmlUnitControlIdentifier>> tmpIdentifierClasses = Arrays.asList(tmpIdentifiers
-            .value());
+        final List<Class<? extends AbstractHtmlUnitControlIdentifier>> tmpIdentifierClasses = Arrays
+            .asList(tmpIdentifiers.value());
 
         boolean tmpFound = false;
         if (Settable.class.isAssignableFrom(aControlClass)) {
@@ -126,15 +126,15 @@ public class HtmlUnitControlRepository {
    * @param anHtmlElement the {@link HtmlElement}
    * @return the control for the given {@link HtmlElement}
    */
-  public Class<? extends HtmlUnitBaseControl<?>> getForHtmlElement(HtmlElement anHtmlElement) {
+  public Class<? extends HtmlUnitBaseControl<?>> getForHtmlElement(final HtmlElement anHtmlElement) {
     if (anHtmlElement == null) {
       return null;
     }
-    Map<String, Class<HtmlUnitBaseControl<?>>> tmpAttributeMap = forElementAndAttributeMap.get(anHtmlElement.getClass()
-        .getName());
+    final Map<String, Class<HtmlUnitBaseControl<?>>> tmpAttributeMap = forElementAndAttributeMap.get(anHtmlElement
+        .getClass().getName());
     if (tmpAttributeMap != null) {
       for (Entry<String, Class<HtmlUnitBaseControl<?>>> tmpEntry : tmpAttributeMap.entrySet()) {
-        String[] tmpParts = tmpEntry.getKey().split("\\|\\|");
+        final String[] tmpParts = tmpEntry.getKey().split("\\|\\|");
         if (tmpParts[1].equals(anHtmlElement.getAttribute(tmpParts[0]))) {
           return tmpEntry.getValue();
         }

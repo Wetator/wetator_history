@@ -42,18 +42,18 @@ public final class Wetator {
    * 
    * @param anArgsArray the command line arguments
    */
-  public static void main(String[] anArgsArray) {
+  public static void main(final String[] anArgsArray) {
     LOG.info(Version.getFullProductName());
     LOG.info("    " + com.gargoylesoftware.htmlunit.Version.getProductName() + " "
         + com.gargoylesoftware.htmlunit.Version.getProductVersion());
 
-    WetProgressListener tmpProgressListener = new StdOutProgressListener();
+    final WetProgressListener tmpProgressListener = new StdOutProgressListener();
 
     String tmpConfigFileName = null;
-    List<String> tmpFileNames = new LinkedList<String>();
+    final List<String> tmpFileNames = new LinkedList<String>();
     // parse the command line
     for (int i = 0; i < anArgsArray.length; i++) {
-      String tmpArg = anArgsArray[i].trim();
+      final String tmpArg = anArgsArray[i].trim();
       if ("-p".equals(tmpArg) && i < (anArgsArray.length - 1)) {
         tmpConfigFileName = anArgsArray[i + 1];
         i++;
@@ -73,7 +73,7 @@ public final class Wetator {
       tmpWetEngine.init();
 
       if (tmpFileNames.isEmpty()) {
-        File[] tmpFiles = DialogUtil.chooseFiles();
+        final File[] tmpFiles = DialogUtil.chooseFiles();
         if (null == tmpFiles || (tmpFiles.length < 1)) {
           return;
         }
@@ -89,12 +89,12 @@ public final class Wetator {
 
       tmpWetEngine.executeTests();
       // SearchPattern.dumpStatistics();
-    } catch (WetException e) {
+    } catch (final WetException e) {
       System.out.println("Wetator execution failed: " + e.getMessage());
       LOG.warn("Wetator execution failed:", e);
       // System.exit is needed because we have started swing
       System.exit(1);
-    } catch (Throwable e) {
+    } catch (final Throwable e) {
       System.out.println("Wetator execution failed: " + e.getMessage());
       LOG.fatal("Wetator execution failed:", e);
       // System.exit is needed because we have started swing

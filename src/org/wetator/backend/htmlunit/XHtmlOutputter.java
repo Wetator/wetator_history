@@ -123,7 +123,7 @@ public final class XHtmlOutputter {
    * @param aResponseStore the response store that is responsible to store files
    *        linked from this page. The links are changed to point to this page
    */
-  public XHtmlOutputter(HtmlPage anHtmlPage, ResponseStore aResponseStore) {
+  public XHtmlOutputter(final HtmlPage anHtmlPage, final ResponseStore aResponseStore) {
     super();
     htmlPage = anHtmlPage;
     responseStore = aResponseStore;
@@ -135,8 +135,8 @@ public final class XHtmlOutputter {
    * @param aFile the file to write to
    * @throws IOException in case of error
    */
-  public void writeTo(File aFile) throws IOException {
-    FileWriterWithEncoding tmpFileWriter = new FileWriterWithEncoding(aFile, htmlPage.getPageEncoding());
+  public void writeTo(final File aFile) throws IOException {
+    final FileWriterWithEncoding tmpFileWriter = new FileWriterWithEncoding(aFile, htmlPage.getPageEncoding());
     writeTo(tmpFileWriter);
   }
 
@@ -146,7 +146,7 @@ public final class XHtmlOutputter {
    * @param aWriter the writer to write on
    * @throws IOException in case of error
    */
-  public void writeTo(Writer aWriter) throws IOException {
+  public void writeTo(final Writer aWriter) throws IOException {
     try {
       xmlUtil = new XmlUtil(htmlPage.getPageEncoding());
       output = new Output(aWriter, "  ");
@@ -169,7 +169,7 @@ public final class XHtmlOutputter {
    * @param aDomNode the parent node
    * @throws IOException in case of error
    */
-  protected void writeSubNodes(DomNode aDomNode) throws IOException {
+  protected void writeSubNodes(final DomNode aDomNode) throws IOException {
     DomNode tmpChild;
 
     tmpChild = aDomNode.getFirstChild();
@@ -191,7 +191,7 @@ public final class XHtmlOutputter {
    * @param aDomNode the node to work on
    * @throws IOException in case of error
    */
-  protected void writeStartTag(DomNode aDomNode) throws IOException {
+  protected void writeStartTag(final DomNode aDomNode) throws IOException {
     if (aDomNode instanceof HtmlHtml) {
       output.println("<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\" lang=\"en\">");
     } else if (aDomNode instanceof HtmlUnknownElement) {
@@ -200,7 +200,7 @@ public final class XHtmlOutputter {
       writeAttributes(aDomNode);
       output.println(">");
     } else if (aDomNode instanceof DomDocumentType) {
-      DomDocumentType tmpDocumentType = (DomDocumentType) aDomNode;
+      final DomDocumentType tmpDocumentType = (DomDocumentType) aDomNode;
       output.println("<!-- org doctype");
       output.print("     <!DOCTYPE ");
       output.print(tmpDocumentType.getName());
@@ -225,7 +225,7 @@ public final class XHtmlOutputter {
         output.println(">");
       }
     } else if (aDomNode instanceof DomText) {
-      String tmpText = aDomNode.asText();
+      final String tmpText = aDomNode.asText();
       if (StringUtils.isEmpty(tmpText)) {
         output.print(tmpText);
       } else {
@@ -260,7 +260,7 @@ public final class XHtmlOutputter {
    * @param aDomNode the node to work on
    * @throws IOException in case of error
    */
-  protected void writeEndTag(DomNode aDomNode) throws IOException {
+  protected void writeEndTag(final DomNode aDomNode) throws IOException {
     if (aDomNode instanceof HtmlHtml) {
       output.println("</html>");
     } else if (aDomNode instanceof HtmlUnknownElement) {
@@ -287,36 +287,36 @@ public final class XHtmlOutputter {
    * @param aDomNode the node to work on
    * @throws IOException in case of error
    */
-  protected void writeAttributes(DomNode aDomNode) throws IOException {
+  protected void writeAttributes(final DomNode aDomNode) throws IOException {
     if (aDomNode instanceof HtmlElement) {
-      HtmlElement tmpHtmlElement = (HtmlElement) aDomNode;
+      final HtmlElement tmpHtmlElement = (HtmlElement) aDomNode;
 
       boolean tmpIsCssLink = false;
       if (tmpHtmlElement instanceof HtmlLink) {
-        HtmlLink tmpHtmlLink = (HtmlLink) tmpHtmlElement;
+        final HtmlLink tmpHtmlLink = (HtmlLink) tmpHtmlElement;
 
         if ("text/css".equals(tmpHtmlLink.getTypeAttribute()) && "stylesheet".equals(tmpHtmlLink.getRelAttribute())) {
           tmpIsCssLink = true;
         }
       }
 
-      boolean tmpIsHtmlImage = tmpHtmlElement instanceof HtmlImage;
-      boolean tmpIsHtmlPasswordInput = tmpHtmlElement instanceof HtmlPasswordInput;
+      final boolean tmpIsHtmlImage = tmpHtmlElement instanceof HtmlImage;
+      final boolean tmpIsHtmlPasswordInput = tmpHtmlElement instanceof HtmlPasswordInput;
 
-      Iterable<DomAttr> tmpAttributeEntries = tmpHtmlElement.getAttributesMap().values();
+      final Iterable<DomAttr> tmpAttributeEntries = tmpHtmlElement.getAttributesMap().values();
       for (DomAttr tmpAttribute : tmpAttributeEntries) {
-        String tmpAttributeName = tmpAttribute.getNodeName().toLowerCase();
+        final String tmpAttributeName = tmpAttribute.getNodeName().toLowerCase();
         String tmpAttributeValue = tmpAttribute.getNodeValue();
 
         if (tmpIsCssLink && ("href".equals(tmpAttributeName))) {
-          String tmpStoredFileName = responseStore.storeContentFromUrl(htmlPage, tmpAttributeValue, ".css");
+          final String tmpStoredFileName = responseStore.storeContentFromUrl(htmlPage, tmpAttributeValue, ".css");
           if (null != tmpStoredFileName) {
             tmpAttributeValue = tmpStoredFileName;
           }
         }
 
         if (tmpIsHtmlImage && ("src".equals(tmpAttributeName))) {
-          String tmpStoredFileName = responseStore.storeContentFromUrl(htmlPage, tmpAttributeValue, null);
+          final String tmpStoredFileName = responseStore.storeContentFromUrl(htmlPage, tmpAttributeValue, null);
           if (null != tmpStoredFileName) {
             tmpAttributeValue = tmpStoredFileName;
           }
@@ -351,10 +351,10 @@ public final class XHtmlOutputter {
 
     while (tmpNodeClass != HtmlElement.class) {
       try {
-        Field tmpField = tmpNodeClass.getDeclaredField("TAG_NAME");
+        final Field tmpField = tmpNodeClass.getDeclaredField("TAG_NAME");
         tmpTag = (String) tmpField.get(null);
         return tmpTag;
-      } catch (Exception e) {
+      } catch (final Exception e) {
         // ignore
       }
       tmpNodeClass = tmpNodeClass.getSuperclass();
