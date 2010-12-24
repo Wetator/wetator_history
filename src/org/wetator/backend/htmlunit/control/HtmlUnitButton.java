@@ -41,7 +41,7 @@ public class HtmlUnitButton extends HtmlUnitBaseControl<HtmlButton> implements C
    * 
    * @param anHtmlElement the {@link HtmlButton} from the backend
    */
-  public HtmlUnitButton(HtmlButton anHtmlElement) {
+  public HtmlUnitButton(final HtmlButton anHtmlElement) {
     super(anHtmlElement);
   }
 
@@ -62,7 +62,7 @@ public class HtmlUnitButton extends HtmlUnitBaseControl<HtmlButton> implements C
    */
   @Override
   public boolean isDisabled(final WetContext aWetContext) throws AssertionFailedException {
-    HtmlButton tmpHtmlButton = getHtmlElement();
+    final HtmlButton tmpHtmlButton = getHtmlElement();
 
     return tmpHtmlButton.isDisabled();
   }

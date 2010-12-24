@@ -40,7 +40,7 @@ public class HtmlUnitOptionGroup extends HtmlUnitBaseControl<HtmlOptionGroup> {
    * 
    * @param anHtmlElement the {@link HtmlOptionGroup} from the backend
    */
-  public HtmlUnitOptionGroup(HtmlOptionGroup anHtmlElement) {
+  public HtmlUnitOptionGroup(final HtmlOptionGroup anHtmlElement) {
     super(anHtmlElement);
   }
 
@@ -61,7 +61,7 @@ public class HtmlUnitOptionGroup extends HtmlUnitBaseControl<HtmlOptionGroup> {
    */
   @Override
   public boolean isDisabled(final WetContext aWetContext) throws AssertionFailedException {
-    HtmlOptionGroup tmpHtmlOptionGroup = getHtmlElement();
+    final HtmlOptionGroup tmpHtmlOptionGroup = getHtmlElement();
 
     return tmpHtmlOptionGroup.isDisabled();
   }

@@ -47,7 +47,7 @@ public class HtmlUnitInputCheckBox extends HtmlUnitBaseControl<HtmlCheckBoxInput
    * 
    * @param anHtmlElement the {@link HtmlCheckBoxInput} from the backend
    */
-  public HtmlUnitInputCheckBox(HtmlCheckBoxInput anHtmlElement) {
+  public HtmlUnitInputCheckBox(final HtmlCheckBoxInput anHtmlElement) {
     super(anHtmlElement);
   }
 
@@ -67,8 +67,8 @@ public class HtmlUnitInputCheckBox extends HtmlUnitBaseControl<HtmlCheckBoxInput
    * @see org.wetator.backend.control.Selectable#select(org.wetator.core.WetContext)
    */
   @Override
-  public void select(WetContext aWetContext) throws AssertionFailedException {
-    HtmlCheckBoxInput tmpHtmlCheckBoxInput = getHtmlElement();
+  public void select(final WetContext aWetContext) throws AssertionFailedException {
+    final HtmlCheckBoxInput tmpHtmlCheckBoxInput = getHtmlElement();
 
     Assert.assertTrue(!tmpHtmlCheckBoxInput.isDisabled(), "elementDisabled", new String[] { getDescribingText() });
 
@@ -80,15 +80,15 @@ public class HtmlUnitInputCheckBox extends HtmlUnitBaseControl<HtmlCheckBoxInput
 
       // wait for silence
       aWetContext.getWetBackend().waitForImmediateJobs();
-    } catch (ScriptException e) {
+    } catch (final ScriptException e) {
       aWetContext.getWetBackend().addFailure("javascriptError", new String[] { e.getMessage() }, e);
-    } catch (WrappedException e) {
-      Exception tmpScriptException = ExceptionUtil.getScriptExceptionCauseIfPossible(e);
+    } catch (final WrappedException e) {
+      final Exception tmpScriptException = ExceptionUtil.getScriptExceptionCauseIfPossible(e);
       aWetContext.getWetBackend().addFailure("javascriptError", new String[] { tmpScriptException.getMessage() },
           tmpScriptException);
-    } catch (AssertionFailedException e) {
+    } catch (final AssertionFailedException e) {
       aWetContext.getWetBackend().addFailure(e);
-    } catch (Throwable e) {
+    } catch (final Throwable e) {
       aWetContext.getWetBackend().addFailure("serverError", new String[] { e.getMessage(), getDescribingText() }, e);
     }
   }
@@ -99,8 +99,8 @@ public class HtmlUnitInputCheckBox extends HtmlUnitBaseControl<HtmlCheckBoxInput
    * @see org.wetator.backend.control.Selectable#isSelected(org.wetator.core.WetContext)
    */
   @Override
-  public boolean isSelected(WetContext aWetContext) throws AssertionFailedException {
-    HtmlCheckBoxInput tmpHtmlCheckBoxInput = getHtmlElement();
+  public boolean isSelected(final WetContext aWetContext) throws AssertionFailedException {
+    final HtmlCheckBoxInput tmpHtmlCheckBoxInput = getHtmlElement();
 
     return tmpHtmlCheckBoxInput.isChecked();
   }
@@ -111,8 +111,8 @@ public class HtmlUnitInputCheckBox extends HtmlUnitBaseControl<HtmlCheckBoxInput
    * @see org.wetator.backend.control.Deselectable#deselect(org.wetator.core.WetContext)
    */
   @Override
-  public void deselect(WetContext aWetContext) throws AssertionFailedException {
-    HtmlCheckBoxInput tmpHtmlCheckBoxInput = getHtmlElement();
+  public void deselect(final WetContext aWetContext) throws AssertionFailedException {
+    final HtmlCheckBoxInput tmpHtmlCheckBoxInput = getHtmlElement();
 
     Assert.assertTrue(!tmpHtmlCheckBoxInput.isDisabled(), "elementDisabled", new String[] { getDescribingText() });
     Assert.assertTrue(!tmpHtmlCheckBoxInput.isReadOnly(), "elementReadOnly", new String[] { getDescribingText() });
@@ -125,15 +125,15 @@ public class HtmlUnitInputCheckBox extends HtmlUnitBaseControl<HtmlCheckBoxInput
 
       // wait for silence
       aWetContext.getWetBackend().waitForImmediateJobs();
-    } catch (ScriptException e) {
+    } catch (final ScriptException e) {
       aWetContext.getWetBackend().addFailure("javascriptError", new String[] { e.getMessage() }, e);
-    } catch (WrappedException e) {
-      Exception tmpScriptException = ExceptionUtil.getScriptExceptionCauseIfPossible(e);
+    } catch (final WrappedException e) {
+      final Exception tmpScriptException = ExceptionUtil.getScriptExceptionCauseIfPossible(e);
       aWetContext.getWetBackend().addFailure("javascriptError", new String[] { tmpScriptException.getMessage() },
           tmpScriptException);
-    } catch (AssertionFailedException e) {
+    } catch (final AssertionFailedException e) {
       aWetContext.getWetBackend().addFailure(e);
-    } catch (Throwable e) {
+    } catch (final Throwable e) {
       aWetContext.getWetBackend().addFailure("serverError", new String[] { e.getMessage(), getDescribingText() }, e);
     }
   }
@@ -145,7 +145,7 @@ public class HtmlUnitInputCheckBox extends HtmlUnitBaseControl<HtmlCheckBoxInput
    */
   @Override
   public boolean isDisabled(final WetContext aWetContext) throws AssertionFailedException {
-    HtmlCheckBoxInput tmpHtmlCheckBoxInput = getHtmlElement();
+    final HtmlCheckBoxInput tmpHtmlCheckBoxInput = getHtmlElement();
 
     return tmpHtmlCheckBoxInput.isDisabled();
   }

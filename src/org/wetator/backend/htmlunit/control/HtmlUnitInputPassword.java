@@ -54,7 +54,7 @@ public class HtmlUnitInputPassword extends HtmlUnitBaseControl<HtmlPasswordInput
    * 
    * @param anHtmlElement the {@link HtmlPasswordInput} from the backend
    */
-  public HtmlUnitInputPassword(HtmlPasswordInput anHtmlElement) {
+  public HtmlUnitInputPassword(final HtmlPasswordInput anHtmlElement) {
     super(anHtmlElement);
   }
 
@@ -75,62 +75,64 @@ public class HtmlUnitInputPassword extends HtmlUnitBaseControl<HtmlPasswordInput
    *      java.io.File)
    */
   @Override
-  public void setValue(WetContext aWetContext, SecretString aValue, File aDirectory) throws AssertionFailedException {
-    HtmlPasswordInput tmpHtmlPasswordInput = getHtmlElement();
+  public void setValue(final WetContext aWetContext, final SecretString aValue, final File aDirectory)
+      throws AssertionFailedException {
+    final HtmlPasswordInput tmpHtmlPasswordInput = getHtmlElement();
 
     Assert.assertTrue(!tmpHtmlPasswordInput.isDisabled(), "elementDisabled", new String[] { getDescribingText() });
     Assert.assertTrue(!tmpHtmlPasswordInput.isReadOnly(), "elementReadOnly", new String[] { getDescribingText() });
 
     try {
       tmpHtmlPasswordInput.click();
-    } catch (IOException e) {
+    } catch (final IOException e) {
       aWetContext.getWetBackend().addFailure("serverError", new String[] { e.getMessage(), getDescribingText() }, e);
-    } catch (ScriptException e) {
+    } catch (final ScriptException e) {
       aWetContext.getWetBackend().addFailure("javascriptError", new String[] { e.getMessage() }, e);
-    } catch (WrappedException e) {
-      Exception tmpScriptException = ExceptionUtil.getScriptExceptionCauseIfPossible(e);
+    } catch (final WrappedException e) {
+      final Exception tmpScriptException = ExceptionUtil.getScriptExceptionCauseIfPossible(e);
       aWetContext.getWetBackend().addFailure("javascriptError", new String[] { tmpScriptException.getMessage() },
           tmpScriptException);
     }
 
     try {
-      String tmpValue = aValue.getValue();
+      final String tmpValue = aValue.getValue();
       tmpHtmlPasswordInput.select();
 
       if (tmpValue.length() > 0) {
         tmpHtmlPasswordInput.type(tmpValue);
       } else {
         // no way to simulate type of the del key
-        char tmpDel = (char) 46;
+        final char tmpDel = (char) 46;
 
-        Event tmpKeyDownEvent = new KeyboardEvent(tmpHtmlPasswordInput, Event.TYPE_KEY_DOWN, tmpDel, false, false,
-            false);
-        ScriptResult tmpKeyDownResult = tmpHtmlPasswordInput.fireEvent(tmpKeyDownEvent);
+        final Event tmpKeyDownEvent = new KeyboardEvent(tmpHtmlPasswordInput, Event.TYPE_KEY_DOWN, tmpDel, false,
+            false, false);
+        final ScriptResult tmpKeyDownResult = tmpHtmlPasswordInput.fireEvent(tmpKeyDownEvent);
 
-        Event tmpKeyPressEvent = new KeyboardEvent(tmpHtmlPasswordInput, Event.TYPE_KEY_PRESS, tmpDel, false, false,
-            false);
-        ScriptResult tmpKeyPressResult = tmpHtmlPasswordInput.fireEvent(tmpKeyPressEvent);
+        final Event tmpKeyPressEvent = new KeyboardEvent(tmpHtmlPasswordInput, Event.TYPE_KEY_PRESS, tmpDel, false,
+            false, false);
+        final ScriptResult tmpKeyPressResult = tmpHtmlPasswordInput.fireEvent(tmpKeyPressEvent);
 
         if (!tmpKeyDownEvent.isAborted(tmpKeyDownResult) && !tmpKeyPressEvent.isAborted(tmpKeyPressResult)) {
           // do it this way to not trigger the onChange handler
           tmpHtmlPasswordInput.setAttribute("value", "");
         }
 
-        Event tmpKeyUpEvent = new KeyboardEvent(tmpHtmlPasswordInput, Event.TYPE_KEY_UP, tmpDel, false, false, false);
+        final Event tmpKeyUpEvent = new KeyboardEvent(tmpHtmlPasswordInput, Event.TYPE_KEY_UP, tmpDel, false, false,
+            false);
         tmpHtmlPasswordInput.fireEvent(tmpKeyUpEvent);
       }
 
       // wait for silence
       aWetContext.getWetBackend().waitForImmediateJobs();
-    } catch (ScriptException e) {
+    } catch (final ScriptException e) {
       aWetContext.getWetBackend().addFailure("javascriptError", new String[] { e.getMessage() }, e);
-    } catch (WrappedException e) {
-      Exception tmpScriptException = ExceptionUtil.getScriptExceptionCauseIfPossible(e);
+    } catch (final WrappedException e) {
+      final Exception tmpScriptException = ExceptionUtil.getScriptExceptionCauseIfPossible(e);
       aWetContext.getWetBackend().addFailure("javascriptError", new String[] { tmpScriptException.getMessage() },
           tmpScriptException);
-    } catch (AssertionFailedException e) {
+    } catch (final AssertionFailedException e) {
       aWetContext.getWetBackend().addFailure(e);
-    } catch (Throwable e) {
+    } catch (final Throwable e) {
       aWetContext.getWetBackend().addFailure("serverError", new String[] { e.getMessage(), getDescribingText() }, e);
     }
   }
@@ -141,7 +143,8 @@ public class HtmlUnitInputPassword extends HtmlUnitBaseControl<HtmlPasswordInput
    * @see org.wetator.backend.control.Settable#assertValue(org.wetator.core.WetContext, org.wetator.util.SecretString)
    */
   @Override
-  public void assertValue(WetContext aWetContext, SecretString anExpectedValue) throws AssertionFailedException {
+  public void assertValue(final WetContext aWetContext, final SecretString anExpectedValue)
+      throws AssertionFailedException {
     Assert.assertEquals(anExpectedValue, getHtmlElement().getValueAttribute(), "expectedValueNotFound", null);
   }
 
@@ -152,7 +155,7 @@ public class HtmlUnitInputPassword extends HtmlUnitBaseControl<HtmlPasswordInput
    */
   @Override
   public boolean isDisabled(final WetContext aWetContext) throws AssertionFailedException {
-    HtmlPasswordInput tmpHtmlPasswordInput = getHtmlElement();
+    final HtmlPasswordInput tmpHtmlPasswordInput = getHtmlElement();
 
     return tmpHtmlPasswordInput.isDisabled() || tmpHtmlPasswordInput.isReadOnly();
   }

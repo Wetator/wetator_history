@@ -51,7 +51,7 @@ public class HtmlUnitTextArea extends HtmlUnitBaseControl<HtmlTextArea> implemen
    * 
    * @param anHtmlElement the {@link HtmlTextArea} from the backend
    */
-  public HtmlUnitTextArea(HtmlTextArea anHtmlElement) {
+  public HtmlUnitTextArea(final HtmlTextArea anHtmlElement) {
     super(anHtmlElement);
   }
 
@@ -72,26 +72,27 @@ public class HtmlUnitTextArea extends HtmlUnitBaseControl<HtmlTextArea> implemen
    *      java.io.File)
    */
   @Override
-  public void setValue(WetContext aWetContext, SecretString aValue, File aDirectory) throws AssertionFailedException {
-    HtmlTextArea tmpHtmlTextArea = getHtmlElement();
+  public void setValue(final WetContext aWetContext, final SecretString aValue, final File aDirectory)
+      throws AssertionFailedException {
+    final HtmlTextArea tmpHtmlTextArea = getHtmlElement();
 
     Assert.assertTrue(!tmpHtmlTextArea.isDisabled(), "elementDisabled", new String[] { getDescribingText() });
     Assert.assertTrue(!tmpHtmlTextArea.isReadOnly(), "elementReadOnly", new String[] { getDescribingText() });
 
     try {
       tmpHtmlTextArea.click();
-    } catch (IOException e) {
+    } catch (final IOException e) {
       aWetContext.getWetBackend().addFailure("serverError", new String[] { e.getMessage(), getDescribingText() }, e);
-    } catch (ScriptException e) {
+    } catch (final ScriptException e) {
       aWetContext.getWetBackend().addFailure("javascriptError", new String[] { e.getMessage() }, e);
-    } catch (WrappedException e) {
-      Exception tmpScriptException = ExceptionUtil.getScriptExceptionCauseIfPossible(e);
+    } catch (final WrappedException e) {
+      final Exception tmpScriptException = ExceptionUtil.getScriptExceptionCauseIfPossible(e);
       aWetContext.getWetBackend().addFailure("javascriptError", new String[] { tmpScriptException.getMessage() },
           tmpScriptException);
     }
 
     try {
-      String tmpValue = aValue.getValue();
+      final String tmpValue = aValue.getValue();
       tmpHtmlTextArea.select();
 
       if (StringUtils.isNotBlank(tmpValue)) {
@@ -102,15 +103,15 @@ public class HtmlUnitTextArea extends HtmlUnitBaseControl<HtmlTextArea> implemen
 
       // wait for silence
       aWetContext.getWetBackend().waitForImmediateJobs();
-    } catch (ScriptException e) {
+    } catch (final ScriptException e) {
       aWetContext.getWetBackend().addFailure("javascriptError", new String[] { e.getMessage() }, e);
-    } catch (WrappedException e) {
-      Exception tmpScriptException = ExceptionUtil.getScriptExceptionCauseIfPossible(e);
+    } catch (final WrappedException e) {
+      final Exception tmpScriptException = ExceptionUtil.getScriptExceptionCauseIfPossible(e);
       aWetContext.getWetBackend().addFailure("javascriptError", new String[] { tmpScriptException.getMessage() },
           tmpScriptException);
-    } catch (AssertionFailedException e) {
+    } catch (final AssertionFailedException e) {
       aWetContext.getWetBackend().addFailure(e);
-    } catch (Throwable e) {
+    } catch (final Throwable e) {
       aWetContext.getWetBackend().addFailure("serverError", new String[] { e.getMessage(), getDescribingText() }, e);
     }
   }
@@ -121,7 +122,8 @@ public class HtmlUnitTextArea extends HtmlUnitBaseControl<HtmlTextArea> implemen
    * @see org.wetator.backend.control.Settable#assertValue(org.wetator.core.WetContext, org.wetator.util.SecretString)
    */
   @Override
-  public void assertValue(WetContext aWetContext, SecretString anExpectedValue) throws AssertionFailedException {
+  public void assertValue(final WetContext aWetContext, final SecretString anExpectedValue)
+      throws AssertionFailedException {
     Assert.assertEquals(anExpectedValue, getHtmlElement().getText(), "expectedValueNotFound", null);
   }
 
@@ -132,7 +134,7 @@ public class HtmlUnitTextArea extends HtmlUnitBaseControl<HtmlTextArea> implemen
    */
   @Override
   public boolean isDisabled(final WetContext aWetContext) throws AssertionFailedException {
-    HtmlTextArea tmpHtmlTextArea = getHtmlElement();
+    final HtmlTextArea tmpHtmlTextArea = getHtmlElement();
 
     return tmpHtmlTextArea.isDisabled() || tmpHtmlTextArea.isReadOnly();
   }

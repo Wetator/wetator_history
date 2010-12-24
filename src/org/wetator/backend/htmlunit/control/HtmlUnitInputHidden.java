@@ -47,7 +47,7 @@ public class HtmlUnitInputHidden extends HtmlUnitBaseControl<HtmlHiddenInput> im
    * 
    * @param anHtmlElement the {@link HtmlHiddenInput} from the backend
    */
-  public HtmlUnitInputHidden(HtmlHiddenInput anHtmlElement) {
+  public HtmlUnitInputHidden(final HtmlHiddenInput anHtmlElement) {
     super(anHtmlElement);
   }
 
@@ -68,27 +68,28 @@ public class HtmlUnitInputHidden extends HtmlUnitBaseControl<HtmlHiddenInput> im
    *      java.io.File)
    */
   @Override
-  public void setValue(WetContext aWetContext, SecretString aValue, File aDirectory) throws AssertionFailedException {
-    HtmlHiddenInput tmpHtmlHiddenInput = getHtmlElement();
+  public void setValue(final WetContext aWetContext, final SecretString aValue, final File aDirectory)
+      throws AssertionFailedException {
+    final HtmlHiddenInput tmpHtmlHiddenInput = getHtmlElement();
 
     Assert.assertTrue(!tmpHtmlHiddenInput.isDisabled(), "elementDisabled", new String[] { getDescribingText() });
     Assert.assertTrue(!tmpHtmlHiddenInput.isReadOnly(), "elementReadOnly", new String[] { getDescribingText() });
 
     try {
-      String tmpValue = aValue.getValue();
+      final String tmpValue = aValue.getValue();
       tmpHtmlHiddenInput.setAttribute("value", tmpValue);
 
       // wait for silence
       aWetContext.getWetBackend().waitForImmediateJobs();
-    } catch (ScriptException e) {
+    } catch (final ScriptException e) {
       aWetContext.getWetBackend().addFailure("javascriptError", new String[] { e.getMessage() }, e);
-    } catch (WrappedException e) {
-      Exception tmpScriptException = ExceptionUtil.getScriptExceptionCauseIfPossible(e);
+    } catch (final WrappedException e) {
+      final Exception tmpScriptException = ExceptionUtil.getScriptExceptionCauseIfPossible(e);
       aWetContext.getWetBackend().addFailure("javascriptError", new String[] { tmpScriptException.getMessage() },
           tmpScriptException);
-    } catch (AssertionFailedException e) {
+    } catch (final AssertionFailedException e) {
       aWetContext.getWetBackend().addFailure(e);
-    } catch (Throwable e) {
+    } catch (final Throwable e) {
       aWetContext.getWetBackend().addFailure("serverError", new String[] { e.getMessage(), getDescribingText() }, e);
     }
   }
@@ -99,7 +100,8 @@ public class HtmlUnitInputHidden extends HtmlUnitBaseControl<HtmlHiddenInput> im
    * @see org.wetator.backend.control.Settable#assertValue(org.wetator.core.WetContext, org.wetator.util.SecretString)
    */
   @Override
-  public void assertValue(WetContext aWetContext, SecretString anExpectedValue) throws AssertionFailedException {
+  public void assertValue(final WetContext aWetContext, final SecretString anExpectedValue)
+      throws AssertionFailedException {
     Assert.assertEquals(anExpectedValue, getHtmlElement().getValueAttribute(), "expectedValueNotFound", null);
   }
 
@@ -110,7 +112,7 @@ public class HtmlUnitInputHidden extends HtmlUnitBaseControl<HtmlHiddenInput> im
    */
   @Override
   public boolean isDisabled(final WetContext aWetContext) throws AssertionFailedException {
-    HtmlHiddenInput tmpHtmlHiddenInput = getHtmlElement();
+    final HtmlHiddenInput tmpHtmlHiddenInput = getHtmlElement();
 
     return tmpHtmlHiddenInput.isDisabled();
   }

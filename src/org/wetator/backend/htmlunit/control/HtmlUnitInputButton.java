@@ -42,7 +42,7 @@ public class HtmlUnitInputButton extends HtmlUnitBaseControl<HtmlButtonInput> im
    * 
    * @param anHtmlElement the {@link HtmlButtonInput} from the backend
    */
-  public HtmlUnitInputButton(HtmlButtonInput anHtmlElement) {
+  public HtmlUnitInputButton(final HtmlButtonInput anHtmlElement) {
     super(anHtmlElement);
   }
 
@@ -63,7 +63,7 @@ public class HtmlUnitInputButton extends HtmlUnitBaseControl<HtmlButtonInput> im
    */
   @Override
   public boolean isDisabled(final WetContext aWetContext) throws AssertionFailedException {
-    HtmlButtonInput tmpHtmlButtonInput = getHtmlElement();
+    final HtmlButtonInput tmpHtmlButtonInput = getHtmlElement();
 
     return tmpHtmlButtonInput.isDisabled();
   }

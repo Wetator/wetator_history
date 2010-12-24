@@ -48,7 +48,7 @@ public class HtmlUnitOption extends HtmlUnitBaseControl<HtmlOption> implements D
    * 
    * @param anHtmlElement the {@link HtmlOption} from the backend
    */
-  public HtmlUnitOption(HtmlOption anHtmlElement) {
+  public HtmlUnitOption(final HtmlOption anHtmlElement) {
     super(anHtmlElement);
   }
 
@@ -68,8 +68,8 @@ public class HtmlUnitOption extends HtmlUnitBaseControl<HtmlOption> implements D
    * @see org.wetator.backend.control.Selectable#select(org.wetator.core.WetContext)
    */
   @Override
-  public void select(WetContext aWetContext) throws AssertionFailedException {
-    HtmlOption tmpHtmlOption = getHtmlElement();
+  public void select(final WetContext aWetContext) throws AssertionFailedException {
+    final HtmlOption tmpHtmlOption = getHtmlElement();
 
     Assert.assertTrue(!tmpHtmlOption.isDisabled(), "elementDisabled", new String[] { getDescribingText() });
 
@@ -83,15 +83,15 @@ public class HtmlUnitOption extends HtmlUnitBaseControl<HtmlOption> implements D
 
       // wait for silence
       aWetContext.getWetBackend().waitForImmediateJobs();
-    } catch (ScriptException e) {
+    } catch (final ScriptException e) {
       aWetContext.getWetBackend().addFailure("javascriptError", new String[] { e.getMessage() }, e);
-    } catch (WrappedException e) {
-      Exception tmpScriptException = ExceptionUtil.getScriptExceptionCauseIfPossible(e);
+    } catch (final WrappedException e) {
+      final Exception tmpScriptException = ExceptionUtil.getScriptExceptionCauseIfPossible(e);
       aWetContext.getWetBackend().addFailure("javascriptError", new String[] { tmpScriptException.getMessage() },
           tmpScriptException);
-    } catch (AssertionFailedException e) {
+    } catch (final AssertionFailedException e) {
       aWetContext.getWetBackend().addFailure(e);
-    } catch (Throwable e) {
+    } catch (final Throwable e) {
       aWetContext.getWetBackend().addFailure("serverError", new String[] { e.getMessage(), getDescribingText() }, e);
     }
   }
@@ -102,8 +102,8 @@ public class HtmlUnitOption extends HtmlUnitBaseControl<HtmlOption> implements D
    * @see org.wetator.backend.control.Selectable#isSelected(org.wetator.core.WetContext)
    */
   @Override
-  public boolean isSelected(WetContext aWetContext) throws AssertionFailedException {
-    HtmlOption tmpHtmlOption = getHtmlElement();
+  public boolean isSelected(final WetContext aWetContext) throws AssertionFailedException {
+    final HtmlOption tmpHtmlOption = getHtmlElement();
 
     return tmpHtmlOption.isSelected();
   }
@@ -114,13 +114,13 @@ public class HtmlUnitOption extends HtmlUnitBaseControl<HtmlOption> implements D
    * @see org.wetator.backend.control.Deselectable#deselect(org.wetator.core.WetContext)
    */
   @Override
-  public void deselect(WetContext aWetContext) throws AssertionFailedException {
-    HtmlOption tmpHtmlOption = getHtmlElement();
+  public void deselect(final WetContext aWetContext) throws AssertionFailedException {
+    final HtmlOption tmpHtmlOption = getHtmlElement();
 
     Assert.assertTrue(!tmpHtmlOption.isDisabled(), "elementDisabled", new String[] { getDescribingText() });
 
     try {
-      HtmlSelect tmpHtmpSelect = tmpHtmlOption.getEnclosingSelect();
+      final HtmlSelect tmpHtmpSelect = tmpHtmlOption.getEnclosingSelect();
       if (tmpHtmpSelect.isMultipleSelectEnabled()) {
         Assert.assertTrue(!tmpHtmpSelect.isDisabled(), "elementDisabled", new String[] { getDescribingText() });
 
@@ -135,15 +135,15 @@ public class HtmlUnitOption extends HtmlUnitBaseControl<HtmlOption> implements D
 
       // wait for silence
       aWetContext.getWetBackend().waitForImmediateJobs();
-    } catch (ScriptException e) {
+    } catch (final ScriptException e) {
       aWetContext.getWetBackend().addFailure("javascriptError", new String[] { e.getMessage() }, e);
-    } catch (WrappedException e) {
-      Exception tmpScriptException = ExceptionUtil.getScriptExceptionCauseIfPossible(e);
+    } catch (final WrappedException e) {
+      final Exception tmpScriptException = ExceptionUtil.getScriptExceptionCauseIfPossible(e);
       aWetContext.getWetBackend().addFailure("javascriptError", new String[] { tmpScriptException.getMessage() },
           tmpScriptException);
-    } catch (AssertionFailedException e) {
+    } catch (final AssertionFailedException e) {
       aWetContext.getWetBackend().addFailure(e);
-    } catch (Throwable e) {
+    } catch (final Throwable e) {
       aWetContext.getWetBackend().addFailure("serverError", new String[] { e.getMessage(), getDescribingText() }, e);
     }
   }
@@ -155,7 +155,7 @@ public class HtmlUnitOption extends HtmlUnitBaseControl<HtmlOption> implements D
    */
   @Override
   public boolean isDisabled(final WetContext aWetContext) throws AssertionFailedException {
-    HtmlOption tmpHtmlOption = getHtmlElement();
+    final HtmlOption tmpHtmlOption = getHtmlElement();
 
     return tmpHtmlOption.isDisabled();
   }

@@ -42,7 +42,7 @@ public class HtmlUnitInputImage extends HtmlUnitBaseControl<HtmlImageInput> impl
    * 
    * @param anHtmlElement the {@link HtmlImageInput} from the backend
    */
-  public HtmlUnitInputImage(HtmlImageInput anHtmlElement) {
+  public HtmlUnitInputImage(final HtmlImageInput anHtmlElement) {
     super(anHtmlElement);
   }
 
@@ -63,7 +63,7 @@ public class HtmlUnitInputImage extends HtmlUnitBaseControl<HtmlImageInput> impl
    */
   @Override
   public boolean isDisabled(final WetContext aWetContext) throws AssertionFailedException {
-    HtmlImageInput tmpHtmlImageInput = getHtmlElement();
+    final HtmlImageInput tmpHtmlImageInput = getHtmlElement();
 
     return tmpHtmlImageInput.isDisabled();
   }

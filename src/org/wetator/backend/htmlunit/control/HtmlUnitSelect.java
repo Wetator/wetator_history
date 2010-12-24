@@ -40,7 +40,7 @@ public class HtmlUnitSelect extends HtmlUnitBaseControl<HtmlSelect> {
    * 
    * @param anHtmlElement the {@link HtmlSelect} from the backend
    */
-  public HtmlUnitSelect(HtmlSelect anHtmlElement) {
+  public HtmlUnitSelect(final HtmlSelect anHtmlElement) {
     super(anHtmlElement);
   }
 
@@ -61,7 +61,7 @@ public class HtmlUnitSelect extends HtmlUnitBaseControl<HtmlSelect> {
    */
   @Override
   public boolean isDisabled(final WetContext aWetContext) throws AssertionFailedException {
-    HtmlSelect tmpHtmlSelect = getHtmlElement();
+    final HtmlSelect tmpHtmlSelect = getHtmlElement();
 
     return tmpHtmlSelect.isDisabled();
   }

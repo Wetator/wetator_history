@@ -42,7 +42,7 @@ public class HtmlUnitInputReset extends HtmlUnitBaseControl<HtmlResetInput> impl
    * 
    * @param anHtmlElement the {@link HtmlResetInput} from the backend
    */
-  public HtmlUnitInputReset(HtmlResetInput anHtmlElement) {
+  public HtmlUnitInputReset(final HtmlResetInput anHtmlElement) {
     super(anHtmlElement);
   }
 
@@ -63,7 +63,7 @@ public class HtmlUnitInputReset extends HtmlUnitBaseControl<HtmlResetInput> impl
    */
   @Override
   public boolean isDisabled(final WetContext aWetContext) throws AssertionFailedException {
-    HtmlResetInput tmpHtmlResetInput = getHtmlElement();
+    final HtmlResetInput tmpHtmlResetInput = getHtmlElement();
 
     return tmpHtmlResetInput.isDisabled();
   }

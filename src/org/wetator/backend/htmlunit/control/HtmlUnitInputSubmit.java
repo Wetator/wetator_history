@@ -42,7 +42,7 @@ public class HtmlUnitInputSubmit extends HtmlUnitBaseControl<HtmlSubmitInput> im
    * 
    * @param anHtmlElement the {@link HtmlSubmitInput} from the backend
    */
-  public HtmlUnitInputSubmit(HtmlSubmitInput anHtmlElement) {
+  public HtmlUnitInputSubmit(final HtmlSubmitInput anHtmlElement) {
     super(anHtmlElement);
   }
 
@@ -63,7 +63,7 @@ public class HtmlUnitInputSubmit extends HtmlUnitBaseControl<HtmlSubmitInput> im
    */
   @Override
   public boolean isDisabled(final WetContext aWetContext) throws AssertionFailedException {
-    HtmlSubmitInput tmpHtmlSubmitInput = getHtmlElement();
+    final HtmlSubmitInput tmpHtmlSubmitInput = getHtmlElement();
 
     return tmpHtmlSubmitInput.isDisabled();
   }

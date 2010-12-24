@@ -53,7 +53,7 @@ public class HtmlUnitInputFile extends HtmlUnitBaseControl<HtmlFileInput> implem
    * 
    * @param anHtmlElement the {@link HtmlFileInput} from the backend
    */
-  public HtmlUnitInputFile(HtmlFileInput anHtmlElement) {
+  public HtmlUnitInputFile(final HtmlFileInput anHtmlElement) {
     super(anHtmlElement);
   }
 
@@ -74,25 +74,26 @@ public class HtmlUnitInputFile extends HtmlUnitBaseControl<HtmlFileInput> implem
    *      java.io.File)
    */
   @Override
-  public void setValue(WetContext aWetContext, SecretString aValue, File aDirectory) throws AssertionFailedException {
-    HtmlFileInput tmpHtmlFileInput = getHtmlElement();
+  public void setValue(final WetContext aWetContext, final SecretString aValue, final File aDirectory)
+      throws AssertionFailedException {
+    final HtmlFileInput tmpHtmlFileInput = getHtmlElement();
 
     Assert.assertTrue(!tmpHtmlFileInput.isDisabled(), "elementDisabled", new String[] { getDescribingText() });
 
     try {
       tmpHtmlFileInput.click();
-    } catch (IOException e) {
+    } catch (final IOException e) {
       aWetContext.getWetBackend().addFailure("serverError", new String[] { e.getMessage(), getDescribingText() }, e);
-    } catch (ScriptException e) {
+    } catch (final ScriptException e) {
       aWetContext.getWetBackend().addFailure("javascriptError", new String[] { e.getMessage() }, e);
-    } catch (WrappedException e) {
-      Exception tmpScriptException = ExceptionUtil.getScriptExceptionCauseIfPossible(e);
+    } catch (final WrappedException e) {
+      final Exception tmpScriptException = ExceptionUtil.getScriptExceptionCauseIfPossible(e);
       aWetContext.getWetBackend().addFailure("javascriptError", new String[] { tmpScriptException.getMessage() },
           tmpScriptException);
     }
 
     try {
-      String tmpValue = aValue.getValue();
+      final String tmpValue = aValue.getValue();
       if (StringUtils.isBlank(tmpValue)) {
         tmpHtmlFileInput.setValueAttribute("");
       } else {
@@ -117,15 +118,15 @@ public class HtmlUnitInputFile extends HtmlUnitBaseControl<HtmlFileInput> implem
 
       // wait for silence
       aWetContext.getWetBackend().waitForImmediateJobs();
-    } catch (ScriptException e) {
+    } catch (final ScriptException e) {
       aWetContext.getWetBackend().addFailure("javascriptError", new String[] { e.getMessage() }, e);
-    } catch (WrappedException e) {
-      Exception tmpScriptException = ExceptionUtil.getScriptExceptionCauseIfPossible(e);
+    } catch (final WrappedException e) {
+      final Exception tmpScriptException = ExceptionUtil.getScriptExceptionCauseIfPossible(e);
       aWetContext.getWetBackend().addFailure("javascriptError", new String[] { tmpScriptException.getMessage() },
           tmpScriptException);
-    } catch (AssertionFailedException e) {
+    } catch (final AssertionFailedException e) {
       aWetContext.getWetBackend().addFailure(e);
-    } catch (Throwable e) {
+    } catch (final Throwable e) {
       aWetContext.getWetBackend().addFailure("serverError", new String[] { e.getMessage(), getDescribingText() }, e);
     }
   }
@@ -136,7 +137,8 @@ public class HtmlUnitInputFile extends HtmlUnitBaseControl<HtmlFileInput> implem
    * @see org.wetator.backend.control.Settable#assertValue(org.wetator.core.WetContext, org.wetator.util.SecretString)
    */
   @Override
-  public void assertValue(WetContext aWetContext, SecretString anExpectedValue) throws AssertionFailedException {
+  public void assertValue(final WetContext aWetContext, final SecretString anExpectedValue)
+      throws AssertionFailedException {
     Assert.assertEquals(anExpectedValue, getHtmlElement().getValueAttribute(), "expectedValueNotFound", null);
   }
 
@@ -147,7 +149,7 @@ public class HtmlUnitInputFile extends HtmlUnitBaseControl<HtmlFileInput> implem
    */
   @Override
   public boolean isDisabled(final WetContext aWetContext) throws AssertionFailedException {
-    HtmlFileInput tmpHtmlFileInput = getHtmlElement();
+    final HtmlFileInput tmpHtmlFileInput = getHtmlElement();
 
     return tmpHtmlFileInput.isDisabled();
   }

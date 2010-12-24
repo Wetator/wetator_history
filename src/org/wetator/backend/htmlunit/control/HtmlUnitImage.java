@@ -39,7 +39,7 @@ public class HtmlUnitImage extends HtmlUnitBaseControl<HtmlImage> implements Cli
    * 
    * @param anHtmlElement the {@link HtmlImage} from the backend
    */
-  public HtmlUnitImage(HtmlImage anHtmlElement) {
+  public HtmlUnitImage(final HtmlImage anHtmlElement) {
     super(anHtmlElement);
   }
 

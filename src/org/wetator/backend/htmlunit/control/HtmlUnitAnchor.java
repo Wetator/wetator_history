@@ -43,7 +43,7 @@ public class HtmlUnitAnchor extends HtmlUnitBaseControl<HtmlAnchor> implements C
    * 
    * @param anHtmlElement the {@link HtmlAnchor} from the backend
    */
-  public HtmlUnitAnchor(HtmlAnchor anHtmlElement) {
+  public HtmlUnitAnchor(final HtmlAnchor anHtmlElement) {
     super(anHtmlElement);
   }
 
@@ -53,19 +53,19 @@ public class HtmlUnitAnchor extends HtmlUnitBaseControl<HtmlAnchor> implements C
    * @see org.wetator.backend.htmlunit.control.HtmlUnitBaseControl#click(org.wetator.core.WetContext)
    */
   @Override
-  public void click(WetContext aWetContext) throws AssertionFailedException {
+  public void click(final WetContext aWetContext) throws AssertionFailedException {
     super.click(aWetContext);
 
     try {
-      HtmlAnchor tmpHtmlAnchor = getHtmlElement();
+      final HtmlAnchor tmpHtmlAnchor = getHtmlElement();
       String tmpHref = tmpHtmlAnchor.getHrefAttribute();
       if (StringUtils.isNotBlank(tmpHref) && tmpHref.startsWith("#")) {
         tmpHref = tmpHref.substring(1);
         PageUtil.checkAnchor(tmpHref, tmpHtmlAnchor.getPage());
       }
-    } catch (AssertionFailedException e) {
+    } catch (final AssertionFailedException e) {
       aWetContext.getWetBackend().addFailure(e);
-    } catch (Throwable e) {
+    } catch (final Throwable e) {
       aWetContext.getWetBackend().addFailure("serverError", new String[] { e.getMessage(), getDescribingText() }, e);
     }
   }

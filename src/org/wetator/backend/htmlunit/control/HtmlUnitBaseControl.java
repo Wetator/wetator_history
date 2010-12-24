@@ -71,7 +71,7 @@ public class HtmlUnitBaseControl<T extends HtmlElement> implements Control {
   @Override
   public boolean hasSameBackendControl(final Control aControl) {
     if (aControl instanceof HtmlUnitBaseControl<?>) {
-      HtmlUnitBaseControl<?> tmpHtmlUnitControl = (HtmlUnitBaseControl<?>) aControl;
+      final HtmlUnitBaseControl<?> tmpHtmlUnitControl = (HtmlUnitBaseControl<?>) aControl;
 
       return getHtmlElement() == tmpHtmlUnitControl.getHtmlElement();
     }
@@ -92,14 +92,14 @@ public class HtmlUnitBaseControl<T extends HtmlElement> implements Control {
    */
   @Override
   public void click(final WetContext aWetContext) throws AssertionFailedException {
-    HtmlElement tmpHtmlElement = getHtmlElement();
+    final HtmlElement tmpHtmlElement = getHtmlElement();
 
     try {
       tmpHtmlElement.focus();
-    } catch (ScriptException e) {
+    } catch (final ScriptException e) {
       aWetContext.getWetBackend().addFailure("javascriptError", new String[] { e.getMessage() }, e);
-    } catch (WrappedException e) {
-      Exception tmpScriptException = ExceptionUtil.getScriptExceptionCauseIfPossible(e);
+    } catch (final WrappedException e) {
+      final Exception tmpScriptException = ExceptionUtil.getScriptExceptionCauseIfPossible(e);
       aWetContext.getWetBackend().addFailure("javascriptError", new String[] { tmpScriptException.getMessage() },
           tmpScriptException);
     }
@@ -107,15 +107,15 @@ public class HtmlUnitBaseControl<T extends HtmlElement> implements Control {
     try {
       tmpHtmlElement.click();
       aWetContext.getWetBackend().waitForImmediateJobs();
-    } catch (ScriptException e) {
+    } catch (final ScriptException e) {
       aWetContext.getWetBackend().addFailure("javascriptError", new String[] { e.getMessage() }, e);
-    } catch (WrappedException e) {
-      Exception tmpScriptException = ExceptionUtil.getScriptExceptionCauseIfPossible(e);
+    } catch (final WrappedException e) {
+      final Exception tmpScriptException = ExceptionUtil.getScriptExceptionCauseIfPossible(e);
       aWetContext.getWetBackend().addFailure("javascriptError", new String[] { tmpScriptException.getMessage() },
           tmpScriptException);
-    } catch (AssertionFailedException e) {
+    } catch (final AssertionFailedException e) {
       aWetContext.getWetBackend().addFailure(e);
-    } catch (Throwable e) {
+    } catch (final Throwable e) {
       aWetContext.getWetBackend().addFailure("serverError", new String[] { e.getMessage(), getDescribingText() }, e);
     }
   }
@@ -127,15 +127,15 @@ public class HtmlUnitBaseControl<T extends HtmlElement> implements Control {
    */
   @Override
   public void mouseOver(final WetContext aWetContext) throws AssertionFailedException {
-    HtmlElement tmpHtmlElement = getHtmlElement();
+    final HtmlElement tmpHtmlElement = getHtmlElement();
 
     try {
       // simulate mouse move on the document (outside the element)
       ((HtmlPage) tmpHtmlElement.getPage()).getBody().mouseMove();
-    } catch (ScriptException e) {
+    } catch (final ScriptException e) {
       aWetContext.getWetBackend().addFailure("javascriptError", new String[] { e.getMessage() }, e);
-    } catch (WrappedException e) {
-      Exception tmpScriptException = ExceptionUtil.getScriptExceptionCauseIfPossible(e);
+    } catch (final WrappedException e) {
+      final Exception tmpScriptException = ExceptionUtil.getScriptExceptionCauseIfPossible(e);
       aWetContext.getWetBackend().addFailure("javascriptError", new String[] { tmpScriptException.getMessage() },
           tmpScriptException);
     }
@@ -146,13 +146,13 @@ public class HtmlUnitBaseControl<T extends HtmlElement> implements Control {
       // simulate mouse move on the element
       tmpHtmlElement.mouseMove();
       aWetContext.getWetBackend().waitForImmediateJobs();
-    } catch (ScriptException e) {
+    } catch (final ScriptException e) {
       aWetContext.getWetBackend().addFailure("javascriptError", new String[] { e.getMessage() }, e);
-    } catch (WrappedException e) {
-      Exception tmpScriptException = ExceptionUtil.getScriptExceptionCauseIfPossible(e);
+    } catch (final WrappedException e) {
+      final Exception tmpScriptException = ExceptionUtil.getScriptExceptionCauseIfPossible(e);
       aWetContext.getWetBackend().addFailure("javascriptError", new String[] { tmpScriptException.getMessage() },
           tmpScriptException);
-    } catch (Throwable e) {
+    } catch (final Throwable e) {
       aWetContext.getWetBackend().addFailure("serverError", new String[] { e.getMessage(), getDescribingText() }, e);
     }
   }
@@ -164,11 +164,11 @@ public class HtmlUnitBaseControl<T extends HtmlElement> implements Control {
    */
   @Override
   public boolean isDisabled(final WetContext aWetContext) throws AssertionFailedException {
-    HtmlElement tmpHtmlElement = getHtmlElement();
+    final HtmlElement tmpHtmlElement = getHtmlElement();
     boolean tmpSupported = false;
 
     if (tmpHtmlElement instanceof DisabledElement) {
-      DisabledElement tmpDisabledElement = (DisabledElement) tmpHtmlElement;
+      final DisabledElement tmpDisabledElement = (DisabledElement) tmpHtmlElement;
       tmpSupported = true;
 
       if (tmpDisabledElement.isDisabled()) {
@@ -178,7 +178,7 @@ public class HtmlUnitBaseControl<T extends HtmlElement> implements Control {
 
     // check for text and password because setting readonly for the other inputs is nonsens
     if ((tmpHtmlElement instanceof HtmlTextInput) || (tmpHtmlElement instanceof HtmlPasswordInput)) {
-      HtmlInput tmpHtmlInputElement = (HtmlInput) tmpHtmlElement;
+      final HtmlInput tmpHtmlInputElement = (HtmlInput) tmpHtmlElement;
       tmpSupported = true;
 
       if (tmpHtmlInputElement.isReadOnly()) {
@@ -186,7 +186,7 @@ public class HtmlUnitBaseControl<T extends HtmlElement> implements Control {
       }
     }
     if (tmpHtmlElement instanceof HtmlTextArea) {
-      HtmlTextArea tmpHtmlHtmlTextArea = (HtmlTextArea) tmpHtmlElement;
+      final HtmlTextArea tmpHtmlHtmlTextArea = (HtmlTextArea) tmpHtmlElement;
       tmpSupported = true;
 
       if (tmpHtmlHtmlTextArea.isReadOnly()) {
@@ -212,9 +212,9 @@ public class HtmlUnitBaseControl<T extends HtmlElement> implements Control {
    */
   @Override
   public boolean hasFocus(final WetContext aWetContext) throws AssertionFailedException {
-    HtmlElement tmpHtmlElement = getHtmlElement();
+    final HtmlElement tmpHtmlElement = getHtmlElement();
 
-    HtmlPage tmpHtmlPage = (HtmlPage) tmpHtmlElement.getPage();
+    final HtmlPage tmpHtmlPage = (HtmlPage) tmpHtmlElement.getPage();
     if (tmpHtmlElement.equals(tmpHtmlPage.getFocusedElement())) {
       return true;
     }
@@ -229,7 +229,7 @@ public class HtmlUnitBaseControl<T extends HtmlElement> implements Control {
    */
   @Override
   public String getDescribingText() {
-    HtmlElement tmpHtmlElement = getHtmlElement();
+    final HtmlElement tmpHtmlElement = getHtmlElement();
 
     if (tmpHtmlElement instanceof HtmlParagraph) {
       return HtmlElementUtil.getDescribingTextForHtmlParagraph((HtmlParagraph) tmpHtmlElement);
@@ -239,7 +239,7 @@ public class HtmlUnitBaseControl<T extends HtmlElement> implements Control {
     }
 
     // handle things that are not implemented at the moment
-    StringBuilder tmpResult = new StringBuilder();
+    final StringBuilder tmpResult = new StringBuilder();
 
     tmpResult.append("[Unknown HtmlElement '");
     tmpResult.append(tmpHtmlElement.getClass());
@@ -253,7 +253,7 @@ public class HtmlUnitBaseControl<T extends HtmlElement> implements Control {
   }
 
   private static void addId(final StringBuilder aStringBuilder, final HtmlElement anHtmlElement) {
-    String tmpId = anHtmlElement.getAttribute("id");
+    final String tmpId = anHtmlElement.getAttribute("id");
     if ((null != tmpId) && (tmpId.length() > 0)) {
       aStringBuilder.append(" (id='");
       aStringBuilder.append(tmpId);
@@ -262,7 +262,7 @@ public class HtmlUnitBaseControl<T extends HtmlElement> implements Control {
   }
 
   private static void addName(final StringBuilder aStringBuilder, final HtmlElement anHtmlElement) {
-    String tmpName = anHtmlElement.getAttribute("name");
+    final String tmpName = anHtmlElement.getAttribute("name");
     if ((null != tmpName) && (tmpName.length() > 0)) {
       aStringBuilder.append(" (name='");
       aStringBuilder.append(tmpName);
