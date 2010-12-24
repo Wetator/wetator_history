@@ -64,3 +64,5 @@ frank.danek 2010-12-12 12:45: hallo ronald, kannst du bitte die webpage neu hoch
 	geschlossen werden kann, muss die homepage einmal aktualisiert werden.
 
 rbri 2010-12-12 14:45: hi frank, habe das xsd verzeichnis aktualisiert. Reicht das?
+rbri 2010-12-24 14:08: Habe gestern mal angefangen mit PMD rumzuspielen. Die Checken auch, ob möglichst alles als final markiert ist. Es soll wohl
+    dem Compiler helfen. Deshlab habe ich das mal im Checkstyle angeschaltet. Die fehlenden final's baue ich ein.

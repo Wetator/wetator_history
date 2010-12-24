@@ -14,10 +14,19 @@
     <module name="ConstantName"/>
     <module name="LocalFinalVariableName">
       <property name="format" value="^(tmp[A-Z][a-zA-Z0-9]*|i|j|k)$"/>
+      <property name="tokens" value="VARIABLE_DEF"/>
     </module>
     <module name="LocalVariableName">
       <property name="format" value="^(tmp[A-Z][a-zA-Z0-9]*|i|j|k)$"/>
       <property name="tokens" value="VARIABLE_DEF"/>
+    </module>
+    <module name="LocalFinalVariableName">
+      <property name="format" value="^e([A-Z][a-zA-Z0-9]*)?$"/>
+      <property name="tokens" value="PARAMETER_DEF"/>
+    </module>
+    <module name="LocalVariableName">
+      <property name="format" value="^e([A-Z][a-zA-Z0-9]*)?$"/>
+      <property name="tokens" value="PARAMETER_DEF"/>
     </module>
     <module name="MemberName"/>
     <module name="MethodName"/>
@@ -107,10 +116,6 @@
     <module name="JavadocVariable">
       <property name="scope" value="package"/>
     </module>
-    <module name="LocalVariableName">
-      <property name="format" value="^e([A-Z][a-zA-Z0-9]*)?$"/>
-      <property name="tokens" value="PARAMETER_DEF"/>
-    </module>
     <module name="MethodTypeParameterName"/>
     <module name="ClassTypeParameterName"/>
     <module name="AvoidStaticImport"/>
@@ -130,6 +135,9 @@
       <property name="suppressLoadErrors" value="true"/>
     </module>
     <module name="ArrayTypeStyle"/>
+    <module name="FinalLocalVariable">
+      <property name="tokens" value="VARIABLE_DEF,PARAMETER_DEF"/>
+    </module>
   </module>
   <module name="FileTabCharacter">
     <property name="eachLine" value="true"/>
