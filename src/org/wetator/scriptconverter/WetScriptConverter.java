@@ -56,9 +56,9 @@ public class WetScriptConverter {
     for (File tmpInputFile : inputFiles) {
       LOG.trace("Converting '" + tmpInputFile.getAbsolutePath() + "'...");
       scripter.setFile(tmpInputFile);
-      List<WetCommand> tmpCommands = scripter.getCommands();
+      final List<WetCommand> tmpCommands = scripter.getCommands();
 
-      String tmpFileName = tmpInputFile.getName().substring(0, tmpInputFile.getName().lastIndexOf('.'));
+      final String tmpFileName = tmpInputFile.getName().substring(0, tmpInputFile.getName().lastIndexOf('.'));
       creator.setFileName(tmpFileName);
       creator.setCommands(tmpCommands);
       creator.createScript();
@@ -77,7 +77,7 @@ public class WetScriptConverter {
    * @param aScripter
    *        the scripter to set
    */
-  public void setScripter(WetScripter aScripter) {
+  public void setScripter(final WetScripter aScripter) {
     scripter = aScripter;
   }
 
@@ -92,7 +92,7 @@ public class WetScriptConverter {
    * @param aCreator
    *        the creator to set
    */
-  public void setCreator(WetScriptCreator aCreator) {
+  public void setCreator(final WetScriptCreator aCreator) {
     creator = aCreator;
   }
 
@@ -102,7 +102,7 @@ public class WetScriptConverter {
    * @throws WetException
    *         if aFile does not exist
    */
-  public void addTestFile(File aFile) throws WetException {
+  public void addTestFile(final File aFile) throws WetException {
     if (!aFile.exists()) {
       throw new WetException("The file '" + aFile.getAbsolutePath() + "' does not exist.");
     }
