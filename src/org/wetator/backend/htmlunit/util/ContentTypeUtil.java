@@ -41,7 +41,7 @@ public final class ContentTypeUtil {
    * @param aPage The {@link Page} to get the content type for.
    * @return The content type.
    */
-  public static ContentType getContentType(Page aPage) {
+  public static ContentType getContentType(final Page aPage) {
     if (aPage instanceof HtmlPage) {
       return ContentType.HTML;
     }
@@ -49,8 +49,8 @@ public final class ContentTypeUtil {
       return ContentType.TEXT;
     }
 
-    WebResponse tmpWebResponse = aPage.getWebResponse();
-    String tmpContentType = tmpWebResponse.getContentType();
+    final WebResponse tmpWebResponse = aPage.getWebResponse();
+    final String tmpContentType = tmpWebResponse.getContentType();
 
     if ("application/pdf".equalsIgnoreCase(tmpContentType)) {
       return ContentType.PDF;
@@ -66,8 +66,8 @@ public final class ContentTypeUtil {
    * @param aPage The {@link Page} to get the (default) file suffix for.
    * @return The file suffix.
    */
-  public static String getFileSuffix(Page aPage) {
-    ContentType tmpContentType = getContentType(aPage);
+  public static String getFileSuffix(final Page aPage) {
+    final ContentType tmpContentType = getContentType(aPage);
     String tmpResult;
 
     switch (tmpContentType) {

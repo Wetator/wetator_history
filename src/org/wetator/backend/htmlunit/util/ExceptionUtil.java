@@ -42,7 +42,7 @@ public final class ExceptionUtil {
    * @param aWrappedException the exception to analyze
    * @return the ScriptException
    */
-  public static Exception getScriptExceptionCauseIfPossible(WrappedException aWrappedException) {
+  public static Exception getScriptExceptionCauseIfPossible(final WrappedException aWrappedException) {
     Throwable tmpThrowable = aWrappedException.getCause();
 
     while (null != tmpThrowable) {

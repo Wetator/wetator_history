@@ -46,9 +46,10 @@ public final class PageUtil {
    * @throws IOException in case of problems
    */
   public static HtmlPage constructHtmlPage(final String anHtmlCode) throws IOException {
-    StringWebResponse tmpResponse = new StringWebResponse(anHtmlCode, new URL("http://www.rbri.org/wet/test.html"));
-    WebClient tmpWebClient = new WebClient();
-    HtmlPage tmpPage = HTMLParser.parseHtml(tmpResponse, tmpWebClient.getCurrentWindow());
+    final StringWebResponse tmpResponse = new StringWebResponse(anHtmlCode,
+        new URL("http://www.rbri.org/wet/test.html"));
+    final WebClient tmpWebClient = new WebClient();
+    final HtmlPage tmpPage = HTMLParser.parseHtml(tmpResponse, tmpWebClient.getCurrentWindow());
 
     return tmpPage;
   }
@@ -61,9 +62,10 @@ public final class PageUtil {
    * @throws IOException in case of problems
    */
   public static XHtmlPage constructXHtmlPage(final String anXHtmlCode) throws IOException {
-    StringWebResponse tmpResponse = new StringWebResponse(anXHtmlCode, new URL("http://www.rbri.org/wet/test.xhtml"));
-    WebClient tmpWebClient = new WebClient();
-    XHtmlPage tmpPage = HTMLParser.parseXHtml(tmpResponse, tmpWebClient.getCurrentWindow());
+    final StringWebResponse tmpResponse = new StringWebResponse(anXHtmlCode, new URL(
+        "http://www.rbri.org/wet/test.xhtml"));
+    final WebClient tmpWebClient = new WebClient();
+    final XHtmlPage tmpPage = HTMLParser.parseXHtml(tmpResponse, tmpWebClient.getCurrentWindow());
 
     return tmpPage;
   }
@@ -75,13 +77,13 @@ public final class PageUtil {
    * @param aPage the page
    * @throws AssertionFailedException if the anchor is not on the page
    */
-  public static void checkAnchor(String aRef, Page aPage) throws AssertionFailedException {
+  public static void checkAnchor(final String aRef, final Page aPage) throws AssertionFailedException {
     if (null == aPage) {
       return;
     }
 
     if ((aPage instanceof HtmlPage) && StringUtils.isNotEmpty(aRef)) {
-      HtmlPage tmpHtmlPage = (HtmlPage) aPage;
+      final HtmlPage tmpHtmlPage = (HtmlPage) aPage;
       try {
         // check first with id
         tmpHtmlPage.getHtmlElementById(aRef);

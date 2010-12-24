@@ -51,7 +51,7 @@ public final class FindSpot {
    * @param aStartPos the startPos
    * @param anEndPos the endPos
    */
-  public FindSpot(int aStartPos, int anEndPos) {
+  public FindSpot(final int aStartPos, final int anEndPos) {
     startPos = aStartPos;
     endPos = anEndPos;
   }
@@ -66,7 +66,7 @@ public final class FindSpot {
   }
 
   @Override
-  public boolean equals(Object anObject) {
+  public boolean equals(final Object anObject) {
     if (this == anObject) {
       return true;
     }
@@ -76,7 +76,7 @@ public final class FindSpot {
     if (getClass() != anObject.getClass()) {
       return false;
     }
-    FindSpot tmpOtherFindSpot = (FindSpot) anObject;
+    final FindSpot tmpOtherFindSpot = (FindSpot) anObject;
     if (endPos != tmpOtherFindSpot.endPos) {
       return false;
     }

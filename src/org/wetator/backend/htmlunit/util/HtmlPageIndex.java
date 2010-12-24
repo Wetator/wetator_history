@@ -109,7 +109,7 @@ public class HtmlPageIndex {
    * @see com.gargoylesoftware.htmlunit.html.HtmlPage#getHtmlElementById(java.lang.String)
    */
   @SuppressWarnings("unchecked")
-  public <E extends HtmlElement> E getHtmlElementById(String aId) throws ElementNotFoundException {
+  public <E extends HtmlElement> E getHtmlElementById(final String aId) throws ElementNotFoundException {
     return (E) htmlPage.getHtmlElementById(aId);
   }
 
@@ -146,7 +146,7 @@ public class HtmlPageIndex {
    * @param anHtmlElement the element
    * @return the position
    */
-  public FindSpot getPosition(HtmlElement anHtmlElement) {
+  public FindSpot getPosition(final HtmlElement anHtmlElement) {
     return positions.get(anHtmlElement);
   }
 
@@ -156,7 +156,7 @@ public class HtmlPageIndex {
    * @param aSearchPattern the search pattern
    * @return the position
    */
-  public FindSpot firstOccurence(SearchPattern aSearchPattern) {
+  public FindSpot firstOccurence(final SearchPattern aSearchPattern) {
     return aSearchPattern.firstOccurenceIn(text.toString(), 0);
   }
 
@@ -167,7 +167,7 @@ public class HtmlPageIndex {
    * @param aStartPos the pos to start with the search
    * @return the position
    */
-  public FindSpot firstOccurence(SearchPattern aSearchPattern, int aStartPos) {
+  public FindSpot firstOccurence(final SearchPattern aSearchPattern, final int aStartPos) {
     return aSearchPattern.firstOccurenceIn(text.toString(), aStartPos);
   }
 
@@ -178,7 +178,7 @@ public class HtmlPageIndex {
    * @return the text before the node
    */
   public String getTextBefore(final DomNode aDomNode) {
-    FindSpot tmpFindSpot = positions.get(aDomNode);
+    final FindSpot tmpFindSpot = positions.get(aDomNode);
     if (null == tmpFindSpot) {
       return null;
     }
@@ -192,7 +192,7 @@ public class HtmlPageIndex {
    * @return the text before the node
    */
   public String getTextBeforeIncludingMyself(final DomNode aDomNode) {
-    FindSpot tmpFindSpot = positions.get(aDomNode);
+    final FindSpot tmpFindSpot = positions.get(aDomNode);
     if (null == tmpFindSpot) {
       return null;
     }
@@ -207,16 +207,16 @@ public class HtmlPageIndex {
    * @return the text before
    */
   public String getLabelTextBefore(final HtmlElement anHtmlElement, final int aStartPos) {
-    FindSpot tmpFindSpot = positions.get(anHtmlElement);
+    final FindSpot tmpFindSpot = positions.get(anHtmlElement);
     if (null == tmpFindSpot) {
       return null;
     }
 
-    HtmlForm tmpCurrentForm = anHtmlElement.getEnclosingForm();
+    final HtmlForm tmpCurrentForm = anHtmlElement.getEnclosingForm();
     int tmpStartPos = 0;
-    ListIterator<DomNode> tmpIter = nodes.listIterator(nodes.indexOf(anHtmlElement));
+    final ListIterator<DomNode> tmpIter = nodes.listIterator(nodes.indexOf(anHtmlElement));
     while (tmpIter.hasPrevious()) {
-      DomNode tmpNode = tmpIter.previous();
+      final DomNode tmpNode = tmpIter.previous();
 
       if (tmpNode instanceof HtmlBody) {
         // don't use the end pos of the body
@@ -227,7 +227,7 @@ public class HtmlPageIndex {
       // we have to stop if we found some other (visible) form control
       if ((tmpNode instanceof SubmittableElement) && !(tmpNode instanceof HtmlHiddenInput)) {
         tmpStartPos = positions.get(tmpNode).endPos;
-        String tmpText = text.substring(Math.max(tmpStartPos, aStartPos), tmpFindSpot.startPos);
+        final String tmpText = text.substring(Math.max(tmpStartPos, aStartPos), tmpFindSpot.startPos);
         if (StringUtils.isNotEmpty(tmpText)) {
           return tmpText;
         }
@@ -235,7 +235,7 @@ public class HtmlPageIndex {
 
       // we have to stop if we are reaching an element of another form
       if (tmpNode instanceof HtmlElement) {
-        HtmlForm tmpForm = ((HtmlElement) tmpNode).getEnclosingForm();
+        final HtmlForm tmpForm = ((HtmlElement) tmpNode).getEnclosingForm();
         // we are reaching another form
         if ((null != tmpForm) && (tmpForm != tmpCurrentForm)) {
           tmpStartPos = positions.get(tmpNode).endPos;
@@ -254,19 +254,19 @@ public class HtmlPageIndex {
    * @return the text after
    */
   public String getLabelTextAfter(final HtmlElement anHtmlElement) {
-    FindSpot tmpFindSpot = positions.get(anHtmlElement);
+    final FindSpot tmpFindSpot = positions.get(anHtmlElement);
     if (null == tmpFindSpot) {
       return null;
     }
 
-    HtmlForm tmpCurrentForm = anHtmlElement.getEnclosingForm();
+    final HtmlForm tmpCurrentForm = anHtmlElement.getEnclosingForm();
     int tmpEndPos = text.length();
-    ListIterator<DomNode> tmpIter = nodes.listIterator(nodes.indexOf(anHtmlElement));
+    final ListIterator<DomNode> tmpIter = nodes.listIterator(nodes.indexOf(anHtmlElement));
     // start with the next element
     tmpIter.next();
 
     while (tmpIter.hasNext()) {
-      DomNode tmpNode = tmpIter.next();
+      final DomNode tmpNode = tmpIter.next();
 
       // we have to stop if we found some other (visible) form control
       if ((tmpNode instanceof SubmittableElement) && !(tmpNode instanceof HtmlHiddenInput)) {
@@ -276,7 +276,7 @@ public class HtmlPageIndex {
 
       // we have to stop if we are reaching an element of another form
       if (tmpNode instanceof HtmlElement) {
-        HtmlForm tmpForm = ((HtmlElement) tmpNode).getEnclosingForm();
+        final HtmlForm tmpForm = ((HtmlElement) tmpNode).getEnclosingForm();
         // we are reaching another form
         if ((null != tmpCurrentForm) && (tmpForm != tmpCurrentForm)) {
           tmpEndPos = positions.get(tmpNode).startPos;
@@ -295,7 +295,7 @@ public class HtmlPageIndex {
    * @return the text
    */
   public String getAsText(final DomNode aDomNode) {
-    FindSpot tmpFindSpot = positions.get(aDomNode);
+    final FindSpot tmpFindSpot = positions.get(aDomNode);
     if (null == tmpFindSpot) {
       return null;
     }
@@ -345,7 +345,7 @@ public class HtmlPageIndex {
       } else if (aDomNode instanceof HtmlOrderedList) {
         appendHtmlOrderedList((HtmlOrderedList) aDomNode);
       } else {
-        boolean tmpIsBlock = (aDomNode instanceof HtmlDivision) || (aDomNode instanceof HtmlParagraph)
+        final boolean tmpIsBlock = (aDomNode instanceof HtmlDivision) || (aDomNode instanceof HtmlParagraph)
             || (aDomNode instanceof HtmlTable) || (aDomNode instanceof HtmlTableRow)
             || (aDomNode instanceof HtmlTableHeader) || (aDomNode instanceof HtmlTableDataCell)
             || (aDomNode instanceof HtmlTableCell) || (aDomNode instanceof HtmlUnorderedList)
@@ -399,7 +399,7 @@ public class HtmlPageIndex {
   }
 
   private void appendHtmlOptionGroup(final HtmlOptionGroup anHtmlOptionGroup) {
-    String tmpLabel = anHtmlOptionGroup.getLabelAttribute();
+    final String tmpLabel = anHtmlOptionGroup.getLabelAttribute();
     text.append(tmpLabel);
   }
 
@@ -434,11 +434,11 @@ public class HtmlPageIndex {
     for (final DomNode tmpItem : anHtmlOrderedList.getChildren()) {
       if (tmpItem instanceof HtmlListItem) {
         // hack for fixing the start pos
-        int tmpStartPos = text.length();
+        final int tmpStartPos = text.length();
         text.append(String.valueOf(i++));
         text.append(". ");
         parseDomNode(tmpItem);
-        FindSpot tmpFindSpot = positions.get(tmpItem);
+        final FindSpot tmpFindSpot = positions.get(tmpItem);
         tmpFindSpot.startPos = tmpStartPos;
       } else {
         parseDomNode(tmpItem);
