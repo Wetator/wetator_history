@@ -45,18 +45,18 @@ public abstract class SearchPattern {
    * @param aNumberOfElements the number of elements of the list to be used (from the start of the list)
    * @return the SearchPattern
    */
-  public static SearchPattern createFromList(List<SecretString> aSearch, int aNumberOfElements) {
-    StringBuilder tmpPattern = new StringBuilder();
+  public static SearchPattern createFromList(final List<SecretString> aSearch, final int aNumberOfElements) {
+    final StringBuilder tmpPattern = new StringBuilder();
 
     for (int i = 0; i < aNumberOfElements; i++) {
-      String tmpExpectedString = aSearch.get(i).getValue();
+      final String tmpExpectedString = aSearch.get(i).getValue();
 
       tmpPattern.append("*");
       tmpPattern.append(tmpExpectedString);
     }
     tmpPattern.append("*");
 
-    SearchPattern tmpSearchPattern = SearchPattern.compile(tmpPattern.toString());
+    final SearchPattern tmpSearchPattern = SearchPattern.compile(tmpPattern.toString());
     return tmpSearchPattern;
   }
 
@@ -66,7 +66,7 @@ public abstract class SearchPattern {
    * @param aSearch the list of SecretString's
    * @return the SearchPattern
    */
-  public static SearchPattern createFromList(List<SecretString> aSearch) {
+  public static SearchPattern createFromList(final List<SecretString> aSearch) {
     return createFromList(aSearch, aSearch.size());
   }
 
@@ -77,7 +77,7 @@ public abstract class SearchPattern {
    *        This supports the wildcards '*' and '?'.
    * @return the SearchPattern
    */
-  public static SearchPattern compile(String aDosStyleWildcardString) {
+  public static SearchPattern compile(final String aDosStyleWildcardString) {
     String tmpDosStyleWildcardString = "";
     if (null != aDosStyleWildcardString) {
       tmpDosStyleWildcardString = aDosStyleWildcardString;
@@ -93,16 +93,16 @@ public abstract class SearchPattern {
         return tmpSearchPattern;
       }
 
-      String tmpOriginalString = tmpDosStyleWildcardString;
+      final String tmpOriginalString = tmpDosStyleWildcardString;
 
-      StringBuilder tmpPattern = new StringBuilder();
-      StringBuilder tmpTextPattern = new StringBuilder();
+      final StringBuilder tmpPattern = new StringBuilder();
+      final StringBuilder tmpTextPattern = new StringBuilder();
 
       boolean tmpSlash = false;
       boolean tmpIsStarPattern = true;
       boolean tmpIsTextOnly = true;
       for (int i = 0; i < tmpDosStyleWildcardString.length(); i++) {
-        char tmpChar = tmpDosStyleWildcardString.charAt(i);
+        final char tmpChar = tmpDosStyleWildcardString.charAt(i);
 
         if ('*' == tmpChar) {
           if (tmpSlash) {
@@ -176,7 +176,7 @@ public abstract class SearchPattern {
    * 
    * @param anOriginalString the string used to construct the pattern
    */
-  protected SearchPattern(String anOriginalString) {
+  protected SearchPattern(final String anOriginalString) {
     super();
     originalString = anOriginalString;
   }
@@ -261,7 +261,7 @@ public abstract class SearchPattern {
   }
 
   @Override
-  public boolean equals(Object anObject) {
+  public boolean equals(final Object anObject) {
     if (this == anObject) {
       return true;
     }
@@ -277,7 +277,7 @@ public abstract class SearchPattern {
       return false;
     }
 
-    SearchPattern tmpOther = (SearchPattern) anObject;
+    final SearchPattern tmpOther = (SearchPattern) anObject;
     if (originalString == null) {
       if (tmpOther.originalString != null) {
         return false;

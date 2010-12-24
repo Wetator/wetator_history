@@ -35,26 +35,26 @@ public final class TextOnlySearchPattern extends SearchPattern {
    * @param anOriginalString the string used to construct the pattern
    * @param aPatternString the string to compare with
    */
-  protected TextOnlySearchPattern(String anOriginalString, String aPatternString) {
+  protected TextOnlySearchPattern(final String anOriginalString, final String aPatternString) {
     super(anOriginalString);
     patternString = aPatternString;
     patternLength = aPatternString.length();
   }
 
   @Override
-  public FindSpot firstOccurenceIn(String aString) {
+  public FindSpot firstOccurenceIn(final String aString) {
     return firstOccurenceIn(aString, 0);
   }
 
   @Override
-  public FindSpot firstOccurenceIn(String aString, int aStartPos) {
-    FindSpot tmpResult = new FindSpot();
+  public FindSpot firstOccurenceIn(final String aString, final int aStartPos) {
+    final FindSpot tmpResult = new FindSpot();
 
     if (StringUtils.isEmpty(aString)) {
       return tmpResult;
     }
 
-    int tmpPos = aString.indexOf(patternString, aStartPos);
+    final int tmpPos = aString.indexOf(patternString, aStartPos);
     if (0 > tmpPos) {
       return null;
     }
@@ -63,14 +63,14 @@ public final class TextOnlySearchPattern extends SearchPattern {
   }
 
   @Override
-  public FindSpot lastOccurenceIn(String aString) {
-    FindSpot tmpResult = new FindSpot();
+  public FindSpot lastOccurenceIn(final String aString) {
+    final FindSpot tmpResult = new FindSpot();
 
     if (StringUtils.isEmpty(aString)) {
       return tmpResult;
     }
 
-    int tmpPos = aString.lastIndexOf(patternString);
+    final int tmpPos = aString.lastIndexOf(patternString);
     if (0 > tmpPos) {
       return null;
     }
@@ -79,16 +79,16 @@ public final class TextOnlySearchPattern extends SearchPattern {
   }
 
   @Override
-  public int noOfCharsBeforeLastOccurenceIn(String aString) {
+  public int noOfCharsBeforeLastOccurenceIn(final String aString) {
     if (StringUtils.isEmpty(aString)) {
       return -1;
     }
-    int tmpPos = aString.lastIndexOf(patternString);
+    final int tmpPos = aString.lastIndexOf(patternString);
     return tmpPos;
   }
 
   @Override
-  public int noOfCharsAfterLastOccurenceIn(String aString) {
+  public int noOfCharsAfterLastOccurenceIn(final String aString) {
     if (StringUtils.isEmpty(aString)) {
       return -1;
     }
@@ -102,12 +102,12 @@ public final class TextOnlySearchPattern extends SearchPattern {
   }
 
   @Override
-  public boolean matches(String aString) {
+  public boolean matches(final String aString) {
     return patternString.equals(aString);
   }
 
   @Override
-  public boolean matchesAtEnd(String aString) {
+  public boolean matchesAtEnd(final String aString) {
     if (StringUtils.isEmpty(aString)) {
       return false;
     }
@@ -116,12 +116,12 @@ public final class TextOnlySearchPattern extends SearchPattern {
   }
 
   @Override
-  public int noOfSurroundingCharsIn(String aString) {
+  public int noOfSurroundingCharsIn(final String aString) {
     if (StringUtils.isEmpty(aString)) {
       return -1;
     }
 
-    int tmpPos = aString.indexOf(patternString);
+    final int tmpPos = aString.indexOf(patternString);
     if (0 > tmpPos) {
       return -1;
     }

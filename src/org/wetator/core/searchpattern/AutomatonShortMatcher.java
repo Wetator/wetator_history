@@ -80,7 +80,7 @@ public final class AutomatonShortMatcher implements MatchResult {
       tmpMatchStart = -1;
       tmpMatchEnd = -1;
     }
-    int tmpLength = chars.length();
+    final int tmpLength = chars.length();
     while (tmpBegin < tmpLength) {
       int tmpInitState = automaton.getInitialState();
       for (int i = tmpBegin; i < tmpLength; i += 1) {
@@ -226,7 +226,7 @@ public final class AutomatonShortMatcher implements MatchResult {
    *         not exist in the underlying automaton.
    */
   @Override
-  public int start(int aGroup) throws IndexOutOfBoundsException, IllegalStateException {
+  public int start(final int aGroup) throws IndexOutOfBoundsException, IllegalStateException {
     onlyZero(aGroup);
     return start();
   }

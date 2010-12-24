@@ -64,25 +64,25 @@ final class RegExpSearchPattern extends SearchPattern {
    * @param anOriginalString the string used to construct the pattern
    * @param aPatternString the compiled patter used by the automaton
    */
-  protected RegExpSearchPattern(String anOriginalString, String aPatternString) {
+  protected RegExpSearchPattern(final String anOriginalString, final String aPatternString) {
     super(anOriginalString);
 
     patternString = aPatternString;
 
-    Automaton tmpAutomaton = new RegExp(patternString).toAutomaton();
+    final Automaton tmpAutomaton = new RegExp(patternString).toAutomaton();
     minLength = tmpAutomaton.getShortestExample(true).length();
     runAutomaton = new RunAutomaton(tmpAutomaton);
   }
 
   @Override
-  public FindSpot firstOccurenceIn(String aString) {
+  public FindSpot firstOccurenceIn(final String aString) {
     return firstOccurenceIn(aString, 0);
   }
 
   @Override
-  public FindSpot firstOccurenceIn(String aString, int aStartPos) {
+  public FindSpot firstOccurenceIn(final String aString, final int aStartPos) {
     firstOccurenceIn++;
-    FindSpot tmpResult = new FindSpot();
+    final FindSpot tmpResult = new FindSpot();
 
     if (StringUtils.isEmpty(aString)) {
       return tmpResult;
@@ -92,9 +92,9 @@ final class RegExpSearchPattern extends SearchPattern {
       return null;
     }
 
-    AutomatonShortMatcher tmpMatcher = new AutomatonShortMatcher(aString, aStartPos, runAutomaton);
+    final AutomatonShortMatcher tmpMatcher = new AutomatonShortMatcher(aString, aStartPos, runAutomaton);
 
-    boolean tmpFound = tmpMatcher.find();
+    final boolean tmpFound = tmpMatcher.find();
     if (!tmpFound) {
       return null;
     }
@@ -106,9 +106,9 @@ final class RegExpSearchPattern extends SearchPattern {
   }
 
   @Override
-  public FindSpot lastOccurenceIn(String aString) {
+  public FindSpot lastOccurenceIn(final String aString) {
     lastOccurenceIn++;
-    FindSpot tmpResult = new FindSpot();
+    final FindSpot tmpResult = new FindSpot();
 
     if (StringUtils.isEmpty(aString)) {
       return tmpResult;
@@ -118,9 +118,9 @@ final class RegExpSearchPattern extends SearchPattern {
       return null;
     }
 
-    AutomatonShortFromEndMatcher tmpMatcher = new AutomatonShortFromEndMatcher(aString, runAutomaton);
+    final AutomatonShortFromEndMatcher tmpMatcher = new AutomatonShortFromEndMatcher(aString, runAutomaton);
 
-    boolean tmpFound = tmpMatcher.find();
+    final boolean tmpFound = tmpMatcher.find();
     if (!tmpFound) {
       return null;
     }
@@ -132,7 +132,7 @@ final class RegExpSearchPattern extends SearchPattern {
   }
 
   @Override
-  public int noOfCharsBeforeLastOccurenceIn(String aString) {
+  public int noOfCharsBeforeLastOccurenceIn(final String aString) {
     noOfCharsBeforeLastOccurenceIn++;
     int tmpResult = -1;
 
@@ -144,7 +144,7 @@ final class RegExpSearchPattern extends SearchPattern {
       return -1;
     }
 
-    AutomatonShortMatcher tmpMatcher = new AutomatonShortMatcher(aString, runAutomaton);
+    final AutomatonShortMatcher tmpMatcher = new AutomatonShortMatcher(aString, runAutomaton);
 
     boolean tmpFound = tmpMatcher.find();
     if (!tmpFound) {
@@ -161,7 +161,7 @@ final class RegExpSearchPattern extends SearchPattern {
   }
 
   @Override
-  public int noOfCharsAfterLastOccurenceIn(String aString) {
+  public int noOfCharsAfterLastOccurenceIn(final String aString) {
     noOfCharsAfterLastOccurenceIn++;
     int tmpResult = -1;
 
@@ -173,9 +173,9 @@ final class RegExpSearchPattern extends SearchPattern {
       return -1;
     }
 
-    AutomatonShortFromEndMatcher tmpMatcher = new AutomatonShortFromEndMatcher(aString, runAutomaton);
+    final AutomatonShortFromEndMatcher tmpMatcher = new AutomatonShortFromEndMatcher(aString, runAutomaton);
 
-    boolean tmpFound = tmpMatcher.find();
+    final boolean tmpFound = tmpMatcher.find();
     if (!tmpFound) {
       return -1;
     }
@@ -186,7 +186,7 @@ final class RegExpSearchPattern extends SearchPattern {
   }
 
   @Override
-  public boolean matches(String aString) {
+  public boolean matches(final String aString) {
     matches++;
     if (null == aString) {
       return false;
@@ -200,7 +200,7 @@ final class RegExpSearchPattern extends SearchPattern {
   }
 
   @Override
-  public boolean matchesAtEnd(String aString) {
+  public boolean matchesAtEnd(final String aString) {
     matchesAtEnd++;
     if (StringUtils.isEmpty(aString)) {
       return false;
@@ -210,9 +210,9 @@ final class RegExpSearchPattern extends SearchPattern {
       return false;
     }
 
-    AutomatonFromEndMatcher tmpMatcher = new AutomatonFromEndMatcher(aString, minLength, runAutomaton);
+    final AutomatonFromEndMatcher tmpMatcher = new AutomatonFromEndMatcher(aString, minLength, runAutomaton);
 
-    boolean tmpFound = tmpMatcher.find();
+    final boolean tmpFound = tmpMatcher.find();
     if (!tmpFound) {
       return false;
     }
@@ -220,13 +220,13 @@ final class RegExpSearchPattern extends SearchPattern {
   }
 
   @Override
-  public int noOfSurroundingCharsIn(String aString) {
+  public int noOfSurroundingCharsIn(final String aString) {
     noOfSurroundingCharsIn++;
     if (null == aString) {
       return -1;
     }
 
-    AutomatonShortMatcher tmpMatcher = new AutomatonShortMatcher(aString, runAutomaton);
+    final AutomatonShortMatcher tmpMatcher = new AutomatonShortMatcher(aString, runAutomaton);
 
     boolean tmpFound = tmpMatcher.find();
     if (!tmpFound) {

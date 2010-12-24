@@ -34,22 +34,22 @@ public final class MatchAllSearchPattern extends SearchPattern {
   }
 
   @Override
-  public FindSpot firstOccurenceIn(String aString) {
+  public FindSpot firstOccurenceIn(final String aString) {
     return FindSpot.NOT_FOUND;
   }
 
   @Override
-  public FindSpot firstOccurenceIn(String aString, int aStartPos) {
+  public FindSpot firstOccurenceIn(final String aString, final int aStartPos) {
     return FindSpot.NOT_FOUND;
   }
 
   @Override
-  public FindSpot lastOccurenceIn(String aString) {
+  public FindSpot lastOccurenceIn(final String aString) {
     return FindSpot.NOT_FOUND;
   }
 
   @Override
-  public int noOfCharsBeforeLastOccurenceIn(String aString) {
+  public int noOfCharsBeforeLastOccurenceIn(final String aString) {
     if (StringUtils.isEmpty(aString)) {
       return -1;
     }
@@ -57,7 +57,7 @@ public final class MatchAllSearchPattern extends SearchPattern {
   }
 
   @Override
-  public int noOfCharsAfterLastOccurenceIn(String aString) {
+  public int noOfCharsAfterLastOccurenceIn(final String aString) {
     if (null == aString) {
       return 0;
     }
@@ -65,17 +65,17 @@ public final class MatchAllSearchPattern extends SearchPattern {
   }
 
   @Override
-  public boolean matches(String aString) {
+  public boolean matches(final String aString) {
     return true;
   }
 
   @Override
-  public boolean matchesAtEnd(String aString) {
+  public boolean matchesAtEnd(final String aString) {
     return false;
   }
 
   @Override
-  public int noOfSurroundingCharsIn(String aString) {
+  public int noOfSurroundingCharsIn(final String aString) {
     return 0;
   }
 
