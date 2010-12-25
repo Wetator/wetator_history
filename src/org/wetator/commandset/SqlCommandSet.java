@@ -90,27 +90,26 @@ public final class SqlCommandSet extends AbstractCommandSet {
      *      org.wetator.core.WetCommand)
      */
     @Override
-    public void execute(WetContext aWetContext, WetCommand aWetCommand) throws AssertionFailedException {
-
-      SecretString tmpSqlParam = aWetCommand.getRequiredFirstParameterValue(aWetContext);
+    public void execute(final WetContext aWetContext, final WetCommand aWetCommand) throws AssertionFailedException {
+      final SecretString tmpSqlParam = aWetCommand.getRequiredFirstParameterValue(aWetContext);
       aWetCommand.assertNoUnusedSecondParameter(aWetContext);
 
       tmpSqlParam.trim();
-      String tmpConnectionName = extractConnectionName(aWetContext, tmpSqlParam);
+      final String tmpConnectionName = extractConnectionName(aWetContext, tmpSqlParam);
 
       String tmpSql = tmpSqlParam.getValue();
       tmpSql = removeConnectionName(tmpSql, tmpConnectionName);
 
-      Connection tmpConnection = connections.get(tmpConnectionName);
+      final Connection tmpConnection = connections.get(tmpConnectionName);
 
       try {
-        Statement tmpStatement = tmpConnection.createStatement();
+        final Statement tmpStatement = tmpConnection.createStatement();
         try {
           tmpStatement.execute(tmpSql);
         } finally {
           tmpStatement.close();
         }
-      } catch (SQLException e) {
+      } catch (final SQLException e) {
         Assert.fail("sqlFailes", new String[] { tmpSqlParam.toString(), e.getMessage() });
       }
     }
@@ -127,30 +126,29 @@ public final class SqlCommandSet extends AbstractCommandSet {
      *      org.wetator.core.WetCommand)
      */
     @Override
-    public void execute(WetContext aWetContext, WetCommand aWetCommand) throws AssertionFailedException {
-
-      SecretString tmpSqlParam = aWetCommand.getRequiredFirstParameterValue(aWetContext);
-      List<SecretString> tmpExpected = aWetCommand.getRequiredSecondParameterValues(aWetContext);
+    public void execute(final WetContext aWetContext, final WetCommand aWetCommand) throws AssertionFailedException {
+      final SecretString tmpSqlParam = aWetCommand.getRequiredFirstParameterValue(aWetContext);
+      final List<SecretString> tmpExpected = aWetCommand.getRequiredSecondParameterValues(aWetContext);
 
       tmpSqlParam.trim();
-      String tmpConnectionName = extractConnectionName(aWetContext, tmpSqlParam);
+      final String tmpConnectionName = extractConnectionName(aWetContext, tmpSqlParam);
 
       String tmpSql = tmpSqlParam.getValue();
       tmpSql = removeConnectionName(tmpSql, tmpConnectionName);
 
-      Connection tmpConnection = connections.get(tmpConnectionName);
+      final Connection tmpConnection = connections.get(tmpConnectionName);
 
-      StringBuilder tmpResult = new StringBuilder();
+      final StringBuilder tmpResult = new StringBuilder();
       try {
-        Statement tmpStatement = tmpConnection.createStatement();
+        final Statement tmpStatement = tmpConnection.createStatement();
         try {
-          ResultSet tmpResultSet = tmpStatement.executeQuery(tmpSql);
+          final ResultSet tmpResultSet = tmpStatement.executeQuery(tmpSql);
 
-          ResultSetMetaData tmpMetaData = tmpResultSet.getMetaData();
+          final ResultSetMetaData tmpMetaData = tmpResultSet.getMetaData();
 
           while (tmpResultSet.next()) {
             for (int i = 1; i <= tmpMetaData.getColumnCount(); i++) {
-              String tmpValue = tmpResultSet.getString(i);
+              final String tmpValue = tmpResultSet.getString(i);
               if (tmpResultSet.wasNull()) {
                 tmpResult.append("NULL");
               } else {
@@ -163,11 +161,11 @@ public final class SqlCommandSet extends AbstractCommandSet {
         } finally {
           tmpStatement.close();
         }
-      } catch (SQLException e) {
+      } catch (final SQLException e) {
         Assert.fail("sqlFailes", new String[] { tmpSqlParam.toString(), e.getMessage() });
       }
 
-      String tmpResultString = tmpResult.toString().trim();
+      final String tmpResultString = tmpResult.toString().trim();
       Assert.assertListMatch(tmpExpected, tmpResultString);
     }
   }
@@ -183,9 +181,8 @@ public final class SqlCommandSet extends AbstractCommandSet {
      *      org.wetator.core.WetCommand)
      */
     @Override
-    public void execute(WetContext aWetContext, WetCommand aWetCommand) throws AssertionFailedException {
-
-      SecretString tmpSqlParam = aWetCommand.getRequiredFirstParameterValue(aWetContext);
+    public void execute(final WetContext aWetContext, final WetCommand aWetCommand) throws AssertionFailedException {
+      final SecretString tmpSqlParam = aWetCommand.getRequiredFirstParameterValue(aWetContext);
       Long tmpTimeout = aWetCommand.getSecondParameterLongValue(aWetContext);
       if (null == tmpTimeout) {
         tmpTimeout = Long.valueOf(0L);
@@ -194,29 +191,29 @@ public final class SqlCommandSet extends AbstractCommandSet {
       tmpTimeout = Math.max(0, tmpTimeout.longValue());
 
       tmpSqlParam.trim();
-      String tmpConnectionName = extractConnectionName(aWetContext, tmpSqlParam);
+      final String tmpConnectionName = extractConnectionName(aWetContext, tmpSqlParam);
 
       String tmpSql = tmpSqlParam.getValue();
       tmpSql = removeConnectionName(tmpSql, tmpConnectionName);
 
-      Connection tmpConnection = connections.get(tmpConnectionName);
+      final Connection tmpConnection = connections.get(tmpConnectionName);
 
-      List<SecretString> tmpExpected = new LinkedList<SecretString>();
+      final List<SecretString> tmpExpected = new LinkedList<SecretString>();
       try {
-        Statement tmpStatement = tmpConnection.createStatement();
+        final Statement tmpStatement = tmpConnection.createStatement();
         try {
-          ResultSet tmpResultSet = tmpStatement.executeQuery(tmpSql);
+          final ResultSet tmpResultSet = tmpStatement.executeQuery(tmpSql);
 
-          ResultSetMetaData tmpMetaData = tmpResultSet.getMetaData();
+          final ResultSetMetaData tmpMetaData = tmpResultSet.getMetaData();
 
           while (tmpResultSet.next()) {
             for (int i = 1; i <= tmpMetaData.getColumnCount(); i++) {
-              String tmpValue = tmpResultSet.getString(i);
+              final String tmpValue = tmpResultSet.getString(i);
               if (tmpResultSet.wasNull()) {
                 // TODO maybe report column and row
                 aWetContext.informListenersWarn("ignoringNullValue", new String[] { tmpMetaData.getColumnName(i) });
               } else {
-                SecretString tmpSecretString = new SecretString(tmpValue, false);
+                final SecretString tmpSecretString = new SecretString(tmpValue, false);
                 tmpExpected.add(tmpSecretString);
               }
             }
@@ -225,12 +222,12 @@ public final class SqlCommandSet extends AbstractCommandSet {
         } finally {
           tmpStatement.close();
         }
-      } catch (SQLException e) {
+      } catch (final SQLException e) {
         Assert.fail("sqlFailes", new String[] { tmpSqlParam.toString(), e.getMessage() });
       }
 
-      WetBackend tmpBackend = getWetBackend(aWetContext);
-      boolean tmpContentChanged = tmpBackend.assertContentInTimeFrame(tmpExpected, tmpTimeout);
+      final WetBackend tmpBackend = getWetBackend(aWetContext);
+      final boolean tmpContentChanged = tmpBackend.assertContentInTimeFrame(tmpExpected, tmpTimeout);
       if (tmpContentChanged) {
         tmpBackend.saveCurrentWindowToLog();
       }
@@ -243,25 +240,26 @@ public final class SqlCommandSet extends AbstractCommandSet {
    * @see org.wetator.commandset.WetCommandSet#initialize(java.util.Properties)
    */
   @Override
-  public void initialize(Properties aConfiguration) {
+  public void initialize(final Properties aConfiguration) {
     // any connections defined?
-    String tmpPropConnections = aConfiguration.getProperty(PROPERTY_CONNECTIONS);
+    final String tmpPropConnections = aConfiguration.getProperty(PROPERTY_CONNECTIONS);
 
     if (StringUtils.isEmpty(tmpPropConnections)) {
       return;
     }
 
-    List<String> tmpConnectionNames = StringUtil.extractStrings(tmpPropConnections, ",", '\\');
+    final List<String> tmpConnectionNames = StringUtil.extractStrings(tmpPropConnections, ",", '\\');
     for (String tmpConnectionName : tmpConnectionNames) {
       tmpConnectionName = tmpConnectionName.trim();
       if (StringUtils.isEmpty(tmpConnectionName)) {
         continue;
       }
 
-      String tmpDriver = aConfiguration.getProperty(PROPERTY_PREFIX + tmpConnectionName + PROPERTY_PART_DRIVER);
-      String tmpUrl = aConfiguration.getProperty(PROPERTY_PREFIX + tmpConnectionName + PROPERTY_PART_URL);
-      String tmpUser = aConfiguration.getProperty(PROPERTY_PREFIX + tmpConnectionName + PROPERTY_PART_USER);
-      String tmpPassword = aConfiguration.getProperty(PROPERTY_PREFIX + tmpConnectionName + PROPERTY_PART_PASSWORD);
+      final String tmpDriver = aConfiguration.getProperty(PROPERTY_PREFIX + tmpConnectionName + PROPERTY_PART_DRIVER);
+      final String tmpUrl = aConfiguration.getProperty(PROPERTY_PREFIX + tmpConnectionName + PROPERTY_PART_URL);
+      final String tmpUser = aConfiguration.getProperty(PROPERTY_PREFIX + tmpConnectionName + PROPERTY_PART_USER);
+      final String tmpPassword = aConfiguration.getProperty(PROPERTY_PREFIX + tmpConnectionName
+          + PROPERTY_PART_PASSWORD);
 
       if (StringUtils.isEmpty(tmpDriver)) {
         addInitializationMessage("No database driver class specified for connection named '" + tmpConnectionName + "'.");
@@ -269,7 +267,7 @@ public final class SqlCommandSet extends AbstractCommandSet {
       } else {
         try {
           Class.forName(tmpDriver);
-        } catch (Exception e) {
+        } catch (final Exception e) {
           addInitializationMessage("Error during load of database driver class '" + tmpDriver
               + "' for connection named '" + tmpConnectionName + "' (reason: " + e.toString() + ").");
           log.warn("Error during load of database driver class '" + tmpDriver + "' for connection named '"
@@ -278,7 +276,7 @@ public final class SqlCommandSet extends AbstractCommandSet {
       }
 
       try {
-        Connection tmpConnection = DriverManager.getConnection(tmpUrl, tmpUser, tmpPassword);
+        final Connection tmpConnection = DriverManager.getConnection(tmpUrl, tmpUser, tmpPassword);
         // to be sure
         tmpConnection.setAutoCommit(true);
 
@@ -294,7 +292,7 @@ public final class SqlCommandSet extends AbstractCommandSet {
         } else {
           addInitializationMessage("DB " + tmpConnectionName + ": " + tmpUrl);
         }
-      } catch (Exception e) {
+      } catch (final Exception e) {
         addInitializationMessage("Error connection to database '" + tmpUrl + "' for connection named '"
             + tmpConnectionName + "' (reason: " + e.toString() + ").");
         log.warn("Error connection to database '" + tmpUrl + "' for connection named '" + tmpConnectionName + "'.", e);
@@ -310,12 +308,12 @@ public final class SqlCommandSet extends AbstractCommandSet {
    * @return the connection name
    * @throws AssertionFailedException if no default connection defined
    */
-  protected String extractConnectionName(WetContext aWetContext, SecretString aParameter)
+  protected String extractConnectionName(final WetContext aWetContext, final SecretString aParameter)
       throws AssertionFailedException {
     // check for '@' at start for handling connections
     if (aParameter.startsWith(DB_NAME_PREFIX)) {
       for (Map.Entry<String, Connection> tmpEntry : connections.entrySet()) {
-        String tmpConnectionName = tmpEntry.getKey();
+        final String tmpConnectionName = tmpEntry.getKey();
         if (aParameter.startsWith(tmpConnectionName, 1)) {
           return tmpConnectionName;
         }
@@ -334,8 +332,8 @@ public final class SqlCommandSet extends AbstractCommandSet {
    * @param aConnectionName the connection name
    * @return the connection name
    */
-  protected String removeConnectionName(String aSql, String aConnectionName) {
-    String tmpConnectionName = DB_NAME_PREFIX + aConnectionName;
+  protected String removeConnectionName(final String aSql, final String aConnectionName) {
+    final String tmpConnectionName = DB_NAME_PREFIX + aConnectionName;
     if (aSql.startsWith(tmpConnectionName)) {
       String tmpResult = aSql.substring(tmpConnectionName.length(), aSql.length());
       tmpResult = tmpResult.trim();
@@ -354,7 +352,7 @@ public final class SqlCommandSet extends AbstractCommandSet {
     for (Map.Entry<String, Connection> tmpEntry : connections.entrySet()) {
       try {
         tmpEntry.getValue().close();
-      } catch (Exception e) {
+      } catch (final Exception e) {
         log.warn("Error during close of connection to db '" + tmpEntry.getKey() + "'.", e);
       }
     }

@@ -67,7 +67,7 @@ public abstract class AbstractCommandSet implements WetCommandSet {
    * @see org.wetator.commandset.WetCommandSet#getCommandImplementationFor(java.lang.String)
    */
   @Override
-  public final WetCommandImplementation getCommandImplementationFor(String aCommandName) {
+  public final WetCommandImplementation getCommandImplementationFor(final String aCommandName) {
     return commandImplementations.get(aCommandName);
   }
 
@@ -86,7 +86,7 @@ public abstract class AbstractCommandSet implements WetCommandSet {
    * 
    * @param aMessage the message to be added
    */
-  public void addInitializationMessage(String aMessage) {
+  public void addInitializationMessage(final String aMessage) {
     initializationMessages.add(aMessage);
   }
 
@@ -101,7 +101,7 @@ public abstract class AbstractCommandSet implements WetCommandSet {
    * @param aCommandName the name of the command
    * @param aWetCommandImplementation the implementation (class) of the command
    */
-  protected void registerCommand(String aCommandName, WetCommandImplementation aWetCommandImplementation) {
+  protected void registerCommand(final String aCommandName, final WetCommandImplementation aWetCommandImplementation) {
     LOG.debug(ClassUtils.getShortClassName(this.getClass()) + " - register command : '" + aCommandName + "'");
     commandImplementations.put(aCommandName, aWetCommandImplementation);
     noOfCommands++;
@@ -113,8 +113,8 @@ public abstract class AbstractCommandSet implements WetCommandSet {
    * @param aWetContext the wet context
    * @return the WetBackend
    */
-  protected WetBackend getWetBackend(WetContext aWetContext) {
-    WetBackend tmpWetBackend = aWetContext.getWetBackend();
+  protected WetBackend getWetBackend(final WetContext aWetContext) {
+    final WetBackend tmpWetBackend = aWetContext.getWetBackend();
     return tmpWetBackend;
   }
 
@@ -129,14 +129,14 @@ public abstract class AbstractCommandSet implements WetCommandSet {
    * @return the first control from the list
    * @throws AssertionFailedException if the list is empty
    */
-  protected Control getRequiredFirstHtmlElementFrom(WetContext aWetContext, WeightedControlList aWeightedControlList,
-      WPath aWPath) throws AssertionFailedException {
+  protected Control getRequiredFirstHtmlElementFrom(final WetContext aWetContext,
+      final WeightedControlList aWeightedControlList, final WPath aWPath) throws AssertionFailedException {
     if (aWeightedControlList.isEmpty()) {
       Assert.fail("noHtmlElementFound", new String[] { aWPath.toString() });
     }
 
-    List<WeightedControlList.Entry> tmpEntries = aWeightedControlList.getEntriesSorted();
-    WeightedControlList.Entry tmpEntry = tmpEntries.get(0);
+    final List<WeightedControlList.Entry> tmpEntries = aWeightedControlList.getEntriesSorted();
+    final WeightedControlList.Entry tmpEntry = tmpEntries.get(0);
 
     if (tmpEntries.size() > 1) {
       aWetContext.informListenersWarn("manyElementsFound", new String[] { aWPath.toString(),

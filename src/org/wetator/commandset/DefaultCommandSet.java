@@ -94,14 +94,14 @@ public final class DefaultCommandSet extends AbstractCommandSet {
      *      org.wetator.core.WetCommand)
      */
     @Override
-    public void execute(WetContext aWetContext, WetCommand aWetCommand) throws AssertionFailedException {
+    public void execute(final WetContext aWetContext, final WetCommand aWetCommand) throws AssertionFailedException {
 
-      SecretString tmpUrlParam = aWetCommand.getRequiredFirstParameterValue(aWetContext);
+      final SecretString tmpUrlParam = aWetCommand.getRequiredFirstParameterValue(aWetContext);
       aWetCommand.assertNoUnusedSecondParameter(aWetContext);
 
       try {
         // create the complete URL
-        String tmpUrlToLower = tmpUrlParam.toLowerCase(Locale.ENGLISH);
+        final String tmpUrlToLower = tmpUrlParam.toLowerCase(Locale.ENGLISH);
         if (tmpUrlToLower.startsWith("http://") || tmpUrlToLower.startsWith("https://")) {
           aWetContext.informListenersWarn("absoluteUrl", new String[] { tmpUrlParam.toString() });
         } else {
@@ -112,12 +112,12 @@ public final class DefaultCommandSet extends AbstractCommandSet {
           tmpUrlParam.prefixWith(aWetContext.getWetConfiguration().getBaseUrl());
         }
 
-        URL tmpUrl = new URL(tmpUrlParam.getValue());
+        final URL tmpUrl = new URL(tmpUrlParam.getValue());
         aWetContext.informListenersInfo("openUrl", new String[] { tmpUrl.toString() });
 
-        WetBackend tmpBackend = getWetBackend(aWetContext);
+        final WetBackend tmpBackend = getWetBackend(aWetContext);
         tmpBackend.openUrl(tmpUrl);
-      } catch (MalformedURLException e) {
+      } catch (final MalformedURLException e) {
         Assert.fail("invalidUrl", new String[] { tmpUrlParam.toString(), e.getMessage() });
       }
       getWetBackend(aWetContext).saveCurrentWindowToLog();
@@ -135,12 +135,12 @@ public final class DefaultCommandSet extends AbstractCommandSet {
      *      org.wetator.core.WetCommand)
      */
     @Override
-    public void execute(WetContext aWetContext, WetCommand aWetCommand) throws AssertionFailedException {
+    public void execute(final WetContext aWetContext, final WetCommand aWetCommand) throws AssertionFailedException {
 
-      SecretString tmpModuleParam = aWetCommand.getRequiredFirstParameterValue(aWetContext);
-      List<SecretString> tmpModuleParameters = aWetCommand.getSecondParameterValues(aWetContext);
+      final SecretString tmpModuleParam = aWetCommand.getRequiredFirstParameterValue(aWetContext);
+      final List<SecretString> tmpModuleParameters = aWetCommand.getSecondParameterValues(aWetContext);
 
-      String tmpModule = tmpModuleParam.getValue();
+      final String tmpModule = tmpModuleParam.getValue();
 
       File tmpFile = new File(tmpModule);
 
@@ -150,11 +150,11 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       }
 
       // setup the new context
-      WetContext tmpWetContext = aWetContext.createSubContext(tmpFile);
+      final WetContext tmpWetContext = aWetContext.createSubContext(tmpFile);
 
       int i = 1;
       for (SecretString tmpSecretString : tmpModuleParameters) {
-        Variable tmpVariable = new Variable("" + i, tmpSecretString);
+        final Variable tmpVariable = new Variable("" + i, tmpSecretString);
         tmpWetContext.addVariable(tmpVariable);
         i++;
       }
@@ -173,21 +173,21 @@ public final class DefaultCommandSet extends AbstractCommandSet {
      *      org.wetator.core.WetCommand)
      */
     @Override
-    public void execute(WetContext aWetContext, WetCommand aWetCommand) throws AssertionFailedException {
+    public void execute(final WetContext aWetContext, final WetCommand aWetCommand) throws AssertionFailedException {
 
-      WPath tmpWPath = new WPath(aWetCommand.getFirstParameterValues(aWetContext));
+      final WPath tmpWPath = new WPath(aWetCommand.getFirstParameterValues(aWetContext));
       SecretString tmpValueParam = aWetCommand.getSecondParameterValue(aWetContext);
       if (null == tmpValueParam) {
         tmpValueParam = new SecretString("", "");
       }
 
-      WetBackend tmpBackend = getWetBackend(aWetContext);
-      ControlFinder tmpElementFinder = tmpBackend.getControlFinder();
+      final WetBackend tmpBackend = getWetBackend(aWetContext);
+      final ControlFinder tmpElementFinder = tmpBackend.getControlFinder();
 
       // TextInputs / PasswordInputs / TextAreas / FileInputs
-      WeightedControlList tmpFoundElements = tmpElementFinder.getAllSettables(tmpWPath);
+      final WeightedControlList tmpFoundElements = tmpElementFinder.getAllSettables(tmpWPath);
 
-      Settable tmpControl = (Settable) getRequiredFirstHtmlElementFrom(aWetContext, tmpFoundElements, tmpWPath);
+      final Settable tmpControl = (Settable) getRequiredFirstHtmlElementFrom(aWetContext, tmpFoundElements, tmpWPath);
       if (tmpWPath.isEmpty()) {
         aWetContext.informListenersWarn("firstElementUsed", new String[] { tmpControl.getDescribingText() });
       }
@@ -207,22 +207,22 @@ public final class DefaultCommandSet extends AbstractCommandSet {
      *      org.wetator.core.WetCommand)
      */
     @Override
-    public void execute(WetContext aWetContext, WetCommand aWetCommand) throws AssertionFailedException {
+    public void execute(final WetContext aWetContext, final WetCommand aWetCommand) throws AssertionFailedException {
 
-      WPath tmpWPath = new WPath(aWetCommand.getRequiredFirstParameterValues(aWetContext));
+      final WPath tmpWPath = new WPath(aWetCommand.getRequiredFirstParameterValues(aWetContext));
       aWetCommand.assertNoUnusedSecondParameter(aWetContext);
 
-      WetBackend tmpBackend = getWetBackend(aWetContext);
-      ControlFinder tmpControlFinder = tmpBackend.getControlFinder();
+      final WetBackend tmpBackend = getWetBackend(aWetContext);
+      final ControlFinder tmpControlFinder = tmpBackend.getControlFinder();
 
       // Buttons / Link / Image
-      WeightedControlList tmpFoundElements = tmpControlFinder.getAllClickables(tmpWPath);
+      final WeightedControlList tmpFoundElements = tmpControlFinder.getAllClickables(tmpWPath);
 
       // Text
       // tmpFoundElements.addAll(tmpControlFinder.getFirstClickableTextElement(tmpSearchParam));
       tmpFoundElements.addAll(tmpControlFinder.getAllControlsForText(tmpWPath));
 
-      Control tmpControl = getRequiredFirstHtmlElementFrom(aWetContext, tmpFoundElements, tmpWPath);
+      final Control tmpControl = getRequiredFirstHtmlElementFrom(aWetContext, tmpFoundElements, tmpWPath);
       tmpControl.click(aWetContext);
       tmpBackend.saveCurrentWindowToLog();
     }
@@ -239,18 +239,19 @@ public final class DefaultCommandSet extends AbstractCommandSet {
      *      org.wetator.core.WetCommand)
      */
     @Override
-    public void execute(WetContext aWetContext, WetCommand aWetCommand) throws AssertionFailedException {
+    public void execute(final WetContext aWetContext, final WetCommand aWetCommand) throws AssertionFailedException {
 
-      WPath tmpWPath = new WPath(aWetCommand.getRequiredFirstParameterValues(aWetContext));
+      final WPath tmpWPath = new WPath(aWetCommand.getRequiredFirstParameterValues(aWetContext));
       aWetCommand.assertNoUnusedSecondParameter(aWetContext);
 
-      WetBackend tmpBackend = getWetBackend(aWetContext);
-      ControlFinder tmpControlFinder = tmpBackend.getControlFinder();
+      final WetBackend tmpBackend = getWetBackend(aWetContext);
+      final ControlFinder tmpControlFinder = tmpBackend.getControlFinder();
 
       // (Select)Options / Checkboxes / Radiobuttons
-      WeightedControlList tmpFoundElements = tmpControlFinder.getAllSelectables(tmpWPath);
+      final WeightedControlList tmpFoundElements = tmpControlFinder.getAllSelectables(tmpWPath);
 
-      Selectable tmpControl = (Selectable) getRequiredFirstHtmlElementFrom(aWetContext, tmpFoundElements, tmpWPath);
+      final Selectable tmpControl = (Selectable) getRequiredFirstHtmlElementFrom(aWetContext, tmpFoundElements,
+          tmpWPath);
       tmpControl.select(aWetContext);
       tmpBackend.saveCurrentWindowToLog();
     }
@@ -267,18 +268,19 @@ public final class DefaultCommandSet extends AbstractCommandSet {
      *      org.wetator.core.WetCommand)
      */
     @Override
-    public void execute(WetContext aWetContext, WetCommand aWetCommand) throws AssertionFailedException {
+    public void execute(final WetContext aWetContext, final WetCommand aWetCommand) throws AssertionFailedException {
 
-      WPath tmpWPath = new WPath(aWetCommand.getRequiredFirstParameterValues(aWetContext));
+      final WPath tmpWPath = new WPath(aWetCommand.getRequiredFirstParameterValues(aWetContext));
       aWetCommand.assertNoUnusedSecondParameter(aWetContext);
 
-      WetBackend tmpBackend = getWetBackend(aWetContext);
-      ControlFinder tmpControlFinder = tmpBackend.getControlFinder();
+      final WetBackend tmpBackend = getWetBackend(aWetContext);
+      final ControlFinder tmpControlFinder = tmpBackend.getControlFinder();
 
       // (Select)Options / Checkboxes
-      WeightedControlList tmpFoundElements = tmpControlFinder.getAllDeselectables(tmpWPath);
+      final WeightedControlList tmpFoundElements = tmpControlFinder.getAllDeselectables(tmpWPath);
 
-      Deselectable tmpControl = (Deselectable) getRequiredFirstHtmlElementFrom(aWetContext, tmpFoundElements, tmpWPath);
+      final Deselectable tmpControl = (Deselectable) getRequiredFirstHtmlElementFrom(aWetContext, tmpFoundElements,
+          tmpWPath);
       tmpControl.deselect(aWetContext);
       tmpBackend.saveCurrentWindowToLog();
     }
@@ -295,15 +297,15 @@ public final class DefaultCommandSet extends AbstractCommandSet {
      *      org.wetator.core.WetCommand)
      */
     @Override
-    public void execute(WetContext aWetContext, WetCommand aWetCommand) throws AssertionFailedException {
+    public void execute(final WetContext aWetContext, final WetCommand aWetCommand) throws AssertionFailedException {
 
-      WPath tmpWPath = new WPath(aWetCommand.getRequiredFirstParameterValues(aWetContext));
+      final WPath tmpWPath = new WPath(aWetCommand.getRequiredFirstParameterValues(aWetContext));
       aWetCommand.assertNoUnusedSecondParameter(aWetContext);
 
-      WetBackend tmpBackend = getWetBackend(aWetContext);
-      ControlFinder tmpControlFinder = tmpBackend.getControlFinder();
+      final WetBackend tmpBackend = getWetBackend(aWetContext);
+      final ControlFinder tmpControlFinder = tmpBackend.getControlFinder();
 
-      WeightedControlList tmpFoundElements = tmpControlFinder.getAllSettables(tmpWPath);
+      final WeightedControlList tmpFoundElements = tmpControlFinder.getAllSettables(tmpWPath);
       tmpFoundElements.addAll(tmpControlFinder.getAllSelectables(tmpWPath));
       tmpFoundElements.addAll(tmpControlFinder.getAllClickables(tmpWPath));
 
@@ -313,7 +315,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
 
       tmpFoundElements.addAll(tmpControlFinder.getAllControlsForText(tmpWPath));
 
-      Control tmpControl = getRequiredFirstHtmlElementFrom(aWetContext, tmpFoundElements, tmpWPath);
+      final Control tmpControl = getRequiredFirstHtmlElementFrom(aWetContext, tmpFoundElements, tmpWPath);
       tmpControl.mouseOver(aWetContext);
       tmpBackend.saveCurrentWindowToLog();
     }
@@ -330,12 +332,12 @@ public final class DefaultCommandSet extends AbstractCommandSet {
      *      org.wetator.core.WetCommand)
      */
     @Override
-    public void execute(WetContext aWetContext, WetCommand aWetCommand) throws AssertionFailedException {
+    public void execute(final WetContext aWetContext, final WetCommand aWetCommand) throws AssertionFailedException {
 
-      SecretString tmpWindowNameParam = aWetCommand.getFirstParameterValue(aWetContext);
+      final SecretString tmpWindowNameParam = aWetCommand.getFirstParameterValue(aWetContext);
       aWetCommand.assertNoUnusedSecondParameter(aWetContext);
 
-      WetBackend tmpBackend = getWetBackend(aWetContext);
+      final WetBackend tmpBackend = getWetBackend(aWetContext);
       tmpBackend.closeWindow(tmpWindowNameParam);
       tmpBackend.saveCurrentWindowToLog();
     }
@@ -352,21 +354,21 @@ public final class DefaultCommandSet extends AbstractCommandSet {
      *      org.wetator.core.WetCommand)
      */
     @Override
-    public void execute(WetContext aWetContext, WetCommand aWetCommand) throws AssertionFailedException {
+    public void execute(final WetContext aWetContext, final WetCommand aWetCommand) throws AssertionFailedException {
 
-      SecretString tmpStepsParam = aWetCommand.getFirstParameterValue(aWetContext);
+      final SecretString tmpStepsParam = aWetCommand.getFirstParameterValue(aWetContext);
       aWetCommand.assertNoUnusedSecondParameter(aWetContext);
 
       int tmpSteps = 1;
       if (null != tmpStepsParam) {
         try {
           tmpSteps = Integer.parseInt(tmpStepsParam.getValue());
-        } catch (Exception e) {
+        } catch (final Exception e) {
           aWetContext.informListenersWarn("stepsNotANumber", new String[] { tmpStepsParam.toString(), "" + tmpSteps });
         }
       }
 
-      WetBackend tmpBackend = getWetBackend(aWetContext);
+      final WetBackend tmpBackend = getWetBackend(aWetContext);
       tmpBackend.goBackInCurrentWindow(tmpSteps);
       tmpBackend.saveCurrentWindowToLog();
     }
@@ -383,8 +385,8 @@ public final class DefaultCommandSet extends AbstractCommandSet {
      *      org.wetator.core.WetCommand)
      */
     @Override
-    public void execute(WetContext aWetContext, WetCommand aWetCommand) throws AssertionFailedException {
-      List<SecretString> tmpExpected = aWetCommand.getRequiredFirstParameterValues(aWetContext);
+    public void execute(final WetContext aWetContext, final WetCommand aWetCommand) throws AssertionFailedException {
+      final List<SecretString> tmpExpected = aWetCommand.getRequiredFirstParameterValues(aWetContext);
       Long tmpTimeout = aWetCommand.getSecondParameterLongValue(aWetContext);
       if (null == tmpTimeout) {
         tmpTimeout = Long.valueOf(0L);
@@ -392,8 +394,8 @@ public final class DefaultCommandSet extends AbstractCommandSet {
 
       tmpTimeout = Math.max(0, tmpTimeout.longValue());
 
-      WetBackend tmpBackend = getWetBackend(aWetContext);
-      boolean tmpContentChanged = tmpBackend.assertTitleInTimeFrame(tmpExpected, tmpTimeout);
+      final WetBackend tmpBackend = getWetBackend(aWetContext);
+      final boolean tmpContentChanged = tmpBackend.assertTitleInTimeFrame(tmpExpected, tmpTimeout);
       if (tmpContentChanged) {
         tmpBackend.saveCurrentWindowToLog();
       }
@@ -411,8 +413,8 @@ public final class DefaultCommandSet extends AbstractCommandSet {
      *      org.wetator.core.WetCommand)
      */
     @Override
-    public void execute(WetContext aWetContext, WetCommand aWetCommand) throws AssertionFailedException {
-      List<SecretString> tmpExpected = aWetCommand.getRequiredFirstParameterValues(aWetContext);
+    public void execute(final WetContext aWetContext, final WetCommand aWetCommand) throws AssertionFailedException {
+      final List<SecretString> tmpExpected = aWetCommand.getRequiredFirstParameterValues(aWetContext);
       Long tmpTimeout = aWetCommand.getSecondParameterLongValue(aWetContext);
       if (null == tmpTimeout) {
         tmpTimeout = Long.valueOf(0L);
@@ -420,8 +422,8 @@ public final class DefaultCommandSet extends AbstractCommandSet {
 
       tmpTimeout = Math.max(0, tmpTimeout.longValue());
 
-      WetBackend tmpBackend = getWetBackend(aWetContext);
-      boolean tmpContentChanged = tmpBackend.assertContentInTimeFrame(tmpExpected, tmpTimeout);
+      final WetBackend tmpBackend = getWetBackend(aWetContext);
+      final boolean tmpContentChanged = tmpBackend.assertContentInTimeFrame(tmpExpected, tmpTimeout);
       if (tmpContentChanged) {
         tmpBackend.saveCurrentWindowToLog();
       }
@@ -439,15 +441,15 @@ public final class DefaultCommandSet extends AbstractCommandSet {
      *      org.wetator.core.WetCommand)
      */
     @Override
-    public void execute(WetContext aWetContext, WetCommand aWetCommand) throws AssertionFailedException {
-      WPath tmpWPath = new WPath(aWetCommand.getRequiredFirstParameterValues(aWetContext));
+    public void execute(final WetContext aWetContext, final WetCommand aWetCommand) throws AssertionFailedException {
+      final WPath tmpWPath = new WPath(aWetCommand.getRequiredFirstParameterValues(aWetContext));
       aWetCommand.assertNoUnusedSecondParameter(aWetContext);
 
-      WetBackend tmpBackend = getWetBackend(aWetContext);
-      ControlFinder tmpControlFinder = tmpBackend.getControlFinder();
+      final WetBackend tmpBackend = getWetBackend(aWetContext);
+      final ControlFinder tmpControlFinder = tmpBackend.getControlFinder();
 
       // TextInputs / PasswordInputs / TextAreas / FileInputs
-      WeightedControlList tmpFoundElements = tmpControlFinder.getAllSettables(tmpWPath);
+      final WeightedControlList tmpFoundElements = tmpControlFinder.getAllSettables(tmpWPath);
       tmpFoundElements.addAll(tmpControlFinder.getAllSelectables(tmpWPath));
       tmpFoundElements.addAll(tmpControlFinder.getAllClickables(tmpWPath));
 
@@ -459,9 +461,9 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       // tmpFoundElements.addAll(tmpControlFinder.getFirstClickableTextElement(tmpSearchParam));
       tmpFoundElements.addAll(tmpControlFinder.getAllControlsForText(tmpWPath));
 
-      Control tmpControl = getRequiredFirstHtmlElementFrom(aWetContext, tmpFoundElements, tmpWPath);
+      final Control tmpControl = getRequiredFirstHtmlElementFrom(aWetContext, tmpFoundElements, tmpWPath);
 
-      boolean tmpIsDisabled = tmpControl.isDisabled(aWetContext);
+      final boolean tmpIsDisabled = tmpControl.isDisabled(aWetContext);
       Assert.assertTrue(tmpIsDisabled, "elementNotDisabled", new String[] { tmpControl.getDescribingText() });
     }
   }
@@ -477,20 +479,20 @@ public final class DefaultCommandSet extends AbstractCommandSet {
      *      org.wetator.core.WetCommand)
      */
     @Override
-    public void execute(WetContext aWetContext, WetCommand aWetCommand) throws AssertionFailedException {
-      WPath tmpWPath = new WPath(aWetCommand.getRequiredFirstParameterValues(aWetContext));
+    public void execute(final WetContext aWetContext, final WetCommand aWetCommand) throws AssertionFailedException {
+      final WPath tmpWPath = new WPath(aWetCommand.getRequiredFirstParameterValues(aWetContext));
       SecretString tmpValueParam = aWetCommand.getSecondParameterValue(aWetContext);
       if (null == tmpValueParam) {
         tmpValueParam = new SecretString("", "");
       }
 
-      WetBackend tmpBackend = getWetBackend(aWetContext);
-      ControlFinder tmpControlFinder = tmpBackend.getControlFinder();
+      final WetBackend tmpBackend = getWetBackend(aWetContext);
+      final ControlFinder tmpControlFinder = tmpBackend.getControlFinder();
 
       // TextInputs / PasswordInputs / TextAreas / FileInputs
-      WeightedControlList tmpFoundElements = tmpControlFinder.getAllSettables(tmpWPath);
+      final WeightedControlList tmpFoundElements = tmpControlFinder.getAllSettables(tmpWPath);
 
-      Settable tmpControl = (Settable) getRequiredFirstHtmlElementFrom(aWetContext, tmpFoundElements, tmpWPath);
+      final Settable tmpControl = (Settable) getRequiredFirstHtmlElementFrom(aWetContext, tmpFoundElements, tmpWPath);
 
       tmpControl.assertValue(aWetContext, tmpValueParam);
     }
@@ -507,19 +509,20 @@ public final class DefaultCommandSet extends AbstractCommandSet {
      *      org.wetator.core.WetCommand)
      */
     @Override
-    public void execute(WetContext aWetContext, WetCommand aWetCommand) throws AssertionFailedException {
-      WPath tmpWPath = new WPath(aWetCommand.getRequiredFirstParameterValues(aWetContext));
+    public void execute(final WetContext aWetContext, final WetCommand aWetCommand) throws AssertionFailedException {
+      final WPath tmpWPath = new WPath(aWetCommand.getRequiredFirstParameterValues(aWetContext));
       aWetCommand.assertNoUnusedSecondParameter(aWetContext);
 
-      WetBackend tmpBackend = getWetBackend(aWetContext);
-      ControlFinder tmpControlFinder = tmpBackend.getControlFinder();
+      final WetBackend tmpBackend = getWetBackend(aWetContext);
+      final ControlFinder tmpControlFinder = tmpBackend.getControlFinder();
 
       // (Select)Options / Checkboxes / Radiobuttons
-      WeightedControlList tmpFoundElements = tmpControlFinder.getAllSelectables(tmpWPath);
+      final WeightedControlList tmpFoundElements = tmpControlFinder.getAllSelectables(tmpWPath);
 
-      Selectable tmpControl = (Selectable) getRequiredFirstHtmlElementFrom(aWetContext, tmpFoundElements, tmpWPath);
+      final Selectable tmpControl = (Selectable) getRequiredFirstHtmlElementFrom(aWetContext, tmpFoundElements,
+          tmpWPath);
 
-      boolean tmpIsSelected = tmpControl.isSelected(aWetContext);
+      final boolean tmpIsSelected = tmpControl.isSelected(aWetContext);
       Assert.assertTrue(tmpIsSelected, "elementNotSelected", new String[] { tmpControl.getDescribingText() });
     }
   }
@@ -535,19 +538,20 @@ public final class DefaultCommandSet extends AbstractCommandSet {
      *      org.wetator.core.WetCommand)
      */
     @Override
-    public void execute(WetContext aWetContext, WetCommand aWetCommand) throws AssertionFailedException {
-      WPath tmpWPath = new WPath(aWetCommand.getRequiredFirstParameterValues(aWetContext));
+    public void execute(final WetContext aWetContext, final WetCommand aWetCommand) throws AssertionFailedException {
+      final WPath tmpWPath = new WPath(aWetCommand.getRequiredFirstParameterValues(aWetContext));
       aWetCommand.assertNoUnusedSecondParameter(aWetContext);
 
-      WetBackend tmpBackend = getWetBackend(aWetContext);
-      ControlFinder tmpControlFinder = tmpBackend.getControlFinder();
+      final WetBackend tmpBackend = getWetBackend(aWetContext);
+      final ControlFinder tmpControlFinder = tmpBackend.getControlFinder();
 
       // (Select)Options / Checkboxes / Radiobuttons
-      WeightedControlList tmpFoundElements = tmpControlFinder.getAllSelectables(tmpWPath);
+      final WeightedControlList tmpFoundElements = tmpControlFinder.getAllSelectables(tmpWPath);
 
-      Selectable tmpControl = (Selectable) getRequiredFirstHtmlElementFrom(aWetContext, tmpFoundElements, tmpWPath);
+      final Selectable tmpControl = (Selectable) getRequiredFirstHtmlElementFrom(aWetContext, tmpFoundElements,
+          tmpWPath);
 
-      boolean tmpIsSelected = tmpControl.isSelected(aWetContext);
+      final boolean tmpIsSelected = tmpControl.isSelected(aWetContext);
       Assert.assertFalse(tmpIsSelected, "elementNotDeselected", new String[] { tmpControl.getDescribingText() });
     }
   }
@@ -564,12 +568,12 @@ public final class DefaultCommandSet extends AbstractCommandSet {
      */
     @Override
     @SuppressWarnings("unchecked")
-    public void execute(WetContext aWetContext, WetCommand aWetCommand) throws AssertionFailedException {
-      SecretString tmpCall = aWetCommand.getRequiredFirstParameterValue(aWetContext);
-      List<SecretString> tmpMethodParameters = aWetCommand.getSecondParameterValues(aWetContext);
+    public void execute(final WetContext aWetContext, final WetCommand aWetCommand) throws AssertionFailedException {
+      final SecretString tmpCall = aWetCommand.getRequiredFirstParameterValue(aWetContext);
+      final List<SecretString> tmpMethodParameters = aWetCommand.getSecondParameterValues(aWetContext);
 
-      String tmpCallString = tmpCall.toString();
-      int tmpLastDotPos = tmpCallString.lastIndexOf(".");
+      final String tmpCallString = tmpCall.toString();
+      final int tmpLastDotPos = tmpCallString.lastIndexOf(".");
       if (tmpLastDotPos < 0) {
         Assert.fail("javaExecSyntax", new String[] { tmpCallString });
       }
@@ -591,7 +595,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       }
 
       Object[] tmpParams = new String[tmpMethodParameters.size()];
-      Class<String>[] tmpParamTypes = new Class[tmpMethodParameters.size()];
+      final Class<String>[] tmpParamTypes = new Class[tmpMethodParameters.size()];
       int i = 0;
       for (SecretString tmpSecret : tmpMethodParameters) {
         tmpParams[i] = tmpSecret.toString();
@@ -602,7 +606,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       String tmpMethodLabel = tmpMethodName;
 
       try {
-        Class<?> tmpClass = ClassUtils.getClass(tmpClassName);
+        final Class<?> tmpClass = ClassUtils.getClass(tmpClassName);
         Method tmpMethod = MethodUtils.getMatchingAccessibleMethod(tmpClass, tmpMethodName, tmpParamTypes);
         if (null == tmpMethod) {
           tmpMethod = MethodUtils.getMatchingAccessibleMethod(tmpClass, tmpMethodName, new Class[] { String[].class });
@@ -629,7 +633,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
         }
 
         // time to execute
-        Object tmpResult = tmpMethod.invoke(tmpReceiver, tmpParams);
+        final Object tmpResult = tmpMethod.invoke(tmpReceiver, tmpParams);
         if (Void.TYPE != tmpMethod.getReturnType()) {
           if (null == tmpResult) {
             aWetContext.informListenersInfo("javaExecResult", new String[] { "null" });
@@ -637,38 +641,38 @@ public final class DefaultCommandSet extends AbstractCommandSet {
             aWetContext.informListenersInfo("javaExecResult", new String[] { tmpResult.toString() });
           }
         }
-      } catch (NoClassDefFoundError e) {
+      } catch (final NoClassDefFoundError e) {
         aWetContext.informListenersWarn("javaExecStacktrace", new String[] { ExceptionUtils.getStackTrace(e) });
         aWetContext.informListenersInfo("javaExecClasspath", new String[] { System.getProperty("java.class.path") });
         Assert.fail("javaExecClassNotFound", new String[] { tmpClassName, e.toString() });
-      } catch (ClassNotFoundException e) {
+      } catch (final ClassNotFoundException e) {
         aWetContext.informListenersWarn("javaExecStacktrace", new String[] { ExceptionUtils.getStackTrace(e) });
         aWetContext.informListenersInfo("javaExecClasspath", new String[] { System.getProperty("java.class.path") });
         Assert.fail("javaExecClassNotFound", new String[] { tmpClassName, e.toString() });
-      } catch (IllegalArgumentException e) {
-        Assert.fail("javaExecIllegalArgument", new String[] { tmpClassName, tmpMethodLabel,
-            tmpMethodParameters.toString(), e.getMessage() });
-      } catch (IllegalAccessException e) {
+      } catch (final IllegalArgumentException e) {
+        Assert.fail("javaExecIllegalArgument",
+            new String[] { tmpClassName, tmpMethodLabel, tmpMethodParameters.toString(), e.getMessage() });
+      } catch (final IllegalAccessException e) {
         aWetContext.informListenersWarn("javaExecStacktrace", new String[] { ExceptionUtils.getStackTrace(e) });
-        Assert.fail("javaExecIllegalAccess", new String[] { tmpClassName, tmpMethodLabel,
-            tmpMethodParameters.toString(), e.getMessage() });
-      } catch (InvocationTargetException e) {
+        Assert.fail("javaExecIllegalAccess",
+            new String[] { tmpClassName, tmpMethodLabel, tmpMethodParameters.toString(), e.getMessage() });
+      } catch (final InvocationTargetException e) {
         aWetContext.informListenersWarn("javaExecStacktrace", new String[] { ExceptionUtils.getStackTrace(e) });
         if (null == e.getCause()) {
-          Assert.fail("javaExecInvocationTarget", new String[] { tmpClassName, tmpMethodLabel,
-              tmpMethodParameters.toString(), e.toString() });
+          Assert.fail("javaExecInvocationTarget",
+              new String[] { tmpClassName, tmpMethodLabel, tmpMethodParameters.toString(), e.toString() });
         } else {
-          Assert.fail("javaExecInvocationTarget", new String[] { tmpClassName, tmpMethodLabel,
-              tmpMethodParameters.toString(), e.getCause().toString() });
+          Assert.fail("javaExecInvocationTarget",
+              new String[] { tmpClassName, tmpMethodLabel, tmpMethodParameters.toString(), e.getCause().toString() });
         }
-      } catch (InstantiationException e) {
+      } catch (final InstantiationException e) {
         aWetContext.informListenersWarn("javaExecStacktrace", new String[] { ExceptionUtils.getStackTrace(e) });
         if (null == e.getCause()) {
-          Assert.fail("javaExecInstantiation", new String[] { tmpClassName, tmpMethodLabel,
-              tmpMethodParameters.toString(), e.toString() });
+          Assert.fail("javaExecInstantiation",
+              new String[] { tmpClassName, tmpMethodLabel, tmpMethodParameters.toString(), e.toString() });
         } else {
-          Assert.fail("javaExecInstantiation", new String[] { tmpClassName, tmpMethodLabel,
-              tmpMethodParameters.toString(), e.getCause().toString() });
+          Assert.fail("javaExecInstantiation",
+              new String[] { tmpClassName, tmpMethodLabel, tmpMethodParameters.toString(), e.getCause().toString() });
         }
       }
     }
@@ -680,7 +684,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
    * @see org.wetator.commandset.WetCommandSet#initialize(java.util.Properties)
    */
   @Override
-  public void initialize(Properties aConfiguration) {
+  public void initialize(final Properties aConfiguration) {
     // nothing to do at the moment
   }
 

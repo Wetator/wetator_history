@@ -65,15 +65,15 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
      *      org.wetator.core.WetCommand)
      */
     @Override
-    public void execute(WetContext aWetContext, WetCommand aWetCommand) throws AssertionFailedException {
-      WPath tmpWPath = new WPath(aWetCommand.getRequiredFirstParameterValues(aWetContext));
+    public void execute(final WetContext aWetContext, final WetCommand aWetCommand) throws AssertionFailedException {
+      final WPath tmpWPath = new WPath(aWetCommand.getRequiredFirstParameterValues(aWetContext));
       aWetCommand.assertNoUnusedSecondParameter(aWetContext);
 
-      WetBackend tmpBackend = getWetBackend(aWetContext);
-      ControlFinder tmpControlFinder = tmpBackend.getControlFinder();
+      final WetBackend tmpBackend = getWetBackend(aWetContext);
+      final ControlFinder tmpControlFinder = tmpBackend.getControlFinder();
 
       // TextInputs / PasswordInputs / TextAreas / FileInputs
-      WeightedControlList tmpFoundElements = tmpControlFinder.getAllSettables(tmpWPath);
+      final WeightedControlList tmpFoundElements = tmpControlFinder.getAllSettables(tmpWPath);
       tmpFoundElements.addAll(tmpControlFinder.getAllSelectables(tmpWPath));
       tmpFoundElements.addAll(tmpControlFinder.getAllClickables(tmpWPath));
 
@@ -84,9 +84,9 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
       // clickable Text
       tmpFoundElements.addAll(tmpControlFinder.getAllControlsForText(tmpWPath));
 
-      Control tmpControl = getRequiredFirstHtmlElementFrom(aWetContext, tmpFoundElements, tmpWPath);
+      final Control tmpControl = getRequiredFirstHtmlElementFrom(aWetContext, tmpFoundElements, tmpWPath);
 
-      boolean tmpIsDisabled = tmpControl.hasFocus(aWetContext);
+      final boolean tmpIsDisabled = tmpControl.hasFocus(aWetContext);
       Assert.assertTrue(tmpIsDisabled, "elementNotFocused", new String[] { tmpControl.getDescribingText() });
     }
   }
@@ -102,12 +102,12 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
      *      org.wetator.core.WetCommand)
      */
     @Override
-    public void execute(WetContext aWetContext, WetCommand aWetCommand) throws AssertionFailedException {
-      SecretString tmpBookmarkName = aWetCommand.getRequiredFirstParameterValue(aWetContext);
+    public void execute(final WetContext aWetContext, final WetCommand aWetCommand) throws AssertionFailedException {
+      final SecretString tmpBookmarkName = aWetCommand.getRequiredFirstParameterValue(aWetContext);
       aWetCommand.assertNoUnusedSecondParameter(aWetContext);
 
-      WetBackend tmpBackend = getWetBackend(aWetContext);
-      URL tmpUrl = tmpBackend.getBookmark(tmpBookmarkName.getValue());
+      final WetBackend tmpBackend = getWetBackend(aWetContext);
+      final URL tmpUrl = tmpBackend.getBookmark(tmpBookmarkName.getValue());
       Assert.assertNotNull(tmpUrl, "unknownBookmark", new String[] { tmpBookmarkName.getValue() });
 
       aWetContext.informListenersInfo("openUrl", new String[] { tmpUrl.toString() });
@@ -128,11 +128,11 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
      *      org.wetator.core.WetCommand)
      */
     @Override
-    public void execute(WetContext aWetContext, WetCommand aWetCommand) throws AssertionFailedException {
-      SecretString tmpBookmarkName = aWetCommand.getRequiredFirstParameterValue(aWetContext);
+    public void execute(final WetContext aWetContext, final WetCommand aWetCommand) throws AssertionFailedException {
+      final SecretString tmpBookmarkName = aWetCommand.getRequiredFirstParameterValue(aWetContext);
       aWetCommand.assertNoUnusedSecondParameter(aWetContext);
 
-      WetBackend tmpBackend = getWetBackend(aWetContext);
+      final WetBackend tmpBackend = getWetBackend(aWetContext);
       tmpBackend.bookmarkPage(tmpBookmarkName.getValue());
     }
   }
@@ -143,7 +143,7 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
    * @see org.wetator.commandset.WetCommandSet#initialize(java.util.Properties)
    */
   @Override
-  public void initialize(Properties aConfiguration) {
+  public void initialize(final Properties aConfiguration) {
     // nothing to do at the moment
   }
 
