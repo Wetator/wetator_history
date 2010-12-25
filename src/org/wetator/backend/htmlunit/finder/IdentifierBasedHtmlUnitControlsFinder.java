@@ -61,7 +61,7 @@ public class IdentifierBasedHtmlUnitControlsFinder extends AbstractHtmlUnitContr
    * @param aHtmlPageIndex the {@link HtmlPageIndex} index of the page
    * @param aThreadPool the thread pool to use for worker threads; may be null
    */
-  public IdentifierBasedHtmlUnitControlsFinder(HtmlPageIndex aHtmlPageIndex, ThreadPoolExecutor aThreadPool) {
+  public IdentifierBasedHtmlUnitControlsFinder(final HtmlPageIndex aHtmlPageIndex, final ThreadPoolExecutor aThreadPool) {
     super(aHtmlPageIndex);
 
     threadPool = aThreadPool;
@@ -75,14 +75,14 @@ public class IdentifierBasedHtmlUnitControlsFinder extends AbstractHtmlUnitContr
   /**
    * @param anIdentifier the identifier to add
    */
-  public void addIdentifier(Class<? extends AbstractHtmlUnitControlIdentifier> anIdentifier) {
+  public void addIdentifier(final Class<? extends AbstractHtmlUnitControlIdentifier> anIdentifier) {
     identifiers.add(anIdentifier);
   }
 
   /**
    * @param anIdentifierList the list containing the identifiers to add
    */
-  public void addIdentifiers(List<Class<? extends AbstractHtmlUnitControlIdentifier>> anIdentifierList) {
+  public void addIdentifiers(final List<Class<? extends AbstractHtmlUnitControlIdentifier>> anIdentifierList) {
     identifiers.addAll(anIdentifierList);
   }
 
@@ -92,19 +92,19 @@ public class IdentifierBasedHtmlUnitControlsFinder extends AbstractHtmlUnitContr
    * @see org.wetator.backend.htmlunit.finder.AbstractHtmlUnitControlsFinder#find(WPath)
    */
   @Override
-  public WeightedControlList find(WPath aWPath) {
-    WeightedControlList tmpFoundControls = new WeightedControlList();
+  public WeightedControlList find(final WPath aWPath) {
+    final WeightedControlList tmpFoundControls = new WeightedControlList();
     for (HtmlElement tmpHtmlElement : htmlPageIndex.getAllVisibleHtmlElements()) {
       for (Class<? extends AbstractHtmlUnitControlIdentifier> tmpIdentifierClass : identifiers) {
         try {
-          AbstractHtmlUnitControlIdentifier tmpIdentifier = tmpIdentifierClass.newInstance();
+          final AbstractHtmlUnitControlIdentifier tmpIdentifier = tmpIdentifierClass.newInstance();
           tmpIdentifier.initializeForAsynch(htmlPageIndex, tmpHtmlElement, aWPath, tmpFoundControls);
           if (tmpIdentifier.isHtmlElementSupported(tmpHtmlElement)) {
             execute(tmpIdentifier);
           }
-        } catch (IllegalAccessException e) {
+        } catch (final IllegalAccessException e) {
           throw new WetException("Could not access identifier class '" + tmpIdentifierClass.getName() + "'.", e);
-        } catch (InstantiationException e) {
+        } catch (final InstantiationException e) {
           throw new WetException("Could not instantiate identifier for class '" + tmpIdentifierClass.getName() + "'.",
               e);
         }
@@ -119,7 +119,7 @@ public class IdentifierBasedHtmlUnitControlsFinder extends AbstractHtmlUnitContr
    * 
    * @param anIdentifier the identifier
    */
-  protected void execute(AbstractHtmlUnitControlIdentifier anIdentifier) {
+  protected void execute(final AbstractHtmlUnitControlIdentifier anIdentifier) {
     futures.add(threadPool.submit(anIdentifier));
   }
 
@@ -130,9 +130,9 @@ public class IdentifierBasedHtmlUnitControlsFinder extends AbstractHtmlUnitContr
     for (Future<?> tmpFuture : futures) {
       try {
         tmpFuture.get();
-      } catch (InterruptedException e) {
+      } catch (final InterruptedException e) {
         throw new WetException("Exception waiting for executed threads.", e);
-      } catch (ExecutionException e) {
+      } catch (final ExecutionException e) {
         throw new WetException("Exception occured in executed thread.", e.getCause());
       }
     }

@@ -39,7 +39,7 @@ public abstract class AbstractHtmlUnitControlsFinder {
    * 
    * @param aHtmlPageIndex the {@link HtmlPageIndex} of the page
    */
-  public AbstractHtmlUnitControlsFinder(HtmlPageIndex aHtmlPageIndex) {
+  public AbstractHtmlUnitControlsFinder(final HtmlPageIndex aHtmlPageIndex) {
     htmlPageIndex = aHtmlPageIndex;
   }
 

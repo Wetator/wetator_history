@@ -53,7 +53,7 @@ public class SettableHtmlUnitControlsFinder extends IdentifierBasedHtmlUnitContr
    * @param aHtmlPageIndex the {@link HtmlPageIndex} index of the page
    * @param aThreadPool the thread pool to use for worker threads; may be null
    */
-  public SettableHtmlUnitControlsFinder(HtmlPageIndex aHtmlPageIndex, ThreadPoolExecutor aThreadPool) {
+  public SettableHtmlUnitControlsFinder(final HtmlPageIndex aHtmlPageIndex, final ThreadPoolExecutor aThreadPool) {
     super(aHtmlPageIndex, aThreadPool);
   }
 
@@ -63,8 +63,8 @@ public class SettableHtmlUnitControlsFinder extends IdentifierBasedHtmlUnitContr
    * @see org.wetator.backend.htmlunit.finder.IdentifierBasedHtmlUnitControlsFinder#find(WPath)
    */
   @Override
-  public WeightedControlList find(WPath aWPath) {
-    WeightedControlList tmpFoundControls = new WeightedControlList();
+  public WeightedControlList find(final WPath aWPath) {
+    final WeightedControlList tmpFoundControls = new WeightedControlList();
 
     // special case to support some search engines
     if (aWPath.isEmpty()) {

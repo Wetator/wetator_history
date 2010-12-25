@@ -52,7 +52,8 @@ public class UnknownHtmlUnitControlsFinder extends AbstractHtmlUnitControlsFinde
    * @param aHtmlPageIndex the {@link HtmlPageIndex} index of the page
    * @param aControlRepository the repository of known controls
    */
-  public UnknownHtmlUnitControlsFinder(HtmlPageIndex aHtmlPageIndex, HtmlUnitControlRepository aControlRepository) {
+  public UnknownHtmlUnitControlsFinder(final HtmlPageIndex aHtmlPageIndex,
+      final HtmlUnitControlRepository aControlRepository) {
     super(aHtmlPageIndex);
 
     controlRepository = aControlRepository;
@@ -64,11 +65,11 @@ public class UnknownHtmlUnitControlsFinder extends AbstractHtmlUnitControlsFinde
    * @see org.wetator.backend.htmlunit.finder.AbstractHtmlUnitControlsFinder#find(WPath)
    */
   @Override
-  public WeightedControlList find(WPath aWPath) {
-    WeightedControlList tmpFoundControls = new WeightedControlList();
+  public WeightedControlList find(final WPath aWPath) {
+    final WeightedControlList tmpFoundControls = new WeightedControlList();
 
-    SearchPattern tmpPathSearchPattern = SearchPattern.createFromList(aWPath.getPathNodes());
-    FindSpot tmpPathSpot = htmlPageIndex.firstOccurence(tmpPathSearchPattern);
+    final SearchPattern tmpPathSearchPattern = SearchPattern.createFromList(aWPath.getPathNodes());
+    final FindSpot tmpPathSpot = htmlPageIndex.firstOccurence(tmpPathSearchPattern);
 
     if (null == tmpPathSpot) {
       return tmpFoundControls;
@@ -79,12 +80,12 @@ public class UnknownHtmlUnitControlsFinder extends AbstractHtmlUnitControlsFinde
       // TODO implement table coordinate support for unknown controls
       return tmpFoundControls;
     }
-    SearchPattern tmpSearchPattern = aWPath.getLastNode().getSearchPattern();
+    final SearchPattern tmpSearchPattern = aWPath.getLastNode().getSearchPattern();
 
     // search with id
     for (HtmlElement tmpHtmlElement : htmlPageIndex.getAllVisibleHtmlElements()) {
       if (controlRepository == null || controlRepository.getForHtmlElement(tmpHtmlElement) == null) {
-        List<MatchResult> tmpMatches = new ByIdMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot,
+        final List<MatchResult> tmpMatches = new ByIdMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot,
             tmpSearchPattern).matches(tmpHtmlElement);
         for (MatchResult tmpMatch : tmpMatches) {
           tmpFoundControls.add(new HtmlUnitBaseControl<HtmlElement>(tmpMatch.getHtmlElement()),
@@ -99,15 +100,15 @@ public class UnknownHtmlUnitControlsFinder extends AbstractHtmlUnitControlsFinde
 
       // find the first element that surrounds this
       for (HtmlElement tmpHtmlElement : htmlPageIndex.getAllVisibleHtmlElementsBottomUp()) {
-        FindSpot tmpNodeSpot = htmlPageIndex.getPosition(tmpHtmlElement);
+        final FindSpot tmpNodeSpot = htmlPageIndex.getPosition(tmpHtmlElement);
         if ((tmpNodeSpot.startPos <= tmpHitSpot.startPos) && (tmpHitSpot.endPos <= tmpNodeSpot.endPos)) {
           // found one
           String tmpTextBefore = htmlPageIndex.getTextBeforeIncludingMyself(tmpHtmlElement);
-          FindSpot tmpLastOccurence = tmpSearchPattern.lastOccurenceIn(tmpTextBefore);
-          int tmpCoverage = tmpTextBefore.length() - tmpLastOccurence.endPos;
+          final FindSpot tmpLastOccurence = tmpSearchPattern.lastOccurenceIn(tmpTextBefore);
+          final int tmpCoverage = tmpTextBefore.length() - tmpLastOccurence.endPos;
 
           tmpTextBefore = tmpTextBefore.substring(0, tmpLastOccurence.startPos);
-          int tmpDistance = tmpPathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
+          final int tmpDistance = tmpPathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
 
           if (controlRepository == null || controlRepository.getForHtmlElement(tmpHtmlElement) == null) {
             tmpFoundControls.add(new HtmlUnitBaseControl<HtmlElement>(tmpHtmlElement),
