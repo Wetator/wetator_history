@@ -364,8 +364,9 @@ public final class HtmlUnitBrowser implements WetBackend {
      */
     @Override
     public void timeoutError(final HtmlPage aHtmlPage, final long aAllowedTime, final long aExecutionTime) {
-      htmlUnitBrowser.addFailure("javascriptTimeoutError", new String[] { "" + aAllowedTime, "" + aExecutionTime,
-          aHtmlPage.getUrl().toExternalForm() }, null);
+      htmlUnitBrowser.addFailure("javascriptTimeoutError",
+          new String[] { Long.toString(aAllowedTime), Long.toString(aExecutionTime),
+              aHtmlPage.getUrl().toExternalForm() }, null);
     }
   }
 
@@ -401,12 +402,12 @@ public final class HtmlUnitBrowser implements WetBackend {
       final String tmpWindowName = tmpWebWindow.getName();
       if (tmpWindowNamePattern.matches(tmpWindowName)) {
         if (tmpWebWindow instanceof TopLevelWindow) {
-          wetEngine.informListenersInfo("closeWindow", new String[] { tmpWebWindow.getName() });
+          wetEngine.informListenersInfo("closeWindow", new String[] { tmpWindowName });
           ((TopLevelWindow) tmpWebWindow).close();
           return;
         }
         if (tmpWebWindow instanceof DialogWindow) {
-          wetEngine.informListenersInfo("closeDialogWindow", new String[] { tmpWebWindow.getName() });
+          wetEngine.informListenersInfo("closeDialogWindow", new String[] { tmpWindowName });
           ((DialogWindow) tmpWebWindow).close();
           return;
         }
@@ -427,7 +428,10 @@ public final class HtmlUnitBrowser implements WetBackend {
 
     final int tmpIndexPos = tmpHistory.getIndex() - aSteps;
     if (tmpIndexPos >= tmpHistory.getLength() || tmpIndexPos < 0) {
-      Assert.fail("outsideHistory", new String[] { "" + aSteps, "" + tmpIndexPos, "" + tmpHistory.getLength() });
+      Assert.fail(
+          "outsideHistory",
+          new String[] { Integer.toString(aSteps), Integer.toString(tmpIndexPos),
+              Integer.toString(tmpHistory.getLength()) });
     }
 
     try {

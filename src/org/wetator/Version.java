@@ -82,12 +82,12 @@ public final class Version {
     final String tmpClassFileName = tmpClassName + ".class";
     final String tmpPathToThisClass = tmpClass.getResource(tmpClassFileName).toExternalForm();
 
-    final int tmpPos = tmpPathToThisClass.indexOf("!");
-    String tmpPathToManifest = tmpPathToThisClass.substring(0, tmpPos + 1);
-    tmpPathToManifest = tmpPathToManifest + "/META-INF/MANIFEST.MF";
+    final int tmpPos = tmpPathToThisClass.indexOf('!');
+    final StringBuilder tmpPathToManifest = new StringBuilder(tmpPathToThisClass.substring(0, tmpPos + 1));
+    tmpPathToManifest.append("/META-INF/MANIFEST.MF");
     Manifest tmpManifest;
     try {
-      tmpManifest = new Manifest(new URL(tmpPathToManifest).openStream());
+      tmpManifest = new Manifest(new URL(tmpPathToManifest.toString()).openStream());
       final String tmpValue = tmpManifest.getAttributes("Application").getValue(anAttributeName);
       return tmpValue;
     } catch (final Exception e) {

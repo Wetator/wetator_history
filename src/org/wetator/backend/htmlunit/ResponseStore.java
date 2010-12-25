@@ -89,13 +89,12 @@ public final class ResponseStore {
   public void initOutputDir() {
     String tmpDirectoryName;
     if (overwrite) {
-      tmpDirectoryName = "current";
+      tmpDirectoryName = "responses_current";
     } else {
       final SimpleDateFormat tmpFormater = new SimpleDateFormat("yyyy.MM.dd_HH.mm.ss");
-      tmpDirectoryName = tmpFormater.format(new Date());
+      tmpDirectoryName = "responses_" + tmpFormater.format(new Date());
     }
 
-    tmpDirectoryName = "responses_" + tmpDirectoryName;
     storeDir = new File(outputDir, tmpDirectoryName);
 
     try {
@@ -230,7 +229,7 @@ public final class ResponseStore {
       }
       // write our path
       String tmpResult;
-      if (!tmpFileName.startsWith("/")) {
+      if (!(tmpFileName.charAt(0) == '/')) {
         tmpResult = "./" + tmpFileName;
         return tmpResult;
       }

@@ -154,7 +154,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
 
       int i = 1;
       for (SecretString tmpSecretString : tmpModuleParameters) {
-        final Variable tmpVariable = new Variable("" + i, tmpSecretString);
+        final Variable tmpVariable = new Variable(Integer.toString(i), tmpSecretString);
         tmpWetContext.addVariable(tmpVariable);
         i++;
       }
@@ -364,7 +364,8 @@ public final class DefaultCommandSet extends AbstractCommandSet {
         try {
           tmpSteps = Integer.parseInt(tmpStepsParam.getValue());
         } catch (final Exception e) {
-          aWetContext.informListenersWarn("stepsNotANumber", new String[] { tmpStepsParam.toString(), "" + tmpSteps });
+          aWetContext.informListenersWarn("stepsNotANumber",
+              new String[] { tmpStepsParam.toString(), Integer.toString(tmpSteps) });
         }
       }
 
@@ -573,7 +574,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       final List<SecretString> tmpMethodParameters = aWetCommand.getSecondParameterValues(aWetContext);
 
       final String tmpCallString = tmpCall.toString();
-      final int tmpLastDotPos = tmpCallString.lastIndexOf(".");
+      final int tmpLastDotPos = tmpCallString.lastIndexOf('.');
       if (tmpLastDotPos < 0) {
         Assert.fail("javaExecSyntax", new String[] { tmpCallString });
       }
@@ -603,7 +604,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
         i++;
       }
 
-      String tmpMethodLabel = tmpMethodName;
+      final StringBuffer tmpMethodLabel = new StringBuffer(tmpMethodName);
 
       try {
         final Class<?> tmpClass = ClassUtils.getClass(tmpClassName);
@@ -614,17 +615,17 @@ public final class DefaultCommandSet extends AbstractCommandSet {
         }
 
         // build a more descriptive method name
-        tmpMethodLabel += "(";
+        tmpMethodLabel.append('(');
         for (int j = 0; j < tmpParamTypes.length; j++) {
           if (j > 0) {
-            tmpMethodLabel += ", ";
+            tmpMethodLabel.append(", ");
           }
-          tmpMethodLabel += "String";
+          tmpMethodLabel.append("String");
         }
-        tmpMethodLabel += ")";
+        tmpMethodLabel.append(')');
 
         if (null == tmpMethod) {
-          Assert.fail("javaExecMethodNotFound", new String[] { tmpClassName, tmpMethodLabel });
+          Assert.fail("javaExecMethodNotFound", new String[] { tmpClassName, tmpMethodLabel.toString() });
         }
 
         Object tmpReceiver = null;
@@ -650,29 +651,29 @@ public final class DefaultCommandSet extends AbstractCommandSet {
         aWetContext.informListenersInfo("javaExecClasspath", new String[] { System.getProperty("java.class.path") });
         Assert.fail("javaExecClassNotFound", new String[] { tmpClassName, e.toString() });
       } catch (final IllegalArgumentException e) {
-        Assert.fail("javaExecIllegalArgument",
-            new String[] { tmpClassName, tmpMethodLabel, tmpMethodParameters.toString(), e.getMessage() });
+        Assert.fail("javaExecIllegalArgument", new String[] { tmpClassName, tmpMethodLabel.toString(),
+            tmpMethodParameters.toString(), e.getMessage() });
       } catch (final IllegalAccessException e) {
         aWetContext.informListenersWarn("javaExecStacktrace", new String[] { ExceptionUtils.getStackTrace(e) });
-        Assert.fail("javaExecIllegalAccess",
-            new String[] { tmpClassName, tmpMethodLabel, tmpMethodParameters.toString(), e.getMessage() });
+        Assert.fail("javaExecIllegalAccess", new String[] { tmpClassName, tmpMethodLabel.toString(),
+            tmpMethodParameters.toString(), e.getMessage() });
       } catch (final InvocationTargetException e) {
         aWetContext.informListenersWarn("javaExecStacktrace", new String[] { ExceptionUtils.getStackTrace(e) });
         if (null == e.getCause()) {
-          Assert.fail("javaExecInvocationTarget",
-              new String[] { tmpClassName, tmpMethodLabel, tmpMethodParameters.toString(), e.toString() });
+          Assert.fail("javaExecInvocationTarget", new String[] { tmpClassName, tmpMethodLabel.toString(),
+              tmpMethodParameters.toString(), e.toString() });
         } else {
-          Assert.fail("javaExecInvocationTarget",
-              new String[] { tmpClassName, tmpMethodLabel, tmpMethodParameters.toString(), e.getCause().toString() });
+          Assert.fail("javaExecInvocationTarget", new String[] { tmpClassName, tmpMethodLabel.toString(),
+              tmpMethodParameters.toString(), e.getCause().toString() });
         }
       } catch (final InstantiationException e) {
         aWetContext.informListenersWarn("javaExecStacktrace", new String[] { ExceptionUtils.getStackTrace(e) });
         if (null == e.getCause()) {
-          Assert.fail("javaExecInstantiation",
-              new String[] { tmpClassName, tmpMethodLabel, tmpMethodParameters.toString(), e.toString() });
+          Assert.fail("javaExecInstantiation", new String[] { tmpClassName, tmpMethodLabel.toString(),
+              tmpMethodParameters.toString(), e.toString() });
         } else {
-          Assert.fail("javaExecInstantiation",
-              new String[] { tmpClassName, tmpMethodLabel, tmpMethodParameters.toString(), e.getCause().toString() });
+          Assert.fail("javaExecInstantiation", new String[] { tmpClassName, tmpMethodLabel.toString(),
+              tmpMethodParameters.toString(), e.getCause().toString() });
         }
       }
     }
