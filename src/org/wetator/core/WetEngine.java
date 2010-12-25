@@ -84,7 +84,7 @@ public final class WetEngine {
    * @param aWetConfiguration the configuration to use
    * @throws WetException in case of problems
    */
-  public void init(WetConfiguration aWetConfiguration) throws WetException {
+  public void init(final WetConfiguration aWetConfiguration) throws WetException {
     configuration = aWetConfiguration;
     if (configFileName == null) {
       configFileName = "";
@@ -97,7 +97,7 @@ public final class WetEngine {
     commandSets = getWetConfiguration().getCommandSets();
 
     // setup the browser
-    HtmlUnitBrowser tmpBrowser = new HtmlUnitBrowser(this);
+    final HtmlUnitBrowser tmpBrowser = new HtmlUnitBrowser(this);
     setWetBackend(tmpBrowser);
   }
 
@@ -116,7 +116,7 @@ public final class WetEngine {
    * @param aFile the test file to be added.
    * @throws WetException if the test file does not exist.
    */
-  public void addTestFile(File aFile) {
+  public void addTestFile(final File aFile) {
     if (!aFile.exists()) {
       throw new WetException("The test file '" + aFile.getAbsolutePath() + "' does not exist.");
     }
@@ -142,13 +142,13 @@ public final class WetEngine {
               getWetBackend().startNewSession(tmpBrowser);
 
               // setup the context
-              WetContext tmpWetContext = new WetContext(this, tmpFile, tmpBrowser);
+              final WetContext tmpWetContext = new WetContext(this, tmpFile, tmpBrowser);
               tmpWetContext.execute();
             } finally {
               informListenersTestRunEnd();
             }
           }
-        } catch (Throwable e) {
+        } catch (final Throwable e) {
           // TODO what to do with exceptions?
           // informListenersWarn("testCaseError", new String[] {e.getMessage()});
           e.printStackTrace();
@@ -169,7 +169,7 @@ public final class WetEngine {
    * @return a list of {@link WetCommand}s.
    * @throws WetException if no {@link WetScripter} can be found for the given file.
    */
-  protected List<WetCommand> readCommandsFromFile(File aFile) throws WetException {
+  protected List<WetCommand> readCommandsFromFile(final File aFile) throws WetException {
     WetScripter tmpScripter;
     List<WetCommand> tmpResult;
 
@@ -180,11 +180,11 @@ public final class WetEngine {
   }
 
   private WetConfiguration readWetConfiguration() throws WetException {
-    File tmpConfigFile = getConfigFile();
+    final File tmpConfigFile = getConfigFile();
     return new WetConfiguration(tmpConfigFile, getExternalProperties());
   }
 
-  private WetScripter createScripter(File aFile) {
+  private WetScripter createScripter(final File aFile) {
     for (WetScripter tmpScripter : scripter) {
       if (tmpScripter.isSupported(aFile)) {
         tmpScripter.setFile(aFile);
@@ -198,7 +198,7 @@ public final class WetEngine {
    * @param aCommandName the name of the {@link WetCommandImplementation}
    * @return the {@link WetCommandImplementation} for the given name or null if none was found
    */
-  protected WetCommandImplementation getCommandImplementationFor(String aCommandName) {
+  protected WetCommandImplementation getCommandImplementationFor(final String aCommandName) {
     for (WetCommandSet tmpCommandSet : commandSets) {
       WetCommandImplementation tmpCommandImplementation;
       tmpCommandImplementation = tmpCommandSet.getCommandImplementationFor(aCommandName);
@@ -247,7 +247,7 @@ public final class WetEngine {
   /**
    * @param aWetBackend the backend to set
    */
-  public void setWetBackend(WetBackend aWetBackend) {
+  public void setWetBackend(final WetBackend aWetBackend) {
     backend = aWetBackend;
   }
 
@@ -268,7 +268,7 @@ public final class WetEngine {
   /**
    * @param aConfigFileName the configFileName to set
    */
-  public void setConfigFileName(String aConfigFileName) {
+  public void setConfigFileName(final String aConfigFileName) {
     configFileName = aConfigFileName;
   }
 
@@ -282,7 +282,7 @@ public final class WetEngine {
   /**
    * @param aExternalProperties the externalProperties to set
    */
-  public void setExternalProperties(Map<String, String> aExternalProperties) {
+  public void setExternalProperties(final Map<String, String> aExternalProperties) {
     externalProperties = aExternalProperties;
   }
 
@@ -292,7 +292,7 @@ public final class WetEngine {
    * 
    * @param aProgressListener the listener to add
    */
-  public void addProgressListener(WetProgressListener aProgressListener) {
+  public void addProgressListener(final WetProgressListener aProgressListener) {
     if (progressListener.contains(aProgressListener)) {
       return;
     }
@@ -313,7 +313,7 @@ public final class WetEngine {
    * 
    * @param aTestName the file name of the test started.
    */
-  protected void informListenersTestCaseStart(String aTestName) {
+  protected void informListenersTestCaseStart(final String aTestName) {
     for (WetProgressListener tmpListener : progressListener) {
       tmpListener.testCaseStart(aTestName);
     }
@@ -324,7 +324,7 @@ public final class WetEngine {
    * 
    * @param aBrowserName the browser name of the test started.
    */
-  protected void informListenersTestRunStart(String aBrowserName) {
+  protected void informListenersTestRunStart(final String aBrowserName) {
     for (WetProgressListener tmpListener : progressListener) {
       tmpListener.testRunStart(aBrowserName);
     }
@@ -335,7 +335,7 @@ public final class WetEngine {
    * 
    * @param aFileName the file name of the test started.
    */
-  protected void informListenersTestFileStart(String aFileName) {
+  protected void informListenersTestFileStart(final String aFileName) {
     for (WetProgressListener tmpListener : progressListener) {
       tmpListener.testFileStart(aFileName);
     }
@@ -347,7 +347,7 @@ public final class WetEngine {
    * @param aWetContext the {@link WetContext} used to execute the command.
    * @param aCommand the {@link WetCommand} to be executed.
    */
-  protected void informListenersExecuteCommandStart(WetContext aWetContext, WetCommand aCommand) {
+  protected void informListenersExecuteCommandStart(final WetContext aWetContext, final WetCommand aCommand) {
     for (WetProgressListener tmpListener : progressListener) {
       tmpListener.executeCommandStart(aWetContext, aCommand);
     }
@@ -376,7 +376,7 @@ public final class WetEngine {
    * 
    * @param anAssertionFailedException The exception thrown by the failed command.
    */
-  protected void informListenersExecuteCommandFailure(AssertionFailedException anAssertionFailedException) {
+  protected void informListenersExecuteCommandFailure(final AssertionFailedException anAssertionFailedException) {
     for (WetProgressListener tmpListener : progressListener) {
       tmpListener.executeCommandFailure(anAssertionFailedException);
     }
@@ -387,7 +387,7 @@ public final class WetEngine {
    * 
    * @param aThrowable The exception thrown by the command.
    */
-  protected void informListenersExecuteCommandError(Throwable aThrowable) {
+  protected void informListenersExecuteCommandError(final Throwable aThrowable) {
     for (WetProgressListener tmpListener : progressListener) {
       tmpListener.executeCommandError(aThrowable);
     }
@@ -435,7 +435,7 @@ public final class WetEngine {
    * @param aMessageKey the message key of the warning.
    * @param aParameterArray the message parameters.
    */
-  public void informListenersWarn(String aMessageKey, String[] aParameterArray) {
+  public void informListenersWarn(final String aMessageKey, final String[] aParameterArray) {
     for (WetProgressListener tmpListener : progressListener) {
       tmpListener.warn(aMessageKey, aParameterArray);
     }
@@ -447,7 +447,7 @@ public final class WetEngine {
    * @param aMessageKey the message key of the warning.
    * @param aParameterArray the message parameters.
    */
-  public void informListenersInfo(String aMessageKey, String[] aParameterArray) {
+  public void informListenersInfo(final String aMessageKey, final String[] aParameterArray) {
     for (WetProgressListener tmpListener : progressListener) {
       tmpListener.info(aMessageKey, aParameterArray);
     }
@@ -458,7 +458,7 @@ public final class WetEngine {
    * 
    * @param aResponseFileName the file name of the stored response.
    */
-  public void informListenersResponseStored(String aResponseFileName) {
+  public void informListenersResponseStored(final String aResponseFileName) {
     for (WetProgressListener tmpListener : progressListener) {
       tmpListener.responseStored(aResponseFileName);
     }

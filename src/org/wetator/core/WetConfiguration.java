@@ -26,9 +26,9 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Properties;
 import java.util.Set;
-import java.util.Map.Entry;
 
 import org.apache.commons.lang.ClassUtils;
 import org.apache.commons.lang.StringUtils;
@@ -175,7 +175,7 @@ public final class WetConfiguration {
    * @param aConfigurationPropertyFile the configuration property file
    * @param anExternalPropertiesMap the external properties
    */
-  public WetConfiguration(File aConfigurationPropertyFile, Map<String, String> anExternalPropertiesMap) {
+  public WetConfiguration(final File aConfigurationPropertyFile, final Map<String, String> anExternalPropertiesMap) {
     super();
 
     LOG.info("Config  Configuration file is '" + aConfigurationPropertyFile.getAbsolutePath() + "'");
@@ -204,7 +204,7 @@ public final class WetConfiguration {
       if (null == tmpBaseDirectory) {
         tmpBaseDirectory = new File(System.getProperty("user.dir"));
       }
-    } catch (IOException e) {
+    } catch (final IOException e) {
       throw new WetException("An error occured during read of the configuration file '"
           + aConfigurationPropertyFile.getAbsolutePath() + "'.", e);
     }
@@ -225,16 +225,16 @@ public final class WetConfiguration {
    * @param aConfigurationProperties the configuration properties
    * @param anExternalPropertiesMap the external properties
    */
-  public WetConfiguration(File aBaseDirectory, Properties aConfigurationProperties,
-      Map<String, String> anExternalPropertiesMap) {
+  public WetConfiguration(final File aBaseDirectory, final Properties aConfigurationProperties,
+      final Map<String, String> anExternalPropertiesMap) {
     super();
 
     initialize(aBaseDirectory, aConfigurationProperties, anExternalPropertiesMap);
   }
 
   @SuppressWarnings("unchecked")
-  private void initialize(File aBaseDirectory, Properties aConfigurationProperties,
-      Map<String, String> anExternalPropertiesMap) {
+  private void initialize(final File aBaseDirectory, final Properties aConfigurationProperties,
+      final Map<String, String> anExternalPropertiesMap) {
     // lets do some validations first
     if (!aBaseDirectory.exists()) {
       throw new WetException("Config  The base directory '" + aBaseDirectory.getAbsolutePath() + "' does not exist.");
@@ -245,14 +245,14 @@ public final class WetConfiguration {
     String tmpValue;
 
     // we start with the given configuration properties
-    Properties tmpProperties = aConfigurationProperties;
+    final Properties tmpProperties = aConfigurationProperties;
 
     // overwrite with system properties if defined....
-    Set<Object> tmpSystemPropertyNames = System.getProperties().keySet();
+    final Set<Object> tmpSystemPropertyNames = System.getProperties().keySet();
     for (Object tmpKey : tmpSystemPropertyNames) {
-      String tmpKeyName = (String) tmpKey;
+      final String tmpKeyName = (String) tmpKey;
       if (tmpKeyName.startsWith(PROPERTY_PREFIX) || tmpKeyName.startsWith(VARIABLE_PREFIX)) {
-        Object tmpPropertyValue = System.getProperty(tmpKeyName);
+        final Object tmpPropertyValue = System.getProperty(tmpKeyName);
         if (null != tmpPropertyValue) {
           tmpProperties.put(tmpKeyName, tmpPropertyValue);
         }
@@ -261,11 +261,11 @@ public final class WetConfiguration {
 
     // overwrite with external properties if defined....
     if (null != anExternalPropertiesMap) {
-      Set<String> tmpExternalPropertiesNames = anExternalPropertiesMap.keySet();
+      final Set<String> tmpExternalPropertiesNames = anExternalPropertiesMap.keySet();
       for (String tmpKey : tmpExternalPropertiesNames) {
-        String tmpKeyName = tmpKey;
+        final String tmpKeyName = tmpKey;
         if (tmpKeyName.startsWith(PROPERTY_PREFIX) || tmpKeyName.startsWith(VARIABLE_PREFIX)) {
-          Object tmpPropertyValue = anExternalPropertiesMap.get(tmpKeyName);
+          final Object tmpPropertyValue = anExternalPropertiesMap.get(tmpKeyName);
           if (null != tmpPropertyValue) {
             tmpProperties.put(tmpKeyName, tmpPropertyValue);
           }
@@ -285,7 +285,7 @@ public final class WetConfiguration {
     LOG.info("Config  scripter '" + tmpScripter.getClass().getName() + "' registered.");
 
     tmpValue = tmpProperties.getProperty(PROPERTY_SCRIPTERS, "");
-    List<String> tmpScripterClassNames = StringUtil.extractStrings(tmpValue, ",", '\\');
+    final List<String> tmpScripterClassNames = StringUtil.extractStrings(tmpValue, ",", '\\');
 
     for (String tmpScripterClassName : tmpScripterClassNames) {
       tmpScripterClassName = tmpScripterClassName.trim();
@@ -294,20 +294,20 @@ public final class WetConfiguration {
           Class<? extends WetScripter> tmpClass;
           try {
             tmpClass = ClassUtils.getClass(tmpScripterClassName);
-          } catch (ClassNotFoundException e) {
+          } catch (final ClassNotFoundException e) {
             // make Ant happy
             tmpClass = ClassUtils.getClass(getClass().getClassLoader(), tmpScripterClassName);
           }
-          WetScripter tmpWetScripter = tmpClass.newInstance();
+          final WetScripter tmpWetScripter = tmpClass.newInstance();
           scripters.add(tmpWetScripter);
           LOG.info("Config  scripter '" + tmpScripterClassName + "' registered.");
-        } catch (ClassNotFoundException e) {
+        } catch (final ClassNotFoundException e) {
           LOG.error("Config  Can't load scripter '" + tmpScripterClassName + "'.", e);
-        } catch (InstantiationException e) {
+        } catch (final InstantiationException e) {
           LOG.error("Config  Can't load scripter '" + tmpScripterClassName + "'.", e);
-        } catch (IllegalAccessException e) {
+        } catch (final IllegalAccessException e) {
           LOG.error("Config  Can't load scripter '" + tmpScripterClassName + "'.", e);
-        } catch (ClassCastException e) {
+        } catch (final ClassCastException e) {
           LOG.error("Config  Can't load scripter '" + tmpScripterClassName + "'.", e);
         }
       }
@@ -325,7 +325,7 @@ public final class WetConfiguration {
     LOG.info("Config  command set '" + tmpCommandSet.getClass().getName() + "' registered.");
 
     tmpValue = tmpProperties.getProperty(PROPERTY_COMMAND_SETS, "");
-    List<String> tmpCommandSetClassNames = StringUtil.extractStrings(tmpValue, ",", '\\');
+    final List<String> tmpCommandSetClassNames = StringUtil.extractStrings(tmpValue, ",", '\\');
 
     for (String tmpCommandSetClassName : tmpCommandSetClassNames) {
       tmpCommandSetClassName = tmpCommandSetClassName.trim();
@@ -334,20 +334,20 @@ public final class WetConfiguration {
           Class<? extends WetCommandSet> tmpClass;
           try {
             tmpClass = ClassUtils.getClass(tmpCommandSetClassName);
-          } catch (ClassNotFoundException e) {
+          } catch (final ClassNotFoundException e) {
             // make Ant happy
             tmpClass = ClassUtils.getClass(getClass().getClassLoader(), tmpCommandSetClassName);
           }
-          WetCommandSet tmpWetCommandSet = tmpClass.newInstance();
+          final WetCommandSet tmpWetCommandSet = tmpClass.newInstance();
           commandSets.add(tmpWetCommandSet);
           LOG.info("Config  command set '" + tmpCommandSetClassName + "' registered.");
-        } catch (ClassNotFoundException e) {
+        } catch (final ClassNotFoundException e) {
           LOG.error("Config  Can't load command set '" + tmpCommandSetClassName + "'.", e);
-        } catch (InstantiationException e) {
+        } catch (final InstantiationException e) {
           LOG.error("Config  Can't load command set '" + tmpCommandSetClassName + "'.", e);
-        } catch (IllegalAccessException e) {
+        } catch (final IllegalAccessException e) {
           LOG.error("Config  Can't load command set '" + tmpCommandSetClassName + "'.", e);
-        } catch (ClassCastException e) {
+        } catch (final ClassCastException e) {
           LOG.error("Config  Can't load command set '" + tmpCommandSetClassName + "'.", e);
         }
       }
@@ -360,7 +360,7 @@ public final class WetConfiguration {
     controls = new LinkedList<Class<? extends Control>>();
 
     tmpValue = tmpProperties.getProperty(PROPERTY_CONTROLS, "");
-    List<String> tmpControlClassNames = StringUtil.extractStrings(tmpValue, ",", '\\');
+    final List<String> tmpControlClassNames = StringUtil.extractStrings(tmpValue, ",", '\\');
 
     for (String tmpControlClassName : tmpControlClassNames) {
       tmpControlClassName = tmpControlClassName.trim();
@@ -369,13 +369,13 @@ public final class WetConfiguration {
           Class<? extends Control> tmpClass;
           try {
             tmpClass = ClassUtils.getClass(tmpControlClassName);
-          } catch (ClassNotFoundException e) {
+          } catch (final ClassNotFoundException e) {
             // make Ant happy
             tmpClass = ClassUtils.getClass(getClass().getClassLoader(), tmpControlClassName);
           }
           controls.add(tmpClass);
           LOG.info("Config  control '" + tmpControlClassName + "' registered.");
-        } catch (ClassNotFoundException e) {
+        } catch (final ClassNotFoundException e) {
           LOG.error("Config  Can't load control '" + tmpControlClassName + "'.", e);
         }
       }
@@ -390,10 +390,10 @@ public final class WetConfiguration {
     }
 
     tmpValue = tmpProperties.getProperty(PROPERTY_DISTINCT_OUTPUT, DEFAULT_DISTINCT_OUTPUT);
-    boolean tmpDistinctOutput = Boolean.parseBoolean(tmpValue);
+    final boolean tmpDistinctOutput = Boolean.parseBoolean(tmpValue);
     LOG.info("Config  DistinctOutput is '" + tmpDistinctOutput + "'");
     if (tmpDistinctOutput) {
-      SimpleDateFormat tmpFormater = new SimpleDateFormat("yyyy.MM.dd_HH.mm.ss");
+      final SimpleDateFormat tmpFormater = new SimpleDateFormat("yyyy.MM.dd_HH.mm.ss");
       outputDir = new File(outputDir, tmpFormater.format(new Date()));
     }
 
@@ -417,7 +417,7 @@ public final class WetConfiguration {
     List<String> tmpParts = StringUtil.extractStrings(tmpValue, ",", '\\');
     for (String tmpString : tmpParts) {
       if (StringUtils.isNotBlank(tmpString)) {
-        WetBackend.Browser tmpBrowser = Browser.getForSymbol(tmpString);
+        final WetBackend.Browser tmpBrowser = Browser.getForSymbol(tmpString);
         if (null == tmpBrowser) {
           LOG.warn("Unsupported browser '" + tmpString + "'.");
         } else {
@@ -446,7 +446,7 @@ public final class WetConfiguration {
       tmpProperties.remove(PROPERTY_PROXY_PORT);
       try {
         proxyPort = Integer.parseInt(tmpValue);
-      } catch (NumberFormatException e) {
+      } catch (final NumberFormatException e) {
         throw new WetException("The property '" + PROPERTY_PROXY_PORT + "' is no integer.");
       }
 
@@ -455,7 +455,7 @@ public final class WetConfiguration {
       tmpProperties.remove(PROPERTY_PROXY_HOSTS_TO_BYPASS);
       if (StringUtils.isEmpty(tmpValue)) {
         // parsing
-        String[] tmpNonProxyHostArray = tmpValue.split("\\|");
+        final String[] tmpNonProxyHostArray = tmpValue.split("\\|");
         for (String tmpString : tmpNonProxyHostArray) {
           tmpString = tmpString.replaceAll("\\.", "\\\\.");
           tmpString = tmpString.replaceAll("^\\*", ".*");
@@ -514,10 +514,10 @@ public final class WetConfiguration {
 
     // all properties starting with $ are variables
     variables = new LinkedList<Variable>();
-    Set<Entry<Object, Object>> tmpOtherEntries = tmpProperties.entrySet();
+    final Set<Entry<Object, Object>> tmpOtherEntries = tmpProperties.entrySet();
     for (Entry<Object, Object> tmpEntry : tmpOtherEntries) {
       String tmpKey = (String) tmpEntry.getKey();
-      String tmpVariableValue = (String) tmpEntry.getValue();
+      final String tmpVariableValue = (String) tmpEntry.getValue();
       if (tmpKey.startsWith(VARIABLE_PREFIX)) {
         // ok it is a variable
         tmpKey = tmpKey.substring(1);

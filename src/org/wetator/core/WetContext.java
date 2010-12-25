@@ -56,7 +56,7 @@ public class WetContext {
    * @param aFile the file this context is for
    * @param aBrowser the emulated browser
    */
-  public WetContext(WetEngine aWetEngine, File aFile, Browser aBrowser) {
+  public WetContext(final WetEngine aWetEngine, final File aFile, final Browser aBrowser) {
     super();
     engine = aWetEngine;
     file = aFile;
@@ -70,7 +70,7 @@ public class WetContext {
    * @param aWetContext the parent context
    * @param aFile the file this context is for
    */
-  protected WetContext(WetContext aWetContext, File aFile) {
+  protected WetContext(final WetContext aWetContext, final File aFile) {
     this(aWetContext.engine, aFile, aWetContext.browser);
 
     parentWetContext = aWetContext;
@@ -82,7 +82,7 @@ public class WetContext {
    * @param aFile the file the sub context is for
    * @return the sub context
    */
-  public WetContext createSubContext(File aFile) {
+  public WetContext createSubContext(final File aFile) {
     return new WetContext(this, aFile);
   }
 
@@ -110,7 +110,7 @@ public class WetContext {
   /**
    * @param aVariable the {@link Variable} to add
    */
-  public void addVariable(Variable aVariable) {
+  public void addVariable(final Variable aVariable) {
     variables.add(aVariable);
   }
 
@@ -118,7 +118,7 @@ public class WetContext {
    * @return the list of known {@link Variable}s.
    */
   public List<Variable> getVariables() {
-    List<Variable> tmpResult = new LinkedList<Variable>();
+    final List<Variable> tmpResult = new LinkedList<Variable>();
 
     // first our own
     tmpResult.addAll(variables);
@@ -137,14 +137,15 @@ public class WetContext {
    * @param aStringWithPlaceholders the string containing the variables to replace
    * @return the {@link SecretString} (as the result of the replacement)
    */
-  public SecretString replaceVariables(String aStringWithPlaceholders) {
-    String tmpResultValue = VariableReplaceUtil.replaceVariables(aStringWithPlaceholders, getVariables(), false);
-    String tmpResultValueForPrint = VariableReplaceUtil.replaceVariables(aStringWithPlaceholders, getVariables(), true);
+  public SecretString replaceVariables(final String aStringWithPlaceholders) {
+    final String tmpResultValue = VariableReplaceUtil.replaceVariables(aStringWithPlaceholders, getVariables(), false);
+    final String tmpResultValueForPrint = VariableReplaceUtil.replaceVariables(aStringWithPlaceholders, getVariables(),
+        true);
 
     return new SecretString(tmpResultValue, tmpResultValueForPrint);
   }
 
-  private void executeCommand(WetCommand aWetCommand) {
+  private void executeCommand(final WetCommand aWetCommand) {
     engine.informListenersExecuteCommandStart(this, aWetCommand);
     try {
       if (aWetCommand.isComment()) {
@@ -153,9 +154,9 @@ public class WetContext {
         try {
           determineAndExecuteCommandImpl(aWetCommand);
           engine.informListenersExecuteCommandSuccess();
-        } catch (AssertionFailedException e) {
+        } catch (final AssertionFailedException e) {
           engine.informListenersExecuteCommandFailure(e);
-        } catch (WetException e) {
+        } catch (final WetException e) {
           engine.informListenersExecuteCommandError(e);
           throw e;
         }
@@ -165,22 +166,22 @@ public class WetContext {
     }
   }
 
-  public void determineAndExecuteCommandImpl(WetCommand aWetCommand) throws AssertionFailedException {
-    WetCommandImplementation tmpImpl = engine.getCommandImplementationFor(aWetCommand.getName());
+  public void determineAndExecuteCommandImpl(final WetCommand aWetCommand) throws AssertionFailedException {
+    final WetCommandImplementation tmpImpl = engine.getCommandImplementationFor(aWetCommand.getName());
     if (null == tmpImpl) {
       Assert.fail("unsupportedCommand", new String[] { aWetCommand.getName(), getFile().getAbsolutePath(),
           "" + aWetCommand.getLineNo() });
     }
 
-    WetBackend tmpBackend = getWetBackend();
+    final WetBackend tmpBackend = getWetBackend();
     LOG.debug("Executing '" + aWetCommand.toPrintableString(this) + "'");
     try {
       tmpImpl.execute(this, aWetCommand);
-    } catch (AssertionFailedException e) {
+    } catch (final AssertionFailedException e) {
       tmpBackend.checkAndResetFailures();
       throw e;
     }
-    AssertionFailedException tmpFailed = tmpBackend.checkAndResetFailures();
+    final AssertionFailedException tmpFailed = tmpBackend.checkAndResetFailures();
     if (null != tmpFailed) {
       throw tmpFailed;
     }
@@ -192,11 +193,11 @@ public class WetContext {
    * executing every single command.
    */
   public void execute() {
-    File tmpFile = getFile();
+    final File tmpFile = getFile();
 
     engine.informListenersTestFileStart(tmpFile.getAbsolutePath());
     try {
-      List<WetCommand> tmpCommands = engine.readCommandsFromFile(tmpFile);
+      final List<WetCommand> tmpCommands = engine.readCommandsFromFile(tmpFile);
 
       for (WetCommand tmpCommand : tmpCommands) {
         executeCommand(tmpCommand);
@@ -212,7 +213,7 @@ public class WetContext {
    * @param aMessageKey the message key of the warning.
    * @param aParameterArray the message parameters.
    */
-  public void informListenersWarn(String aMessageKey, String[] aParameterArray) {
+  public void informListenersWarn(final String aMessageKey, final String[] aParameterArray) {
     engine.informListenersWarn(aMessageKey, aParameterArray);
   }
 
@@ -222,7 +223,7 @@ public class WetContext {
    * @param aMessageKey the message key of the warning.
    * @param aParameterArray the message parameters.
    */
-  public void informListenersInfo(String aMessageKey, String[] aParameterArray) {
+  public void informListenersInfo(final String aMessageKey, final String[] aParameterArray) {
     engine.informListenersInfo(aMessageKey, aParameterArray);
   }
 }

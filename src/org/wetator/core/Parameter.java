@@ -48,7 +48,7 @@ public final class Parameter {
    * 
    * @param aValue the value of this parameter
    */
-  public Parameter(String aValue) {
+  public Parameter(final String aValue) {
     value = aValue;
   }
 
@@ -58,7 +58,7 @@ public final class Parameter {
    * @param aWetContext the wet context needed to resolve the value (variables)
    * @return the constructed secret string
    */
-  public SecretString getValue(WetContext aWetContext) {
+  public SecretString getValue(final WetContext aWetContext) {
     return aWetContext.replaceVariables(value);
   }
 
@@ -96,9 +96,9 @@ public final class Parameter {
       return;
     }
 
-    List<String> tmpParts = StringUtil.extractStrings(value, PARAMETER_DELIMITER, PARAMETER_ESCAPE_CHAR);
+    final List<String> tmpParts = StringUtil.extractStrings(value, PARAMETER_DELIMITER, PARAMETER_ESCAPE_CHAR);
     for (String tmpString : tmpParts) {
-      Part tmpPart = new Part(tmpString.trim());
+      final Part tmpPart = new Part(tmpString.trim());
       parts.add(tmpPart);
     }
   }
@@ -126,7 +126,7 @@ public final class Parameter {
      * 
      * @param aValue the value of this part
      */
-    protected Part(String aValue) {
+    protected Part(final String aValue) {
       value = aValue;
     }
 
@@ -136,7 +136,7 @@ public final class Parameter {
      * @param aWetContext the wet context needed to resolve the value (variables)
      * @return the constructed secret string
      */
-    public SecretString getValue(WetContext aWetContext) {
+    public SecretString getValue(final WetContext aWetContext) {
       return aWetContext.replaceVariables(value);
     }
   }
