@@ -103,9 +103,9 @@ public class WetResultWriter implements WetProgressListener {
    * @see org.wetator.core.WetProgressListener#start(WetEngine)
    */
   @Override
-  public void start(WetEngine aWetEngine) {
+  public void start(final WetEngine aWetEngine) {
     try {
-      WetConfiguration tmpWetConfiguration = aWetEngine.getWetConfiguration();
+      final WetConfiguration tmpWetConfiguration = aWetEngine.getWetConfiguration();
 
       outputDir = tmpWetConfiguration.getOutputDir();
       xslTemplates = tmpWetConfiguration.getXslTemplates();
@@ -161,7 +161,7 @@ public class WetResultWriter implements WetProgressListener {
 
       printlnStartTag(TAG_VARIABLES);
 
-      List<Variable> tmpVariables = tmpWetConfiguration.getVariables();
+      final List<Variable> tmpVariables = tmpWetConfiguration.getVariables();
       for (Variable tmpVariable : tmpVariables) {
         printStartTagOpener(TAG_VARIABLE);
         output.print("name=\"");
@@ -173,7 +173,7 @@ public class WetResultWriter implements WetProgressListener {
 
       printlnEndTag(TAG_VARIABLES);
 
-      List<WetCommandSet> tmpCommandSets = tmpWetConfiguration.getCommandSets();
+      final List<WetCommandSet> tmpCommandSets = tmpWetConfiguration.getCommandSets();
       for (WetCommandSet tmpCommandSet : tmpCommandSets) {
         printStartTagOpener(TAG_COMMAND_SET);
         output.print("class=\"");
@@ -189,7 +189,7 @@ public class WetResultWriter implements WetProgressListener {
         printEndTag(TAG_COMMAND_SET);
       }
 
-      List<Class<? extends Control>> tmpControls = tmpWetConfiguration.getControls();
+      final List<Class<? extends Control>> tmpControls = tmpWetConfiguration.getControls();
       for (Class<? extends Control> tmpControl : tmpControls) {
         printStartTagOpener(TAG_CONTROL);
         output.print("class=\"");
@@ -205,7 +205,7 @@ public class WetResultWriter implements WetProgressListener {
       }
 
       wetExecutionStartTime = System.currentTimeMillis();
-    } catch (IOException e) {
+    } catch (final IOException e) {
       LOG.error(e.getMessage(), e);
     }
   }
@@ -216,14 +216,14 @@ public class WetResultWriter implements WetProgressListener {
    * @see org.wetator.core.WetProgressListener#testCaseStart(String)
    */
   @Override
-  public void testCaseStart(String aTestName) {
+  public void testCaseStart(final String aTestName) {
     try {
       printStartTagOpener(TAG_TESTCASE);
       output.print("name=\"");
       output.print(xmlUtil.normalizeAttributeValue(aTestName));
       output.println("\">");
       output.indent();
-    } catch (IOException e) {
+    } catch (final IOException e) {
       LOG.error(e.getMessage(), e);
     }
   }
@@ -234,14 +234,14 @@ public class WetResultWriter implements WetProgressListener {
    * @see org.wetator.core.WetProgressListener#testRunStart(String)
    */
   @Override
-  public void testRunStart(String aBrowserName) {
+  public void testRunStart(final String aBrowserName) {
     try {
       printStartTagOpener(TAG_TESTRUN);
       output.print("browser=\"");
       output.print(xmlUtil.normalizeAttributeValue(aBrowserName));
       output.println("\">");
       output.indent();
-    } catch (IOException e) {
+    } catch (final IOException e) {
       LOG.error(e.getMessage(), e);
     }
   }
@@ -252,14 +252,14 @@ public class WetResultWriter implements WetProgressListener {
    * @see org.wetator.core.WetProgressListener#testFileStart(String)
    */
   @Override
-  public void testFileStart(String aFileName) {
+  public void testFileStart(final String aFileName) {
     try {
       printStartTagOpener(TAG_TESTFILE);
       output.print("file=\"");
       output.print(xmlUtil.normalizeAttributeValue(aFileName));
       output.println("\">");
       output.indent();
-    } catch (IOException e) {
+    } catch (final IOException e) {
       LOG.error(e.getMessage(), e);
     }
   }
@@ -271,7 +271,7 @@ public class WetResultWriter implements WetProgressListener {
    *      org.wetator.core.WetCommand)
    */
   @Override
-  public void executeCommandStart(WetContext aWetContext, WetCommand aWetCommand) {
+  public void executeCommandStart(final WetContext aWetContext, final WetCommand aWetCommand) {
     try {
       printStartTagOpener(TAG_COMMAND);
       output.print("name=\"");
@@ -300,7 +300,7 @@ public class WetResultWriter implements WetProgressListener {
       output.println();
 
       commandExecutionStartTime = System.currentTimeMillis();
-    } catch (IOException e) {
+    } catch (final IOException e) {
       LOG.error(e.getMessage(), e);
     }
   }
@@ -316,7 +316,7 @@ public class WetResultWriter implements WetProgressListener {
       printlnNode(TAG_EXECUTION_TIME, "" + (System.currentTimeMillis() - commandExecutionStartTime));
 
       printlnEndTag(TAG_COMMAND);
-    } catch (IOException e) {
+    } catch (final IOException e) {
       LOG.error(e.getMessage(), e);
     }
   }
@@ -337,17 +337,17 @@ public class WetResultWriter implements WetProgressListener {
    * @see org.wetator.core.WetProgressListener#executeCommandFailure(org.wetator.exception.AssertionFailedException)
    */
   @Override
-  public void executeCommandFailure(AssertionFailedException anAssertionFailedException) {
+  public void executeCommandFailure(final AssertionFailedException anAssertionFailedException) {
     try {
       printErrorStart(anAssertionFailedException);
 
-      Throwable tmpThrowable = anAssertionFailedException.getCause();
+      final Throwable tmpThrowable = anAssertionFailedException.getCause();
       if (null != tmpThrowable) {
         executeCommandError(tmpThrowable);
       }
       printErrorEnd();
       flush();
-    } catch (IOException e) {
+    } catch (final IOException e) {
       LOG.error(e.getMessage(), e);
     }
   }
@@ -358,17 +358,17 @@ public class WetResultWriter implements WetProgressListener {
    * @see org.wetator.core.WetProgressListener#executeCommandError(java.lang.Throwable)
    */
   @Override
-  public void executeCommandError(Throwable aThrowable) {
+  public void executeCommandError(final Throwable aThrowable) {
     try {
       printErrorStart(aThrowable);
 
-      Throwable tmpThrowable = aThrowable.getCause();
+      final Throwable tmpThrowable = aThrowable.getCause();
       if (null != tmpThrowable) {
         executeCommandError(tmpThrowable);
       }
       printErrorEnd();
       flush();
-    } catch (IOException e) {
+    } catch (final IOException e) {
       LOG.error(e.getMessage(), e);
     }
   }
@@ -382,7 +382,7 @@ public class WetResultWriter implements WetProgressListener {
   public void testFileEnd() {
     try {
       printlnEndTag(TAG_TESTFILE);
-    } catch (IOException e) {
+    } catch (final IOException e) {
       LOG.error(e.getMessage(), e);
     }
   }
@@ -397,7 +397,7 @@ public class WetResultWriter implements WetProgressListener {
     try {
       printlnEndTag(TAG_TESTRUN);
       flush();
-    } catch (IOException e) {
+    } catch (final IOException e) {
       LOG.error(e.getMessage(), e);
     }
   }
@@ -412,7 +412,7 @@ public class WetResultWriter implements WetProgressListener {
     try {
       printlnEndTag(TAG_TESTCASE);
       flush();
-    } catch (IOException e) {
+    } catch (final IOException e) {
       LOG.error(e.getMessage(), e);
     }
   }
@@ -423,10 +423,10 @@ public class WetResultWriter implements WetProgressListener {
    * @see org.wetator.core.WetProgressListener#responseStored(java.lang.String)
    */
   @Override
-  public void responseStored(String aResponseFileName) {
+  public void responseStored(final String aResponseFileName) {
     try {
       printlnNode(TAG_RESPONSE, aResponseFileName);
-    } catch (IOException e) {
+    } catch (final IOException e) {
       LOG.error(e.getMessage(), e);
     }
   }
@@ -437,7 +437,7 @@ public class WetResultWriter implements WetProgressListener {
    * @see org.wetator.core.WetProgressListener#end(WetEngine)
    */
   @Override
-  public void end(WetEngine aWetEngine) {
+  public void end(final WetEngine aWetEngine) {
     try {
       printlnNode(TAG_EXECUTION_TIME, "" + (System.currentTimeMillis() - wetExecutionStartTime));
 
@@ -445,9 +445,9 @@ public class WetResultWriter implements WetProgressListener {
       output.flush();
       writer.close();
 
-      XslTransformer tmpXslTransformer = new XslTransformer(resultFile);
+      final XslTransformer tmpXslTransformer = new XslTransformer(resultFile);
       tmpXslTransformer.transform(xslTemplates, outputDir);
-    } catch (IOException e) {
+    } catch (final IOException e) {
       LOG.error(e.getMessage(), e);
     }
   }
@@ -458,14 +458,14 @@ public class WetResultWriter implements WetProgressListener {
    * @see org.wetator.core.WetProgressListener#warn(java.lang.String, java.lang.String[])
    */
   @Override
-  public void warn(String aMessageKey, String[] aParameterArray) {
+  public void warn(final String aMessageKey, final String[] aParameterArray) {
     try {
-      String tmpMessage = Messages.getMessage(aMessageKey, aParameterArray);
+      final String tmpMessage = Messages.getMessage(aMessageKey, aParameterArray);
       if (LOG.isWarnEnabled()) {
         LOG.warn(tmpMessage);
       }
       printLogMessage("WARN", tmpMessage);
-    } catch (IOException e) {
+    } catch (final IOException e) {
       LOG.error(e.getMessage(), e);
     }
   }
@@ -476,19 +476,19 @@ public class WetResultWriter implements WetProgressListener {
    * @see org.wetator.core.WetProgressListener#info(java.lang.String, java.lang.String[])
    */
   @Override
-  public void info(String aMessageKey, String[] aParameterArray) {
+  public void info(final String aMessageKey, final String[] aParameterArray) {
     try {
-      String tmpMessage = Messages.getMessage(aMessageKey, aParameterArray);
+      final String tmpMessage = Messages.getMessage(aMessageKey, aParameterArray);
       if (LOG.isInfoEnabled()) {
         LOG.info(tmpMessage);
       }
       printLogMessage("INFO", tmpMessage);
-    } catch (IOException e) {
+    } catch (final IOException e) {
       LOG.error(e.getMessage(), e);
     }
   }
 
-  private void printLogMessage(String aLevel, String aMessage) throws IOException {
+  private void printLogMessage(final String aLevel, final String aMessage) throws IOException {
     printlnStartTag(TAG_LOG);
 
     printlnNode(TAG_LEVEL, aLevel);
@@ -497,7 +497,7 @@ public class WetResultWriter implements WetProgressListener {
     printlnEndTag(TAG_LOG);
   }
 
-  private void printErrorStart(Throwable aThrowable) throws IOException {
+  private void printErrorStart(final Throwable aThrowable) throws IOException {
     printlnStartTag(TAG_ERROR);
     printlnNode(TAG_MESSAGE, aThrowable.getMessage());
 
@@ -508,7 +508,7 @@ public class WetResultWriter implements WetProgressListener {
     printlnEndTag(TAG_ERROR);
   }
 
-  private void printConfigurationProperty(String aKey, String aValue) throws IOException {
+  private void printConfigurationProperty(final String aKey, final String aValue) throws IOException {
     printStartTagOpener(TAG_PROPERTY);
     output.print("key=\"");
     output.print(xmlUtil.normalizeAttributeValue(aKey));
@@ -519,7 +519,7 @@ public class WetResultWriter implements WetProgressListener {
     output.println("\" />");
   }
 
-  private void printConfigurationProperty(String aKey, SecretString aValue) throws IOException {
+  private void printConfigurationProperty(final String aKey, final SecretString aValue) throws IOException {
     printStartTagOpener(TAG_PROPERTY);
     output.print("key=\"");
     output.print(xmlUtil.normalizeAttributeValue(aKey));
@@ -530,35 +530,35 @@ public class WetResultWriter implements WetProgressListener {
     output.println("\" />");
   }
 
-  private void printlnNode(String aNodeName, String aNodeValue) throws IOException {
+  private void printlnNode(final String aNodeName, final String aNodeValue) throws IOException {
     printStartTag(aNodeName);
     output.print(xmlUtil.normalizeBodyValue(aNodeValue));
     printEndTag(aNodeName);
     output.println();
   }
 
-  private void printlnStartTag(String aName) throws IOException {
+  private void printlnStartTag(final String aName) throws IOException {
     printStartTag(aName);
     output.println();
     output.indent();
   }
 
-  private void printStartTag(String aName) throws IOException {
+  private void printStartTag(final String aName) throws IOException {
     printStartTagOpener(aName);
     output.print(">");
   }
 
-  private void printlnEndTag(String aName) throws IOException {
+  private void printlnEndTag(final String aName) throws IOException {
     output.unindent();
     printEndTag(aName);
     output.println();
   }
 
-  private void printEndTag(String aName) throws IOException {
+  private void printEndTag(final String aName) throws IOException {
     output.print("</").print(aName).print(">");
   }
 
-  private void printStartTagOpener(String aName) throws IOException {
+  private void printStartTagOpener(final String aName) throws IOException {
     output.print("<").print(aName).print(" id=\"" + tagId++).print("\" ");
   }
 

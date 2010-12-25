@@ -49,7 +49,7 @@ public final class XslTransformer {
    * 
    * @param aWetResultFile the name of the report xml file
    */
-  public XslTransformer(File aWetResultFile) {
+  public XslTransformer(final File aWetResultFile) {
     wetResultFile = aWetResultFile;
   }
 
@@ -60,22 +60,22 @@ public final class XslTransformer {
    * @param aListOfXslFileNames the names of the xsl files for transformation
    * @param anOutputDirectory the directory to write to
    */
-  public void transform(Iterable<String> aListOfXslFileNames, File anOutputDirectory) {
+  public void transform(final Iterable<String> aListOfXslFileNames, final File anOutputDirectory) {
     for (String tmpXslFileName : aListOfXslFileNames) {
-      File tmpXslFile = new File(tmpXslFileName);
+      final File tmpXslFile = new File(tmpXslFileName);
 
       // TODO determine file type (based on template name)
-      File tmpResultFile = new File(anOutputDirectory, tmpXslFile.getName() + ".html");
+      final File tmpResultFile = new File(anOutputDirectory, tmpXslFile.getName() + ".html");
 
       try {
-        StreamSource tmpXlsStreamSource = new StreamSource(tmpXslFile);
-        Transformer tmpTransformer = TransformerFactory.newInstance().newTransformer(tmpXlsStreamSource);
+        final StreamSource tmpXlsStreamSource = new StreamSource(tmpXslFile);
+        final Transformer tmpTransformer = TransformerFactory.newInstance().newTransformer(tmpXlsStreamSource);
 
-        StreamSource tmpXmlStreamSource = new StreamSource(wetResultFile);
+        final StreamSource tmpXmlStreamSource = new StreamSource(wetResultFile);
 
-        FileWriter tmpFileWriter = new FileWriter(tmpResultFile);
-        BufferedWriter tmpBufferedWriter = new BufferedWriter(tmpFileWriter);
-        StreamResult tmpStreamResult = new StreamResult(tmpBufferedWriter);
+        final FileWriter tmpFileWriter = new FileWriter(tmpResultFile);
+        final BufferedWriter tmpBufferedWriter = new BufferedWriter(tmpFileWriter);
+        final StreamResult tmpStreamResult = new StreamResult(tmpBufferedWriter);
 
         tmpTransformer.transform(tmpXmlStreamSource, tmpStreamResult);
         tmpBufferedWriter.close();
@@ -83,11 +83,11 @@ public final class XslTransformer {
         copyImages(tmpXslFile.getParentFile(), anOutputDirectory);
 
         LOG.info("Report written to " + tmpResultFile.getAbsolutePath());
-      } catch (TransformerConfigurationException e) {
+      } catch (final TransformerConfigurationException e) {
         LOG.error("Problem loading XSL-Template '" + tmpXslFile.getAbsolutePath() + "'. Aborting.", e);
-      } catch (TransformerException e) {
+      } catch (final TransformerException e) {
         LOG.error("Problem applying XSL-Template '" + tmpXslFile.getAbsolutePath() + "'. Aborting.", e);
-      } catch (IOException e) {
+      } catch (final IOException e) {
         LOG.error("Problem writing Report '" + tmpResultFile.getAbsolutePath() + "'. Aborting.", e);
       }
     }
@@ -104,9 +104,9 @@ public final class XslTransformer {
    * @param aTargetDir the directory to copy to
    * @throws IOException in case of problems
    */
-  public void copyImages(File aSourceDir, File aTargetDir) throws IOException {
-    File tmpSourceDir = new File(aSourceDir, IMAGES_DIRECTORY);
-    File tmpTargetDir = new File(aTargetDir, IMAGES_DIRECTORY);
+  public void copyImages(final File aSourceDir, final File aTargetDir) throws IOException {
+    final File tmpSourceDir = new File(aSourceDir, IMAGES_DIRECTORY);
+    final File tmpTargetDir = new File(aTargetDir, IMAGES_DIRECTORY);
 
     copyFiles(tmpSourceDir, tmpTargetDir);
   }
@@ -118,7 +118,7 @@ public final class XslTransformer {
    * @param aTargetDir the directory to copy to
    * @throws IOException in case of problems
    */
-  protected void copyFiles(File aSourceDir, File aTargetDir) throws IOException {
+  protected void copyFiles(final File aSourceDir, final File aTargetDir) throws IOException {
     if (aTargetDir.exists()) {
       // do not copy anything
       return;
@@ -126,30 +126,30 @@ public final class XslTransformer {
 
     aTargetDir.mkdirs();
 
-    File[] tmpImageFiles = aSourceDir.listFiles();
+    final File[] tmpImageFiles = aSourceDir.listFiles();
     if (null == tmpImageFiles) {
       return;
     }
 
     // copy each file from the list
     for (int i = 0; i < tmpImageFiles.length; i++) {
-      File tmpSourceFile = tmpImageFiles[i];
+      final File tmpSourceFile = tmpImageFiles[i];
 
-      String tmpSourceFileName = tmpSourceFile.getName();
+      final String tmpSourceFileName = tmpSourceFile.getName();
       if (null != tmpSourceFileName && tmpSourceFileName.startsWith(".")) {
         // ignore files starting with '.'
       } else if (tmpSourceFile.isDirectory()) {
-        File tmpTargetSubDir = new File(aTargetDir, tmpSourceFile.getName());
+        final File tmpTargetSubDir = new File(aTargetDir, tmpSourceFile.getName());
         copyFiles(tmpSourceFile, tmpTargetSubDir);
       } else {
-        File tmpTargetFile = new File(aTargetDir, tmpSourceFile.getName());
+        final File tmpTargetFile = new File(aTargetDir, tmpSourceFile.getName());
 
         try {
-          FileInputStream tmpIn = new FileInputStream(tmpSourceFile);
+          final FileInputStream tmpIn = new FileInputStream(tmpSourceFile);
           try {
-            FileOutputStream tmpOut = new FileOutputStream(tmpTargetFile);
+            final FileOutputStream tmpOut = new FileOutputStream(tmpTargetFile);
             try {
-              byte[] tmpBuffer = new byte[1024];
+              final byte[] tmpBuffer = new byte[1024];
               int tmpBytes = 0;
               while ((tmpBytes = tmpIn.read(tmpBuffer)) > -1) {
                 tmpOut.write(tmpBuffer, 0, tmpBytes);
@@ -160,7 +160,7 @@ public final class XslTransformer {
           } finally {
             tmpIn.close();
           }
-        } catch (IOException e) {
+        } catch (final IOException e) {
           LOG.error("Can't copy '" + tmpSourceFile.getAbsolutePath() + "'. File ignored.", e);
         }
       }
