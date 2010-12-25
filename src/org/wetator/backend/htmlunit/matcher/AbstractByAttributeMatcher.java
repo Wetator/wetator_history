@@ -50,8 +50,8 @@ public abstract class AbstractByAttributeMatcher extends AbstractHtmlUnitElement
    * @param aSearchPattern the {@link SearchPattern} describing the element
    * @param aFoundType the {@link FoundType} the matcher should use when adding the element
    */
-  public AbstractByAttributeMatcher(HtmlPageIndex aHtmlPageIndex, SearchPattern aPathSearchPattern, FindSpot aPathSpot,
-      SearchPattern aSearchPattern, FoundType aFoundType) {
+  public AbstractByAttributeMatcher(final HtmlPageIndex aHtmlPageIndex, final SearchPattern aPathSearchPattern,
+      final FindSpot aPathSpot, final SearchPattern aSearchPattern, final FoundType aFoundType) {
     super(aHtmlPageIndex, aPathSearchPattern, aPathSpot, aSearchPattern);
     foundType = aFoundType;
   }
@@ -62,13 +62,13 @@ public abstract class AbstractByAttributeMatcher extends AbstractHtmlUnitElement
    * @see org.wetator.backend.htmlunit.matcher.AbstractHtmlUnitElementMatcher#matches(com.gargoylesoftware.htmlunit.html.HtmlElement)
    */
   @Override
-  public List<MatchResult> matches(HtmlElement aHtmlElement) {
-    List<MatchResult> tmpMatches = new LinkedList<MatchResult>();
+  public List<MatchResult> matches(final HtmlElement aHtmlElement) {
+    final List<MatchResult> tmpMatches = new LinkedList<MatchResult>();
     // has the node the text before
-    FindSpot tmpNodeSpot = htmlPageIndex.getPosition(aHtmlElement);
+    final FindSpot tmpNodeSpot = htmlPageIndex.getPosition(aHtmlElement);
     if (null != pathSpot && pathSpot.endPos <= tmpNodeSpot.startPos) {
 
-      String tmpValue = getAttributeValue(aHtmlElement);
+      final String tmpValue = getAttributeValue(aHtmlElement);
       if (StringUtils.isNotEmpty(tmpValue)) {
         if (MatchType.CONTAINS == matchType || MatchType.STARTS_WITH == matchType
             || (MatchType.EXACT == matchType && searchPattern.matches(tmpValue))
@@ -85,7 +85,7 @@ public abstract class AbstractByAttributeMatcher extends AbstractHtmlUnitElement
           if (tmpCoverage > -1) {
             String tmpTextBefore = htmlPageIndex.getTextBefore(aHtmlElement);
             tmpTextBefore = processTextForDistance(tmpTextBefore);
-            int tmpDistance = pathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
+            final int tmpDistance = pathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
             tmpMatches.add(new MatchResult(aHtmlElement, foundType, tmpCoverage, tmpDistance, tmpNodeSpot.startPos));
           }
         }
@@ -107,7 +107,7 @@ public abstract class AbstractByAttributeMatcher extends AbstractHtmlUnitElement
    * @param aTextBefore the text to process
    * @return the processed text
    */
-  protected String processTextForDistance(String aTextBefore) {
+  protected String processTextForDistance(final String aTextBefore) {
     return aTextBefore;
   }
 

@@ -39,8 +39,8 @@ public class ByIdMatcher extends AbstractByAttributeMatcher {
    * @param aPathSpot the {@link FindSpot} the path was found first
    * @param aSearchPattern the {@link SearchPattern} describing the element
    */
-  public ByIdMatcher(HtmlPageIndex aHtmlPageIndex, SearchPattern aPathSearchPattern, FindSpot aPathSpot,
-      SearchPattern aSearchPattern) {
+  public ByIdMatcher(final HtmlPageIndex aHtmlPageIndex, final SearchPattern aPathSearchPattern,
+      final FindSpot aPathSpot, final SearchPattern aSearchPattern) {
     super(aHtmlPageIndex, aPathSearchPattern, aPathSpot, aSearchPattern, FoundType.BY_ID);
     matchType = MatchType.EXACT;
   }
@@ -51,7 +51,7 @@ public class ByIdMatcher extends AbstractByAttributeMatcher {
    * @see org.wetator.backend.htmlunit.matcher.AbstractByAttributeMatcher#getAttributeValue(com.gargoylesoftware.htmlunit.html.HtmlElement)
    */
   @Override
-  protected String getAttributeValue(HtmlElement aHtmlElement) {
+  protected String getAttributeValue(final HtmlElement aHtmlElement) {
     return aHtmlElement.getId();
   }
 }

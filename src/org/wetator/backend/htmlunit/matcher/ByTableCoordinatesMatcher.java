@@ -51,8 +51,8 @@ public class ByTableCoordinatesMatcher extends AbstractHtmlUnitElementMatcher {
    * @param aTableCoordinates the {@link TableCoordinate}s to match
    * @param aClass the class of the element to find
    */
-  public ByTableCoordinatesMatcher(HtmlPageIndex aHtmlPageIndex, SearchPattern aPathSearchPattern, FindSpot aPathSpot,
-      List<TableCoordinate> aTableCoordinates, Class<? extends HtmlElement> aClass) {
+  public ByTableCoordinatesMatcher(final HtmlPageIndex aHtmlPageIndex, final SearchPattern aPathSearchPattern,
+      final FindSpot aPathSpot, final List<TableCoordinate> aTableCoordinates, final Class<? extends HtmlElement> aClass) {
     super(aHtmlPageIndex, aPathSearchPattern, aPathSpot, null);
 
     tableCoordinates = aTableCoordinates;
@@ -65,20 +65,20 @@ public class ByTableCoordinatesMatcher extends AbstractHtmlUnitElementMatcher {
    * @see org.wetator.backend.htmlunit.matcher.AbstractHtmlUnitElementMatcher#matches(com.gargoylesoftware.htmlunit.html.HtmlElement)
    */
   @Override
-  public List<MatchResult> matches(HtmlElement aHtmlElement) {
-    List<MatchResult> tmpMatches = new LinkedList<MatchResult>();
+  public List<MatchResult> matches(final HtmlElement aHtmlElement) {
+    final List<MatchResult> tmpMatches = new LinkedList<MatchResult>();
     if (!clazz.isAssignableFrom(aHtmlElement.getClass())) {
       return tmpMatches;
     }
 
     // has the node the text before
-    FindSpot tmpNodeSpot = htmlPageIndex.getPosition(aHtmlElement);
+    final FindSpot tmpNodeSpot = htmlPageIndex.getPosition(aHtmlElement);
     if (null != pathSpot && pathSpot.endPos <= tmpNodeSpot.startPos) {
       if (isHtmlElementInTableCoordinates(aHtmlElement, tableCoordinates, htmlPageIndex, pathSpot)) {
-        int tmpCoverage = 0;
+        final int tmpCoverage = 0;
         if (tmpCoverage > -1) {
-          String tmpTextBefore = htmlPageIndex.getTextBefore(aHtmlElement);
-          int tmpDistance = pathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
+          final String tmpTextBefore = htmlPageIndex.getTextBefore(aHtmlElement);
+          final int tmpDistance = pathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
           tmpMatches.add(new MatchResult(aHtmlElement, FoundType.BY_TABLE_COORDINATE, tmpCoverage, tmpDistance,
               tmpNodeSpot.startPos));
         }
@@ -96,8 +96,8 @@ public class ByTableCoordinatesMatcher extends AbstractHtmlUnitElementMatcher {
    * @param aPathSpot the {@link FindSpot} the path was found first
    * @return true if the given element is found
    */
-  public static boolean isHtmlElementInTableCoordinates(HtmlElement aHtmlElement,
-      List<TableCoordinate> aTableCoordinates, HtmlPageIndex aHtmlPageIndex, FindSpot aPathSpot) {
+  public static boolean isHtmlElementInTableCoordinates(final HtmlElement aHtmlElement,
+      final List<TableCoordinate> aTableCoordinates, final HtmlPageIndex aHtmlPageIndex, final FindSpot aPathSpot) {
     boolean tmpFound = true;
     HtmlElement tmpHtmlElement = aHtmlElement;
 
@@ -125,17 +125,17 @@ public class ByTableCoordinatesMatcher extends AbstractHtmlUnitElementMatcher {
       boolean tmpFoundX = false;
       boolean tmpFoundY = false;
       while (tmpCell != null) {
-        HtmlTableRow tmpRow = tmpCell.getEnclosingRow();
-        HtmlTable tmpTable = tmpRow.getEnclosingTable();
+        final HtmlTableRow tmpRow = tmpCell.getEnclosingRow();
+        final HtmlTable tmpTable = tmpRow.getEnclosingTable();
 
         // check the x coordinate in the row
         if (!tmpFoundX && tmpSearchPatternCoordX != null) {
-          int tmpXStart = findCellInRow(tmpRow, tmpCell);
-          int tmpXEnd = tmpXStart + tmpCell.getColumnSpan();
+          final int tmpXStart = findCellInRow(tmpRow, tmpCell);
+          final int tmpXEnd = tmpXStart + tmpCell.getColumnSpan();
           for (int i = tmpXStart; i < tmpXEnd; i++) {
             for (int j = 0; j < tmpTable.getRowCount(); j++) {
-              HtmlTableCell tmpOuterCellX = tmpTable.getCellAt(j, i);
-              FindSpot tmpOuterCellXSpot = aHtmlPageIndex.getPosition(tmpOuterCellX);
+              final HtmlTableCell tmpOuterCellX = tmpTable.getCellAt(j, i);
+              final FindSpot tmpOuterCellXSpot = aHtmlPageIndex.getPosition(tmpOuterCellX);
               if (aPathSpot.endPos < tmpOuterCellXSpot.startPos) {
                 if (tmpSearchPatternCoordX.matches(aHtmlPageIndex.getAsText(tmpOuterCellX))) {
                   tmpFoundX = true;
@@ -151,12 +151,12 @@ public class ByTableCoordinatesMatcher extends AbstractHtmlUnitElementMatcher {
 
         // check the y coordinate in the column
         if (!tmpFoundY && tmpSearchPatternCoordY != null) {
-          int tmpYStart = findRowInTable(tmpTable, tmpRow);
-          int tmpYEnd = tmpYStart + tmpCell.getRowSpan();
+          final int tmpYStart = findRowInTable(tmpTable, tmpRow);
+          final int tmpYEnd = tmpYStart + tmpCell.getRowSpan();
           for (int i = tmpYStart; i < tmpYEnd; i++) {
             for (int j = 0; j < tmpTable.getRow(i).getCells().size(); j++) {
-              HtmlTableCell tmpOuterCellY = tmpTable.getCellAt(i, j);
-              FindSpot tmpOuterCellYSpot = aHtmlPageIndex.getPosition(tmpOuterCellY);
+              final HtmlTableCell tmpOuterCellY = tmpTable.getCellAt(i, j);
+              final FindSpot tmpOuterCellYSpot = aHtmlPageIndex.getPosition(tmpOuterCellY);
               if (aPathSpot.endPos < tmpOuterCellYSpot.startPos) {
                 if (tmpSearchPatternCoordY.matches(aHtmlPageIndex.getAsText(tmpOuterCellY))) {
                   tmpFoundY = true;
@@ -184,7 +184,7 @@ public class ByTableCoordinatesMatcher extends AbstractHtmlUnitElementMatcher {
     return tmpFound;
   }
 
-  private static HtmlTableCell findEnclosingCell(HtmlElement aHtmlElement) {
+  private static HtmlTableCell findEnclosingCell(final HtmlElement aHtmlElement) {
     DomNode tmpParent = aHtmlElement;
     while (tmpParent != null && !(tmpParent instanceof HtmlTableCell)) {
       tmpParent = tmpParent.getParentNode();
@@ -195,7 +195,7 @@ public class ByTableCoordinatesMatcher extends AbstractHtmlUnitElementMatcher {
     return (HtmlTableCell) tmpParent;
   }
 
-  private static int findCellInRow(HtmlTableRow aRow, HtmlTableCell aCell) {
+  private static int findCellInRow(final HtmlTableRow aRow, final HtmlTableCell aCell) {
     int i = 0;
     for (HtmlTableCell tmpCell : aRow.getCells()) {
       if (tmpCell == aCell) {
@@ -206,7 +206,7 @@ public class ByTableCoordinatesMatcher extends AbstractHtmlUnitElementMatcher {
     return -1;
   }
 
-  private static int findRowInTable(HtmlTable aTable, HtmlTableRow aRow) {
+  private static int findRowInTable(final HtmlTable aTable, final HtmlTableRow aRow) {
     int i = 0;
     for (HtmlTableRow tmpRow : aTable.getRows()) {
       if (tmpRow == aRow) {

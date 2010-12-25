@@ -60,8 +60,8 @@ public abstract class AbstractHtmlUnitElementMatcher {
    * @param aPathSpot the {@link FindSpot} the path was found first
    * @param aSearchPattern the {@link SearchPattern} describing the element
    */
-  public AbstractHtmlUnitElementMatcher(HtmlPageIndex aHtmlPageIndex, SearchPattern aPathSearchPattern,
-      FindSpot aPathSpot, SearchPattern aSearchPattern) {
+  public AbstractHtmlUnitElementMatcher(final HtmlPageIndex aHtmlPageIndex, final SearchPattern aPathSearchPattern,
+      final FindSpot aPathSpot, final SearchPattern aSearchPattern) {
     htmlPageIndex = aHtmlPageIndex;
     pathSearchPattern = aPathSearchPattern;
     pathSpot = aPathSpot;
@@ -94,7 +94,8 @@ public abstract class AbstractHtmlUnitElementMatcher {
      * @param aDistance the distance
      * @param aStart the start
      */
-    public MatchResult(HtmlElement aHtmlElement, FoundType aFoundType, int aCoverage, int aDistance, int aStart) {
+    public MatchResult(final HtmlElement aHtmlElement, final FoundType aFoundType, final int aCoverage,
+        final int aDistance, final int aStart) {
       super();
       htmlElement = aHtmlElement;
       foundType = aFoundType;

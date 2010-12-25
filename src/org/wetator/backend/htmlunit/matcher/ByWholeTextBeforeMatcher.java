@@ -39,8 +39,8 @@ public class ByWholeTextBeforeMatcher extends AbstractByAttributeMatcher {
    * @param aPathSpot the {@link FindSpot} the path was found first
    * @param aSearchPattern the {@link SearchPattern} describing the element
    */
-  public ByWholeTextBeforeMatcher(HtmlPageIndex aHtmlPageIndex, SearchPattern aPathSearchPattern, FindSpot aPathSpot,
-      SearchPattern aSearchPattern) {
+  public ByWholeTextBeforeMatcher(final HtmlPageIndex aHtmlPageIndex, final SearchPattern aPathSearchPattern,
+      final FindSpot aPathSpot, final SearchPattern aSearchPattern) {
     super(aHtmlPageIndex, aPathSearchPattern, aPathSpot, aSearchPattern, FoundType.BY_TEXT);
     matchType = MatchType.STARTS_WITH;
   }
@@ -51,7 +51,7 @@ public class ByWholeTextBeforeMatcher extends AbstractByAttributeMatcher {
    * @see org.wetator.backend.htmlunit.matcher.AbstractByAttributeMatcher#getAttributeValue(com.gargoylesoftware.htmlunit.html.HtmlElement)
    */
   @Override
-  protected String getAttributeValue(HtmlElement aHtmlElement) {
+  protected String getAttributeValue(final HtmlElement aHtmlElement) {
     return htmlPageIndex.getTextBefore(aHtmlElement);
   }
 }

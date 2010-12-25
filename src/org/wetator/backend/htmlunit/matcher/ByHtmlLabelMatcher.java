@@ -48,8 +48,8 @@ public class ByHtmlLabelMatcher extends AbstractHtmlUnitElementMatcher {
    * @param aSearchPattern the {@link SearchPattern} describing the element
    * @param aClass the class of the {@link HtmlElement} the matching label labels.
    */
-  public ByHtmlLabelMatcher(HtmlPageIndex aHtmlPageIndex, SearchPattern aPathSearchPattern, FindSpot aPathSpot,
-      SearchPattern aSearchPattern, Class<? extends HtmlElement> aClass) {
+  public ByHtmlLabelMatcher(final HtmlPageIndex aHtmlPageIndex, final SearchPattern aPathSearchPattern,
+      final FindSpot aPathSpot, final SearchPattern aSearchPattern, final Class<? extends HtmlElement> aClass) {
     super(aHtmlPageIndex, aPathSearchPattern, aPathSpot, aSearchPattern);
     clazz = aClass;
   }
@@ -60,8 +60,8 @@ public class ByHtmlLabelMatcher extends AbstractHtmlUnitElementMatcher {
    * @see org.wetator.backend.htmlunit.matcher.AbstractHtmlUnitElementMatcher#matches(com.gargoylesoftware.htmlunit.html.HtmlElement)
    */
   @Override
-  public List<MatchResult> matches(HtmlElement aHtmlElement) {
-    List<MatchResult> tmpMatches = new LinkedList<MatchResult>();
+  public List<MatchResult> matches(final HtmlElement aHtmlElement) {
+    final List<MatchResult> tmpMatches = new LinkedList<MatchResult>();
     if (!(aHtmlElement instanceof HtmlLabel)) {
       return tmpMatches;
     }
@@ -70,40 +70,40 @@ public class ByHtmlLabelMatcher extends AbstractHtmlUnitElementMatcher {
     FindSpot tmpNodeSpot = htmlPageIndex.getPosition(aHtmlElement);
     if (null != pathSpot && pathSpot.endPos <= tmpNodeSpot.startPos) {
 
-      HtmlLabel tmpLabel = (HtmlLabel) aHtmlElement;
+      final HtmlLabel tmpLabel = (HtmlLabel) aHtmlElement;
 
       // found a label with this text
-      String tmpText = htmlPageIndex.getAsText(tmpLabel);
-      int tmpCoverage = searchPattern.noOfSurroundingCharsIn(tmpText);
+      final String tmpText = htmlPageIndex.getAsText(tmpLabel);
+      final int tmpCoverage = searchPattern.noOfSurroundingCharsIn(tmpText);
       if (tmpCoverage > -1) {
-        String tmpForAttribute = tmpLabel.getForAttribute();
+        final String tmpForAttribute = tmpLabel.getForAttribute();
         // label contains a for-attribute => find corresponding element
         if (StringUtils.isNotEmpty(tmpForAttribute)) {
           try {
-            HtmlElement tmpElementForLabel = htmlPageIndex.getHtmlElementById(tmpForAttribute);
+            final HtmlElement tmpElementForLabel = htmlPageIndex.getHtmlElementById(tmpForAttribute);
             if (clazz.isAssignableFrom(tmpElementForLabel.getClass())) {
               if (tmpElementForLabel.isDisplayed()) {
                 tmpNodeSpot = htmlPageIndex.getPosition(aHtmlElement);
-                String tmpTextBefore = htmlPageIndex.getTextBefore(tmpLabel);
-                int tmpDistance = pathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
+                final String tmpTextBefore = htmlPageIndex.getTextBefore(tmpLabel);
+                final int tmpDistance = pathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
 
                 tmpMatches.add(new MatchResult(tmpElementForLabel, FoundType.BY_LABEL, tmpCoverage, tmpDistance,
                     tmpNodeSpot.startPos));
               }
             }
-          } catch (ElementNotFoundException e) {
+          } catch (final ElementNotFoundException e) {
             // not found
           }
         }
 
         // Element must be a nested element of label
-        Iterable<HtmlElement> tmpChilds = tmpLabel.getHtmlElementDescendants();
+        final Iterable<HtmlElement> tmpChilds = tmpLabel.getHtmlElementDescendants();
         for (HtmlElement tmpChildElement : tmpChilds) {
           if (clazz.isAssignableFrom(tmpChildElement.getClass())) {
             if (tmpChildElement.isDisplayed()) {
               tmpNodeSpot = htmlPageIndex.getPosition(aHtmlElement);
-              String tmpTextBefore = htmlPageIndex.getTextBefore(tmpLabel);
-              int tmpDistance = pathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
+              final String tmpTextBefore = htmlPageIndex.getTextBefore(tmpLabel);
+              final int tmpDistance = pathSearchPattern.noOfCharsAfterLastOccurenceIn(tmpTextBefore);
 
               tmpMatches.add(new MatchResult(tmpChildElement, FoundType.BY_LABEL, tmpCoverage, tmpDistance,
                   tmpNodeSpot.startPos));

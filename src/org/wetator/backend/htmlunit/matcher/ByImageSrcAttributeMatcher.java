@@ -42,8 +42,8 @@ public class ByImageSrcAttributeMatcher extends AbstractByAttributeMatcher {
    * @param aPathSpot the {@link FindSpot} the path was found first
    * @param aSearchPattern the {@link SearchPattern} describing the element
    */
-  public ByImageSrcAttributeMatcher(HtmlPageIndex aHtmlPageIndex, SearchPattern aPathSearchPattern, FindSpot aPathSpot,
-      SearchPattern aSearchPattern) {
+  public ByImageSrcAttributeMatcher(final HtmlPageIndex aHtmlPageIndex, final SearchPattern aPathSearchPattern,
+      final FindSpot aPathSpot, final SearchPattern aSearchPattern) {
     super(aHtmlPageIndex, aPathSearchPattern, aPathSpot, aSearchPattern, FoundType.BY_IMG_SRC_ATTRIBUTE);
     matchType = MatchType.ENDS_WITH;
   }
@@ -54,7 +54,7 @@ public class ByImageSrcAttributeMatcher extends AbstractByAttributeMatcher {
    * @see org.wetator.backend.htmlunit.matcher.AbstractByAttributeMatcher#getAttributeValue(com.gargoylesoftware.htmlunit.html.HtmlElement)
    */
   @Override
-  protected String getAttributeValue(HtmlElement aHtmlElement) {
+  protected String getAttributeValue(final HtmlElement aHtmlElement) {
     String tmpValue = null;
     if (aHtmlElement instanceof HtmlImage) {
       tmpValue = ((HtmlImage) aHtmlElement).getSrcAttribute();

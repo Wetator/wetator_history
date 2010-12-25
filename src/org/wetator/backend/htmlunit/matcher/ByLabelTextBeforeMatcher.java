@@ -39,8 +39,8 @@ public class ByLabelTextBeforeMatcher extends AbstractByAttributeMatcher {
    * @param aPathSpot the {@link FindSpot} the path was found first
    * @param aSearchPattern the {@link SearchPattern} describing the element
    */
-  public ByLabelTextBeforeMatcher(HtmlPageIndex aHtmlPageIndex, SearchPattern aPathSearchPattern, FindSpot aPathSpot,
-      SearchPattern aSearchPattern) {
+  public ByLabelTextBeforeMatcher(final HtmlPageIndex aHtmlPageIndex, final SearchPattern aPathSearchPattern,
+      final FindSpot aPathSpot, final SearchPattern aSearchPattern) {
     super(aHtmlPageIndex, aPathSearchPattern, aPathSpot, aSearchPattern, FoundType.BY_LABEL_TEXT);
   }
 
@@ -50,7 +50,7 @@ public class ByLabelTextBeforeMatcher extends AbstractByAttributeMatcher {
    * @see org.wetator.backend.htmlunit.matcher.AbstractByAttributeMatcher#getAttributeValue(com.gargoylesoftware.htmlunit.html.HtmlElement)
    */
   @Override
-  protected String getAttributeValue(HtmlElement aHtmlElement) {
+  protected String getAttributeValue(final HtmlElement aHtmlElement) {
     return htmlPageIndex.getLabelTextBefore(aHtmlElement, pathSpot.endPos);
   }
 
@@ -60,7 +60,7 @@ public class ByLabelTextBeforeMatcher extends AbstractByAttributeMatcher {
    * @see org.wetator.backend.htmlunit.matcher.AbstractByAttributeMatcher#processTextForDistance(java.lang.String)
    */
   @Override
-  protected String processTextForDistance(String aTextBefore) {
+  protected String processTextForDistance(final String aTextBefore) {
     // in this case the label is part of the text before
     // lets try to remove that
     return aTextBefore.substring(0, searchPattern.noOfCharsBeforeLastOccurenceIn(aTextBefore));
