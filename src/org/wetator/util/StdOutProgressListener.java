@@ -56,24 +56,32 @@ public class StdOutProgressListener implements WetProgressListener {
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.core.WetProgressListener#start(WetEngine)
+   * @see org.wetator.core.WetProgressListener#init(WetEngine)
    */
   @Override
-  public void start(final WetEngine aWetEngine) {
+  public void init(final WetEngine aWetEngine) {
     println(Version.getProductName() + " " + Version.getVersion());
     output.indent();
     println("using " + com.gargoylesoftware.htmlunit.Version.getProductName() + " version "
         + com.gargoylesoftware.htmlunit.Version.getProductVersion());
 
-    stepsCount = 0;
-    errorCount = 0;
-    failureCount = 0;
-    contextDeep = 0;
-
     final File tmpConfigFile = aWetEngine.getConfigFile();
     if (null != tmpConfigFile) {
       println("Config:     '" + tmpConfigFile.getAbsolutePath() + "'");
     }
+  }
+
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.wetator.core.WetProgressListener#start(WetEngine)
+   */
+  @Override
+  public void start(final WetEngine aWetEngine) {
+    stepsCount = 0;
+    errorCount = 0;
+    failureCount = 0;
+    contextDeep = 0;
 
     final WetConfiguration tmpConfiguration = aWetEngine.getWetConfiguration();
     if (tmpConfiguration != null) {

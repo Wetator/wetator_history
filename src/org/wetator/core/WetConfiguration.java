@@ -340,15 +340,31 @@ public final class WetConfiguration {
           }
           final WetCommandSet tmpWetCommandSet = tmpClass.newInstance();
           commandSets.add(tmpWetCommandSet);
-          LOG.info("Config  command set '" + tmpCommandSetClassName + "' registered.");
+          LOG.info("Config:  command set '" + tmpCommandSetClassName + "' registered.");
         } catch (final ClassNotFoundException e) {
-          LOG.error("Config  Can't load command set '" + tmpCommandSetClassName + "'.", e);
+          if (LOG.isDebugEnabled()) {
+            LOG.error("Config:  Can't load command set '" + tmpCommandSetClassName + "'.", e);
+          } else {
+            LOG.error("Config:  Can't load command set '" + tmpCommandSetClassName + "' (" + e.toString() + ").");
+          }
         } catch (final InstantiationException e) {
-          LOG.error("Config  Can't load command set '" + tmpCommandSetClassName + "'.", e);
+          if (LOG.isDebugEnabled()) {
+            LOG.error("Config:  Can't load command set '" + tmpCommandSetClassName + "'.", e);
+          } else {
+            LOG.error("Config:  Can't load command set '" + tmpCommandSetClassName + "' (" + e.toString() + ").");
+          }
         } catch (final IllegalAccessException e) {
-          LOG.error("Config  Can't load command set '" + tmpCommandSetClassName + "'.", e);
+          if (LOG.isDebugEnabled()) {
+            LOG.error("Config:  Can't load command set '" + tmpCommandSetClassName + "'.", e);
+          } else {
+            LOG.error("Config:  Can't load command set '" + tmpCommandSetClassName + "' (" + e.toString() + ").");
+          }
         } catch (final ClassCastException e) {
-          LOG.error("Config  Can't load command set '" + tmpCommandSetClassName + "'.", e);
+          if (LOG.isDebugEnabled()) {
+            LOG.error("Config:  Can't load command set '" + tmpCommandSetClassName + "'.", e);
+          } else {
+            LOG.error("Config:  Can't load command set '" + tmpCommandSetClassName + "' (" + e.toString() + ").");
+          }
         }
       }
     }

@@ -107,6 +107,16 @@ public class JUnitProgressListener implements WetProgressListener {
   /**
    * {@inheritDoc}
    * 
+   * @see org.wetator.core.WetProgressListener#init(org.wetator.core.WetEngine)
+   */
+  @Override
+  public void init(WetEngine aWetEngine) {
+    // nothing
+  }
+
+  /**
+   * {@inheritDoc}
+   * 
    * @see org.wetator.core.WetProgressListener#responseStored(java.lang.String)
    */
   @Override

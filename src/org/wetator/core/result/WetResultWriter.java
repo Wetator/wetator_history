@@ -100,10 +100,10 @@ public class WetResultWriter implements WetProgressListener {
   /**
    * {@inheritDoc}
    * 
-   * @see org.wetator.core.WetProgressListener#start(WetEngine)
+   * @see org.wetator.core.WetProgressListener#init(WetEngine)
    */
   @Override
-  public void start(final WetEngine aWetEngine) {
+  public void init(final WetEngine aWetEngine) {
     try {
       final WetConfiguration tmpWetConfiguration = aWetEngine.getWetConfiguration();
 
@@ -129,6 +129,21 @@ public class WetResultWriter implements WetProgressListener {
 
       printlnEndTag(TAG_ABOUT);
 
+    } catch (final IOException e) {
+      LOG.error(e.getMessage(), e);
+    }
+  }
+
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.wetator.core.WetProgressListener#start(WetEngine)
+   */
+  @Override
+  public void start(final WetEngine aWetEngine) {
+    try {
+      final WetConfiguration tmpWetConfiguration = aWetEngine.getWetConfiguration();
+
       // print the configuration
       printlnStartTag(TAG_CONFIGURATION);
 
@@ -153,7 +168,8 @@ public class WetResultWriter implements WetProgressListener {
       }
 
       printConfigurationProperty(WetConfiguration.PROPERTY_PROXY_HOST, tmpWetConfiguration.getProxyHost());
-      printConfigurationProperty(WetConfiguration.PROPERTY_PROXY_PORT, "" + tmpWetConfiguration.getProxyPort());
+      printConfigurationProperty(WetConfiguration.PROPERTY_PROXY_PORT,
+          Integer.toString(tmpWetConfiguration.getProxyPort()));
       // writeConfigurationProperty(WetConfiguration.PROPERTY_PROXY_HOSTS_TO_BYPASS,
       // aWetConfiguration.getProxyHostsToBypass());
       printConfigurationProperty(WetConfiguration.PROPERTY_PROXY_USER, tmpWetConfiguration.getProxyUser());

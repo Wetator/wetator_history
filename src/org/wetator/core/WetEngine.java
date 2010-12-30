@@ -75,6 +75,7 @@ public final class WetEngine {
    * @throws WetException in case of problems
    */
   public void init() throws WetException {
+    informListenersInit();
     init(readWetConfiguration());
   }
 
@@ -127,7 +128,10 @@ public final class WetEngine {
    * Executes the tests.
    */
   public void executeTests() {
-    addProgressListener(new WetResultWriter());
+    // create new result writer and call the init() method.
+    final WetResultWriter tmpResultWriter = new WetResultWriter();
+    tmpResultWriter.init(this);
+    addProgressListener(tmpResultWriter);
 
     informListenersStart();
     try {
@@ -297,6 +301,15 @@ public final class WetEngine {
       return;
     }
     progressListener.add(aProgressListener);
+  }
+
+  /**
+   * Informs all listeners about 'init'.
+   */
+  protected void informListenersInit() {
+    for (WetProgressListener tmpListener : progressListener) {
+      tmpListener.init(this);
+    }
   }
 
   /**

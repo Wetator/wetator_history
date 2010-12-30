@@ -27,6 +27,17 @@ import org.wetator.exception.AssertionFailedException;
 public interface WetProgressListener {
 
   /**
+   * This is called before the setup is done
+   * and before the test are starting.<br>
+   * Only the configuration path is available.
+   * The listener can dump the version and the
+   * configuration file used (if any).
+   * 
+   * @param aWetEngine the engine
+   */
+  public void init(WetEngine aWetEngine);
+
+  /**
    * This is called after the setup is done
    * and before the test are starting.
    * The listener can dump the setup

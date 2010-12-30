@@ -75,9 +75,9 @@ public class Wetator extends Task {
         }
 
         // AntClassLoader
-        // We are using the system classloader, because this is only needed
-        // for 'Exec Java' command. And this command needs nothing from ant;
-        // normally ant only disturbs.
+        // We are using the system classloader, because the loader is only needed
+        // for the 'Exec Java' command.<br>
+        // And the 'Exec Java' command needs nothing from ant; normally the ant stuff only disturbs.
         final AntClassLoader tmpClassLoader = new AntClassLoader(ClassLoader.getSystemClassLoader(), getProject(),
             classpath, false);
         tmpClassLoader.setThreadContextLoader();
