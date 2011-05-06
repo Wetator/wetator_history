@@ -156,6 +156,7 @@ Wetator/src/org/wetator/util/StringUtil.java -text
 Wetator/src/org/wetator/util/VariableReplaceUtil.java -text
 Wetator/src/org/wetator/util/XmlUtil.java -text
 Wetator/src/wetator.config -text
+Wetator/test.txt -text svneol=unset#text/plain
 Wetator/test/MouseEvents.xls -text
 Wetator/test/ant/ant_task_classpath_test.xls -text
 Wetator/test/ant/build.xml -text
