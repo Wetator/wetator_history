@@ -116,6 +116,7 @@ Wetator/src/org/wetator/core/ICommandSet.java -text
 Wetator/src/org/wetator/core/IProgressListener.java -text
 Wetator/src/org/wetator/core/IScripter.java -text
 Wetator/src/org/wetator/core/Parameter.java -text
+Wetator/src/org/wetator/core/TestCase.java -text svneol=unset#text/plain
 Wetator/src/org/wetator/core/Variable.java -text
 Wetator/src/org/wetator/core/WetatorConfiguration.java -text
 Wetator/src/org/wetator/core/WetatorContext.java -text
@@ -133,6 +134,7 @@ Wetator/src/org/wetator/exception/BackendException.java -text svneol=unset#text/
 Wetator/src/org/wetator/exception/CommandExecutionException.java -text svneol=unset#text/plain
 Wetator/src/org/wetator/exception/ConfigurationException.java -text svneol=unset#text/plain
 Wetator/src/org/wetator/exception/ResourceException.java -text svneol=unset#text/plain
+Wetator/src/org/wetator/exception/UnsupportedOperationException.java -text svneol=unset#text/plain
 Wetator/src/org/wetator/exception/WetatorException.java -text
 Wetator/src/org/wetator/exception/WrongCommandUsageException.java -text svneol=unset#text/plain
 Wetator/src/org/wetator/gui/DialogUtil.java -text
@@ -178,6 +180,7 @@ Wetator/test/checkstyle/checkstyle.xml -text svneol=unset#text/plain
 Wetator/test/checkstyle/test-checkstyle.xml -text svneol=unset#text/plain
 Wetator/test/excel/default_command_set.xls -text
 Wetator/test/excel/modules/module.xls -text
+Wetator/test/excel/sql_command_set.xls -text
 Wetator/test/java/org/wetator/AllTests.java -text
 Wetator/test/java/org/wetator/automatonTest.jpage -text
 Wetator/test/java/org/wetator/backend/AllTests.java -text
