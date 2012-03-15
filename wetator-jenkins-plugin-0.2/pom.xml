@@ -1,0 +1,91 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.jenkins-ci.plugins</groupId>
+        <artifactId>plugin</artifactId>
+        <version>1.415</version><!-- which version of Jenkins is this plugin
+            built against? -->
+    </parent>
+
+    <name>Wetator Report Plug-in</name>
+    <groupId>org.wetator</groupId>
+    <artifactId>wetator-jenkins-plugin</artifactId>
+    <version>0.2</version>
+    <packaging>hpi</packaging>
+
+    <url>http://www.wetator.org</url>
+    <issueManagement>
+    	<system>Trac</system>
+    	<url>https://www2.hosted-projects.com/trac/rbri/wetator/report</url>
+    </issueManagement>
+    <inceptionYear>2008</inceptionYear>
+    <developers>
+        <developer>
+            <id>frank.danek</id>
+            <name>Frank Danek</name>
+        </developer>
+    </developers>
+
+    <scm>
+    	<connection>scm:svn:https://svn2.hosted-projects.com/rbri/wetator/tags/wetator-jenkins-plugin/wetator-jenkins-plugin-0.2</connection>
+    	<developerConnection>scm:svn:https://svn2.hosted-projects.com/rbri/wetator/tags/wetator-jenkins-plugin/wetator-jenkins-plugin-0.2</developerConnection>
+    	<url>https://svn2.hosted-projects.com/rbri/wetator/tags/wetator-jenkins-plugin/wetator-jenkins-plugin-0.2</url>
+    </scm>
+    <distributionManagement>
+      <!-- Publish the versioned releases here -->
+      <repository>
+        <id>local</id>
+        <name>Local folder</name>
+        <url>file://${project.basedir}/../../deploy</url>
+      </repository>
+    </distributionManagement>
+    <organization>
+    	<name>wetator.org</name>
+    	<url>http://www.wetator.org</url>
+    </organization>
+    <build>
+    	<plugins>
+    		<plugin>
+    			<groupId>org.apache.maven.plugins</groupId>
+    			<artifactId>maven-release-plugin</artifactId>
+                <configuration>
+                    <providerImplementations>
+                        <svn>javasvn</svn>
+                    </providerImplementations>
+                    <tagBase>https://svn2.hosted-projects.com/rbri/wetator/tags/wetator-jenkins-plugin</tagBase>
+                </configuration>
+                <version>2.2.2</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.google.code.maven-scm-provider-svnjava</groupId>
+                        <artifactId>maven-scm-provider-svnjava</artifactId>
+                        <version>1.15</version>
+                    </dependency>
+                </dependencies>
+    		</plugin>
+    	</plugins>
+    </build>
+
+    <repositories>
+        <repository>
+            <id>repo.jenkins-ci.org</id>
+            <url>http://repo.jenkins-ci.org/public/</url>
+        </repository>
+    </repositories>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>repo.jenkins-ci.org</id>
+            <url>http://repo.jenkins-ci.org/public/</url>
+        </pluginRepository>
+    </pluginRepositories>
+
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.8.2</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+</project>
