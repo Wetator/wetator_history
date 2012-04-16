@@ -140,7 +140,6 @@ Wetator/src/org/wetator/exception/ImplementationException.java -text svneol=unse
 Wetator/src/org/wetator/exception/InvalidInputException.java -text svneol=unset#text/plain
 Wetator/src/org/wetator/exception/ResourceException.java -text svneol=unset#text/plain
 Wetator/src/org/wetator/exception/UnsupportedOperationException.java -text svneol=unset#text/plain
-Wetator/src/org/wetator/exception/WrongCommandUsageException.java -text svneol=unset#text/plain
 Wetator/src/org/wetator/gui/DialogUtil.java -text
 Wetator/src/org/wetator/i18n/Messages.java -text
 Wetator/src/org/wetator/progresslistener/StdOutProgressListener.java -text
