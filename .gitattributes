@@ -851,9 +851,10 @@ Wetator/xsd/testCommandSet-0.9.4.xsd -text svneol=unset#text/plain
 Wetator/xsd/testCommandSet.xsd -text svneol=unset#text/plain
 Wetator/xsl/images/collapseall.png -text
 Wetator/xsl/images/collapselog.png -text
+Wetator/xsl/images/error.png -text
 Wetator/xsl/images/expandall.png -text
 Wetator/xsl/images/expandlog.png -text
-Wetator/xsl/images/failed.png -text
+Wetator/xsl/images/failure.png -text
 Wetator/xsl/images/firefox.png -text
 Wetator/xsl/images/ie6.png -text
 Wetator/xsl/images/ie7.png -text
