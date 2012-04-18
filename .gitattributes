@@ -261,6 +261,7 @@ Wetator/test/java/org/wetator/core/searchpattern/SearchPatternTest.java -text
 Wetator/test/java/org/wetator/i18n/AllTests.java -text
 Wetator/test/java/org/wetator/i18n/MessagesTest.java -text
 Wetator/test/java/org/wetator/progresslistener/AllTests.java -text
+Wetator/test/java/org/wetator/progresslistener/ManualXMLResultWriterTest.java -text svneol=unset#text/plain
 Wetator/test/java/org/wetator/progresslistener/XMLResultWriterTest.java -text
 Wetator/test/java/org/wetator/progresslistener/XSLTransformerTest.java -text
 Wetator/test/java/org/wetator/scriptcreator/ManualXMLScriptCreatorTest.java -text svneol=unset#text/plain
@@ -295,6 +296,25 @@ Wetator/test/java/org/wetator/test/resource/junit-test-command-set.xsd -text svn
 Wetator/test/java/org/wetator/test/resource/legacyXML.wet -text svneol=unset#text/plain
 Wetator/test/java/org/wetator/test/resource/legacyXML.xml -text svneol=unset#text/plain
 Wetator/test/java/org/wetator/test/resource/legacyXMLMalformed.xml -text svneol=unset#text/plain
+Wetator/test/java/org/wetator/test/resource/resultxml/images/collapseall.png -text
+Wetator/test/java/org/wetator/test/resource/resultxml/images/collapselog.png -text
+Wetator/test/java/org/wetator/test/resource/resultxml/images/expandall.png -text
+Wetator/test/java/org/wetator/test/resource/resultxml/images/expandlog.png -text
+Wetator/test/java/org/wetator/test/resource/resultxml/images/failed.png -text
+Wetator/test/java/org/wetator/test/resource/resultxml/images/firefox.png -text
+Wetator/test/java/org/wetator/test/resource/resultxml/images/ie6.png -text
+Wetator/test/java/org/wetator/test/resource/resultxml/images/ie7.png -text
+Wetator/test/java/org/wetator/test/resource/resultxml/images/ie8.png -text
+Wetator/test/java/org/wetator/test/resource/resultxml/images/log_info.png -text
+Wetator/test/java/org/wetator/test/resource/resultxml/images/log_warn.png -text
+Wetator/test/java/org/wetator/test/resource/resultxml/images/next.png -text
+Wetator/test/java/org/wetator/test/resource/resultxml/images/none.png -text
+Wetator/test/java/org/wetator/test/resource/resultxml/images/ok.png -text
+Wetator/test/java/org/wetator/test/resource/resultxml/images/previous.png -text
+Wetator/test/java/org/wetator/test/resource/resultxml/images/response.png -text
+Wetator/test/java/org/wetator/test/resource/resultxml/images/top.png -text
+Wetator/test/java/org/wetator/test/resource/resultxml/images/wetator.png -text
+Wetator/test/java/org/wetator/test/resource/resultxml/wetresult.xml -text svneol=unset#text/plain
 Wetator/test/java/org/wetator/test/resource/wikiText.wett -text
 Wetator/test/java/org/wetator/test/resource/xml.wet -text
 Wetator/test/java/org/wetator/test/resource/xml.xml -text svneol=unset#text/plain
