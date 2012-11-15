@@ -5,3 +5,7 @@ wetator-jenkins-plugin-0.3/deploy/org
 wetator-jenkins-plugin-0.3/infinitest.filters
 wetator-jenkins-plugin-0.3/target
 wetator-jenkins-plugin-0.3/work
+wetator-jenkins-plugin-0.4/deploy/org
+wetator-jenkins-plugin-0.4/infinitest.filters
+wetator-jenkins-plugin-0.4/target
+wetator-jenkins-plugin-0.4/work
