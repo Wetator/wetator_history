@@ -50,3 +50,7 @@ Wetator/lib_src/poi-src-3.6-20091214.zip
 Wetator/logs/*
 Wetator/sonar-project.properties
 Wetator/wetator.config
+wetator-ant-task/build
+wetator-ant-task/deploy
+wetator-ant-task/lib/*.jar
+wetator-ant-task/lib_src/*.jar

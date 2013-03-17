@@ -914,3 +914,52 @@ Wetator/xsl/images/response.png -text
 Wetator/xsl/images/top.png -text
 Wetator/xsl/images/wetator.png -text
 Wetator/xsl/run_report.xsl -text svneol=unset#text/plain
+wetator-ant-task/.checkstyle -text
+wetator-ant-task/.classpath -text
+wetator-ant-task/.project -text
+wetator-ant-task/.settings/org.eclipse.core.resources.prefs -text svneol=unset#text/plain
+wetator-ant-task/.settings/org.eclipse.jdt.core.prefs -text svneol=unset#text/plain
+wetator-ant-task/.settings/org.eclipse.jdt.launching.prefs -text svneol=unset#text/plain
+wetator-ant-task/.settings/org.eclipse.jdt.ui.prefs -text svneol=unset#text/plain
+wetator-ant-task/LICENSE.txt -text
+wetator-ant-task/ant_lib/ivy-2.3.0.jar -text
+wetator-ant-task/build-patternset.xml -text
+wetator-ant-task/build-properties.xml -text
+wetator-ant-task/build.properties -text
+wetator-ant-task/build.xml -text
+wetator-ant-task/ivy.xml -text
+wetator-ant-task/ivysettings.xml -text
+wetator-ant-task/pom.template.xml -text
+wetator-ant-task/readme.txt -text svneol=unset#text/plain
+wetator-ant-task/samples/ant/build.xml -text svneol=unset#text/plain
+wetator-ant-task/samples/google_search/google.wet -text
+wetator-ant-task/samples/google_search/google.xls -text
+wetator-ant-task/samples/google_search/wetator.config -text
+wetator-ant-task/samples/wetator.config -text
+wetator-ant-task/src/org/wetator/ant/AntOutProgressListener.java -text
+wetator-ant-task/src/org/wetator/ant/Version.java -text
+wetator-ant-task/src/org/wetator/ant/Wetator.java -text
+wetator-ant-task/test/checkstyle/checkstyle.xml -text
+wetator-ant-task/test/checkstyle/test-checkstyle.xml -text
+wetator-ant-task/test/findbugs/excludeFilter.xml -text svneol=unset#text/plain
+wetator-ant-task/test/pmd/wet-logging-jakarta-commons.xml -text svneol=unset#text/plain
+wetator-ant-task/test/pmd/wet-optimizations.xml -text svneol=unset#text/plain
+wetator-ant-task/test/pmd/wet-strings.xml -text svneol=unset#text/plain
+wetator-ant-task/xsl/images/collapseall.png -text
+wetator-ant-task/xsl/images/collapselog.png -text
+wetator-ant-task/xsl/images/error.png -text
+wetator-ant-task/xsl/images/expandall.png -text
+wetator-ant-task/xsl/images/expandlog.png -text
+wetator-ant-task/xsl/images/failure.png -text
+wetator-ant-task/xsl/images/firefox.png -text
+wetator-ant-task/xsl/images/ie8.png -text
+wetator-ant-task/xsl/images/log_info.png -text
+wetator-ant-task/xsl/images/log_warn.png -text
+wetator-ant-task/xsl/images/next.png -text
+wetator-ant-task/xsl/images/none.png -text
+wetator-ant-task/xsl/images/ok.png -text
+wetator-ant-task/xsl/images/previous.png -text
+wetator-ant-task/xsl/images/response.png -text
+wetator-ant-task/xsl/images/top.png -text
+wetator-ant-task/xsl/images/wetator.png -text
+wetator-ant-task/xsl/run_report.xsl -text svneol=unset#text/plain
