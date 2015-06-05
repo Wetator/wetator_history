@@ -1,0 +1,472 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<test-case
+    xmlns='http://www.wetator.org/xsd/test-case'
+    xmlns:d='http://www.wetator.org/xsd/default-command-set'
+    xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+    xsi:schemaLocation='http://www.wetator.org/xsd/test-case test-case-1.0.0.xsd http://www.wetator.org/xsd/default-command-set default-command-set-1.0.0.xsd'
+    version='1.0.0'>
+    <comment>==== input submit button ====</comment>
+    <command><d:open-url><d:url>click_after.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Click After</d:title></d:assert-title></command>
+    <comment>input submit button with label</comment>
+    <command><d:click-on><d:wpath>Click after this text &gt; InputTypeSubmit</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value b_i_submit_name InputTypeSubmit clickOnButton AFTER_b_i_submit POST</d:content></d:assert-content></command>
+    <comment>==== input submit button ====</comment>
+    <command><d:open-url><d:url>click_after.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Click After</d:title></d:assert-title></command>
+    <comment>input submit button with label</comment>
+    <command><d:click-on><d:wpath>Click after this formated text &gt; InputTypeSubmit</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value b_i_submit_name, InputTypeSubmit clickOnButton AFTER_b_i_submit POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>click_after.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Click After</d:title></d:assert-title></command>
+    <comment>input submit button with name</comment>
+    <command><d:click-on><d:wpath>Click after this text &gt; b_i_submit_name</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value b_i_submit_name InputTypeSubmit clickOnButton AFTER_b_i_submit POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <command><d:open-url><d:url>click_after.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Click After</d:title></d:assert-title></command>
+    <comment>input submit button with name</comment>
+    <command><d:click-on><d:wpath>Click after this formated text &gt; b_i_submit_name</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value b_i_submit_name InputTypeSubmit clickOnButton AFTER_b_i_submit POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>click_after.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Click After</d:title></d:assert-title></command>
+    <comment>input submit button with id</comment>
+    <command><d:click-on><d:wpath>Click after this text &gt; b_i_submit_id</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value b_i_submit_name InputTypeSubmit clickOnButton AFTER_b_i_submit POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <command><d:open-url><d:url>click_after.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Click After</d:title></d:assert-title></command>
+    <comment>input submit button with id</comment>
+    <command><d:click-on><d:wpath>Click after this formated text &gt; b_i_submit_id</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value b_i_submit_name InputTypeSubmit clickOnButton AFTER_b_i_submit POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment>==== input button ====</comment>
+    <comment></comment>
+    <command><d:open-url><d:url>click_after.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Click After</d:title></d:assert-title></command>
+    <comment>input button with label</comment>
+    <command><d:click-on><d:wpath>Click after this text &gt; Button</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value clickOnButton AFTER_b_i_button POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <command><d:open-url><d:url>click_after.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Click After</d:title></d:assert-title></command>
+    <comment>input button with label</comment>
+    <command><d:click-on><d:wpath>Click after this formated text &gt; Button</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value clickOnButton AFTER_b_i_button POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>click_after.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Click After</d:title></d:assert-title></command>
+    <comment>input button with name</comment>
+    <command><d:click-on><d:wpath>Click after this text &gt; b_i_button_name</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value clickOnButton AFTER_b_i_button POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <command><d:open-url><d:url>click_after.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Click After</d:title></d:assert-title></command>
+    <comment>input button with name</comment>
+    <command><d:click-on><d:wpath>Click after this formated text &gt; b_i_button_name</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value clickOnButton AFTER_b_i_button POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>click_after.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Click After</d:title></d:assert-title></command>
+    <comment>input button with id</comment>
+    <command><d:click-on><d:wpath>Click after this text &gt; b_i_button_id</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value clickOnButton AFTER_b_i_button POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <command><d:open-url><d:url>click_after.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Click After</d:title></d:assert-title></command>
+    <comment>input button with id</comment>
+    <command><d:click-on><d:wpath>Click after this formated text &gt; b_i_button_id</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value clickOnButton AFTER_b_i_button POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment>==== image ====</comment>
+    <comment></comment>
+    <command><d:open-url><d:url>click_after.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Click After</d:title></d:assert-title></command>
+    <comment>image with alt</comment>
+    <command><d:click-on><d:wpath>Click after this text &gt; ImageButton</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value clickOnButton AFTER_i_i_imageAlt, POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <command><d:open-url><d:url>click_after.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Click After</d:title></d:assert-title></command>
+    <comment>image with alt</comment>
+    <command><d:click-on><d:wpath>Click after this formated text &gt; ImageButton</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value clickOnButton AFTER_i_i_imageAlt, POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>click_after.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Click After</d:title></d:assert-title></command>
+    <comment>image with title</comment>
+    <command><d:click-on><d:wpath>Click after this text &gt; ImageButtonTitle</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value clickOnButton AFTER_i_i_imageTitle, POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <command><d:open-url><d:url>click_after.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Click After</d:title></d:assert-title></command>
+    <comment>image with title</comment>
+    <command><d:click-on><d:wpath>Click after this formated text &gt; ImageButtonTitle</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value clickOnButton AFTER_i_i_imageTitle, POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>click_after.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Click After</d:title></d:assert-title></command>
+    <comment>image with src</comment>
+    <command><d:click-on><d:wpath>Click after this text &gt; sword1.png</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value clickOnButton AFTER_i_i_imageSrc, POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <command><d:open-url><d:url>click_after.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Click After</d:title></d:assert-title></command>
+    <comment>image with src</comment>
+    <command><d:click-on><d:wpath>Click after this formated text &gt; sword1.png</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value clickOnButton AFTER_i_i_imageSrc, POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>click_after.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Click After</d:title></d:assert-title></command>
+    <comment>image with id</comment>
+    <command><d:click-on><d:wpath>Click after this text &gt; i_i_image_id</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value clickOnButton AFTER_i_i_imageAlt, POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <command><d:open-url><d:url>click_after.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Click After</d:title></d:assert-title></command>
+    <comment>image with id</comment>
+    <command><d:click-on><d:wpath>Click after this formated text &gt; i_i_image_id</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value clickOnButton AFTER_i_i_imageAlt, POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment>==== button (text) ====</comment>
+    <comment></comment>
+    <command><d:open-url><d:url>click_after.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Click After</d:title></d:assert-title></command>
+    <comment>button with text</comment>
+    <command><d:click-on><d:wpath>Click after this text &gt; ButtonWithText</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value clickOnButton AFTER_b_b_text POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <command><d:open-url><d:url>click_after.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Click After</d:title></d:assert-title></command>
+    <comment>button with text</comment>
+    <command><d:click-on><d:wpath>Click after this formated text &gt; ButtonWithText</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value clickOnButton AFTER_b_b_text POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>click_after.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Click After</d:title></d:assert-title></command>
+    <comment>button with name</comment>
+    <command><d:click-on><d:wpath>Click after this text &gt; b_b_text_name</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value clickOnButton AFTER_b_b_text POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <command><d:open-url><d:url>click_after.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Click After</d:title></d:assert-title></command>
+    <comment>button with name</comment>
+    <command><d:click-on><d:wpath>Click after this formated text &gt; b_b_text_name</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value clickOnButton AFTER_b_b_text POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>click_after.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Click After</d:title></d:assert-title></command>
+    <comment>button with id</comment>
+    <command><d:click-on><d:wpath>Click after this text &gt; b_b_text_id</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value clickOnButton AFTER_b_b_text POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <command><d:open-url><d:url>click_after.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Click After</d:title></d:assert-title></command>
+    <comment>button with id</comment>
+    <command><d:click-on><d:wpath>Click after this formated text &gt; b_b_text_id</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value clickOnButton AFTER_b_b_text POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment>==== button (image) ====</comment>
+    <comment></comment>
+    <command><d:open-url><d:url>click_after.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Click After</d:title></d:assert-title></command>
+    <comment>button image with alt</comment>
+    <command><d:click-on><d:wpath>Click after this text &gt; b_imageTestAlt</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value clickOnButton AFTER_b_b_imageAlt POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <command><d:open-url><d:url>click_after.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Click After</d:title></d:assert-title></command>
+    <comment>button image with alt</comment>
+    <command><d:click-on><d:wpath>Click after this formated text &gt; b_imageTestAlt</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value clickOnButton AFTER_b_b_imageAlt POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>click_after.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Click After</d:title></d:assert-title></command>
+    <comment>button image with title</comment>
+    <command><d:click-on><d:wpath>Click after this text &gt; b_imageTestTitle</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value clickOnButton AFTER_b_b_imageTitle POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <command><d:open-url><d:url>click_after.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Click After</d:title></d:assert-title></command>
+    <comment>button image with title</comment>
+    <command><d:click-on><d:wpath>Click after this formated text &gt; b_imageTestTitle</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value clickOnButton AFTER_b_b_imageTitle POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>click_after.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Click After</d:title></d:assert-title></command>
+    <comment>button image with src</comment>
+    <command><d:click-on><d:wpath>Click after this text &gt; sword2.png</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value clickOnButton AFTER_b_b_imageSrc POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <command><d:open-url><d:url>click_after.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Click After</d:title></d:assert-title></command>
+    <comment>button image with src</comment>
+    <command><d:click-on><d:wpath>Click after this formated text &gt; sword2.png</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value clickOnButton AFTER_b_b_imageSrc POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <comment>==== anchor ====</comment>
+    <comment></comment>
+    <command><d:open-url><d:url>click_after.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Click After</d:title></d:assert-title></command>
+    <comment>anchor with name</comment>
+    <command><d:click-on><d:wpath>Click after this text &gt; anchorWithName</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value clickOnAnchor AFTER_a_name POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <command><d:open-url><d:url>click_after.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Click After</d:title></d:assert-title></command>
+    <comment>anchor with name</comment>
+    <command><d:click-on><d:wpath>Click after this formated text &gt; anchorWithName</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value clickOnAnchor AFTER_a_name POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>click_after.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Click After</d:title></d:assert-title></command>
+    <comment>anchor with id</comment>
+    <command><d:click-on><d:wpath>Click after this text &gt; anchorWithId</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value clickOnAnchor AFTER_a_id POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <command><d:open-url><d:url>click_after.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Click After</d:title></d:assert-title></command>
+    <comment>anchor with id</comment>
+    <command><d:click-on><d:wpath>Click after this formated text &gt; anchorWithId</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value clickOnAnchor AFTER_a_id POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>click_after.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Click After</d:title></d:assert-title></command>
+    <comment>anchor with text</comment>
+    <command><d:click-on><d:wpath>Click after this text &gt; Anchor with text</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value clickOnAnchor AFTER_a_text POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <command><d:open-url><d:url>click_after.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Click After</d:title></d:assert-title></command>
+    <comment>anchor with text</comment>
+    <command><d:click-on><d:wpath>Click after this formated text &gt; Anchor with text</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value clickOnAnchor AFTER_a_text POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>click_after.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Click After</d:title></d:assert-title></command>
+    <comment>anchor with formated text</comment>
+    <command><d:click-on><d:wpath>Click after this text &gt; Anchor with formated text</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value clickOnAnchor AFTER_a_formatedText POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <command><d:open-url><d:url>click_after.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Click After</d:title></d:assert-title></command>
+    <comment>anchor with formated text</comment>
+    <command><d:click-on><d:wpath>Click after this formated text &gt; Anchor with formated text</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value clickOnAnchor AFTER_a_formatedText POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>click_after.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Click After</d:title></d:assert-title></command>
+    <comment>anchor with formated text / star</comment>
+    <command><d:click-on><d:wpath>Click after this text &gt; *ed text</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value clickOnAnchor AFTER_a_formatedText POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <command><d:open-url><d:url>click_after.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Click After</d:title></d:assert-title></command>
+    <comment>anchor with formated text / star</comment>
+    <command><d:click-on><d:wpath>Click after this formated text &gt; *ed text</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value clickOnAnchor AFTER_a_formatedText POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>click_after.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Click After</d:title></d:assert-title></command>
+    <comment>anchor with formated text / question mark</comment>
+    <command><d:click-on><d:wpath>Click after this text &gt; Anchor * formated ?ext</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value clickOnAnchor AFTER_a_formatedText POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <command><d:open-url><d:url>click_after.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Click After</d:title></d:assert-title></command>
+    <comment>anchor with formated text / question mark</comment>
+    <command><d:click-on><d:wpath>Click after this formated text &gt; Anchor * formated ?ext</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value clickOnAnchor AFTER_a_formatedText POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>click_after.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Click After</d:title></d:assert-title></command>
+    <comment>anchor / image / alt</comment>
+    <command><d:click-on><d:wpath>Click after this text &gt; a_imageTestAlt</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value clickOnImage AFTER_a_imageAlt POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <command><d:open-url><d:url>click_after.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Click After</d:title></d:assert-title></command>
+    <comment>anchor / image / alt</comment>
+    <command><d:click-on><d:wpath>Click after this formated text &gt; a_imageTestAlt</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value clickOnImage AFTER_a_imageAlt POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>click_after.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Click After</d:title></d:assert-title></command>
+    <comment>anchor / image / title</comment>
+    <command><d:click-on><d:wpath>Click after this text &gt; a_imageTestTitle</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value clickOnImage AFTER_a_imageTitle POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <command><d:open-url><d:url>click_after.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Click After</d:title></d:assert-title></command>
+    <comment>anchor / image / title</comment>
+    <command><d:click-on><d:wpath>Click after this formated text &gt; a_imageTestTitle</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value clickOnImage AFTER_a_imageTitle POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>click_after.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Click After</d:title></d:assert-title></command>
+    <comment>anchor / image / filename</comment>
+    <command><d:click-on><d:wpath>Click after this text &gt; sword3.png</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value clickOnImage AFTER_a_imageSrc POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <command><d:open-url><d:url>click_after.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Click After</d:title></d:assert-title></command>
+    <comment>anchor / image / filename</comment>
+    <command><d:click-on><d:wpath>Click after this formated text &gt; sword3.png</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value clickOnImage AFTER_a_imageSrc POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment>==== image ====</comment>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>click_after.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Click After</d:title></d:assert-title></command>
+    <comment>javascript / image / alt</comment>
+    <command><d:click-on><d:wpath>Click after this text &gt; js_imageTestAlt</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value clickOnImage AFTER_js_imageAlt POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <command><d:open-url><d:url>click_after.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Click After</d:title></d:assert-title></command>
+    <comment>javascript / image / alt</comment>
+    <command><d:click-on><d:wpath>Click after this formated text &gt; js_imageTestAlt</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value clickOnImage AFTER_js_imageAlt POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>click_after.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Click After</d:title></d:assert-title></command>
+    <comment>javascript / image / title</comment>
+    <command><d:click-on><d:wpath>Click after this text &gt; js_imageTestTitle</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value clickOnImage AFTER_js_imageTitle POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <command><d:open-url><d:url>click_after.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Click After</d:title></d:assert-title></command>
+    <comment>javascript / image / title</comment>
+    <command><d:click-on><d:wpath>Click after this formated text &gt; js_imageTestTitle</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value clickOnImage AFTER_js_imageTitle POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>click_after.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Click After</d:title></d:assert-title></command>
+    <comment>javascript / image / filename</comment>
+    <command><d:click-on><d:wpath>Click after this text &gt; sword4.png</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value clickOnImage AFTER_js_imageSrc POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <command><d:open-url><d:url>click_after.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Click After</d:title></d:assert-title></command>
+    <comment>javascript / image / filename</comment>
+    <command><d:click-on><d:wpath>Click after this formated text &gt; sword4.png</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value clickOnImage AFTER_js_imageSrc POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>click_after.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Click After</d:title></d:assert-title></command>
+    <comment>javascript / image / id</comment>
+    <command><d:click-on><d:wpath>Click after this text &gt; js_image_id</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value clickOnImage AFTER_js_imageId POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <command><d:open-url><d:url>click_after.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Click After</d:title></d:assert-title></command>
+    <comment>javascript / image / id</comment>
+    <command><d:click-on><d:wpath>Click after this formated text &gt; js_image_id</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value clickOnImage AFTER_js_imageId POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>click_after.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Click After</d:title></d:assert-title></command>
+    <comment>javascript / text</comment>
+    <command><d:click-on><d:wpath>Click after this text &gt; Table ClickableText</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value clickOnText AFTER_clickableTextTable POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <command><d:open-url><d:url>click_after.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Click After</d:title></d:assert-title></command>
+    <comment>javascript / text</comment>
+    <command><d:click-on><d:wpath>Click after this formated text &gt; Table ClickableText</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value clickOnText AFTER_clickableTextTable POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>click_after.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Click After</d:title></d:assert-title></command>
+    <comment>javascript / text formated</comment>
+    <command><d:click-on><d:wpath>Click after this text &gt; Table Clickable formated text</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value clickOnText AFTER_clickableTextFormatedTable POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <command><d:open-url><d:url>click_after.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Click After</d:title></d:assert-title></command>
+    <comment>javascript / text formated</comment>
+    <command><d:click-on><d:wpath>Click after this formated text &gt; Table Clickable formated text</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value clickOnText AFTER_clickableTextFormatedTable POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>click_after.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Click After</d:title></d:assert-title></command>
+    <comment>javascript / text span</comment>
+    <command><d:click-on><d:wpath>Click after this text &gt; Span ClickableText</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value clickOnText AFTER_clickableTextSpan POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <command><d:open-url><d:url>click_after.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Click After</d:title></d:assert-title></command>
+    <comment>javascript / text span</comment>
+    <command><d:click-on><d:wpath>Click after this formated text &gt; Span ClickableText</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value clickOnText AFTER_clickableTextSpan POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>click_after.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Click After</d:title></d:assert-title></command>
+    <comment>javascript / text span</comment>
+    <command><d:click-on><d:wpath>Click after this text &gt; Span Clickable formated text</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value clickOnText AFTER_clickableTextFormatedSpan POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <command><d:open-url><d:url>click_after.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Click After</d:title></d:assert-title></command>
+    <comment>javascript / text span</comment>
+    <command><d:click-on><d:wpath>Click after this formated text &gt; Span Clickable formated text</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value clickOnText AFTER_clickableTextFormatedSpan POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>click_after.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Click After</d:title></d:assert-title></command>
+    <comment>javascript / text span by id</comment>
+    <command><d:click-on><d:wpath>Click after this text &gt; spanOnClickIdAfter</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value clickOnText AFTER_clickableTextSpanId POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>click_after.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Click After</d:title></d:assert-title></command>
+    <comment>javascript / text span by id</comment>
+    <command><d:click-on><d:wpath>Click after this formated text &gt; spanOnClickIdAfter</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value clickOnText AFTER_clickableTextSpanId POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>click_after.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Click After</d:title></d:assert-title></command>
+    <comment>javascript / text span by id</comment>
+    <command><d:click-on><d:wpath>Click after this text &gt; innerSpanIdAfter</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value clickOnText AFTER_clickableTextSpanIdId POST</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment></comment>
+    <command><d:open-url><d:url>click_after.html</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>Wetator / Click After</d:title></d:assert-title></command>
+    <comment>javascript / text span by id</comment>
+    <command><d:click-on><d:wpath>Click after this formated text &gt; innerSpanIdAfter</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>GET Parameters Key Value clickOnText AFTER_clickableTextSpanIdId</d:content></d:assert-content></command>
+</test-case>
