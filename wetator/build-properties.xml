@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<build-properties>
+
+    <skip>
+        <!--resolve>true</resolve-->
+        <!--tests>true</tests-->
+    </skip>
+
+  <application>
+    <name>Wetator</name>
+    <version>1_3</version>
+    <pubversion>1.3</pubversion>
+    <jar-basename>wetator</jar-basename>
+    <vendor>wetator.org</vendor>
+  </application>
+
+  <dir>
+    <src>src</src>
+    <test>test</test>
+    <test-src>${dir.test}/java</test-src>
+    <samples>samples</samples>
+    <lib>lib</lib>
+    <lib-src>lib_src</lib-src>
+    <ant-lib>ant_lib</ant-lib>
+    <build>build</build>
+    <xsl>xsl</xsl>
+    <webpages>webpages</webpages>
+    <deploy>deploy</deploy>
+  </dir>
+
+  <ivy>
+    <retrieve>
+        <pattern>/[artifact]-[revision](-[classifier]).[ext]</pattern>
+    </retrieve>
+  </ivy>
+
+  <javac>
+    <source>1.7</source>
+    <target>1.7</target>
+  </javac>
+
+  <!-- display number (used for xvfb in CI only) -->
+  <display>1</display>
+
+</build-properties>
