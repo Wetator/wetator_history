@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+  <title>Wetator / Mouse Over</title>
+  <link type="text/css" href="./wet.css" rel="stylesheet">
+  <script type="text/javascript">
+  <!--
+    function hide(id) {
+      var elem = document.getElementById(id);
+      elem.style.visibility='hidden'
+    }
+
+    function show(id) {
+      var elem = document.getElementById(id);
+      elem.style.visibility='visible'
+    }
+
+  //-->
+  </script>
+</head>
+
+
+<body>
+<form action="snoopy.php">
+  
+  <h1 class="command_test">Wetator / Mouse Over</h1>
+
+  <div class="test_content">
+
+    <h3>Plain Content</h3>
+    <p onmouseover="show('b_plaintext_id');" onmouseout="hide('b_plaintext_id');">
+        Pferde fressen keinen Gurkensalat.
+        <input style="visibility: hidden;" type="button" id="b_plaintext_id" value="Plain Content Btn">
+    </p>
+
+    <h3>Font infos in Content</h3>
+    <p onmouseover="show('b_formatedtext_id');" onmouseout="hide('b_formatedtext_id');">
+        This t<font color='red'>ex</font>t is <b>styled</b>.
+        <input style="visibility: hidden;" type="button" id="b_formatedtext_id" value="Font Btn">
+    </p>
+
+    <h3>MouseOver defined on parent</h3>
+    <div onmouseover="show('b_parent_id');" onmouseout="hide('b_parent_id');">
+      <input type="button" id="b_overparent_id" value="Place mouse here">
+      <input style="visibility: hidden;" type="button" id="b_parent_id" value="Parent Btn">
+    </div>
+
+    <h3>Effect with timeout</h3>
+    <p onmouseover="show('b_timeout_id'); setTimeout(&quot;hide('b_timeout_id');&quot;, 4000);">
+        Button will go away after 4s.
+        <input style="visibility: hidden;" type="button" id="b_timeout_id" name="b_timeout_name" value="Timeout Btn">
+    </p>
+
+  </div>
+
+</form>
+</body>
+</html>
+
