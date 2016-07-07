@@ -604,3 +604,170 @@ wetator-jenkins-plugin-0.5/src/test/resources/org/wetator/jenkins/xstream/output
 wetator-jenkins-plugin-0.5/src/test/resources/wetresult.xml -text svneol=unset#text/plain
 wetator-jenkins-plugin-0.5/util/JenkinsPluginTest.java -text svneol=unset#text/plain
 wetator-jenkins-plugin-0.5/wetator-jenkins-plugin[!!-~]-[!!-~]clean[!!-~]compile.launch -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/.classpath -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/.project -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/.settings/org.eclipse.core.resources.prefs -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/.settings/org.eclipse.jdt.core.prefs -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/.settings/org.eclipse.jdt.ui.prefs -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/.settings/org.eclipse.m2e.core.prefs -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/LICENSE.txt -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/pom.xml -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/readme.txt -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/results.txt -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/main/java/org/wetator/jenkins/History.java -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/main/java/org/wetator/jenkins/PluginImpl.java -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/main/java/org/wetator/jenkins/WetatorBuildReport.java -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/main/java/org/wetator/jenkins/WetatorProjectReport.java -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/main/java/org/wetator/jenkins/WetatorRecorder.java -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/main/java/org/wetator/jenkins/parser/Path.java -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/main/java/org/wetator/jenkins/parser/WetatorResultParser.java -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/main/java/org/wetator/jenkins/result/AbstractBaseResult.java -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/main/java/org/wetator/jenkins/result/BrowserResult.java -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/main/java/org/wetator/jenkins/result/StepError.java -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/main/java/org/wetator/jenkins/result/TestError.java -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/main/java/org/wetator/jenkins/result/TestFileResult.java -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/main/java/org/wetator/jenkins/result/TestResult.java -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/main/java/org/wetator/jenkins/result/TestResults.java -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/main/java/org/wetator/jenkins/util/AtomicGZIPFileWriter.java -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/main/java/org/wetator/jenkins/util/ErrorConverter.java -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/main/java/org/wetator/jenkins/util/GZIPXMLFile.java -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/main/resources/index.jelly -text
+wetator-jenkins-plugin-0.6/src/main/resources/org/wetator/jenkins/History/index.jelly -text
+wetator-jenkins-plugin-0.6/src/main/resources/org/wetator/jenkins/History/index.properties -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/main/resources/org/wetator/jenkins/History/index_de.properties -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/main/resources/org/wetator/jenkins/Messages.properties -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/main/resources/org/wetator/jenkins/Messages_de.properties -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/main/resources/org/wetator/jenkins/WetatorBuildReport/resultSummary.jelly -text
+wetator-jenkins-plugin-0.6/src/main/resources/org/wetator/jenkins/WetatorBuildReport/resultSummary.properties -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/main/resources/org/wetator/jenkins/WetatorBuildReport/resultSummary_de.properties -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/main/resources/org/wetator/jenkins/WetatorBuildReport/summary.jelly -text
+wetator-jenkins-plugin-0.6/src/main/resources/org/wetator/jenkins/WetatorBuildReport/summary_de.properties -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/main/resources/org/wetator/jenkins/WetatorProjectReport/floatingBox.jelly -text
+wetator-jenkins-plugin-0.6/src/main/resources/org/wetator/jenkins/WetatorProjectReport/floatingBox_de.properties -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/main/resources/org/wetator/jenkins/WetatorRecorder/config.jelly -text
+wetator-jenkins-plugin-0.6/src/main/resources/org/wetator/jenkins/WetatorRecorder/config.properties -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/main/resources/org/wetator/jenkins/WetatorRecorder/config_de.properties -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/main/resources/org/wetator/jenkins/WetatorRecorder/help-failureThreshold.html -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/main/resources/org/wetator/jenkins/WetatorRecorder/help-failureThreshold_de.html -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/main/resources/org/wetator/jenkins/WetatorRecorder/help-testReports.html -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/main/resources/org/wetator/jenkins/WetatorRecorder/help-testReports_de.html -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/main/resources/org/wetator/jenkins/WetatorRecorder/help-testResults.html -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/main/resources/org/wetator/jenkins/WetatorRecorder/help-testResults_de.html -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/main/resources/org/wetator/jenkins/WetatorRecorder/help-unstableThreshold.html -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/main/resources/org/wetator/jenkins/WetatorRecorder/help-unstableThreshold_de.html -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/main/resources/org/wetator/jenkins/WetatorRecorder/help.html -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/main/resources/org/wetator/jenkins/WetatorRecorder/help_de.html -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/main/resources/org/wetator/jenkins/result/AbstractBaseResult/index.jelly -text
+wetator-jenkins-plugin-0.6/src/main/resources/org/wetator/jenkins/result/AbstractBaseResult/sidepanel.jelly -text
+wetator-jenkins-plugin-0.6/src/main/resources/org/wetator/jenkins/result/AbstractBaseResult/sidepanel_de.properties -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/main/resources/org/wetator/jenkins/result/BrowserResult/list.jelly -text
+wetator-jenkins-plugin-0.6/src/main/resources/org/wetator/jenkins/result/BrowserResult/list_de.properties -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/main/resources/org/wetator/jenkins/result/BrowserResult/reportDetail.jelly -text
+wetator-jenkins-plugin-0.6/src/main/resources/org/wetator/jenkins/result/BrowserResult/reportDetail.properties -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/main/resources/org/wetator/jenkins/result/BrowserResult/reportDetail_de.properties -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/main/resources/org/wetator/jenkins/result/TestFileResult/list.jelly -text
+wetator-jenkins-plugin-0.6/src/main/resources/org/wetator/jenkins/result/TestFileResult/list_de.properties -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/main/resources/org/wetator/jenkins/result/TestFileResult/reportDetail.jelly -text
+wetator-jenkins-plugin-0.6/src/main/resources/org/wetator/jenkins/result/TestFileResult/reportDetail.properties -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/main/resources/org/wetator/jenkins/result/TestFileResult/reportDetail_de.properties -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/main/resources/org/wetator/jenkins/result/TestResults/bar.jelly -text
+wetator-jenkins-plugin-0.6/src/main/resources/org/wetator/jenkins/result/TestResults/bar.properties -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/main/resources/org/wetator/jenkins/result/TestResults/bar_de.properties -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/main/resources/org/wetator/jenkins/result/TestResults/list.jelly -text
+wetator-jenkins-plugin-0.6/src/main/resources/org/wetator/jenkins/result/TestResults/list_de.properties -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/main/resources/org/wetator/jenkins/result/TestResults/reportDetail.jelly -text
+wetator-jenkins-plugin-0.6/src/main/resources/org/wetator/jenkins/result/TestResults/reportDetail.properties -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/main/resources/org/wetator/jenkins/result/TestResults/reportDetail_de.properties -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/main/webapp/help-globalConfig.html -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/main/webapp/help-projectConfig.html -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/main/webapp/icons/wetator-48x48.png -text
+wetator-jenkins-plugin-0.6/src/test/findbugs/excludeFilter.xml -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/test/java/org/wetator/jenkins/AllTests.java -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/test/java/org/wetator/jenkins/parser/AllTests.java -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/test/java/org/wetator/jenkins/parser/PathTest.java -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/test/java/org/wetator/jenkins/parser/WetatorResultParserTest.java -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/test/java/org/wetator/jenkins/plugin/AbstractPluginTest.java -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/test/java/org/wetator/jenkins/plugin/AllTests.java -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/test/java/org/wetator/jenkins/plugin/ResultTest.java -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/test/java/org/wetator/jenkins/plugin/WetatorRecorderConfigurationTest.java -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/test/java/org/wetator/jenkins/plugin/WetatorRecorderTest.java -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/test/java/org/wetator/jenkins/plugin/WetatorReportLinkTest.java -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/test/java/org/wetator/jenkins/test/ResultAssert.java -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/test/java/org/wetator/jenkins/test/ResultXMLBuilder.java -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/test/java/org/wetator/jenkins/xstream/AllTests.java -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/test/java/org/wetator/jenkins/xstream/XStreamDeserializationTest.java -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/test/java/org/wetator/jenkins/xstream/XStreamLegacyDeserializationTest.java -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/test/java/org/wetator/jenkins/xstream/XStreamSerializationTest.java -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/test/pmd/wet-logging-jakarta-commons.xml -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/test/pmd/wet-optimizations.xml -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/test/pmd/wet-strings.xml -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/test/resources/oldwetresult.xml -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/test/resources/oldwetresult2.xml -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/test/resources/org/wetator/jenkins/wet/error.wet -text
+wetator-jenkins-plugin-0.6/src/test/resources/org/wetator/jenkins/wet/failure.wet -text
+wetator-jenkins-plugin-0.6/src/test/resources/org/wetator/jenkins/wet/moduleError.wet -text
+wetator-jenkins-plugin-0.6/src/test/resources/org/wetator/jenkins/wet/moduleFailure.wet -text
+wetator-jenkins-plugin-0.6/src/test/resources/org/wetator/jenkins/wet/moduleNotFound.wet -text
+wetator-jenkins-plugin-0.6/src/test/resources/org/wetator/jenkins/wet/moduleOk.wet -text
+wetator-jenkins-plugin-0.6/src/test/resources/org/wetator/jenkins/wet/ok.wet -text
+wetator-jenkins-plugin-0.6/src/test/resources/org/wetator/jenkins/wet/pathError.wet -text
+wetator-jenkins-plugin-0.6/src/test/resources/org/wetator/jenkins/wet/pathFailure.wet -text
+wetator-jenkins-plugin-0.6/src/test/resources/org/wetator/jenkins/wet/pathOk.wet -text
+wetator-jenkins-plugin-0.6/src/test/resources/org/wetator/jenkins/wetreport/dummy.html -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/test/resources/org/wetator/jenkins/wetresult/error.xml -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/test/resources/org/wetator/jenkins/wetresult/failure.xml -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/test/resources/org/wetator/jenkins/wetresult/moduleError.xml -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/test/resources/org/wetator/jenkins/wetresult/moduleFailure.xml -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/test/resources/org/wetator/jenkins/wetresult/moduleNotFound.xml -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/test/resources/org/wetator/jenkins/wetresult/moduleOk.xml -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/test/resources/org/wetator/jenkins/wetresult/ok.xml -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/test/resources/org/wetator/jenkins/wetresult/pathError.xml -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/test/resources/org/wetator/jenkins/wetresult/pathFailure.xml -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/test/resources/org/wetator/jenkins/wetresult/pathOk.xml -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/test/resources/org/wetator/jenkins/xstream/input/0.2/noReportFile.xml -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/test/resources/org/wetator/jenkins/xstream/input/0.2/oneTestFileOneBrowser.xml -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/test/resources/org/wetator/jenkins/xstream/input/0.2/oneTestFileOneBrowserOneError.xml -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/test/resources/org/wetator/jenkins/xstream/input/0.2/oneTestFileOneBrowserOneStepError.xml -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/test/resources/org/wetator/jenkins/xstream/input/0.2/oneTestFileTwoBrowser.xml -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/test/resources/org/wetator/jenkins/xstream/input/0.2/oneTestFileTwoBrowserOneError.xml -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/test/resources/org/wetator/jenkins/xstream/input/0.2/oneTestFileTwoBrowserOneStepError.xml -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/test/resources/org/wetator/jenkins/xstream/input/0.2/twoTestFileOneBrowser.xml -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/test/resources/org/wetator/jenkins/xstream/input/0.2/twoTestFileOneBrowserOneError.xml -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/test/resources/org/wetator/jenkins/xstream/input/0.2/twoTestFileOneBrowserOneStepError.xml -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/test/resources/org/wetator/jenkins/xstream/input/noReportFile.xml -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/test/resources/org/wetator/jenkins/xstream/input/oneReportFile.xml -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/test/resources/org/wetator/jenkins/xstream/input/oneTestFileOneBrowser.xml -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/test/resources/org/wetator/jenkins/xstream/input/oneTestFileOneBrowserOneStepError.xml -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/test/resources/org/wetator/jenkins/xstream/input/oneTestFileOneBrowserOneStepFailure.xml -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/test/resources/org/wetator/jenkins/xstream/input/oneTestFileOneBrowserOneTestError.xml -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/test/resources/org/wetator/jenkins/xstream/input/oneTestFileTwoBrowser.xml -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/test/resources/org/wetator/jenkins/xstream/input/oneTestFileTwoBrowserOneStepError.xml -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/test/resources/org/wetator/jenkins/xstream/input/oneTestFileTwoBrowserOneStepFailure.xml -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/test/resources/org/wetator/jenkins/xstream/input/oneTestFileTwoBrowserOneTestError.xml -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/test/resources/org/wetator/jenkins/xstream/input/twoReportFile.xml -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/test/resources/org/wetator/jenkins/xstream/input/twoTestFileOneBrowser.xml -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/test/resources/org/wetator/jenkins/xstream/input/twoTestFileOneBrowserOneStepError.xml -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/test/resources/org/wetator/jenkins/xstream/input/twoTestFileOneBrowserOneStepFailure.xml -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/test/resources/org/wetator/jenkins/xstream/input/twoTestFileOneBrowserOneTestError.xml -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/test/resources/org/wetator/jenkins/xstream/input/zeroReportFile.xml -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/test/resources/org/wetator/jenkins/xstream/output/oneReportFile.xml -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/test/resources/org/wetator/jenkins/xstream/output/oneTestFileOneBrowser.xml -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/test/resources/org/wetator/jenkins/xstream/output/oneTestFileOneBrowserOneError.xml -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/test/resources/org/wetator/jenkins/xstream/output/oneTestFileOneBrowserOneStepError.xml -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/test/resources/org/wetator/jenkins/xstream/output/oneTestFileOneBrowserOneStepFailure.xml -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/test/resources/org/wetator/jenkins/xstream/output/oneTestFileOneBrowserOneTestError.xml -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/test/resources/org/wetator/jenkins/xstream/output/oneTestFileTwoBrowser.xml -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/test/resources/org/wetator/jenkins/xstream/output/oneTestFileTwoBrowserOneError.xml -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/test/resources/org/wetator/jenkins/xstream/output/oneTestFileTwoBrowserOneStepError.xml -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/test/resources/org/wetator/jenkins/xstream/output/oneTestFileTwoBrowserOneStepFailure.xml -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/test/resources/org/wetator/jenkins/xstream/output/oneTestFileTwoBrowserOneTestError.xml -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/test/resources/org/wetator/jenkins/xstream/output/twoReportFile.xml -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/test/resources/org/wetator/jenkins/xstream/output/twoTestFileOneBrowser.xml -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/test/resources/org/wetator/jenkins/xstream/output/twoTestFileOneBrowserOneError.xml -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/test/resources/org/wetator/jenkins/xstream/output/twoTestFileOneBrowserOneStepError.xml -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/test/resources/org/wetator/jenkins/xstream/output/twoTestFileOneBrowserOneStepFailure.xml -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/test/resources/org/wetator/jenkins/xstream/output/twoTestFileOneBrowserOneTestError.xml -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/test/resources/org/wetator/jenkins/xstream/output/zeroReportFile.xml -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/src/test/resources/wetresult.xml -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/util/JenkinsPluginTest.java -text svneol=unset#text/plain
+wetator-jenkins-plugin-0.6/wetator-jenkins-plugin[!!-~]-[!!-~]clean[!!-~]compile.launch -text svneol=unset#text/plain
