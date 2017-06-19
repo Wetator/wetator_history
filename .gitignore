@@ -21,3 +21,7 @@ wetator-jenkins-plugin-0.6/deploy/org
 wetator-jenkins-plugin-0.6/infinitest.filters
 wetator-jenkins-plugin-0.6/target
 wetator-jenkins-plugin-0.6/work
+wetator-jenkins-plugin-0.7/deploy/org
+wetator-jenkins-plugin-0.7/infinitest.filters
+wetator-jenkins-plugin-0.7/target
+wetator-jenkins-plugin-0.7/work
