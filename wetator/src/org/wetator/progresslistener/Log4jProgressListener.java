@@ -1,0 +1,293 @@
+/*
+ * Copyright (c) 2008-2017 wetator.org
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+
+package org.wetator.progresslistener;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.Writer;
+import java.util.LinkedList;
+import java.util.List;
+
+import org.apache.commons.io.output.FileWriterWithEncoding;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.AppenderSkeleton;
+import org.apache.log4j.Category;
+import org.apache.log4j.Layout;
+import org.apache.log4j.Level;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.PatternLayout;
+import org.apache.log4j.spi.LoggingEvent;
+import org.wetator.core.Command;
+import org.wetator.core.IProgressListener;
+import org.wetator.core.Parameter;
+import org.wetator.core.TestCase;
+import org.wetator.core.WetatorConfiguration;
+import org.wetator.core.WetatorContext;
+import org.wetator.core.WetatorEngine;
+import org.wetator.exception.AssertionException;
+import org.wetator.util.Output;
+
+/**
+ * Log4jAppender, that also works as progress listener.
+ * The appender saves the log of some steps for dumping
+ * in case of failure.
+ *
+ * @author rbri
+ */
+public class Log4jProgressListener extends AppenderSkeleton implements IProgressListener {
+
+  private static final Log LOG = LogFactory.getLog(Log4jProgressListener.class);
+
+  private File outputDir;
+  private String testCase;
+  private String browser;
+
+  private int commandCount;
+  private List<CommandEvents> commandEvents;
+  private CommandEvents currentEvents;
+
+  /**
+   * The constructor.
+   *
+   * @param aCommandCount the number of commands to hold
+   */
+  public Log4jProgressListener(final int aCommandCount) {
+    commandCount = aCommandCount;
+    commandEvents = new LinkedList<CommandEvents>();
+
+    final Command tmpCommand = new Command("--startup--", false);
+    currentEvents = new CommandEvents(tmpCommand);
+
+    setLayout(new PatternLayout("%5p [%5.5t] (%25.25F:%5.5L) - %m%n"));
+  }
+
+  @Override
+  public void close() {
+    commandEvents = new LinkedList<CommandEvents>();
+  }
+
+  @Override
+  public boolean requiresLayout() {
+    return false;
+  }
+
+  @Override
+  protected void append(final LoggingEvent aLoggingEvent) {
+    // aLoggingEvent.getLocationInformation();
+    currentEvents.getEvents().add(aLoggingEvent);
+  }
+
+  @Override
+  public void init(final WetatorEngine aWetatorEngine) {
+    final WetatorConfiguration tmpConfiguration = aWetatorEngine.getConfiguration();
+    outputDir = tmpConfiguration.getOutputDir();
+  }
+
+  /**
+   * Set this as appender for '"org.apache.http.wire"' (level: trace).
+   */
+  public void appendAsWireListener() {
+    Category tmpCategory = LogManager.getLogger("org.apache.http.wire");
+    tmpCategory.setLevel(Level.TRACE);
+    tmpCategory.addAppender(this);
+
+    tmpCategory = LogManager.getLogger("org.wetator");
+    tmpCategory.setLevel(Level.TRACE);
+    tmpCategory.addAppender(this);
+  }
+
+  @Override
+  public void start(final WetatorEngine aWetatorEngine) {
+  }
+
+  @Override
+  public void testCaseStart(final TestCase aTestCase) {
+    testCase = aTestCase.getName();
+  }
+
+  @Override
+  public void testRunStart(final String aBrowserName) {
+    browser = aBrowserName;
+    commandEvents = new LinkedList<CommandEvents>();
+  }
+
+  @Override
+  public void testFileStart(final String aFileName) {
+  }
+
+  @Override
+  public void executeCommandStart(final WetatorContext aContext, final Command aCommand) {
+    if (aCommand.isComment()) {
+      return;
+    }
+    synchronized (commandEvents) {
+      if (commandEvents.size() == commandCount) {
+        commandEvents.remove(0);
+      }
+      currentEvents = new CommandEvents(aCommand);
+      commandEvents.add(currentEvents);
+    }
+  }
+
+  @Override
+  public void executeCommandSuccess() {
+  }
+
+  @Override
+  public void executeCommandIgnored() {
+  }
+
+  @Override
+  public void executeCommandFailure(final AssertionException anAssertionException) {
+    dump();
+  }
+
+  @Override
+  public void executeCommandError(final Throwable aThrowable) {
+    dump();
+  }
+
+  @Override
+  public void executeCommandEnd() {
+  }
+
+  @Override
+  public void testFileEnd() {
+  }
+
+  @Override
+  public void testRunIgnored() {
+  }
+
+  @Override
+  public void testRunEnd() {
+  }
+
+  @Override
+  public void testCaseEnd() {
+  }
+
+  @Override
+  public void end(final WetatorEngine aWetatorEngine) {
+  }
+
+  @Override
+  public void htmlDescribe(final String aHtmlDescription) {
+  }
+
+  @Override
+  public void responseStored(final String aResponseFileName) {
+  }
+
+  @Override
+  public void highlightedResponse(final String aResponseFileName) {
+  }
+
+  @Override
+  public void error(final Throwable aThrowable) {
+    aThrowable.printStackTrace();
+  }
+
+  @Override
+  public void warn(final String aMessageKey, final Object[] aParameterArray, final String aDetails) {
+  }
+
+  @Override
+  public void info(final String aMessageKey, final Object[] aParameterArray) {
+  }
+
+  /**
+   * The worker that does the real output.
+   */
+  protected void dump() {
+    String tmpFileName = StringUtils.replace(testCase, File.separator, "__");
+    tmpFileName = "wire_" + tmpFileName + "_" + browser;
+    String tmpSuffix = "";
+    int tmpCount = 0;
+    File tmpResultFile;
+    do {
+      tmpResultFile = new File(outputDir, tmpFileName + tmpSuffix + ".txt");
+      tmpSuffix = "_" + tmpCount++;
+    } while (tmpResultFile.exists());
+
+    try {
+      final Writer tmpWriter = new FileWriterWithEncoding(tmpResultFile, "UTF-8");
+      try {
+        final Output tmpOutput = new Output(tmpWriter, "    ");
+        final Layout tmpLayout = getLayout();
+        for (final CommandEvents tmpEvents : commandEvents) {
+          tmpOutput.println("******************************************");
+          tmpOutput.print("* ");
+          tmpOutput.println(tmpEvents.getCommand().getName());
+          Parameter tmpParam = tmpEvents.getCommand().getFirstParameter();
+          if (null != tmpParam) {
+            tmpOutput.print("*   ");
+            tmpOutput.println(tmpParam.getValue());
+          }
+          tmpParam = tmpEvents.getCommand().getSecondParameter();
+          if (null != tmpParam) {
+            tmpOutput.print("*   ");
+            tmpOutput.println(tmpParam.getValue());
+          }
+          tmpOutput.println("******************************************");
+          tmpOutput.indent();
+
+          for (final LoggingEvent tmpEvent : tmpEvents.getEvents()) {
+            if (tmpLayout == null) {
+              tmpOutput.println(tmpEvent.getMessage().toString());
+            } else {
+              tmpOutput.printStringWithNewLine(tmpLayout.format(tmpEvent));
+            }
+          }
+
+          tmpOutput.unindent();
+        }
+        tmpOutput.flush();
+      } finally {
+        commandEvents.clear();
+
+        tmpWriter.close();
+      }
+    } catch (final IOException e) {
+      LOG.error(e.getMessage(), e);
+    }
+  }
+
+  /**
+   * Helper.
+   */
+  private static final class CommandEvents {
+    private Command command;
+    private List<LoggingEvent> events;
+
+    private CommandEvents(final Command aCommand) {
+      super();
+      command = aCommand;
+      events = new LinkedList<LoggingEvent>();
+    }
+
+    private Command getCommand() {
+      return command;
+    }
+
+    private List<LoggingEvent> getEvents() {
+      return events;
+    }
+  }
+}

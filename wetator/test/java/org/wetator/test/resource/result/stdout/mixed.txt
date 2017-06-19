@@ -1,0 +1,35 @@
+Wetator local build
+  using HtmlUnit version 2.12-SNAPSHOT
+  OutputDir:  'E:\Java\workspaces\wetator\wetator\logs'
+  TestFiles: none
+  TestCase: 'test1.wet' (1/0)
+    IE11
+    ..
+    Firefox52
+    ..
+  TestCase: 'test2.wet' (2/0)
+    IE11
+    ..F.
+    Firefox52
+    ..F.
+  TestCase: 'test3.wet' (3/0)
+    IE11
+    ..Ei.
+    Firefox52
+    ..Ei.
+  TestCase: 'test4.wet' (4/0)
+    IE11
+    ..F.Ei
+    Firefox52
+    ..F.Ei
+  TestCase: 'test5.wet' (5/0)
+    IE11
+    ..F.
+    Firefox52
+    ..Ei.
+
+  Failure
+    5 failing step(s) and 5 erroneous step(s)
+
+    Test Runs: 10,  Errors: 0,  Ignored: 0
+    Steps: 43,  Failures: 5,  Errors: 5,  Ignored: 5
