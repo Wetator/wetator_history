@@ -1,3 +1,8 @@
+wetator-ant-task/build
+wetator-ant-task/deploy
+wetator-ant-task/lib/*.jar
+wetator-ant-task/lib_src/*.jar
+wetator-ant-task/xsl/*
 wetator/.settings/org.sonar.ide.eclipse.core.prefs
 wetator/.sonar
 wetator/ant_lib/checkstyle
