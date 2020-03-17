@@ -318,6 +318,8 @@ wetator/test/java/org/wetator/backend/htmlunit/finder/ClickableHtmlCodeCreator.j
 wetator/test/java/org/wetator/backend/htmlunit/finder/ClickableHtmlUnitControlsFinderBasicTest.java -text
 wetator/test/java/org/wetator/backend/htmlunit/finder/ClickableHtmlUnitControlsFinderContainerContentDiffWPathTest.java -text
 wetator/test/java/org/wetator/backend/htmlunit/finder/ClickableHtmlUnitControlsFinderContainerContentEqWPathTest.java -text
+wetator/test/java/org/wetator/backend/htmlunit/finder/ClickableHtmlUnitControlsFinderContainerSeparatorWPathTest.java -text
+wetator/test/java/org/wetator/backend/htmlunit/finder/ClickableHtmlUnitControlsFinderInputTextTest.java -text
 wetator/test/java/org/wetator/backend/htmlunit/finder/ClickableHtmlUnitControlsFinderTest.java -text svneol=unset#text/plain
 wetator/test/java/org/wetator/backend/htmlunit/finder/HtmlUnitClickListeningControlIdentifierTest.java -text svneol=unset#text/plain
 wetator/test/java/org/wetator/backend/htmlunit/finder/HtmlUnitUnspecificControlIdentifierTest.java -text
