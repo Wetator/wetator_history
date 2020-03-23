@@ -132,6 +132,7 @@ wetator/src/org/wetator/backend/htmlunit/XHtmlOutputter.java -text
 wetator/src/org/wetator/backend/htmlunit/control/HtmlUnitAnchor.java -text svneol=unset#text/plain
 wetator/src/org/wetator/backend/htmlunit/control/HtmlUnitBaseControl.java -text svneol=unset#text/plain
 wetator/src/org/wetator/backend/htmlunit/control/HtmlUnitButton.java -text svneol=unset#text/plain
+wetator/src/org/wetator/backend/htmlunit/control/HtmlUnitFocusableControl.java -text
 wetator/src/org/wetator/backend/htmlunit/control/HtmlUnitImage.java -text svneol=unset#text/plain
 wetator/src/org/wetator/backend/htmlunit/control/HtmlUnitInputButton.java -text svneol=unset#text/plain
 wetator/src/org/wetator/backend/htmlunit/control/HtmlUnitInputCheckBox.java -text svneol=unset#text/plain
@@ -290,11 +291,9 @@ wetator/test/java/org/wetator/backend/htmlunit/XHtmlOutputterXHtmlPageTest.java 
 wetator/test/java/org/wetator/backend/htmlunit/control/HtmlUnitAnchorTest.java -text
 wetator/test/java/org/wetator/backend/htmlunit/control/HtmlUnitBaseControlTest.java -text
 wetator/test/java/org/wetator/backend/htmlunit/control/HtmlUnitButtonTest.java -text
-wetator/test/java/org/wetator/backend/htmlunit/control/HtmlUnitImageTest.java -text
 wetator/test/java/org/wetator/backend/htmlunit/control/HtmlUnitInputResetTest.java -text
 wetator/test/java/org/wetator/backend/htmlunit/control/HtmlUnitInputSubmitTest.java -text
 wetator/test/java/org/wetator/backend/htmlunit/control/HtmlUnitInputTextTest.java -text
-wetator/test/java/org/wetator/backend/htmlunit/control/HtmlUnitUnspecificControlTest.java -text
 wetator/test/java/org/wetator/backend/htmlunit/control/identifier/AbstractHtmlUnitControlIdentifierTest.java -text svneol=unset#text/plain
 wetator/test/java/org/wetator/backend/htmlunit/control/identifier/HtmlUnitAnchorIdentifierTest.java -text svneol=unset#text/plain
 wetator/test/java/org/wetator/backend/htmlunit/control/identifier/HtmlUnitButtonIdentifierTest.java -text svneol=unset#text/plain
