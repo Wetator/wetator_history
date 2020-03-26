@@ -110,9 +110,9 @@ wetator/src/org/wetator/Messages.properties -text
 wetator/src/org/wetator/Version.java -text
 wetator/src/org/wetator/Wetator.java -text
 wetator/src/org/wetator/WetatorScriptConverter.java -text svneol=unset#text/plain
+wetator/src/org/wetator/backend/Action.java -text
 wetator/src/org/wetator/backend/IBrowser.java -text
 wetator/src/org/wetator/backend/IControlFinder.java -text
-wetator/src/org/wetator/backend/MouseAction.java -text
 wetator/src/org/wetator/backend/WPath.java -text svneol=unset#text/plain
 wetator/src/org/wetator/backend/WeightedControlList.java -text
 wetator/src/org/wetator/backend/control/IClickable.java -text svneol=unset#text/plain
@@ -127,6 +127,7 @@ wetator/src/org/wetator/backend/htmlunit/HtmlUnitBrowser.java -text
 wetator/src/org/wetator/backend/htmlunit/HtmlUnitControlRepository.java -text svneol=unset#text/plain
 wetator/src/org/wetator/backend/htmlunit/HtmlUnitFinderDelegator.java -text svneol=unset#text/plain
 wetator/src/org/wetator/backend/htmlunit/JavaScriptErrorListener.java -text
+wetator/src/org/wetator/backend/htmlunit/MouseAction.java -text
 wetator/src/org/wetator/backend/htmlunit/ResponseStore.java -text
 wetator/src/org/wetator/backend/htmlunit/XHtmlOutputter.java -text
 wetator/src/org/wetator/backend/htmlunit/control/HtmlUnitAnchor.java -text svneol=unset#text/plain
@@ -287,7 +288,6 @@ wetator/test/java/org/wetator/backend/htmlunit/HtmlUnitFinderDelegatorTest.java 
 wetator/test/java/org/wetator/backend/htmlunit/HtmlUnitTest.html -text
 wetator/test/java/org/wetator/backend/htmlunit/XHtmlOutputterHtmlPageTest.java -text
 wetator/test/java/org/wetator/backend/htmlunit/XHtmlOutputterXHtmlPageTest.java -text
-wetator/test/java/org/wetator/backend/htmlunit/control/HtmlUnitAnchorTest.java -text
 wetator/test/java/org/wetator/backend/htmlunit/control/HtmlUnitBaseControlTest.java -text
 wetator/test/java/org/wetator/backend/htmlunit/control/HtmlUnitButtonTest.java -text
 wetator/test/java/org/wetator/backend/htmlunit/control/HtmlUnitInputResetTest.java -text
