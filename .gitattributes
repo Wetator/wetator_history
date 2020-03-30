@@ -318,7 +318,9 @@ wetator/test/java/org/wetator/backend/htmlunit/finder/IdentifierBasedHtmlUnitCon
 wetator/test/java/org/wetator/backend/htmlunit/finder/MouseActionHtmlCodeBuilder.java -text
 wetator/test/java/org/wetator/backend/htmlunit/finder/MouseActionHtmlCodeCreator.java -text
 wetator/test/java/org/wetator/backend/htmlunit/finder/MouseActionHtmlCodeTableBuilder.java -text
+wetator/test/java/org/wetator/backend/htmlunit/finder/MouseActionListeningHtmlUnitControlsFinderAnchorTest.java -text
 wetator/test/java/org/wetator/backend/htmlunit/finder/MouseActionListeningHtmlUnitControlsFinderBasicTest.java -text
+wetator/test/java/org/wetator/backend/htmlunit/finder/MouseActionListeningHtmlUnitControlsFinderButtonTest.java -text
 wetator/test/java/org/wetator/backend/htmlunit/finder/MouseActionListeningHtmlUnitControlsFinderContainerContentDiffWPathTest.java -text
 wetator/test/java/org/wetator/backend/htmlunit/finder/MouseActionListeningHtmlUnitControlsFinderContainerContentEqWPathTest.java -text
 wetator/test/java/org/wetator/backend/htmlunit/finder/MouseActionListeningHtmlUnitControlsFinderContainerSeparatorWPathTest.java -text
