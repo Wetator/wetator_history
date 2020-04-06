@@ -1,6 +1,0 @@
-
-# Simple test case for the PrimeFaces auto upload
-
-open-url        || ui/file/upload/auto.xhtml
-set             || Choose || ..\..\test\webpage\images\wetator.png
-assert-content  || Succesful wetator.png is uploaded.

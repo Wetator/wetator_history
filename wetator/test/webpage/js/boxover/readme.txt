@@ -1,1 +1,0 @@
-* fixed multiple [ and ] symbols display - eyedmax (http://eyedmax.com/)
