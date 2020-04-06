@@ -6,6 +6,7 @@ wetator/.settings/org.eclipse.core.resources.prefs -text svneol=unset#text/plain
 wetator/.settings/org.eclipse.jdt.core.prefs -text svneol=unset#text/plain
 wetator/.settings/org.eclipse.jdt.launching.prefs -text svneol=unset#text/plain
 wetator/.settings/org.eclipse.jdt.ui.prefs -text svneol=unset#text/plain
+wetator/Jenkinsfile -text
 wetator/LICENSE.txt -text
 wetator/actions.txt -text svneol=unset#text/plain
 wetator/ant_lib/bcpg-jdk15on-1.64.jar -text
