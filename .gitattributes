@@ -52,6 +52,7 @@ wetator-jenkins-plugin/.settings/org.eclipse.core.resources.prefs -text svneol=u
 wetator-jenkins-plugin/.settings/org.eclipse.jdt.core.prefs -text svneol=unset#text/plain
 wetator-jenkins-plugin/.settings/org.eclipse.jdt.ui.prefs -text svneol=unset#text/plain
 wetator-jenkins-plugin/.settings/org.eclipse.m2e.core.prefs -text svneol=unset#text/plain
+wetator-jenkins-plugin/Jenkinsfile -text
 wetator-jenkins-plugin/LICENSE.txt -text svneol=unset#text/plain
 wetator-jenkins-plugin/pom.xml -text svneol=unset#text/plain
 wetator-jenkins-plugin/readme.txt -text svneol=unset#text/plain
