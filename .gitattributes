@@ -6,6 +6,7 @@ wetator-ant-task/.settings/org.eclipse.core.resources.prefs -text svneol=unset#t
 wetator-ant-task/.settings/org.eclipse.jdt.core.prefs -text svneol=unset#text/plain
 wetator-ant-task/.settings/org.eclipse.jdt.launching.prefs -text svneol=unset#text/plain
 wetator-ant-task/.settings/org.eclipse.jdt.ui.prefs -text svneol=unset#text/plain
+wetator-ant-task/Jenkinsfile -text
 wetator-ant-task/LICENSE.txt -text
 wetator-ant-task/ant_lib/bcpg-jdk15on-1.64.jar -text
 wetator-ant-task/ant_lib/bcprov-jdk15on-1.64.jar -text
