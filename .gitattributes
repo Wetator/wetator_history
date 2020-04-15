@@ -329,6 +329,7 @@ wetator/test/java/org/wetator/backend/htmlunit/finder/MouseActionListeningHtmlUn
 wetator/test/java/org/wetator/backend/htmlunit/finder/MouseActionListeningHtmlUnitControlsFinderContainerSeparatorWPathTest.java -text
 wetator/test/java/org/wetator/backend/htmlunit/finder/MouseActionListeningHtmlUnitControlsFinderInputTextTest.java -text
 wetator/test/java/org/wetator/backend/htmlunit/finder/MouseActionListeningHtmlUnitControlsFinderPagePseudoWPathTest.java -text
+wetator/test/java/org/wetator/backend/htmlunit/finder/MouseActionListeningHtmlUnitControlsFinderSelectSeparatorTest.java -text
 wetator/test/java/org/wetator/backend/htmlunit/finder/MouseActionListeningHtmlUnitControlsFinderSelectTest.java -text
 wetator/test/java/org/wetator/backend/htmlunit/finder/MouseActionListeningHtmlUnitControlsFinderTableTest.java -text
 wetator/test/java/org/wetator/backend/htmlunit/finder/MouseActionListeningHtmlUnitControlsFinderTest.java -text
