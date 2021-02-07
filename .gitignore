@@ -21,6 +21,7 @@ wetator/ant_lib/ivy-2.1.0.jar
 wetator/ant_lib/one-jar-ant-task-0.96.jar
 wetator/ant_lib/pmd
 wetator/ant_lib/version_tool.jar
+wetator/bin
 wetator/build
 wetator/deploy
 wetator/infinitest.filters
