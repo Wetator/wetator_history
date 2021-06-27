@@ -338,6 +338,7 @@ wetator/test/java/org/wetator/backend/htmlunit/finder/MouseActionListeningHtmlUn
 wetator/test/java/org/wetator/backend/htmlunit/finder/MouseActionListeningHtmlUnitControlsFinderTableTest.java -text
 wetator/test/java/org/wetator/backend/htmlunit/finder/MouseActionListeningHtmlUnitControlsFinderTest.java -text
 wetator/test/java/org/wetator/backend/htmlunit/finder/MouseActionListeningHtmlUnitControlsFinderTextAreaTest.java -text
+wetator/test/java/org/wetator/backend/htmlunit/finder/MouseActionListeningHtmlUnitControlsFinderUnknownTest.java -text
 wetator/test/java/org/wetator/backend/htmlunit/finder/SettableHtmlUnitControlsFinderTest.java -text svneol=unset#text/plain
 wetator/test/java/org/wetator/backend/htmlunit/finder/UnknownHtmlUnitControlsFinderTest.java -text svneol=unset#text/plain
 wetator/test/java/org/wetator/backend/htmlunit/finder/WeightedControlListEntryAssert.java -text
