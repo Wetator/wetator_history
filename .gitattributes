@@ -551,9 +551,15 @@ wetator/test/webpage/click_on.html -text
 wetator/test/webpage/click_on_table.html -text svneol=unset#text/plain
 wetator/test/webpage/download/can_not_extract_content.pdf -text
 wetator/test/webpage/download/download.txt -text
+wetator/test/webpage/download/empty.doc -text
+wetator/test/webpage/download/empty.docx -text
+wetator/test/webpage/download/empty.rtf -text
+wetator/test/webpage/download/empty.xls -text
+wetator/test/webpage/download/empty.xlsx -text
 wetator/test/webpage/download/not_editable.pdf -text
 wetator/test/webpage/download/unknown_content_type.bin -text
 wetator/test/webpage/download/wet_test.csv -text
+wetator/test/webpage/download/wet_test.doc -text
 wetator/test/webpage/download/wet_test.docx -text
 wetator/test/webpage/download/wet_test.json -text
 wetator/test/webpage/download/wet_test.pdf -text
@@ -561,6 +567,8 @@ wetator/test/webpage/download/wet_test.rtf -text
 wetator/test/webpage/download/wet_test.xls -text
 wetator/test/webpage/download/wet_test.xlsx -text
 wetator/test/webpage/download/wet_test_csv.xls -text
+wetator/test/webpage/download/wet_test_doc.zip -text
+wetator/test/webpage/download/wet_test_doc_error.zip -text
 wetator/test/webpage/download/wet_test_docx.zip -text
 wetator/test/webpage/download/wet_test_docx_error.zip -text
 wetator/test/webpage/download/wet_test_error.docx -text
